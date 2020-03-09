@@ -1,0 +1,1 @@
+docker build --build-arg profile=docker-prod -f Dockerfile-backend -t lifemanagement-backend .
