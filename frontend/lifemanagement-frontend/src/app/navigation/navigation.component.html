@@ -1,0 +1,17 @@
+<p-menu
+  #navigationmenu
+  [model]="navItems"
+  [popup]="true"
+  class="text-align-left"
+  [style]="{'white-space':'nowrap', 'width': 'auto'}"
+></p-menu>
+
+<button
+  *ngIf="authService.isLoggedIn()"
+  type="button"
+  class="ui-button-secondary"
+  (click)="navigationmenu.toggle($event)"
+  pButton
+  icon="pi pi-align-justify"
+  label="{{'application.nav' | translate}}"
+></button>

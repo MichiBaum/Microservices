@@ -1,0 +1,31 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+  <div class="ui-g p-dir-col p-justify-center p-align-center">
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup p-justify-center">
+        <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+        <input type="text" pInputText formControlName="username" placeholder="{{'login.username' | translate}}">
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-g p-dir-col p-justify-center p-align-center">
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup p-justify-center">
+        <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+        <input type="password" pInputText formControlName="password" placeholder="{{'login.password' | translate}}">
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-g p-dir-col p-justify-center p-align-center">
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup p-justify-center">
+        <button type="submit" pButton [disabled]="!loginForm.valid" label="{{'login.login' | translate}}"></button>
+      </div>
+    </div>
+  </div>
+
+
+</form>
+

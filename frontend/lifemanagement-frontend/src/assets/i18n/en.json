@@ -1,0 +1,81 @@
+{
+  "language": {
+    "english": "english",
+    "german": "german"
+  },
+  "application": {
+    "title": "Lifemanagement",
+    "nav": "navigation"
+  },
+  "general": {
+    "search": "search",
+    "save": "save"
+  },
+  "navigation": {
+    "usersettings": "usersettings",
+    "usermanagement": "usermanagement",
+    "logout": "logout",
+    "logs": "logs",
+    "home": "home"
+  },
+  "login": {
+    "username": "username",
+    "password": "password",
+    "login": "login"
+  },
+  "error": {
+    "auth": {
+      "failed": "authentication failed"
+    }
+  },
+  "log": {
+    "id": "ID",
+    "date": "date",
+    "formattedMessage": "formatted message",
+    "loggerName": "loggername",
+    "level": "level",
+    "threadName": "threadname",
+    "arg0": "argument 0",
+    "arg1": "argument 1",
+    "arg2": "argument 2",
+    "arg3": "argument 3",
+    "callerFilename": "filename",
+    "callerClass": "class",
+    "callerMethod": "method",
+    "callerLine": "line",
+    "seen": "seen",
+    "chooseLevels": "choose levels",
+    "chooseColumns": "choose columns",
+    "severalLevelsSelected": "several levels selected",
+    "severalColumnsSelected": "several columns selected",
+    "filter": "filter"
+  },
+  "user": {
+    "id": "ID",
+    "user": "user",
+    "name": "name",
+    "dateFormat": "dateformat",
+    "emailAddress": "email address",
+    "disabled": "inactive",
+    "enabled": "active",
+    "lastLogin": "last login",
+    "newPassword": "new password",
+    "updateSuccessfully": "user update successfully",
+    "updateFailed": "Benutzer update failed",
+    "selectOne": "select an user"
+  },
+  "dateFormat": {
+    "short": "short",
+    "medium": "medium",
+    "long": "long",
+    "full": "full",
+    "shortDate": "short date",
+    "mediumDate": "medium date",
+    "longDate": "long date",
+    "fullDate": "full date",
+    "shortTime": "short time",
+    "mediumTime": "medium time",
+    "longTime": "long time",
+    "fullTime": "full time"
+  }
+}

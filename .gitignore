@@ -1,0 +1,51 @@
+
+#Backend
+/backend/lifemanagement-backend/.idea/
+/backend/lifemanagement-backend/target/
+/backend/lifemanagement-backend/lifemanagement-backend.iml
+
+#Frontend
+# compiled output
+/frontend/lifemanagement-frontend/dist
+/frontend/lifemanagement-frontend/tmp
+/frontend/lifemanagement-frontend/out-tsc
+# Only exists if Bazel was run
+/frontend/lifemanagement-frontend/bazel-out
+
+# dependencies
+/frontend/lifemanagement-frontend/node_modules
+
+# profiling files
+/frontend/lifemanagement-frontend/chrome-profiler-events.json
+/frontend/lifemanagement-frontend/speed-measure-plugin.json
+
+# IDEs and editors
+/frontend/lifemanagement-frontend/.idea
+/frontend/lifemanagement-frontend/.project
+/frontend/lifemanagement-frontend/.classpath
+/frontend/lifemanagement-frontend/.c9/
+*/frontend/lifemanagement-frontend/.launch
+/frontend/lifemanagement-frontend/.settings/
+*/frontend/lifemanagement-frontend/.sublime-workspace
+
+# IDE - VSCode
+/frontend/lifemanagement-frontend/.vscode/*
+!/frontend/lifemanagement-frontend/.vscode/settings.json
+!/frontend/lifemanagement-frontend/.vscode/tasks.json
+!/frontend/lifemanagement-frontend/.vscode/launch.json
+!/frontend/lifemanagement-frontend/.vscode/extensions.json
+/frontend/lifemanagement-frontend/.history/*
+
+# misc
+/frontend/lifemanagement-frontend/.sass-cache
+/frontend/lifemanagement-frontend/connect.lock
+/frontend/lifemanagement-frontend/coverage
+/frontend/lifemanagement-frontend/libpeerconnection.log
+/frontend/lifemanagement-frontend/npm-debug.log
+/frontend/lifemanagement-frontend/yarn-error.log
+/frontend/lifemanagement-frontend/testem.log
+/frontend/lifemanagement-frontend/typings
+
+# System Files
+/frontend/lifemanagement-frontend/.DS_Store
+/frontend/lifemanagement-frontend/Thumbs.db

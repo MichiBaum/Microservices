@@ -1,0 +1,138 @@
+<p-table
+  [value]="logs"
+  [columns]="visibleSelectedColumns"
+  dataKey="id"
+  [scrollable]="true"
+  scrollHeight="800px"
+  [reorderableColumns]="true"
+  [resizableColumns]="true"
+  [(contextMenuSelection)]="selectedLog"
+  [contextMenu]="logContextMenu"
+>
+
+  <ng-template pTemplate="caption">
+    <div style="text-align:left">
+      <div class="p-grid">
+
+        <div class="p-col-12 p-md-12 p-lg-12 p-xl-2">
+          <p-multiSelect
+            [options]="tableCols"
+            [(ngModel)]="visibleSelectedColumns"
+            optionLabel="label"
+            [style]="{minWidth: '200px'}"
+            (onChange)="visibleColsChanged()"
+          >
+            <ng-template let-items pTemplate="selectedItems">
+              <ng-container *ngFor="let selectedItem of items;">
+                {{selectedItem.label | translate}},
+              </ng-container>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              {{item.label | translate}}
+            </ng-template>
+          </p-multiSelect>
+
+        </div>
+
+        <div class="p-col-12 p-md-6 p-lg-3">
+          <button type="button" (click)="filterDialogVisible = !filterDialogVisible" pButton label="{{'log.filter' | translate}}"></button>
+        </div>
+
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col *ngFor="let col of columns" >
+    </colgroup>
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3em"></th>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.label" pReorderableColumn pResizableColumn>
+        {{col.label | translate}}
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+    <tr [pContextMenuRow]="rowData">
+      <td style="width: 3em">
+        <a [pRowToggler]="rowData">
+          <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+        </a>
+      </td>
+      <td *ngFor="let col of columns" class="ui-resizable-column">
+        <div *ngIf="col.field === 'date'; else elseBlock">
+          {{rowData[col.field] | customDate}}
+        </div>
+        <ng-template #elseBlock>{{rowData[col.field]}}</ng-template>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+    <tr [pContextMenuRow]="rowData">
+      <td [attr.colspan]="columns?.length + 1">
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-md-9">
+            <div class="ui-g">
+              <div class="ui-g-12" *ngFor="let col of tableCols">
+                <b>{{col.label | translate}}:</b> {{rowData[col.field]}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+
+<p-contextMenu #logContextMenu [model]="logContextMenuItems"></p-contextMenu>
+
+
+<p-dialog header="{{'log.filter' | translate}}" [(visible)]="filterDialogVisible" (onHide)="logFilterDialogHide()" (onShow)="logFilterDialogShow()">
+
+  <div class="p-grid">
+    <div class="p-col-12 p-md-12 p-lg-12 p-xl-12">
+
+      <p-fieldset
+        legend="{{'log.level' | translate}}"
+        [toggleable]="true"
+        [transitionOptions]="'500ms'"
+        [collapsed]="filterLevelCollapsed"
+        (onAfterToggle)="filterLevelCollapsedEvent($event)"
+      >
+        <p-multiSelect
+          [options]="levels"
+          [(ngModel)]="selectedLevels"
+          optionLabel="label"
+          [style]="{minWidth: '200px'}"
+          defaultLabel="{{'log.chooseLevels' | translate}}"
+        >
+        </p-multiSelect>
+      </p-fieldset>
+    </div>
+
+    <div class="p-col-12 p-md-12 p-lg-12 p-xl-12">
+      <p-fieldset
+        legend="{{'log.seen' | translate}}"
+        [toggleable]="true"
+        [transitionOptions]="'500ms'"
+        [collapsed]="filterSeenCollapsed"
+        (onAfterToggle)="filterSeenCollapsedEvent($event)"
+      >
+        <p-inputSwitch [(ngModel)]="seenInputSwitch"></p-inputSwitch>
+      </p-fieldset>
+    </div>
+
+    <div class="p-col-12 p-md-12 p-lg-12 p-xl-12">
+        <p-button (onClick)="searchLogs()" type="button" label="{{'general.search' | translate}}"></p-button>
+    </div>
+  </div>
+
+</p-dialog>

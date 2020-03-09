@@ -1,0 +1,81 @@
+{
+  "language": {
+    "english": "Englisch",
+    "german": "Deutsch"
+  },
+  "application": {
+    "title": "Lifemanagement",
+    "nav": "Navigation"
+  },
+  "general": {
+    "search": "Suchen",
+    "save": "Speichern"
+  },
+  "navigation": {
+    "usersettings": "Benutzereinstellungen",
+    "usermanagement": "Benutzermanagement",
+    "logout": "Abmelden",
+    "logs": "Logs",
+    "home": "Home"
+  },
+  "login": {
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login": "Anmelden"
+  },
+  "error": {
+    "auth": {
+      "failed": "Anmeldung fehlgeschlagen"
+    }
+  },
+  "log": {
+    "id": "ID",
+    "date": "Datum",
+    "formattedMessage": "Formatierte Nachricht",
+    "loggerName": "Loggername",
+    "level": "Level",
+    "threadName": "Threadname",
+    "arg0": "Argument 0",
+    "arg1": "Argument 1",
+    "arg2": "Argument 2",
+    "arg3": "Argument 3",
+    "callerFilename": "Dateiname",
+    "callerClass": "Klass",
+    "callerMethod": "Methode",
+    "callerLine": "Zeile",
+    "seen": "Gesehen",
+    "chooseLevels": "Level auswählen",
+    "chooseColumns": "Spalten auswählen",
+    "severalLevelsSelected": "verschiedene Levels ausgewählt",
+    "severalColumnsSelected": "verschiedene Spalten ausgewählt",
+    "filter": "Filter"
+  },
+  "user": {
+    "id": "ID",
+    "user": "Benutzer",
+    "name": "Name",
+    "dateFormat": "Datumsformat",
+    "emailAddress": "Email Addresse",
+    "disabled": "Inaktiv",
+    "enabled": "Aktiv",
+    "lastLogin": "zuletzt Angemeldet",
+    "newPassword": "neues Passwort",
+    "updateSuccessfully": "Benutzer update erfolgreich",
+    "updateFailed": "Benutzer update fehlgeschlagen",
+    "selectOne": "Wähle einen Benutzer"
+  },
+  "dateFormat": {
+    "short": "Kurz",
+    "medium": "Mittel",
+    "long": "Lang",
+    "full": "Voll",
+    "shortDate": "kurzes Datum",
+    "mediumDate": "mittleres Datum",
+    "longDate": "langes Datum",
+    "fullDate": "volles Datum",
+    "shortTime": "kurze Zeit",
+    "mediumTime": "mittlere Zeit",
+    "longTime": "lange Zeit",
+    "fullTime": "volle Zeit"
+  }
+}
