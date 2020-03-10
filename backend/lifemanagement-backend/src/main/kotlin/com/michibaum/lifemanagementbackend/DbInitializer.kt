@@ -27,7 +27,7 @@ class DbInitializer(
     private fun initialize() {
         when (systemEnvironment) {
             "dev" -> createDevDb()
-            "prod" -> {
+            "docker-prod" -> {
                 admin = admin.let(saveUser)
             }
         }

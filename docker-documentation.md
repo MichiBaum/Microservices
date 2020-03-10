@@ -5,9 +5,13 @@ We've seen that we can create and start the containers, the networks, and the vo
 
     docker-compose up
     
+If you want to build it too:
+
+    docker-compose up --build
+    
 After the first time, however, we can simply use start to *start* the services:
 
-    docker compose start
+    docker-compose start
 
 In case our file has a different name than the default one (*docker-compose.yml*), we can exploit the *-f* and *- -file*  flags to specify an alternate file name:
 
