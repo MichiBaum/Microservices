@@ -11,6 +11,7 @@ This project contains:
 ## Lifemanagement - frontend
 
 ## Docker
+[Docker dokumentation](docker-documentation.md)
 
 # Credentials / References
 
@@ -20,3 +21,5 @@ This project contains:
  - [Jetbrains idea (Intellij)](https://www.jetbrains.com/de-de/idea/)
  - Kotlin ([git](https://github.com/JetBrains/kotlin), [kotlinlang](https://kotlinlang.org/))
  - [Spring](https://spring.io/) / [Spring boot](https://spring.io/projects/spring-boot)
+ - [Desktop Github](https://desktop.github.com/)
+ - [Angular](https://angular.io/)
