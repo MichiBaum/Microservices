@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  lifemanagement-backend:
+    container_name: lifemanagement-backend
+    restart: always
+    ports:
+    - "81:81"
+    build:
+      context: ./backend/lifemanagement-backend
+      dockerfile: Dockerfile
+      args:
+        profile: docker-prod
+
+  lifemanagement-frontend:
+    container_name: lifemanagement-frontend
+    restart: always
+    ports:
+    - "80:80"
+    build:
+      context: ./frontend/lifemanagement-frontend
+      dockerfile: Dockerfile

@@ -27,7 +27,9 @@ class DbInitializer(
     private fun initialize() {
         when (systemEnvironment) {
             "dev" -> createDevDb()
-            "prod" -> TODO("Not implemented yet")
+            "prod" -> {
+                admin = admin.let(saveUser)
+            }
         }
     }
 

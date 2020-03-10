@@ -3,8 +3,8 @@ FROM maven:3.6.2-jdk-11-slim AS MAVEN_BUILD
 MAINTAINER Michael Baumberger
 ARG profile=docker-test
 RUN echo 'ACTIVE PROFILE IS: $profile'
-COPY /backend/lifemanagement-backend/pom.xml /build/
-COPY /backend/lifemanagement-backend/src /build/src/
+COPY pom.xml /build/
+COPY ./src /build/src/
 WORKDIR /build/
 RUN mvn package -P $profile
 
