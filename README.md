@@ -6,9 +6,9 @@ This project contains:
  - [Docker](https://www.docker.com/)
  - [h2 database](https://www.h2database.com/html/main.html)
 
-## Lifemanagement - backend
+## Lifemanagement-backend
 
-## Lifemanagement - frontend
+## Lifemanagement-frontend
 
 ## Docker
 [Docker dokumentation](docker-documentation.md)

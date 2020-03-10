@@ -1,6 +1,6 @@
 ﻿# General docker-compose
 
-## Startup
+## Startup (in root folder (lifemanagement))
 We've seen that we can create and start the containers, the networks, and the volumes defined in the configuration with *up*:
 
     docker-compose up
@@ -17,7 +17,7 @@ Compose can also run in the background as a daemon when launched with the *-d* o
 
     docker-compose up -d
 
-## Shutdown
+## Shutdown (in root folder (lifemanagement))
 To safely stop the active services, we can use *stop*, which will preserve containers, volumes, and networks, along with every modification made to them:
 
     docker-compose stop
