@@ -1,10 +1,17 @@
-
 #Backend
 /backend/lifemanagement-backend/.idea/
 /backend/lifemanagement-backend/target/
 /backend/lifemanagement-backend/lifemanagement-backend.iml
 
+backend/lifemanagement-backend/.classpath
+backend/lifemanagement-backend/.project
+backend/lifemanagement-backend/.settings/org.eclipse.core.resources.prefs
+backend/lifemanagement-backend/.settings/org.eclipse.jdt.apt.core.prefs
+backend/lifemanagement-backend/.settings/org.eclipse.jdt.core.prefs
+backend/lifemanagement-backend/.settings/org.eclipse.m2e.core.prefs
+
 #Frontend
+
 # compiled output
 /frontend/lifemanagement-frontend/dist
 /frontend/lifemanagement-frontend/tmp

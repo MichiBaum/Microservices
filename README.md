@@ -23,3 +23,4 @@ This project contains:
  - [Spring](https://spring.io/) / [Spring boot](https://spring.io/projects/spring-boot)
  - [Desktop Github](https://desktop.github.com/)
  - [Angular](https://angular.io/)
+ - [Visual Studio Code](https://code.visualstudio.com/)
