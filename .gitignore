@@ -1,14 +1,14 @@
 #Backend
 /backend/lifemanagement-backend/.idea/
+!/backend/lifemanagement-backend/.idea/runConfigurations
 /backend/lifemanagement-backend/target/
 /backend/lifemanagement-backend/lifemanagement-backend.iml
-
-backend/lifemanagement-backend/.classpath
-backend/lifemanagement-backend/.project
-backend/lifemanagement-backend/.settings/org.eclipse.core.resources.prefs
-backend/lifemanagement-backend/.settings/org.eclipse.jdt.apt.core.prefs
-backend/lifemanagement-backend/.settings/org.eclipse.jdt.core.prefs
-backend/lifemanagement-backend/.settings/org.eclipse.m2e.core.prefs
+/backend/lifemanagement-backend/.classpath
+/backend/lifemanagement-backend/.project
+/backend/lifemanagement-backend/.settings/org.eclipse.core.resources.prefs
+/backend/lifemanagement-backend/.settings/org.eclipse.jdt.apt.core.prefs
+/backend/lifemanagement-backend/.settings/org.eclipse.jdt.core.prefs
+/backend/lifemanagement-backend/.settings/org.eclipse.m2e.core.prefs
 
 #Frontend
 
@@ -28,6 +28,7 @@ backend/lifemanagement-backend/.settings/org.eclipse.m2e.core.prefs
 
 # IDEs and editors
 /frontend/lifemanagement-frontend/.idea
+!/frontend/lifemanagement-frontend/.idea/runConfigurations
 /frontend/lifemanagement-frontend/.project
 /frontend/lifemanagement-frontend/.classpath
 /frontend/lifemanagement-frontend/.c9/
