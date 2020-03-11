@@ -21,8 +21,12 @@
             optionLabel="label"
             [style]="{minWidth: '200px'}"
             (onChange)="visibleColsChanged()"
+            [filterPlaceHolder]="'log.filter' | translate"
           >
             <ng-template let-items pTemplate="selectedItems">
+              <ng-container *ngIf="items?.length < 1">
+                {{'log.chooseColumns' | translate}}
+              </ng-container>
               <ng-container *ngFor="let selectedItem of items;">
                 {{selectedItem.label | translate}},
               </ng-container>

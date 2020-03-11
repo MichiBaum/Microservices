@@ -30,4 +30,5 @@ There are scripts to backup the h2 database
  - [Spring](https://spring.io/) / [Spring boot](https://spring.io/projects/spring-boot)
  - [Desktop Github](https://desktop.github.com/)
  - [Angular](https://angular.io/)
+ - [PrimeNG](https://www.primefaces.org/primeng/)
  - [Visual Studio Code](https://code.visualstudio.com/)
