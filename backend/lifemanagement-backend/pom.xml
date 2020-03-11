@@ -117,25 +117,9 @@
         </profile>
 
         <profile>
-            <id>docker-test</id>
+            <id>docker</id>
             <properties>
-                <environment-resources>${basedir}/src/main/resources/environments/docker-test</environment-resources>
-                <tomcat-dependency-scope>provided</tomcat-dependency-scope>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>docker-prod</id>
-            <properties>
-                <environment-resources>${basedir}/src/main/resources/environments/docker-prod</environment-resources>
+                <environment-resources>${basedir}/src/main/resources/environments/docker</environment-resources>
                 <tomcat-dependency-scope>provided</tomcat-dependency-scope>
             </properties>
             <build>
