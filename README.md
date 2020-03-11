@@ -6,6 +6,8 @@ This project contains:
  - [Docker](https://www.docker.com/)
  - [h2 database](https://www.h2database.com/html/main.html)
 
+**At the present time only runnable on Windows**
+
 ## Lifemanagement-backend
 
 ## Lifemanagement-frontend

@@ -30,7 +30,7 @@ To reset the status of our project, instead, we simply run *down*, **which will 
 
     docker-compose down
 
-## See Logs
+## See Logs (in root folder (lifemanagement))
 To see logs execute command:
 
     docker-compose logs
