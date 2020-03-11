@@ -12,6 +12,11 @@ This project contains:
 
 ## Lifemanagement-frontend
 
+## Scripts
+There are scripts to backup the h2 database
+
+[More information](scripts/README.md)
+
 ## Docker
 [Docker dokumentation](docker-documentation.md)
 
