@@ -1,4 +1,4 @@
-#Backend
+###Backend
 /backend/lifemanagement-backend/.idea/
 !/backend/lifemanagement-backend/.idea/runConfigurations
 /backend/lifemanagement-backend/target/
@@ -10,7 +10,7 @@
 /backend/lifemanagement-backend/.settings/org.eclipse.jdt.core.prefs
 /backend/lifemanagement-backend/.settings/org.eclipse.m2e.core.prefs
 
-#Frontend
+###Frontend
 
 # compiled output
 /frontend/lifemanagement-frontend/dist
@@ -57,3 +57,4 @@
 # System Files
 /frontend/lifemanagement-frontend/.DS_Store
 /frontend/lifemanagement-frontend/Thumbs.db
+
