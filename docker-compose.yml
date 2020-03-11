@@ -12,7 +12,7 @@ services:
       context: ./backend/lifemanagement-backend
       dockerfile: Dockerfile
       args:
-        profile: docker-prod
+        profile: docker
 
   lifemanagement-frontend:
     container_name: lifemanagement-frontend
