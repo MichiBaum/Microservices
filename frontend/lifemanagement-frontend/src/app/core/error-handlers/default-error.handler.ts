@@ -32,7 +32,6 @@ export class DefaultErrorHandler implements HttpErrorResponseHandler {
         return handler.handle(error);
       }
     }
-
     throw error;
   }
 

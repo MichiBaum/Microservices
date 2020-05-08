@@ -3,10 +3,6 @@
 ## Startup (in root folder (lifemanagement))
 We've seen that we can create and start the containers, the networks, and the volumes defined in the configuration with *up*:
 
-    docker-compose up
-    
-If you want to build it too:
-
     docker-compose up --build
     
 After the first time, however, we can simply use start to *start* the services:
