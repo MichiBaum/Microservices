@@ -16,7 +16,11 @@ export class DateService {
   }
 
   getFormat = (): string | undefined => {
-    return this.localStorageService.getValue(this.localStorageKey);
+    const format = this.localStorageService.getValue(this.localStorageKey)
+    if (format === undefined || format === null) {
+      return DateFormat.short;
+    }
+    return format;
   }
 
 }
