@@ -1,7 +1,7 @@
 package com.michibaum.lifemanagementbackend.security
 
-import com.michibaum.lifemanagementbackend.domain.User
-import com.michibaum.lifemanagementbackend.repository.UserRepository
+import com.michibaum.lifemanagementbackend.user.domain.User
+import com.michibaum.lifemanagementbackend.user.repository.UserRepository
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 

@@ -1,10 +1,10 @@
 package com.michibaum.lifemanagementbackend
 
-import com.michibaum.lifemanagementbackend.domain.Permission
-import com.michibaum.lifemanagementbackend.domain.PermissionName
-import com.michibaum.lifemanagementbackend.domain.User
-import com.michibaum.lifemanagementbackend.repository.PermissionRepository
-import com.michibaum.lifemanagementbackend.services.UserService
+import com.michibaum.lifemanagementbackend.permission.domain.Permission
+import com.michibaum.lifemanagementbackend.permission.domain.PermissionName
+import com.michibaum.lifemanagementbackend.user.domain.User
+import com.michibaum.lifemanagementbackend.permission.repository.PermissionRepository
+import com.michibaum.lifemanagementbackend.user.service.UserService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
@@ -20,7 +20,9 @@ class DbInitializer(
     @Value("\${application.system.environment}")
     private val systemEnvironment: String = ""
 
-    private val savePermission: (p: PermissionName) -> Permission = { permissionRepository.findByName(it) ?: permissionRepository.save(Permission(it)) }
+    private val savePermission: (p: PermissionName) -> Permission = { permissionRepository.findByName(it) ?: permissionRepository.save(
+        Permission(it)
+    ) }
     private val saveUser: (User) -> User = { userService.findByName(it.name) ?: userService.save(it) }
 
     @PostConstruct
@@ -42,7 +44,21 @@ class DbInitializer(
         user = user.let(saveUser)
     }
 
-    private var admin: User = User("admin", "admin@admin.com", bcryptPasswordEncoder.encode("admin"), true, mutableListOf(user_management, see_logs, adminPermission))
-    private var user: User = User("user", "user@user.com", bcryptPasswordEncoder.encode("user"), true, mutableListOf())
+    private var admin: User =
+        User(
+            "admin",
+            "admin@admin.com",
+            bcryptPasswordEncoder.encode("admin"),
+            true,
+            mutableListOf(user_management, see_logs, adminPermission)
+        )
+    private var user: User =
+        User(
+            "user",
+            "user@user.com",
+            bcryptPasswordEncoder.encode("user"),
+            true,
+            mutableListOf()
+        )
 
 }

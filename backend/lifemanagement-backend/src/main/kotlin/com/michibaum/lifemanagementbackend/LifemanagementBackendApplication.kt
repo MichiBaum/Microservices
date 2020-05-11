@@ -1,6 +1,6 @@
 package com.michibaum.lifemanagementbackend
 
-import com.michibaum.lifemanagementbackend.config.PropertyLogger
+import com.michibaum.lifemanagementbackend.core.config.PropertyLogger
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean

@@ -1,6 +1,6 @@
 package com.michibaum.lifemanagementbackend.security
 
-import com.michibaum.lifemanagementbackend.domain.PermissionName
+import com.michibaum.lifemanagementbackend.permission.domain.PermissionName
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
