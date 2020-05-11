@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TabPanel} from 'primeng';
 
 @Component({
   selector: 'app-help-dialog',
@@ -11,6 +12,7 @@ export class HelpDialogComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

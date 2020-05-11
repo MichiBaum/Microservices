@@ -77,5 +77,9 @@
     "mediumTime": "medium time",
     "longTime": "long time",
     "fullTime": "full time"
+  },
+  "help": {
+    "help": "help",
+    "doesntExist": "No help exists"
   }
 }

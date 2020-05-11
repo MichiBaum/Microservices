@@ -9,7 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {ButtonModule, DialogModule, MessageService, ToastModule} from 'primeng';
+import {ButtonModule, DialogModule, MessageService, TabViewModule, ToastModule} from 'primeng';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -76,6 +76,7 @@ registerLocaleData(localeEn);
     ToastModule,
     ButtonModule,
     DialogModule,
+    TabViewModule,
   ],
   providers: [
     LanguageConfig,

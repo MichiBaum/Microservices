@@ -42,27 +42,27 @@ export class NavigationComponent implements OnInit {
       {
           label: this.translate.instant('navigation.home'),
           icon: 'pi pi-home',
-          routerLink: '/'
-      },
+          routerLink: '/',
+      } as MenuItem,
       {
           label: this.translate.instant('navigation.usersettings'),
           icon: 'pi pi-user-edit',
           routerLink: 'usersettings'
-      },
+      } as MenuItem,
       {
           label: this.translate.instant('navigation.logs'),
           icon: 'pi pi-info',
           routerLink: 'logmanagement',
           visible: this.authService.hasAnyPermission([Permission.SEE_LOGS])
-      },
+      } as MenuItem,
       {
           label: this.translate.instant('navigation.logout'),
           icon: 'pi pi-power-off',
           command: () => {
             this.authService.logout();
           }
-      }
-    ];
+      } as MenuItem
+    ] as MenuItem[];
   }
 
 }
