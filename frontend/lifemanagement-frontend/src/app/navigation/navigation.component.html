@@ -1,16 +1,24 @@
-<p-menu
-  #navigationmenu
-  [model]="navItems"
-  [popup]="true"
-  class="text-align-left"
-  [style]="{'white-space':'nowrap', 'width': 'auto'}"
-></p-menu>
+<p-sidebar
+  [(visible)]="sidebarVisible"
+>
+  <!-- TODO calculate viewportHeight-->
+  <p-slideMenu
+    [model]="navItems"
+    class="text-align-left"
+    [style]="{
+      'border': 'none'
+    }"
+    [viewportHeight]="300"
+    effectDuration="1000"
+    easing="ease-in"
+  ></p-slideMenu>
+</p-sidebar>
 
 <button
   *ngIf="authService.isLoggedIn()"
   type="button"
   class="ui-button-secondary"
-  (click)="navigationmenu.toggle($event)"
+  (click)="sidebarVisible = true"
   pButton
   icon="pi pi-align-justify"
   label="{{'application.nav' | translate}}"

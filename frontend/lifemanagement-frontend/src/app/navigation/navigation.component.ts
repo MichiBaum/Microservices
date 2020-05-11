@@ -14,6 +14,7 @@ import {LoginService} from '../login/login.service';
 export class NavigationComponent implements OnInit {
 
   navItems: MenuItem[];
+  sidebarVisible: boolean;
 
   constructor(
     private translate: TranslateService,
@@ -39,48 +40,27 @@ export class NavigationComponent implements OnInit {
   setItems = (): void => {
     this.navItems = [
       {
-        label: this.translate.instant('navigation.home'),
-        items: [
-          {
-            label: this.translate.instant('navigation.home'),
-            icon: 'pi pi-home',
-            routerLink: '/',
-          }
-        ]
+          label: this.translate.instant('navigation.home'),
+          icon: 'pi pi-home',
+          routerLink: '/'
       },
       {
-        label: this.translate.instant('navigation.usersettings'),
-        items: [
-          {
-            label: this.translate.instant('navigation.usersettings'),
-            icon: 'pi pi-user-edit',
-            routerLink: 'usersettings',
-          }
-        ]
+          label: this.translate.instant('navigation.usersettings'),
+          icon: 'pi pi-user-edit',
+          routerLink: 'usersettings'
       },
       {
-        label: this.translate.instant('navigation.logs'),
-        visible: this.authService.hasAnyPermission([Permission.SEE_LOGS]),
-        items: [
-          {
-            label: this.translate.instant('navigation.logs'),
-            icon: 'pi pi-info',
-            routerLink: 'logmanagement',
-            visible: this.authService.hasAnyPermission([Permission.SEE_LOGS])
-          }
-        ]
+          label: this.translate.instant('navigation.logs'),
+          icon: 'pi pi-info',
+          routerLink: 'logmanagement',
+          visible: this.authService.hasAnyPermission([Permission.SEE_LOGS])
       },
       {
-        label: this.translate.instant('navigation.logout'),
-        items: [
-          {
-            label: this.translate.instant('navigation.logout'),
-            icon: 'pi pi-power-off',
-            command: () => {
-              this.authService.logout();
-            }
+          label: this.translate.instant('navigation.logout'),
+          icon: 'pi pi-power-off',
+          command: () => {
+            this.authService.logout();
           }
-        ]
       }
     ];
   }

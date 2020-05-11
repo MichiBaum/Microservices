@@ -1,6 +1,14 @@
 <div class="p-grid p-align-center header-background-color">
 
   <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
+    <app-navigation *ngIf="authService.isLoggedIn()"></app-navigation>
+  </div>
+
+  <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
+    <h1 class="header-title-color">{{"application.title" | translate}}</h1>
+  </div>
+
+  <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
     <p-dropdown
       [options]="languages"
       [(ngModel)]="selectedLanguage"
@@ -9,20 +17,12 @@
       [hideTransitionOptions]="'200ms'"
     >
       <ng-template let-item pTemplate="selectedItem">
-        {{ selectedLanguage.label || item.label | translate }}
+        {{ item.label | translate }}
       </ng-template>
       <ng-template let-item pTemplate="item">
         {{item.label | translate}}
       </ng-template>
     </p-dropdown>
-  </div>
-
-  <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
-    <h1 class="header-title-color">{{"application.title" | translate}}</h1>
-  </div>
-
-  <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
-    <app-navigation *ngIf="authService.isLoggedIn()"></app-navigation>
   </div>
 
 </div>
