@@ -1,6 +1,6 @@
-package com.michibaum.lifemanagementbackend.loggs.repository
+package com.michibaum.lifemanagementbackend.logs.repository
 
-import com.michibaum.lifemanagementbackend.loggs.domain.LoggingEvent
+import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
 import com.michibaum.lifemanagementbackend.core.repository.CustomJpaRepository
 
 interface LoggingEventRepository :

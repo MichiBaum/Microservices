@@ -1,8 +1,8 @@
-package com.michibaum.lifemanagementbackend.loggs.service
+package com.michibaum.lifemanagementbackend.logs.service
 
-import com.michibaum.lifemanagementbackend.loggs.domain.LoggingEvent
-import com.michibaum.lifemanagementbackend.loggs.dtos.LogFilter
-import com.michibaum.lifemanagementbackend.loggs.repository.LoggingEventRepository
+import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
+import com.michibaum.lifemanagementbackend.logs.dtos.LogFilter
+import com.michibaum.lifemanagementbackend.logs.repository.LoggingEventRepository
 import org.springframework.stereotype.Service
 
 @Service

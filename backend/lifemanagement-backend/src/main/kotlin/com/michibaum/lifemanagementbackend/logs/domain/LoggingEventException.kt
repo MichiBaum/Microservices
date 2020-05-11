@@ -1,6 +1,5 @@
-package com.michibaum.lifemanagementbackend.loggs.domain
+package com.michibaum.lifemanagementbackend.logs.domain
 
-import com.michibaum.lifemanagementbackend.loggs.domain.LoggingEvent
 import javax.persistence.*
 
 @Entity(name = "LOGGING_EVENT_EXCEPTION")

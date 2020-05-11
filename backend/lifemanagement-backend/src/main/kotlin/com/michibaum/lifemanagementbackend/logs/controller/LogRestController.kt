@@ -1,12 +1,12 @@
-package com.michibaum.lifemanagementbackend.loggs.controller
+package com.michibaum.lifemanagementbackend.logs.controller
 
-import com.michibaum.lifemanagementbackend.loggs.converter.toDto
-import com.michibaum.lifemanagementbackend.loggs.converter.toLoggingEvent
-import com.michibaum.lifemanagementbackend.loggs.domain.LoggingEvent
-import com.michibaum.lifemanagementbackend.loggs.dtos.LogFilter
-import com.michibaum.lifemanagementbackend.loggs.dtos.ReturnLogDto
-import com.michibaum.lifemanagementbackend.loggs.dtos.UpdateLogDto
-import com.michibaum.lifemanagementbackend.loggs.service.LogService
+import com.michibaum.lifemanagementbackend.logs.converter.toDto
+import com.michibaum.lifemanagementbackend.logs.converter.toLoggingEvent
+import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
+import com.michibaum.lifemanagementbackend.logs.dtos.LogFilter
+import com.michibaum.lifemanagementbackend.logs.dtos.ReturnLogDto
+import com.michibaum.lifemanagementbackend.logs.dtos.UpdateLogDto
+import com.michibaum.lifemanagementbackend.logs.service.LogService
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 

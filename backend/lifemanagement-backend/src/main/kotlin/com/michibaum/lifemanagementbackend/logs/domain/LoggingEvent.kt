@@ -1,4 +1,4 @@
-package com.michibaum.lifemanagementbackend.loggs.domain
+package com.michibaum.lifemanagementbackend.logs.domain
 
 import javax.persistence.*
 

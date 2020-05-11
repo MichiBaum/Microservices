@@ -1,4 +1,4 @@
-package com.michibaum.lifemanagementbackend.loggs.dtos
+package com.michibaum.lifemanagementbackend.logs.dtos
 
 
 class LogFilter (

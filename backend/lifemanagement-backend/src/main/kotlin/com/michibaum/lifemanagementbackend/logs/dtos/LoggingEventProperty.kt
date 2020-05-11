@@ -1,6 +1,6 @@
-package com.michibaum.lifemanagementbackend.loggs.dtos
+package com.michibaum.lifemanagementbackend.logs.dtos
 
-import com.michibaum.lifemanagementbackend.loggs.domain.LoggingEvent
+import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
 import javax.persistence.*
 
 @Entity(name = "LOGGING_EVENT_PROPERTY")

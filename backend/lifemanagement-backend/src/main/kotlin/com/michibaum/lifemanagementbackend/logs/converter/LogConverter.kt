@@ -1,8 +1,8 @@
-package com.michibaum.lifemanagementbackend.loggs.converter
+package com.michibaum.lifemanagementbackend.logs.converter
 
-import com.michibaum.lifemanagementbackend.loggs.domain.LoggingEvent
-import com.michibaum.lifemanagementbackend.loggs.dtos.ReturnLogDto
-import com.michibaum.lifemanagementbackend.loggs.dtos.UpdateLogDto
+import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
+import com.michibaum.lifemanagementbackend.logs.dtos.ReturnLogDto
+import com.michibaum.lifemanagementbackend.logs.dtos.UpdateLogDto
 
 fun LoggingEvent.toDto() = ReturnLogDto(
     id = eventId,
