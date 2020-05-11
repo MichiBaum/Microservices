@@ -23,8 +23,8 @@ class PropertyLogger: ApplicationListener<ApplicationPreparedEvent> {
             val propertyNames = propertySource.propertyNames
             Arrays.sort(propertyNames)
             for (propertyName in propertyNames) {
-                val resolvedProperty =environment.getProperty(propertyName)
-                val sourceProperty = propertySource.getProperty(propertyName).toString()
+                val resolvedProperty = propertyName?.let { environment.getProperty(it) } ?: ""
+                val sourceProperty = propertyName?.let { _propertyName -> propertySource.getProperty(_propertyName)?.toString() ?:"" } ?:""
                 if (resolvedProperty == sourceProperty) {
                     logger.info("$propertyName=$resolvedProperty")
                 } else {
