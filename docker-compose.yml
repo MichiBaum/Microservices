@@ -7,7 +7,7 @@ services:
     ports:
     - "81:81"
     volumes:
-    - C:/lifemanagement/backend/h2:/h2/lifemanagement
+    - /lifemanagement/backend/h2:/h2/lifemanagement
     build:
       context: ./backend/lifemanagement-backend
       dockerfile: Dockerfile
