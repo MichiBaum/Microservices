@@ -22,7 +22,7 @@ class JWTAuthenticationFilter(
 ) : UsernamePasswordAuthenticationFilter() {
 
     init {
-        setFilterProcessesUrl("/api/login")
+        setFilterProcessesUrl("/lifemanagement/api/login")
     }
 
     private data class LoginDto(val username: String = "", val password: String = "")

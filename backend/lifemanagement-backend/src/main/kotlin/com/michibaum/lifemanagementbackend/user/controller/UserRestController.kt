@@ -21,13 +21,13 @@ class UserRestController(
     private val saveUser: (User) -> User = userService.save
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
-    @RequestMapping(value = ["/api/users"], method = [RequestMethod.GET])
+    @RequestMapping(value = ["/lifemanagement/api/users"], method = [RequestMethod.GET])
     fun allUsers(): List<ReturnUserDto> = getAllUsers().map(User::toDto)
 
-    @RequestMapping(value = ["/api/users/me"], method = [RequestMethod.GET])
+    @RequestMapping(value = ["/lifemanagement/api/users/me"], method = [RequestMethod.GET])
     fun myUsers(@ArgumentResolver currentUser: User): ReturnUserDto = currentUser.toDto()
 
-    @RequestMapping(value = ["/api/users/{id}"], method = [RequestMethod.POST])
+    @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST])
     fun change(@RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User): ReturnUserDto {
         return updateUser(user, userDto)
             .let(saveUser)

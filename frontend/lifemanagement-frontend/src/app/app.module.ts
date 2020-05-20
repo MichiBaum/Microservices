@@ -1,4 +1,4 @@
-import {registerLocaleData} from '@angular/common';
+import {APP_BASE_HREF, registerLocaleData} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
@@ -23,6 +23,7 @@ import {PipeModule} from './core/pipes/pipe.module';
 import {httpInterceptorProviders} from './core/security/http-interceptors';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
 import {HeaderModule} from './header/header.module';
+import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import {HelpDialogModule} from './help-dialog/help-dialog.module';
 import {HomeModule} from './home/home.module';
 import {LoginModule} from './login/login.module';
@@ -30,7 +31,6 @@ import {LoggingModule} from './logs/logging.module';
 import {NavigationModule} from './navigation/navigation.module';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
 import {UsersettingsModule} from './usersettings/usersettings.module';
-import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -88,6 +88,10 @@ registerLocaleData(localeEn);
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
     },
+    {
+      provide: APP_BASE_HREF,
+      useValue: environment.base_href
+    }
   ],
   bootstrap: [
     AppComponent

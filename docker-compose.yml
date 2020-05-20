@@ -3,9 +3,10 @@ version: '3.7'
 services:
   lifemanagement-backend:
     container_name: lifemanagement-backend
+    hostname: lifemanagement-backend
     restart: always
-    ports:
-    - "81:81"
+    expose:
+    - "80"
     volumes:
     - /lifemanagement/backend/h2:/h2/lifemanagement
     build:
@@ -13,12 +14,15 @@ services:
       dockerfile: Dockerfile
       args:
         profile: docker
+    networks: 
+      - reverse-proxy-network
 
   lifemanagement-frontend:
     container_name: lifemanagement-frontend
+    hostname: lifemanagement-frontend
     restart: always
-    ports:
-    - "80:80"
+    expose:
+    - "80"
     build:
       context: ./frontend/lifemanagement-frontend
       dockerfile: Dockerfile
@@ -28,3 +32,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 3m
+    networks: 
+      - reverse-proxy-network
+
+networks:
+  reverse-proxy-network:
+      name: reverse-proxy-network
+      driver: bridge
