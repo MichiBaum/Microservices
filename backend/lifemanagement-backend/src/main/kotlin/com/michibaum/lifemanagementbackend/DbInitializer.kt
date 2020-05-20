@@ -15,14 +15,12 @@ class DbInitializer(
     private val userService: UserService,
     private val permissionRepository: PermissionRepository,
     bcryptPasswordEncoder: BCryptPasswordEncoder
-    ) {
+) {
 
     @Value("\${application.system.environment}")
     private val systemEnvironment: String = ""
 
-    private val savePermission: (p: PermissionName) -> Permission = { permissionRepository.findByName(it) ?: permissionRepository.save(
-        Permission(it)
-    ) }
+    private val savePermission: (p: PermissionName) -> Permission = { permissionRepository.findByName(it) ?: permissionRepository.save(Permission(it)) }
     private val saveUser: (User) -> User = { userService.findByName(it.name) ?: userService.save(it) }
 
     @PostConstruct

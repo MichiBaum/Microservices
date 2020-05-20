@@ -1,6 +1,6 @@
 package com.michibaum.lifemanagementbackend.user.controller
 
-import com.michibaum.lifemanagementbackend.core.annotations.ArgumentResolver
+import com.michibaum.lifemanagementbackend.core.argumentresolver.ArgumentResolver
 import com.michibaum.lifemanagementbackend.user.converter.toDto
 import com.michibaum.lifemanagementbackend.user.domain.User
 import com.michibaum.lifemanagementbackend.user.dtos.ReturnUserDto

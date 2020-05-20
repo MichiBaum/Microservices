@@ -1,6 +1,5 @@
-package com.michibaum.lifemanagementbackend.core.resolver
+package com.michibaum.lifemanagementbackend.core.argumentresolver
 
-import com.michibaum.lifemanagementbackend.core.annotations.ArgumentResolver
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest
@@ -10,19 +9,17 @@ import kotlin.reflect.KClass
 
 
 typealias ResolveArgumentMethod = (MethodParameter, ModelAndViewContainer?, NativeWebRequest, WebDataBinderFactory?) -> Any
-
 class CustomMethodArgumentResolver(
+
     private val kClass: KClass<*>,
     private val resolveArgumentMethod: ResolveArgumentMethod
+
 ) : HandlerMethodArgumentResolver {
 
     private val annotationIsArgumentResolver = fun(annotation: Annotation?) = annotation is ArgumentResolver
-    private val paramIsAssignableFromKClass =
-        fun(parameter: MethodParameter) = parameter.parameterType.isAssignableFrom(kClass.java)
-    private val paramToSequence =
-        fun(parameter: MethodParameter) = parameter.parameterAnnotations.iterator().asSequence()
-    private val paramHasAnnotationArgumentResolver =
-        fun(parameter: MethodParameter) = paramToSequence(parameter).any(annotationIsArgumentResolver)
+    private val paramIsAssignableFromKClass = fun(parameter: MethodParameter) = parameter.parameterType.isAssignableFrom(kClass.java)
+    private val paramToSequence = fun(parameter: MethodParameter) = parameter.parameterAnnotations.iterator().asSequence()
+    private val paramHasAnnotationArgumentResolver = fun(parameter: MethodParameter) = paramToSequence(parameter).any(annotationIsArgumentResolver)
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return paramIsAssignableFromKClass(parameter) && paramHasAnnotationArgumentResolver(parameter)

@@ -12,10 +12,7 @@ class ApplicationRestController(
     private val applicationContextProvider: ApplicationContextProvider
 ) {
 
-    val shutdown = fun() =
-        SpringApplication.exit(
-            applicationContextProvider.getApplicationContext()
-        )
+    val shutdown = fun() = SpringApplication.exit( applicationContextProvider.getApplicationContext() )
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = ["/api/application/shutdown"], method = [RequestMethod.POST])

@@ -1,4 +1,4 @@
-package com.michibaum.lifemanagementbackend.core.annotations
+package com.michibaum.lifemanagementbackend.core.argumentresolver
 
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)

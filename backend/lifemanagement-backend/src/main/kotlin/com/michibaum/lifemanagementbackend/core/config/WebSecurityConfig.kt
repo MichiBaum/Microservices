@@ -1,10 +1,12 @@
 package com.michibaum.lifemanagementbackend.core.config
 
-import com.michibaum.lifemanagementbackend.user.repository.UserRepository
+import com.michibaum.lifemanagementbackend.core.publicendpoint.PublicEndpointDetails
 import com.michibaum.lifemanagementbackend.security.JWTAuthenticationFilter
 import com.michibaum.lifemanagementbackend.security.JWTAuthorizationFilter
 import com.michibaum.lifemanagementbackend.security.LastLoginUpdater
 import com.michibaum.lifemanagementbackend.security.UserDetailsServiceImpl
+import com.michibaum.lifemanagementbackend.user.repository.UserRepository
+import mu.KotlinLogging
 import org.h2.server.web.WebServlet
 import org.springframework.boot.web.servlet.ServletRegistrationBean
 import org.springframework.context.annotation.Bean
@@ -25,14 +27,23 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 class WebSecurityConfig(
+
     private val userDetailsService: UserDetailsServiceImpl,
     private val bCryptPasswordEncoder: BCryptPasswordEncoder,
     private val userRepository: UserRepository,
-    private val lastLoginUpdater: LastLoginUpdater
+    private val lastLoginUpdater: LastLoginUpdater,
+    private val publicEndpoints: List<PublicEndpointDetails>
+
 ): WebSecurityConfigurerAdapter() {
 
+    private val logger = KotlinLogging.logger {}
+
     override fun configure(http: HttpSecurity) {
+        val antEndpoints: Array<String> = publicEndpoints.map(PublicEndpointDetails::antPaths).flatten().toTypedArray()
+        antEndpoints.forEach{ antEndpoint: String -> logger.info("Public AntEndpoint '$antEndpoint' found") }
+
         http.cors().and().authorizeRequests()
+            .antMatchers(*antEndpoints).permitAll()
             .antMatchers("/console/**").permitAll()
             .anyRequest().authenticated()
             .and()

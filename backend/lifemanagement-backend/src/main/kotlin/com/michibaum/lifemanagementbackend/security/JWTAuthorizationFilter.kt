@@ -36,8 +36,8 @@ class JWTAuthorizationFilter(
         if(token.isBlank()) return null
         val username = parseToken(token).orEmpty()
         if(username.isBlank()) return null
-        val userdetails = userDetailsService.loadUserByUsername(username) ?: return null
-        return UsernamePasswordAuthenticationToken(userdetails, null, userdetails.authorities)
+        val userDetails = userDetailsService.loadUserByUsername(username) ?: return null
+        return UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
     }
 
     private fun parseToken(token: String): String? =
