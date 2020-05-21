@@ -14,8 +14,7 @@ services:
       dockerfile: Dockerfile
       args:
         profile: docker
-    networks: 
-      - bridge
+    network_mode: bridge
 
   lifemanagement-frontend:
     container_name: lifemanagement-frontend
@@ -32,5 +31,4 @@ services:
       timeout: 10s
       retries: 3
       start_period: 3m
-    networks: 
-      - bridge
+    network_mode: bridge
