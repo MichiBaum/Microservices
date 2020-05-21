@@ -15,7 +15,7 @@ services:
       args:
         profile: docker
     networks: 
-      - reverse-proxy-network
+      - bridge
 
   lifemanagement-frontend:
     container_name: lifemanagement-frontend
@@ -33,8 +33,4 @@ services:
       retries: 3
       start_period: 3m
     networks: 
-      - reverse-proxy-network
-
-networks:
-  reverse-proxy-network:
-      driver: bridge
+      - bridge
