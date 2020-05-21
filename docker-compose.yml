@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.7'
 
 services:
   lifemanagement-backend:
@@ -14,7 +14,8 @@ services:
       dockerfile: Dockerfile
       args:
         profile: docker
-    network_mode: bridge
+    networks: 
+      - reverse-proxy-network
 
   lifemanagement-frontend:
     container_name: lifemanagement-frontend
@@ -31,4 +32,9 @@ services:
       timeout: 10s
       retries: 3
       start_period: 3m
-    network_mode: bridge
+    networks: 
+      - reverse-proxy-network
+
+networks:
+  reverse-proxy-network:
+      name: reverse-proxy-network
