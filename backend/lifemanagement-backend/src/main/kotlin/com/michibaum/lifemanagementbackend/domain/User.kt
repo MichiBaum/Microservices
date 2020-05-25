@@ -18,7 +18,8 @@ class User(
     @Column(nullable = false, name = "enabled")
     var enabled: Boolean,
 
-    permissions: MutableList<Permission>
+    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
+    var permissions: MutableList<Permission>
 
 ) {
 
@@ -30,10 +31,7 @@ class User(
     @Column(name = "LAST_LOGIN")
     var lastLogin: Long = 0
 
-    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.EAGER)
-    var permissions: MutableList<Permission> = permissions
-
     @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
-    var checklistItems: MutableList<ChecklistItem> = arrayListOf()
+    var checkListItems: MutableList<CheckListItem> = arrayListOf()
 
 }

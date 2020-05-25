@@ -5,7 +5,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity(name="CHECK_LIST_ITEM")
-class ChecklistItem(
+class CheckListItem(
 
     @Column(nullable = false, name = "name")
     var name: String,
@@ -14,7 +14,7 @@ class ChecklistItem(
     var description: String,
 
     @ManyToOne
-    var parentChecklistItem: ChecklistItem? = null
+    var parentCheckListItem: CheckListItem? = null
 
 ) {
 
@@ -26,7 +26,7 @@ class ChecklistItem(
     @Column(nullable = false, name = "creation_date")
     var creationDate: Long = Date().time
 
-    @ManyToMany(mappedBy = "checklistItems", cascade = [CascadeType.MERGE])
+    @ManyToMany(mappedBy = "checkListItems", cascade = [CascadeType.MERGE])
     var users: MutableList<User> = arrayListOf()
 
 }

@@ -15,9 +15,7 @@ class UserRestController(
 ) {
 
     private val getAllUsers: () -> List<User> = userService.findAll
-
     private val updateUser: (User, UpdateUserDto) -> User = userService.updateUser
-
     private val saveUser: (User) -> User = userService.save
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
