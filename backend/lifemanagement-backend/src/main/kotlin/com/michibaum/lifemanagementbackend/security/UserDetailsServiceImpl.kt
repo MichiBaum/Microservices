@@ -1,6 +1,6 @@
 package com.michibaum.lifemanagementbackend.security
 
-import com.michibaum.lifemanagementbackend.user.repository.UserRepository
+import com.michibaum.lifemanagementbackend.repository.UserRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
