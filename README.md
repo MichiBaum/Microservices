@@ -34,4 +34,3 @@ This project contains:
  - [Angular](https://angular.io/)
  - [PrimeNG](https://www.primefaces.org/primeng/)
  - [Visual Studio Code](https://code.visualstudio.com/)
- - 
