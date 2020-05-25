@@ -1,6 +1,7 @@
 package com.michibaum.lifemanagementbackend.user.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.michibaum.lifemanagementbackend.checklist.domain.ChecklistItem
 import com.michibaum.lifemanagementbackend.permission.domain.Permission
 import javax.persistence.*
 
@@ -17,7 +18,9 @@ class User(
     var password: String,
 
     @Column(nullable = false, name = "enabled")
-    var enabled: Boolean, permissions: MutableList<Permission>
+    var enabled: Boolean,
+
+    permissions: MutableList<Permission>
 
 ) {
 
@@ -30,6 +33,9 @@ class User(
     var lastLogin: Long = 0
 
     @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.EAGER)
-    var permissions: List<Permission> = permissions
+    var permissions: MutableList<Permission> = permissions
+
+    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
+    var checklistItems: MutableList<ChecklistItem> = arrayListOf()
 
 }

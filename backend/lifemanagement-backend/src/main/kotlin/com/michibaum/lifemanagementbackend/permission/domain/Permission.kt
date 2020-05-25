@@ -20,6 +20,6 @@ class Permission(
     var id: Long = 0L
 
     @ManyToMany(mappedBy = "permissions", cascade = [CascadeType.MERGE])
-    var users: List<User> = ArrayList()
+    var users: MutableList<User> = arrayListOf()
 
 }
