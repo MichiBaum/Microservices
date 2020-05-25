@@ -13,7 +13,6 @@ services:
       MYSQL_USER: 'lifemanagement-user'
       MYSQL_PASSWORD: 'qwermnbvqw1212'
       MYSQL_ROOT_PASSWORD: 'root'
-    build: 
 
   lifemanagement-backend:
     container_name: lifemanagement-backend
