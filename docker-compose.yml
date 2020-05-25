@@ -1,10 +1,25 @@
 version: '3.7'
 
 services:
+  lifemanagement-database:
+    container_name: lifemanagement-database
+    hostname: lifemanagement-database
+    image: mysql:8.0.20
+    restart: always
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: 'lifemanagement'
+      MYSQL_USER: 'lifemanagement-user'
+      MYSQL_PASSWORD: 'qwermnbvqw1212'
+      MYSQL_ROOT_PASSWORD: 'root'
+    build: 
+
   lifemanagement-backend:
     container_name: lifemanagement-backend
     hostname: lifemanagement-backend
     restart: always
+    depends_on: lifemanagement-database
     expose:
     - "80"
     volumes:

@@ -21,10 +21,10 @@
 
     <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-            <driverClass>org.h2.Driver</driverClass>
-            <url>jdbc:h2:file:C:/h2/lifemanagement/lifemanagement</url>
-            <user>sa</user>
-            <password>sa</password>
+            <driverClass>com.mysql.cj.jdbc.Driver</driverClass>
+            <url>jdbc:mysql://localhost:3306/lifemanagement</url>
+            <user>root</user>
+            <password>root</password>
         </connectionSource>
     </appender>
 
@@ -41,12 +41,6 @@
     </logger>
 
     <logger name="org.hibernate" level="WARN">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
-        <appender-ref ref="DB" />
-    </logger>
-
-    <logger name="org.h2" level="WARN">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
         <appender-ref ref="DB" />

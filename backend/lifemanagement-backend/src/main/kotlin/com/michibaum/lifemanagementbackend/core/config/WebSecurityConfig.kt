@@ -7,8 +7,6 @@ import com.michibaum.lifemanagementbackend.security.LastLoginUpdater
 import com.michibaum.lifemanagementbackend.security.UserDetailsServiceImpl
 import com.michibaum.lifemanagementbackend.user.repository.UserRepository
 import mu.KotlinLogging
-import org.h2.server.web.WebServlet
-import org.springframework.boot.web.servlet.ServletRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -77,8 +75,4 @@ class WebSecurityConfig(
     fun corsConfigurationSource(): CorsConfigurationSource? =
         UrlBasedCorsConfigurationSource().apply { registerCorsConfiguration("/**", CorsConfiguration().applyPermitDefaultValues()) }
 
-    @Bean
-    fun h2servletRegistration(): ServletRegistrationBean<WebServlet> {
-        return  ServletRegistrationBean(WebServlet()).apply { addUrlMappings("/console/*") }
-    }
 }
