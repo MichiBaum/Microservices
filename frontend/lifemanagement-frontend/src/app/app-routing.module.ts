@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {CheckListComponent} from './check-list/check-list.component';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   }, {
     path: 'usersettings',
     component: UsersettingsComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'check-list',
+    component: CheckListComponent,
     canActivate: [AuthGuard]
   }
 ];

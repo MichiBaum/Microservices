@@ -16,7 +16,8 @@
     "usermanagement": "Benutzermanagement",
     "logout": "Abmelden",
     "logs": "Logs",
-    "home": "Home"
+    "home": "Home",
+    "check-list": "Check List"
   },
   "login": {
     "username": "Benutzername",

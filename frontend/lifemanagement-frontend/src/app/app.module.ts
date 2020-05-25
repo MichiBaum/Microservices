@@ -9,7 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {ButtonModule, DialogModule, MessageService, TabViewModule, ToastModule} from 'primeng';
+import {ButtonModule, DialogModule, MessageService, TabViewModule, ToastModule, TreeModule} from 'primeng';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +31,7 @@ import {LoggingModule} from './logs/logging.module';
 import {NavigationModule} from './navigation/navigation.module';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
 import {UsersettingsModule} from './usersettings/usersettings.module';
+import { CheckListComponent } from './check-list/check-list.component';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -44,6 +45,7 @@ registerLocaleData(localeEn);
     AppComponent,
     ToastMessageComponent,
     HelpDialogComponent,
+    CheckListComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +79,7 @@ registerLocaleData(localeEn);
     ButtonModule,
     DialogModule,
     TabViewModule,
+    TreeModule,
   ],
   providers: [
     LanguageConfig,
