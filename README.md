@@ -26,7 +26,7 @@ This project contains:
  - [Docker maven](https://hub.docker.com/_/maven)
  - [Docker MySQL 8.0](https://hub.docker.com/_/mysql)
  - [MySQL 8.0](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/)
- - [stackedit](https://stackedit.io/) (markdown [editor](https://stackedit.io/app#))
+ - [stackedit](https://stackedit.io/) ([markdown editor](https://stackedit.io/app#))
  - [Jetbrains idea (Intellij)](https://www.jetbrains.com/de-de/idea/)
  - Kotlin ([git](https://github.com/JetBrains/kotlin), [kotlinlang](https://kotlinlang.org/))
  - [Spring](https://spring.io/) / [Spring boot](https://spring.io/projects/spring-boot)
