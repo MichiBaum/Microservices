@@ -11,25 +11,21 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class UserRestController(
-    userService: UserService
+    private val userService: UserService
 ) {
-
-    private val getAllUsers: () -> List<User> = userService.findAll
-    private val updateUser: (User, UpdateUserDto) -> User = userService.updateUser
-    private val saveUser: (User) -> User = userService.save
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
     @RequestMapping(value = ["/lifemanagement/api/users"], method = [RequestMethod.GET])
-    fun allUsers(): List<ReturnUserDto> = getAllUsers().map(
-        User::toDto)
+    fun allUsers(): List<ReturnUserDto> =
+        userService.findAll().map(User::toDto)
 
     @RequestMapping(value = ["/lifemanagement/api/users/me"], method = [RequestMethod.GET])
-    fun myUsers(@ArgumentResolver currentUser: User): ReturnUserDto = currentUser.toDto()
+    fun myUsers(@ArgumentResolver currentUser: User): ReturnUserDto =
+        currentUser.toDto()
 
     @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST])
-    fun change(@RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User): ReturnUserDto {
-        return updateUser(user, userDto)
-            .let(saveUser)
+    fun change(@RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User): ReturnUserDto =
+        userService.updateUser(user, userDto)
+            .let(userService.save)
             .toDto()
-    }
 }

@@ -12,30 +12,25 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class LogRestController(
-    logService: LogService
+    private val logService: LogService
 ) {
-
-    private val findAllLogs: () -> List<LoggingEvent> = logService.findAll
-    private val findLogsByFilter: (LogFilter) -> List<LoggingEvent> = logService.findByFilter
-    private val saveLog: (LoggingEvent) -> LoggingEvent = logService.save
-    private val changeLoggingEventSeen: (LoggingEvent, Boolean) -> LoggingEvent = logService.changeSeen
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.GET])
     fun getLogs(logFilter: LogFilter): List<ReturnLogDto> =
-        findLogsByFilter(logFilter).map(LoggingEvent::toDto)
+        logService.findByFilter(logFilter).map(LoggingEvent::toDto)
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs/levels"], method = [RequestMethod.GET])
     fun getLogLevels(): List<String> =
-        findAllLogs().map(LoggingEvent::levelString).distinct()
+        logService.findAll().map(LoggingEvent::levelString).distinct()
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs/{loggingEvent}/seen"], method = [RequestMethod.POST])
     fun setLogSeen(@PathVariable loggingEvent: LoggingEvent, @RequestBody seen: Boolean) =
-        changeLoggingEventSeen.invoke(loggingEvent, seen).let(saveLog).toDto()
+        logService.changeSeen.invoke(loggingEvent, seen).let(logService.save).toDto()
 
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST])
     fun addLog(@RequestBody log: UpdateLogDto) =
-        log.toLoggingEvent().let(saveLog).toDto()
+        log.toLoggingEvent().let(logService.save).toDto()
 }
