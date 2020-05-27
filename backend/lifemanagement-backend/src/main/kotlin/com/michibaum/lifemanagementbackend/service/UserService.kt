@@ -9,21 +9,21 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService(
-    userRepository: UserRepository,
-    permissionService: PermissionService,
-    bCryptPasswordEncoder: BCryptPasswordEncoder
+    private val userRepository: UserRepository,
+    private val permissionService: PermissionService,
+    private val bCryptPasswordEncoder: BCryptPasswordEncoder
 ) {
 
-    val findByName: (name: String) -> User? =
-        userRepository::findByName
+    fun findByName(name: String): User? =
+        userRepository.findByName(name)
 
-    val save: (User) -> User =
-        userRepository::saveAndFlush
+    fun save(user: User): User =
+        userRepository.saveAndFlush(user)
 
-    val findAll: () -> List<User> =
-        userRepository::findAll
+    fun findAll(): List<User> =
+        userRepository.findAll()
 
-    val updateUser = fun(user: User, userDto: UpdateUserDto) =
+    fun updateUser(user: User, userDto: UpdateUserDto) =
         user.apply {
             name = when (userDto.name.isBlank()) {
                 true -> name

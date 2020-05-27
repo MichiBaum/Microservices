@@ -7,18 +7,18 @@ import org.springframework.stereotype.Service
 
 @Service
 class LogService(
-    loggingEventRepository: LoggingEventRepository
+    private val loggingEventRepository: LoggingEventRepository
 ) {
 
-    val findByFilter = fun(logFilter: LogFilter): List<LoggingEvent> =
+    fun findByFilter(logFilter: LogFilter): List<LoggingEvent> =
         loggingEventRepository.findBySeenAndLevelStringIn(logFilter.seen, logFilter.level)
 
-    val save: (LoggingEvent) -> LoggingEvent =
-        loggingEventRepository::saveAndFlush
+    fun save(logginEvent: LoggingEvent): LoggingEvent =
+        loggingEventRepository.saveAndFlush(logginEvent)
 
-    val findAll: () -> List<LoggingEvent> =
-        loggingEventRepository::findAll
+    fun findAll(): List<LoggingEvent> =
+        loggingEventRepository.findAll()
 
-    val changeSeen = fun(logginEvent: LoggingEvent, seen: Boolean): LoggingEvent =
+    fun changeSeen(logginEvent: LoggingEvent, seen: Boolean): LoggingEvent =
         logginEvent.apply { this.seen = seen }
 }

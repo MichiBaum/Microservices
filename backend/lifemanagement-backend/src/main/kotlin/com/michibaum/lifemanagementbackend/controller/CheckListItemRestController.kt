@@ -15,6 +15,8 @@ class CheckListItemRestController(
 
     @RequestMapping(value = ["/lifemanagement/api/checkListItems"], method = [RequestMethod.GET])
     fun getCheckListItems(@ArgumentResolver currentUser: User): List<ReturnCheckListItem> =
-        checkListItemService.convertToDtoTree(currentUser.checkListItems)
+        checkListItemService.convertToDtoTree(
+            currentUser.checkListItems
+        )
 
 }

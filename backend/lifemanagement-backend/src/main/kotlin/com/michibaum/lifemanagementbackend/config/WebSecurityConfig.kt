@@ -60,7 +60,8 @@ class WebSecurityConfig(
             .addFilter(
                 JWTAuthenticationFilter(
                     authenticationManager(),
-                    userRepository
+                    userRepository,
+                    lastLoginUpdater
                 )
             )
             .addFilter(

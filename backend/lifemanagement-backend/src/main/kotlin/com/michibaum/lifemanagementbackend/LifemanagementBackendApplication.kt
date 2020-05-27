@@ -33,8 +33,7 @@ class LifemanagementBackendApplication {
 
     @Bean
     fun publicEndpoints(): List<PublicEndpointDetails> {
-        val publicEndpointSearcher =
-            PublicEndpointSearcher("com.michibaum.lifemanagementbackend.controller")
+        val publicEndpointSearcher = PublicEndpointSearcher("com.michibaum.lifemanagementbackend.controller")
         val restControllers: List<Class<*>> = publicEndpointSearcher.allRestController
 
         return restControllers

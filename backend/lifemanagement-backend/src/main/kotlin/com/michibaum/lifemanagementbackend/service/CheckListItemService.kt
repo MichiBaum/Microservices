@@ -8,26 +8,20 @@ import org.springframework.stereotype.Service
 
 @Service
 class CheckListItemService(
-    checkListItemRepository: CheckListItemRepository
+    private val checkListItemRepository: CheckListItemRepository
 ) {
 
-    private val findChildCheckListItems : (CheckListItem) -> List<CheckListItem> = checkListItemRepository::findByParentCheckListItem
+    fun convertToDtoTree(checkListItems: List<CheckListItem>): List<ReturnCheckListItem> =
+        checkListItems.map { convertToDto(it) }
 
-    fun convertToDtoTree(checkListItems: List<CheckListItem>): List<ReturnCheckListItem> {
-        val returnCheckListItems = mutableListOf<ReturnCheckListItem>()
-        for(checkListItem in checkListItems){
-            returnCheckListItems.add(convertToDto(checkListItem))
+    private fun convertToDto(checkListItem: CheckListItem): ReturnCheckListItem =
+        checkListItem.toDto().also { _checkListItem ->
+            checkListItemRepository.findByParentCheckListItem(checkListItem)
+                .forEach { _childCheckListItem ->
+                    _checkListItem.checkListItems.add(
+                        convertToDto(_childCheckListItem)
+                    )
+                }
+
         }
-        return returnCheckListItems
-    }
-
-    private fun convertToDto(checkListItem: CheckListItem): ReturnCheckListItem {
-        val childCheckListItems: List<CheckListItem> = findChildCheckListItems(checkListItem)
-        val returnCheckListItem = checkListItem.toDto()
-        for(childCheckListItem in childCheckListItems){
-            returnCheckListItem.checkListItems.add(convertToDto(childCheckListItem))
-        }
-        return returnCheckListItem
-    }
-
 }

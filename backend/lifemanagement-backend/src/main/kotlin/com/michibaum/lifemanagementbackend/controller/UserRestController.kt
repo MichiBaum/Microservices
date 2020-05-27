@@ -17,7 +17,8 @@ class UserRestController(
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
     @RequestMapping(value = ["/lifemanagement/api/users"], method = [RequestMethod.GET])
     fun allUsers(): List<ReturnUserDto> =
-        userService.findAll().map(User::toDto)
+        userService.findAll()
+            .map(User::toDto)
 
     @RequestMapping(value = ["/lifemanagement/api/users/me"], method = [RequestMethod.GET])
     fun myUsers(@ArgumentResolver currentUser: User): ReturnUserDto =
@@ -26,6 +27,6 @@ class UserRestController(
     @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST])
     fun change(@RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User): ReturnUserDto =
         userService.updateUser(user, userDto)
-            .let(userService.save)
+            .let(userService::save)
             .toDto()
 }

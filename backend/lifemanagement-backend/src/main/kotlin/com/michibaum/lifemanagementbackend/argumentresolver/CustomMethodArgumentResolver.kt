@@ -20,17 +20,15 @@ class CustomMethodArgumentResolver(
     private val paramToSequence = fun(parameter: MethodParameter) = parameter.parameterAnnotations.iterator().asSequence()
     private val paramHasAnnotationArgumentResolver = fun(parameter: MethodParameter) = paramToSequence(parameter).any(annotationIsArgumentResolver)
 
-    override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return paramIsAssignableFromKClass(parameter) && paramHasAnnotationArgumentResolver(parameter)
-    }
+    override fun supportsParameter(parameter: MethodParameter): Boolean =
+        paramIsAssignableFromKClass(parameter) && paramHasAnnotationArgumentResolver(parameter)
 
     override fun resolveArgument(
         parameter: MethodParameter,
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
-    ): Any {
-        return resolveArgumentMethod.invoke(parameter, mavContainer, webRequest, binderFactory)
-    }
+    ): Any =
+        resolveArgumentMethod.invoke(parameter, mavContainer, webRequest, binderFactory)
 
 }

@@ -18,19 +18,26 @@ class LogRestController(
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.GET])
     fun getLogs(logFilter: LogFilter): List<ReturnLogDto> =
-        logService.findByFilter(logFilter).map(LoggingEvent::toDto)
+        logService.findByFilter(logFilter)
+            .map(LoggingEvent::toDto)
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs/levels"], method = [RequestMethod.GET])
     fun getLogLevels(): List<String> =
-        logService.findAll().map(LoggingEvent::levelString).distinct()
+        logService.findAll()
+            .map(LoggingEvent::levelString)
+            .distinct()
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs/{loggingEvent}/seen"], method = [RequestMethod.POST])
     fun setLogSeen(@PathVariable loggingEvent: LoggingEvent, @RequestBody seen: Boolean) =
-        logService.changeSeen.invoke(loggingEvent, seen).let(logService.save).toDto()
+        logService.changeSeen(loggingEvent, seen)
+            .let(logService::save)
+            .toDto()
 
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST])
     fun addLog(@RequestBody log: UpdateLogDto) =
-        log.toLoggingEvent().let(logService.save).toDto()
+        log.toLoggingEvent()
+            .let(logService::save)
+            .toDto()
 }
