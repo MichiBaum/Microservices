@@ -49,4 +49,4 @@ export namespace LogGenerator {
   }
 
 }
-
+

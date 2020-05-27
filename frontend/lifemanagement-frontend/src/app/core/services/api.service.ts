@@ -33,7 +33,7 @@ export class ApiService {
     errorHandler: HttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
     return this.http.post(`${environment.api_url}${path}`, body, contentTypeJson).pipe(
-      catchError(error => errorHandler.handle(error))
+      catchError((error) => errorHandler.handle(error))
     );
   }
 }

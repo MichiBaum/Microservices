@@ -21,14 +21,14 @@ export class HeaderComponent implements OnInit {
   }
 
   initLanguages = () => {
-    this.languages = this.languageConfig.languages.map(lang => {
+    this.languages = this.languageConfig.languages.map((lang) => {
       return {label: lang.name, field: lang.isoCode, value: lang.isoCode} as PrimeNgBase;
     });
   }
 
   selectLanguage = (event) => {
     this.languageConfig.setLanguage(
-      this.languageConfig.languages.find(lang => lang.isoCode === event.value)
+      this.languageConfig.languages.find((lang) => lang.isoCode === event.value)
     );
   }
 

@@ -20,5 +20,4 @@ export class ToastMessageComponent implements OnInit {
 
   ngOnInit(): void { }
 
-
 }

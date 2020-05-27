@@ -15,20 +15,20 @@ export class CheckListComponent implements OnInit {
   constructor(private checkListService: CheckListService) { }
 
   ngOnInit(): void {
-    this.checkListService.getCheckListItems().subscribe(value => {
+    this.checkListService.getCheckListItems().subscribe((value) => {
       this.checkListItems = this.convertToTreeNodes(value);
     });
   }
 
   convertToTreeNodes(checkListItems: CheckListItem[]): TreeNode[] {
-    return checkListItems.map(value => this.convertToTreeNode(value)) as TreeNode[];
+    return checkListItems.map((value) => this.convertToTreeNode(value)) as TreeNode[];
   }
 
   private convertToTreeNode(checkListItem: CheckListItem): TreeNode {
     return {
       label: checkListItem.name,
       data: checkListItem.id,
-      children: checkListItem.checkListItems.map(value => this.convertToTreeNode(value))
+      children: checkListItem.checkListItems.map((value) => this.convertToTreeNode(value))
     } as TreeNode;
   }
 }

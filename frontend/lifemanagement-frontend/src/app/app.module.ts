@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AppService} from './app.service';
+import { CheckListComponent } from './check-list/check-list.component';
 import {appInitializerProviders} from './core/app-initializer-provider';
 import {CoreModule} from './core/core.module';
 import {GlobalErrorHandler} from './core/error-handlers/global-error.handler';
@@ -31,7 +32,6 @@ import {LoggingModule} from './logs/logging.module';
 import {NavigationModule} from './navigation/navigation.module';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
 import {UsersettingsModule} from './usersettings/usersettings.module';
-import { CheckListComponent } from './check-list/check-list.component';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

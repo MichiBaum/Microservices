@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CustomDatePipe} from './CustomDate';
 
-
 @NgModule({
   declarations: [CustomDatePipe],
   exports: [CustomDatePipe]

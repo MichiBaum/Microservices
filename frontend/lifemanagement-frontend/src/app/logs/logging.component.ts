@@ -53,14 +53,14 @@ export class LoggingComponent implements OnInit {
   }
 
   searchLogs = (): void => {
-    const filter: LogFilter = {level: this.selectedLevels.map(value => value.label), seen: this.seenInputSwitch};
-    this.loggingService.getLogs(filter).toPromise().then(logs => this.logs = logs);
+    const filter: LogFilter = {level: this.selectedLevels.map((value) => value.label), seen: this.seenInputSwitch};
+    this.loggingService.getLogs(filter).toPromise().then((logs) => this.logs = logs);
   }
 
   private getLevels = (): PrimeNgBase | undefined => {
-    this.loggingService.getAllLevels().toPromise().then(levels => {
+    this.loggingService.getAllLevels().toPromise().then((levels) => {
       const levelArray = levels as string[];
-      this.levels = levelArray.map(level => {
+      this.levels = levelArray.map((level) => {
         return {label: level, field: level} as PrimeNgBase;
       });
     });
@@ -96,7 +96,7 @@ export class LoggingComponent implements OnInit {
   setSeen = (log: Log) => {
     this.loggingService.setSeen(log.id, !log.seen).subscribe(
       () => {
-        const index = this.logs.findIndex(searchlog => searchlog.id === log.id);
+        const index = this.logs.findIndex((searchlog) => searchlog.id === log.id);
         if (index > -1) {
           this.logs.splice(index, 1);
         }
@@ -107,14 +107,14 @@ export class LoggingComponent implements OnInit {
   visibleColsChanged = () => {
     this.localStorageService.setKeyAndValue(
       this.localStorageKeyVisibleSelectedColumns,
-      this.visibleSelectedColumns.map(a => a.label).join());
+      this.visibleSelectedColumns.map((a) => a.label).join());
   }
 
   private loadvisibleSelectedColumns = (): PrimeNgBase[] => {
     const localStorageString = this.localStorageService.getValue(this.localStorageKeyVisibleSelectedColumns);
     if (localStorageString) {
       const stringarray = localStorageString.substring(0, localStorageString.length).split(',');
-      return stringarray.map(value => {
+      return stringarray.map((value) => {
         const tableobject: PrimeNgBase = {field: value.substr(4, value.length - 1), label: value};
         return tableobject;
       });
@@ -135,7 +135,6 @@ export class LoggingComponent implements OnInit {
   filterSeenCollapsedEvent = (event: any) => {
     this.sessionStorageService.setKeyAndValue(this.sessionStorageKeyFilterSeenCollapsed, event.collapsed);
   }
-
 
   logFilterDialogHide = () => {
     this.sessionStorageService.setKeyAndValue(this.sessionStorageKeyFilterDialogVisible, 'false');

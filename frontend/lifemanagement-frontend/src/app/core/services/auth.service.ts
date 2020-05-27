@@ -24,7 +24,7 @@ export class AuthService {
 
   login = (username: string, password: string): Observable<any> => {
     return this.apiService.postAll('/login', {username, password})
-      .pipe(tap(res => this.setSession(res)));
+      .pipe(tap((res) => this.setSession(res)));
   }
 
   private setSession = (authResult: JWT): void => {

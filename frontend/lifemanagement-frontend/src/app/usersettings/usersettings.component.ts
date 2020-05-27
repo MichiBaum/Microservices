@@ -81,7 +81,7 @@ export class UsersettingsComponent implements OnInit {
 
   private loadUsers = () => {
     const observableMe = this.userService.getMe();
-    observableMe.subscribe(value => this.myUserId = value.id);
+    observableMe.subscribe((value) => this.myUserId = value.id);
     if (this.hasPermissionUserManagement) {
       this.userService.getAll().subscribe( (users: User[]) => {
         users.forEach((user: User) => {
@@ -90,7 +90,7 @@ export class UsersettingsComponent implements OnInit {
       });
       return;
     }
-    observableMe.subscribe(value => this.users.push({label: value.name, field: value.name, value} as PrimeNgBase));
+    observableMe.subscribe((value) => this.users.push({label: value.name, field: value.name, value} as PrimeNgBase));
   }
 
   userChanged(event: any) {
@@ -130,7 +130,7 @@ export class UsersettingsComponent implements OnInit {
       password: this.newPassword,
       enabled: user.enabled,
       lastLogin: user.lastLogin,
-      permissions: user.permissions.map( permission => permission.id )
+      permissions: user.permissions.map( (permission) => permission.id )
     } as ExportUser;
   }
 

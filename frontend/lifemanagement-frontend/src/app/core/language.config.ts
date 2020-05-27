@@ -73,6 +73,6 @@ export class LanguageConfig {
   }
 
   private getFromList = (isoCode: string): Language => {
-    return this.languages.find(curr => curr.isoCode === isoCode);
+    return this.languages.find((curr) => curr.isoCode === isoCode);
   }
 }
