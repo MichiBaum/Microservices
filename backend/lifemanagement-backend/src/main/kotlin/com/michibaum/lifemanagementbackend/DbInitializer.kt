@@ -58,8 +58,7 @@ class DbInitializer(
             "user",
             "user@user.com",
             bcryptPasswordEncoder.encode("user"),
-            true,
-            mutableListOf()
+            true
         )
 
 }
