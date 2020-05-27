@@ -10,9 +10,11 @@ class LastLoginUpdater(
     private val userRepository: UserRepository
 ) {
 
-    fun update() =
-        SecurityContextHolder.getContext().authentication?.name?.let { username ->
-            userRepository.findByName(username)?.let { user ->
+    fun update(
+        username: String? = SecurityContextHolder.getContext().authentication?.name
+    ) =
+        username?.let { name ->
+            userRepository.findByName(name)?.let { user ->
                 user.lastLogin = Date().time
                 userRepository.save(user)
             }

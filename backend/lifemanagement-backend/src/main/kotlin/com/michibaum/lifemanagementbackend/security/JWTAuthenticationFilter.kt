@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse
 
 class JWTAuthenticationFilter(
     private val ownAuthenticationManager: AuthenticationManager, //TODO needs to be renamed, because of parent with same name
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val lastLoginUpdater: LastLoginUpdater
 ) : UsernamePasswordAuthenticationFilter() {
 
     init {
@@ -29,12 +30,10 @@ class JWTAuthenticationFilter(
     private data class TokenDto(val headerName: String, val token: String, val expiresAt: Date, val permissions: List<String>, val username: String)
 
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse?): Authentication? {
-        val credentials: LoginDto = ObjectMapper().readValue<LoginDto>(req.inputStream, LoginDto::class.java)
+        val credentials: LoginDto = ObjectMapper().readValue(req.inputStream, LoginDto::class.java)
 
-        userRepository.findByName(credentials.username)?.let {user ->
-            user.lastLogin = Date().time
-            userRepository.save(user)
-        }
+        lastLoginUpdater.update(credentials.username)
+
         return ownAuthenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(
                 credentials.username,
@@ -44,6 +43,13 @@ class JWTAuthenticationFilter(
         )
     }
 
+    private fun updateUserLastLogin(credentials: LoginDto) {
+        userRepository.findByName(credentials.username)?.let { user ->
+            user.lastLogin = Date().time
+            userRepository.save(user)
+        }
+    }
+
     override fun successfulAuthentication(
         request: HttpServletRequest?,
         response: HttpServletResponse,
@@ -51,22 +57,35 @@ class JWTAuthenticationFilter(
         auth: Authentication
     ) {
         val expiresAt = Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME)
-        val token = JWT.create()
-            .withSubject((auth.principal as User).username)
-            .withExpiresAt(expiresAt)
-            .sign(Algorithm.HMAC512(SecurityConstants.SECRET))
         val permissions: List<String> = auth.authorities.map { obj: GrantedAuthority -> obj.authority }
         val jwt = TokenDto(
-            SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token,
+            SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + createJWT(auth, expiresAt),
             expiresAt,
             permissions,
             (auth.principal as User).username
         )
+        manipulateResponse(response, jwt)
+    }
+
+    private fun manipulateResponse(
+        response: HttpServletResponse,
+        jwt: TokenDto
+    ) {
         response.status = HttpServletResponse.SC_OK
         response.addHeader("Content-Type", "application/json")
         response.writer.write(jacksonObjectMapper().writeValueAsString(jwt))
         response.writer.flush()
         response.writer.close()
+    }
+
+    private fun createJWT(
+        auth: Authentication,
+        expiresAt: Date
+    ): String {
+        return JWT.create()
+            .withSubject((auth.principal as User).username)
+            .withExpiresAt(expiresAt)
+            .sign(Algorithm.HMAC512(SecurityConstants.SECRET))
     }
 
 }
