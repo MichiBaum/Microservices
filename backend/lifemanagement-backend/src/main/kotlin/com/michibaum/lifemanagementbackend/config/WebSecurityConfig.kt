@@ -7,8 +7,12 @@ import com.michibaum.lifemanagementbackend.security.LastLoginUpdater
 import com.michibaum.lifemanagementbackend.security.UserDetailsServiceImpl
 import com.michibaum.lifemanagementbackend.repository.UserRepository
 import mu.KotlinLogging
+import org.h2.server.web.WebServlet
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.web.servlet.ServletRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -36,13 +40,21 @@ class WebSecurityConfig(
 
     private val logger = KotlinLogging.logger {}
 
+    @Value("\${application.system.environment}")
+    private val systemEnvironment: String = ""
+
     override fun configure(http: HttpSecurity) {
         val antEndpoints: Array<String> = publicEndpoints.map(PublicEndpointDetails::antPaths).flatten().toTypedArray()
         antEndpoints.forEach{ antEndpoint: String -> logger.info("Public AntEndpoint '$antEndpoint' found") }
 
+//      Only if the profile is dev_h2
+        if(systemEnvironment == "dev_h2"){
+            http.cors().and().authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
+        }
+
         http.cors().and().authorizeRequests()
             .antMatchers(*antEndpoints).permitAll()
-            .antMatchers("/console/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilter(
@@ -75,4 +87,9 @@ class WebSecurityConfig(
     fun corsConfigurationSource(): CorsConfigurationSource? =
         UrlBasedCorsConfigurationSource().apply { registerCorsConfiguration("/**", CorsConfiguration().applyPermitDefaultValues()) }
 
+//  Only if the profile is dev_h2
+    @Profile("dev_h2")
+    @Bean
+    fun h2servletRegistration(): ServletRegistrationBean<WebServlet> =
+        ServletRegistrationBean(WebServlet()).apply { addUrlMappings("/h2-console/*") }
 }
