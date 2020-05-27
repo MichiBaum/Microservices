@@ -1,18 +1,15 @@
 # Lifemanagement
 This project contains:
 
- - Lifemanagement-backend
- - Lifemanagement-frontend
+ - [Lifemanagement-backend](backend/lifemanagement-backend)
+ - [Lifemanagement-frontend](frontend/lifemanagement-frontend)
  - [Docker](https://www.docker.com/)
- - [h2 database](https://www.h2database.com/html/main.html)
-
-**At the present time only runnable on Windows**
+ - [Angular](https://angular.io/)
+ - Kotlin ([git](https://github.com/JetBrains/kotlin), [kotlinlang](https://kotlinlang.org/))
 
 ## Lifemanagement-backend
 
 ## Lifemanagement-frontend
-
-[More information](scripts/README.md)
 
 ## Docker
 [Docker dokumentation](docker-documentation.md)
