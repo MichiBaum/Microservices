@@ -24,7 +24,8 @@ class DbInitializer(
     @Value("\${application.system.environment}")
     private val systemEnvironment: String = ""
 
-    private val savePermission: (p: PermissionName) -> Permission = { permissionRepository.findByName(it) ?: permissionRepository.save( Permission(it) ) }
+    private val savePermission: (p: PermissionName) -> Permission =
+        { permissionRepository.findByName(it) ?: permissionRepository.save(Permission(it)) }
     private val saveUser: (User) -> User = { userService.findByName(it.name) ?: userService.save(it) }
 
     private val userPassword = generateRandomPassword()
@@ -78,8 +79,8 @@ class DbInitializer(
             .collect(
                 { StringBuilder() },
                 { obj: StringBuilder, codePoint: Int -> obj.appendCodePoint(codePoint) }
-            ) {
-                    obj: StringBuilder, s: StringBuilder? -> obj.append( s )
+            ) { obj: StringBuilder, s: StringBuilder? ->
+                obj.append(s)
             }
             .toString()
 

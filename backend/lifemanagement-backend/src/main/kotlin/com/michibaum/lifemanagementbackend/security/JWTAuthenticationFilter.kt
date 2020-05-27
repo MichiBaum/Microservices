@@ -27,7 +27,13 @@ class JWTAuthenticationFilter(
     }
 
     private data class LoginDto(val username: String = "", val password: String = "")
-    private data class TokenDto(val headerName: String, val token: String, val expiresAt: Date, val permissions: List<String>, val username: String)
+    private data class TokenDto(
+        val headerName: String,
+        val token: String,
+        val expiresAt: Date,
+        val permissions: List<String>,
+        val username: String
+    )
 
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse?): Authentication? {
         val credentials: LoginDto = ObjectMapper().readValue(req.inputStream, LoginDto::class.java)

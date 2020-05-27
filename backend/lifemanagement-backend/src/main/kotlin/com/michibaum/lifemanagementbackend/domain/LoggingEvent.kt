@@ -3,7 +3,7 @@ package com.michibaum.lifemanagementbackend.domain
 import javax.persistence.*
 
 @Entity(name = "LOGGING_EVENT")
-class LoggingEvent (
+class LoggingEvent(
 
     @Column(nullable = false, name = "timestmp")
     var timestmp: Long = 0,
@@ -50,7 +50,7 @@ class LoggingEvent (
 
     @Column(nullable = false, name = "seen", columnDefinition = "boolean default false")
     var seen: Boolean = false
-){
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")

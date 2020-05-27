@@ -33,9 +33,9 @@ class JWTAuthorizationFilter(
 
     private fun getAuthentication(request: HttpServletRequest): UsernamePasswordAuthenticationToken? {
         val token = request.getHeader(SecurityConstants.HEADER_STRING).orEmpty()
-        if(token.isBlank()) return null
+        if (token.isBlank()) return null
         val username = parseToken(token).orEmpty()
-        if(username.isBlank()) return null
+        if (username.isBlank()) return null
         val userDetails = userDetailsService.loadUserByUsername(username) ?: return null
         return UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
     }

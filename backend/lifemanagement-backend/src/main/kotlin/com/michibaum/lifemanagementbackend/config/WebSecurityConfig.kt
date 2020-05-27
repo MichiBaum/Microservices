@@ -1,11 +1,11 @@
 package com.michibaum.lifemanagementbackend.config
 
 import com.michibaum.lifemanagementbackend.publicendpoint.PublicEndpointDetails
+import com.michibaum.lifemanagementbackend.repository.UserRepository
 import com.michibaum.lifemanagementbackend.security.JWTAuthenticationFilter
 import com.michibaum.lifemanagementbackend.security.JWTAuthorizationFilter
 import com.michibaum.lifemanagementbackend.security.LastLoginUpdater
 import com.michibaum.lifemanagementbackend.security.UserDetailsServiceImpl
-import com.michibaum.lifemanagementbackend.repository.UserRepository
 import mu.KotlinLogging
 import org.h2.server.web.WebServlet
 import org.springframework.beans.factory.annotation.Value
@@ -36,7 +36,7 @@ class WebSecurityConfig(
     private val lastLoginUpdater: LastLoginUpdater,
     private val publicEndpoints: List<PublicEndpointDetails>
 
-): WebSecurityConfigurerAdapter() {
+) : WebSecurityConfigurerAdapter() {
 
     private val logger = KotlinLogging.logger {}
 
@@ -45,10 +45,10 @@ class WebSecurityConfig(
 
     override fun configure(http: HttpSecurity) {
         val antEndpoints: Array<String> = publicEndpoints.map(PublicEndpointDetails::antPaths).flatten().toTypedArray()
-        antEndpoints.forEach{ antEndpoint: String -> logger.info("Public AntEndpoint '$antEndpoint' found") }
+        antEndpoints.forEach { antEndpoint: String -> logger.info("Public AntEndpoint '$antEndpoint' found") }
 
 //      Only if the profile is dev_h2
-        if(systemEnvironment == "dev_h2"){
+        if (systemEnvironment == "dev_h2") {
             http.cors().and().authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
         }
@@ -86,7 +86,12 @@ class WebSecurityConfig(
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource? =
-        UrlBasedCorsConfigurationSource().apply { registerCorsConfiguration("/**", CorsConfiguration().applyPermitDefaultValues()) }
+        UrlBasedCorsConfigurationSource().apply {
+            registerCorsConfiguration(
+                "/**",
+                CorsConfiguration().applyPermitDefaultValues()
+            )
+        }
 
 //  Only if the profile is dev_h2
     @Profile("dev_h2")

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.*
 import javax.persistence.*
 
-@Entity(name="CHECK_LIST_ITEM")
+@Entity(name = "CHECK_LIST_ITEM")
 class CheckListItem(
 
     @Column(nullable = false, name = "name")

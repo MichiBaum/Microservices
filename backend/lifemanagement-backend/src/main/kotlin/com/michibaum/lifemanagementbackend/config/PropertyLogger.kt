@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationListener
 import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.env.EnumerablePropertySource
 
-class PropertyLogger: ApplicationListener<ApplicationPreparedEvent> {
+class PropertyLogger : ApplicationListener<ApplicationPreparedEvent> {
 
     private val logger = KotlinLogging.logger {}
 
@@ -16,10 +16,10 @@ class PropertyLogger: ApplicationListener<ApplicationPreparedEvent> {
     }
 
     private fun printProperties(environment: ConfigurableEnvironment) {
-        findPropertiesPropertySources(environment).forEach {propertySource ->
+        findPropertiesPropertySources(environment).forEach { propertySource ->
             logger.info("******* ${propertySource.name} *******")
             propertySource.propertyNames.let { propertyNames ->
-                propertyNames.forEach {propertyName ->
+                propertyNames.forEach { propertyName ->
                     val resolvedProperty = propertyName?.let { environment.getProperty(it) } ?: ""
                     val sourceProperty = propertyName?.let {
                         propertySource.getProperty(it)?.toString() ?: ""

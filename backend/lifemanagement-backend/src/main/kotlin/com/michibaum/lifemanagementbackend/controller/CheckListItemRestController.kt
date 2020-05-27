@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class CheckListItemRestController(
     private val checkListItemService: CheckListItemService
-){
+) {
 
     @RequestMapping(value = ["/lifemanagement/api/checkListItems"], method = [RequestMethod.GET])
     fun getCheckListItems(@ArgumentResolver currentUser: User): List<ReturnCheckListItem> =

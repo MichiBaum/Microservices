@@ -19,6 +19,4 @@ class ApplicationRestController(
             applicationContextProvider.getApplicationContext()
         )
 
-
-
 }

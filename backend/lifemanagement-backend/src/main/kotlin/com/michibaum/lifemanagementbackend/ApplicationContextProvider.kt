@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContextAware
 import org.springframework.stereotype.Component
 
 @Component
-class ApplicationContextProvider: ApplicationContextAware {
+class ApplicationContextProvider : ApplicationContextAware {
 
     private lateinit var applicationContext: ApplicationContext
 

@@ -37,7 +37,12 @@ class LifemanagementBackendApplication {
         val restControllers: List<Class<*>> = publicEndpointSearcher.allRestController
 
         return restControllers
-            .map { clazz: Class<*> -> publicEndpointSearcher.getMethodsAnnotatedWith(clazz, PublicEndpoint::class.java)}
+            .map { clazz: Class<*> ->
+                publicEndpointSearcher.getMethodsAnnotatedWith(
+                    clazz,
+                    PublicEndpoint::class.java
+                )
+            }
             .flatten()
             .map(publicEndpointSearcher::getRequestMappingValue)
             .flatten()

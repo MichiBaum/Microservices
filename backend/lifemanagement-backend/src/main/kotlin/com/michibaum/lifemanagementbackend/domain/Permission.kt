@@ -3,7 +3,7 @@ package com.michibaum.lifemanagementbackend.domain
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
-@Entity(name="PERMISSION")
+@Entity(name = "PERMISSION")
 class Permission(
 
     @Enumerated(EnumType.STRING)

@@ -3,7 +3,7 @@ package com.michibaum.lifemanagementbackend.domain
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
-@Entity(name="LOGIN_USER")
+@Entity(name = "LOGIN_USER")
 class User(
 
     @Column(nullable = false, name = "name", unique = true)
@@ -19,7 +19,7 @@ class User(
     var enabled: Boolean,
 
     @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
-    var permissions: MutableList<Permission>  = arrayListOf()
+    var permissions: MutableList<Permission> = arrayListOf()
 
 ) {
 

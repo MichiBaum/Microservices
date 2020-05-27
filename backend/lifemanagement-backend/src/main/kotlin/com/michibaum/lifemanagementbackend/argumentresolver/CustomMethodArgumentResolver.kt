@@ -8,6 +8,7 @@ import org.springframework.web.method.support.ModelAndViewContainer
 import kotlin.reflect.KClass
 
 typealias ResolveArgumentMethod = (MethodParameter, ModelAndViewContainer?, NativeWebRequest, WebDataBinderFactory?) -> Any
+
 class CustomMethodArgumentResolver(
 
     private val kClass: KClass<*>,
@@ -15,10 +16,14 @@ class CustomMethodArgumentResolver(
 
 ) : HandlerMethodArgumentResolver {
 
-    private val annotationIsArgumentResolver = fun(annotation: Annotation?) = annotation is ArgumentResolver
-    private val paramIsAssignableFromKClass = fun(parameter: MethodParameter) = parameter.parameterType.isAssignableFrom(kClass.java)
-    private val paramToSequence = fun(parameter: MethodParameter) = parameter.parameterAnnotations.iterator().asSequence()
-    private val paramHasAnnotationArgumentResolver = fun(parameter: MethodParameter) = paramToSequence(parameter).any(annotationIsArgumentResolver)
+    private val annotationIsArgumentResolver =
+        fun(annotation: Annotation?) = annotation is ArgumentResolver
+    private val paramIsAssignableFromKClass =
+        fun(parameter: MethodParameter) = parameter.parameterType.isAssignableFrom(kClass.java)
+    private val paramToSequence =
+        fun(parameter: MethodParameter) = parameter.parameterAnnotations.iterator().asSequence()
+    private val paramHasAnnotationArgumentResolver =
+        fun(parameter: MethodParameter) = paramToSequence(parameter).any(annotationIsArgumentResolver)
 
     override fun supportsParameter(parameter: MethodParameter): Boolean =
         paramIsAssignableFromKClass(parameter) && paramHasAnnotationArgumentResolver(parameter)

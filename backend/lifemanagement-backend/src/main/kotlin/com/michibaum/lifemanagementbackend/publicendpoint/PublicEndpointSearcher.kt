@@ -24,7 +24,11 @@ class PublicEndpointSearcher(vararg restControllerPackages: String) {
         )
     }
 
-    private val scanner = ClassPathScanningCandidateComponentProvider(false).also { it.addIncludeFilter(AnnotationTypeFilter(RestController::class.java)) }
+    private val scanner = ClassPathScanningCandidateComponentProvider(false).also {
+        it.addIncludeFilter(
+            AnnotationTypeFilter(RestController::class.java)
+        )
+    }
 
     val allRestController: List<Class<*>>
         get() =
