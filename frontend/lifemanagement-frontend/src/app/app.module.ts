@@ -4,12 +4,22 @@ import {HttpClient} from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
 import {ErrorHandler, NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {ButtonModule, DialogModule, MessageService, TabViewModule, ToastModule, TreeModule} from 'primeng';
+import {
+  ButtonModule,
+  ContextMenuModule,
+  DialogModule,
+  MessageService,
+  SlideMenuModule,
+  TabViewModule,
+  ToastModule,
+  TreeModule
+} from 'primeng';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -80,6 +90,9 @@ registerLocaleData(localeEn);
     DialogModule,
     TabViewModule,
     TreeModule,
+    FormsModule,
+    ContextMenuModule,
+    SlideMenuModule,
   ],
   providers: [
     LanguageConfig,

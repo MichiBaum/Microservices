@@ -42,12 +42,12 @@ export class NavigationComponent implements OnInit {
       {
           label: this.translate.instant('navigation.home'),
           icon: 'pi pi-home',
-          routerLink: '/',
+          routerLink: 'home',
       } as MenuItem,
       {
         label: this.translate.instant('navigation.check-list'),
-        icon: 'pi pi-home',
-        routerLink: '/check-list',
+        icon: 'pi pi-list',
+        routerLink: 'check-list',
       } as MenuItem,
       {
           label: this.translate.instant('navigation.usersettings'),

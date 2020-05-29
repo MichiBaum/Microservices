@@ -23,7 +23,7 @@ class UserService(
     fun findAll(): List<User> =
         userRepository.findAll()
 
-    fun updateUser(user: User, userDto: UpdateUserDto) =
+    val update = fun(user: User, userDto: UpdateUserDto) =
         user.apply {
             name = when (userDto.name.isBlank()) {
                 true -> name

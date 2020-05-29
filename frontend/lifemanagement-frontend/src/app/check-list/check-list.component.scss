@@ -1,0 +1,11 @@
+@import "./src/styles";
+
+:host {
+  ::ng-deep .ui-slidemenu-rootlist {
+    width: 100% !important;
+  }
+
+  ::ng-deep .ui-submenu-list{
+    width: 100% !important;
+  }
+}
