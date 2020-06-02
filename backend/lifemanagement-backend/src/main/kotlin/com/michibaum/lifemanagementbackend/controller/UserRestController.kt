@@ -26,7 +26,7 @@ class UserRestController(
 
     @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST])
     fun change(@RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User): ReturnUserDto =
-        userService.updateUser(user, userDto)
+        userService.update(user, userDto)
             .let(userService::save)
             .toDto()
 }
