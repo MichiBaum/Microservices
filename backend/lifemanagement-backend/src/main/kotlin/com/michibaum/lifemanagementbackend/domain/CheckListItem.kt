@@ -13,7 +13,7 @@ class CheckListItem(
     @Column(nullable = false, name = "description")
     var description: String,
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     var parentCheckListItem: CheckListItem? = null
 
 ) {

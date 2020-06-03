@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
 import {ErrorHandler, NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -13,7 +13,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
   ButtonModule,
   ContextMenuModule,
-  DialogModule,
+  DialogModule, InputTextareaModule, InputTextModule,
   MessageService,
   SlideMenuModule,
   TabViewModule,
@@ -42,6 +42,7 @@ import {LoggingModule} from './logs/logging.module';
 import {NavigationModule} from './navigation/navigation.module';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
 import {UsersettingsModule} from './usersettings/usersettings.module';
+import { CheckListInputComponent } from './check-list-input/check-list-input.component';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,6 +57,7 @@ registerLocaleData(localeEn);
     ToastMessageComponent,
     HelpDialogComponent,
     CheckListComponent,
+    CheckListInputComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +95,9 @@ registerLocaleData(localeEn);
     FormsModule,
     ContextMenuModule,
     SlideMenuModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputTextareaModule,
   ],
   providers: [
     LanguageConfig,

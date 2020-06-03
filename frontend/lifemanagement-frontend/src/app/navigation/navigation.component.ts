@@ -40,32 +40,45 @@ export class NavigationComponent implements OnInit {
   setItems = (): void => {
     this.navItems = [
       {
-          label: this.translate.instant('navigation.home'),
-          icon: 'pi pi-home',
-          routerLink: 'home',
+        label: this.translate.instant('navigation.home'),
+        icon: 'pi pi-home',
+        routerLink: 'home',
+        command: () => {
+          this.sidebarVisible = false;
+        }
       } as MenuItem,
       {
         label: this.translate.instant('navigation.check-list'),
         icon: 'pi pi-list',
         routerLink: 'check-list',
+        command: () => {
+          this.sidebarVisible = false;
+        }
       } as MenuItem,
       {
-          label: this.translate.instant('navigation.usersettings'),
-          icon: 'pi pi-user-edit',
-          routerLink: 'usersettings'
+        label: this.translate.instant('navigation.usersettings'),
+        icon: 'pi pi-user-edit',
+        routerLink: 'usersettings',
+        command: () => {
+          this.sidebarVisible = false;
+        }
       } as MenuItem,
       {
-          label: this.translate.instant('navigation.logs'),
-          icon: 'pi pi-info',
-          routerLink: 'logmanagement',
-          visible: this.authService.hasAnyPermission([Permission.SEE_LOGS])
+        label: this.translate.instant('navigation.logs'),
+        icon: 'pi pi-info',
+        routerLink: 'logmanagement',
+        command: () => {
+          this.sidebarVisible = false;
+        },
+        visible: this.authService.hasAnyPermission([Permission.SEE_LOGS])
       } as MenuItem,
       {
-          label: this.translate.instant('navigation.logout'),
-          icon: 'pi pi-power-off',
-          command: () => {
-            this.authService.logout();
-          }
+        label: this.translate.instant('navigation.logout'),
+        icon: 'pi pi-power-off',
+        command: () => {
+          this.authService.logout();
+          this.sidebarVisible = false;
+        }
       } as MenuItem
     ] as MenuItem[];
   }

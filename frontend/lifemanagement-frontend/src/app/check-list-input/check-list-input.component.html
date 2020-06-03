@@ -1,0 +1,20 @@
+<div class="p-sm-12 p-md-4 p-lg-4 p-xl-4">
+  <div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon">name</span>
+    <input type="text" pInputText [ngModel]="changeableCheckListItem.name">
+  </div>
+</div>
+
+<div class="p-sm-12 p-md-4 p-lg-4 p-xl-4">
+  <div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon">description</span>
+    <textarea [rows]="5" [cols]="20" pInputTextarea [ngModel]="changeableCheckListItem.description"></textarea>
+  </div>
+</div>
+
+<div class="p-sm-12 p-md-4 p-lg-4 p-xl-4">
+  <div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon">creationDate</span>
+    <input type="text" pInputText [ngModel]="changeableCheckListItem.creationDate | customDate">
+  </div>
+</div>

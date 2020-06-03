@@ -1,5 +1,22 @@
-<p-slideMenu
-  [model]="checkListItems"
-  [viewportHeight]="slideMenuViewportHeight"
->
-</p-slideMenu>
+<div class="p-grid p-align-start p-justify-start">
+
+  <div class="p-sm-2 p-md-2 p-lg-2 p-xl-2">
+    <p-slideMenu
+      [model]="checkListItems"
+      [viewportHeight]="slideMenuViewportHeight"
+    >
+    </p-slideMenu>
+  </div>
+
+  <div class="p-sm-4 p-md-4 p-lg-4 p-xl-4">
+    <app-check-list-input
+      *ngIf="selectedCheckListItem !== undefined"
+      [checkListItem]="selectedCheckListItem"
+    >
+    </app-check-list-input>
+  </div>
+
+  <div class="p-sm-6 p-md-6 p-lg-6 p-xl-6">
+  </div>
+
+</div>

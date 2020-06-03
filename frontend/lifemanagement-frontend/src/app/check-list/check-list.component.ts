@@ -10,10 +10,11 @@ import {CheckListService} from './check-list.service';
 })
 export class CheckListComponent implements OnInit {
 
-  constructor(private checkListService: CheckListService) { }
-
   slideMenuViewportHeight: number;
   checkListItems: MenuItem[];
+  selectedCheckListItem: CheckListItem;
+
+  constructor(private checkListService: CheckListService) { }
 
   ngOnInit(): void {
     this.slideMenuViewportHeight = (window.innerHeight / 100 * 85);
@@ -31,12 +32,14 @@ export class CheckListComponent implements OnInit {
     if (items === undefined || items === null || items.length < 1) {
       return {
         label: checkListItem.name,
-        data: checkListItem.id,
+        data: checkListItem,
+        command: event => this.selectedCheckListItem = event.item.data // TODO not shure .value
       } as MenuItem;
     }
     return {
       label: checkListItem.name,
       data: checkListItem.id,
+      command: event => this.selectedCheckListItem = event.item.data, // TODO not shure .value
       items
     } as MenuItem;
   }

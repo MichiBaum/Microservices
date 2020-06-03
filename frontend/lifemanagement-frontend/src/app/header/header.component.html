@@ -1,14 +1,14 @@
-<div class="p-grid p-align-center header-background-color">
+<div class="p-grid p-align-center header-background-color header-shadow">
 
-  <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
+  <div class="p-sm-12 p-md-4 p-lg-4 p-xl-4 text-align-center">
     <app-navigation *ngIf="authService.isLoggedIn()"></app-navigation>
   </div>
 
-  <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
+  <div class="p-sm-12 p-md-4 p-lg-4 p-xl-4 text-align-center">
     <h1 class="header-title-color">{{"application.title" | translate}}</h1>
   </div>
 
-  <div class="p-col-12 p-md-4 p-lg-4 text-align-center">
+  <div class="p-sm-12 p-md-4 p-lg-4 p-xl-4 text-align-center">
     <p-dropdown
       class="ui-button-danger"
       [options]="languages"
