@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {MenuItem} from 'primeng';
 import {LanguageConfig} from '../core/language.config';
@@ -70,7 +70,7 @@ export class NavigationComponent implements OnInit {
         command: () => {
           this.sidebarVisible = false;
         },
-        visible: this.authService.hasAnyPermission([Permission.SEE_LOGS])
+        visible: this.authService.hasAnyPermission([Permission.SEE_LOGS, Permission.ADMIN])
       } as MenuItem,
       {
         label: this.translate.instant('navigation.logout'),
