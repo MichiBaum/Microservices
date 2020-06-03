@@ -11,13 +11,13 @@ class PropertyLogger : ApplicationListener<ApplicationPreparedEvent> {
     private val logger = KotlinLogging.logger {}
 
     override fun onApplicationEvent(event: ApplicationPreparedEvent) {
-        logger.info("Starting logging application properties")
+        logger.debug("Starting logging application properties")
         printProperties(event.applicationContext.environment)
     }
 
     private fun printProperties(environment: ConfigurableEnvironment) {
         findPropertiesPropertySources(environment).forEach { propertySource ->
-            logger.info("******* ${propertySource.name} *******")
+            logger.debug("******* ${propertySource.name} *******")
             propertySource.propertyNames.let { propertyNames ->
                 propertyNames.forEach { propertyName ->
                     val resolvedProperty = propertyName?.let { environment.getProperty(it) } ?: ""
@@ -25,9 +25,9 @@ class PropertyLogger : ApplicationListener<ApplicationPreparedEvent> {
                         propertySource.getProperty(it)?.toString() ?: ""
                     } ?: ""
                     if (resolvedProperty == sourceProperty) {
-                        logger.info("$propertyName=$resolvedProperty")
+                        logger.debug("$propertyName=$resolvedProperty")
                     } else {
-                        logger.info("$propertyName=$sourceProperty OVERRIDDEN to $resolvedProperty")
+                        logger.debug("$propertyName=$sourceProperty OVERRIDDEN to $resolvedProperty")
                     }
                 }
             }
