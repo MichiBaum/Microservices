@@ -10,6 +10,7 @@ class LoggingEventException {
     lateinit var eventId: LoggingEvent
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "i")
     var i: Short? = null
 

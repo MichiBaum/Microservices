@@ -35,3 +35,5 @@ To follow the log output add *-f*
 
     docker-compose logs -f
 
+## Open console in container
+    docker exec -it <container name> /bin/bash

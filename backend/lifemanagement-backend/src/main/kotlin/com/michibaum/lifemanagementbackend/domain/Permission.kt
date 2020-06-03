@@ -14,7 +14,7 @@ class Permission(
 
     @Id
     @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
 
     @ManyToMany(mappedBy = "permissions", cascade = [CascadeType.MERGE])

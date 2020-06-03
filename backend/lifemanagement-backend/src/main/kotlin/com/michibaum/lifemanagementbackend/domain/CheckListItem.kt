@@ -20,7 +20,7 @@ class CheckListItem(
 
     @Id
     @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
 
     @Column(nullable = false, name = "creation_date")

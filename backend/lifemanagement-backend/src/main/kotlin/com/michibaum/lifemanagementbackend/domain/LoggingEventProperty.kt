@@ -10,6 +10,7 @@ class LoggingEventProperty {
     lateinit var eventId: LoggingEvent
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mapped_key")
     var mappedKey: String = ""
 

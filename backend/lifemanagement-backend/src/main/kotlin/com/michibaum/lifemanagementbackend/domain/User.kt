@@ -25,7 +25,7 @@ class User(
 
     @Id
     @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
 
     @Column(name = "LAST_LOGIN")

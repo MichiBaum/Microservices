@@ -23,8 +23,6 @@ services:
     depends_on: lifemanagement-database
     expose:
     - "80"
-    volumes:
-    - /lifemanagement/backend/h2:/h2/lifemanagement
     build:
       context: ./backend/lifemanagement-backend
       dockerfile: Dockerfile
