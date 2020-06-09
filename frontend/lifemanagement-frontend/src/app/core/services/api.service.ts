@@ -25,14 +25,19 @@ export class ApiService {
     // private translate: TranslateService // TODO Error: Cannot instantiate cyclic dependency! TranslateService
   ) { }
 
-  getAll = (path: string, cacheable = true, params: any = new HttpParams()): Observable<any> => {
+  getAll = (
+    path: string,
+    cacheable = true,
+    params: any = new HttpParams(),
+    errorHandler: HttpErrorResponseHandler = this.defaultErrorHandler
+  ): Observable<any> => {
     return this.http.get(`${environment.api_url}${path}`, {params}).pipe(
       tap ( x => {
         if (cacheable) {
           localStorage.setItem(JSON.stringify({path, params}), JSON.stringify(x));
         }
       }),
-      catchError(() => {
+      catchError((error) => {
         if (cacheable) {
           const localStorageValue = localStorage.getItem(JSON.stringify({path, params}));
           if (localStorageValue) {
@@ -40,6 +45,7 @@ export class ApiService {
             return of(JSON.parse(localStorageValue));
           }
         }
+        errorHandler.handle(error);
         return of([]);
       })
     );
@@ -62,8 +68,10 @@ export class ApiService {
         // tslint:disable-next-line:max-line-length TODO remove
         summary: 'error.cached.summary', // this.translate.instant('error.cached.summary') TODO Error: Cannot instantiate cyclic dependency! TranslateService
         // tslint:disable-next-line:max-line-length TODO remove
-        detail: 'error.cached.detail' // this.translate.instant('error.cached.detail') TODO Error: Cannot instantiate cyclic dependency! TranslateService
+        detail: 'error.cached.detail', // this.translate.instant('error.cached.detail') TODO Error: Cannot instantiate cyclic dependency! TranslateService
+        life: 1000
       } as Message
     ]);
   }
+
 }

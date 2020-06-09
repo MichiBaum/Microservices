@@ -20,7 +20,8 @@ export class ToastMessageService {
       [{
         severity: ToastMessageSeverity.SUCCESS,
         summary,
-        detail
+        detail,
+        life: 10000
       } as Message]
     );
   }
@@ -30,7 +31,8 @@ export class ToastMessageService {
       [{
         severity: ToastMessageSeverity.ERROR,
         summary,
-        detail
+        detail,
+        life: 10000
       } as Message]
     );
   }

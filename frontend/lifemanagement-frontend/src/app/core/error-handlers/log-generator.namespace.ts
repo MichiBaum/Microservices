@@ -43,10 +43,11 @@ export namespace LogGenerator {
     severity: ToastMessageSeverity = ToastMessageSeverity.ERROR,
     summary: string = error.name,
     detail: string = error.message,
-    closable: boolean = true
+    closable: boolean = true,
+    life: number = 10000
   ): Message {
-    return {severity, closable, summary, detail} as Message;
+    return {severity, closable, summary, detail, life} as Message;
   }
 
 }
-
+
