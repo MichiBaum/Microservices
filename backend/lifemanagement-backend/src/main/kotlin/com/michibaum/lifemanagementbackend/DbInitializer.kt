@@ -24,9 +24,21 @@ class DbInitializer(
     @Value("\${application.system.environment}")
     private val systemEnvironment: String = ""
 
-    private val savePermission: (p: PermissionName) -> Permission =
-        { permissionRepository.findByName(it) ?: permissionRepository.save(Permission(it)) }
-    private val saveUser: (User) -> User = { userService.findByName(it.name) ?: userService.save(it) }
+    private val savePermission: (PermissionName) -> Permission = {
+        permissionRepository.findByName(it) ?: permissionRepository.save(Permission(it))
+    }
+
+    private val changeUserPassword: (User, User) -> User = {
+        existingUser, newUserWithPassword -> existingUser.also {
+            it.password = newUserWithPassword.password
+        }
+    }
+
+    private val saveUser: (User) -> User = {
+        userService.findByName(it.name)?.let{
+                existingUser -> userService.save(changeUserPassword(existingUser, it))
+        } ?: userService.save(it)
+    }
 
     private val userPassword = generateRandomPassword()
     private val adminPassword = generateRandomPassword()
