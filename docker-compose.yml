@@ -20,7 +20,7 @@ services:
     container_name: lifemanagement-backend
     hostname: lifemanagement-backend
     restart: always
-    depends_on: lifemanagement-database
+    depends_on: [lifemanagement-database]
     expose:
     - "80"
     build:
