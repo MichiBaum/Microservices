@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuItem, TreeNode} from 'primeng';
+import {MenuItem} from 'primeng';
 import {CheckListItem} from '../core/models/check-list-item.model';
 import {CheckListService} from './check-list.service';
 

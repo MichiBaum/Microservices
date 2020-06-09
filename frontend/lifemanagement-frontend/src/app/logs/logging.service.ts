@@ -11,7 +11,7 @@ export class LoggingService {
   constructor(private apiService: ApiService) { }
 
   getLogs = (filter: LogFilter): Observable<Log[]> => {
-    return this.apiService.getAll('/logs', filter);
+    return this.apiService.getAll('/logs', true, filter);
   }
 
   getAllLevels = () => {

@@ -4,27 +4,20 @@ import {HttpClient} from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
 import {ErrorHandler, NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
-  ButtonModule,
-  ContextMenuModule,
-  DialogModule, InputTextareaModule, InputTextModule,
   MessageService,
-  SlideMenuModule,
-  TabViewModule,
-  ToastModule,
-  TreeModule
 } from 'primeng';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AppService} from './app.service';
-import { CheckListComponent } from './check-list/check-list.component';
+import {CheckListInputModule} from './check-list-input/check-list-input.module';
+import {CheckListModule} from './check-list/check-list.module';
 import {appInitializerProviders} from './core/app-initializer-provider';
 import {CoreModule} from './core/core.module';
 import {GlobalErrorHandler} from './core/error-handlers/global-error.handler';
@@ -34,15 +27,13 @@ import {PipeModule} from './core/pipes/pipe.module';
 import {httpInterceptorProviders} from './core/security/http-interceptors';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
 import {HeaderModule} from './header/header.module';
-import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import {HelpDialogModule} from './help-dialog/help-dialog.module';
 import {HomeModule} from './home/home.module';
 import {LoginModule} from './login/login.module';
 import {LoggingModule} from './logs/logging.module';
 import {NavigationModule} from './navigation/navigation.module';
-import { ToastMessageComponent } from './toast-message/toast-message.component';
+import {ToastMessageModule} from './toast-message/toast-message.module';
 import {UsersettingsModule} from './usersettings/usersettings.module';
-import { CheckListInputComponent } from './check-list-input/check-list-input.component';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -54,10 +45,6 @@ registerLocaleData(localeEn);
 @NgModule({
   declarations: [
     AppComponent,
-    ToastMessageComponent,
-    HelpDialogComponent,
-    CheckListComponent,
-    CheckListInputComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,17 +74,9 @@ registerLocaleData(localeEn);
           deps: [AppService]
         }
     }),
-    ToastModule,
-    ButtonModule,
-    DialogModule,
-    TabViewModule,
-    TreeModule,
-    FormsModule,
-    ContextMenuModule,
-    SlideMenuModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    InputTextareaModule,
+    ToastMessageModule,
+    CheckListModule,
+    CheckListInputModule
   ],
   providers: [
     LanguageConfig,

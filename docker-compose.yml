@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: 'qwermnbvqw1212'
       MYSQL_ROOT_PASSWORD: 'root'
     networks: 
-    - reverse-proxy-network
+      - reverse-proxy-network
 
   lifemanagement-backend:
     container_name: lifemanagement-backend

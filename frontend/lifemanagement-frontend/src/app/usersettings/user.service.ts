@@ -12,11 +12,11 @@ export class UserService {
   }
 
   getAll = (): Observable<User[]> => {
-    return this.apiService.getAll('/users');
+    return this.apiService.getAll('/users', false);
   }
 
   getMe = (): Observable<User> => {
-    return this.apiService.getAll('/users/me');
+    return this.apiService.getAll('/users/me', false);
   }
 
   save(user: ExportUser): Observable<User> {

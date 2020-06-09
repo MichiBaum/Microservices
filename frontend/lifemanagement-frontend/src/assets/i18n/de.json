@@ -27,6 +27,10 @@
   "error": {
     "auth": {
       "failed": "Anmeldung fehlgeschlagen"
+    },
+    "cached": {
+      "summary": "Zwischengespeicherte Daten",
+      "detail": "Die Daten, welche angezeigt werden, wurden zwischengespeichert und sind vielleicht nicht mehr aktuell"
     }
   },
   "log": {

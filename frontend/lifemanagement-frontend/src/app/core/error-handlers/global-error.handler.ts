@@ -12,9 +12,6 @@ export class GlobalErrorHandler implements ErrorHandler {
     const appService = this.injector.get(AppService);
     const log = LogGenerator.createLog(error);
     appService.log(log);
-
-    // IMPORTANT: Rethrow the error otherwise it gets swallowed
-    throw error;
   }
 
 }

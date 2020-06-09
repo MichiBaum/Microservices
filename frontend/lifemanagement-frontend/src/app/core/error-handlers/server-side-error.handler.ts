@@ -1,6 +1,6 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {ToastMessageService} from '../../toast-message/toast-message.service';
 import {HttpErrorResponseHandler} from './http-error-response.handler';
 import {LogGenerator} from './log-generator.namespace';
@@ -19,7 +19,7 @@ export class ServerSideErrorHandler implements HttpErrorResponseHandler {
     this.toastMessageService.emit([
       message
     ]);
-    throw error;
+    return of([]);
   }
 
 }

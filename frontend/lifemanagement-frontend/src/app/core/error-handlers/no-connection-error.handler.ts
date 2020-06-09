@@ -17,7 +17,6 @@ export class NoConnectionErrorHandler implements HttpErrorResponseHandler {
   }
 
   handle(error: HttpErrorResponse): Observable<any> {
-    console.log(error);
     const message = LogGenerator.createToastError(error);
     this.toastMessageService.emit([
       message
