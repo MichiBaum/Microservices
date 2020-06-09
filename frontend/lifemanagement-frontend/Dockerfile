@@ -15,3 +15,5 @@ COPY --from=BUILD /usr/src/app/dist/lifemanagement-frontend /usr/share/nginx/htm
 RUN apk add --update \
     curl \
     && rm -rf /var/cache/apk/*
+RUN rm -r /usr/share/nginx/html
+RUN rm -f /var/log/nginx/*
