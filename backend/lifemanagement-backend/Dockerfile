@@ -1,5 +1,5 @@
 ### STAGE 1: Package ###
-FROM maven:3.6.2-jdk-11-slim AS MAVEN_BUILD
+FROM maven:3.6.3-jdk-11-slim AS MAVEN_BUILD
 MAINTAINER Michael Baumberger
 ARG profile=docker
 RUN echo 'ACTIVE PROFILE IS: $profile'
