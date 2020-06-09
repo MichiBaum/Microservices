@@ -28,7 +28,7 @@
         </connectionSource>
     </appender>
 
-    <logger name="com.michibaum" level="INFO">
+    <logger name="com.michibaum" level="debug">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="DB"/>
