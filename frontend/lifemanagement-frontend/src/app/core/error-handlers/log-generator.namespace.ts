@@ -50,4 +50,4 @@ export namespace LogGenerator {
   }
 
 }
-
+

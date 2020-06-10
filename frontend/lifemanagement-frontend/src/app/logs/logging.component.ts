@@ -54,7 +54,7 @@ export class LoggingComponent implements OnInit {
   searchLogs = (): void => {
     const filter: LogFilter = {level: this.selectedLevels.map((value) => value.label), seen: this.seenInputSwitch};
     this.loggingService.getLogs(filter).toPromise().then((logs) => this.logs = logs);
-  };
+  }
 
   private getLevels = (): PrimeNgBase | undefined => {
     this.loggingService.getAllLevels().toPromise().then((levels) => {
@@ -64,13 +64,13 @@ export class LoggingComponent implements OnInit {
       });
     });
     return undefined;
-  };
+  }
 
   initLogContextMenuItems = (): MenuItem[] => {
     return [
       {label: 'log.seen', icon: 'pi pi-search', command: () => this.setSeen(this.selectedLog)} as MenuItem,
     ];
-  };
+  }
 
   initCols = (): PrimeNgBase[] => {
     return [

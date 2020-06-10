@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng';
 import {CheckListItem} from '../core/models/check-list-item.model';
+import {WindowResizeListenerService} from '../core/services/window-resize-listener.service';
 import {CheckListService} from './check-list.service';
 
 @Component({

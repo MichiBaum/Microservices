@@ -86,6 +86,8 @@
 
 </div>
 
-<p-dialog header="{{'login.login' | translate}}" [(visible)]="loginModalVisible" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="true" [resizable]="true" [closable]="false">
+<p-dialog [(visible)]="loginModalVisible" [baseZIndex]="10000" [closable]="false"
+          [draggable]="true" [modal]="true" [resizable]="true" [style]="{width: loginDialogWidth}"
+          header="{{'login.login' | translate}}">
   <app-login [onLoginSuccess]="this.onLoginSuccess" [loginName]="changeableUser?.name" [loginNameDisabled]="true"></app-login>
 </p-dialog>

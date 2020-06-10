@@ -29,6 +29,7 @@ export class UsersettingsComponent implements OnInit {
   newPassword = '';
 
   loginModalVisible = false;
+  loginDialogWidth = '50vw';
   onLoginSuccess = () => {this.loginService.emitLogin(); };
 
   constructor(
@@ -45,6 +46,7 @@ export class UsersettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (window.innerWidth < 800) { this.loginDialogWidth = '80vw'; }
     this.dateFormats = this.initDateFormats();
     this.selectedDateFormat = this.initSelectedDateFormat();
     this.hasPermissionUserManagement = this.authService.hasAnyPermission([Permission.USER_MANAGEMENT]);
