@@ -9,7 +9,9 @@
   },
   "general": {
     "search": "Suchen",
-    "save": "Speichern"
+    "save": "Speichern",
+    "available": "Verfügbar",
+    "selected": "Ausgewählt"
   },
   "navigation": {
     "usersettings": "Benutzereinstellungen",
@@ -67,7 +69,8 @@
     "newPassword": "neues Passwort",
     "updateSuccessfully": "Benutzer update erfolgreich",
     "updateFailed": "Benutzer update fehlgeschlagen",
-    "selectOne": "Wähle einen Benutzer"
+    "selectOne": "Wähle einen Benutzer",
+    "permissions": "Berechtigungen"
   },
   "dateFormat": {
     "short": "Kurz",

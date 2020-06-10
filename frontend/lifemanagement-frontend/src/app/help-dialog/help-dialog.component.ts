@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {TabPanel} from 'primeng';
 
 @Component({
   selector: 'app-help-dialog',

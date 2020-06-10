@@ -1,9 +1,9 @@
-import {Permission} from '../security/permission.enum';
+import {PermissionEnum} from './enum/permission.enum';
 
 export interface JWT {
   headerName: string;
   token: string;
   expiresAt: number;
-  permissions: Permission[];
+  permissions: PermissionEnum[];
   username: string;
 }

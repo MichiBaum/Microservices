@@ -2,6 +2,7 @@ package com.michibaum.lifemanagementbackend.service
 
 import com.michibaum.lifemanagementbackend.domain.Permission
 import com.michibaum.lifemanagementbackend.domain.User
+import com.michibaum.lifemanagementbackend.dtos.UpdatePermissionDto
 import com.michibaum.lifemanagementbackend.dtos.UpdateUserDto
 import com.michibaum.lifemanagementbackend.repository.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -22,6 +23,13 @@ class UserService(
 
     fun findAll(): List<User> =
         userRepository.findAll()
+
+    fun changePermissions(user: User, permissionIds: List<Long>): User =
+        user.apply {
+            permissions = permissionIds
+                .mapNotNull(permissionService::findById) as MutableList<Permission>
+        }
+
 
     val update = fun(user: User, userDto: UpdateUserDto) =
         user.apply {

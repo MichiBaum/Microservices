@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/internal/operators/tap';
+import {PermissionEnum} from '../models/enum/permission.enum';
 import {JWT} from '../models/jwt.model';
-import {Permission} from '../security/permission.enum';
 import {ApiService} from './api.service';
 import {SessionStorageService} from './session-storage.service';
 
@@ -55,7 +55,7 @@ export class AuthService {
     return this.activeToken.token;
   }
 
-  public hasAnyPermission = (permissionsNeeded: Permission[]): boolean => {
+  public hasAnyPermission = (permissionsNeeded: PermissionEnum[]): boolean => {
     if (permissionsNeeded.length === 0) { return true; }
 
     if (this.activeToken == null || this.activeToken.permissions == null) {

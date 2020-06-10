@@ -12,4 +12,7 @@ class PermissionService(
     fun findById(id: Long): Permission? =
         permissionRepository.findById(id).orElseGet(null)
 
+    fun findAll(): List<Permission> =
+        permissionRepository.findAll()
+
 }

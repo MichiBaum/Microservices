@@ -63,6 +63,40 @@
     </p-fieldset>
   </div>
 
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && hasPermissionUserManagement">
+    <p-fieldset
+      legend="{{'user.permissions' | translate}}"
+      [toggleable]="true"
+      [transitionOptions]="'500ms'"
+      [collapsed]="true"
+    >
+
+      <p-pickList
+        [source]="availablePermissions"
+        [target]="selectedUser.permissions"
+        sourceHeader="{{'general.available' | translate}}"
+        targetHeader="{{'general.selected' | translate}}"
+        [responsive]="true"
+        dragdrop="true"
+        [sourceStyle]="{'height':'300px'}"
+        [targetStyle]="{'height':'300px'}"
+        (onMoveToSource)="savePermissions()"
+        (onMoveToTarget)="savePermissions()"
+        (onMoveAllToSource)="savePermissions()"
+        (onMoveAllToTarget)="savePermissions()"
+        [showSourceControls]="false"
+        [showTargetControls]="false"
+      >
+        <ng-template let-permission pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <span>{{permission.name}}</span>
+          </div>
+        </ng-template>
+      </p-pickList>
+
+    </p-fieldset>
+  </div>
+
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && myUserId === selectedUser?.id">
     <p-fieldset
       legend="{{'user.dateFormat' | translate}}"

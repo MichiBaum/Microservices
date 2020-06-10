@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {CheckListItem} from '../core/models/check-list-item.model';
 
 @Component({
@@ -10,7 +10,6 @@ import {CheckListItem} from '../core/models/check-list-item.model';
 export class CheckListInputComponent implements OnInit, OnChanges {
 
   @Input() checkListItem: CheckListItem;
-  checkListItemForm: FormGroup;
   changeableCheckListItem: CheckListItem;
 
   constructor() { }
@@ -23,7 +22,4 @@ export class CheckListInputComponent implements OnInit, OnChanges {
 
   }
 
-  onSubmit(value: any) {
-
-  }
 }

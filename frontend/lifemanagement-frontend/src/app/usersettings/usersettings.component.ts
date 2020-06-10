@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateFormat} from '../core/models/enum/date-format.enum';
+import {PermissionEnum} from '../core/models/enum/permission.enum';
+import {Permission} from '../core/models/permission.model';
 import {PrimeNgBase} from '../core/models/primeng-base.model';
 import {ExportUser, User} from '../core/models/user.model';
-import {Permission} from '../core/security/permission.enum';
 import {AuthService} from '../core/services/auth.service';
 import {DateService} from '../core/services/date.service';
 import {LoginService} from '../login/login.service';
@@ -24,6 +25,7 @@ export class UsersettingsComponent implements OnInit {
   users: PrimeNgBase[] = [];
   selectedUser: User;
   myUserId: number;
+  availablePermissions: Permission[] = [];
 
   changeableUser: User;
   newPassword = '';
@@ -49,7 +51,7 @@ export class UsersettingsComponent implements OnInit {
     if (window.innerWidth < 800) { this.loginDialogWidth = '80vw'; }
     this.dateFormats = this.initDateFormats();
     this.selectedDateFormat = this.initSelectedDateFormat();
-    this.hasPermissionUserManagement = this.authService.hasAnyPermission([Permission.USER_MANAGEMENT]);
+    this.hasPermissionUserManagement = this.authService.hasAnyPermission([PermissionEnum.USER_MANAGEMENT]);
     this.loadUsers();
   }
 
@@ -99,6 +101,11 @@ export class UsersettingsComponent implements OnInit {
     const user: User = event.value as User;
     this.changeableUser = JSON.parse(JSON.stringify(user));
     this.newPassword = '';
+    if (this.hasPermissionUserManagement) {
+      this.userService.getAllPermissions().subscribe(value => {
+        this.availablePermissions = value.filter((el) => !user.permissions.map(value1 => value1.id).includes(el.id));
+      });
+    }
   }
 
   saveUser() {
@@ -159,4 +166,7 @@ export class UsersettingsComponent implements OnInit {
     );
   }
 
+  savePermissions() {
+    this.userService.savePermissions(this.toExportUser(this.selectedUser)).subscribe();
+  }
 }

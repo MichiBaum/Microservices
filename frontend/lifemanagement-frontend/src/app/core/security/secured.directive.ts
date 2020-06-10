@@ -1,6 +1,6 @@
 import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+import {PermissionEnum} from '../models/enum/permission.enum';
 import {AuthService} from '../services/auth.service';
-import {Permission} from './permission.enum';
 
 @Directive({
   selector: '[anyPermission]'
@@ -13,7 +13,7 @@ export class SecuredDirective {
     private authService: AuthService
   ) { }
 
-  @Input() set anyPermission(permissions: Permission[]) {
+  @Input() set anyPermission(permissions: PermissionEnum[]) {
     if (this.authService.hasAnyPermission(permissions)) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
