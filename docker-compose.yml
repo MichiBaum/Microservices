@@ -28,6 +28,8 @@ services:
       dockerfile: Dockerfile
       args:
         profile: docker
+    depends_on: 
+      - lifemanagement-database
     networks: 
       - reverse-proxy-network
     volumes: 
@@ -42,6 +44,8 @@ services:
     build:
       context: ./frontend/lifemanagement-frontend
       dockerfile: Dockerfile
+    depends_on: 
+      - lifemanagement-backend
     networks: 
       - reverse-proxy-network
     volumes: 
