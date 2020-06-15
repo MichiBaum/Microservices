@@ -48,14 +48,6 @@ export class NavigationComponent implements OnInit {
         }
       } as MenuItem,
       {
-        label: this.translate.instant('navigation.check-list'),
-        icon: 'pi pi-list',
-        routerLink: 'check-list',
-        command: () => {
-          this.sidebarVisible = false;
-        }
-      } as MenuItem,
-      {
         label: this.translate.instant('navigation.usersettings'),
         icon: 'pi pi-user-edit',
         routerLink: 'usersettings',

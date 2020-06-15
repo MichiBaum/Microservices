@@ -16,8 +16,6 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AppService} from './app.service';
-import {CheckListInputModule} from './check-list-input/check-list-input.module';
-import {CheckListModule} from './check-list/check-list.module';
 import {appInitializerProviders} from './core/app-initializer-provider';
 import {CoreModule} from './core/core.module';
 import {GlobalErrorHandler} from './core/error-handlers/global-error.handler';
@@ -75,8 +73,6 @@ registerLocaleData(localeEn);
         }
     }),
     ToastMessageModule,
-    CheckListModule,
-    CheckListInputModule
   ],
   providers: [
     LanguageConfig,

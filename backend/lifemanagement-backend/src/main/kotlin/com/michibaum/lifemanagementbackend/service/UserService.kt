@@ -2,7 +2,6 @@ package com.michibaum.lifemanagementbackend.service
 
 import com.michibaum.lifemanagementbackend.domain.Permission
 import com.michibaum.lifemanagementbackend.domain.User
-import com.michibaum.lifemanagementbackend.dtos.UpdatePermissionDto
 import com.michibaum.lifemanagementbackend.dtos.UpdateUserDto
 import com.michibaum.lifemanagementbackend.repository.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder

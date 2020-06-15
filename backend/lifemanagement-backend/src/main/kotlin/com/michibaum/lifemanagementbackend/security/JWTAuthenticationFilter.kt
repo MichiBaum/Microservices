@@ -49,13 +49,6 @@ class JWTAuthenticationFilter(
         )
     }
 
-    private fun updateUserLastLogin(credentials: LoginDto) {
-        userRepository.findByName(credentials.username)?.let { user ->
-            user.lastLogin = Date().time
-            userRepository.save(user)
-        }
-    }
-
     override fun successfulAuthentication(
         request: HttpServletRequest?,
         response: HttpServletResponse,

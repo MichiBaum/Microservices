@@ -31,7 +31,4 @@ class User(
     @Column(name = "LAST_LOGIN")
     var lastLogin: Long = 0
 
-    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
-    var checkListItems: MutableList<CheckListItem> = arrayListOf()
-
 }
