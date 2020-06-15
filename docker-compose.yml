@@ -15,8 +15,6 @@ services:
       MYSQL_ROOT_PASSWORD: 'root'
     networks: 
       - reverse-proxy-network
-    volumes: 
-      - /.docker_data/lifemanagement-database/mysql:/var/lib/mysql
 
   lifemanagement-backend:
     container_name: lifemanagement-backend
@@ -34,8 +32,6 @@ services:
       - lifemanagement-database
     networks: 
       - reverse-proxy-network
-    volumes: 
-      - /.docker_data/lifemanagement-backend/logs:/var/log/tomcat
 
   lifemanagement-frontend:
     container_name: lifemanagement-frontend
@@ -50,8 +46,6 @@ services:
       - lifemanagement-backend
     networks: 
       - reverse-proxy-network
-    volumes: 
-      - /.docker_data/lifemanagement-frontend/logs:/var/log/nginx
 
 networks:
   reverse-proxy-network:
