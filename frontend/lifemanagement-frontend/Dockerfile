@@ -11,9 +11,10 @@ RUN npm run build -- --prod --output-hashing=all
 ### STAGE 2: Run ###
 FROM nginx:1.17.10-alpine
 MAINTAINER Michael Baumberger
+RUN rm -r /usr/share/nginx/html && \
+    rm -f /var/log/nginx/* && \
+    mkdir /usr/share/nginx/html/
 COPY --from=BUILD /usr/src/app/dist/lifemanagement-frontend /usr/share/nginx/html/lifemanagement
 RUN apk add --update \
     curl \
     && rm -rf /var/cache/apk/*
-RUN rm -r /usr/share/nginx/html && \
-    rm -f /var/log/nginx/*
