@@ -31,7 +31,7 @@ services:
     networks: 
       - reverse-proxy-network
     volumes: 
-      - ./.docker_data/lifemanagement-backend/logs:/var/log/tomcat
+      - /.docker_data/lifemanagement-backend/logs:/var/log/tomcat
 
   lifemanagement-frontend:
     container_name: lifemanagement-frontend
@@ -45,7 +45,7 @@ services:
     networks: 
       - reverse-proxy-network
     volumes: 
-      - ./.docker_data/lifemanagement-frontend/logs:/var/log/nginx
+      - /.docker_data/lifemanagement-frontend/logs:/var/log/nginx
 
 networks:
   reverse-proxy-network:
