@@ -65,6 +65,14 @@ export class NavigationComponent implements OnInit {
         visible: this.authService.hasAnyPermission([PermissionEnum.SEE_LOGS, PermissionEnum.ADMIN])
       } as MenuItem,
       {
+        label: this.translate.instant('navigation.imprint'),
+        icon: 'pi pi-info',
+        routerLink: 'imprint',
+        command: () => {
+          this.sidebarVisible = false;
+        }
+      } as MenuItem,
+      {
         label: this.translate.instant('navigation.logout'),
         icon: 'pi pi-power-off',
         command: () => {
