@@ -6,7 +6,6 @@ import com.michibaum.lifemanagementbackend.domain.Permission
 import com.michibaum.lifemanagementbackend.domain.User
 import com.michibaum.lifemanagementbackend.dtos.ReturnPermissionDto
 import com.michibaum.lifemanagementbackend.dtos.ReturnUserDto
-import com.michibaum.lifemanagementbackend.dtos.UpdatePermissionDto
 import com.michibaum.lifemanagementbackend.dtos.UpdateUserDto
 import com.michibaum.lifemanagementbackend.service.PermissionService
 import com.michibaum.lifemanagementbackend.service.UserService
