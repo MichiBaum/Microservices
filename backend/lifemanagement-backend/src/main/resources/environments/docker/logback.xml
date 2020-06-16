@@ -22,7 +22,7 @@
     <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
             <driverClass>com.mysql.cj.jdbc.Driver</driverClass>
-            <url>jdbc:mysql://lifemanagement-database:3306/lifemanagement</url>
+            <url>jdbc:mysql://http://lifemanagement-database:3306/lifemanagement</url>
             <user>lifemanagement-user</user>
             <password>qwermnbvqw1212</password>
         </connectionSource>
