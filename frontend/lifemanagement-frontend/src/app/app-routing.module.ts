@@ -29,8 +29,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   }, {
     path: 'imprint',
-    component: ImprintComponent,
-    canActivate: [AuthGuard]
+    component: ImprintComponent
   }
 ];
 
