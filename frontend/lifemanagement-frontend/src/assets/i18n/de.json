@@ -89,5 +89,24 @@
   "help": {
     "help": "Hilfe",
     "doesntExist": "Keine Hilfe vorhanden"
+  },
+  "impress": {
+    "contact-address-title": "Kontakt-Adresse",
+    "name": "Michael Baumberger",
+    "address": "Via Calundis, 39",
+    "city": "7013 Domat/Ems",
+    "country": "Schweiz",
+    "email-title": "E-Mail:",
+    "email": "michael_baumberger@gmx.ch",
+    "disclaimer-of-liability-title": "Haftungsausschluss",
+    "disclaimer-of-liability-1": "Der Autor übernimmt keinerlei Gewähr hinsichtlich der inhaltlichen Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen.",
+    "disclaimer-of-liability-2": "Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten Informationen, durch Missbrauch der Verbindung oder durch technische Störungen entstanden sind, werden ausgeschlossen.",
+    "disclaimer-of-liability-3": "Alle Angebote sind unverbindlich. Der Autor behält es sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne besondere Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.",
+    "disclaimer-of-liability-for-links-title": "Haftungsausschluss für Links",
+    "disclaimer-of-liability-for-links": "Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres Verantwortungsbereichs. Es wird jegliche Verantwortung für solche Webseiten abgelehnt. Der Zugriff und die Nutzung solcher Webseiten erfolgen auf eigene Gefahr des jeweiligen Nutzers.",
+    "copyrights-title": "Urheberrechte",
+    "copyrights": "Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf dieser Website, gehören ausschliesslich dem oben genannten Besitzer oder den speziell genannten Rechteinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung des Urheberrechtsträgers im Voraus einzuholen.",
+    "source-title": "Quelle:",
+    "source": "SwissAnwalt"
   }
 }

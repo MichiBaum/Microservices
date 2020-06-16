@@ -89,5 +89,24 @@
   "help": {
     "help": "help",
     "doesntExist": "No help exists"
+  },
+  "impress": {
+    "contact-address-title": "Contact address",
+    "name": "Michael Baumberger",
+    "address": "Via Calundis, 39",
+    "city": "7013 Domat/Ems",
+    "country": "Switzerland",
+    "email-title": "E-mail:",
+    "email": "michael_baumberger@gmx.ch",
+    "disclaimer-of-liability-title": "Disclaimer of liability",
+    "disclaimer-of-liability-1": "The author assumes no liability for the correctness, accuracy, timeliness, reliability and completeness of the information.",
+    "disclaimer-of-liability-2": "Liability claims against the author due to material or immaterial damage resulting from the access or use or non-use of the published information, misuse of the connection or technical faults are excluded.",
+    "disclaimer-of-liability-3": "All offers are non-binding. The author expressly reserves the right to change, supplement or delete parts of the pages or the entire offer without special announcement or to temporarily or permanently cease publication.",
+    "disclaimer-of-liability-for-links-title": "Disclaimer of liability for links",
+    "disclaimer-of-liability-for-links": "References and links to third party websites are outside our area of responsibility. It rejected any responsibility for such websites. Accessing and using such websites is at the user's own risk.",
+    "copyrights-title": "Copyrights",
+    "copyrights": "The copyrights and all other rights to content, images, photos or other files on this website belong exclusively to the above-mentioned owner or the specifically named rights holder. The written consent of the copyright holder must be obtained in advance for the reproduction of any elements.",
+    "source-title": "Source:",
+    "source": "SwissAnwalt"
   }
 }
