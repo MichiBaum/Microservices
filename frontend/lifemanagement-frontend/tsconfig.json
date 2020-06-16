@@ -19,5 +19,9 @@
       "ES2020",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }
