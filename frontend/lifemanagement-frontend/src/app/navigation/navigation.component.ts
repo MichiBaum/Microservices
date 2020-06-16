@@ -76,6 +76,14 @@ export class NavigationComponent implements OnInit {
         }
       } as MenuItem,
       {
+        label: this.translate.instant('navigation.privacy-policy'),
+        icon: 'pi pi-info',
+        command: () => {
+          this.sidebarVisible = false;
+          this.routernavigationService.privacyPolicyNavigate();
+        }
+      } as MenuItem,
+      {
         label: this.translate.instant('navigation.logout'),
         icon: 'pi pi-power-off',
         command: () => {

@@ -15,8 +15,9 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
       const langToSet = localStorage.getItem('languageIso') || defaultLanguage.isoCode;
       translate.setDefaultLang(langToSet);
       translate.use(langToSet).subscribe(() => {
-      }, () => {
+      }, (error) => {
         console.error(`Problem with '${langToSet}' language initialization.'`);
+        console.error(error);
       }, () => {
         resolve(null);
       });

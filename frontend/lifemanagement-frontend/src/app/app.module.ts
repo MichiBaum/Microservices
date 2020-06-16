@@ -31,8 +31,10 @@ import {ImprintModule} from './imprint/imprint.module';
 import {LoginModule} from './login/login.module';
 import {LoggingModule} from './logs/logging.module';
 import {NavigationModule} from './navigation/navigation.module';
+import {PrivacyPolicyModule} from './privacy-policy/privacy-policy.module';
 import {ToastMessageModule} from './toast-message/toast-message.module';
 import {UsersettingsModule} from './usersettings/usersettings.module';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -74,7 +76,8 @@ registerLocaleData(localeEn);
         }
     }),
     ToastMessageModule,
-    ImprintModule
+    ImprintModule,
+    PrivacyPolicyModule
   ],
   providers: [
     LanguageConfig,

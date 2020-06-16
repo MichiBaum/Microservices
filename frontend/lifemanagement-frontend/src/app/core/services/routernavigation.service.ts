@@ -28,4 +28,7 @@ export class RouternavigationService {
     this.router.navigate(['/login'], { skipLocationChange: true }).then();
   }
 
+  privacyPolicyNavigate() {
+    this.router.navigate(['/privacy-policy'], { skipLocationChange: true }).then();
+  }
 }
