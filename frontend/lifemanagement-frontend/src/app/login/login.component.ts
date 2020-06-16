@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
 import {AuthService} from '../core/services/auth.service';
+import {RouternavigationService} from '../core/services/routernavigation.service';
 import {LoginService} from './login.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit, OnChanges {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private routernavigationService: RouternavigationService,
     private loginService: LoginService
   ) {
     this.loginForm = this.formBuilder.group({
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnChanges {
 
   @Input() onLoginSuccess = () => {
     this.loginService.emitLogin();
-    this.router.navigateByUrl('/home');
+    this.routernavigationService.loginNavigate();
   }
 
   ngOnInit(): void {}

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/internal/operators/tap';
 import {PermissionEnum} from '../models/enum/permission.enum';
 import {JWT} from '../models/jwt.model';
 import {ApiService} from './api.service';
+import {RouternavigationService} from './routernavigation.service';
 import {SessionStorageService} from './session-storage.service';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class AuthService {
 
   constructor(
     private apiService: ApiService,
-    private router: Router,
+    private routernavigationService: RouternavigationService,
     private sessionStorageService: SessionStorageService
   ) {
     this.activeToken = JSON.parse(this.sessionStorageService.getValue('jwt'));
@@ -37,7 +37,7 @@ export class AuthService {
   logout = (): void => {
     this.sessionStorageService.removeItem('jwt');
     this.activeToken = null;
-    this.router.navigate(['/login']);
+    this.routernavigationService.loginNavigate();
   }
 
   public isLoggedIn = (): boolean => {
