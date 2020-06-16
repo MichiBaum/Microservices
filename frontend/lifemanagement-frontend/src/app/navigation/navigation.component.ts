@@ -55,7 +55,7 @@ export class NavigationComponent implements OnInit {
         icon: 'pi pi-user-edit',
         command: () => {
           this.sidebarVisible = false;
-          this.routernavigationService.logmanagementNavigate();
+          this.routernavigationService.usersettingsNavigate();
         }
       } as MenuItem,
       {

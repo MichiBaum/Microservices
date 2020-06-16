@@ -9,23 +9,23 @@ export class RouternavigationService {
   constructor(private router: Router) { }
 
   homeNavigate() {
-    this.router.navigate(['/home'], {skipLocationChange: true});
+    this.router.navigate(['/home'], {skipLocationChange: true}).then();
   }
 
   imprintNavigate() {
-    this.router.navigate(['/imprint'], { skipLocationChange: true });
+    this.router.navigate(['/imprint'], { skipLocationChange: true }).then();
   }
 
   usersettingsNavigate() {
-    this.router.navigate(['/usersettings'], { skipLocationChange: true });
+    this.router.navigate(['/usersettings'], { skipLocationChange: true }).then();
   }
 
   logmanagementNavigate() {
-    this.router.navigate(['/logmanagement'], { skipLocationChange: true });
+    this.router.navigate(['/logmanagement'], { skipLocationChange: true }).then();
   }
 
   loginNavigate() {
-    this.router.navigate(['/login'], { skipLocationChange: true });
+    this.router.navigate(['/login'], { skipLocationChange: true }).then();
   }
 
 }
