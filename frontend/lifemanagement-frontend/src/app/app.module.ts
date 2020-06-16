@@ -27,6 +27,7 @@ import { AuthGuardService as AuthGuard } from './core/services/auth-guard.servic
 import {HeaderModule} from './header/header.module';
 import {HelpDialogModule} from './help-dialog/help-dialog.module';
 import {HomeModule} from './home/home.module';
+import {ImprintModule} from './imprint/imprint.module';
 import {LoginModule} from './login/login.module';
 import {LoggingModule} from './logs/logging.module';
 import {NavigationModule} from './navigation/navigation.module';
@@ -73,6 +74,7 @@ registerLocaleData(localeEn);
         }
     }),
     ToastMessageModule,
+    ImprintModule
   ],
   providers: [
     LanguageConfig,
