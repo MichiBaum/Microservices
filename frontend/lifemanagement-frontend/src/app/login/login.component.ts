@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnChanges {
 
   @Input() onLoginSuccess = () => {
     this.loginService.emitLogin();
-    this.routernavigationService.loginNavigate();
+    this.routernavigationService.homeNavigate();
   }
 
   ngOnInit(): void {}
