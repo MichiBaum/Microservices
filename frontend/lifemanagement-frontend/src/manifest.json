@@ -1,14 +1,14 @@
 {
-  "name": "lifemanagement-frontend",
-  "short_name": "lifemanagement-frontend",
-  "theme_color": "#1976d2",
+  "name": "Lifemanagement",
+  "short_name": "Lifemanagement",
+  "theme_color": "#e91224",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/lifemanagement",
+  "start_url": "/lifemanagement",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": "assets/icons/favicon.png",
       "type": "image/png"
     }
   ]
