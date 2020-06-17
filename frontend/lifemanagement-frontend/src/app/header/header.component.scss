@@ -8,10 +8,6 @@
   text-align: center;
 }
 
-.header-title-color{
-  color: $header-title-color
-}
-
 :host {
   ::ng-deep .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight {
     background-color: white !important;

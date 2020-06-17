@@ -1,3 +1,4 @@
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Component, OnInit} from '@angular/core';
 import {LanguageConfig} from '../core/language.config';
 import {IPrimeNgBase} from '../core/models/primeng-base.model';
@@ -6,7 +7,7 @@ import {AuthService} from '../core/services/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
 
