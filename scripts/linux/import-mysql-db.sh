@@ -1,1 +1,0 @@
-cat /lifemanagement/database/backup/$0 | docker exec -i lifemanagement-database /usr/bin/mysql -u root --password=root lifemanagement

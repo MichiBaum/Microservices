@@ -1,6 +1,4 @@
 Script to start on linux
 
-- Script to start docker-compose (with database restore)
-- Script to remove docker-compose (with db backup)
-- Script to backup database
-- Script to restore database
+- Script to start docker-compose
+- Script to remove docker-compose

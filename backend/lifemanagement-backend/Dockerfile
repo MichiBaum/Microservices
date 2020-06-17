@@ -13,4 +13,10 @@ FROM openjdk:11-jre-slim
 MAINTAINER Michael Baumberger
 WORKDIR /app
 COPY --from=MAVEN_BUILD /build/target/lifemanagement.jar /app/
-ENTRYPOINT ["java", "-jar", "lifemanagement.jar"]
+
+## THE LIFE SAVER
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.6.0/wait /wait
+RUN chmod +x /wait
+
+## Launch the wait tool and then your application
+CMD /wait && java - jar lifemanagement.jar

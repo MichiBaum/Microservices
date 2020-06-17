@@ -13,6 +13,8 @@ services:
       MYSQL_USER: 'lifemanagement-user'
       MYSQL_PASSWORD: 'qwermnbvqw1212'
       MYSQL_ROOT_PASSWORD: 'root'
+    volumes: 
+      - /lifemanagement/database/backup/:/var/lib/mysql
     networks: 
       - reverse-proxy-network
 
@@ -22,6 +24,8 @@ services:
     restart: always
     expose:
     - "80"
+    environment:
+      WAIT_HOSTS: mysql:3306
     build:
       context: ./backend/lifemanagement-backend
       dockerfile: Dockerfile
