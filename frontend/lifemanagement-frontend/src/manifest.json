@@ -4,4 +4,12 @@
   "theme_color": "#e91224",
   "background_color": "#fafafa",
   "display": "standalone",
+  "scope": "/lifemanagement",
+  "start_url": "/lifemanagement",
+  "icons": [
+    {
+      "src": "assets/icons/favicon.png",
+      "type": "image/png"
+    }
+  ]
 }
