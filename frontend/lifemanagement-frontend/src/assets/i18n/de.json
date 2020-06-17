@@ -11,7 +11,9 @@
     "search": "Suchen",
     "save": "Speichern",
     "available": "Verfügbar",
-    "selected": "Ausgewählt"
+    "selected": "Ausgewählt",
+    "translation-title": "Übersetzung",
+    "translation-description": "Diese Applikation/Webseite wurde auf Deutsch geschrieben. Alle anderen Sprachen, welche zur Verfügung stehen wurden nicht von Menschen übersetzt und können deswegen Übersetzungsfehler beinhalten."
   },
   "navigation": {
     "usersettings": "Benutzereinstellungen",

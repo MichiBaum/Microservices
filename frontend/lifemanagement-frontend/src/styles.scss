@@ -2,14 +2,3 @@
 
 $header-background-color: #e91224;
 $header-title-color: #FFFFFF;
-
-body {
-  * {
-    &:focus, &.focus,
-    &:active, &.active {
-      outline: transparent none 0 !important;
-      box-shadow: 0 0 0 0 rgba(0,123,255,0) !important;
-      -webkit-box-shadow: none !important;
-    }
-  }
-}

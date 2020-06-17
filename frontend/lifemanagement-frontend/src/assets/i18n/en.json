@@ -11,7 +11,9 @@
     "search": "search",
     "save": "save",
     "available": "available",
-    "selected": "selected"
+    "selected": "selected",
+    "translation-title": "Translation",
+    "translation-description": "This application / website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors."
   },
   "navigation": {
     "usersettings": "usersettings",
