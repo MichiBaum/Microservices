@@ -1,13 +1,12 @@
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 import {Message} from 'primeng';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {ToastMessageService} from '../../toast-message/toast-message.service';
 import {DefaultErrorHandler} from '../error-handlers/default-error.handler';
-import {HttpErrorResponseHandler} from '../error-handlers/http-error-response.handler';
+import {IHttpErrorResponseHandler} from '../error-handlers/i-http-error-response.handler';
 import {ToastMessageSeverity} from '../models/enum/toast-message-severity.enum';
 
 const contentTypeJson = {
@@ -29,7 +28,7 @@ export class ApiService {
     path: string,
     cacheable = true,
     params: any = new HttpParams(),
-    errorHandler: HttpErrorResponseHandler = this.defaultErrorHandler
+    errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
     return this.http.get(`${environment.api_url}${path}`, {params}).pipe(
       tap ( x => {
@@ -54,7 +53,7 @@ export class ApiService {
   postAll = (
     path: string,
     body: any = new HttpParams(),
-    errorHandler: HttpErrorResponseHandler = this.defaultErrorHandler
+    errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
     return this.http.post(`${environment.api_url}${path}`, body, contentTypeJson).pipe(
       catchError((error) => errorHandler.handle(error))

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateFormat} from '../core/models/enum/date-format.enum';
 import {PermissionEnum} from '../core/models/enum/permission.enum';
-import {Permission} from '../core/models/permission.model';
-import {PrimeNgBase} from '../core/models/primeng-base.model';
-import {ExportUser, User} from '../core/models/user.model';
+import {IPermission} from '../core/models/permission.model';
+import {IPrimeNgBase} from '../core/models/primeng-base.model';
+import {IExportUser, IUser} from '../core/models/user.model';
 import {AuthService} from '../core/services/auth.service';
 import {DateService} from '../core/services/date.service';
 import {LoginService} from '../login/login.service';
@@ -18,16 +18,16 @@ import {UserService} from './user.service';
 })
 export class UsersettingsComponent implements OnInit {
 
-  dateFormats: PrimeNgBase[];
-  selectedDateFormat: PrimeNgBase;
+  dateFormats: IPrimeNgBase[];
+  selectedDateFormat: IPrimeNgBase;
 
   hasPermissionUserManagement = false;
-  users: PrimeNgBase[] = [];
-  selectedUser: User;
+  users: IPrimeNgBase[] = [];
+  selectedUser: IUser;
   myUserId: number;
-  availablePermissions: Permission[] = [];
+  availablePermissions: IPermission[] = [];
 
-  changeableUser: User;
+  changeableUser: IUser;
   newPassword = '';
 
   loginModalVisible = false;
@@ -55,15 +55,15 @@ export class UsersettingsComponent implements OnInit {
     this.loadUsers();
   }
 
-  private initDateFormats = (): PrimeNgBase[] => {
-    const dateFormats: PrimeNgBase[] = [];
+  private initDateFormats = (): IPrimeNgBase[] => {
+    const dateFormats: IPrimeNgBase[] = [];
     for (const dateFormat of Object.keys(DateFormat)) {
       dateFormats.push(
         {
           field: dateFormat,
           label: 'dateFormat.' + dateFormat,
           value: dateFormat
-        } as PrimeNgBase);
+        } as IPrimeNgBase);
     }
     return dateFormats;
   }
@@ -79,7 +79,7 @@ export class UsersettingsComponent implements OnInit {
         field: localStorageDateFormat,
         label: 'dateFormat.' + localStorageDateFormat,
         value: localStorageDateFormat
-      } as PrimeNgBase;
+      } as IPrimeNgBase;
     }
   }
 
@@ -87,18 +87,18 @@ export class UsersettingsComponent implements OnInit {
     const observableMe = this.userService.getMe();
     observableMe.subscribe((value) => this.myUserId = value.id);
     if (this.hasPermissionUserManagement) {
-      this.userService.getAll().subscribe( (users: User[]) => {
-        users.forEach((user: User) => {
-          this.users.push({label: user.name, field: user.name, value: user} as PrimeNgBase);
+      this.userService.getAll().subscribe( (users: IUser[]) => {
+        users.forEach((user: IUser) => {
+          this.users.push({label: user.name, field: user.name, value: user} as IPrimeNgBase);
         });
       });
       return;
     }
-    observableMe.subscribe((value) => this.users.push({label: value.name, field: value.name, value} as PrimeNgBase));
+    observableMe.subscribe((value) => this.users.push({label: value.name, field: value.name, value} as IPrimeNgBase));
   }
 
   userChanged(event: any) {
-    const user: User = event.value as User;
+    const user: IUser = event.value as IUser;
     this.changeableUser = JSON.parse(JSON.stringify(user));
     this.newPassword = '';
     if (this.hasPermissionUserManagement) {
@@ -122,16 +122,16 @@ export class UsersettingsComponent implements OnInit {
       });
   }
 
-  private replaceUserInUsers(user: User) {
+  private replaceUserInUsers(user: IUser) {
     const index = this.users.findIndex((primeNgBase) => primeNgBase.value.id === user.id);
     if (index !== -1) {
-      this.users[index] = {label: user.name, field: user.name, value: user} as PrimeNgBase;
+      this.users[index] = {label: user.name, field: user.name, value: user} as IPrimeNgBase;
       this.selectedUser = this.users[index].value;
       this.newPassword = '';
     }
   }
 
-  private toExportUser = (user: User): ExportUser => {
+  private toExportUser = (user: IUser): IExportUser => {
     return {
       id: user.id,
       name: user.name,
@@ -140,7 +140,7 @@ export class UsersettingsComponent implements OnInit {
       enabled: user.enabled,
       lastLogin: user.lastLogin,
       permissions: user.permissions.map( (permission) => permission.id )
-    } as ExportUser;
+    } as IExportUser;
   }
 
   private needsLogin = (): boolean => {

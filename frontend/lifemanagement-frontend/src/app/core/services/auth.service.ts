@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/internal/operators/tap';
 import {PermissionEnum} from '../models/enum/permission.enum';
-import {JWT} from '../models/jwt.model';
+import {IJWT} from '../models/jwt.model';
 import {ApiService} from './api.service';
 import {RouternavigationService} from './routernavigation.service';
 import {SessionStorageService} from './session-storage.service';
@@ -12,7 +12,7 @@ import {SessionStorageService} from './session-storage.service';
 })
 export class AuthService {
 
-  private activeToken: JWT;
+  private activeToken: IJWT;
 
   constructor(
     private apiService: ApiService,
@@ -27,7 +27,7 @@ export class AuthService {
       .pipe(tap((res) => this.setSession(res)));
   }
 
-  private setSession = (authResult: JWT): void => {
+  private setSession = (authResult: IJWT): void => {
     if (authResult.token) {
       this.activeToken = authResult;
       this.sessionStorageService.setKeyAndValue('jwt', JSON.stringify(authResult));

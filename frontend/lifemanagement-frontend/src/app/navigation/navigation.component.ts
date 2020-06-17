@@ -5,8 +5,8 @@ import {MenuItem} from 'primeng';
 import {LanguageConfig} from '../core/language.config';
 import {PermissionEnum} from '../core/models/enum/permission.enum';
 import {AuthService} from '../core/services/auth.service';
+import {RouternavigationService} from '../core/services/routernavigation.service';
 import {LoginService} from '../login/login.service';
-import {RouternavigationService} from "../core/services/routernavigation.service";
 
 @Component({
   selector: 'app-navigation',

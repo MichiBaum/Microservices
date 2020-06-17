@@ -1,15 +1,15 @@
-import {Permission} from './permission.model';
+import {IPermission} from './permission.model';
 
-export interface User {
+export interface IUser {
   id: number;
   name: string;
   emailAddress: string;
   enabled: boolean;
   lastLogin: number;
-  permissions: Permission[];
+  permissions: IPermission[];
 }
 
-export interface ExportUser {
+export interface IExportUser {
   id: number;
   name: string;
   emailAddress: string;

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LanguageConfig} from '../core/language.config';
-import {PrimeNgBase} from '../core/models/primeng-base.model';
+import {IPrimeNgBase} from '../core/models/primeng-base.model';
 import {AuthService} from '../core/services/auth.service';
 
 @Component({
@@ -10,8 +10,8 @@ import {AuthService} from '../core/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  languages: PrimeNgBase[];
-  selectedLanguage: PrimeNgBase;
+  languages: IPrimeNgBase[];
+  selectedLanguage: IPrimeNgBase;
 
   constructor(public languageConfig: LanguageConfig, public authService: AuthService) { }
 
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   initLanguages = () => {
     this.languages = this.languageConfig.languages.map((lang) => {
-      return {label: lang.name, field: lang.isoCode, value: lang.isoCode} as PrimeNgBase;
+      return {label: lang.name, field: lang.isoCode, value: lang.isoCode} as IPrimeNgBase;
     });
   }
 
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  private initSelectedLanguage = (): PrimeNgBase => {
-    return {field: this.languageConfig.current.isoCode, label: this.languageConfig.current.name} as PrimeNgBase;
+  private initSelectedLanguage = (): IPrimeNgBase => {
+    return {field: this.languageConfig.current.isoCode, label: this.languageConfig.current.name} as IPrimeNgBase;
   }
 }

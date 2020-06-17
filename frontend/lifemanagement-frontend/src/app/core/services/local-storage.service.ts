@@ -1,7 +1,7 @@
 import {Injectable, Injector} from '@angular/core';
 import {AppService} from '../../app.service';
 import {LogLevel} from '../models/enum/logLevel.enum';
-import {ExportLog} from '../models/log.model';
+import {IExportLog} from '../models/log.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class LocalStorageService {
 
   private logException = (exception, method: string) => {
     const appService = this.injector.get(AppService);
-    const log: ExportLog = {
+    const log: IExportLog = {
       loggerName: 'angular',
       date: Date.now(),
       callerClass: 'LocalStorageService',

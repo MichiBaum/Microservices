@@ -1,6 +1,6 @@
 import {PermissionEnum} from './enum/permission.enum';
 
-export interface JWT {
+export interface IJWT {
   headerName: string;
   token: string;
   expiresAt: number;

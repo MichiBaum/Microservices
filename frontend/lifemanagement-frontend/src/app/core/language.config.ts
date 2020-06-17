@@ -1,32 +1,32 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Language} from './models/language.model';
+import {ILanguage} from './models/language.model';
 
-export const languages: Language[] = [
+export const languages: ILanguage[] = [
   {
     name: 'language.english',
     isoCode: 'en'
-  } as Language
+  } as ILanguage
   , {
     name: 'language.german',
     isoCode: 'de'
-  } as Language
+  } as ILanguage
 ];
 
-export const defaultLanguage: Language = {
+export const defaultLanguage: ILanguage = {
   name: 'language.english',
   isoCode: 'en'
-} as Language;
+} as ILanguage;
 
 @Injectable()
 export class LanguageConfig {
 
   localStorageKey = 'languageIso';
-  languages: Language[];
-  current: Language;
-  defaultLanguage: Language;
+  languages: ILanguage[];
+  current: ILanguage;
+  defaultLanguage: ILanguage;
 
-  @Output() languageChanged: EventEmitter<Language> = new EventEmitter<Language>();
+  @Output() languageChanged: EventEmitter<ILanguage> = new EventEmitter<ILanguage>();
 
   constructor(
     public translate: TranslateService
@@ -37,7 +37,7 @@ export class LanguageConfig {
     this.setInitLanguage();
   }
 
-  setLanguage = (language: Language) => {
+  setLanguage = (language: ILanguage) => {
     localStorage.setItem(this.localStorageKey, language.isoCode);
     this.current = language;
     this.translate.use(language.isoCode);
@@ -60,19 +60,19 @@ export class LanguageConfig {
     this.setLanguage(this.languages[0]);
   }
 
-  private getBrowserLanguage = (): Language => {
+  private getBrowserLanguage = (): ILanguage => {
     const browserLanguage = this.translate.getBrowserLang();
     return this.getFromList(browserLanguage);
   }
 
-  private fromLocalStorage = (): Language => {
+  private fromLocalStorage = (): ILanguage => {
     const language = localStorage.getItem(this.localStorageKey);
     if (language) {
       return this.getFromList(language);
     }
   }
 
-  private getFromList = (isoCode: string): Language => {
+  private getFromList = (isoCode: string): ILanguage => {
     return this.languages.find((curr) => curr.isoCode === isoCode);
   }
 }

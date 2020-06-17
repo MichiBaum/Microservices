@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng';
-import {LogFilter} from '../core/models/log-filter.model';
-import {Log} from '../core/models/log.model';
-import {PrimeNgBase} from '../core/models/primeng-base.model';
+import {ILogFilter} from '../core/models/log-filter.model';
+import {ILog} from '../core/models/log.model';
+import {IPrimeNgBase} from '../core/models/primeng-base.model';
 import {LocalStorageService} from '../core/services/local-storage.service';
 import {SessionStorageService} from '../core/services/session-storage.service';
 import {LoggingService} from './logging.service';
@@ -14,14 +14,14 @@ import {LoggingService} from './logging.service';
 })
 export class LoggingComponent implements OnInit {
 
-  logs: Log[];
+  logs: ILog[];
 
-  tableCols: PrimeNgBase[];
-  visibleSelectedColumns: PrimeNgBase[];
-  selectedLog: Log;
+  tableCols: IPrimeNgBase[];
+  visibleSelectedColumns: IPrimeNgBase[];
+  selectedLog: ILog;
 
-  levels: PrimeNgBase[];
-  selectedLevels: PrimeNgBase[] = [];
+  levels: IPrimeNgBase[];
+  selectedLevels: IPrimeNgBase[] = [];
 
   localStorageKeyVisibleSelectedColumns = 'visibleSelectedColumnsLogs';
   seenInputSwitch = false;
@@ -52,15 +52,15 @@ export class LoggingComponent implements OnInit {
   }
 
   searchLogs = (): void => {
-    const filter: LogFilter = {level: this.selectedLevels.map((value) => value.label), seen: this.seenInputSwitch};
+    const filter: ILogFilter = {level: this.selectedLevels.map((value) => value.label), seen: this.seenInputSwitch};
     this.loggingService.getLogs(filter).toPromise().then((logs) => this.logs = logs);
   }
 
-  private getLevels = (): PrimeNgBase | undefined => {
+  private getLevels = (): IPrimeNgBase | undefined => {
     this.loggingService.getAllLevels().toPromise().then((levels) => {
       const levelArray = levels as string[];
       this.levels = levelArray.map((level) => {
-        return {label: level, field: level} as PrimeNgBase;
+        return {label: level, field: level} as IPrimeNgBase;
       });
     });
     return undefined;
@@ -72,27 +72,27 @@ export class LoggingComponent implements OnInit {
     ];
   }
 
-  initCols = (): PrimeNgBase[] => {
+  initCols = (): IPrimeNgBase[] => {
     return [
-      {field: 'id', label: 'log.id'} as PrimeNgBase,
-      {field: 'date', label: 'log.date'} as PrimeNgBase,
-      {field: 'formattedMessage', label: 'log.formattedMessage'} as PrimeNgBase,
-      {field: 'loggerName', label: 'log.loggerName'} as PrimeNgBase,
-      {field: 'level', label: 'log.level'} as PrimeNgBase,
-      {field: 'threadName', label: 'log.threadName'} as PrimeNgBase,
-      {field: 'arg0', label: 'log.arg0'} as PrimeNgBase,
-      {field: 'arg1', label: 'log.arg1'} as PrimeNgBase,
-      {field: 'arg2', label: 'log.arg2'} as PrimeNgBase,
-      {field: 'arg3', label: 'log.arg3'} as PrimeNgBase,
-      {field: 'callerFilename', label: 'log.callerFilename'} as PrimeNgBase,
-      {field: 'callerClass', label: 'log.callerClass'} as PrimeNgBase,
-      {field: 'callerMethod', label: 'log.callerMethod'} as PrimeNgBase,
-      {field: 'callerLine', label: 'log.callerLine'} as PrimeNgBase,
-      {field: 'seen', label: 'log.seen'} as PrimeNgBase,
+      {field: 'id', label: 'log.id'} as IPrimeNgBase,
+      {field: 'date', label: 'log.date'} as IPrimeNgBase,
+      {field: 'formattedMessage', label: 'log.formattedMessage'} as IPrimeNgBase,
+      {field: 'loggerName', label: 'log.loggerName'} as IPrimeNgBase,
+      {field: 'level', label: 'log.level'} as IPrimeNgBase,
+      {field: 'threadName', label: 'log.threadName'} as IPrimeNgBase,
+      {field: 'arg0', label: 'log.arg0'} as IPrimeNgBase,
+      {field: 'arg1', label: 'log.arg1'} as IPrimeNgBase,
+      {field: 'arg2', label: 'log.arg2'} as IPrimeNgBase,
+      {field: 'arg3', label: 'log.arg3'} as IPrimeNgBase,
+      {field: 'callerFilename', label: 'log.callerFilename'} as IPrimeNgBase,
+      {field: 'callerClass', label: 'log.callerClass'} as IPrimeNgBase,
+      {field: 'callerMethod', label: 'log.callerMethod'} as IPrimeNgBase,
+      {field: 'callerLine', label: 'log.callerLine'} as IPrimeNgBase,
+      {field: 'seen', label: 'log.seen'} as IPrimeNgBase,
     ];
   }
 
-  setSeen = (log: Log) => {
+  setSeen = (log: ILog) => {
     this.loggingService.setSeen(log.id, !log.seen).subscribe(
       () => {
         const index = this.logs.findIndex((searchlog) => searchlog.id === log.id);
@@ -109,12 +109,12 @@ export class LoggingComponent implements OnInit {
       this.visibleSelectedColumns.map((a) => a.label).join());
   }
 
-  private loadvisibleSelectedColumns = (): PrimeNgBase[] => {
+  private loadvisibleSelectedColumns = (): IPrimeNgBase[] => {
     const localStorageString = this.localStorageService.getValue(this.localStorageKeyVisibleSelectedColumns);
     if (localStorageString) {
       const stringarray = localStorageString.substring(0, localStorageString.length).split(',');
       return stringarray.map((value) => {
-        const tableobject: PrimeNgBase = {field: value.substr(4, value.length - 1), label: value};
+        const tableobject: IPrimeNgBase = {field: value.substr(4, value.length - 1), label: value};
         return tableobject;
       });
     }

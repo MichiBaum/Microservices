@@ -2,15 +2,15 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AuthErrorResponseHandler} from './auth-error-response.handler';
-import {HttpErrorResponseHandler} from './http-error-response.handler';
+import {IHttpErrorResponseHandler} from './i-http-error-response.handler';
 import {NoConnectionErrorHandler} from './no-connection-error.handler';
 import {ServerSideErrorHandler} from './server-side-error.handler';
 import {ValidationErrorHandler} from './validation-error.handler';
 
 @Injectable()
-export class DefaultErrorHandler implements HttpErrorResponseHandler {
+export class DefaultErrorHandler implements IHttpErrorResponseHandler {
 
-  handlers: HttpErrorResponseHandler[];
+  handlers: IHttpErrorResponseHandler[];
 
   constructor(
     private validationErrorHandler: ValidationErrorHandler,

@@ -1,7 +1,7 @@
-import {MessageType} from './message-type.model';
+import {IMessageType} from './message-type.model';
 
-export interface Message {
-  type: MessageType;
+export interface IMessage {
+  type: IMessageType;
   message: string;
   blocking?: boolean;
 }

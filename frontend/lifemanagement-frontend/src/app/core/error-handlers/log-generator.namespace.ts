@@ -2,13 +2,13 @@ import {MissingTranslationHandlerParams} from '@ngx-translate/core';
 import {Message} from 'primeng';
 import {LogLevel} from '../models/enum/logLevel.enum';
 import {ToastMessageSeverity} from '../models/enum/toast-message-severity.enum';
-import {ExportLog} from '../models/log.model';
+import {IExportLog} from '../models/log.model';
 
 export namespace LogGenerator {
 
   export function createLog(
     error: Error
-  ): ExportLog {
+  ): IExportLog {
     return {
       loggerName: 'angular',
       date: Date.now(),
@@ -18,13 +18,13 @@ export namespace LogGenerator {
       callerMethod: 'handleError',
       formattedMessage: error.message ? error.message : error.toString(),
       level: LogLevel.ERROR
-    } as ExportLog;
+    } as IExportLog;
   }
 
   export function createTranslationLog(
     params: MissingTranslationHandlerParams,
     language: string
-  ): ExportLog {
+  ): IExportLog {
     return {
       loggerName: 'angular',
       date: Date.now(),
@@ -35,7 +35,7 @@ export namespace LogGenerator {
       callerMethod: 'handle',
       formattedMessage: 'Missing text for: ' + params.key + ' with language ' + language,
       level: LogLevel.ERROR
-    } as ExportLog;
+    } as IExportLog;
   }
 
   export function createToastError(
@@ -50,4 +50,3 @@ export namespace LogGenerator {
   }
 
 }
-

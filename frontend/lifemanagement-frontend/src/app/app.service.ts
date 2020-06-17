@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ExportLog} from './core/models/log.model';
+import {IExportLog} from './core/models/log.model';
 import {ApiService} from './core/services/api.service';
 
 @Injectable({
@@ -8,7 +8,7 @@ import {ApiService} from './core/services/api.service';
 export class AppService {
   constructor(private apiService: ApiService) { }
 
-  log = (log: ExportLog) => {
+  log = (log: IExportLog) => {
     this.apiService.postAll('/logs', log)
       .toPromise()
       .then(() => {console.log('sending log to backend success'); })

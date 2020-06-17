@@ -1,4 +1,4 @@
-export interface Log {
+export interface ILog {
   id: number;
   date: number;
   formattedMessage: string;
@@ -16,7 +16,7 @@ export interface Log {
   seen: boolean;
 }
 
-export interface ExportLog {
+export interface IExportLog {
   id?: number;
   date: number;
   formattedMessage: string;

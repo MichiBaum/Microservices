@@ -1,4 +1,4 @@
-export interface LogFilter {
+export interface ILogFilter {
   level: string[];
   seen: boolean;
 }

@@ -7,10 +7,10 @@ import { ImprintComponent } from './imprint.component';
   declarations: [
     ImprintComponent
   ],
-	imports: [
-		CommonModule,
-		TranslateModule
-	],
+  imports: [
+    CommonModule,
+    TranslateModule
+  ],
   exports: [
     ImprintComponent
   ]
