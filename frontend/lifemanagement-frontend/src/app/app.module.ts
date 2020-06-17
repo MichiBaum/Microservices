@@ -9,32 +9,18 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {
-  MessageService,
-} from 'primeng';
+import {MessageService} from 'primeng';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AppService} from './app.service';
 import {appInitializerProviders} from './core/app-initializer-provider';
-import {CoreModule} from './core/core.module';
 import {GlobalErrorHandler} from './core/error-handlers/global-error.handler';
 import {TranslateErrorHandler} from './core/error-handlers/translate-error.handler';
 import {LanguageConfig} from './core/language.config';
-import {PipeModule} from './core/pipes/pipe.module';
 import {httpInterceptorProviders} from './core/security/http-interceptors';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
-import {HeaderModule} from './header/header.module';
-import {HelpDialogModule} from './help-dialog/help-dialog.module';
-import {HomeModule} from './home/home.module';
-import {ImprintModule} from './imprint/imprint.module';
-import {LoginModule} from './login/login.module';
-import {LoggingModule} from './logs/logging.module';
-import {NavigationModule} from './navigation/navigation.module';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import {PrivacyPolicyModule} from './privacy-policy/privacy-policy.module';
-import {ToastMessageModule} from './toast-message/toast-message.module';
-import {UsersettingsModule} from './usersettings/usersettings.module';
+import {MyModules} from './modules';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -51,15 +37,6 @@ registerLocaleData(localeEn);
     BrowserModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    CoreModule,
-    LoginModule,
-    HomeModule,
-    HeaderModule,
-    NavigationModule,
-    LoggingModule,
-    HelpDialogModule,
-    PipeModule,
-    UsersettingsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -75,9 +52,7 @@ registerLocaleData(localeEn);
           deps: [AppService]
         }
     }),
-    ToastMessageModule,
-    ImprintModule,
-    PrivacyPolicyModule
+    MyModules
   ],
   providers: [
     LanguageConfig,

@@ -7,9 +7,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./header-title.component.scss'],
   animations: [
     trigger('slideLeftMiddleRight', [
-      state('left', style({transform: 'translateX(-50%)'})),
-      state('middle', style({transform: 'translateX(0%)'})),
-      state('right', style({transform: 'translateX(50%)'})),
+      state('left', style({transform: 'translateX(-30%) rotate(-10deg)'})),
+      state('middle', style({transform: 'translateX(0%) rotate(0deg)'})),
+      state('right', style({transform: 'translateX(30%) rotate(10deg)'})),
       transition('left => middle', animate('500ms ease-in')),
       transition('middle => right', animate('500ms ease-in')),
       transition('right => left', animate('500ms ease-in'))
