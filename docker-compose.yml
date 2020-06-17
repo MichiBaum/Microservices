@@ -25,7 +25,7 @@ services:
     expose:
     - "80"
     environment:
-      WAIT_HOSTS: mysql:3306
+      WAIT_HOSTS: lifemanagement-database:3306
     build:
       context: ./backend/lifemanagement-backend
       dockerfile: Dockerfile
