@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateFormat} from '../core/models/enum/date-format.enum';
 import {PermissionEnum} from '../core/models/enum/permission.enum';
@@ -16,7 +16,7 @@ import {UserService} from './user.service';
   templateUrl: './usersettings.component.html',
   styleUrls: ['./usersettings.component.scss']
 })
-export class UsersettingsComponent implements OnInit, OnDestroy {
+export class UsersettingsComponent implements OnInit {
 
   dateFormats: IPrimeNgBase[];
   selectedDateFormat: IPrimeNgBase;
@@ -53,10 +53,6 @@ export class UsersettingsComponent implements OnInit, OnDestroy {
     this.selectedDateFormat = this.initSelectedDateFormat();
     this.hasPermissionUserManagement = this.authService.hasAnyPermission([PermissionEnum.USER_MANAGEMENT]);
     this.loadUsers();
-  }
-
-  ngOnDestroy() {
-    this.loginService.loginEmitter.unsubscribe();
   }
 
   private initDateFormats = (): IPrimeNgBase[] => {

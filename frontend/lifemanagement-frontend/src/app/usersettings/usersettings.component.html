@@ -120,8 +120,15 @@
 
 </div>
 
-<p-dialog [(visible)]="loginModalVisible" [baseZIndex]="10000" [closable]="false"
-          [draggable]="true" [modal]="true" [resizable]="true" [style]="{width: loginDialogWidth}"
-          header="{{'login.login' | translate}}">
+<p-dialog
+  [(visible)]="loginModalVisible"
+  [baseZIndex]="10000"
+  [closable]="false"
+  [draggable]="true"
+  [modal]="true"
+  [resizable]="true"
+  [style]="{width: loginDialogWidth}"
+  header="{{'login.login' | translate}}"
+>
   <app-login [onLoginSuccess]="this.onLoginSuccess" [loginName]="changeableUser?.name" [loginNameDisabled]="true"></app-login>
 </p-dialog>
