@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: 'qwermnbvqw1212'
       MYSQL_ROOT_PASSWORD: 'root'
     volumes: 
-      - /lifemanagement/database/backup/:/var/lib/mysql
+      - /docker/lifemanagement/database/backup/:/var/lib/mysql
     networks: 
       - reverse-proxy-network
 
