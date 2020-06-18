@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MessageService} from 'primeng';
 import {ToastMessageService} from './toast-message.service';
 
@@ -7,7 +7,7 @@ import {ToastMessageService} from './toast-message.service';
   templateUrl: './toast-message.component.html',
   styleUrls: ['./toast-message.component.scss']
 })
-export class ToastMessageComponent implements OnInit {
+export class ToastMessageComponent implements OnInit, OnDestroy {
 
   constructor(
     private toastMessageService: ToastMessageService,
@@ -19,5 +19,9 @@ export class ToastMessageComponent implements OnInit {
   }
 
   ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    this.toastMessageService.toastMessageEmitter.unsubscribe();
+  }
 
 }

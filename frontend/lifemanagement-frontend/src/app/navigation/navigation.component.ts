@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {MenuItem} from 'primeng';
@@ -13,7 +13,7 @@ import {LoginService} from '../login/login.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
 
   navItems: MenuItem[];
   sidebarVisible: boolean;
@@ -38,6 +38,11 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.setItems();
+  }
+
+  ngOnDestroy(): void {
+    this.languageConfig.languageChanged.unsubscribe();
+    this.loginService.loginEmitter.unsubscribe();
   }
 
   setItems = (): void => {

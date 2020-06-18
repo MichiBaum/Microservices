@@ -38,6 +38,20 @@ export class LoginComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.loginName?.currentValue) {
+      this.loginForm.setValue({
+        username: changes.loginName.currentValue,
+        password: ''
+      });
+    }
+    if (changes?.loginNameDisabled?.currentValue) {
+      this.loginForm.controls.username.disable(
+        changes?.loginNameDisabled?.currentValue
+      );
+    }
+  }
+
   login = () => {
     this.enableUsernameIfDisabled();
     this.sendLoginRequest();
@@ -67,20 +81,6 @@ export class LoginComponent implements OnInit, OnChanges {
   private enableUsernameIfDisabled() {
     if (this.loginForm.controls.username.disabled) {
       this.loginForm.controls.username.enable();
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes?.loginName?.currentValue) {
-      this.loginForm.setValue({
-        username: changes.loginName.currentValue,
-        password: ''
-      });
-    }
-    if (changes?.loginNameDisabled?.currentValue) {
-      this.loginForm.controls.username.disable(
-        changes?.loginNameDisabled?.currentValue
-      );
     }
   }
 
