@@ -22,12 +22,11 @@ export class AuthService {
     this.activeToken = JSON.parse(this.sessionStorageService.getValue('jwt'));
   }
 
-  login = (username: string, password: string): Observable<any> => {
-    return this.apiService.postAll('/login', {username, password})
-      .pipe(tap((res) => this.setSession(res)));
+  login = (username: string, password: string): Observable<IJWT> => {
+    return this.apiService.postAll('/login', {username, password});
   }
 
-  private setSession = (authResult: IJWT): void => {
+  setSession = (authResult: IJWT): void => {
     if (authResult.token) {
       this.activeToken = authResult;
       this.sessionStorageService.setKeyAndValue('jwt', JSON.stringify(authResult));

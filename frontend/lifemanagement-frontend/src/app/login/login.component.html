@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
+<form [formGroup]="loginForm">
 
   <div class="ui-g p-dir-col p-justify-center p-align-center">
     <div class="ui-g-12 ui-md-4">
@@ -21,11 +21,10 @@
   <div class="ui-g p-dir-col p-justify-center p-align-center">
     <div class="ui-g-12 ui-md-4">
       <div class="ui-inputgroup p-justify-center">
-        <button type="submit" pButton [disabled]="!loginForm.valid" label="{{'login.login' | translate}}"></button>
+        <button pButton [disabled]="!loginForm.valid" label="{{'login.login' | translate}}" (click)="login()"></button>
       </div>
     </div>
   </div>
-
 
 </form>
 

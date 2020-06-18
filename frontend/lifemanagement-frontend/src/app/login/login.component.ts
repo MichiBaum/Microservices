@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {tap} from 'rxjs/internal/operators/tap';
 import {AuthService} from '../core/services/auth.service';
 import {RouternavigationService} from '../core/services/routernavigation.service';
 import {LoginService} from './login.service';
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit, OnChanges {
 
   @Input() loginNameDisabled = false;
 
-  @Input() onLoginSuccess = () => {
+  @Input() onLoginSuccess = (data: any) => {
+    this.authService.setSession(data);
     this.loginService.emitLogin();
     this.routernavigationService.homeNavigate();
   }
@@ -46,8 +48,11 @@ export class LoginComponent implements OnInit, OnChanges {
     this.authService.login(
       this.loginForm.value.username,
       this.loginForm.value.password
-    ).subscribe(() => {
-        this.onLoginSuccess();
+    ).subscribe(
+      (data) => {
+        if (data !== null && !Array.isArray(data)) {
+          this.onLoginSuccess(data);
+        }
         this.loginForm.reset();
       }
     );
