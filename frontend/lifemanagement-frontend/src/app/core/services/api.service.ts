@@ -30,7 +30,8 @@ export class ApiService {
     params: any = new HttpParams(),
     errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
-    console.log('get: ' + `${environment.api_url}${path}`) // TODO remove log
+    // tslint:disable-next-line:max-line-length
+    this.toastMessageService.emit([ { severity: ToastMessageSeverity.WARNING, summary: 'GET: ' + `${environment.api_url}${path}`, detail: 'GET: ' + `${environment.api_url}${path}`, life: 10000 } as Message ]); // TODO remove log
     return this.http.get(`${environment.api_url}${path}`, {params}).pipe(
       tap ( x => {
         if (cacheable) {
@@ -56,7 +57,8 @@ export class ApiService {
     body: any = new HttpParams(),
     errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
-    console.log('post: ' + `${environment.api_url}${path}`) // TODO remove log
+    // tslint:disable-next-line:max-line-length
+    this.toastMessageService.emit([ { severity: ToastMessageSeverity.WARNING, summary: 'POST: ' + `${environment.api_url}${path}`, detail: 'POST: ' + `${environment.api_url}${path}`, life: 10000 } as Message ]); // TODO remove log
     return this.http.post(`${environment.api_url}${path}`, body, contentTypeJson).pipe(
       catchError((error) => errorHandler.handle(error))
     );
@@ -70,7 +72,7 @@ export class ApiService {
         summary: 'error.cached.summary', // this.translate.instant('error.cached.summary') TODO Error: Cannot instantiate cyclic dependency! TranslateService
         // tslint:disable-next-line:max-line-length TODO remove
         detail: 'error.cached.detail', // this.translate.instant('error.cached.detail') TODO Error: Cannot instantiate cyclic dependency! TranslateService
-        life: 1000
+        life: 10000
       } as Message
     ]);
   }
