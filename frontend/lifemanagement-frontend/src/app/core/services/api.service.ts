@@ -30,6 +30,7 @@ export class ApiService {
     params: any = new HttpParams(),
     errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
+    console.log('get: ' + `${environment.api_url}${path}`) // TODO remove log
     return this.http.get(`${environment.api_url}${path}`, {params}).pipe(
       tap ( x => {
         if (cacheable) {
@@ -55,6 +56,7 @@ export class ApiService {
     body: any = new HttpParams(),
     errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
+    console.log('post: ' + `${environment.api_url}${path}`) // TODO remove log
     return this.http.post(`${environment.api_url}${path}`, body, contentTypeJson).pipe(
       catchError((error) => errorHandler.handle(error))
     );
