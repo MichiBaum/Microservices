@@ -30,8 +30,6 @@ export class ApiService {
     params: any = new HttpParams(),
     errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
-    // tslint:disable-next-line:max-line-length
-    this.toastMessageService.emit([ { severity: ToastMessageSeverity.WARNING, summary: 'GET: ' + `${environment.api_url}${path}`, detail: 'GET: ' + `${environment.api_url}${path}`, life: 10000 } as Message ]); // TODO remove log
     return this.http.get(`${environment.api_url}${path}`, {params}).pipe(
       tap ( x => {
         if (cacheable) {
@@ -57,8 +55,6 @@ export class ApiService {
     body: any = new HttpParams(),
     errorHandler: IHttpErrorResponseHandler = this.defaultErrorHandler
   ): Observable<any> => {
-    // tslint:disable-next-line:max-line-length
-    this.toastMessageService.emit([ { severity: ToastMessageSeverity.WARNING, summary: 'POST: ' + `${environment.api_url}${path}`, detail: 'POST: ' + `${environment.api_url}${path}`, life: 10000 } as Message ]); // TODO remove log
     return this.http.post(`${environment.api_url}${path}`, body, contentTypeJson).pipe(
       catchError((error) => errorHandler.handle(error))
     );
