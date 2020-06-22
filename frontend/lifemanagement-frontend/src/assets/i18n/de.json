@@ -38,6 +38,11 @@
       "detail": "Die Daten, welche angezeigt werden, wurden zwischengespeichert und sind vielleicht nicht mehr aktuell"
     }
   },
+  "permission": {
+    "USER_MANAGEMENT": "Benutzermanagement",
+    "SEE_LOGS": "Logs sehen",
+    "ADMIN": "Admin"
+  },
   "log": {
     "id": "ID",
     "date": "Datum",

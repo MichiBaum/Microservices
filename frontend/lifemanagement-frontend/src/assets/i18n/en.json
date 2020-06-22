@@ -38,6 +38,11 @@
       "detail": "The display data are cached and maybe not the latest"
     }
   },
+  "permission": {
+    "USER_MANAGEMENT": "usermanagement",
+    "SEE_LOGS": "see logs",
+    "ADMIN": "admin"
+  },
   "log": {
     "id": "ID",
     "date": "date",
