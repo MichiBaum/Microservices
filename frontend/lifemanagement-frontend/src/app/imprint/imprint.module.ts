@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
+import {CardModule} from 'primeng';
 import { ImprintComponent } from './imprint.component';
-import {CardModule} from "primeng";
 
 @NgModule({
   declarations: [
