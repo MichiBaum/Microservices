@@ -18,6 +18,7 @@
           <p-multiSelect
             [options]="tableCols"
             [(ngModel)]="visibleSelectedColumns"
+            [maxSelectedLabels]="2"
             optionLabel="label"
             [style]="{minWidth: '200px'}"
             (onChange)="visibleColsChanged()"
