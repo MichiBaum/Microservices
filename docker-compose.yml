@@ -12,7 +12,7 @@ services:
       MYSQL_DATABASE: 'lifemanagement'
       MYSQL_USER: 'lifemanagement-user'
       MYSQL_PASSWORD: 'qwermnbvqw1212'
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'sdfvobe345+2dvb'
     volumes: 
       - lifemanagement-database_backup:/var/lib/mysql
     networks: 
