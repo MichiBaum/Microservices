@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {MenuItem} from 'primeng';
+import {LanguageConfig} from '../core/language.config';
 import {ILogFilter} from '../core/models/log-filter.model';
 import {ILog} from '../core/models/log.model';
 import {IPrimeNgBase} from '../core/models/primeng-base.model';
@@ -40,8 +42,14 @@ export class LoggingComponent implements OnInit {
   constructor(
     private loggingService: LoggingService,
     private localStorageService: LocalStorageService,
-    private sessionStorageService: SessionStorageService
-  ) { }
+    private sessionStorageService: SessionStorageService,
+    private languageConfig: LanguageConfig,
+    private translate: TranslateService
+  ) {
+    this.languageConfig.languageChanged.subscribe(() => {
+      this.logContextMenuItems = this.initLogContextMenuItems();
+    });
+  }
 
   ngOnInit(): void {
     this.tableCols = this.initCols();
@@ -68,7 +76,7 @@ export class LoggingComponent implements OnInit {
 
   initLogContextMenuItems = (): MenuItem[] => {
     return [
-      {label: 'log.seen', icon: 'pi pi-search', command: () => this.setSeen(this.selectedLog)} as MenuItem,
+      {label: this.translate.instant('log.seen'), icon: 'pi pi-search', command: () => this.setSeen(this.selectedLog)} as MenuItem,
     ];
   }
 
