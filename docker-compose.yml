@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: 'qwermnbvqw1212'
       MYSQL_ROOT_PASSWORD: 'sdfvobe345+2dvb'
     volumes: 
-      - lifemanagement-database_backup:/var/lib/mysql
+      - /docker/lifemanagement/database/backup/:/var/lib/mysql
     networks: 
       - reverse-proxy-network
 
@@ -49,13 +49,6 @@ services:
       - lifemanagement-backend
     networks: 
       - reverse-proxy-network
-
-volumes: 
-  lifemanagement-database_backup:
-    driver_opts:
-      type: none
-      device: /docker/lifemanagement/database/backup/
-      o: bind
 
 networks:
   reverse-proxy-network:
