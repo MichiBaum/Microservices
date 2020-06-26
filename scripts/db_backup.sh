@@ -17,9 +17,9 @@ if [ -d "$DIR" ]; then
   echo "Directory ${DIR} exists"
   if [ -z "$(ls -A -- "$DIR")" ]; then
     $BACKUP = find $DIRBACKUP -mindepth 1 -maxdepth 1 -type d | sort -rn | head -1
-    tar zxvf $BACKUP -C $DIR
+    tar zxvf $BACKUP --directory $DIR
   else
-    tar zcvfP $DATETIME.tar.gz $DIRBACKUP
+    tar zcvfP $DATETIME.tar.gz --directory $DIRBACKUP
   fi
   exit 1
 else
@@ -28,7 +28,7 @@ else
   mkdir -p $DIR
   echo "Directory ${DIR} created"
   $BACKUP = find $DIRBACKUP -mindepth 1 -maxdepth 1 -type d | sort -rn | head -1
-  tar zxvf $BACKUP -C $DIR
+  tar zxvf $BACKUP --directory $DIR
   exit 1
 fi
 exit 1
