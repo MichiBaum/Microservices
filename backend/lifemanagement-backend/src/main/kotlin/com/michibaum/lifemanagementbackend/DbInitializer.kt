@@ -45,19 +45,22 @@ class DbInitializer(
 
     @PostConstruct
     private fun initialize() {
-        logger.info("user password is '$userPassword'")
-        logger.info("admin password is '$adminPassword'")
 
         when (systemEnvironment) {
             "dev" -> {
+                logger.info("user password is '$userPassword'")
+                logger.info("admin password is '$adminPassword'")
                 user = user.let(saveUser)
                 admin = admin.let(saveUser)
             }
             "dev_h2" -> {
+                logger.info("user password is '$userPassword'")
+                logger.info("admin password is '$adminPassword'")
                 user = user.let(saveUser)
                 admin = admin.let(saveUser)
             }
             "docker" -> {
+                logger.info("admin password is '$adminPassword'")
                 admin = admin.let(saveUser)
             }
         }
