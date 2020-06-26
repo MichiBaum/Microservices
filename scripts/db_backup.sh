@@ -19,7 +19,7 @@ if [ -d "$DIR" ]; then
     $BACKUP = find $DIRBACKUP -mindepth 1 -maxdepth 1 -type d | sort -rn | head -1
     tar zxvf $BACKUP --directory $DIR
   else
-    tar zcvfP $DATETIME.tar.gz $DIRBACKUP
+    tar zcvf $DATETIME.tar.gz $DIRBACKUP
   fi
   exit 1
 else
