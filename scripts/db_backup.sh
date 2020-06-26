@@ -2,7 +2,7 @@
 
 DIR="/docker/lifemanagement/database/backup/"
 DIRBACKUP="/docker/lifemanagement/database/db_backup/"
-DATETIME=date +%Y%m%d%H%M%S
+DATETIME=$(date +%Y%m%d%H%M%S)
 
 if [ -d "$DIRBACKUP" ]; then
   echo "Directory ${DIRBACKUP} exists"
