@@ -200,6 +200,7 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
                 <configuration>
+                    <jvmTarget>11</jvmTarget>
                     <compilerPlugins>
                         <!-- Or "spring" for the Spring support -->
                         <plugin>spring</plugin>
