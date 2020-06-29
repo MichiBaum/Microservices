@@ -56,6 +56,10 @@
     "404": {
       "name": "Not Found",
       "message": "The requested resource was not found. This status code can also be used to reject a request for no reason."
+    },
+    "405": {
+      "name": "Method Not Allowed",
+      "message": "The request may only be made using other HTTP methods."
     }
   },
   "permission": {

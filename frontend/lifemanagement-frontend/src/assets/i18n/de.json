@@ -56,6 +56,10 @@
     "404": {
       "name": "Nicht gefunden",
       "message": "Die angeforderte Ressource wurde nicht gefunden. Dieser Statuscode kann ebenfalls verwendet werden, um eine Anfrage ohne näheren Grund abzuweisen."
+    },
+    "405": {
+      "name": "Methode nicht erlaubt",
+      "message": "Die Anfrage darf nur mit anderen HTTP-Methoden gestellt werden."
     }
   },
   "permission": {
