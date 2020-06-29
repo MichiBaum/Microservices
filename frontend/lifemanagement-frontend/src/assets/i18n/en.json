@@ -36,6 +36,22 @@
     "cached": {
       "summary": "cached data",
       "detail": "The display data are cached and maybe not the latest"
+    },
+    "400": {
+      "name": "Bad Request",
+      "message": "The request message was erroneous."
+    },
+    "500": {
+      "name": "Internal Server Error",
+      "message": "Server side error"
+    },
+    "noConnection": {
+      "name": "No Connection",
+      "message": "No Connection"
+    },
+    "403": {
+      "name": "Forbidden",
+      "message": "The request was not carried out due to lack of authorization from the client, e.g. because the authenticated user is not authorized or a URL configured as HTTPS was only called up with HTTP."
     }
   },
   "permission": {

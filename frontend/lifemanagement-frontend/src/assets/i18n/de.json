@@ -36,6 +36,22 @@
     "cached": {
       "summary": "Zwischengespeicherte Daten",
       "detail": "Die Daten, welche angezeigt werden, wurden zwischengespeichert und sind vielleicht nicht mehr aktuell"
+    },
+    "400": {
+      "name": "Fehlerhafte Anfrage",
+      "message": "Die Anfrage-Nachricht war fehlerhaft aufgebaut."
+    },
+    "500": {
+      "name": "Server seitiger Fehler",
+      "message": "Server seitiger Fehler"
+    },
+    "noConnection": {
+      "name": "keine Verbindung",
+      "message": "keine Verbindung"
+    },
+    "403": {
+      "name": "Verboten",
+      "message": "Die Anfrage wurde mangels Berechtigung des Clients nicht durchgeführt, bspw. weil der authentifizierte Benutzer nicht berechtigt ist, oder eine als HTTPS konfigurierte URL nur mit HTTP aufgerufen wurde."
     }
   },
   "permission": {

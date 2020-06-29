@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   api_url: 'http://localhost:8181/lifemanagement/api',
-  base_href: '/'
+  base_href: '/',
+  show_errors: true
 };
 
 /*
