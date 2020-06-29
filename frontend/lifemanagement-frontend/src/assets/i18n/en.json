@@ -52,6 +52,10 @@
     "403": {
       "name": "Forbidden",
       "message": "The request was not carried out due to lack of authorization from the client, e.g. because the authenticated user is not authorized or a URL configured as HTTPS was only called up with HTTP."
+    },
+    "404": {
+      "name": "Not Found",
+      "message": "The requested resource was not found. This status code can also be used to reject a request for no reason."
     }
   },
   "permission": {

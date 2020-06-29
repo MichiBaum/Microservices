@@ -6,6 +6,7 @@ import {IHttpErrorResponseHandler} from './i-http-error-response.handler';
 import {NoConnectionErrorHandler} from './no-connection-error.handler';
 import {ServerSideErrorHandler} from './server-side-error.handler';
 import {ValidationErrorHandler} from './validation-error.handler';
+import {NotFoundErrorHandler} from "./not-found-error.handler";
 
 @Injectable()
 export class DefaultErrorHandler implements IHttpErrorResponseHandler {
@@ -16,12 +17,14 @@ export class DefaultErrorHandler implements IHttpErrorResponseHandler {
     private validationErrorHandler: ValidationErrorHandler,
     private authErrorHandler: AuthErrorResponseHandler,
     private serverSideErrorHandler: ServerSideErrorHandler,
-    private noConnectionErrorHandler: NoConnectionErrorHandler
+    private noConnectionErrorHandler: NoConnectionErrorHandler,
+    private notFoundErrorHandler: NotFoundErrorHandler
   ) {
     this.handlers = [
       validationErrorHandler,
       authErrorHandler,
       serverSideErrorHandler,
+      notFoundErrorHandler,
       noConnectionErrorHandler
     ];
   }
