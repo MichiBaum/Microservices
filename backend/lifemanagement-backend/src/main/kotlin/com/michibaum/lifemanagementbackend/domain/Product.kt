@@ -12,7 +12,7 @@ class Product(
     @Column(nullable = false, name = "description")
     var description: String,
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
     var stores: MutableList<Store>
 
 ) {

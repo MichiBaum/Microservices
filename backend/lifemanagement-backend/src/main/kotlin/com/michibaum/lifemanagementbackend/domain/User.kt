@@ -18,8 +18,11 @@ class User(
     @Column(nullable = false, name = "enabled")
     var enabled: Boolean,
 
-    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
-    var permissions: MutableList<Permission> = arrayListOf()
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
+    var permissions: MutableList<Permission> = arrayListOf(),
+
+    @ManyToMany(mappedBy = "login_user_id", cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
+    var purchasebills: MutableList<Purchasebill> = mutableListOf()
 
 ) {
 

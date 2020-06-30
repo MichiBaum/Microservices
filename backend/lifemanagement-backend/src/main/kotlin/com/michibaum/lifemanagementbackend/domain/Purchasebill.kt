@@ -7,9 +7,14 @@ import javax.persistence.*
 class Purchasebill(
 
     @Column(nullable = false, name = "datetime")
-    var datetime: Long
+    var datetime: Long,
 
-//    var store: Store TODO
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
+    var prices: MutableList<Price>,
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
+    @JoinTable(name = "LOGIN_USER_PURCHASEBILL", joinColumns = [JoinColumn(name = "purchasebill_id")], inverseJoinColumns = [JoinColumn(name = "login_user_id")])
+    var users: MutableList<User>
 
 ) {
 

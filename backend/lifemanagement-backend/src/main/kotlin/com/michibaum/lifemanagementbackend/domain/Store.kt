@@ -12,7 +12,7 @@ class Store(
     @Column(nullable = false, name = "description")
     var description: String,
 
-    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
     var products: MutableList<Product> = arrayListOf()
 
 //    var purchasebills: MutableList<Purchasebill> TODO

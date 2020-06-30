@@ -50,9 +50,12 @@ class LoggingEvent(
 
     @Column(nullable = false, name = "seen", columnDefinition = "boolean default false")
     var seen: Boolean = false
+
 ) {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
     val eventId: Long = 0L
+
 }

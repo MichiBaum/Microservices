@@ -16,4 +16,5 @@ class LoggingEventException {
 
     @Column(name = "trace_line")
     var traceLine: String = ""
+
 }

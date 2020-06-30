@@ -20,11 +20,15 @@ class Price(
 
     @Column(nullable = false, name = "to_Date")
     var to_Date: Long
+
 ) {
 
     @Id
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
+
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
+    var purchasebills: MutableList<Purchasebill> = mutableListOf()
 
 }
