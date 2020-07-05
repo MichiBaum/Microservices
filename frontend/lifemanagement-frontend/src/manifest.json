@@ -10,6 +10,7 @@
   "icons": [
     {
       "src": "assets/icons/favicon.ico",
+      "sizes": "48x48",
       "type": "image/ico"
     },
     {
@@ -30,11 +31,6 @@
     {
       "src": "assets/icons/favicon-60x60.png",
       "sizes": "60x60",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/icons/favicon-70x70.png",
-      "sizes": "70x70",
       "type": "image/png"
     },
     {
@@ -73,11 +69,6 @@
       "type": "image/png"
     },
     {
-      "src": "assets/icons/favicon-150x150.png",
-      "sizes": "150x150",
-      "type": "image/png"
-    },
-    {
       "src": "assets/icons/favicon-152x152.png",
       "sizes": "152x152",
       "type": "image/png"
@@ -88,8 +79,13 @@
       "type": "image/png"
     },
     {
-      "src": "assets/icons/favicon-310x310.png",
-      "sizes": "310x310",
+      "src": "assets/icons/favicon-270x270.png",
+      "sizes": "270x270",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/favicon-558x558.png",
+      "sizes": "558x558",
       "type": "image/png"
     }
   ]
