@@ -5,7 +5,7 @@
   "background_color": "#fafafa",
   "display": "fullscreen",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "/lifemanagement",
   "start_url": "/lifemanagement",
   "icons": [
     {
