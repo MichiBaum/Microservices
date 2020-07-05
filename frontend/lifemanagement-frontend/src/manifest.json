@@ -5,8 +5,8 @@
   "background_color": "#fafafa",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/lifemanagement",
-  "start_url": "/lifemanagement",
+  "scope": "/lifemanagement/",
+  "start_url": "/lifemanagement/",
   "icons": [
     {
       "src": "assets/icons/favicon.ico",
