@@ -3,7 +3,8 @@
   "short_name": "Lifemanagement",
   "theme_color": "#e91224",
   "background_color": "#fafafa",
-  "display": "standalone",
+  "display": "fullscreen",
+  "orientation": "portrait",
   "scope": "/lifemanagement",
   "start_url": "/lifemanagement",
   "icons": [
