@@ -1,16 +1,16 @@
 {
-  "index": "/m152/index.html",
+  "index": "/index.html",
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "./m152/favicon.ico",
-          "./m152/index.html",
-          "./m152/manifest.webmanifest",
-          "./m152/*.css",
-          "./m152/*.js"
+          "./favicon.ico",
+          "./index.html",
+          "./manifest.webmanifest",
+          "./*.css",
+          "./*.js"
         ]
       }
     }, {
@@ -19,8 +19,8 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "./m152/assets/**",
-          "./m152/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+          "./assets/**",
+          "./*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
     }
