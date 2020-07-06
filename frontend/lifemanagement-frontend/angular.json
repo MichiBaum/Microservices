@@ -87,6 +87,7 @@
                   "maximumWarning": "6kb"
                 }
               ],
+              "baseHref": "/lifemanagement/",
               "serviceWorker": true,
               "ngswConfigPath": "src/ngsw-config.json"
             }
