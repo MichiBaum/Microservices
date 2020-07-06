@@ -5,6 +5,8 @@
   "background_color": "#fafafa",
   "display": "standalone",
   "orientation": "portrait",
+  "dir": "ltr",
+  "lang": "en",
   "scope": "/lifemanagement/",
   "start_url": "/lifemanagement/",
   "icons": [
