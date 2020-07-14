@@ -3,11 +3,11 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AuthErrorResponseHandler} from './auth-error-response.handler';
 import {IHttpErrorResponseHandler} from './i-http-error-response.handler';
+import {MethodNotAllowedErrorHandler} from './method-not-allowed-error.handler';
 import {NoConnectionErrorHandler} from './no-connection-error.handler';
+import {NotFoundErrorHandler} from './not-found-error.handler';
 import {ServerSideErrorHandler} from './server-side-error.handler';
 import {ValidationErrorHandler} from './validation-error.handler';
-import {NotFoundErrorHandler} from "./not-found-error.handler";
-import {MethodNotAllowedErrorHandler} from "./method-not-allowed-error.handler";
 
 @Injectable()
 export class DefaultErrorHandler implements IHttpErrorResponseHandler {

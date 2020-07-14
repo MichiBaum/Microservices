@@ -1,12 +1,12 @@
-import {Injectable, Injector} from "@angular/core";
-import {IHttpErrorResponseHandler} from "./i-http-error-response.handler";
-import {TranslateService} from "@ngx-translate/core";
-import {ToastMessageService} from "../../toast-message/toast-message.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Observable, of} from "rxjs";
-import {Message} from "primeng";
-import {environment} from "../../../environments/environment";
-import {LogGenerator} from "./log-generator.namespace";
+import {HttpErrorResponse} from '@angular/common/http';
+import {Injectable, Injector} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {Message} from 'primeng';
+import {Observable, of} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {ToastMessageService} from '../../toast-message/toast-message.service';
+import {IHttpErrorResponseHandler} from './i-http-error-response.handler';
+import {LogGenerator} from './log-generator.namespace';
 
 @Injectable()
 export class NotFoundErrorHandler implements IHttpErrorResponseHandler {
