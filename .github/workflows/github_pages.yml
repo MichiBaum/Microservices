@@ -13,8 +13,8 @@ jobs:
     
         - name: Install and Build 🔧
           run: |
-          npm install
-          npm run compodoc
+            npm install
+            npm run compodoc
     
         - name: Publish generated content to GitHub Pages
           uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
