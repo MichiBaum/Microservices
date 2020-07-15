@@ -18,7 +18,7 @@ class User(
     @Column(nullable = false, name = "enabled")
     var enabled: Boolean,
 
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
+    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
     var permissions: MutableList<Permission> = arrayListOf()
 
 ) {

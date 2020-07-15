@@ -17,7 +17,7 @@ class Permission(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
 
-    @ManyToMany(mappedBy = "permissions", cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH], fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "permissions")
     var users: MutableList<User> = arrayListOf()
 
 }
