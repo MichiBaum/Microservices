@@ -1,24 +1,24 @@
 on:
     push:
         branches:
-            - master
+        - master
 jobs:
     add-github-pages:
         runs-on: ubuntu-latest
         steps:
         - name: Checkout 🛎️
-            uses: actions/checkout@v2.3.0
-            with:
-                ref: master
+          uses: actions/checkout@v2.3.0
+          with:
+            ref: master
     
         - name: Install and Build 🔧
-            run: |
-            npm install
-            npm run compodoc
+          run: |
+          npm install
+          npm run compodoc
     
         - name: Publish generated content to GitHub Pages
-            uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
-            with:
-                dir: docs
-                branch: gh-pages
-                token: ${{ secrets.ACTIONS_GITHUB_PAGES }}
+          uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+          with:
+            dir: docs
+            branch: gh-pages
+            token: ${{ secrets.ACTIONS_GITHUB_PAGES }}
