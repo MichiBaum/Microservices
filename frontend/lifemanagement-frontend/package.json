@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "compodoc": "npx compodoc --tsconfig tsconfig.json --output ../../docs --name Lifemanagement --watch --exportFormat html --language en-US --hideGenerator --customLogo src/assets/icons/favicon-144x144.png"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +21,6 @@
     "@angular/platform-browser-dynamic": "^9.1.6",
     "@angular/router": "^9.1.6",
     "@angular/service-worker": "^9.1.6",
-    "@compodoc/compodoc": "^1.1.11",
     "@fullcalendar/core": "^4.4.0",
     "@fullcalendar/daygrid": "^4.4.0",
     "@fullcalendar/interaction": "^4.4.0",
