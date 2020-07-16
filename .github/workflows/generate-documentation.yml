@@ -18,7 +18,6 @@ jobs:
         npm run compodoc
     - name: Commit files
       run: |
-        cd ../..
         echo ${{ github.ref }}
         git add .
         git config --local user.email "michael_baumberger@gmx.ch"
