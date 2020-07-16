@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {tap} from 'rxjs/internal/operators/tap';
 import {PermissionEnum} from '../models/enum/permission.enum';
 import {IJWT} from '../models/jwt.model';
 import {ApiService} from './api.service';
