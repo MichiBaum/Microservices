@@ -62,7 +62,7 @@ export class NavigationComponent implements OnInit {
           this.sidebarVisible = false;
           this.routernavigationService.logmanagementNavigate();
         },
-        visible: this.authService.hasAnyPermission([PermissionEnum.SEE_LOGS, PermissionEnum.ADMIN])
+        visible: this.authService.hasAnyPermission([PermissionEnum.SEE_LOGS])
       } as MenuItem,
       {
         label: this.translate.instant('navigation.imprint'),
@@ -79,6 +79,26 @@ export class NavigationComponent implements OnInit {
           this.sidebarVisible = false;
           this.routernavigationService.privacyPolicyNavigate();
         }
+      } as MenuItem,
+      {
+        label: this.translate.instant('navigation.github'),
+        icon: 'fab fa-github',
+        command: () => {
+          this.sidebarVisible = false;
+          const url = 'https://github.com/MichiBaum/lifemanagement';
+          window.open(url, '_blank');
+        },
+        visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
+      } as MenuItem,
+      {
+        label: this.translate.instant('navigation.frontend_documentation'),
+        icon: 'fab fa-github',
+        command: () => {
+          this.sidebarVisible = false;
+          const url = 'https://michibaum.github.io/lifemanagement/frontend/index.html';
+          window.open(url, '_blank');
+        },
+        visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
       } as MenuItem,
       {
         label: this.translate.instant('navigation.logout'),

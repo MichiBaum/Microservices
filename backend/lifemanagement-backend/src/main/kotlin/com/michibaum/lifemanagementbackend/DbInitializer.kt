@@ -69,6 +69,7 @@ class DbInitializer(
     private var user_management: Permission = PermissionName.USER_MANAGEMENT.let(savePermission)
     private var see_logs: Permission = PermissionName.SEE_LOGS.let(savePermission)
     private var adminPermission: Permission = PermissionName.ADMIN.let(savePermission)
+    private var developTools: Permission = PermissionName.DEVELOP_TOOLS.let(savePermission)
 
     private var admin: User =
         User(
@@ -76,7 +77,7 @@ class DbInitializer(
             "admin@admin.com",
             bcryptPasswordEncoder.encode(adminPassword),
             true,
-            mutableListOf(user_management, see_logs, adminPermission)
+            mutableListOf(user_management, see_logs, adminPermission, developTools)
         )
 
     private var user: User =
