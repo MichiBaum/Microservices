@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit {
     this.navItems = [
       {
         label: this.translate.instant('navigation.home'),
-        icon: 'pi pi-home',
+        icon: 'fas fa-house-user',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.homeNavigate();
@@ -49,7 +49,7 @@ export class NavigationComponent implements OnInit {
       } as MenuItem,
       {
         label: this.translate.instant('navigation.usersettings'),
-        icon: 'pi pi-user-edit',
+        icon: 'fas fa-users-cog',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.usersettingsNavigate();
@@ -57,7 +57,7 @@ export class NavigationComponent implements OnInit {
       } as MenuItem,
       {
         label: this.translate.instant('navigation.logs'),
-        icon: 'pi pi-info',
+        icon: 'fas fa-cogs',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.logmanagementNavigate();
@@ -66,7 +66,7 @@ export class NavigationComponent implements OnInit {
       } as MenuItem,
       {
         label: this.translate.instant('navigation.imprint'),
-        icon: 'pi pi-info',
+        icon: 'fas fa-stamp',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.imprintNavigate();
@@ -74,7 +74,7 @@ export class NavigationComponent implements OnInit {
       } as MenuItem,
       {
         label: this.translate.instant('navigation.privacy-policy'),
-        icon: 'pi pi-info',
+        icon: 'fas fa-user-shield',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.privacyPolicyNavigate();
@@ -82,7 +82,7 @@ export class NavigationComponent implements OnInit {
       } as MenuItem,
       {
         label: this.translate.instant('navigation.logout'),
-        icon: 'pi pi-power-off',
+        icon: 'fas fa-sign-out-alt',
         command: () => {
           this.authService.logout();
           this.sidebarVisible = false;
