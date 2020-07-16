@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "compodoc": "npx compodoc --tsconfig tsconfig.json --output ../../docs --name Lifemanagement --watch --exportFormat html --language en-US --hideGenerator --customLogo src/assets/icons/favicon-152x152.png --customFavicon src/assets/icons/favicon.ico"
+    "compodoc": "npx compodoc --tsconfig tsconfig.json --output ../../docs/frontend --name Lifemanagement --watch --exportFormat html --language en-US --hideGenerator --customLogo src/assets/icons/favicon-152x152.png --customFavicon src/assets/icons/favicon.ico"
   },
   "private": true,
   "dependencies": {
