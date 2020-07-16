@@ -34,6 +34,9 @@ import { UsersettingsComponent } from './usersettings.component';
     PipeModule,
     ButtonModule,
     PickListModule,
+  ],
+  exports: [
+    UsersettingsComponent
   ]
 })
 export class UsersettingsModule { }
