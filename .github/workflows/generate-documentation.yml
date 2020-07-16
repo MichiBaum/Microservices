@@ -1,0 +1,30 @@
+name: Generate Documentation
+
+on:
+    push:
+      branches:
+        - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Generate Compodoc
+      run: |
+        cd frontend/lifemanagement-frontend
+        npm install
+        npm run compodoc
+    - name: Commit files
+      run: |
+        echo ${{ github.ref }}
+        git add .
+        git config --local user.email "michael_baumberger@gmx.ch"
+        git config --local user.name "Michael Baumberger"
+        git commit -m "Generated Compodoc" -a | exit 0
+    - name: Push changes
+      if: github.ref == 'refs/heads/master'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.ACTIONS_GITHUB_PAGES }}
