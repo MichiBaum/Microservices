@@ -13,10 +13,12 @@ jobs:
       uses: actions/checkout@v2
     - name: Generate Compodoc
       run: |
+        cd frontend/lifemanagement-frontend
         npm install
         npm run compodoc
     - name: Commit files
       run: |
+        cd ../..
         echo ${{ github.ref }}
         git add .
         git config --local user.email "michael_baumberger@gmx.ch"
