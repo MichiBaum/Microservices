@@ -24,7 +24,7 @@ class UserRestController(
     fun myUsers(@ArgumentResolver currentUser: User): ReturnUserDto =
         currentUser.toDto()
 
-    @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST])
+    @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST]) // TODO validation that no other user can change another
     fun change(@RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User): ReturnUserDto =
         userService.update(user, userDto)
             .let(userService::save)
@@ -36,4 +36,6 @@ class UserRestController(
         userService.changePermissions(user, permissionIds)
             .let(userService::save)
             .toDto()
+
+    //TODO create user endpoint
 }

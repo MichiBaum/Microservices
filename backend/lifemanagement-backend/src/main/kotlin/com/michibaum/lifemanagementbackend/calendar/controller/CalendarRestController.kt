@@ -27,4 +27,6 @@ class CalendarRestController(
         calendarService.findAll()
             .map(Calendar::toDto)
 
+    // TODO create Calendar endpoint
+
 }

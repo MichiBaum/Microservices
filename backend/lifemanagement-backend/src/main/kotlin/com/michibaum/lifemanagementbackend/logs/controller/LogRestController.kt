@@ -35,7 +35,7 @@ class LogRestController(
             .let(logService::save)
             .toDto()
 
-    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST])
+    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST]) // TODO Validate UpdateLogDto
     fun addLog(@RequestBody log: UpdateLogDto) =
         log.toLoggingEvent()
             .let(logService::save)
