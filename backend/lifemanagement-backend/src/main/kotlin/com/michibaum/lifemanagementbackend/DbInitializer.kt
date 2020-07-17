@@ -1,10 +1,10 @@
 package com.michibaum.lifemanagementbackend
 
-import com.michibaum.lifemanagementbackend.domain.Permission
-import com.michibaum.lifemanagementbackend.domain.PermissionName
-import com.michibaum.lifemanagementbackend.domain.User
-import com.michibaum.lifemanagementbackend.repository.PermissionRepository
-import com.michibaum.lifemanagementbackend.service.UserService
+import com.michibaum.lifemanagementbackend.user.domain.Permission
+import com.michibaum.lifemanagementbackend.user.domain.PermissionName
+import com.michibaum.lifemanagementbackend.user.domain.User
+import com.michibaum.lifemanagementbackend.user.repository.PermissionRepository
+import com.michibaum.lifemanagementbackend.user.service.UserService
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
