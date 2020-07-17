@@ -1,5 +1,6 @@
 package com.michibaum.lifemanagementbackend.core.config
 
+import com.michibaum.lifemanagementbackend.core.publicendpoint.PublicEndpointDetails
 import com.michibaum.lifemanagementbackend.user.repository.UserRepository
 import com.michibaum.lifemanagementbackend.core.security.JWTAuthenticationFilter
 import com.michibaum.lifemanagementbackend.core.security.JWTAuthorizationFilter
@@ -32,7 +33,8 @@ class WebSecurityConfig(
     private val userDetailsService: UserDetailsServiceImpl,
     private val bCryptPasswordEncoder: BCryptPasswordEncoder,
     private val userRepository: UserRepository,
-    private val lastLoginUpdater: LastLoginUpdater
+    private val lastLoginUpdater: LastLoginUpdater,
+    private val publicEndpoints: List<PublicEndpointDetails>
 
 ) : WebSecurityConfigurerAdapter() {
 
@@ -42,6 +44,7 @@ class WebSecurityConfig(
     private val systemEnvironment: String = ""
 
     override fun configure(http: HttpSecurity) {
+        val antEndpoints: Array<String> = publicEndpoints.map(PublicEndpointDetails::antPaths).flatten().toTypedArray()
 
 //      Only if the profile is dev_h2
         if (systemEnvironment == "dev_h2") {
@@ -50,6 +53,7 @@ class WebSecurityConfig(
         }
 
         http.cors().and().authorizeRequests()
+            .antMatchers(*antEndpoints).permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilter(
