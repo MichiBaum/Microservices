@@ -19,7 +19,10 @@ class User(
     var enabled: Boolean,
 
     @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
-    var permissions: MutableList<Permission> = arrayListOf()
+    var permissions: MutableList<Permission> = arrayListOf(),
+
+    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
+    var calendars: MutableList<Calendar> = arrayListOf()
 
 ) {
 
