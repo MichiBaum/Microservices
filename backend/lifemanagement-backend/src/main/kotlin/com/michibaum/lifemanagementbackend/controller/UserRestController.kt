@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class UserRestController(
-    private val userService: UserService,
-    private val permissionService: PermissionService
+    private val userService: UserService
 ) {
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
@@ -33,12 +32,6 @@ class UserRestController(
         userService.update(user, userDto)
             .let(userService::save)
             .toDto()
-
-    @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
-    @RequestMapping(value = ["/lifemanagement/api/permissions"], method = [RequestMethod.GET])
-    fun allPermissions(): List<ReturnPermissionDto> =
-        permissionService.findAll()
-            .map(Permission::toDto)
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
     @RequestMapping(value = ["/lifemanagement/api/users/{id}/permissions"], method = [RequestMethod.POST])

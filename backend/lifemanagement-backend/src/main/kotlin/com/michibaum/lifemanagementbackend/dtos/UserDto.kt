@@ -6,7 +6,7 @@ data class ReturnUserDto(
     val emailAddress: String,
     val enabled: Boolean,
     val lastLogin: Long,
-    val permissions: List<ReturnPermissionDto> = mutableListOf()
+    val permissions: List<ReturnPermissionDto>
 )
 
 data class UpdateUserDto(
