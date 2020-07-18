@@ -14,11 +14,15 @@ import {
 } from 'primeng';
 import {PipeModule} from '../core/pipes/pipe.module';
 import {LoginModule} from '../login/login.module';
+import {UserDateFormatComponent} from './userDateFormat/userDateFormat.component';
+import {UserdetailsComponent} from './userdetails/userdetails.component';
 import { UsersettingsComponent } from './usersettings.component';
 
 @NgModule({
   declarations: [
-    UsersettingsComponent
+    UsersettingsComponent,
+    UserdetailsComponent,
+    UserDateFormatComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +40,7 @@ import { UsersettingsComponent } from './usersettings.component';
     PickListModule,
   ],
   exports: [
-    UsersettingsComponent
+    UsersettingsComponent,
   ]
 })
 export class UsersettingsModule { }

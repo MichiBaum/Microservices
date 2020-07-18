@@ -1,0 +1,56 @@
+<p-fieldset
+  legend="{{'user.user' | translate}}: {{selectedUser?.name}}"
+  [toggleable]="true"
+  [transitionOptions]="'500ms'"
+>
+
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="hasPermissionUserManagement === true">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">{{'user.id' | translate}}</span>
+      <input type="text" [disabled]="true" pInputText [(ngModel)]="changeableUser.id">
+    </div>
+  </div>
+
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">{{'user.name' | translate}}</span>
+      <input type="text" pInputText [(ngModel)]="changeableUser.name">
+    </div>
+  </div>
+
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">{{'user.emailAddress' | translate}}</span>
+      <input type="text" pInputText [(ngModel)]="changeableUser.emailAddress">
+    </div>
+  </div>
+
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">{{'user.newPassword' | translate}}</span>
+      <input type="password" pPassword [(ngModel)]="newPassword">
+    </div>
+  </div>
+
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">{{'user.lastLogin' | translate}}</span>
+      <input type="text" [disabled]="true" pInputText [ngModel]="changeableUser.lastLogin | customDate">
+    </div>
+  </div>
+
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
+    <p-toggleButton
+      onLabel="{{'user.enabled' | translate}}"
+      offLabel="{{'user.disabled' | translate}}"
+      onIcon="pi pi-check"
+      offIcon="pi pi-times"
+      [(ngModel)]="changeableUser.enabled"
+    ></p-toggleButton>
+  </div>
+
+  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
+    <p-button label="{{'general.save' | translate}}" (onClick)="saveUser()"></p-button>
+  </div>
+
+</p-fieldset>

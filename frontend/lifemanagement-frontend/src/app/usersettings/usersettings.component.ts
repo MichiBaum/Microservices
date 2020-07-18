@@ -18,9 +18,6 @@ import {UserService} from './user.service';
 })
 export class UsersettingsComponent implements OnInit {
 
-  dateFormats: IPrimeNgBase[];
-  selectedDateFormat: IPrimeNgBase;
-
   hasPermissionUserManagement = false;
   users: IPrimeNgBase[] = [];
   selectedUser: IUser;
@@ -35,7 +32,6 @@ export class UsersettingsComponent implements OnInit {
   onLoginSuccess = () => {this.loginService.emitLogin(); };
 
   constructor(
-    private dateService: DateService,
     public authService: AuthService,
     private userService: UserService,
     private loginService: LoginService,
@@ -49,38 +45,8 @@ export class UsersettingsComponent implements OnInit {
 
   ngOnInit(): void {
     if (window.innerWidth < 800) { this.loginDialogWidth = '80vw'; }
-    this.dateFormats = this.initDateFormats();
-    this.selectedDateFormat = this.initSelectedDateFormat();
     this.hasPermissionUserManagement = this.authService.hasAnyPermission([PermissionEnum.USER_MANAGEMENT]);
     this.loadUsers();
-  }
-
-  private initDateFormats = (): IPrimeNgBase[] => {
-    const dateFormats: IPrimeNgBase[] = [];
-    for (const dateFormat of Object.keys(DateFormat)) {
-      dateFormats.push(
-        {
-          field: dateFormat,
-          label: 'dateFormat.' + dateFormat,
-          value: dateFormat
-        } as IPrimeNgBase);
-    }
-    return dateFormats;
-  }
-
-  changeDateFormat = (event: any) => {
-    this.dateService.setFormat(event.value as DateFormat);
-  }
-
-  private initSelectedDateFormat = () => {
-    const localStorageDateFormat = this.dateService.getFormat();
-    if (localStorageDateFormat) {
-      return this.selectedDateFormat = {
-        field: localStorageDateFormat,
-        label: 'dateFormat.' + localStorageDateFormat,
-        value: localStorageDateFormat
-      } as IPrimeNgBase;
-    }
   }
 
   private loadUsers = () => {
@@ -108,8 +74,8 @@ export class UsersettingsComponent implements OnInit {
     }
   }
 
-  saveUser() {
-    this.userService.save(this.toExportUser(this.changeableUser)).subscribe(
+  saveUser(changeableUser: IUser) {
+    this.userService.save(this.toExportUser(changeableUser)).subscribe(
       (user) => {
         if (this.needsLogin()) {
           this.loginModalVisible = true;

@@ -1,0 +1,18 @@
+<p-fieldset
+  legend="{{'user.dateFormat' | translate}}"
+  [toggleable]="true"
+  [transitionOptions]="'500ms'"
+>
+  <p-dropdown
+    [options]="dateFormats"
+    [(ngModel)]="selectedDateFormat"
+    (onChange)="changeDateFormat($event)"
+  >
+    <ng-template let-item pTemplate="selectedItem">
+      {{selectedDateFormat?.label || item.label | translate}}
+    </ng-template>
+    <ng-template let-item pTemplate="item">
+      {{item.label | translate}}
+    </ng-template>
+  </p-dropdown>
+</p-fieldset>
