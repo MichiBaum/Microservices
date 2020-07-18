@@ -67,7 +67,8 @@
   "permission": {
     "USER_MANAGEMENT": "Benutzermanagement",
     "SEE_LOGS": "Logs sehen",
-    "ADMIN": "Admin"
+    "ADMIN": "Admin",
+    "DEVELOP_TOOLS": "Entwicklungswerkzeuge"
   },
   "log": {
     "id": "ID",
