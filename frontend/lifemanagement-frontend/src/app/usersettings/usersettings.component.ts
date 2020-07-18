@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {DateFormat} from '../core/models/enum/date-format.enum';
 import {PermissionEnum} from '../core/models/enum/permission.enum';
 import {IPermission} from '../core/models/permission.model';
 import {IPrimeNgBase} from '../core/models/primeng-base.model';
 import {IExportUser, IUser} from '../core/models/user.model';
 import {AuthService} from '../core/services/auth.service';
-import {DateService} from '../core/services/date.service';
 import {LoginService} from '../login/login.service';
 import {ToastMessageService} from '../toast-message/toast-message.service';
 import {UserService} from './user.service';
