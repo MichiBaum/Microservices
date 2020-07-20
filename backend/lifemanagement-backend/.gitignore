@@ -143,3 +143,8 @@ buildNumber.properties
 .idea/dataSources.xml
 .idea/misc.xml
 .idea/vcs.xml
+
+# [Custom] Eclipse
+.classpath
+.project
+.settings
