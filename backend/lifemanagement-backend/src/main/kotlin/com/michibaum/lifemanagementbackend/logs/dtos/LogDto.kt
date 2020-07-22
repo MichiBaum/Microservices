@@ -21,48 +21,48 @@ data class ReturnLogDto(
 )
 
 data class CreateLogDto(
-    @field:NotNull(message = "log.validation.id.notNull")
+    @field:NotNull(message = "validation.log.id.notNull")
     val id: Long = 0,
 
-    @field:NotNull(message = "log.validation.date.notNull")
+    @field:NotNull(message = "validation.log.date.notNull")
     val date: Long = 0,
 
-    @field:NotNull(message = "log.validation.formattedMessage.notNull")
+    @field:NotNull(message = "validation.log.formattedMessage.notNull")
     val formattedMessage: String = "",
 
-    @field:NotNull(message = "log.validation.loggerName.notNull")
+    @field:NotNull(message = "validation.log.loggerName.notNull")
     val loggerName: String = "",
 
-    @field:NotNull(message = "log.validation.level.notNull")
+    @field:NotNull(message = "validation.log.level.notNull")
     val level: String = "",
 
-    @field:NotNull(message = "log.validation.threadName.notNull")
+    @field:NotNull(message = "validation.log.threadName.notNull")
     val threadName: String = "",
 
-    @field:NotNull(message = "log.validation.arg0.notNull")
+    @field:NotNull(message = "validation.log.arg0.notNull")
     val arg0: String = "",
 
-    @field:NotNull(message = "log.validation.arg1.notNull")
+    @field:NotNull(message = "validation.log.arg1.notNull")
     val arg1: String = "",
 
-    @field:NotNull(message = "log.validation.arg2.notNull")
+    @field:NotNull(message = "validation.log.arg2.notNull")
     val arg2: String = "",
 
-    @field:NotNull(message = "log.validation.arg3.notNull")
+    @field:NotNull(message = "validation.log.arg3.notNull")
     val arg3: String = "",
 
-    @field:NotNull(message = "log.validation.callerFilename.notNull")
+    @field:NotNull(message = "validation.log.callerFilename.notNull")
     val callerFilename: String = "",
 
-    @field:NotNull(message = "log.validation.callerClass.notNull")
+    @field:NotNull(message = "validation.log.callerClass.notNull")
     val callerClass: String = "",
 
-    @field:NotNull(message = "log.validation.callerMethod.notNull")
+    @field:NotNull(message = "validation.log.callerMethod.notNull")
     val callerMethod: String = "",
 
-    @field:NotNull(message = "log.validation.callerLine.notNull")
+    @field:NotNull(message = "validation.log.callerLine.notNull")
     val callerLine: String = "",
 
-    @field:NotNull(message = "log.validation.seen.notNull")
+    @field:NotNull(message = "validation.log.seen.notNull")
     val seen: Boolean = false
 )
