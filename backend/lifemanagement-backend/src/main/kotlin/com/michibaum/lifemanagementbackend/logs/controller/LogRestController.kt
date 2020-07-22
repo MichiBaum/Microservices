@@ -38,7 +38,7 @@ class LogRestController(
             .toDto()
 
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST])
-    fun createLog(@Valid @RequestBody log: CreateLogDto, result: BindingResult) =  // TODO do something with the binding result
+    fun createLog(@Valid @RequestBody log: CreateLogDto, result: BindingResult) =
         log.toLoggingEvent()
             .let(logService::save)
             .toDto()

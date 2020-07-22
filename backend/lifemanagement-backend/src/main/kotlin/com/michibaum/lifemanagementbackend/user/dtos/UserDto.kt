@@ -14,27 +14,27 @@ data class ReturnUserDto(
 )
 
 data class UpdateUserDto(
-    @NotNull(message = "user.validation.id.notNull")
+    @field:NotNull(message = "user.validation.id.notNull")
     val id: Long = 0,
 
-    @NotBlank(message = "user.validation.name.notEmpty")
-    @NotNull(message = "user.validation.name.notNull")
+    @field:NotBlank(message = "user.validation.name.notEmpty")
+    @field:NotNull(message = "user.validation.name.notNull")
     val name: String,
 
-    @NotNull(message = "user.validation.password.notNull")
+    @field:NotNull(message = "user.validation.password.notNull")
     val password: String,
 
-    @Email(message = "user.validation.emailAddress.notValid")
-    @NotBlank(message = "user.validation.emailAddress.notEmpty")
-    @NotNull(message = "user.validation.emailAddress.notNull")
+    @field:Email(message = "user.validation.emailAddress.notValid")
+    @field:NotBlank(message = "user.validation.emailAddress.notEmpty")
+    @field:NotNull(message = "user.validation.emailAddress.notNull")
     val emailAddress: String,
 
-    @NotNull(message = "user.validation.enabled.notNull")
+    @field:NotNull(message = "user.validation.enabled.notNull")
     val enabled: Boolean,
 
-    @NotNull(message = "user.validation.lastLogin.notNull")
+    @field:NotNull(message = "user.validation.lastLogin.notNull")
     val lastLogin: Long,
 
-    @NotNull(message = "user.validation.permissions.notNull")
+    @field:NotNull(message = "user.validation.permissions.notNull")
     val permissions: List<Long> = mutableListOf()
 )

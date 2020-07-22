@@ -27,7 +27,7 @@ class UserRestController(
         currentUser.toDto()
 
     @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST])
-    fun change(@Valid @RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User, result: BindingResult): ReturnUserDto = // TODO do something with the binding result
+    fun change(@Valid @RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User, result: BindingResult) =
         userService.update(user, userDto)
             .let(userService::save)
             .toDto()
