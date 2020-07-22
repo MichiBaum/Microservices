@@ -3,6 +3,7 @@ import {Message} from 'primeng';
 import {LogLevel} from '../models/enum/logLevel.enum';
 import {ToastMessageSeverity} from '../models/enum/toast-message-severity.enum';
 import {IExportLog} from '../models/log.model';
+import {IValidationError} from "../models/validation-error.model";
 
 export namespace LogGenerator {
 
@@ -43,6 +44,18 @@ export namespace LogGenerator {
     severity: ToastMessageSeverity = ToastMessageSeverity.ERROR,
     summary: string = error.name,
     detail: string = error.message,
+    closable: boolean = true,
+    life: number = 10000
+  ): Message {
+    return {severity, closable, summary, detail, life} as Message;
+  }
+
+  export function createValidationToastError(
+    error: IValidationError,
+    validationErrorIndex: number,
+    severity: ToastMessageSeverity = ToastMessageSeverity.ERROR,
+    summary: string = error.name,
+    detail: string = error.error.validationErrors[validationErrorIndex],
     closable: boolean = true,
     life: number = 10000
   ): Message {

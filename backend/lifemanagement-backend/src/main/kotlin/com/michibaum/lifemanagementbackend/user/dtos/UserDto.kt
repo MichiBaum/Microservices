@@ -18,7 +18,6 @@ data class UpdateUserDto(
     val id: Long = 0,
 
     @field:NotBlank(message = "validation.user.name.notEmpty")
-    @field:NotNull(message = "validation.user.name.notNull")
     val name: String,
 
     @field:NotNull(message = "validation.user.password.notNull")
@@ -26,7 +25,6 @@ data class UpdateUserDto(
 
     @field:Email(message = "validation.user.emailAddress.notValid")
     @field:NotBlank(message = "validation.user.emailAddress.notEmpty")
-    @field:NotNull(message = "validation.user.emailAddress.notNull")
     val emailAddress: String,
 
     @field:NotNull(message = "validation.user.enabled.notNull")
