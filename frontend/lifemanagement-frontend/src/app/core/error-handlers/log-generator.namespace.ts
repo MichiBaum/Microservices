@@ -3,7 +3,7 @@ import {Message} from 'primeng';
 import {LogLevel} from '../models/enum/logLevel.enum';
 import {ToastMessageSeverity} from '../models/enum/toast-message-severity.enum';
 import {IExportLog} from '../models/log.model';
-import {IValidationError} from "../models/validation-error.model";
+import {IValidationError} from '../models/validation-error.model';
 
 export namespace LogGenerator {
 

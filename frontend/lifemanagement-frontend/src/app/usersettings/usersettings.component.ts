@@ -74,7 +74,7 @@ export class UsersettingsComponent implements OnInit {
 
   saveUser(changeableUser: IUser) {
     this.userService.save(this.toExportUser(changeableUser)).subscribe(
-      (user) => {
+      (user: IUser) => {
         if (this.needsLogin()) {
           this.loginModalVisible = true;
         }

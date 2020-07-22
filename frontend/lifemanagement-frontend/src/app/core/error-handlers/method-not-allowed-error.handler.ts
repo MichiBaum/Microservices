@@ -33,7 +33,7 @@ export class MethodNotAllowedErrorHandler implements IHttpErrorResponseHandler {
       message
     ]);
 
-    return of([]);
+    return of();
   }
 
   private generateMessage(error: HttpErrorResponse): Message {

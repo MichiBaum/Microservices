@@ -31,7 +31,7 @@ export class ValidationErrorHandler implements IHttpErrorResponseHandler {
 
     console.log(error);
     this.generateToastMessage(error);
-    return of([]);
+    return of();
   }
 
   private generateToastMessage(error: HttpErrorResponse) {
