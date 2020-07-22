@@ -18,9 +18,9 @@ export class DefaultErrorHandler implements IHttpErrorResponseHandler {
     private validationErrorHandler: ValidationErrorHandler,
     private authErrorHandler: AuthErrorResponseHandler,
     private serverSideErrorHandler: ServerSideErrorHandler,
-    private noConnectionErrorHandler: NoConnectionErrorHandler,
     private notFoundErrorHandler: NotFoundErrorHandler,
-    private methodNotAllowedErrorHandler: MethodNotAllowedErrorHandler
+    private methodNotAllowedErrorHandler: MethodNotAllowedErrorHandler,
+    private noConnectionErrorHandler: NoConnectionErrorHandler
   ) {
     this.handlers = [
       validationErrorHandler,
