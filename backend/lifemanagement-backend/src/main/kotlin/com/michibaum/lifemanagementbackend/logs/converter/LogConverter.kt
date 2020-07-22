@@ -2,7 +2,7 @@ package com.michibaum.lifemanagementbackend.logs.converter
 
 import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
 import com.michibaum.lifemanagementbackend.logs.dtos.ReturnLogDto
-import com.michibaum.lifemanagementbackend.logs.dtos.UpdateLogDto
+import com.michibaum.lifemanagementbackend.logs.dtos.CreateLogDto
 
 fun LoggingEvent.toDto() = ReturnLogDto(
     id = eventId,
@@ -22,7 +22,7 @@ fun LoggingEvent.toDto() = ReturnLogDto(
     seen = seen
 )
 
-fun UpdateLogDto.toLoggingEvent() = LoggingEvent(
+fun CreateLogDto.toLoggingEvent() = LoggingEvent(
     timestmp = date,
     formattedMessage = formattedMessage,
     loggerName = loggerName,

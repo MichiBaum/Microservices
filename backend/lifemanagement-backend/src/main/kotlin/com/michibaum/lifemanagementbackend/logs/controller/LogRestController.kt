@@ -5,10 +5,12 @@ import com.michibaum.lifemanagementbackend.logs.converter.toLoggingEvent
 import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
 import com.michibaum.lifemanagementbackend.logs.dtos.LogFilter
 import com.michibaum.lifemanagementbackend.logs.dtos.ReturnLogDto
-import com.michibaum.lifemanagementbackend.logs.dtos.UpdateLogDto
+import com.michibaum.lifemanagementbackend.logs.dtos.CreateLogDto
 import com.michibaum.lifemanagementbackend.logs.service.LogService
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 class LogRestController(
@@ -35,8 +37,8 @@ class LogRestController(
             .let(logService::save)
             .toDto()
 
-    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST]) // TODO Validate UpdateLogDto
-    fun addLog(@RequestBody log: UpdateLogDto) =
+    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST])
+    fun createLog(@Valid @RequestBody log: CreateLogDto, result: BindingResult) =  // TODO do something with the binding result
         log.toLoggingEvent()
             .let(logService::save)
             .toDto()
