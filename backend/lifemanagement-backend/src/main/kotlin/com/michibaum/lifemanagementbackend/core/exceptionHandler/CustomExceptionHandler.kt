@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
 import java.util.*
 import javax.persistence.EntityNotFoundException
+import javax.validation.ConstraintViolationException
 
 @ControllerAdvice
 class CustomExceptionHandler {
 
     private val logger = KotlinLogging.logger {}
 
-    @Value("\${frontend.exection.shown}")
+    @Value("\${frontend.exception.shown}")
     private val exceptionShown: Boolean = false
 
     open class ErrorDetails(
