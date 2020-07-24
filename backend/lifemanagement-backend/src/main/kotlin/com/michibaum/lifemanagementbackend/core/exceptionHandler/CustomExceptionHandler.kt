@@ -31,7 +31,7 @@ class CustomExceptionHandler {
     class ValidationErrorDetails(
         override val timestamp: Long,
         override val message: String,
-        val validationErrors: List<String>,
+        val validationErrors: List<String?>,
         override val exceptionClass: Class<out Exception?>?,
         override val details: String
     ) : ErrorDetails(timestamp, message, exceptionClass, details)
