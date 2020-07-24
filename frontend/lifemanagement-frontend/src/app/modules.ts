@@ -11,6 +11,9 @@ import {PrivacyPolicyModule} from './privacy-policy/privacy-policy.module';
 import {ToastMessageModule} from './toast-message/toast-message.module';
 import {UsersettingsModule} from './usersettings/usersettings.module';
 
+/**
+ * All own modules
+ */
 export const MyModules = [
   CoreModule,
   LoginModule,

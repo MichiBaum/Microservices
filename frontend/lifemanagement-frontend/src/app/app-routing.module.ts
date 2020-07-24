@@ -8,6 +8,9 @@ import {LoggingComponent} from './logs/logging.component';
 import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
 import {UsersettingsComponent} from './usersettings/usersettings.component';
 
+/**
+ * All own Routes
+ */
 const routes: Routes = [
   {
     path: 'login',
