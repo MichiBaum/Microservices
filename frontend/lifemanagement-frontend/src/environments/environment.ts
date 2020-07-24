@@ -3,10 +3,25 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  /**
+   * Sets production true
+   */
   production: false,
+  /**
+   * The Backend api URL
+   */
   api_url: 'http://localhost:8181/lifemanagement/api',
+  /**
+   * The base href of the frontend application
+   */
   base_href: '/',
+  /**
+   * Flag if errors are shown
+   */
   show_errors: true,
+  /**
+   * Flag if url routes are shown
+   */
   show_url_routes: true
 };
 
