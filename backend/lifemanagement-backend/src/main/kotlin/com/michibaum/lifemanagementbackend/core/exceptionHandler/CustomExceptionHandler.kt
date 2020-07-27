@@ -21,21 +21,6 @@ class CustomExceptionHandler {
     @Value("\${frontend.exception.shown}")
     private val exceptionShown: Boolean = false
 
-    open class ErrorDetails(
-        open val timestamp: Long,
-        open val message: String,
-        open val exceptionClass: Class<out Exception?>?,
-        open val details: String
-    )
-
-    class ValidationErrorDetails(
-        override val timestamp: Long,
-        override val message: String,
-        val validationErrors: List<String?>,
-        override val exceptionClass: Class<out Exception?>?,
-        override val details: String
-    ) : ErrorDetails(timestamp, message, exceptionClass, details)
-
     @ExceptionHandler(EntityNotFoundException::class)
     fun handleEntityNotFoundException(ex: EntityNotFoundException, request: WebRequest): ResponseEntity<ErrorDetails> {
         logger.error(ex.message, ex.stackTrace)
@@ -96,3 +81,18 @@ class CustomExceptionHandler {
         }
     }
 }
+
+open class ErrorDetails(
+    open val timestamp: Long,
+    open val message: String,
+    open val exceptionClass: Class<out Exception?>?,
+    open val details: String
+)
+
+class ValidationErrorDetails(
+    override val timestamp: Long,
+    override val message: String,
+    val validationErrors: List<String?>,
+    override val exceptionClass: Class<out Exception?>?,
+    override val details: String
+) : ErrorDetails(timestamp, message, exceptionClass, details)
