@@ -44,7 +44,7 @@ class UserRestController(
         @PathVariable(name = "id")
         user: User
 
-    ) =
+    ): ReturnUserDto =
         userService.update(user, userDto)
             .let(userService::save)
             .toDto()
