@@ -21,35 +21,24 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@Tag(name = "Calendar Endpoints", description = "")
 class CalendarRestController(
     private val calendarService: CalendarService
-) {
+): CalendarRestControllerDocs {
 
-    @Operation(summary = "Returns users calendars", description = "Returns all Calendars the user has")
-    @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = ""),
-        ApiResponse( responseCode = "403", description = "Access denied", content = [
-            Content(schema = Schema(implementation = ErrorDetails::class))
-        ])
-    ])
     @RequestMapping(value = ["/lifemanagement/api/calendars/own"], method = [RequestMethod.GET], produces = ["application/json" ], consumes = ["application/json" ])
-    fun myCalendars(
-        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true) @ArgumentResolver currentUser: User
+    override fun myCalendars(
+
+        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true)
+        @ArgumentResolver
+        currentUser: User
+
     ): List<ReturnCalendarDto> =
         calendarService.findByUser(currentUser)
             .map(Calendar::toDto)
 
-    @Operation(summary = "Returns all calendars", description = "Returns all calendars", security = [ SecurityRequirement(name = "ADMIN") ])
-    @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = ""),
-        ApiResponse( responseCode = "403", description = "Access denied", content = [
-            Content(schema = Schema(implementation = ErrorDetails::class))
-        ])
-    ])
     @PreAuthorize("hasAuthority('ADMIN')") //TODO change permission to something else
     @RequestMapping(value = ["/lifemanagement/api/calendars"], method = [RequestMethod.GET], produces = ["application/json" ], consumes = ["application/json" ])
-    fun allCalendars(): List<ReturnCalendarDto> =
+    override fun allCalendars(): List<ReturnCalendarDto> =
         calendarService.findAll()
             .map(Calendar::toDto)
 
