@@ -24,7 +24,8 @@
     "imprint": "Impressum",
     "privacy-policy": "Datenschutzbestimmungen",
     "github": "Github",
-    "frontend_documentation": "Frontend Dokumentation"
+    "frontend_documentation": "Frontend Dokumentation",
+    "backend_api": "Backend Api"
   },
   "login": {
     "username": "Benutzername",

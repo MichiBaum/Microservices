@@ -6,6 +6,7 @@ import {PermissionEnum} from '../core/models/enum/permission.enum';
 import {AuthService} from '../core/services/auth.service';
 import {RouternavigationService} from '../core/services/routernavigation.service';
 import {LoginService} from '../login/login.service';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-navigation',
@@ -96,6 +97,16 @@ export class NavigationComponent implements OnInit {
         command: () => {
           this.sidebarVisible = false;
           const url = 'https://michibaum.github.io/lifemanagement/frontend/index.html';
+          window.open(url, '_blank');
+        },
+        visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
+      } as MenuItem,
+      {
+        label: this.translate.instant('navigation.backend_api'),
+        icon: 'fas fa-server',
+        command: () => {
+          this.sidebarVisible = false;
+          const url = environment.api_url + '/swagger-ui.html';
           window.open(url, '_blank');
         },
         visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])

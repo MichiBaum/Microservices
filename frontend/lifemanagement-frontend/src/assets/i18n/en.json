@@ -24,7 +24,8 @@
     "imprint": "imprint",
     "privacy-policy": "privacy policy",
     "github": "Github",
-    "frontend_documentation": "frontend documentation"
+    "frontend_documentation": "frontend documentation",
+    "backend_api": "Backend Api"
   },
   "login": {
     "username": "username",
