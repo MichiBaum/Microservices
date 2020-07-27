@@ -70,7 +70,7 @@ class CustomExceptionHandler {
         if(exceptionShown) {
             val errorDetails = ValidationErrorDetails(
                 timestamp = Date().time,
-                message = ex.message ?: "",
+                message = ex.message,
                 validationErrors = validationErrors,
                 exceptionClass = ex.javaClass,
                 details = request.getDescription(true)

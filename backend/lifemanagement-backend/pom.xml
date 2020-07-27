@@ -134,6 +134,32 @@
             <artifactId>kotlin-logging</artifactId>
             <version>1.7.10</version>
         </dependency>
+
+        <!-- Documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-kotlin</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-data-rest</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-security</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>

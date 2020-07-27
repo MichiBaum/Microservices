@@ -43,13 +43,21 @@ class WebSecurityConfig(
     @Value("\${application.system.environment}")
     private val systemEnvironment: String = ""
 
+    @Value("\${swagger.enabled}")
+    private val swaggerEnabled: Boolean = false
+
     override fun configure(http: HttpSecurity) {
-        val antEndpoints: Array<String> = publicEndpoints.map(PublicEndpointDetails::antPaths).flatten().toTypedArray()
+        var antEndpoints: Array<String> = publicEndpoints.map(PublicEndpointDetails::antPaths).flatten().toTypedArray()
 
 //      Only if the profile is dev_h2
         if (systemEnvironment == "dev_h2") {
-            http.cors().and().authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
+            antEndpoints = antEndpoints.plus("/lifemanagement/api/h2-console/**")
+        }
+
+        if(swaggerEnabled){
+            antEndpoints = antEndpoints.plus("/lifemanagement/api/swagger-ui.html")
+            antEndpoints = antEndpoints.plus("/lifemanagement/api/swagger-ui/**")
+            antEndpoints = antEndpoints.plus("/lifemanagement/api/api-docs/**")
         }
 
         http.cors().and().authorizeRequests()
@@ -97,4 +105,5 @@ class WebSecurityConfig(
     @Bean
     fun h2servletRegistration(): ServletRegistrationBean<WebServlet> =
         ServletRegistrationBean(WebServlet()).apply { addUrlMappings("/h2-console/*") }
+
 }
