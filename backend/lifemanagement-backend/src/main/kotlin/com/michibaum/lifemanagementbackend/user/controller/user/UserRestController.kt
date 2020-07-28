@@ -1,4 +1,4 @@
-package com.michibaum.lifemanagementbackend.user.controller
+package com.michibaum.lifemanagementbackend.user.controller.user
 
 import com.michibaum.lifemanagementbackend.core.argumentresolver.ArgumentResolver
 import com.michibaum.lifemanagementbackend.user.converter.toDto
@@ -14,7 +14,7 @@ import javax.validation.Valid
 @RestController
 class UserRestController(
     private val userService: UserService
-):UserRestControllerDocs {
+): UserRestControllerDocs {
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
     @RequestMapping(value = ["/lifemanagement/api/users"], method = [RequestMethod.GET], produces = ["application/json" ], consumes = ["application/json" ])

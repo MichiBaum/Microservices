@@ -1,4 +1,4 @@
-package com.michibaum.lifemanagementbackend.user.controller
+package com.michibaum.lifemanagementbackend.user.controller.user
 
 import com.michibaum.lifemanagementbackend.core.exceptionHandler.ErrorDetails
 import com.michibaum.lifemanagementbackend.user.domain.User

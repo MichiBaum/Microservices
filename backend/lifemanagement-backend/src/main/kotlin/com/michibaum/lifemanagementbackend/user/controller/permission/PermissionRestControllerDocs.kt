@@ -1,4 +1,4 @@
-package com.michibaum.lifemanagementbackend.user.controller
+package com.michibaum.lifemanagementbackend.user.controller.permission
 
 import com.michibaum.lifemanagementbackend.core.exceptionHandler.ErrorDetails
 import com.michibaum.lifemanagementbackend.user.dtos.ReturnPermissionDto

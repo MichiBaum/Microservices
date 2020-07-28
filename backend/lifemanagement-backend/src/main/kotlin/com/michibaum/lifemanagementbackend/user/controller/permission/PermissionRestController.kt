@@ -1,4 +1,4 @@
-package com.michibaum.lifemanagementbackend.user.controller
+package com.michibaum.lifemanagementbackend.user.controller.permission
 
 import com.michibaum.lifemanagementbackend.user.converter.toDto
 import com.michibaum.lifemanagementbackend.user.domain.Permission
