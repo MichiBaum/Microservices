@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse
 class JWTAuthenticationFilter(
     private val ownAuthenticationManager: AuthenticationManager, //TODO needs to be renamed, because of parent with same name
     private val lastLoginUpdater: LastLoginUpdater,
+    private val loginLogCreator: LoginLogCreator,
     private val applicationVersion: String
 ) : UsernamePasswordAuthenticationFilter() {
 
@@ -38,18 +39,31 @@ class JWTAuthenticationFilter(
         val username: String
     )
 
+    @Throws(AuthenticationException::class)
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse?): Authentication? {
         val credentials: LoginDto = ObjectMapper().readValue(req.inputStream, LoginDto::class.java)
 
-        lastLoginUpdater.update(credentials.username)
-
-        return ownAuthenticationManager.authenticate(
-            UsernamePasswordAuthenticationToken(
-                credentials.username,
-                credentials.password,
-                ArrayList()
+        var successfullAuth = true
+        try {
+            return ownAuthenticationManager.authenticate(
+                UsernamePasswordAuthenticationToken(
+                    credentials.username,
+                    credentials.password,
+                    ArrayList()
+                )
             )
-        )
+        } catch (auex: AuthenticationException){
+
+            successfullAuth = false
+            throw auex
+
+        } finally {
+
+            val user = lastLoginUpdater.update(credentials.username)
+            user?.let { loginLogCreator.create(it, req, successfullAuth) }
+
+        }
+
     }
 
     override fun successfulAuthentication(

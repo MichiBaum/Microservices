@@ -1,11 +1,8 @@
 package com.michibaum.lifemanagementbackend.core.config
 
 import com.michibaum.lifemanagementbackend.core.publicendpoint.PublicEndpointDetails
+import com.michibaum.lifemanagementbackend.core.security.*
 import com.michibaum.lifemanagementbackend.user.repository.UserRepository
-import com.michibaum.lifemanagementbackend.core.security.JWTAuthenticationFilter
-import com.michibaum.lifemanagementbackend.core.security.JWTAuthorizationFilter
-import com.michibaum.lifemanagementbackend.core.security.LastLoginUpdater
-import com.michibaum.lifemanagementbackend.core.security.UserDetailsServiceImpl
 import mu.KotlinLogging
 import org.h2.server.web.WebServlet
 import org.springframework.beans.factory.annotation.Value
@@ -33,7 +30,8 @@ class WebSecurityConfig(
     private val userDetailsService: UserDetailsServiceImpl,
     private val bCryptPasswordEncoder: BCryptPasswordEncoder,
     private val lastLoginUpdater: LastLoginUpdater,
-    private val publicEndpoints: List<PublicEndpointDetails>
+    private val publicEndpoints: List<PublicEndpointDetails>,
+    private val loginLogCreator: LoginLogCreator
 
 ) : WebSecurityConfigurerAdapter() {
 
@@ -68,6 +66,7 @@ class WebSecurityConfig(
                 JWTAuthenticationFilter(
                     authenticationManager(),
                     lastLoginUpdater,
+                    loginLogCreator,
                     applicationVersion
                 )
             )

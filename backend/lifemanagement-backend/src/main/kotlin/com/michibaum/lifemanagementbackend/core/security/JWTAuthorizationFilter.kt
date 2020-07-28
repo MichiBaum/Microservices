@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
 import mu.KotlinLogging
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -32,7 +31,9 @@ class JWTAuthorizationFilter(
             val authentication = getAuthentication(req)
             SecurityContextHolder.getContext().authentication = authentication
 
-            lastLoginUpdater.update()
+            if (authentication != null) {
+                lastLoginUpdater.update(authentication.name)
+            }
         }
 
         chain.doFilter(req, response)
