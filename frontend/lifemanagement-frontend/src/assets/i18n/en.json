@@ -44,6 +44,10 @@
       "name": "Bad Request",
       "message": "The request message was erroneous."
     },
+    "401": {
+      "name": "Authentification failed",
+      "message": "Authentication failed."
+    },
     "500": {
       "name": "Internal Server Error",
       "message": "Server side error"

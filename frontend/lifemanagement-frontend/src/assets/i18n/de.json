@@ -44,6 +44,10 @@
       "name": "Fehlerhafte Anfrage",
       "message": "Die Anfrage-Nachricht war fehlerhaft aufgebaut."
     },
+    "401": {
+      "name": "Authentifizierung fehlgeschlagen",
+      "message": "Die Authentifizierung ist fehlgeschlagen."
+    },
     "500": {
       "name": "Serverseitiger Fehler",
       "message": "Serverseitiger Fehler"
@@ -54,7 +58,7 @@
     },
     "403": {
       "name": "Verboten",
-      "message": "Die Anfrage wurde mangels Berechtigung des Clients nicht durchgeführt, bspw. weil der authentifizierte Benutzer nicht berechtigt ist, oder eine als HTTPS konfigurierte URL nur mit HTTP aufgerufen wurde."
+      "message": "Die Anfrage wurde mangels Berechtigung des Clients nicht durchgeführt, bspw. Weil der authentifizierte Benutzer nicht berechtigt ist, oder eine als HTTPS konfigurierte URL nur mit HTTP aufgerufen wurde."
     },
     "404": {
       "name": "Nicht gefunden",

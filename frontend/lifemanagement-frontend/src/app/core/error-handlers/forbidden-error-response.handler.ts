@@ -9,7 +9,7 @@ import {IHttpErrorResponseHandler} from './i-http-error-response.handler';
 import {LogGenerator} from './log-generator.namespace';
 
 @Injectable()
-export class AuthErrorResponseHandler implements IHttpErrorResponseHandler {
+export class ForbiddenErrorResponseHandler implements IHttpErrorResponseHandler {
 
   private translate: TranslateService;
 
