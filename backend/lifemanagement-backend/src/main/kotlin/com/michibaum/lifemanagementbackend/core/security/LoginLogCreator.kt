@@ -33,7 +33,7 @@ class LoginLogCreator(
         loginLogRepository.saveAndFlush(loginLog)
     }
 
-    data class Header(val name: String, val value: String)
+    private data class Header(val name: String, val value: String)
     private fun createAndGetHttpHeaders(request: HttpServletRequest?): MutableList<HttpHeader> {
         request?.let {
             val headerPairList = it.headerNames.toList().map { headerName -> Header(headerName, request.getHeader(headerName)) }
