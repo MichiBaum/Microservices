@@ -57,8 +57,6 @@ class LifemanagementBackendApplication {
         while (sb.length < 32) {
             sb.append(String.format("%08x", Random.nextInt()))
         }
-
-        println(sb.toString().substring(0, 32))
         SecurityConstants.SECRET = sb.toString().substring(0, 32)
     }
 
