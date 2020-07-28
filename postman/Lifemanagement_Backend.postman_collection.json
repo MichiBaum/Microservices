@@ -29,7 +29,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NjA4ODc0M30.CCfWYcVXrmRAypsnMfqvGe2rtVr4Fue4OrZ4T0w37AhmG6Rdb0Y_PzU7-fhM_s1tF5h7Ad3VdOljKxEbkOpfXw",
+									"value": "{{lifemanagement_barear_token}}",
 									"type": "string"
 								}
 							]
@@ -72,7 +72,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NjA4ODc0M30.CCfWYcVXrmRAypsnMfqvGe2rtVr4Fue4OrZ4T0w37AhmG6Rdb0Y_PzU7-fhM_s1tF5h7Ad3VdOljKxEbkOpfXw",
+									"value": "{{lifemanagement_barear_token}}",
 									"type": "string"
 								}
 							]
@@ -116,7 +116,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NjA4ODc0M30.CCfWYcVXrmRAypsnMfqvGe2rtVr4Fue4OrZ4T0w37AhmG6Rdb0Y_PzU7-fhM_s1tF5h7Ad3VdOljKxEbkOpfXw",
+									"value": "{{lifemanagement_barear_token}}",
 									"type": "string"
 								}
 							]
@@ -175,7 +175,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NjA4ODc0M30.CCfWYcVXrmRAypsnMfqvGe2rtVr4Fue4OrZ4T0w37AhmG6Rdb0Y_PzU7-fhM_s1tF5h7Ad3VdOljKxEbkOpfXw",
+									"value": "{{lifemanagement_barear_token}}",
 									"type": "string"
 								}
 							]
@@ -224,7 +224,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NjA4ODc0M30.CCfWYcVXrmRAypsnMfqvGe2rtVr4Fue4OrZ4T0w37AhmG6Rdb0Y_PzU7-fhM_s1tF5h7Ad3VdOljKxEbkOpfXw",
+									"value": "{{lifemanagement_barear_token}}",
 									"type": "string"
 								}
 							]
@@ -268,7 +268,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NjA4ODc0M30.CCfWYcVXrmRAypsnMfqvGe2rtVr4Fue4OrZ4T0w37AhmG6Rdb0Y_PzU7-fhM_s1tF5h7Ad3VdOljKxEbkOpfXw",
+									"value": "{{lifemanagement_barear_token}}",
 									"type": "string"
 								}
 							]
@@ -306,6 +306,30 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "be913cf2-2eeb-4420-a5cb-65df09a225a3",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(jsonData)\r",
+							"if(\r",
+							"    (\r",
+							"        pm.response.code === 200 ||\r",
+							"        pm.response.code === 201 || \r",
+							"        pm.response.code === 202\r",
+							"    ) && jsonData.token\r",
+							"){\r",
+							"    pm.environment.set(\r",
+							"        \"lifemanagement_barear_token\",\r",
+							"        jsonData.token.replace('Bearer ', '')\r",
+							"    );\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -316,7 +340,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"CHUppq2Qud\"\n}",
+					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"RcvTIHGT5B\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
