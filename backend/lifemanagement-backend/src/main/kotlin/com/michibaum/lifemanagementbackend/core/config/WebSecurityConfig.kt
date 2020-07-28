@@ -46,6 +46,9 @@ class WebSecurityConfig(
     @Value("\${swagger.enabled}")
     private val swaggerEnabled: Boolean = false
 
+    @Value("\${application.version}")
+    private val applicationVersion: String = ""
+
     override fun configure(http: HttpSecurity) {
         var antEndpoints: Array<String> = publicEndpoints.map(PublicEndpointDetails::antPaths).flatten().toTypedArray()
 
@@ -68,14 +71,16 @@ class WebSecurityConfig(
                 JWTAuthenticationFilter(
                     authenticationManager(),
                     userRepository,
-                    lastLoginUpdater
+                    lastLoginUpdater,
+                    applicationVersion
                 )
             )
             .addFilter(
                 JWTAuthorizationFilter(
                     authenticationManager(),
                     userDetailsService,
-                    lastLoginUpdater
+                    lastLoginUpdater,
+                    applicationVersion
                 )
             )
             // this disables session creation on Spring Security

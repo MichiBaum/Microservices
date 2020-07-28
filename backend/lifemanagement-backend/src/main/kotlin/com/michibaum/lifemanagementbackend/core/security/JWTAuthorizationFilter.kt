@@ -19,12 +19,11 @@ import javax.servlet.http.HttpServletResponse
 class JWTAuthorizationFilter(
     authManager: AuthenticationManager,
     private val userDetailsService: UserDetailsService,
-    private val lastLoginUpdater: LastLoginUpdater
+    private val lastLoginUpdater: LastLoginUpdater,
+    private val applicationVersion: String
 ) : BasicAuthenticationFilter(authManager) {
 
     private val ownLogger = KotlinLogging.logger {}
-
-    @Value("\${application.version}") private val applicationVersion: String = ""
 
     override fun doFilterInternal(req: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         val header = req.getHeader(SecurityConstants.HEADER_STRING).orEmpty()

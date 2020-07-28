@@ -20,10 +20,9 @@ import javax.servlet.http.HttpServletResponse
 class JWTAuthenticationFilter(
     private val ownAuthenticationManager: AuthenticationManager, //TODO needs to be renamed, because of parent with same name
     private val userRepository: UserRepository,
-    private val lastLoginUpdater: LastLoginUpdater
+    private val lastLoginUpdater: LastLoginUpdater,
+    private val applicationVersion: String
 ) : UsernamePasswordAuthenticationFilter() {
-
-    @Value("\${application.version}") private val applicationVersion: String = ""
 
     init {
         setFilterProcessesUrl("/lifemanagement/api/login")
@@ -87,6 +86,12 @@ class JWTAuthenticationFilter(
         return JWT.create()
             .withSubject(
                 (auth.principal as User).username
+            )
+            .withHeader(
+                mapOf(
+                    "alg" to "HMAC512",
+                    "typ" to "JWT"
+                )
             )
             .withClaim("backend_version", applicationVersion)
             .withExpiresAt(expiresAt)
