@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.michibaum.lifemanagementbackend.user.repository.UserRepository
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -21,6 +22,8 @@ class JWTAuthenticationFilter(
     private val userRepository: UserRepository,
     private val lastLoginUpdater: LastLoginUpdater
 ) : UsernamePasswordAuthenticationFilter() {
+
+    @Value("\${application.version}") private val applicationVersion: String = ""
 
     init {
         setFilterProcessesUrl("/lifemanagement/api/login")
@@ -82,7 +85,10 @@ class JWTAuthenticationFilter(
         expiresAt: Date
     ): String {
         return JWT.create()
-            .withSubject((auth.principal as User).username)
+            .withSubject(
+                (auth.principal as User).username
+            )
+            .withClaim("backend_version", applicationVersion)
             .withExpiresAt(expiresAt)
             .sign(Algorithm.HMAC512(SecurityConstants.SECRET))
     }
