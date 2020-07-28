@@ -32,13 +32,10 @@ class WebSecurityConfig(
 
     private val userDetailsService: UserDetailsServiceImpl,
     private val bCryptPasswordEncoder: BCryptPasswordEncoder,
-    private val userRepository: UserRepository,
     private val lastLoginUpdater: LastLoginUpdater,
     private val publicEndpoints: List<PublicEndpointDetails>
 
 ) : WebSecurityConfigurerAdapter() {
-
-    private val logger = KotlinLogging.logger {}
 
     @Value("\${application.system.environment}")
     private val systemEnvironment: String = ""
@@ -70,7 +67,6 @@ class WebSecurityConfig(
             .addFilter(
                 JWTAuthenticationFilter(
                     authenticationManager(),
-                    userRepository,
                     lastLoginUpdater,
                     applicationVersion
                 )

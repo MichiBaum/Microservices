@@ -4,22 +4,23 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.michibaum.lifemanagementbackend.user.repository.UserRepository
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import java.io.IOException
 import java.util.*
 import javax.servlet.FilterChain
+import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class JWTAuthenticationFilter(
     private val ownAuthenticationManager: AuthenticationManager, //TODO needs to be renamed, because of parent with same name
-    private val userRepository: UserRepository,
     private val lastLoginUpdater: LastLoginUpdater,
     private val applicationVersion: String
 ) : UsernamePasswordAuthenticationFilter() {
@@ -65,10 +66,23 @@ class JWTAuthenticationFilter(
             permissions,
             (auth.principal as User).username
         )
-        manipulateResponse(response, jwt)
+        manipulateResponseSuccessfullAuth(response, jwt)
     }
 
-    private fun manipulateResponse(
+    @Throws(IOException::class, ServletException::class)
+    override fun unsuccessfulAuthentication(
+        request: HttpServletRequest?,
+        response: HttpServletResponse?,
+        failed: AuthenticationException
+    ) {
+
+        SecurityContextHolder.clearContext()
+        manipulateResponseBadAuth(response)
+        rememberMeServices.loginFail(request, response)
+
+    }
+
+    private fun manipulateResponseSuccessfullAuth(
         response: HttpServletResponse,
         jwt: TokenDto
     ) {
@@ -77,6 +91,16 @@ class JWTAuthenticationFilter(
         response.writer.write(jacksonObjectMapper().writeValueAsString(jwt))
         response.writer.flush()
         response.writer.close()
+    }
+
+    private fun manipulateResponseBadAuth(
+        response: HttpServletResponse?
+    ) {
+        response?.let {
+            it.status = HttpServletResponse.SC_UNAUTHORIZED
+            it.writer.flush()
+            it.writer.close()
+        }
     }
 
     private fun createJWT(
