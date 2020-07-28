@@ -13,7 +13,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>lifemanagement-backend</artifactId>
-    <version>1.0</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
     <name>lifemanagement-backend</name>
     <description>lifemanagement-backend</description>
