@@ -3,6 +3,7 @@ package com.michibaum.lifemanagementbackend.core.security
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -20,6 +21,8 @@ class JWTAuthorizationFilter(
     private val userDetailsService: UserDetailsService,
     private val lastLoginUpdater: LastLoginUpdater
 ) : BasicAuthenticationFilter(authManager) {
+
+    private val ownLogger = KotlinLogging.logger {}
 
     @Value("\${application.version}") private val applicationVersion: String = ""
 
@@ -49,9 +52,14 @@ class JWTAuthorizationFilter(
     }
 
     private fun parseToken(token: String): DecodedJWT? =
-        JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET))
-            .build()
-            .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
+        try {
+            JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET))
+                .build()
+                .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
+        }catch (ex: Exception){
+            this.ownLogger.error("Parse token exception: " + ex.message, ex)
+            null
+        }
 
     private fun tokenIsValid(jwt: DecodedJWT): Boolean {
         val username = jwt.subject.orEmpty()
