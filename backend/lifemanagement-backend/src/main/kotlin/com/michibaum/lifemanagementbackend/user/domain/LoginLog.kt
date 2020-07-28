@@ -1,6 +1,7 @@
 package com.michibaum.lifemanagementbackend.user.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.util.*
 import javax.persistence.*
 
 @Entity(name = "LOGIN_LOG")
@@ -28,6 +29,9 @@ class LoginLog(
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
+
+    @Column(nullable = false, name = "creationDate")
+    var creationDate: Long = Date().time
 
 }
 
