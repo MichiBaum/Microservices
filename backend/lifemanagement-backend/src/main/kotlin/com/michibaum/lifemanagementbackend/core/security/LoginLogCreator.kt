@@ -13,10 +13,14 @@ class LoginLogCreator(
 
     fun create(user: User, request: HttpServletRequest? = null, successfullAuth: Boolean){
         val ipAddress = request?.getHeader("X-FORWARDED-FOR") ?: request?.remoteAddr ?: ""
+        val clientIpAddress = if(ipAddress.contains(','))
+                ipAddress.split(",")[0]
+            else
+                ipAddress
 
         val loginLog = LoginLog(
             user = user,
-            ipAddress = ipAddress,
+            ipAddress = clientIpAddress,
             reqMethod = request?.method ?: "",
             successfullAuth = successfullAuth
         )
