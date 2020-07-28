@@ -7,6 +7,7 @@ import com.michibaum.lifemanagementbackend.user.dtos.ReturnUserDto
 import com.michibaum.lifemanagementbackend.user.dtos.UpdateUserDto
 import com.michibaum.lifemanagementbackend.user.service.UserService
 import io.swagger.v3.oas.annotations.Parameter
+import org.springframework.http.MediaType
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -17,12 +18,12 @@ class UserRestController(
 ): UserRestControllerDocs {
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
-    @RequestMapping(value = ["/lifemanagement/api/users"], method = [RequestMethod.GET], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/users"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun allUsers(): List<ReturnUserDto> =
         userService.findAll()
             .map(User::toDto)
 
-    @RequestMapping(value = ["/lifemanagement/api/users/me"], method = [RequestMethod.GET], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/users/me"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun myUsers(
 
         @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true)
@@ -32,7 +33,7 @@ class UserRestController(
     ): ReturnUserDto =
         currentUser.toDto()
 
-    @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun change(
 
         @Parameter(description = "The data to update the user")
@@ -50,7 +51,7 @@ class UserRestController(
             .toDto()
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
-    @RequestMapping(value = ["/lifemanagement/api/users/{id}/permissions"], method = [RequestMethod.POST], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/users/{id}/permissions"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun changePermissions(
 
         @Parameter(description = "All the permissions the User should have")

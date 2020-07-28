@@ -8,6 +8,7 @@ import com.michibaum.lifemanagementbackend.logs.dtos.ReturnLogDto
 import com.michibaum.lifemanagementbackend.logs.dtos.CreateLogDto
 import com.michibaum.lifemanagementbackend.logs.service.LogService
 import io.swagger.v3.oas.annotations.Parameter
+import org.springframework.http.MediaType
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -18,7 +19,7 @@ class LogRestController(
 ): LogRestControllerDocs {
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
-    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.GET], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun getLogs(
 
         @Parameter(description = "")
@@ -29,14 +30,14 @@ class LogRestController(
             .map(LoggingEvent::toDto)
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
-    @RequestMapping(value = ["/lifemanagement/api/logs/levels"], method = [RequestMethod.GET], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/logs/levels"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun getLogLevels(): List<String> =
         logService.findAll()
             .map(LoggingEvent::levelString)
             .distinct()
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
-    @RequestMapping(value = ["/lifemanagement/api/logs/{loggingEvent}/seen"], method = [RequestMethod.POST], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/logs/{loggingEvent}/seen"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun setLogSeen(
 
         @Parameter(description = "The logging event. Is resolved by the url variable", hidden = true)
@@ -52,7 +53,7 @@ class LogRestController(
             .let(logService::save)
             .toDto()
 
-    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST], produces = ["application/json" ], consumes = ["application/json" ])
+    @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun createLog(
 
         @Parameter(description = "The Data to create the log")
