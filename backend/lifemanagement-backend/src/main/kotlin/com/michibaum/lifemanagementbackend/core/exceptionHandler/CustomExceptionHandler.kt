@@ -1,6 +1,6 @@
 package com.michibaum.lifemanagementbackend.core.exceptionHandler
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import io.swagger.v3.oas.annotations.media.Schema
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -26,11 +26,11 @@ class CustomExceptionHandler {
         logger.error(ex.message, ex.stackTrace)
         val errorDetails = ErrorDetails(
             timestamp = Date().time,
-            message = ex.message ?: "",
-            exceptionClass = ex.javaClass,
-            details = request.getDescription(true)
+            message = if(exceptionShown) ex.message ?: "" else "",
+            exceptionClass = if(exceptionShown) ex.javaClass else null,
+            details = if(exceptionShown) request.getDescription(true) else request.getDescription(false)
         )
-        return returnResponseEntry(errorDetails, HttpStatus.NOT_FOUND)
+        return ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     @ExceptionHandler(Exception::class)
@@ -38,11 +38,11 @@ class CustomExceptionHandler {
         logger.error(ex.message, ex.stackTrace)
         val errorDetails = ErrorDetails(
             timestamp = Date().time,
-            message = ex.message ?: "",
-            exceptionClass = ex.javaClass,
-            details = request.getDescription(true)
+            message = if(exceptionShown) ex.message ?: "" else "",
+            exceptionClass = if(exceptionShown) ex.javaClass else null,
+            details = if(exceptionShown) request.getDescription(true) else request.getDescription(false)
         )
-        return returnResponseEntry(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
@@ -52,47 +52,14 @@ class CustomExceptionHandler {
             .map { obj: ObjectError -> obj.defaultMessage }
             .filter { obj: String? -> Objects.nonNull(obj) }
 
-        if(exceptionShown) {
-            val errorDetails = ValidationErrorDetails(
-                timestamp = Date().time,
-                message = ex.message,
-                validationErrors = validationErrors,
-                exceptionClass = ex.javaClass,
-                details = request.getDescription(true)
-            )
-            return ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST)
-        }else{
-            val errorDetails = ValidationErrorDetails(
-                timestamp = Date().time,
-                message = "",
-                validationErrors = validationErrors,
-                exceptionClass = ex.javaClass,
-                details = request.getDescription(false)
-            )
-            return ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST)
-        }
+        val errorDetails = ValidationErrorDetails(
+            timestamp = Date().time,
+            message = if(exceptionShown) ex.message else "",
+            validationErrors = validationErrors,
+            exceptionClass = if(exceptionShown) ex.javaClass else null,
+            details = if(exceptionShown) request.getDescription(true) else request.getDescription(false)
+        )
+        return ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST)
     }
 
-    private fun <T : ErrorDetails> returnResponseEntry(errorDetails: T, httpStatus: HttpStatus): ResponseEntity<T> {
-        return if(exceptionShown){
-            ResponseEntity(errorDetails, httpStatus)
-        }else{
-            ResponseEntity(httpStatus)
-        }
-    }
 }
-
-open class ErrorDetails(
-    open val timestamp: Long,
-    open val message: String,
-    open val exceptionClass: Class<out Exception?>?,
-    open val details: String
-)
-
-class ValidationErrorDetails(
-    override val timestamp: Long,
-    override val message: String,
-    val validationErrors: List<String?>,
-    override val exceptionClass: Class<out Exception?>?,
-    override val details: String
-) : ErrorDetails(timestamp, message, exceptionClass, details)
