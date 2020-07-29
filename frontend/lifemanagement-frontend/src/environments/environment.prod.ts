@@ -18,5 +18,5 @@ export const environment = {
   /**
    * Flag if url routes are shown
    */
-  show_url_routes: false
+  hide_url_routes: true
 };

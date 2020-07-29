@@ -58,7 +58,9 @@ export class UsersettingsComponent implements OnInit {
       });
       return;
     }
-    observableMe.subscribe((value) => this.users.push({label: value.name, field: value.name, value} as IPrimeNgBase));
+    observableMe.subscribe((value) =>
+      this.users.push({label: value.name, field: value.name, value} as IPrimeNgBase)
+    );
   }
 
   userChanged(event: any) {
@@ -132,6 +134,7 @@ export class UsersettingsComponent implements OnInit {
 
   savePermissions() {
     this.userService.savePermissions(this.toExportUser(this.selectedUser)).subscribe();
+    this.successMessage();
   }
 
 }

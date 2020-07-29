@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Route, RouterModule, Routes} from '@angular/router';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
 import {HomeComponent} from './home/home.component';
 import {ImprintComponent} from './imprint/imprint.component';
@@ -15,29 +15,29 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  }, {
+  } as Route, {
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: '',
     component: HomeComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: 'logmanagement',
     component: LoggingComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: 'usersettings',
     component: UsersettingsComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: 'imprint',
     component: ImprintComponent
-  }, {
+  } as Route, {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
-  }
+  } as Route
 ];
 
 @NgModule({

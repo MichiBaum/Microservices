@@ -48,17 +48,9 @@
       "name": "Authentifizierung fehlgeschlagen",
       "message": "Die Authentifizierung ist fehlgeschlagen."
     },
-    "500": {
-      "name": "Serverseitiger Fehler",
-      "message": "Serverseitiger Fehler"
-    },
-    "noConnection": {
-      "name": "keine Verbindung",
-      "message": "keine Verbindung"
-    },
     "403": {
       "name": "Verboten",
-      "message": "Die Anfrage wurde mangels Berechtigung des Clients nicht durchgeführt, bspw. Weil der authentifizierte Benutzer nicht berechtigt ist, oder eine als HTTPS konfigurierte URL nur mit HTTP aufgerufen wurde."
+      "message": "Die Anfrage wurde mangels Berechtigung des Clients nicht durchgeführt, bspw. weil der authentifizierte Benutzer nicht berechtigt ist, oder eine als HTTPS konfigurierte URL nur mit HTTP aufgerufen wurde. Eventuell kann ein erneutes login helfen."
     },
     "404": {
       "name": "Nicht gefunden",
@@ -67,6 +59,14 @@
     "405": {
       "name": "Methode nicht erlaubt",
       "message": "Die Anfrage darf nur mit anderen HTTP-Methoden gestellt werden."
+    },
+    "500": {
+      "name": "Serverseitiger Fehler",
+      "message": "Serverseitiger Fehler"
+    },
+    "noConnection": {
+      "name": "keine Verbindung",
+      "message": "keine Verbindung"
     }
   },
   "permission": {
