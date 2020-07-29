@@ -46,6 +46,11 @@ class LoggingEventCleaner(
                     }
             }
         }
+        this.logger.info("Hourly deleteLoggingEvents method stats are:")
+        deletedLogsCounter.keys.forEach{
+            this.logger.info(" - Deleted " + deletedLogsCounter[it] + " logs with level " + it.levelName)
+
+        }
     }
 
     private fun updateDeletedLogsCounter(
