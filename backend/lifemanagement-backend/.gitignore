@@ -148,3 +148,6 @@ buildNumber.properties
 .classpath
 .project
 .settings
+
+# Intellij Statistic Plugin
+.idea/statistic.xml
