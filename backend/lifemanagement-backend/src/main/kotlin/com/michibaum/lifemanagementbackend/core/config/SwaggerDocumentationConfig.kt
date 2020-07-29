@@ -17,7 +17,8 @@ class SwaggerDocumentationConfig {
     @Bean
     fun customOpenApi(
         @Value("\${application.description}") applicationDesciption: String = "",
-        @Value("\${application.version}") applicationVersion: String = ""
+        @Value("\${application.version}") applicationVersion: String = "",
+        @Value("\${springdoc.swagger-ui.custom.authentication.url}") authenticationUrl: String = ""
     ): OpenAPI {
         return OpenAPI()
             .info(
@@ -29,7 +30,7 @@ class SwaggerDocumentationConfig {
                 .contact(
                     Contact()
                         .name("Michael Baumberger")
-                        .url("michibaum.ch/lifemanagement/")
+                        .url(authenticationUrl)
                         .email("michael_baumberger@gmx.ch")
                 )
             ).schemaRequirement(
@@ -42,7 +43,7 @@ class SwaggerDocumentationConfig {
                         OAuthFlows()
                             .clientCredentials(
                                 OAuthFlow()
-                                .authorizationUrl("michibaum.ch/lifemanagement/")
+                                .authorizationUrl(authenticationUrl)
                             )
                     )
             )
