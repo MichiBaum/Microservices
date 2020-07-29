@@ -14,6 +14,10 @@
             <fileNamePattern>/var/log/tomcat/lifemanagement.%d.log.gz</fileNamePattern>
             <maxHistory>365</maxHistory>
         </rollingPolicy>
+        <!-- deny all events with a level below INFO, that is TRACE and DEBUG -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
         <encoder>
             <Pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{100} : %m in %M -> %n %ex{5} %n</Pattern>
         </encoder>
@@ -41,6 +45,12 @@
     </logger>
 
     <logger name="org.hibernate" level="WARN">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="DB"/>
+    </logger>
+
+    <logger name="org.hibernate.stat" level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="DB"/>
