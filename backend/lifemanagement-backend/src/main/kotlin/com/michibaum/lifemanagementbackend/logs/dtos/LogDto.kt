@@ -4,20 +4,49 @@ import io.swagger.v3.oas.annotations.media.Schema
 import javax.validation.constraints.NotNull
 
 data class ReturnLogDto(
+    @field:Schema(example = "34", required = false)
     val id: Long = 0,
+
+    @field:Schema(example = "1595851650180", required = true)
     val date: Long = 0,
+
+    @field:Schema(example = "Exception: You cant be null", required = true, description = "The formatted message from a logger or something")
     val formattedMessage: String = "",
+
+    @field:Schema(example = "CustomExceptionLogger", required = true, description = "The logger who logged the exception")
     val loggerName: String = "",
+
+    @field:Schema(example = "INFO", required = true, description = "The level of the exception")
     val level: String = "",
+
+    @field:Schema(required = false)
     val threadName: String = "",
+
+    @field:Schema(required = false)
     val arg0: String = "",
+
+    @field:Schema(required = false)
     val arg1: String = "",
+
+    @field:Schema(required = false)
     val arg2: String = "",
+
+    @field:Schema(required = false)
     val arg3: String = "",
+
+    @field:Schema(example = "NormalServiceClass.kt", required = true, description = "The filname where the exception happened or the logger logged it")
     val callerFilename: String = "",
+
+    @field:Schema(example = "NormalServiceClass", required = false, description = "The class where the exception happened or the logger logged it")
     val callerClass: String = "",
+
+    @field:Schema(example = "parseSomethingToElse()", required = false, description = "The method where the exception happened or the logger logged it")
     val callerMethod: String = "",
+
+    @field:Schema(required = false)
     val callerLine: String = "",
+
+    @field:Schema(example = "false", required = true, description = "If exception already seen true else false")
     val seen: Boolean = false
 )
 
@@ -34,7 +63,7 @@ data class CreateLogDto(
     @field:NotNull(message = "validation.log.formattedMessage.notNull")
     val formattedMessage: String = "",
 
-    @field:Schema(example = "CostomExceptionLogger", required = true, description = "The logger who logged the exception")
+    @field:Schema(example = "CustomExceptionLogger", required = true, description = "The logger who logged the exception")
     @field:NotNull(message = "validation.log.loggerName.notNull")
     val loggerName: String = "",
 
