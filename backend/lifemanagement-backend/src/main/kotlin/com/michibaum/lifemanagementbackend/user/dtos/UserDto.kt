@@ -27,7 +27,7 @@ data class UpdateUserDto(
     @field:NotNull(message = "validation.user.password.notNull")
     val password: String,
 
-    @field:Schema(example = "max.msuter@jahuu.com", required = false)
+    @field:Schema(example = "max.muster@jahuu.com", required = false)
     @field:Email(message = "validation.user.emailAddress.notValid")
     @field:NotBlank(message = "validation.user.emailAddress.notEmpty")
     val emailAddress: String,
