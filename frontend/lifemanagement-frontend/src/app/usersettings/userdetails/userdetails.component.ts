@@ -13,7 +13,6 @@ export class UserdetailsComponent implements OnInit {
   @Output() savedUser: EventEmitter<IUser> = new EventEmitter<IUser>();
 
   hasPermissionUserManagement = false;
-  newPassword = '';
 
   constructor() {
   }

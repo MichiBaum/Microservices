@@ -28,7 +28,7 @@ export class UserService {
     return this.apiService.postAll('/users/' + user.id, user);
   }
 
-  savePermissions(user: IUpdateUser): Observable<any> {
-    return this.apiService.postAll('/users/' + user.id + '/permissions', user.permissions);
+  savePermissions(userId: number, permissionIds: number[]): Observable<any> {
+    return this.apiService.postAll('/users/' + userId + '/permissions', permissionIds);
   }
 }
