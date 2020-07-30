@@ -36,10 +36,6 @@ data class UpdateUserDto(
     @field:NotNull(message = "validation.user.enabled.notNull")
     val enabled: Boolean,
 
-    @field:Schema(example = "1595851650180", required = false)
-    @field:NotNull(message = "validation.user.lastLogin.notNull")
-    val lastLogin: Long,
-
     @field:Schema(example = "{2,6,34}", required = false, description = "List of id from the permissions")
     @field:NotNull(message = "validation.user.permissions.notNull")
     val permissions: List<Long> = mutableListOf()

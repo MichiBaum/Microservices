@@ -3,7 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {PermissionEnum} from '../core/models/enum/permission.enum';
 import {IPermission} from '../core/models/permission.model';
 import {IPrimeNgBase} from '../core/models/primeng-base.model';
-import {IExportUser, IUser} from '../core/models/user.model';
+import {IUpdateUser, IUser} from '../core/models/user.model';
 import {AuthService} from '../core/services/auth.service';
 import {LoginService} from '../login/login.service';
 import {ToastMessageService} from '../toast-message/toast-message.service';
@@ -97,16 +97,15 @@ export class UsersettingsComponent implements OnInit {
     }
   }
 
-  private toExportUser = (user: IUser): IExportUser => {
+  private toExportUser = (user: IUser): IUpdateUser => {
     return {
       id: user.id,
       name: user.name,
       emailAddress: user.emailAddress,
       password: this.newPassword,
       enabled: user.enabled,
-      lastLogin: user.lastLogin,
       permissions: user.permissions.map( (permission) => permission.id )
-    } as IExportUser;
+    } as IUpdateUser;
   }
 
   private needsLogin = (): boolean => {
