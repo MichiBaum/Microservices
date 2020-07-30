@@ -151,3 +151,6 @@ buildNumber.properties
 
 # Intellij Statistic Plugin
 .idea/statistic.xml
+
+#Intellij encodings
+.idea/encodings.xml
