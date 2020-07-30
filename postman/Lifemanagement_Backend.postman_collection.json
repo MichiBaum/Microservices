@@ -295,6 +295,113 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Log",
+			"item": [
+				{
+					"name": "Get all Log Levels",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1458fcb5-dbb4-4b74-991e-c177e7b68bca",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/logs/levels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"logs",
+								"levels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Logs with Filter",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1b8c9ef3-244f-4dcb-ad69-e1b31f4cc86d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/logs?level=INFO&level=ERROR&seen=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "level",
+									"value": "INFO"
+								},
+								{
+									"key": "level",
+									"value": "ERROR"
+								},
+								{
+									"key": "seen",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Login",
 			"event": [
 				{
@@ -340,7 +447,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"bSiXppBEvS\"\n}",
+					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"xRsDmEZVvK\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
