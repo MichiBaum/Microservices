@@ -20,11 +20,21 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.3.72</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <start-class>com.michibaum.lifemanagementbackend.LifemanagementBackendApplication</start-class>
         <jar-filename>lifemanagement</jar-filename>
+
+        <!-- Versions -->
+        <kotlin.version>1.3.72</kotlin.version>
+        <java.version>11</java.version>
+        <springdoc.openapi.version>1.4.3</springdoc.openapi.version>
+        <jackson-module-kotlin.version>2.11.0</jackson-module-kotlin.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <java-jwt.version>3.10.3</java-jwt.version>
+        <kotlin-logging.version>1.7.10</kotlin-logging.version>
+        <mysql-connector-java.version>8.0.20</mysql-connector-java.version>
+        <h2.version>1.4.200</h2.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     </properties>
 
     <dependencies>
@@ -51,7 +61,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
-            <version>2.11.0</version>
+            <version>${jackson-module-kotlin.version}</version>
         </dependency>
 
         <!--spring-->
@@ -87,11 +97,18 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Enables auto restart while developing -->
+        <!-- mysql connector -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+
+        <!-- h2 db -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
 
         <dependency>
@@ -100,24 +117,10 @@
             <scope>${tomcat-dependency-scope}</scope>
         </dependency>
 
-        <!-- mysql connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.20</version>
-        </dependency>
-
-        <!-- h2 db -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
-        </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -125,39 +128,39 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.10.3</version>
+            <version>${java-jwt.version}</version>
         </dependency>
 
         <!-- Kotlin Logger (slf4j)-->
         <dependency>
             <groupId>io.github.microutils</groupId>
             <artifactId>kotlin-logging</artifactId>
-            <version>1.7.10</version>
+            <version>${kotlin-logging.version}</version>
         </dependency>
 
         <!-- Documentation -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.4.3</version>
+            <version>${springdoc.openapi.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-kotlin</artifactId>
-            <version>1.4.3</version>
+            <version>${springdoc.openapi.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-data-rest</artifactId>
-            <version>1.4.3</version>
+            <version>${springdoc.openapi.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-security</artifactId>
-            <version>1.4.3</version>
+            <version>${springdoc.openapi.version}</version>
         </dependency>
 
     </dependencies>
@@ -168,10 +171,12 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+
             <properties>
                 <environment-resources>${basedir}/src/main/resources/environments/dev</environment-resources>
                 <tomcat-dependency-scope>compile</tomcat-dependency-scope>
             </properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -180,17 +185,17 @@
                     </plugin>
                 </plugins>
             </build>
+
         </profile>
 
         <profile>
             <id>dev_h2</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+
             <properties>
                 <environment-resources>${basedir}/src/main/resources/environments/dev_h2</environment-resources>
                 <tomcat-dependency-scope>compile</tomcat-dependency-scope>
             </properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -203,10 +208,12 @@
 
         <profile>
             <id>docker</id>
+
             <properties>
                 <environment-resources>${basedir}/src/main/resources/environments/docker</environment-resources>
                 <tomcat-dependency-scope>provided</tomcat-dependency-scope>
             </properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -252,7 +259,7 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
                 <configuration>
-                    <jvmTarget>11</jvmTarget>
+                    <jvmTarget>${java.version}</jvmTarget>
                     <compilerPlugins>
                         <!-- Or "spring" for the Spring support -->
                         <plugin>spring</plugin>
@@ -295,7 +302,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${maven-jar-plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
