@@ -15,13 +15,13 @@ class LoggingEventCleaner(
     private val logger = KotlinLogging.logger {}
 
     private enum class LoggingEventLevel(val levelName: String, val ageToDelete: Long){
-        TRACE("TRACE", 21600000), // 6 hours
-        DEBUG("DEBUG", 21600000), // 6 hours
-        FINE("FINE", 21600000), // 6 hours
-        FINER("FINER", 21600000), // 6 hours
-        FINEST("FINEST", 21600000), // 6 hours
-        INFO("INFO", 259200000), // 3 days
-        CONFIG("CONFIG", 259200000), // 3 days
+        TRACE("TRACE", 907200025), // 1,5 weeks
+        DEBUG("DEBUG", 907200025), // 1,5 weeks
+        FINE("FINE", 907200025), // 1,5 weeks
+        FINER("FINER", 907200025), // 1,5 weeks
+        FINEST("FINEST", 907200025), // 1,5 weeks
+        INFO("INFO", 907200025), // 1,5 weeks
+        CONFIG("CONFIG", 907200025), // 1,5 weeks
         WARN("WARN", 907200025), // 1,5 weeks
         WARNING("WARNING", 907200025), // 1,5 weeks
         ERROR("ERROR", 2629800000), // 1 month
