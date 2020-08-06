@@ -6,8 +6,8 @@ services:
     hostname: lifemanagement-database
     image: mysql:8.0.20
     restart: always
-    ports:
-      - '3306:3306'
+    expose:
+      - "3306"
     environment:
       MYSQL_DATABASE: 'lifemanagement'
       MYSQL_USER: 'lifemanagement-user'
