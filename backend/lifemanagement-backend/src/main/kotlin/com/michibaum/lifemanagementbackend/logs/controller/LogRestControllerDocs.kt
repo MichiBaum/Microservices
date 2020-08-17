@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 
-@Tag(name = "Log Endpoints", description = "")
+@Tag(name = "Log Endpoints", description = "All api endpoints which handle something with logs")
 interface LogRestControllerDocs {
 
     @SecurityRequirement(name = "Barear Token")

@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 
-@Tag(name = "Permission Endpoints", description = "")
+@Tag(name = "Permission Endpoints", description = "All api endpoints which handle something with permissions")
 interface PermissionRestControllerDocs {
 
 

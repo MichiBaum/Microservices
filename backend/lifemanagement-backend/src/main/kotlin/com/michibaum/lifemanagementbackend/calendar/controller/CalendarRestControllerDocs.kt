@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 
-@Tag(name = "Calendar Endpoints", description = "")
+@Tag(name = "Calendar Endpoints", description = "All api endpoints which handle something with calendars")
 interface CalendarRestControllerDocs {
 
     @SecurityRequirement(name = "Barear Token")
