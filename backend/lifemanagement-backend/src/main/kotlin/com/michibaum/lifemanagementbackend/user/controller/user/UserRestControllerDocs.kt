@@ -18,11 +18,11 @@ interface UserRestControllerDocs{
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Returns all user", description = "Returns all users as DTO", security = [ SecurityRequirement(name = "USER_MANAGEMENT") ])
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -33,11 +33,11 @@ interface UserRestControllerDocs{
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Returns your user", description = "Returns your login user as DTO")
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -50,11 +50,11 @@ interface UserRestControllerDocs{
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Updates an User", description = "Updates the user with the id in the url")
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -68,11 +68,11 @@ interface UserRestControllerDocs{
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Changes permission of an user", description = "Change permission of an user", security = [ SecurityRequirement(name = "USER_MANAGEMENT") ])
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])

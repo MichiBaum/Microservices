@@ -19,11 +19,11 @@ interface LogRestControllerDocs {
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Returns all logs", description = "Returns all logs as DTO", security = [ SecurityRequirement(name = "SEE_LOGS") ])
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -34,11 +34,11 @@ interface LogRestControllerDocs {
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Returns all log level", description = "Returns all log level", security = [ SecurityRequirement(name = "SEE_LOGS") ])
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -47,11 +47,11 @@ interface LogRestControllerDocs {
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Changes the log level", description = "Resolves the loggingevent by the id in the url and changes the loggingevents log level", security = [ SecurityRequirement(name = "SEE_LOGS") ])
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -63,11 +63,11 @@ interface LogRestControllerDocs {
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Create a log", description = "Creates a log level")
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
-        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+        ApiResponse(responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse(responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
+        ApiResponse(responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
