@@ -439,15 +439,18 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"xRsDmEZVvK\"\n}",
+					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"6jURNbvHDT\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
