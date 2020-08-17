@@ -2,7 +2,7 @@ package com.michibaum.lifemanagementbackend.core.exceptionHandler
 
 import io.swagger.v3.oas.annotations.media.Schema
 
-
+@Schema(name = "Error Details")
 open class ErrorDetails(
 
     @field:Schema(
@@ -43,6 +43,7 @@ open class ErrorDetails(
 
 )
 
+@Schema(name = "Validation Error Details")
 class ValidationErrorDetails(
 
     @field:Schema(
