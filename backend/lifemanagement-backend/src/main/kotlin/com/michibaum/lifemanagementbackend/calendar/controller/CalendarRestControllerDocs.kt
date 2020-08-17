@@ -21,7 +21,7 @@ interface CalendarRestControllerDocs {
         ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error", content = [
+        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -36,7 +36,7 @@ interface CalendarRestControllerDocs {
         ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ]),
-        ApiResponse( responseCode = "500", description = "Internal Server Error", content = [
+        ApiResponse( responseCode = "500", description = "Internal Server Error: If something internal broke accidentally", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
