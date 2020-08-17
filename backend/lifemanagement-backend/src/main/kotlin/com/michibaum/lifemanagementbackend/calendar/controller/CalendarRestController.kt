@@ -6,8 +6,6 @@ import com.michibaum.lifemanagementbackend.calendar.domain.Calendar
 import com.michibaum.lifemanagementbackend.user.domain.User
 import com.michibaum.lifemanagementbackend.calendar.dtos.ReturnCalendarDto
 import com.michibaum.lifemanagementbackend.calendar.service.CalendarService
-import io.swagger.v3.oas.annotations.Parameter
-import org.springframework.http.MediaType
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -21,7 +19,6 @@ class CalendarRestController(
     @RequestMapping(value = ["/lifemanagement/api/calendars/own"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun myCalendars(
 
-        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true, required = true)
         @ArgumentResolver
         currentUser: User
 

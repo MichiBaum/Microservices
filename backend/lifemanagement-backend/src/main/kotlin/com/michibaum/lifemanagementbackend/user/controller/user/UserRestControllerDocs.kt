@@ -5,6 +5,7 @@ import com.michibaum.lifemanagementbackend.user.domain.User
 import com.michibaum.lifemanagementbackend.user.dtos.ReturnUserDto
 import com.michibaum.lifemanagementbackend.user.dtos.UpdateUserDto
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -41,8 +42,11 @@ interface UserRestControllerDocs{
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
-    fun myUsers(
+    fun myUser(
+
+        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true, required = true)
         currentUser: User
+
     ): ReturnUserDto
 
 
@@ -59,8 +63,13 @@ interface UserRestControllerDocs{
         ])
     ])
     fun change(
+
+        @Parameter(description = "The data to update the user", required = true)
         userDto: UpdateUserDto,
+
+        @Parameter(description = "The user is resolved by the url variable", hidden = true, required = true)
         user: User
+
     ):ReturnUserDto
 
 
@@ -77,8 +86,13 @@ interface UserRestControllerDocs{
         ])
     ])
     fun changePermissions(
+
+        @Parameter(description = "All the permissions the User should have", required = true)
         permissionIds: List<Long>,
+
+        @Parameter(description = "The user is resolved by the url variable", hidden = true, required = true)
         user: User
+
     ): ReturnUserDto
 
     //TODO create user endpoint

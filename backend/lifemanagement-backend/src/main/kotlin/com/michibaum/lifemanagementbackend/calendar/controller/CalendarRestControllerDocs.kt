@@ -4,6 +4,7 @@ import com.michibaum.lifemanagementbackend.user.domain.User
 import com.michibaum.lifemanagementbackend.calendar.dtos.ReturnCalendarDto
 import com.michibaum.lifemanagementbackend.core.exceptionHandler.ErrorDetails
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -26,7 +27,10 @@ interface CalendarRestControllerDocs {
         ])
     ])
     fun myCalendars(
+
+        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true, required = true)
         currentUser: User
+
     ): List<ReturnCalendarDto>
 
     @SecurityRequirement(name = "Barear Token")

@@ -6,6 +6,7 @@ import com.michibaum.lifemanagementbackend.logs.dtos.LogFilter
 import com.michibaum.lifemanagementbackend.logs.dtos.ReturnLogDto
 import com.michibaum.lifemanagementbackend.logs.dtos.CreateLogDto
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -28,6 +29,7 @@ interface LogRestControllerDocs {
         ])
     ])
     fun getLogs(
+        @Parameter(description = "", required = true)
         logFilter: LogFilter
     ): List<ReturnLogDto>
 
@@ -56,8 +58,13 @@ interface LogRestControllerDocs {
         ])
     ])
     fun setLogSeen(
+
+        @Parameter(description = "The logging event. Is resolved by the url variable", hidden = true, required = true)
         loggingEvent: LoggingEvent,
+
+        @Parameter(description = "Boolean if seen or not")
         seen: Boolean
+
     ): ReturnLogDto
 
     @SecurityRequirement(name = "Barear Token")
@@ -72,6 +79,9 @@ interface LogRestControllerDocs {
         ])
     ])
     fun createLog(
+
+        @Parameter(description = "The Data to create the log", required = true)
         log: CreateLogDto
+
     ): ReturnLogDto
 }
