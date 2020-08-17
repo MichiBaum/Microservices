@@ -9,7 +9,7 @@
 
     <!-- compressed daily file appender. oldest is deleted after one year -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/tomcat/todo.log</file>
+        <file>/var/log/tomcat/lifemanagement.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>/var/log/tomcat/lifemanagement.%d.log.gz</fileNamePattern>
             <maxHistory>365</maxHistory>
@@ -32,7 +32,7 @@
         </connectionSource>
     </appender>
 
-    <logger name="com.michibaum" level="INFO">
+    <logger name="com.michibaum" level="TRACE">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="DB"/>
