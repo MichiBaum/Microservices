@@ -22,40 +22,18 @@ class UserRestController(
             .map(User::toDto)
 
     @RequestMapping(value = ["/lifemanagement/api/users/me"], method = [RequestMethod.GET], produces = ["application/json" ])
-    override fun myUser(
-
-        @ArgumentResolver
-        currentUser: User
-
-    ): ReturnUserDto =
+    override fun myUser(@ArgumentResolver currentUser: User): ReturnUserDto =
         currentUser.toDto()
 
     @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST], produces = ["application/json" ])
-    override fun change(
-
-        @Valid
-        @RequestBody
-        userDto: UpdateUserDto,
-
-        @PathVariable(name = "id")
-        user: User
-
-    ): ReturnUserDto =
+    override fun change(@Valid @RequestBody userDto: UpdateUserDto, @PathVariable(name = "id") user: User): ReturnUserDto =
         userService.update(user, userDto)
             .let(userService::save)
             .toDto()
 
     @PreAuthorize("hasAuthority('USER_MANAGEMENT')")
     @RequestMapping(value = ["/lifemanagement/api/users/{id}/permissions"], method = [RequestMethod.POST], produces = ["application/json" ])
-    override fun changePermissions(
-
-        @RequestBody
-        permissionIds: List<Long>,
-
-        @PathVariable(name = "id")
-        user: User
-
-    ): ReturnUserDto =
+    override fun changePermissions(@RequestBody permissionIds: List<Long>, @PathVariable(name = "id") user: User): ReturnUserDto =
         userService.changePermissions(user, permissionIds)
             .let(userService::save)
             .toDto()

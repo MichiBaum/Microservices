@@ -17,12 +17,7 @@ class CalendarRestController(
 ): CalendarRestControllerDocs {
 
     @RequestMapping(value = ["/lifemanagement/api/calendars/own"], method = [RequestMethod.GET], produces = ["application/json" ])
-    override fun myCalendars(
-
-        @ArgumentResolver
-        currentUser: User
-
-    ): List<ReturnCalendarDto> =
+    override fun myCalendars(@ArgumentResolver currentUser: User): List<ReturnCalendarDto> =
         calendarService.findByUser(currentUser)
             .map(Calendar::toDto)
 

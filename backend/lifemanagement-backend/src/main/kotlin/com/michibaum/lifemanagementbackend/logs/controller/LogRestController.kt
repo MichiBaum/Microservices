@@ -18,11 +18,7 @@ class LogRestController(
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.GET], produces = ["application/json" ])
-    override fun getLogs(
-
-        logFilter: LogFilter
-
-    ): List<ReturnLogDto> =
+    override fun getLogs(logFilter: LogFilter): List<ReturnLogDto> =
         logService.findByFilter(logFilter)
             .map(LoggingEvent::toDto)
 
@@ -35,26 +31,13 @@ class LogRestController(
 
     @PreAuthorize("hasAuthority('SEE_LOGS')")
     @RequestMapping(value = ["/lifemanagement/api/logs/{loggingEvent}/seen"], method = [RequestMethod.POST], produces = ["application/json" ])
-    override fun setLogSeen(
-
-        @PathVariable
-        loggingEvent: LoggingEvent,
-
-        @RequestBody
-        seen: Boolean
-
-    ): ReturnLogDto =
+    override fun setLogSeen(@PathVariable loggingEvent: LoggingEvent, @RequestBody seen: Boolean): ReturnLogDto =
         logService.changeSeen(loggingEvent, seen)
             .let(logService::save)
             .toDto()
 
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST], produces = ["application/json" ])
-    override fun createLog(
-
-        @Valid @RequestBody
-        log: CreateLogDto
-
-    ): ReturnLogDto =
+    override fun createLog(@Valid @RequestBody log: CreateLogDto): ReturnLogDto =
         log.toLoggingEvent()
             .let(logService::save)
             .toDto()
