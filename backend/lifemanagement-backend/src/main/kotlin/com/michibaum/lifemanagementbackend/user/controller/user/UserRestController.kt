@@ -26,7 +26,7 @@ class UserRestController(
     @RequestMapping(value = ["/lifemanagement/api/users/me"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun myUsers(
 
-        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true)
+        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true, required = true)
         @ArgumentResolver
         currentUser: User
 
@@ -36,12 +36,12 @@ class UserRestController(
     @RequestMapping(value = ["/lifemanagement/api/users/{id}"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun change(
 
-        @Parameter(description = "The data to update the user")
+        @Parameter(description = "The data to update the user", required = true)
         @Valid
         @RequestBody
         userDto: UpdateUserDto,
 
-        @Parameter(description = "The user is resolved by the url variable", hidden = true)
+        @Parameter(description = "The user is resolved by the url variable", hidden = true, required = true)
         @PathVariable(name = "id")
         user: User
 
@@ -54,11 +54,11 @@ class UserRestController(
     @RequestMapping(value = ["/lifemanagement/api/users/{id}/permissions"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun changePermissions(
 
-        @Parameter(description = "All the permissions the User should have")
+        @Parameter(description = "All the permissions the User should have", required = true)
         @RequestBody
         permissionIds: List<Long>,
 
-        @Parameter(description = "The user is resolved by the url variable", hidden = true)
+        @Parameter(description = "The user is resolved by the url variable", hidden = true, required = true)
         @PathVariable(name = "id")
         user: User
 

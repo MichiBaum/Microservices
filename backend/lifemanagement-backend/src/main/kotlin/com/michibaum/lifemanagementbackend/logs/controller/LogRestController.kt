@@ -22,7 +22,7 @@ class LogRestController(
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun getLogs(
 
-        @Parameter(description = "")
+        @Parameter(description = "", required = true)
         logFilter: LogFilter
 
     ): List<ReturnLogDto> =
@@ -40,7 +40,7 @@ class LogRestController(
     @RequestMapping(value = ["/lifemanagement/api/logs/{loggingEvent}/seen"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun setLogSeen(
 
-        @Parameter(description = "The logging event. Is resolved by the url variable", hidden = true)
+        @Parameter(description = "The logging event. Is resolved by the url variable", hidden = true, required = true)
         @PathVariable
         loggingEvent: LoggingEvent,
 
@@ -56,7 +56,7 @@ class LogRestController(
     @RequestMapping(value = ["/lifemanagement/api/logs"], method = [RequestMethod.POST], produces = ["application/json" ])
     override fun createLog(
 
-        @Parameter(description = "The Data to create the log")
+        @Parameter(description = "The Data to create the log", required = true)
         @Valid @RequestBody
         log: CreateLogDto
 

@@ -19,8 +19,11 @@ interface PermissionRestControllerDocs {
         SecurityRequirement(name = "USER_MANAGEMENT")
     ])
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = ""),
-        ApiResponse( responseCode = "403", description = "Access denied", content = [
+        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+            Content(schema = Schema(implementation = ErrorDetails::class))
+        ]),
+        ApiResponse( responseCode = "500", description = "Internal Server Error", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])

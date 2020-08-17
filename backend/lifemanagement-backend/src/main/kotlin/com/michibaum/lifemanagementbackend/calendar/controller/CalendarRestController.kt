@@ -21,7 +21,7 @@ class CalendarRestController(
     @RequestMapping(value = ["/lifemanagement/api/calendars/own"], method = [RequestMethod.GET], produces = ["application/json" ])
     override fun myCalendars(
 
-        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true)
+        @Parameter(description = "The current user, autoresolved through @ArgumentResolver", hidden = true, required = true)
         @ArgumentResolver
         currentUser: User
 

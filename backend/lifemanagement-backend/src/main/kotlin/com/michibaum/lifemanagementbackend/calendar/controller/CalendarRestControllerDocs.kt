@@ -17,8 +17,11 @@ interface CalendarRestControllerDocs {
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Returns users calendars", description = "Returns all Calendars the user has")
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = ""),
-        ApiResponse( responseCode = "403", description = "Access denied", content = [
+        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+            Content(schema = Schema(implementation = ErrorDetails::class))
+        ]),
+        ApiResponse( responseCode = "500", description = "Internal Server Error", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
@@ -29,8 +32,11 @@ interface CalendarRestControllerDocs {
     @SecurityRequirement(name = "Barear Token")
     @Operation(summary = "Returns all calendars", description = "Returns all calendars", security = [ SecurityRequirement(name = "ADMIN") ])
     @ApiResponses(value = [
-        ApiResponse( responseCode = "200", description = ""),
-        ApiResponse( responseCode = "403", description = "Access denied", content = [
+        ApiResponse( responseCode = "200", description = "OK: Request successfull completed"),
+        ApiResponse( responseCode = "403", description = "Access denied: If an user is not authenticated, token expired, doesnt have the required permissions", content = [
+            Content(schema = Schema(implementation = ErrorDetails::class))
+        ]),
+        ApiResponse( responseCode = "500", description = "Internal Server Error", content = [
             Content(schema = Schema(implementation = ErrorDetails::class))
         ])
     ])
