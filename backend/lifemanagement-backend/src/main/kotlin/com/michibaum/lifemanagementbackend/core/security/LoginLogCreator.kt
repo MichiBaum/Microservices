@@ -30,7 +30,7 @@ class LoginLogCreator(
             successfullAuth = successfullAuth,
             httpHeaders = httpHeaders
         )
-        loginLogRepository.saveAndFlush(loginLog)
+        loginLogRepository.save(loginLog)
     }
 
     private data class Header(val name: String, val value: String)
@@ -39,7 +39,7 @@ class LoginLogCreator(
             val headerPairList = it.headerNames.toList().map { headerName -> Header(headerName, request.getHeader(headerName)) }
             return headerPairList.map { headerPair ->
                 httpHeaderRepository.findByNameAndValue(headerPair.name, headerPair.value)
-                    ?: httpHeaderRepository.saveAndFlush(HttpHeader(headerPair.name, headerPair.value))
+                    ?: httpHeaderRepository.save(HttpHeader(headerPair.name, headerPair.value))
             }.toMutableList()
         }
         return mutableListOf()

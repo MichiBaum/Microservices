@@ -14,7 +14,7 @@ class LogService(
         loggingEventRepository.findBySeenAndLevelStringIn(logFilter.seen, logFilter.level)
 
     fun save(logginEvent: LoggingEvent): LoggingEvent =
-        loggingEventRepository.saveAndFlush(logginEvent)
+        loggingEventRepository.save(logginEvent)
 
     fun findAll(): List<LoggingEvent> =
         loggingEventRepository.findAll()

@@ -18,7 +18,7 @@ class UserService(
         userRepository.findByName(name)
 
     fun save(user: User): User =
-        userRepository.saveAndFlush(user)
+        userRepository.save(user)
 
     fun findAll(): List<User> =
         userRepository.findAll()
