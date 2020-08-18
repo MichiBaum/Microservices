@@ -1,7 +1,6 @@
 package com.michibaum.lifemanagementbackend.user.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.michibaum.lifemanagementbackend.calendar.domain.Calendar
 import javax.persistence.*
 
 @Entity(name = "LOGIN_USER")
@@ -20,10 +19,7 @@ class User(
     var enabled: Boolean,
 
     @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.EAGER)
-    var permissions: MutableList<Permission> = arrayListOf(),
-
-    @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
-    var calendars: MutableList<Calendar> = arrayListOf()
+    var permissions: MutableList<Permission> = arrayListOf()
 
 ) {
 
