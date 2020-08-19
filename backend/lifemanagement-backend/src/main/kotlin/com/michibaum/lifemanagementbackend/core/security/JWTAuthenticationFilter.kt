@@ -1,7 +1,5 @@
 package com.michibaum.lifemanagementbackend.core.security
 
-import com.auth0.jwt.JWT
-import com.auth0.jwt.algorithms.Algorithm
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.security.authentication.AuthenticationManager
@@ -23,8 +21,7 @@ class JWTAuthenticationFilter(
     private val ownAuthenticationManager: AuthenticationManager, //TODO needs to be renamed, because of parent with same name
     private val lastLoginUpdater: LastLoginUpdater,
     private val loginLogCreator: LoginLogCreator,
-    private val applicationVersion: String,
-    private val startingSecret: String
+    private val jwtFactory: JWTFactory
 ) : UsernamePasswordAuthenticationFilter() {
 
     init {
@@ -76,7 +73,8 @@ class JWTAuthenticationFilter(
         val expiresAt = Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME)
         val permissions: List<String> = auth.authorities.map { obj: GrantedAuthority -> obj.authority }
         val jwt = TokenDto(
-            SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + createJWT(auth, expiresAt),
+            SecurityConstants.HEADER_STRING,
+            SecurityConstants.TOKEN_PREFIX + createJWT(auth),
             expiresAt,
             permissions,
             (auth.principal as User).username
@@ -118,24 +116,9 @@ class JWTAuthenticationFilter(
         }
     }
 
-    private fun createJWT(
-        auth: Authentication,
-        expiresAt: Date
-    ): String {
-        return JWT.create()
-            .withSubject(
-                (auth.principal as User).username
-            )
-            .withHeader(
-                mapOf(
-                    "alg" to "HMAC512",
-                    "typ" to "JWT"
-                )
-            )
-            .withClaim("backend_version", applicationVersion)
-            .withClaim("starting_secret", startingSecret)
-            .withExpiresAt(expiresAt)
-            .sign(Algorithm.HMAC512(SecurityConstants.SECRET))
-    }
+    private fun createJWT(auth: Authentication): String =
+        jwtFactory.create((auth.principal as User).username)
+        ?.sign(JWTFactory.Companion.ALGORITHMS.HMAC512)
+        ?: ""
 
 }

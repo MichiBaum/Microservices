@@ -30,7 +30,8 @@ class WebSecurityConfig(
     private val lastLoginUpdater: LastLoginUpdater,
     private val publicEndpoints: List<PublicEndpointDetails>,
     private val loginLogCreator: LoginLogCreator,
-    private val startingSecret: String
+    private val startingSecret: String,
+    private val jwtFactory: JWTFactory
 
 ) : WebSecurityConfigurerAdapter() {
 
@@ -66,8 +67,7 @@ class WebSecurityConfig(
                     authenticationManager(),
                     lastLoginUpdater,
                     loginLogCreator,
-                    applicationVersion,
-                    startingSecret
+                    jwtFactory
                 )
             )
             .addFilter(
