@@ -19,7 +19,8 @@ class JWTAuthorizationFilter(
     authManager: AuthenticationManager,
     private val userDetailsService: UserDetailsService,
     private val lastLoginUpdater: LastLoginUpdater,
-    private val applicationVersion: String
+    private val applicationVersion: String,
+    private val startingSecret: String
 ) : BasicAuthenticationFilter(authManager) {
 
     private val ownLogger = KotlinLogging.logger {}
@@ -64,11 +65,13 @@ class JWTAuthorizationFilter(
     private fun tokenIsValid(jwt: DecodedJWT): Boolean {
         val username = jwt.subject.orEmpty()
         val backendVersion = jwt.claims["backend_version"] ?: return false
+        val startingSecret = jwt.claims["starting_secret"] ?: return false
         val expiresAt = jwt.expiresAt ?: return false
 
         if (username.isBlank()) return false
         if (Date().time > expiresAt.time) return false
         if (backendVersion.asString() != applicationVersion) return false
+        if(startingSecret.asString() != this.startingSecret) return false
 
         return true
     }

@@ -51,13 +51,20 @@ class LifemanagementBackendApplication {
             .flatten()
     }
 
+    @Bean
+    fun startingSecret() = createSecret()
+
     @PostConstruct
     fun createJWTSecret(){
+        SecurityConstants.SECRET = createSecret()
+    }
+
+    private fun createSecret(): String {
         val sb = StringBuffer()
         while (sb.length < 32) {
             sb.append(String.format("%08x", Random.nextInt()))
         }
-        SecurityConstants.SECRET = sb.toString().substring(0, 32)
+        return sb.toString().substring(0, 32)
     }
 
 }

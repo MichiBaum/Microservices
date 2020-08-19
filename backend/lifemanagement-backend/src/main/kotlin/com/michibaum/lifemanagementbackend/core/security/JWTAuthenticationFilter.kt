@@ -23,7 +23,8 @@ class JWTAuthenticationFilter(
     private val ownAuthenticationManager: AuthenticationManager, //TODO needs to be renamed, because of parent with same name
     private val lastLoginUpdater: LastLoginUpdater,
     private val loginLogCreator: LoginLogCreator,
-    private val applicationVersion: String
+    private val applicationVersion: String,
+    private val startingSecret: String
 ) : UsernamePasswordAuthenticationFilter() {
 
     init {
@@ -132,6 +133,7 @@ class JWTAuthenticationFilter(
                 )
             )
             .withClaim("backend_version", applicationVersion)
+            .withClaim("starting_secret", startingSecret)
             .withExpiresAt(expiresAt)
             .sign(Algorithm.HMAC512(SecurityConstants.SECRET))
     }

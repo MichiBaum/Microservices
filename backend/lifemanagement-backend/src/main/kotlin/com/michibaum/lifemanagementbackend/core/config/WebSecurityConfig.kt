@@ -2,8 +2,6 @@ package com.michibaum.lifemanagementbackend.core.config
 
 import com.michibaum.lifemanagementbackend.core.publicendpoint.PublicEndpointDetails
 import com.michibaum.lifemanagementbackend.core.security.*
-import com.michibaum.lifemanagementbackend.user.repository.UserRepository
-import mu.KotlinLogging
 import org.h2.server.web.WebServlet
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.servlet.ServletRegistrationBean
@@ -31,7 +29,8 @@ class WebSecurityConfig(
     private val bCryptPasswordEncoder: BCryptPasswordEncoder,
     private val lastLoginUpdater: LastLoginUpdater,
     private val publicEndpoints: List<PublicEndpointDetails>,
-    private val loginLogCreator: LoginLogCreator
+    private val loginLogCreator: LoginLogCreator,
+    private val startingSecret: String
 
 ) : WebSecurityConfigurerAdapter() {
 
@@ -67,7 +66,8 @@ class WebSecurityConfig(
                     authenticationManager(),
                     lastLoginUpdater,
                     loginLogCreator,
-                    applicationVersion
+                    applicationVersion,
+                    startingSecret
                 )
             )
             .addFilter(
@@ -75,7 +75,8 @@ class WebSecurityConfig(
                     authenticationManager(),
                     userDetailsService,
                     lastLoginUpdater,
-                    applicationVersion
+                    applicationVersion,
+                    startingSecret
                 )
             )
             // this disables session creation on Spring Security
