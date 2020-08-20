@@ -182,7 +182,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>save(user: <a href="../interfaces/IExportUser.html">IExportUser</a>)</code>
+<code>save(user: <a href="../interfaces/IUpdateUser.html">IUpdateUser</a>)</code>
                 </td>
             </tr>
 
@@ -212,7 +212,7 @@
                                 <tr>
                                     <td>user</td>
                                     <td>
-                                                <code><a href="../interfaces/IExportUser.html" target="_self" >IExportUser</a></code>
+                                                <code><a href="../interfaces/IUpdateUser.html" target="_self" >IUpdateUser</a></code>
                                     </td>
 
                                     <td>
@@ -252,7 +252,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>savePermissions(user: <a href="../interfaces/IExportUser.html">IExportUser</a>)</code>
+<code>savePermissions(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, permissionIds: number[])</code>
                 </td>
             </tr>
 
@@ -280,9 +280,21 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>user</td>
+                                    <td>userId</td>
                                     <td>
-                                                <code><a href="../interfaces/IExportUser.html" target="_self" >IExportUser</a></code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>permissionIds</td>
+                                    <td>
+                                            <code>number[]</code>
                                     </td>
 
                                     <td>
@@ -400,7 +412,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Injectable} from &#x27;@angular/core&#x27;;
 import {Observable} from &#x27;rxjs&#x27;;
 import {IPermission} from &#x27;../core/models/permission.model&#x27;;
-import {IExportUser, IUser} from &#x27;../core/models/user.model&#x27;;
+import {IUpdateUser, IUser} from &#x27;../core/models/user.model&#x27;;
 import {ApiService} from &#x27;../core/services/api.service&#x27;;
 
 @Injectable({
@@ -423,12 +435,12 @@ export class UserService {
     return this.apiService.getAll(&#x27;/users/me&#x27;, false);
   }
 
-  save(user: IExportUser): Observable&lt;IUser&gt; {
+  save(user: IUpdateUser): Observable&lt;IUser&gt; {
     return this.apiService.postAll(&#x27;/users/&#x27; + user.id, user);
   }
 
-  savePermissions(user: IExportUser): Observable&lt;any&gt; {
-    return this.apiService.postAll(&#x27;/users/&#x27; + user.id + &#x27;/permissions&#x27;, user.permissions);
+  savePermissions(userId: number, permissionIds: number[]): Observable&lt;any&gt; {
+    return this.apiService.postAll(&#x27;/users/&#x27; + userId + &#x27;/permissions&#x27;, permissionIds);
   }
 }
 </code></pre>

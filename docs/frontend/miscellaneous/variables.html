@@ -296,10 +296,30 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
+  /**
+   * Sets production true
+   */
   production: true,
+  /**
+   * The Backend api URL
+   */
   api_url: &#x27;https://michibaum.ch/lifemanagement/api&#x27;,
+  /**
+   * The base href of the frontend application
+   */
   base_href: &#x27;/lifemanagement&#x27;,
-  show_errors: false
+  /**
+   * Flag if errors are shown
+   */
+  show_errors: false,
+  /**
+   * Flag if url routes are shown
+   */
+  hide_url_routes: true,
+  /**
+   * Url to backend swagger
+   */
+  swagger_url: &#x27;https://michibaum.ch/lifemanagement/api/swagger-ui/index.html?configUrl&#x3D;/lifemanagement/api/api-docs/swagger-config&amp;filter&#x3D;Endpoints&#x27;
 }</code>
                         </td>
                     </tr>
@@ -331,10 +351,30 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
+  /**
+   * Sets production true
+   */
   production: false,
+  /**
+   * The Backend api URL
+   */
   api_url: &#x27;http://localhost:8181/lifemanagement/api&#x27;,
+  /**
+   * The base href of the frontend application
+   */
   base_href: &#x27;/&#x27;,
-  show_errors: true
+  /**
+   * Flag if errors are shown
+   */
+  show_errors: false,
+  /**
+   * Flag if url routes are shown
+   */
+  hide_url_routes: false,
+  /**
+   * Url to backend swagger
+   */
+  swagger_url: &#x27;http://localhost:8181/lifemanagement/api/swagger-ui/index.html?configUrl&#x3D;/lifemanagement/api/api-docs/swagger-config&amp;filter&#x3D;Endpoints&#x27;
 }</code>
                         </td>
                     </tr>
@@ -410,11 +450,19 @@
   UsersettingsModule,
   ToastMessageModule,
   ImprintModule,
-  PrivacyPolicyModule
+  PrivacyPolicyModule,
+  FrontendDocumentationModule,
+  BackendDocumentationModule
 ]</code>
                         </td>
                     </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>All own modules</p>
+</div>
+                    </td>
+                </tr>
 
             </tbody>
         </table>

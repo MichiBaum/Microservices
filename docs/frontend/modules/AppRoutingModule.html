@@ -71,42 +71,53 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {NgModule} from &#x27;@angular/core&#x27;;
-import {RouterModule, Routes} from &#x27;@angular/router&#x27;;
+import {Route, RouterModule, Routes} from &#x27;@angular/router&#x27;;
 import { AuthGuardService as AuthGuard } from &#x27;./core/services/auth-guard.service&#x27;;
+import {FrontendDocumentationComponent} from &#x27;./frontend-documentation/frontend-documentation.component&#x27;;
 import {HomeComponent} from &#x27;./home/home.component&#x27;;
 import {ImprintComponent} from &#x27;./imprint/imprint.component&#x27;;
 import {LoginComponent} from &#x27;./login/login.component&#x27;;
 import {LoggingComponent} from &#x27;./logs/logging.component&#x27;;
 import {PrivacyPolicyComponent} from &#x27;./privacy-policy/privacy-policy.component&#x27;;
 import {UsersettingsComponent} from &#x27;./usersettings/usersettings.component&#x27;;
+import {BackendDocumentationComponent} from &quot;./backend-documentation/backend-documentation.component&quot;;
 
+/**
+ * All own Routes
+ */
 const routes: Routes &#x3D; [
   {
     path: &#x27;login&#x27;,
     component: LoginComponent
-  }, {
+  } as Route, {
     path: &#x27;home&#x27;,
     component: HomeComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: &#x27;&#x27;,
     component: HomeComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: &#x27;logmanagement&#x27;,
     component: LoggingComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: &#x27;usersettings&#x27;,
     component: UsersettingsComponent,
     canActivate: [AuthGuard]
-  }, {
+  } as Route, {
     path: &#x27;imprint&#x27;,
     component: ImprintComponent
-  }, {
+  } as Route, {
     path: &#x27;privacy-policy&#x27;,
     component: PrivacyPolicyComponent
-  }
+  } as Route, {
+    path: &#x27;frontend-documentation&#x27;,
+    component: FrontendDocumentationComponent
+  } as Route, {
+    path: &#x27;backend-documentation&#x27;,
+    component: BackendDocumentationComponent
+  } as Route
 ];
 
 @NgModule({

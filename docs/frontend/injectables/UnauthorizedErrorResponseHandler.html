@@ -38,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>DefaultErrorHandler</li>
+  <li>UnauthorizedErrorResponseHandler</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/core/error-handlers/default-error.handler.ts</code>
+            <code>src/app/core/error-handlers/unauthorized-error-response.handler.ts</code>
         </p>
 
 
@@ -75,7 +75,8 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#handlers">handlers</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#translate">translate</a>
                             </li>
                         </ul>
                     </td>
@@ -89,6 +90,10 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateMessage">generateMessage</a>
+                            </li>
                             <li>
                                 <a href="#handle">handle</a>
                             </li>
@@ -113,12 +118,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(validationErrorHandler: <a href="../injectables/ValidationErrorHandler.html">ValidationErrorHandler</a>, authErrorHandler: <a href="../injectables/ForbiddenErrorResponseHandler.html">ForbiddenErrorResponseHandler</a>, unauthorizedErrorHandler: <a href="../injectables/UnauthorizedErrorResponseHandler.html">UnauthorizedErrorResponseHandler</a>, serverSideErrorHandler: <a href="../injectables/ServerSideErrorHandler.html">ServerSideErrorHandler</a>, notFoundErrorHandler: <a href="../injectables/NotFoundErrorHandler.html">NotFoundErrorHandler</a>, methodNotAllowedErrorHandler: <a href="../injectables/MethodNotAllowedErrorHandler.html">MethodNotAllowedErrorHandler</a>, noConnectionErrorHandler: <a href="../injectables/NoConnectionErrorHandler.html">NoConnectionErrorHandler</a>)</code>
+<code>constructor(toastMessageService: <a href="../injectables/ToastMessageService.html">ToastMessageService</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/core/error-handlers/default-error.handler.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/core/error-handlers/unauthorized-error-response.handler.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -136,10 +141,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>validationErrorHandler</td>
+                                                        <td>toastMessageService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/ValidationErrorHandler.html" target="_self" >ValidationErrorHandler</a></code>
+                                                                        <code><a href="../injectables/ToastMessageService.html" target="_self" >ToastMessageService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -148,70 +153,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>authErrorHandler</td>
+                                                        <td>injector</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/ForbiddenErrorResponseHandler.html" target="_self" >ForbiddenErrorResponseHandler</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>unauthorizedErrorHandler</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/UnauthorizedErrorResponseHandler.html" target="_self" >UnauthorizedErrorResponseHandler</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>serverSideErrorHandler</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/ServerSideErrorHandler.html" target="_self" >ServerSideErrorHandler</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>notFoundErrorHandler</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/NotFoundErrorHandler.html" target="_self" >NotFoundErrorHandler</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>methodNotAllowedErrorHandler</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/MethodNotAllowedErrorHandler.html" target="_self" >MethodNotAllowedErrorHandler</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>noConnectionErrorHandler</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/NoConnectionErrorHandler.html" target="_self" >NoConnectionErrorHandler</a></code>
+                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -237,6 +182,78 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="generateMessage"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            generateMessage
+                        </b>
+                        <a href="#generateMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateMessage(error: <a href="https://angular.io/api/common/http/HttpErrorResponse" target="_blank">HttpErrorResponse</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/app/core/error-handlers/unauthorized-error-response.handler.ts:39</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>error</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/common/http/HttpErrorResponse" target="_blank" >HttpErrorResponse</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Message</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="handle"></a>
                     <span class="name">
                         <b>
@@ -255,8 +272,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/app/core/error-handlers/default-error.handler.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">src/app/core/error-handlers/unauthorized-error-response.handler.ts:26</a></div>
                 </td>
             </tr>
 
@@ -325,8 +342,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">src/app/core/error-handlers/default-error.handler.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/core/error-handlers/unauthorized-error-response.handler.ts:22</a></div>
                 </td>
             </tr>
 
@@ -383,23 +400,24 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="handlers"></a>
+                        <a name="translate"></a>
                         <span class="name">
                             <b>
-                            handlers</b>
-                            <a href="#handlers"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Private</span>
+                            translate</b>
+                            <a href="#translate"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/IHttpErrorResponseHandler.html" target="_self" >IHttpErrorResponseHandler[]</a></code>
+                            <i>Type : </i>    <code>TranslateService</code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/core/error-handlers/default-error.handler.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/core/error-handlers/unauthorized-error-response.handler.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -413,52 +431,54 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {HttpErrorResponse} from &#x27;@angular/common/http&#x27;;
-import {Injectable} from &#x27;@angular/core&#x27;;
-import {Observable} from &#x27;rxjs&#x27;;
-import {ForbiddenErrorResponseHandler} from &#x27;./forbidden-error-response.handler&#x27;;
+import {Injectable, Injector} from &#x27;@angular/core&#x27;;
+import {TranslateService} from &#x27;@ngx-translate/core&#x27;;
+import {Message} from &#x27;primeng&#x27;;
+import {Observable, of} from &#x27;rxjs&#x27;;
+import {environment} from &#x27;../../../environments/environment&#x27;;
+import {ToastMessageService} from &#x27;../../toast-message/toast-message.service&#x27;;
 import {IHttpErrorResponseHandler} from &#x27;./i-http-error-response.handler&#x27;;
-import {MethodNotAllowedErrorHandler} from &#x27;./method-not-allowed-error.handler&#x27;;
-import {NoConnectionErrorHandler} from &#x27;./no-connection-error.handler&#x27;;
-import {NotFoundErrorHandler} from &#x27;./not-found-error.handler&#x27;;
-import {ServerSideErrorHandler} from &#x27;./server-side-error.handler&#x27;;
-import {ValidationErrorHandler} from &#x27;./validation-error.handler&#x27;;
-import {UnauthorizedErrorResponseHandler} from &#x27;./unauthorized-error-response.handler&#x27;;
+import {LogGenerator} from &#x27;./log-generator.namespace&#x27;;
 
 @Injectable()
-export class DefaultErrorHandler implements IHttpErrorResponseHandler {
+export class UnauthorizedErrorResponseHandler implements IHttpErrorResponseHandler {
 
-  handlers: IHttpErrorResponseHandler[];
+  private translate: TranslateService;
 
   constructor(
-    private validationErrorHandler: ValidationErrorHandler,
-    private authErrorHandler: ForbiddenErrorResponseHandler,
-    private unauthorizedErrorHandler: UnauthorizedErrorResponseHandler,
-    private serverSideErrorHandler: ServerSideErrorHandler,
-    private notFoundErrorHandler: NotFoundErrorHandler,
-    private methodNotAllowedErrorHandler: MethodNotAllowedErrorHandler,
-    private noConnectionErrorHandler: NoConnectionErrorHandler
+    private toastMessageService: ToastMessageService,
+    private injector: Injector
   ) {
-    this.handlers &#x3D; [
-      validationErrorHandler,
-      authErrorHandler,
-      unauthorizedErrorHandler,
-      serverSideErrorHandler,
-      notFoundErrorHandler,
-      methodNotAllowedErrorHandler,
-      noConnectionErrorHandler
-    ];
-  }
-
-  handle(error: HttpErrorResponse): Observable&lt;any&gt; {
-    for (const handler of this.handlers) {
-      if (handler.matches(error)) {
-        return handler.handle(error);
-      }
-    }
   }
 
   matches(error: HttpErrorResponse): boolean {
-    return true;
+    return error.status &#x3D;&#x3D;&#x3D; 401;
+  }
+
+  handle(error: HttpErrorResponse): Observable&lt;any&gt; {
+    if (this.translate &#x3D;&#x3D; null) {
+      this.translate &#x3D; this.injector.get(TranslateService);
+    }
+
+    const message &#x3D; this.generateMessage(error);
+    this.toastMessageService.emit([
+      message
+    ]);
+
+    return of();
+  }
+
+  private generateMessage(error: HttpErrorResponse): Message {
+    if (environment.show_errors &#x3D;&#x3D;&#x3D; true) {
+      return LogGenerator.createToastError(error);
+    } else {
+      return LogGenerator.createToastError(
+        {
+          name: this.translate.instant(&#x27;error.401.name&#x27;),
+          message: this.translate.instant(&#x27;error.401.message&#x27;)
+        } as Error
+      );
+    }
   }
 
 }
@@ -495,7 +515,7 @@ export class DefaultErrorHandler implements IHttpErrorResponseHandler {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'DefaultErrorHandler.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'UnauthorizedErrorResponseHandler.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -164,11 +164,42 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/app.service.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/app.service.ts:17</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Sends a log to the backend through the <a href="../injectables/ApiService.html">ApiService</a>
+Logs to the console if sending to backend was successful or not</p>
+</div>
+                    </td>
+                </tr>
 
+                    <tr>
+                        <td class="col-md-4">
+                          <div class="io-description">
+                                  <b>Parameters :</b>
+                                  <table class="params">
+                                      <thead>
+                                          <tr>
+                                                <td>Name</td>
+                                                    <td>Description</td>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                                <tr>
+                                                        <td>log</td>
+                                                        <td>
+                                                                <code><p>the {</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                      </tbody>
+                                  </table>
+                          </div>
+                        </td>
+                    </tr>
             </tbody>
         </table>
 </section>
@@ -185,8 +216,14 @@ import {ApiService} from &#x27;./core/services/api.service&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class AppService {
+
   constructor(private apiService: ApiService) { }
 
+  /**
+   * Sends a log to the backend through the {@link ApiService}
+   * Logs to the console if sending to backend was successful or not
+   * @param log the {@link IExportLog} which is send to the backend
+   */
   log &#x3D; (log: IExportLog) &#x3D;&gt; {
     this.apiService.postAll(&#x27;/logs&#x27;, log)
       .toPromise()

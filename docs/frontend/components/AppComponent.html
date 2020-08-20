@@ -123,12 +123,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/app.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/app.component.ts:12</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructor which subscribes to the <a href="SwUpdate">SwUpdate</a> and updates</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -137,6 +139,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -151,6 +154,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <code><p>the {</p>
+</code>
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -179,15 +186,23 @@ import {SwUpdate} from &#x27;@angular/service-worker&#x27;;
   templateUrl: &#x27;./app.component.html&#x27;,
   styleUrls: [&#x27;./app.component.scss&#x27;]
 })
+/**
+ * The App Component
+ */
 export class AppComponent {
+
+  /**
+   * Constructor which subscribes to the {@link SwUpdate} and updates
+   * @param swupdate the {@link SwUpdate}
+   */
   constructor(private swupdate: SwUpdate) {
     // checks if update available
     this.swupdate.available.subscribe((event: any) &#x3D;&gt; {
       // reload / refresh the browser
       this.swupdate.activateUpdate().then(() &#x3D;&gt; document.location.reload());
-      console.log(&#x27;sw updated&#x27;);
     });
   }
+
 }
 </code></pre>
     </div>
@@ -240,7 +255,7 @@ export class AppComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="p-grid p-align-center p-justify-center">  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">    <app-header></app-header>  </div>  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">    <router-outlet></router-outlet>  </div>  <app-message-service></app-message-service>  <app-help-dialog></app-help-dialog></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderTitleComponent', 'selector': 'app-header-title'},{'name': 'HelpDialogComponent', 'selector': 'app-help-dialog'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoggingComponent', 'selector': 'app-logging'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ToastMessageComponent', 'selector': 'app-message-service'},{'name': 'UsersettingsComponent', 'selector': 'app-usersettings'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackendDocumentationComponent', 'selector': 'app-backend-documentation'},{'name': 'FrontendDocumentationComponent', 'selector': 'app-frontend-documentation'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderTitleComponent', 'selector': 'app-header-title'},{'name': 'HelpDialogComponent', 'selector': 'app-help-dialog'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoggingComponent', 'selector': 'app-logging'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ToastMessageComponent', 'selector': 'app-message-service'},{'name': 'UserDateFormatComponent', 'selector': 'app-user-date-format'},{'name': 'UserdetailsComponent', 'selector': 'app-userdetails'},{'name': 'UsersettingsComponent', 'selector': 'app-usersettings'}];
     var DIRECTIVES = [{'name': 'SecuredDirective', 'selector': '[anyPermission]'}];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

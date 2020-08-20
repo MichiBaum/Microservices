@@ -92,7 +92,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#generateMessage">generateMessage</a>
+                                <a href="#generateToastMessage">generateToastMessage</a>
                             </li>
                             <li>
                                 <a href="#handle">handle</a>
@@ -123,7 +123,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -182,28 +182,28 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="generateMessage"></a>
+                    <a name="generateToastMessage"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Private</span>
-                            generateMessage
+                            generateToastMessage
                         </b>
-                        <a href="#generateMessage"><span class="icon ion-ios-link"></span></a>
+                        <a href="#generateToastMessage"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>generateMessage(error: <a href="https://angular.io/api/common/http/HttpErrorResponse" target="_blank">HttpErrorResponse</a>)</code>
+                    <code>generateToastMessage(error: <a href="https://angular.io/api/common/http/HttpErrorResponse" target="_blank">HttpErrorResponse</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:37</a></div>
                 </td>
             </tr>
 
@@ -240,7 +240,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Message</code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -272,8 +272,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:26</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:27</a></div>
                 </td>
             </tr>
 
@@ -342,8 +342,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:23</a></div>
                 </td>
             </tr>
 
@@ -417,7 +417,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/core/error-handlers/validation-error.handler.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -439,6 +439,7 @@ import {environment} from &#x27;../../../environments/environment&#x27;;
 import {ToastMessageService} from &#x27;../../toast-message/toast-message.service&#x27;;
 import {IHttpErrorResponseHandler} from &#x27;./i-http-error-response.handler&#x27;;
 import {LogGenerator} from &#x27;./log-generator.namespace&#x27;;
+import {IValidationError} from &quot;../models/validation-error.model&quot;;
 
 @Injectable()
 export class ValidationErrorHandler implements IHttpErrorResponseHandler {
@@ -460,25 +461,23 @@ export class ValidationErrorHandler implements IHttpErrorResponseHandler {
       this.translate &#x3D; this.injector.get(TranslateService);
     }
 
-    const message &#x3D; this.generateMessage(error);
-    this.toastMessageService.emit([
-      message
-    ]);
-
-    return of([]);
+    console.log(error);
+    this.generateToastMessage(error);
+    return of();
   }
 
-  private generateMessage(error: HttpErrorResponse): Message {
-    if (environment.show_errors &#x3D;&#x3D;&#x3D; true) {
-      return LogGenerator.createToastError(error);
-    } else {
-      return LogGenerator.createToastError(
-        {
-          name: this.translate.instant(&#x27;error.400.name&#x27;),
-          message: this.translate.instant(&#x27;error.400.message&#x27;)
-        } as Error
-      );
-    }
+  private generateToastMessage(error: HttpErrorResponse) {
+    const validationError &#x3D; error as IValidationError;
+    validationError.name &#x3D; this.translate.instant(&#x27;error.400.name&#x27;);
+    validationError.error.validationErrors.map(value &#x3D;&gt; this.translate.instant(value));
+    validationError.error.validationErrors.forEach(
+      (value, index) &#x3D;&gt; {
+        const message &#x3D; LogGenerator.createValidationToastError(validationError, index);
+        this.toastMessageService.emit([
+          message
+        ]);
+      }
+    );
   }
 }
 </code></pre>

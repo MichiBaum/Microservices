@@ -21,44 +21,44 @@
 <polygon fill="#fb8072" stroke="transparent" points="406,-10 406,-30 426,-30 426,-10 406,-10"/>
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
-<title>cluster_HomeModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="172,-70 172,-268 324,-268 324,-70 172,-70"/>
+<title>cluster_FrontendDocumentationModule</title>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="121,-70 121,-268 375,-268 375,-70 121,-70"/>
 </g>
 <g id="clust2" class="cluster">
-<title>cluster_HomeModule_declarations</title>
-<polygon fill="none" stroke="#000000" points="182,-78 182,-130 314,-130 314,-78 182,-78"/>
+<title>cluster_FrontendDocumentationModule_declarations</title>
+<polygon fill="none" stroke="#000000" points="131,-78 131,-130 365,-130 365,-78 131,-78"/>
 </g>
 <g id="clust5" class="cluster">
-<title>cluster_HomeModule_exports</title>
-<polygon fill="none" stroke="#000000" points="180,-208 180,-260 316,-260 316,-208 180,-208"/>
+<title>cluster_FrontendDocumentationModule_exports</title>
+<polygon fill="none" stroke="#000000" points="129,-208 129,-260 367,-260 367,-208 129,-208"/>
 </g>
-<!-- HomeComponent -->
+<!-- FrontendDocumentationComponent -->
 <g id="node1" class="node">
-<title>HomeComponent</title>
-<polygon fill="#ffffb3" stroke="#000000" points="305.5451,-122 190.4549,-122 190.4549,-86 305.5451,-86 305.5451,-122"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">HomeComponent</text>
+<title>FrontendDocumentationComponent</title>
+<polygon fill="#ffffb3" stroke="#000000" points="357.1937,-122 138.8063,-122 138.8063,-86 357.1937,-86 357.1937,-122"/>
+<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">FrontendDocumentationComponent</text>
 </g>
-<!-- HomeModule -->
+<!-- FrontendDocumentationModule -->
 <g id="node2" class="node">
-<title>HomeModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="294.7619,-187 291.7619,-191 270.7619,-191 267.7619,-187 201.2381,-187 201.2381,-151 294.7619,-151 294.7619,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">HomeModule</text>
+<title>FrontendDocumentationModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="346.4114,-187 343.4114,-191 322.4114,-191 319.4114,-187 149.5886,-187 149.5886,-151 346.4114,-151 346.4114,-187"/>
+<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">FrontendDocumentationModule</text>
 </g>
-<!-- HomeComponent&#45;&gt;HomeModule -->
+<!-- FrontendDocumentationComponent&#45;&gt;FrontendDocumentationModule -->
 <g id="edge1" class="edge">
-<title>HomeComponent&#45;&gt;HomeModule</title>
+<title>FrontendDocumentationComponent&#45;&gt;FrontendDocumentationModule</title>
 <path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
 <polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
 </g>
-<!-- HomeComponent  -->
+<!-- FrontendDocumentationComponent  -->
 <g id="node3" class="node">
-<title>HomeComponent </title>
-<polygon fill="#fb8072" stroke="#000000" points="307.5442,-252 188.4558,-252 188.4558,-216 307.5442,-216 307.5442,-252"/>
-<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">HomeComponent </text>
+<title>FrontendDocumentationComponent </title>
+<polygon fill="#fb8072" stroke="#000000" points="358.6938,-252 137.3062,-252 137.3062,-216 358.6938,-216 358.6938,-252"/>
+<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">FrontendDocumentationComponent </text>
 </g>
-<!-- HomeModule&#45;&gt;HomeComponent  -->
+<!-- FrontendDocumentationModule&#45;&gt;FrontendDocumentationComponent  -->
 <g id="edge2" class="edge">
-<title>HomeModule&#45;&gt;HomeComponent </title>
+<title>FrontendDocumentationModule&#45;&gt;FrontendDocumentationComponent </title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
 <polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
 </g>
