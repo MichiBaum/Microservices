@@ -22,7 +22,11 @@ export const environment = {
   /**
    * Flag if url routes are shown
    */
-  hide_url_routes: false
+  hide_url_routes: false,
+  /**
+   * Url to backend swagger
+   */
+  swagger_url: 'http://localhost:8181/lifemanagement/api/swagger-ui/index.html?configUrl=/lifemanagement/api/api-docs/swagger-config&filter=Endpoints'
 };
 
 /*

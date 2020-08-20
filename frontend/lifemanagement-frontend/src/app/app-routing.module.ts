@@ -8,6 +8,7 @@ import {LoginComponent} from './login/login.component';
 import {LoggingComponent} from './logs/logging.component';
 import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
 import {UsersettingsComponent} from './usersettings/usersettings.component';
+import {BackendDocumentationComponent} from "./backend-documentation/backend-documentation.component";
 
 /**
  * All own Routes
@@ -41,6 +42,9 @@ const routes: Routes = [
   } as Route, {
     path: 'frontend-documentation',
     component: FrontendDocumentationComponent
+  } as Route, {
+    path: 'backend-documentation',
+    component: BackendDocumentationComponent
   } as Route
 ];
 

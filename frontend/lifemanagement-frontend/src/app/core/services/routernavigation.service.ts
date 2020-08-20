@@ -36,4 +36,8 @@ export class RouternavigationService {
   frontendDocumentationNavigate() {
     this.router.navigate(['/frontend-documentation'], { skipLocationChange: environment.hide_url_routes }).then();
   }
+
+  backendDocumentationNavigate() {
+    this.router.navigate(['/backend-documentation'], { skipLocationChange: environment.hide_url_routes }).then();
+  }
 }

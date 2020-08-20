@@ -113,8 +113,7 @@ export class NavigationComponent implements OnInit {
         icon: 'fas fa-server',
         command: () => {
           this.sidebarVisible = false;
-          const url = environment.api_url + '/swagger-ui.html';
-          window.open(url, '_blank');
+          this.routernavigationService.backendDocumentationNavigate();
         },
         visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
       } as MenuItem,

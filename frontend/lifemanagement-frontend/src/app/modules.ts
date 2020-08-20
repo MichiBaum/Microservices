@@ -1,3 +1,4 @@
+import {BackendDocumentationModule} from './backend-documentation/backend-documentation.module';
 import {CoreModule} from './core/core.module';
 import {PipeModule} from './core/pipes/pipe.module';
 import {FrontendDocumentationModule} from './frontend-documentation/frontend-documentation.module';
@@ -28,5 +29,6 @@ export const MyModules = [
   ToastMessageModule,
   ImprintModule,
   PrivacyPolicyModule,
-  FrontendDocumentationModule
+  FrontendDocumentationModule,
+  BackendDocumentationModule
 ];

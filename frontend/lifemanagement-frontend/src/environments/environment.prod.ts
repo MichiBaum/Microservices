@@ -18,5 +18,9 @@ export const environment = {
   /**
    * Flag if url routes are shown
    */
-  hide_url_routes: true
+  hide_url_routes: true,
+  /**
+   * Url to backend swagger
+   */
+  swagger_url: 'https://michibaum.ch/lifemanagement/api/swagger-ui/index.html?configUrl=/lifemanagement/api/api-docs/swagger-config&filter=Endpoints'
 };
