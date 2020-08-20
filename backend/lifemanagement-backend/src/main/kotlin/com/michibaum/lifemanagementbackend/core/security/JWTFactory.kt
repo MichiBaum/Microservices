@@ -3,14 +3,17 @@ package com.michibaum.lifemanagementbackend.core.security
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTCreator
 import com.auth0.jwt.algorithms.Algorithm
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class JWTFactory(
-    private val applicationVersion: String,
     private val startingSecret: String
 ) {
+
+    @Value("\${application.version}")
+    private lateinit var applicationVersion: String
 
     // CREATE JWT
 
