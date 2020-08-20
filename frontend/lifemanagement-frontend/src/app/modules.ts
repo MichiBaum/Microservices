@@ -1,5 +1,6 @@
 import {CoreModule} from './core/core.module';
 import {PipeModule} from './core/pipes/pipe.module';
+import {FrontendDocumentationModule} from './frontend-documentation/frontend-documentation.module';
 import {HeaderModule} from './header/header.module';
 import {HelpDialogModule} from './help-dialog/help-dialog.module';
 import {HomeModule} from './home/home.module';
@@ -26,5 +27,6 @@ export const MyModules = [
   UsersettingsModule,
   ToastMessageModule,
   ImprintModule,
-  PrivacyPolicyModule
+  PrivacyPolicyModule,
+  FrontendDocumentationModule
 ];

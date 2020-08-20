@@ -32,4 +32,8 @@ export class RouternavigationService {
   privacyPolicyNavigate() {
     this.router.navigate(['/privacy-policy'], { skipLocationChange: environment.hide_url_routes }).then();
   }
+
+  frontendDocumentationNavigate() {
+    this.router.navigate(['/frontend-documentation'], { skipLocationChange: environment.hide_url_routes }).then();
+  }
 }

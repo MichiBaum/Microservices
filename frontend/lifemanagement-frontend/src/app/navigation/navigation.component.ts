@@ -103,8 +103,7 @@ export class NavigationComponent implements OnInit {
         icon: 'fab fa-github',
         command: () => {
           this.sidebarVisible = false;
-          const url = 'https://michibaum.github.io/lifemanagement/frontend/index.html';
-          window.open(url, '_blank');
+          this.routernavigationService.frontendDocumentationNavigate();
         },
         visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
       } as MenuItem,

@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule, Routes} from '@angular/router';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
+import {FrontendDocumentationComponent} from './frontend-documentation/frontend-documentation.component';
 import {HomeComponent} from './home/home.component';
 import {ImprintComponent} from './imprint/imprint.component';
 import {LoginComponent} from './login/login.component';
@@ -37,6 +38,9 @@ const routes: Routes = [
   } as Route, {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
+  } as Route, {
+    path: 'frontend-documentation',
+    component: FrontendDocumentationComponent
   } as Route
 ];
 
