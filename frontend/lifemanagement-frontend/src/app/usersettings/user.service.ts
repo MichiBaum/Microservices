@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {IPermission} from '../core/models/permission.model';
-import {IExportUser, IUser} from '../core/models/user.model';
+import {IUpdateUser, IUser} from '../core/models/user.model';
 import {ApiService} from '../core/services/api.service';
 
 @Injectable({
@@ -24,11 +24,11 @@ export class UserService {
     return this.apiService.getAll('/users/me', false);
   }
 
-  save(user: IExportUser): Observable<IUser> {
+  save(user: IUpdateUser): Observable<IUser> {
     return this.apiService.postAll('/users/' + user.id, user);
   }
 
-  savePermissions(user: IExportUser): Observable<any> {
-    return this.apiService.postAll('/users/' + user.id + '/permissions', user.permissions);
+  savePermissions(userId: number, permissionIds: number[]): Observable<any> {
+    return this.apiService.postAll('/users/' + userId + '/permissions', permissionIds);
   }
 }

@@ -1,13 +1,14 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {AuthErrorResponseHandler} from './auth-error-response.handler';
+import {ForbiddenErrorResponseHandler} from './forbidden-error-response.handler';
 import {IHttpErrorResponseHandler} from './i-http-error-response.handler';
 import {MethodNotAllowedErrorHandler} from './method-not-allowed-error.handler';
 import {NoConnectionErrorHandler} from './no-connection-error.handler';
 import {NotFoundErrorHandler} from './not-found-error.handler';
 import {ServerSideErrorHandler} from './server-side-error.handler';
 import {ValidationErrorHandler} from './validation-error.handler';
+import {UnauthorizedErrorResponseHandler} from './unauthorized-error-response.handler';
 
 @Injectable()
 export class DefaultErrorHandler implements IHttpErrorResponseHandler {
@@ -16,15 +17,17 @@ export class DefaultErrorHandler implements IHttpErrorResponseHandler {
 
   constructor(
     private validationErrorHandler: ValidationErrorHandler,
-    private authErrorHandler: AuthErrorResponseHandler,
+    private authErrorHandler: ForbiddenErrorResponseHandler,
+    private unauthorizedErrorHandler: UnauthorizedErrorResponseHandler,
     private serverSideErrorHandler: ServerSideErrorHandler,
-    private noConnectionErrorHandler: NoConnectionErrorHandler,
     private notFoundErrorHandler: NotFoundErrorHandler,
-    private methodNotAllowedErrorHandler: MethodNotAllowedErrorHandler
+    private methodNotAllowedErrorHandler: MethodNotAllowedErrorHandler,
+    private noConnectionErrorHandler: NoConnectionErrorHandler
   ) {
     this.handlers = [
       validationErrorHandler,
       authErrorHandler,
+      unauthorizedErrorHandler,
       serverSideErrorHandler,
       notFoundErrorHandler,
       methodNotAllowedErrorHandler,

@@ -13,7 +13,7 @@
     "available": "available",
     "selected": "selected",
     "translation-title": "Translation",
-    "translation-description": "This application / website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors."
+    "translation-description": "This application/website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors."
   },
   "navigation": {
     "usersettings": "usersettings",
@@ -22,7 +22,10 @@
     "logs": "logs",
     "home": "home",
     "imprint": "imprint",
-    "privacy-policy": "privacy policy"
+    "privacy-policy": "privacy policy",
+    "github": "Github",
+    "frontend_documentation": "frontend documentation",
+    "backend_api": "Backend Api"
   },
   "login": {
     "username": "username",
@@ -41,17 +44,13 @@
       "name": "Bad Request",
       "message": "The request message was erroneous."
     },
-    "500": {
-      "name": "Internal Server Error",
-      "message": "Server side error"
-    },
-    "noConnection": {
-      "name": "No Connection",
-      "message": "No Connection"
+    "401": {
+      "name": "Authentification failed",
+      "message": "Authentication failed."
     },
     "403": {
       "name": "Forbidden",
-      "message": "The request was not carried out due to lack of authorization from the client, e.g. because the authenticated user is not authorized or a URL configured as HTTPS was only called up with HTTP."
+      "message": "The request was not carried out due to lack of authorization from the client, e.g. because the authenticated user is not authorized or a URL configured as HTTPS was only called up with HTTP. A new login may help."
     },
     "404": {
       "name": "Not Found",
@@ -60,12 +59,21 @@
     "405": {
       "name": "Method Not Allowed",
       "message": "The request may only be made using other HTTP methods."
+    },
+    "500": {
+      "name": "Internal Server Error",
+      "message": "Server side error"
+    },
+    "noConnection": {
+      "name": "No Connection",
+      "message": "No Connection"
     }
   },
   "permission": {
     "USER_MANAGEMENT": "usermanagement",
     "SEE_LOGS": "see logs",
-    "ADMIN": "admin"
+    "ADMIN": "admin",
+    "DEVELOP_TOOLS": "develop tools"
   },
   "log": {
     "id": "ID",

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {MenuItem} from 'primeng';
+import {environment} from '../../environments/environment';
 import {LanguageConfig} from '../core/language.config';
 import {PermissionEnum} from '../core/models/enum/permission.enum';
 import {AuthService} from '../core/services/auth.service';
@@ -39,55 +40,93 @@ export class NavigationComponent implements OnInit {
 
   setItems = (): void => {
     this.navItems = [
+
       {
         label: this.translate.instant('navigation.home'),
-        icon: 'pi pi-home',
+        icon: 'fas fa-house-user',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.homeNavigate();
         }
       } as MenuItem,
+
       {
         label: this.translate.instant('navigation.usersettings'),
-        icon: 'pi pi-user-edit',
+        icon: 'fas fa-users-cog',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.usersettingsNavigate();
         }
       } as MenuItem,
+
       {
         label: this.translate.instant('navigation.logs'),
-        icon: 'pi pi-info',
+        icon: 'fas fa-cogs',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.logmanagementNavigate();
         },
-        visible: this.authService.hasAnyPermission([PermissionEnum.SEE_LOGS, PermissionEnum.ADMIN])
+        visible: this.authService.hasAnyPermission([PermissionEnum.SEE_LOGS])
       } as MenuItem,
+
       {
         label: this.translate.instant('navigation.imprint'),
-        icon: 'pi pi-info',
+        icon: 'fas fa-stamp',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.imprintNavigate();
         }
       } as MenuItem,
+
       {
         label: this.translate.instant('navigation.privacy-policy'),
-        icon: 'pi pi-info',
+        icon: 'fas fa-user-shield',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.privacyPolicyNavigate();
         }
       } as MenuItem,
+
+      {
+        label: this.translate.instant('navigation.github'),
+        icon: 'fab fa-github',
+        command: () => {
+          this.sidebarVisible = false;
+          const url = 'https://github.com/MichiBaum/lifemanagement';
+          window.open(url, '_blank');
+        },
+        visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
+      } as MenuItem,
+
+      {
+        label: this.translate.instant('navigation.frontend_documentation'),
+        icon: 'fab fa-github',
+        command: () => {
+          this.sidebarVisible = false;
+          this.routernavigationService.frontendDocumentationNavigate();
+        },
+        visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
+      } as MenuItem,
+
+      {
+        label: this.translate.instant('navigation.backend_api'),
+        icon: 'fas fa-server',
+        command: () => {
+          this.sidebarVisible = false;
+          this.routernavigationService.backendDocumentationNavigate();
+        },
+        visible: this.authService.hasAnyPermission([PermissionEnum.DEVELOP_TOOLS])
+      } as MenuItem,
+
       {
         label: this.translate.instant('navigation.logout'),
-        icon: 'pi pi-power-off',
+        icon: 'fas fa-sign-out-alt',
         command: () => {
           this.authService.logout();
           this.sidebarVisible = false;
         }
       } as MenuItem
+
     ] as MenuItem[];
   }
 

@@ -5,62 +5,7 @@
   </div>
 
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined">
-    <p-fieldset
-      legend="{{'user.user' | translate}}: {{selectedUser?.name}}"
-      [toggleable]="true"
-      [transitionOptions]="'500ms'"
-    >
-
-      <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="hasPermissionUserManagement === true">
-        <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">{{'user.id' | translate}}</span>
-          <input type="text" [disabled]="true" pInputText [(ngModel)]="changeableUser.id">
-        </div>
-      </div>
-
-      <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-        <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">{{'user.name' | translate}}</span>
-          <input type="text" pInputText [(ngModel)]="changeableUser.name">
-        </div>
-      </div>
-
-      <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-        <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">{{'user.emailAddress' | translate}}</span>
-          <input type="text" pInputText [(ngModel)]="changeableUser.emailAddress">
-        </div>
-      </div>
-
-      <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-        <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">{{'user.newPassword' | translate}}</span>
-          <input type="password" pPassword [(ngModel)]="newPassword">
-        </div>
-      </div>
-
-      <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-        <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">{{'user.lastLogin' | translate}}</span>
-          <input type="text" [disabled]="true" pInputText [ngModel]="changeableUser.lastLogin | customDate">
-        </div>
-      </div>
-
-      <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-        <p-toggleButton
-          onLabel="{{'user.enabled' | translate}}"
-          offLabel="{{'user.disabled' | translate}}"
-          onIcon="pi pi-check"
-          offIcon="pi pi-times"
-          [(ngModel)]="changeableUser.enabled"
-        ></p-toggleButton>
-      </div>
-
-      <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-        <p-button label="{{'general.save' | translate}}" (onClick)="saveUser()"></p-button>
-      </div>
-
-    </p-fieldset>
+    <app-userdetails [selectedUser]="selectedUser" [changeableUser]="changeableUser" (savedUser)="saveUser($event)" ></app-userdetails>
   </div>
 
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && hasPermissionUserManagement">
@@ -73,7 +18,7 @@
 
       <p-pickList
         [source]="availablePermissions"
-        [target]="selectedUser.permissions"
+        [target]="changeableUser.permissions"
         sourceHeader="{{'general.available' | translate}}"
         targetHeader="{{'general.selected' | translate}}"
         [responsive]="true"
@@ -82,8 +27,6 @@
         [targetStyle]="{'height':'300px'}"
         (onMoveToSource)="savePermissions()"
         (onMoveToTarget)="savePermissions()"
-        (onMoveAllToSource)="savePermissions()"
-        (onMoveAllToTarget)="savePermissions()"
         [showSourceControls]="false"
         [showTargetControls]="false"
       >
@@ -98,24 +41,7 @@
   </div>
 
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && myUserId === selectedUser?.id">
-    <p-fieldset
-      legend="{{'user.dateFormat' | translate}}"
-      [toggleable]="true"
-      [transitionOptions]="'500ms'"
-    >
-      <p-dropdown
-        [options]="dateFormats"
-        [(ngModel)]="selectedDateFormat"
-        (onChange)="changeDateFormat($event)"
-      >
-        <ng-template let-item pTemplate="selectedItem">
-          {{selectedDateFormat?.label || item.label | translate}}
-        </ng-template>
-        <ng-template let-item pTemplate="item">
-          {{item.label | translate}}
-        </ng-template>
-      </p-dropdown>
-    </p-fieldset>
+    <app-user-date-format></app-user-date-format>
   </div>
 
 </div>

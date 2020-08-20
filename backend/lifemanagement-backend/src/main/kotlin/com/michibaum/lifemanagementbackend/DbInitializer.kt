@@ -1,10 +1,10 @@
 package com.michibaum.lifemanagementbackend
 
-import com.michibaum.lifemanagementbackend.domain.Permission
-import com.michibaum.lifemanagementbackend.domain.PermissionName
-import com.michibaum.lifemanagementbackend.domain.User
-import com.michibaum.lifemanagementbackend.repository.PermissionRepository
-import com.michibaum.lifemanagementbackend.service.UserService
+import com.michibaum.lifemanagementbackend.user.domain.Permission
+import com.michibaum.lifemanagementbackend.user.domain.PermissionName
+import com.michibaum.lifemanagementbackend.user.domain.User
+import com.michibaum.lifemanagementbackend.user.repository.PermissionRepository
+import com.michibaum.lifemanagementbackend.user.service.UserService
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -69,6 +69,7 @@ class DbInitializer(
     private var user_management: Permission = PermissionName.USER_MANAGEMENT.let(savePermission)
     private var see_logs: Permission = PermissionName.SEE_LOGS.let(savePermission)
     private var adminPermission: Permission = PermissionName.ADMIN.let(savePermission)
+    private var developTools: Permission = PermissionName.DEVELOP_TOOLS.let(savePermission)
 
     private var admin: User =
         User(
@@ -76,7 +77,7 @@ class DbInitializer(
             "admin@admin.com",
             bcryptPasswordEncoder.encode(adminPassword),
             true,
-            mutableListOf(user_management, see_logs, adminPermission)
+            mutableListOf(user_management, see_logs, adminPermission, developTools)
         )
 
     private var user: User =

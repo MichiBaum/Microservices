@@ -9,9 +9,10 @@ import { LoggingComponent } from './logging.component';
 
 @NgModule({
   declarations: [
-    LoggingComponent,
+    LoggingComponent
   ],
   exports: [
+    LoggingComponent
   ],
   imports: [
     CommonModule,

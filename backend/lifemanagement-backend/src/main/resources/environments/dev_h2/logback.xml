@@ -9,11 +9,14 @@
 
     <!-- compressed daily file appender. oldest is deleted after one year -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/tomcat/todo.log</file>
+        <file>/var/log/tomcat/lifemanagement.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>/var/log/tomcat/lifemanagement.%d.log.gz</fileNamePattern>
             <maxHistory>365</maxHistory>
         </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
         <encoder>
             <Pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{100} : %m in %M -> %n %ex{5} %n</Pattern>
         </encoder>
@@ -28,7 +31,7 @@
         </connectionSource>
     </appender>
 
-    <logger name="com.michibaum" level="debug">
+    <logger name="com.michibaum" level="TRACE">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="DB"/>
@@ -52,15 +55,4 @@
         <appender-ref ref="DB"/>
     </logger>
 
-    <logger name="org.hibernate.type" level="WARN">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="DB"/>
-    </logger>
-
-    <logger name="org.springframework.cache" level="WARN">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="DB"/>
-    </logger>
 </configuration>

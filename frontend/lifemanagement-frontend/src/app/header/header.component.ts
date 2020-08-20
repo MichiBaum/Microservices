@@ -1,4 +1,3 @@
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Component, OnInit} from '@angular/core';
 import {LanguageConfig} from '../core/language.config';
 import {IPrimeNgBase} from '../core/models/primeng-base.model';

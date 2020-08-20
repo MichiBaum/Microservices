@@ -6,8 +6,14 @@ import {ApiService} from './core/services/api.service';
   providedIn: 'root'
 })
 export class AppService {
+
   constructor(private apiService: ApiService) { }
 
+  /**
+   * Sends a log to the backend through the {@link ApiService}
+   * Logs to the console if sending to backend was successful or not
+   * @param log the {@link IExportLog} which is send to the backend
+   */
   log = (log: IExportLog) => {
     this.apiService.postAll('/logs', log)
       .toPromise()

@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "3817cfca-d28f-481c-89ee-756b7288cb63",
+		"name": "Lifemanagement_Backend",
+		"description": "# Lifemanagement Api Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "13434799-63bc-40bd-8d21-25d9ba3ce7d6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0b91ed7f-5bb5-42f0-9a1c-51f119741687",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "367461c1-d963-4f3e-ac31-7cc03563d835",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"admin\",\r\n    \"emailAddress\": \"admin@admin.com\",\r\n    \"enabled\": true,\r\n    \"password\": \"\",\r\n    \"lastLogin\": 1595406332546\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Permission",
+			"item": [
+				{
+					"name": "Get All Permissions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "59774a67-0574-43c3-a1f1-3cae68131d11",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Calendar",
+			"item": [
+				{
+					"name": "Get My Calendars",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "90468b9f-cff5-4fd0-9add-f7c49a901c45",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/calendars/own",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"calendars",
+								"own"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Calendars",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b3b4e981-d632-4469-a66a-a33e42eab205",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/calendars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"calendars"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Log",
+			"item": [
+				{
+					"name": "Get all Log Levels",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1458fcb5-dbb4-4b74-991e-c177e7b68bca",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/logs/levels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"logs",
+								"levels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Logs with Filter",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1b8c9ef3-244f-4dcb-ad69-e1b31f4cc86d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{lifemanagement_barear_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/lifemanagement/api/logs?level=INFO&level=ERROR&seen=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"lifemanagement",
+								"api",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "level",
+									"value": "INFO"
+								},
+								{
+									"key": "level",
+									"value": "ERROR"
+								},
+								{
+									"key": "seen",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1fed5d44-1d1c-48c9-bbfc-40c0bd9fd5ff",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "be913cf2-2eeb-4420-a5cb-65df09a225a3",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(jsonData)\r",
+							"if(\r",
+							"    (\r",
+							"        pm.response.code === 200 ||\r",
+							"        pm.response.code === 201 || \r",
+							"        pm.response.code === 202\r",
+							"    ) && jsonData.token\r",
+							"){\r",
+							"    pm.environment.set(\r",
+							"        \"lifemanagement_barear_token\",\r",
+							"        jsonData.token.replace('Bearer ', '')\r",
+							"    );\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"6jURNbvHDT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8181/lifemanagement/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"lifemanagement",
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

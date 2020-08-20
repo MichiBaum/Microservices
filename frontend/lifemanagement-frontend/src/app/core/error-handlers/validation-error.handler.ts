@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 import {ToastMessageService} from '../../toast-message/toast-message.service';
 import {IHttpErrorResponseHandler} from './i-http-error-response.handler';
 import {LogGenerator} from './log-generator.namespace';
+import {IValidationError} from "../models/validation-error.model";
 
 @Injectable()
 export class ValidationErrorHandler implements IHttpErrorResponseHandler {
@@ -28,24 +29,22 @@ export class ValidationErrorHandler implements IHttpErrorResponseHandler {
       this.translate = this.injector.get(TranslateService);
     }
 
-    const message = this.generateMessage(error);
-    this.toastMessageService.emit([
-      message
-    ]);
-
-    return of([]);
+    console.log(error);
+    this.generateToastMessage(error);
+    return of();
   }
 
-  private generateMessage(error: HttpErrorResponse): Message {
-    if (environment.show_errors === true) {
-      return LogGenerator.createToastError(error);
-    } else {
-      return LogGenerator.createToastError(
-        {
-          name: this.translate.instant('error.400.name'),
-          message: this.translate.instant('error.400.message')
-        } as Error
-      );
-    }
+  private generateToastMessage(error: HttpErrorResponse) {
+    const validationError = error as IValidationError;
+    validationError.name = this.translate.instant('error.400.name');
+    validationError.error.validationErrors.map(value => this.translate.instant(value));
+    validationError.error.validationErrors.forEach(
+      (value, index) => {
+        const message = LogGenerator.createValidationToastError(validationError, index);
+        this.toastMessageService.emit([
+          message
+        ]);
+      }
+    );
   }
 }

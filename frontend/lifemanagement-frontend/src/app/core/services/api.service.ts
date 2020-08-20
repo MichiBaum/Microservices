@@ -45,7 +45,7 @@ export class ApiService {
           }
         }
         errorHandler.handle(error);
-        return of([]);
+        return of();
       })
     );
   }

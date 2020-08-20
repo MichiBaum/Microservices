@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {DateFormat} from '../core/models/enum/date-format.enum';
 import {PermissionEnum} from '../core/models/enum/permission.enum';
 import {IPermission} from '../core/models/permission.model';
 import {IPrimeNgBase} from '../core/models/primeng-base.model';
-import {IExportUser, IUser} from '../core/models/user.model';
+import {IUpdateUser, IUser} from '../core/models/user.model';
 import {AuthService} from '../core/services/auth.service';
-import {DateService} from '../core/services/date.service';
 import {LoginService} from '../login/login.service';
 import {ToastMessageService} from '../toast-message/toast-message.service';
 import {UserService} from './user.service';
@@ -18,9 +16,6 @@ import {UserService} from './user.service';
 })
 export class UsersettingsComponent implements OnInit {
 
-  dateFormats: IPrimeNgBase[];
-  selectedDateFormat: IPrimeNgBase;
-
   hasPermissionUserManagement = false;
   users: IPrimeNgBase[] = [];
   selectedUser: IUser;
@@ -28,14 +23,14 @@ export class UsersettingsComponent implements OnInit {
   availablePermissions: IPermission[] = [];
 
   changeableUser: IUser;
-  newPassword = '';
 
   loginModalVisible = false;
   loginDialogWidth = '50vw';
-  onLoginSuccess = () => {this.loginService.emitLogin(); };
+  onLoginSuccess = () => {
+    this.loginService.emitLogin();
+  }
 
   constructor(
-    private dateService: DateService,
     public authService: AuthService,
     private userService: UserService,
     private loginService: LoginService,
@@ -49,38 +44,8 @@ export class UsersettingsComponent implements OnInit {
 
   ngOnInit(): void {
     if (window.innerWidth < 800) { this.loginDialogWidth = '80vw'; }
-    this.dateFormats = this.initDateFormats();
-    this.selectedDateFormat = this.initSelectedDateFormat();
     this.hasPermissionUserManagement = this.authService.hasAnyPermission([PermissionEnum.USER_MANAGEMENT]);
     this.loadUsers();
-  }
-
-  private initDateFormats = (): IPrimeNgBase[] => {
-    const dateFormats: IPrimeNgBase[] = [];
-    for (const dateFormat of Object.keys(DateFormat)) {
-      dateFormats.push(
-        {
-          field: dateFormat,
-          label: 'dateFormat.' + dateFormat,
-          value: dateFormat
-        } as IPrimeNgBase);
-    }
-    return dateFormats;
-  }
-
-  changeDateFormat = (event: any) => {
-    this.dateService.setFormat(event.value as DateFormat);
-  }
-
-  private initSelectedDateFormat = () => {
-    const localStorageDateFormat = this.dateService.getFormat();
-    if (localStorageDateFormat) {
-      return this.selectedDateFormat = {
-        field: localStorageDateFormat,
-        label: 'dateFormat.' + localStorageDateFormat,
-        value: localStorageDateFormat
-      } as IPrimeNgBase;
-    }
   }
 
   private loadUsers = () => {
@@ -94,13 +59,15 @@ export class UsersettingsComponent implements OnInit {
       });
       return;
     }
-    observableMe.subscribe((value) => this.users.push({label: value.name, field: value.name, value} as IPrimeNgBase));
+    observableMe.subscribe((value) =>
+      this.users.push({label: value.name, field: value.name, value} as IPrimeNgBase)
+    );
   }
 
   userChanged(event: any) {
     const user: IUser = event.value as IUser;
     this.changeableUser = JSON.parse(JSON.stringify(user));
-    this.newPassword = '';
+    this.changeableUser.password = '';
     if (this.hasPermissionUserManagement) {
       this.userService.getAllPermissions().subscribe(value => {
         this.availablePermissions = value.filter((el) => !user.permissions.map(value1 => value1.id).includes(el.id));
@@ -108,9 +75,9 @@ export class UsersettingsComponent implements OnInit {
     }
   }
 
-  saveUser() {
-    this.userService.save(this.toExportUser(this.changeableUser)).subscribe(
-      (user) => {
+  saveUser(changeableUser: IUser) {
+    this.userService.save(this.toExportUser(changeableUser)).subscribe(
+      (user: IUser) => {
         if (this.needsLogin()) {
           this.loginModalVisible = true;
         }
@@ -127,27 +94,27 @@ export class UsersettingsComponent implements OnInit {
     if (index !== -1) {
       this.users[index] = {label: user.name, field: user.name, value: user} as IPrimeNgBase;
       this.selectedUser = this.users[index].value;
-      this.newPassword = '';
+      this.changeableUser.password = '';
     }
   }
 
-  private toExportUser = (user: IUser): IExportUser => {
+  private toExportUser = (user: IUser): IUpdateUser => {
     return {
       id: user.id,
       name: user.name,
       emailAddress: user.emailAddress,
-      password: this.newPassword,
+      password: user.password,
       enabled: user.enabled,
-      lastLogin: user.lastLogin,
       permissions: user.permissions.map( (permission) => permission.id )
-    } as IExportUser;
+    } as IUpdateUser;
   }
 
   private needsLogin = (): boolean => {
     if (this.changeableUser.id === this.myUserId) {
       return this.changeableUser.name !== this.authService.getUsername()
-      || this.newPassword.length !== 0
-      || this.changeableUser.enabled !== this.selectedUser.enabled;
+      || this.changeableUser.password.length !== 0
+      || this.changeableUser.enabled !== this.selectedUser.enabled
+      || this.arr_diff(this.changeableUser.permissions, this.selectedUser.permissions).length > 0;
     }
     return false;
   }
@@ -167,7 +134,47 @@ export class UsersettingsComponent implements OnInit {
   }
 
   savePermissions() {
-    this.userService.savePermissions(this.toExportUser(this.selectedUser)).subscribe();
+    const exportUser = this.toExportUser(this.changeableUser);
+
+    this.userService.savePermissions(exportUser.id, exportUser.permissions).subscribe(
+      (user: IUser) => {
+        if (this.needsLogin()) {
+          this.loginModalVisible = true;
+        }
+        this.replaceUserInUsers(user);
+        this.successMessage();
+      },
+      (error) => {
+        this.errorMessage();
+      });
+  }
+
+  // TODO refactor / put it to another place
+  arr_diff(a1, a2) {
+    const a = [];
+    const diff = [];
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < a1.length; i++) {
+      a[a1[i]] = true;
+    }
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < a2.length; i++) {
+      if (a[a2[i]]) {
+        delete a[a2[i]];
+      } else {
+        a[a2[i]] = true;
+      }
+    }
+
+    // tslint:disable-next-line:forin
+    for (const k in a) {
+      diff.push(k);
+    }
+
+    console.log(diff);
+    return diff;
   }
 
 }
