@@ -2,6 +2,8 @@
 FROM maven:3.6.3-jdk-11-slim AS MAVEN_BUILD
 MAINTAINER Michael Baumberger
 ARG profile=docker
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 RUN echo 'ACTIVE PROFILE IS: $profile'
 COPY pom.xml /build/
 COPY ./src /build/src/
@@ -11,6 +13,8 @@ RUN mvn package -P $profile
 ### STAGE 2: Run ###
 FROM openjdk:11-jre-slim
 MAINTAINER Michael Baumberger
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 WORKDIR /app
 COPY --from=MAVEN_BUILD /build/target/lifemanagement.jar /app/
 
