@@ -55,6 +55,7 @@ class JWTAuthorizationFilter(
     private fun parseToken(token: String): DecodedJWT? =
         try {
             JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET))
+                .withIssuer("com.michibaum")
                 .build()
                 .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
         }catch (ex: Exception){

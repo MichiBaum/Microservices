@@ -46,5 +46,6 @@ fun JWTCreator.Builder.sign(algorith: JWTFactory.Companion.ALGORITHMS): String? 
             "typ" to "JWT"
         )
     )
+    this.withIssuer("com.michibaum")
     return this.sign(algorith.param(SecurityConstants.SECRET))
 }
