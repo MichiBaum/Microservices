@@ -1,6 +1,6 @@
 ### STAGE 1: Package ###
 FROM maven:3.6.3-jdk-11-slim AS MAVEN_BUILD
-MAINTAINER Michael Baumberger
+LABEL maintainer="Michael Baumberger"
 ARG profile=docker
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
@@ -12,7 +12,7 @@ RUN mvn package -P $profile
 
 ### STAGE 2: Run ###
 FROM openjdk:11-jre-slim
-MAINTAINER Michael Baumberger
+LABEL maintainer="Michael Baumberger"
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 WORKDIR /app

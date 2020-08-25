@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 FROM node:14.4.0-alpine AS BUILD
-MAINTAINER Michael Baumberger
+LABEL maintainer="Michael Baumberger"
 WORKDIR /usr/src/app
 COPY package.json ./
 RUN npm install npm@latest -g
@@ -10,7 +10,7 @@ RUN npm run build -- --prod --output-hashing=all
 
 ### STAGE 2: Run ###
 FROM nginx:1.17.10-alpine
-MAINTAINER Michael Baumberger
+LABEL maintainer="Michael Baumberger"
 RUN rm -r /usr/share/nginx/html && \
     rm -f /var/log/nginx/* && \
     mkdir /usr/share/nginx/html/ && \
