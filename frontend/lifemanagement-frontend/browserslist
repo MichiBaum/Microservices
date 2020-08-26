@@ -1,12 +1,10 @@
 # This file is currently used by autoprefixer to adjust CSS to support the below specified browsers
 # For additional information regarding the format and rule options, please see:
 # https://github.com/browserslist/browserslist#queries
-#
-# For IE 9-11 support, please remove 'not' from the last line of the file and adjust as needed
 
-cover 99.5%
-> 5%
-last 2 versions
+> 0.3%
+last 10 versions
 Firefox ESR
-ie 8-11
-not dead
+IE 9-11
+iOS > 6
+last 6 years
