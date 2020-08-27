@@ -1,5 +1,6 @@
 package com.michibaum.lifemanagementbackend.core.security
 
+import com.michibaum.lifemanagementbackend.core.date.RealDate
 import com.michibaum.lifemanagementbackend.user.domain.User
 import com.michibaum.lifemanagementbackend.user.repository.UserRepository
 import org.springframework.security.core.context.SecurityContextHolder
@@ -16,7 +17,7 @@ class LastLoginUpdater(
     ): User? {
         username?.let { name ->
             userRepository.findByName(name)?.let { user ->
-                user.lastLogin = Date().time
+                user.lastLogin = RealDate().millisecconds
                 return userRepository.save(user)
             }
         }

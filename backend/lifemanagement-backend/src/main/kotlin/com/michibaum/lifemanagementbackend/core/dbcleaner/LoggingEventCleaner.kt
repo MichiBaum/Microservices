@@ -1,5 +1,6 @@
 package com.michibaum.lifemanagementbackend.core.dbcleaner
 
+import com.michibaum.lifemanagementbackend.core.date.RealDate
 import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
 import com.michibaum.lifemanagementbackend.logs.repository.LoggingEventRepository
 import mu.KotlinLogging
@@ -39,7 +40,7 @@ class LoggingEventCleaner(
                 loggingEventRepository.findByLevelString(loggingEventLevel.levelName)
                     .forEach { loggingEvent: LoggingEvent ->
                         run {
-                            if (loggingEvent.timestmp + loggingEventLevel.ageToDelete < Date().time) {
+                            if (loggingEvent.timestmp + loggingEventLevel.ageToDelete < RealDate().millisecconds) {
                                 loggingEventRepository.delete(loggingEvent)
                                 deletedLogsCounter = updateDeletedLogsCounter(deletedLogsCounter, loggingEventLevel)
                             }

@@ -3,6 +3,7 @@ package com.michibaum.lifemanagementbackend.core.security
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.michibaum.lifemanagementbackend.core.date.RealDate
 import com.michibaum.lifemanagementbackend.user.repository.JWTRepository
 import mu.KotlinLogging
 import org.springframework.security.authentication.AuthenticationManager
@@ -75,7 +76,7 @@ class JWTAuthorizationFilter(
         val expiresAt = jwt.expiresAt ?: return false
 
         if (username.isBlank()) return false
-        if (Date().time > expiresAt.time) return false
+        if (RealDate().millisecconds > expiresAt.time) return false
         if (backendVersion.asString() != applicationVersion) return false
         if(startingSecret.asString() != this.startingSecret) return false
 

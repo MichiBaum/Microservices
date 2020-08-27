@@ -1,5 +1,6 @@
 package com.michibaum.lifemanagementbackend.core.exceptionHandler
 
+import com.michibaum.lifemanagementbackend.core.date.RealDate
 import io.swagger.v3.oas.annotations.media.Schema
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
@@ -25,7 +26,7 @@ class CustomExceptionHandler {
     fun handleEntityNotFoundException(ex: EntityNotFoundException, request: WebRequest): ResponseEntity<ErrorDetails> {
         logger.error(ex.message, ex.stackTrace)
         val errorDetails = ErrorDetails(
-            timestamp = Date().time,
+            timestamp = RealDate().millisecconds,
             message = if(exceptionShown) ex.message ?: "" else "",
             exceptionClass = if(exceptionShown) ex.javaClass else null,
             details = if(exceptionShown) request.getDescription(true) else request.getDescription(false)
@@ -37,7 +38,7 @@ class CustomExceptionHandler {
     fun handleException(ex: Exception, request: WebRequest): ResponseEntity<ErrorDetails> {
         logger.error(ex.message, ex.stackTrace)
         val errorDetails = ErrorDetails(
-            timestamp = Date().time,
+            timestamp = RealDate().millisecconds,
             message = if(exceptionShown) ex.message ?: "" else "",
             exceptionClass = if(exceptionShown) ex.javaClass else null,
             details = if(exceptionShown) request.getDescription(true) else request.getDescription(false)
@@ -53,7 +54,7 @@ class CustomExceptionHandler {
             .filter { obj: String? -> Objects.nonNull(obj) }
 
         val errorDetails = ValidationErrorDetails(
-            timestamp = Date().time,
+            timestamp = RealDate().millisecconds,
             message = if(exceptionShown) ex.message else "",
             validationErrors = validationErrors,
             exceptionClass = if(exceptionShown) ex.javaClass else null,

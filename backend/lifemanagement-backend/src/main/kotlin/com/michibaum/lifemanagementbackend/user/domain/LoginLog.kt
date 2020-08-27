@@ -1,6 +1,7 @@
 package com.michibaum.lifemanagementbackend.user.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.michibaum.lifemanagementbackend.core.date.RealDate
 import java.util.*
 import javax.persistence.*
 
@@ -35,6 +36,6 @@ class LoginLog(
     var id: Long = 0L
 
     @Column(nullable = false, name = "creationDate")
-    var creationDate: Long = Date().time
+    var creationDate: Long = RealDate().millisecconds
 
 }
