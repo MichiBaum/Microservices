@@ -4,14 +4,14 @@ import com.michibaum.lifemanagementbackend.user.domain.Permission
 import com.michibaum.lifemanagementbackend.user.domain.User
 import com.michibaum.lifemanagementbackend.user.dtos.UpdateUserDto
 import com.michibaum.lifemanagementbackend.user.repository.UserRepository
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class UserService(
     private val userRepository: UserRepository,
     private val permissionService: PermissionService,
-    private val bCryptPasswordEncoder: BCryptPasswordEncoder
+    private val argon2PasswordEncoder: Argon2PasswordEncoder
 ) {
 
     fun findByName(name: String): User? =
@@ -42,7 +42,7 @@ class UserService(
             }
             password = when (userDto.password.isBlank()) {
                 true -> password
-                false -> bCryptPasswordEncoder.encode(userDto.password)
+                false -> argon2PasswordEncoder.encode(userDto.password)
             }
             enabled = userDto.enabled
             permissions = when (userDto.permissions.isEmpty()) {

@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.PropertySource
 import org.springframework.context.annotation.PropertySources
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
 import javax.annotation.PostConstruct
 import kotlin.random.Random
 
@@ -32,7 +32,7 @@ class LifemanagementBackendApplication {
     }
 
     @Bean
-    fun bCryptPasswordEncoder() = BCryptPasswordEncoder()
+    fun argon2PasswordEncoder() = Argon2PasswordEncoder(24, 40, 2, 1 shl 15, 4)
 
     @Bean
     fun publicEndpoints(): List<PublicEndpointDetails> {

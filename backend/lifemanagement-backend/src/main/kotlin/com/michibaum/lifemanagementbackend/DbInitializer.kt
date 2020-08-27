@@ -7,7 +7,7 @@ import com.michibaum.lifemanagementbackend.user.repository.PermissionRepository
 import com.michibaum.lifemanagementbackend.user.service.UserService
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
 import org.springframework.stereotype.Component
 import java.util.*
 import javax.annotation.PostConstruct
@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct
 class DbInitializer(
     private val userService: UserService,
     private val permissionRepository: PermissionRepository,
-    bcryptPasswordEncoder: BCryptPasswordEncoder
+    private val argon2PasswordEncoder: Argon2PasswordEncoder
 ) {
 
     private val logger = KotlinLogging.logger {}
@@ -71,11 +71,21 @@ class DbInitializer(
     private var adminPermission: Permission = PermissionName.ADMIN.let(savePermission)
     private var developTools: Permission = PermissionName.DEVELOP_TOOLS.let(savePermission)
 
+    private fun generateHashAndLogTime(password: String): String {
+        val start = Date().time
+        val hash = argon2PasswordEncoder.encode(password)
+        val end = Date().time
+
+        logger.info("Hashing password took ${end - start} milliseconds")
+
+        return hash
+    }
+
     private var admin: User =
         User(
             "admin",
             "admin@admin.com",
-            bcryptPasswordEncoder.encode(adminPassword),
+            generateHashAndLogTime(adminPassword),
             true,
             mutableListOf(user_management, see_logs, adminPermission, developTools)
         )
@@ -84,7 +94,7 @@ class DbInitializer(
         User(
             "user",
             "user@user.com",
-            bcryptPasswordEncoder.encode(userPassword),
+            generateHashAndLogTime(userPassword),
             true
         )
 

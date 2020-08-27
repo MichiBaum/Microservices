@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -27,7 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class WebSecurityConfig(
 
     private val userDetailsService: UserDetailsServiceImpl,
-    private val bCryptPasswordEncoder: BCryptPasswordEncoder,
+    private val argon2PasswordEncoder: Argon2PasswordEncoder,
     private val lastLoginUpdater: LastLoginUpdater,
     private val publicEndpoints: List<PublicEndpointDetails>,
     private val loginLogCreator: LoginLogCreator,
@@ -92,7 +92,7 @@ class WebSecurityConfig(
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth
             .userDetailsService(userDetailsService)
-            .passwordEncoder(bCryptPasswordEncoder)
+            .passwordEncoder(argon2PasswordEncoder)
     }
 
     @Bean

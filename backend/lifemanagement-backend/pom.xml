@@ -97,6 +97,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.66</version>
+        </dependency>
+
         <!-- mysql connector -->
         <dependency>
             <groupId>mysql</groupId>
