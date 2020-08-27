@@ -22,7 +22,7 @@ class LoginLog(
     @Column(nullable = false, name = "successfullAuth")
     var successfullAuth: Boolean,
 
-    @OneToOne(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
+    @OneToOne(cascade = [CascadeType.MERGE], fetch = FetchType.EAGER)
     var jwt: JWT,
 
     @ManyToMany(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)

@@ -24,7 +24,4 @@ class JWT(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L
 
-    @OneToOne(cascade = [CascadeType.MERGE], fetch = FetchType.LAZY)
-    var loginLog: LoginLog? = null
-
 }
