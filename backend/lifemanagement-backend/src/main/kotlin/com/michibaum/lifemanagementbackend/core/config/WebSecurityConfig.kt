@@ -2,6 +2,7 @@ package com.michibaum.lifemanagementbackend.core.config
 
 import com.michibaum.lifemanagementbackend.core.publicendpoint.PublicEndpointDetails
 import com.michibaum.lifemanagementbackend.core.security.*
+import com.michibaum.lifemanagementbackend.user.repository.JWTRepository
 import org.h2.server.web.WebServlet
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.servlet.ServletRegistrationBean
@@ -31,7 +32,8 @@ class WebSecurityConfig(
     private val publicEndpoints: List<PublicEndpointDetails>,
     private val loginLogCreator: LoginLogCreator,
     private val startingSecret: String,
-    private val jwtFactory: JWTFactory
+    private val jwtFactory: JWTFactory,
+    private val jwtRepository: JWTRepository
 
 ) : WebSecurityConfigurerAdapter() {
 
@@ -76,7 +78,8 @@ class WebSecurityConfig(
                     userDetailsService,
                     lastLoginUpdater,
                     applicationVersion,
-                    startingSecret
+                    startingSecret,
+                    jwtRepository
                 )
             )
             // this disables session creation on Spring Security

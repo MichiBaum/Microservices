@@ -4,10 +4,11 @@ import com.michibaum.lifemanagementbackend.logs.domain.LoggingEvent
 import com.michibaum.lifemanagementbackend.logs.repository.LoggingEventRepository
 import mu.KotlinLogging
 import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
+@Component
 class LoggingEventCleaner(
     private val loggingEventRepository: LoggingEventRepository
 ) {
@@ -29,7 +30,7 @@ class LoggingEventCleaner(
         SEVERE("SEVERE", 2629800000), // 1 month;
     }
 
-    @Scheduled(fixedRate = 60*60*1000) // Every hour
+    @Scheduled(fixedRate = 24*60*60*1000) // Every day
     private fun deleteLoggingEvents(){
         this.logger.info("Hourly deleteLoggingEvents method starts to clear logs")
         var deletedLogsCounter: MutableMap<LoggingEventLevel, Long> = mutableMapOf()

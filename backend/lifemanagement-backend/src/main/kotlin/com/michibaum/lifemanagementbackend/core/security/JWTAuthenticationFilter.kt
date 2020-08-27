@@ -2,8 +2,7 @@ package com.michibaum.lifemanagementbackend.core.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.authentication.*
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.GrantedAuthority
@@ -37,11 +36,10 @@ class JWTAuthenticationFilter(
         val username: String
     )
 
-    @Throws(AuthenticationException::class)
+    @Throws(DisabledException::class, LockedException::class, BadCredentialsException::class)
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse?): Authentication? {
         val credentials: LoginDto = ObjectMapper().readValue(req.inputStream, LoginDto::class.java)
 
-        var successfullAuth = true
         try {
             return ownAuthenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(
@@ -50,18 +48,11 @@ class JWTAuthenticationFilter(
                     ArrayList()
                 )
             )
-        } catch (auex: AuthenticationException){
-
-            successfullAuth = false
-            throw auex
-
-        } finally {
-
-            val user = lastLoginUpdater.update(credentials.username)
-            user?.let { loginLogCreator.create(it, req, successfullAuth) }
-
         }
-
+        catch (dex: DisabledException){ /*throw dex*/ }
+        catch (lex: LockedException){ /*throw lex*/ }
+        catch (bcex: BadCredentialsException){ /*throw bcex*/ }
+        return null
     }
 
     override fun successfulAuthentication(
@@ -72,14 +63,19 @@ class JWTAuthenticationFilter(
     ) {
         val expiresAt = Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME)
         val permissions: List<String> = auth.authorities.map { obj: GrantedAuthority -> obj.authority }
-        val jwt = TokenDto(
+        val realjwt = createJWT(auth)
+        val responseJwt = TokenDto(
             SecurityConstants.HEADER_STRING,
-            SecurityConstants.TOKEN_PREFIX + createJWT(auth),
+            SecurityConstants.TOKEN_PREFIX + realjwt,
             expiresAt,
             permissions,
             (auth.principal as User).username
         )
-        manipulateResponseSuccessfullAuth(response, jwt)
+
+        val user = lastLoginUpdater.update((auth.principal as User).username)
+        user?.let { loginLogCreator.create(it, request, true, realjwt, expiresAt) }
+
+        manipulateResponseSuccessfullAuth(response, responseJwt)
     }
 
     @Throws(IOException::class, ServletException::class)

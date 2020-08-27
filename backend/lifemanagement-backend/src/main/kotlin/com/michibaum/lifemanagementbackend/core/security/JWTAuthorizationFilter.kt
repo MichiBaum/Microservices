@@ -3,6 +3,7 @@ package com.michibaum.lifemanagementbackend.core.security
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.michibaum.lifemanagementbackend.user.repository.JWTRepository
 import mu.KotlinLogging
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -20,7 +21,8 @@ class JWTAuthorizationFilter(
     private val userDetailsService: UserDetailsService,
     private val lastLoginUpdater: LastLoginUpdater,
     private val applicationVersion: String,
-    private val startingSecret: String
+    private val startingSecret: String,
+    private val jwtRepository: JWTRepository
 ) : BasicAuthenticationFilter(authManager) {
 
     private val ownLogger = KotlinLogging.logger {}
@@ -46,6 +48,9 @@ class JWTAuthorizationFilter(
         val decodedJWT = parseToken(token) ?: return null
 
         if (!tokenIsValid(decodedJWT)) return null
+
+        val dbjwt = jwtRepository.findByJwt(token.replace(SecurityConstants.TOKEN_PREFIX, "")) ?: return null
+        if(!dbjwt.active) return null
 
         val userDetails = userDetailsService.loadUserByUsername(decodedJWT.subject) ?: return null
 
