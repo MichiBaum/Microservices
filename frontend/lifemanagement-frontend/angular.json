@@ -55,8 +55,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/chart.js/dist/Chart.js"
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {
