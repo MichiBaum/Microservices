@@ -15,11 +15,10 @@
 </p-sidebar>
 
 <button
-  *ngIf="authService.isLoggedIn()"
-  type="button"
-  class="ui-button-secondary"
-  (click)="sidebarVisible = true"
   pButton
+  type="button"
+  *ngIf="authService.isLoggedIn()"
+  class="p-button-secondary p-button-rounded p-button-outlined"
+  (click)="sidebarVisible = true"
   icon="pi pi-align-justify"
-  label="{{'application.nav' | translate}}"
 ></button>

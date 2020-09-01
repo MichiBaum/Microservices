@@ -1,14 +1,14 @@
 <div class="p-grid p-align-start p-justify-start">
 
-  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
+  <div class="p-col-12 p-sm-12 p-md-12 p-lg-12 p-xl-12">
     <p-dropdown [options]="users" [(ngModel)]="selectedUser" [filter]="true" placeholder="{{'user.selectOne' | translate}}" filterBy="label" (onChange)="userChanged($event)"></p-dropdown>
   </div>
 
-  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined">
+  <div class="p-col-12 p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined">
     <app-userdetails [selectedUser]="selectedUser" [changeableUser]="changeableUser" (savedUser)="saveUser($event)" ></app-userdetails>
   </div>
 
-  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && hasPermissionUserManagement">
+  <div class="p-col-12 p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && hasPermissionUserManagement">
     <p-fieldset
       legend="{{'user.permissions' | translate}}"
       [toggleable]="true"
@@ -40,7 +40,7 @@
     </p-fieldset>
   </div>
 
-  <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && myUserId === selectedUser?.id">
+  <div class="p-col-12 p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="selectedUser !== undefined && myUserId === selectedUser?.id">
     <app-user-date-format></app-user-date-format>
   </div>
 

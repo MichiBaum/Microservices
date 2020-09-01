@@ -19,6 +19,7 @@
             [options]="tableCols"
             [(ngModel)]="visibleSelectedColumns"
             [maxSelectedLabels]="2"
+            [itemSize]="2"
             optionLabel="label"
             [style]="{minWidth: '200px'}"
             (onChange)="visibleColsChanged()"
@@ -29,7 +30,9 @@
                 {{'log.chooseColumns' | translate}}
               </ng-container>
               <ng-container *ngFor="let selectedItem of items;">
-                {{selectedItem.label | translate}},
+                <div>
+                  {{selectedItem.label | translate}},
+                </div>
               </ng-container>
             </ng-template>
             <ng-template let-item pTemplate="item">

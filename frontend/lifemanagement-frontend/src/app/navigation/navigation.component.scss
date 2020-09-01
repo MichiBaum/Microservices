@@ -13,6 +13,10 @@
     color: $header-background-color !important;
   }
 
+  ::ng-deep .p-slidemenu .p-menuitem {
+    width: fit-content;
+  }
+
   ::ng-deep * {
     &:focus, &.focus,
     &:active, &.active {

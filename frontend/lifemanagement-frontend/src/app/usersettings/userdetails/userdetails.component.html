@@ -4,37 +4,42 @@
   [transitionOptions]="'500ms'"
 >
 
+  <!-- TODO width -->
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12" *ngIf="hasPermissionUserManagement === true">
-    <div class="ui-inputgroup">
-      <span class="ui-inputgroup-addon">{{'user.id' | translate}}</span>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">{{'user.id' | translate}}</span>
       <input type="text" [disabled]="true" pInputText [(ngModel)]="changeableUser.id">
     </div>
   </div>
 
+  <!-- TODO width -->
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-    <div class="ui-inputgroup">
-      <span class="ui-inputgroup-addon">{{'user.name' | translate}}</span>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">{{'user.name' | translate}}</span>
       <input type="text" pInputText [(ngModel)]="changeableUser.name">
     </div>
   </div>
 
+  <!-- TODO width -->
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-    <div class="ui-inputgroup">
-      <span class="ui-inputgroup-addon">{{'user.emailAddress' | translate}}</span>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">{{'user.emailAddress' | translate}}</span>
       <input type="text" pInputText [(ngModel)]="changeableUser.emailAddress">
     </div>
   </div>
 
+  <!-- TODO width -->
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-    <div class="ui-inputgroup">
-      <span class="ui-inputgroup-addon">{{'user.newPassword' | translate}}</span>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">{{'user.newPassword' | translate}}</span>
       <input type="password" pPassword [(ngModel)]="changeableUser.password">
     </div>
   </div>
 
+  <!-- TODO width -->
   <div class="p-sm-12 p-md-12 p-lg-12 p-xl-12">
-    <div class="ui-inputgroup">
-      <span class="ui-inputgroup-addon">{{'user.lastLogin' | translate}}</span>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">{{'user.lastLogin' | translate}}</span>
       <input type="text" [disabled]="true" pInputText [ngModel]="changeableUser.lastLogin | customDate">
     </div>
   </div>

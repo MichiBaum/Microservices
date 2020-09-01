@@ -5,12 +5,12 @@ import {ButtonModule, MenuModule, SidebarModule, SlideMenuModule} from 'primeng'
 import { NavigationComponent } from './navigation.component';
 
 @NgModule({
-    declarations: [
+  declarations: [
+    NavigationComponent
+  ],
+  exports: [
       NavigationComponent
-    ],
-    exports: [
-        NavigationComponent
-    ],
+  ],
   imports: [
     CommonModule,
     SidebarModule,
