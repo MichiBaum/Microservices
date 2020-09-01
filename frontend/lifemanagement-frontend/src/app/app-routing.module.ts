@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule, Routes} from '@angular/router';
+import {BackendDocumentationComponent} from './backend-documentation/backend-documentation.component';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
 import {FrontendDocumentationComponent} from './frontend-documentation/frontend-documentation.component';
 import {HomeComponent} from './home/home.component';
@@ -8,7 +9,6 @@ import {LoginComponent} from './login/login.component';
 import {LoggingComponent} from './logs/logging.component';
 import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
 import {UsersettingsComponent} from './usersettings/usersettings.component';
-import {BackendDocumentationComponent} from "./backend-documentation/backend-documentation.component";
 
 /**
  * All own Routes
