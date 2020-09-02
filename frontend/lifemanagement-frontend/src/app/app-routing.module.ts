@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule, Routes} from '@angular/router';
 import {BackendDocumentationComponent} from './backend-documentation/backend-documentation.component';
-import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
+import {AuthGuardService as AuthGuard} from './core/services/auth-guard.service';
 import {FrontendDocumentationComponent} from './frontend-documentation/frontend-documentation.component';
 import {HomeComponent} from './home/home.component';
 import {ImprintComponent} from './imprint/imprint.component';
@@ -49,7 +49,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  // tslint:disable-next-line:max-line-length
+  imports: [RouterModule.forRoot(routes)], // TODO , { preloadingStrategy: PreloadAllModules } https://medium.com/angular-in-depth/network-aware-preloading-strategy-for-angular-lazy-loading-b883a0fbbaf0  https://vsavkin.com/angular-router-preloading-modules-ba3c75e424cb
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
