@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
   /**
    * Constructor which subscribes to the {@link SwUpdate} and updates
    * @param swupdate the {@link SwUpdate}
+   * @param primengConfig the config to enable ripple
    */
   constructor(private swupdate: SwUpdate, private primengConfig: PrimeNGConfig) {
     // checks if update available
