@@ -2,11 +2,10 @@
 # For additional information regarding the format and rule options, please see:
 # https://github.com/browserslist/browserslist#queries
 
-last 3 Chrome version
-last 3 Firefox version
-last 3 Edge major versions
-last 3 Safari major versions
-last 3 iOS major versions
+last 10 versions
 Firefox ESR
-not IE 9-10 # Angular support for IE 9-10 has been deprecated and will be removed as of Angular v11. To opt-in, remove the 'not' prefix on this line.
-not IE 11 # Angular supports IE 11 only as an opt-in. To opt-in, remove the 'not' prefix on this line.
+> 1%
+maintained node versions
+not IE 1-11
+not IE_Mob 1-11
+not dead
