@@ -6,7 +6,7 @@ COPY package.json ./
 RUN npm install npm@latest -g
 RUN npm install
 COPY . .
-RUN npm run build -- --prod --output-hashing=all
+RUN npm run build -- --prod --build-optimizer --output-hashing=all
 
 ### STAGE 2: Run ###
 FROM nginx:1.17.10-alpine
