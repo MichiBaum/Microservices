@@ -3,7 +3,6 @@ import {CoreModule} from './core/core.module';
 import {PipeModule} from './core/pipes/pipe.module';
 import {FrontendDocumentationModule} from './frontend-documentation/frontend-documentation.module';
 import {HeaderModule} from './header/header.module';
-import {HelpDialogModule} from './help-dialog/help-dialog.module';
 import {HomeModule} from './home/home.module';
 import {ImprintModule} from './imprint/imprint.module';
 import {LoginModule} from './login/login.module';
@@ -23,7 +22,6 @@ export const MyModules = [
   HeaderModule,
   NavigationModule,
   LoggingModule,
-  HelpDialogModule,
   PipeModule,
   UsersettingsModule,
   ToastMessageModule,
