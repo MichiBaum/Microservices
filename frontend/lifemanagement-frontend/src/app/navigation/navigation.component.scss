@@ -1,16 +1,14 @@
-@import "./src/styles";
-
 .text-align-left {
   text-align: left !important;
 }
 
 :host {
   ::ng-deep .ui-slidemenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-text {
-    color: $header-background-color !important;
+    color: var(--surface-a) !important;
   }
 
   ::ng-deep .ui-slidemenu .ui-menuitem-link.ui-menuitem-link-active .ui-menuitem-icon {
-    color: $header-background-color !important;
+    color: var(--surface-a) !important;
   }
 
   ::ng-deep .p-slidemenu .p-menuitem {

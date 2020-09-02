@@ -1,7 +1,5 @@
-@import "./src/styles";
-
 .header-background-color{
-  background-color: $header-background-color
+  background-color: var(--surface-a)
 }
 
 .text-align-center{
