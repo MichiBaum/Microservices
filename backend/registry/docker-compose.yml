@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  registry:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - reverse-proxy-network
+
+networks:
+  reverse-proxy-network:
+    name: reverse-proxy-network
+    driver: bridge

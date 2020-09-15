@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  application:
+    name: config_server
+  profiles:
+    active: native
+  security:
+    user:
+      name: user
+      password: ${CONFIG_SERVICE_PASSWORD}
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url.defaultZone: http://registry:8761/eureka/
+
+server:
+  port: 8888
+

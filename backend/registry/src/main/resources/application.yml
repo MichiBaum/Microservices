@@ -1,0 +1,22 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: registry
+  cloud:
+    config:
+      uri: http://config_server:8888
+      enabled: true
+      allow-override: true
+      name: registry
+      override-system-properties: true
+      username: user
+      password: ${CONFIG_SERVICE_PASSWORD}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: monitoring
+  cloud:
+    config:
+      uri: http://config_server:8888
+      enabled: true
+      allow-override: true
+      name: monitoring
+      override-system-properties: true
+      username: user
+      password: ${CONFIG_SERVICE_PASSWORD}
+      discovery:
+        enabled: true
+        service-id: config_server

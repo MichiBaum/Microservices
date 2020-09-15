@@ -26,6 +26,10 @@ To reset the status of our project, instead, we simply run *down*, **which will 
 
     docker-compose down
 
+## Update 
+
+    docker-compose up -d --no-deps --build <service_name>
+
 ## See Logs (in root folder (lifemanagement))
 To see logs execute command:
 
