@@ -54,6 +54,25 @@ services:
     networks:
       - reverse-proxy-network
 
+  admin_server:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build:
+      context: ./admin_server
+      dockerfile: Dockerfile
+    restart: always
+    depends_on: 
+      - config_server
+      - registry
+    expose:
+      - "8081"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - reverse-proxy-network
+
 networks:
   reverse-proxy-network:
     name: reverse-proxy-network

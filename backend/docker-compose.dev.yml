@@ -10,3 +10,6 @@ services:
   registry:
     ports: 
       - 8761:8761
+  admin_server:
+    ports: 
+      - 8081:8081
