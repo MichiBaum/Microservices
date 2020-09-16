@@ -26,6 +26,7 @@ services:
     restart: always
     depends_on: 
       - config_server
+      - registry
     expose:
       - "9000"
     logging:
