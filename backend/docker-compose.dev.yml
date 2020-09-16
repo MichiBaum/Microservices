@@ -13,3 +13,6 @@ services:
   admin_server:
     ports: 
       - 8081:8081
+  gateway:
+    ports: 
+      - 80:80
