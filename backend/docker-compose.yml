@@ -24,6 +24,8 @@ services:
       context: ./monitoring
       dockerfile: Dockerfile
     restart: always
+    depends_on: 
+      - config_server
     expose:
       - "9000"
     logging:
@@ -40,6 +42,8 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
+    depends_on: 
+      - config_server
     expose:
       - "8761"
     logging:
