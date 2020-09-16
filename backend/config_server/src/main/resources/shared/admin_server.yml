@@ -18,7 +18,7 @@ eureka:
     registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
-    service-url.defaultZone: http://registry:8761/eureka/
+    service-url.defaultZone: http://localhost:8761/eureka/
 
 management:
   endpoints:
@@ -26,5 +26,7 @@ management:
       exposure:
         include: "*"
   endpoint:
+    shutdown:
+      enabled: true
     health:
       show-details: always

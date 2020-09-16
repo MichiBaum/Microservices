@@ -14,7 +14,7 @@ eureka:
     registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
-    service-url.defaultZone: http://registry:8761/eureka/
+    service-url.defaultZone: http://localhost:8761/eureka/
 
 hystrix:
   command:
@@ -32,3 +32,24 @@ zuul:
   host:
     connect-timeout-millis: 20000
     socket-timeout-millis: 20000
+  routes:
+    admin_server:
+      path: /administrate/**
+      url: http://localhost:8081
+    monitoring:
+      path: /monitoring/**
+      url: http://localhost:9000
+    registry:
+      path: /registry/**
+      url: http://localhost:8761
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always

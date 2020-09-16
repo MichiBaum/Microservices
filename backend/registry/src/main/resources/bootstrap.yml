@@ -3,7 +3,7 @@ spring:
     name: registry
   cloud:
     config:
-      uri: http://config_server:8888
+      uri: http://localhost:8888
       enabled: true
       allow-override: true
       name: registry
