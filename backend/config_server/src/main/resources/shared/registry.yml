@@ -10,6 +10,10 @@ spring:
     name: registry
 
 eureka:
+  server:
+    eviction-interval-timer-in-ms: 1000
+    enableSelfPreservation: true
+    wait-time-in-ms-when-sync-empty: 0
   instance:
     prefer-ip-address: true
   client:
@@ -20,7 +24,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: *
+        include: "*"
   endpoint:
     health:
       show-details: always

@@ -5,6 +5,10 @@ server:
   undertow:
     url-charset: UTF-8
 
+spring:
+  application:
+    name: monitoring
+
 eureka:
   client:
     registryFetchIntervalSeconds: 5
@@ -16,7 +20,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: *
+        include: "*"
   endpoint:
     health:
       show-details: always
