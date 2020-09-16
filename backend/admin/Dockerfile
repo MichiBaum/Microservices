@@ -2,8 +2,8 @@
 FROM openjdk:11-jre-slim
 LABEL maintainer="Michael Baumberger"
 WORKDIR /app
-COPY ./target/gateway.jar /app/
+COPY ./target/admin.jar /app/
 
-EXPOSE 80
+EXPOSE 8081
 
-CMD ["java", "-Xmx200m", "-jar", "gateway.jar"]
+CMD ["java", "-Xmx200m", "-jar", "admin.jar"]

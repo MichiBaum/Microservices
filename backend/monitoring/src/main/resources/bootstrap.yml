@@ -3,10 +3,9 @@ spring:
     name: monitoring
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://config:8888
       enabled: true
+      fail-fast: true
       allow-override: true
       name: monitoring
       override-system-properties: true
-      username: system
-      password: ${CONFIG_SERVICE_PASSWORD}

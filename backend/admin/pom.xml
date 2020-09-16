@@ -11,16 +11,16 @@
 	</parent>
 
 	<groupId>com.michibaum</groupId>
-	<artifactId>admin_server</artifactId>
+	<artifactId>admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>admin_server</name>
+	<name>admin</name>
 
 	<properties>
 		<java.version>11</java.version>
 		<kotlin.version>1.4.0</kotlin.version>
 		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		<jar-filename>admin_server</jar-filename>
+		<jar-filename>admin</jar-filename>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>

@@ -1,11 +1,10 @@
 version: '3.7'
 
 services:
-  config_server:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+  config:
+    container_name: config
     build:
-      context: ./config_server
+      context: ./config
       dockerfile: Dockerfile
     expose:
       - "8888"
@@ -18,14 +17,13 @@ services:
       - reverse-proxy-network
 
   monitoring:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    container_name: monitoring
     build:
       context: ./monitoring
       dockerfile: Dockerfile
     restart: always
     depends_on: 
-      - config_server
+      - config
       - registry
     expose:
       - "9000"
@@ -37,14 +35,13 @@ services:
       - reverse-proxy-network
     
   registry:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    container_name: registry
     build:
       context: ./registry
       dockerfile: Dockerfile
     restart: always
     depends_on: 
-      - config_server
+      - config
     expose:
       - "8761"
     logging:
@@ -54,15 +51,14 @@ services:
     networks:
       - reverse-proxy-network
 
-  admin_server:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+  admin:
+    container_name: admin
     build:
-      context: ./admin_server
+      context: ./admin
       dockerfile: Dockerfile
     restart: always
     depends_on: 
-      - config_server
+      - config
       - registry
     expose:
       - "8081"
@@ -74,14 +70,13 @@ services:
       - reverse-proxy-network
   
   gateway:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    container_name: gateway
     build:
       context: ./gateway
       dockerfile: Dockerfile
     restart: always
     depends_on: 
-      - config_server
+      - config
       - registry
     expose:
       - "80"

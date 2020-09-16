@@ -3,10 +3,21 @@ spring:
     name: registry
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://config:8888
       enabled: true
+      fail-fast: true
       allow-override: true
       name: registry
       override-system-properties: true
-      username: system
-      password: ${CONFIG_SERVICE_PASSWORD}
+      profile: native
+
+eureka:
+  server:
+    eviction-interval-timer-in-ms: 1000
+    enableSelfPreservation: true
+    wait-time-in-ms-when-sync-empty: 0
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false

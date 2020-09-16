@@ -1,31 +1,20 @@
 server:
   http2:
     enabled: true
-  port: 8888
+  port: 8081
   undertow:
     url-charset: UTF-8
 
 spring:
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/shared
   application:
-    name: config_server
-  profiles:
-    active: native
-  security:
-    user:
-      name: system
-      password: ${CONFIG_SERVICE_PASSWORD}
+    name: admin
 
 eureka:
   client:
     registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
-    service-url.defaultZone: http://localhost:8761/eureka/
+    service-url.defaultZone: http://registry:8761/eureka/
 
 management:
   endpoints:

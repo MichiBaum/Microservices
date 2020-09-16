@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  config_server:
+  config:
     ports: 
       - 8888:8888
   monitoring:
@@ -10,9 +10,14 @@ services:
   registry:
     ports: 
       - 8761:8761
-  admin_server:
+  admin:
     ports: 
       - 8081:8081
   gateway:
     ports: 
       - 80:80
+
+networks:
+  reverse-proxy-network:
+    name: reverse-proxy-network
+    driver: bridge
