@@ -1,0 +1,55 @@
+server:
+  http2:
+    enabled: true
+  port: 80
+  undertow:
+    url-charset: UTF-8
+
+spring:
+  application:
+    name: gateway
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    register-with-eureka: true
+    fetch-registry: true
+    service-url.defaultZone: http://localhost:8761/eureka/
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
+zuul:
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+  routes:
+    admin_server:
+      path: /administrate/**
+      url: http://localhost:8081
+    monitoring:
+      path: /monitoring/**
+      url: http://localhost:9000
+    registry:
+      path: /registry/**
+      url: http://localhost:8761
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always

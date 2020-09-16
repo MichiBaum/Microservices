@@ -1,7 +1,7 @@
 ﻿# General docker & docker-compose documentation
 
 ## Startup (in root folder (lifemanagement))
-We've seen that we can create and start the containers, the networks, and the volumes defined in the configuration with *up*:
+We can create and start the containers, the networks, and the volumes defined in the configuration with *up*:
 
     docker-compose up --build
     
@@ -27,6 +27,7 @@ To reset the status of our project, instead, we simply run *down*, **which will 
     docker-compose down
 
 ## Update 
+Update one service in a docker-compose file. Replace <service_name> with the service name in the docker-compose file.
 
     docker-compose up -d --no-deps --build <service_name>
 

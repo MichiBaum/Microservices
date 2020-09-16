@@ -1,24 +1,17 @@
 server:
   http2:
     enabled: true
-  port: 8888
+  port: 8081
   undertow:
     url-charset: UTF-8
 
 spring:
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/shared
   application:
-    name: config_server
-  profiles:
-    active: native
-  security:
-    user:
-      name: system
-      password: ${CONFIG_SERVICE_PASSWORD}
+    name: admin_server
+  boot:
+    admin:
+      discovery:
+        ignored-services:
 
 eureka:
   client:

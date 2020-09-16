@@ -1,13 +1,32 @@
 server:
+  http2:
+    enabled: true
   port: 8761
+  undertow:
+    url-charset: UTF-8
 
 spring:
   application:
     name: registry
 
 eureka:
+  server:
+    eviction-interval-timer-in-ms: 1000
+    enableSelfPreservation: true
+    wait-time-in-ms-when-sync-empty: 0
   instance:
     prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always

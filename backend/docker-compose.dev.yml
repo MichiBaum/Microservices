@@ -4,11 +4,15 @@ services:
   config_server:
     ports: 
       - 8888:8888
-
   monitoring:
     ports: 
       - 9000:9000
-
   registry:
     ports: 
       - 8761:8761
+  admin_server:
+    ports: 
+      - 8081:8081
+  gateway:
+    ports: 
+      - 80:80

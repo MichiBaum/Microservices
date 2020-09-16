@@ -1,12 +1,12 @@
 spring:
   application:
-    name: registry
+    name: admin_server
   cloud:
     config:
-      uri: http://config_server:8888
+      uri: http://localhost:8888
       enabled: true
       allow-override: true
-      name: registry
+      name: admin_server
       override-system-properties: true
-      username: user
+      username: system
       password: ${CONFIG_SERVICE_PASSWORD}

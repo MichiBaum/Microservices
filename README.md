@@ -1,20 +1,12 @@
 # Lifemanagement
 This project contains:
 
- - [Lifemanagement-backend](backend/lifemanagement-backend)
- - [Lifemanagement-frontend](frontend/lifemanagement-frontend)
- - [Docker](https://www.docker.com/)
- - [Angular](https://angular.io/)
- - Kotlin ([git](https://github.com/JetBrains/kotlin), [kotlinlang](https://kotlinlang.org/))
-
-## Lifemanagement-backend
-
-## Lifemanagement-frontend
+ - 
 
 ## Docker
 [Docker dokumentation](docker-documentation.md)
 
-# Credentials / References
+# References
 
  - [Docker](https://www.docker.com/)
  - [Docker amd64/node](https://hub.docker.com/r/amd64/node/)

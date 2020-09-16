@@ -1,12 +1,12 @@
 spring:
   application:
-    name: monitoring
+    name: registry
   cloud:
     config:
       uri: http://localhost:8888
       enabled: true
       allow-override: true
-      name: monitoring
+      name: registry
       override-system-properties: true
       username: system
       password: ${CONFIG_SERVICE_PASSWORD}

@@ -1,12 +1,12 @@
 spring:
   application:
-    name: monitoring
+    name: gateway
   cloud:
     config:
       uri: http://localhost:8888
       enabled: true
       allow-override: true
-      name: monitoring
+      name: gateway
       override-system-properties: true
       username: system
       password: ${CONFIG_SERVICE_PASSWORD}
