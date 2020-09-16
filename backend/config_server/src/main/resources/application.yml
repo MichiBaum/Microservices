@@ -17,7 +17,7 @@ spring:
     active: native
   security:
     user:
-      name: user
+      name: system
       password: ${CONFIG_SERVICE_PASSWORD}
 
 eureka:

@@ -8,5 +8,5 @@ spring:
       allow-override: true
       name: monitoring
       override-system-properties: true
-      username: user
+      username: system
       password: ${CONFIG_SERVICE_PASSWORD}
