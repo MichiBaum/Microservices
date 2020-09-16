@@ -1,6 +1,3 @@
-server:
-  port: 8761
-
 spring:
   application:
     name: registry
@@ -13,10 +10,3 @@ spring:
       override-system-properties: true
       username: user
       password: ${CONFIG_SERVICE_PASSWORD}
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    register-with-eureka: false
-    fetch-registry: false

@@ -1,0 +1,55 @@
+version: '3.7'
+
+services:
+  config_server:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build:
+      context: ./config_server
+      dockerfile: Dockerfile
+    expose:
+      - "8888"
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - reverse-proxy-network
+
+  monitoring:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build:
+      context: ./monitoring
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - "9000"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - reverse-proxy-network
+    
+  registry:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - "8761"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - reverse-proxy-network
+
+networks:
+  reverse-proxy-network:
+    name: reverse-proxy-network
+    driver: bridge
