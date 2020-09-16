@@ -22,6 +22,16 @@ spring:
 
 eureka:
   client:
+    registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
     service-url.defaultZone: http://registry:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+  endpoint:
+    health:
+      show-details: always

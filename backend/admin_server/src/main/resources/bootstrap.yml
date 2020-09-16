@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: admin_server
+  cloud:
+    config:
+      uri: http://config_server:8888
+      enabled: true
+      allow-override: true
+      name: admin_server
+      override-system-properties: true
+      username: user
+      password: ${CONFIG_SERVICE_PASSWORD}
