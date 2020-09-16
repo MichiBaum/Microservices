@@ -1,3 +1,10 @@
+server:
+  http2:
+    enabled: true
+  port: 8888
+  undertow:
+    url-charset: UTF-8
+
 spring:
   cloud:
     config:
@@ -18,7 +25,3 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url.defaultZone: http://registry:8761/eureka/
-
-server:
-  port: 8888
-
