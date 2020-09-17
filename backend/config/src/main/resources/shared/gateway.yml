@@ -6,11 +6,6 @@ server:
     url-charset: UTF-8
 
 spring:
-  zipkin:
-    base-url: http://zipkin:9411/
-  sleuth:
-    sampler:
-      probability: 1
   application:
     name: gateway
 
@@ -47,9 +42,6 @@ zuul:
     registry:
       path: /registry/**
       url: http://registry:8761
-    zipkin:
-      path: /zipkin/**
-      url: http://zipkin:9411
 
 management:
   endpoints:

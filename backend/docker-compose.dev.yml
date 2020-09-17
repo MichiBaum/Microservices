@@ -16,10 +16,6 @@ services:
   gateway:
     ports: 
       - 80:80
-  zipkin:
-    ports:
-      - 9411:9411
-      - 9410:9410
 
 networks:
   reverse-proxy-network:
