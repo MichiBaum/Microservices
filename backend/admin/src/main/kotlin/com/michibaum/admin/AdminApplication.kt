@@ -1,4 +1,4 @@
-package com.michibaum.admin_server
+package com.michibaum.admin
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer
 import org.springframework.boot.WebApplicationType
@@ -10,10 +10,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 @SpringBootApplication
 @EnableAdminServer
 @EnableDiscoveryClient
-class AdminServerApplication
+class AdminApplication
 
 fun main(args: Array<String>) {
-	SpringApplicationBuilder(AdminServerApplication::class.java)
+	SpringApplicationBuilder(AdminApplication::class.java)
 			.web(WebApplicationType.REACTIVE)
 			.run(*args)
 }
