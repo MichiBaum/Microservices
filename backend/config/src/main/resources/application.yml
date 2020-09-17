@@ -16,6 +16,11 @@ spring:
     name: config
   profiles:
     active: native
+  zipkin:
+    base-url: http://zipkin:9411/
+  sleuth:
+    sampler:
+      probability: 1
 
 eureka:
   client:

@@ -6,6 +6,11 @@ server:
     url-charset: UTF-8
 
 spring:
+  zipkin:
+    base-url: http://zipkin:9411/
+  sleuth:
+    sampler:
+      probability: 1
   application:
     name: gateway
 
@@ -34,7 +39,7 @@ zuul:
     socket-timeout-millis: 20000
   routes:
     admin:
-      path: /administrate/**
+      path: /admin/**
       url: http://admin:8081
     monitoring:
       path: /monitoring/**
@@ -42,6 +47,9 @@ zuul:
     registry:
       path: /registry/**
       url: http://registry:8761
+    zipkin:
+      path: /zipkin/**
+      url: http://zipkin:9411
 
 management:
   endpoints:

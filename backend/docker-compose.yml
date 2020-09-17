@@ -87,6 +87,31 @@ services:
     networks:
       - reverse-proxy-network
 
+  zipkinMysql:
+    image: openzipkin/zipkin-mysql
+    container_name: zipkinMysql
+    expose: 
+      - "3306"
+    networks:
+      - reverse-proxy-network
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=zipkinMysql
+      - SCRIBE_ENABLED=true
+      - SELF_TRACING_ENABLED=true
+      - JAVA_OPTS=-Dlogging.level.zipkin2=DEBUG
+    expose:
+      - "9411"
+      - "9410"
+    depends_on:
+      - zipkinMysql
+    networks:
+      - reverse-proxy-network
+
 networks:
   reverse-proxy-network:
     name: reverse-proxy-network
