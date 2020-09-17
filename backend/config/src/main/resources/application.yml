@@ -16,6 +16,13 @@ spring:
     name: config
   profiles:
     active: native
+  boot:
+    admin:
+      client:
+        auto-deregistration: true
+        auto-registration: true
+        enabled: true
+        register-once: false
 
 eureka:
   client:
@@ -26,11 +33,13 @@ eureka:
 
 management:
   endpoints:
+    enabled-by-default: true
     web:
       exposure:
         include: "*"
   endpoint:
-    shutdown:
-      enabled: true
+    env:
+      post:
+        enabled: true
     health:
       show-details: always
