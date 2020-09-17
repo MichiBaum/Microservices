@@ -6,10 +6,6 @@ server:
     url-charset: UTF-8
 
 spring:
-  boot:
-    admin:
-      client:
-        url: http://admin:8081
   application:
     name: admin
 

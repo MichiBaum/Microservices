@@ -16,10 +16,6 @@ spring:
     name: config
   profiles:
     active: native
-  boot:
-    admin:
-      client:
-        url: http://admin:8081
 
 eureka:
   client:
