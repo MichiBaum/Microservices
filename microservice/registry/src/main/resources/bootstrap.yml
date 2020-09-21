@@ -1,3 +1,6 @@
+server:
+  port: 8761
+
 spring:
   application:
     name: registry
@@ -10,6 +13,8 @@ spring:
       name: registry
       override-system-properties: true
       profile: native
+      retry:
+        max-attempts: 20
 
 eureka:
   server:

@@ -1,3 +1,6 @@
+server:
+  port: 80
+
 spring:
   application:
     name: gateway
@@ -9,3 +12,5 @@ spring:
       allow-override: true
       name: gateway
       override-system-properties: true
+      retry:
+        max-attempts: 20

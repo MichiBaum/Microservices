@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: admin
@@ -9,3 +12,6 @@ spring:
       allow-override: true
       name: admin
       override-system-properties: true
+      retry:
+        max-attempts: 20
+

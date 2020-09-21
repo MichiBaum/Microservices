@@ -5,7 +5,15 @@ server:
   undertow:
     url-charset: UTF-8
 
+logging:
+  file:
+    path: /var/log
+  config: classpath:logback.xml
+
 spring:
+  sleuth:
+    baggage:
+      correlation-enabled: true
   boot:
     admin:
       client:
@@ -34,6 +42,8 @@ management:
       exposure:
         include: "*"
   endpoint:
+    logfile:
+      external-file: /var/log/spring/spring_log.log
     env:
       post:
         enabled: true

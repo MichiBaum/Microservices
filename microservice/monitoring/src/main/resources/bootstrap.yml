@@ -1,3 +1,6 @@
+server:
+  port: 9000
+
 spring:
   application:
     name: monitoring
@@ -9,3 +12,5 @@ spring:
       allow-override: true
       name: monitoring
       override-system-properties: true
+      retry:
+        max-attempts: 20
