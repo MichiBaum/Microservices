@@ -12,7 +12,13 @@ logging:
   register-shutdown-hook: true
 
 spring:
+  zipkin:
+    base-url: http://zipkin:9411/
+    service:
+      name: config
   sleuth:
+    sampler:
+      probability: 1
     baggage:
       correlation-enabled: true
   cloud:

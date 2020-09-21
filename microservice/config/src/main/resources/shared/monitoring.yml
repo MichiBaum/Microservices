@@ -9,9 +9,16 @@ logging:
   file:
     path: /var/log
   config: classpath:logback.xml
+  register-shutdown-hook: true
 
 spring:
+  zipkin:
+    base-url: http://zipkin:9411/
+    service:
+      name: monitoring
   sleuth:
+    sampler:
+      probability: 1
     baggage:
       correlation-enabled: true
   boot:
