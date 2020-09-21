@@ -17,13 +17,13 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableScheduling
 class AdminApplication {
 
-	fun main(args: Array<String>) {
-		SpringApplicationBuilder(AdminApplication::class.java)
-				.web(WebApplicationType.REACTIVE)
-				.run(*args)
-	}
-
 	@Bean
 	fun defaultSampler(): Sampler = Sampler.ALWAYS_SAMPLE
 
+}
+
+fun main(args: Array<String>) {
+	SpringApplicationBuilder(AdminApplication::class.java)
+			.web(WebApplicationType.REACTIVE)
+			.run(*args)
 }

@@ -16,11 +16,11 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableScheduling
 class MonitoringApplication {
 
-	fun main(args: Array<String>) {
-		runApplication<MonitoringApplication>(*args)
-	}
-
 	@Bean
 	fun defaultSampler(): Sampler = Sampler.ALWAYS_SAMPLE
 
+}
+
+fun main(args: Array<String>) {
+	runApplication<MonitoringApplication>(*args)
 }

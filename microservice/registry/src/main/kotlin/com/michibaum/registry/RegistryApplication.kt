@@ -14,11 +14,11 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableScheduling
 class RegistryApplication {
 
-	fun main(args: Array<String>) {
-		runApplication<RegistryApplication>(*args)
-	}
-
 	@Bean
 	fun defaultSampler(): Sampler = Sampler.ALWAYS_SAMPLE
 
+}
+
+fun main(args: Array<String>) {
+	runApplication<RegistryApplication>(*args)
 }

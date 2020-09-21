@@ -16,11 +16,11 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableScheduling
 class GatewayApplication {
 
-	fun main(args: Array<String>) {
-		runApplication<GatewayApplication>(*args)
-	}
-
 	@Bean
 	fun defaultSampler(): Sampler = Sampler.ALWAYS_SAMPLE
 
+}
+
+fun main(args: Array<String>) {
+	runApplication<GatewayApplication>(*args)
 }
