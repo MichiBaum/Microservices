@@ -17,8 +17,10 @@ spring:
     service:
       name: config
   sleuth:
+
     sampler:
       probability: 1
+      rate: 200
     baggage:
       correlation-enabled: true
   cloud:

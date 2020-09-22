@@ -19,6 +19,13 @@ services:
   zipkin:
     ports:
       - 9411:9411
+      - 9410:9410
+  prometheus:
+    ports:
+    - 9090:9090
+  grafana:
+    ports:
+    - 3000:3000
 
 networks:
   reverse-proxy-network:
