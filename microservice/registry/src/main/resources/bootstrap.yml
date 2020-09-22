@@ -6,19 +6,19 @@ spring:
     name: registry
   cloud:
     config:
+      profile: dev
       uri: http://config:8888
       enabled: true
       fail-fast: true
       allow-override: true
       name: registry
       override-system-properties: true
-      profile: native
       retry:
         max-attempts: 20
 
 eureka:
   server:
-    eviction-interval-timer-in-ms: 1000
+    eviction-interval-timer-in-ms: 2000
     enableSelfPreservation: true
     wait-time-in-ms-when-sync-empty: 0
   instance:

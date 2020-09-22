@@ -6,6 +6,7 @@ spring:
     name: admin
   cloud:
     config:
+      profile: dev
       uri: http://config:8888
       enabled: true
       fail-fast: true

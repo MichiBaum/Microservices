@@ -33,6 +33,7 @@ spring:
     name: config
   profiles:
     active: native
+    include: dev
   boot:
     admin:
       client:
