@@ -102,29 +102,6 @@ services:
     networks:
       - reverse-proxy-network
 
-  prometheus:
-    image: prom/prometheus
-    expose:
-      - "9090"
-    depends_on:
-      - zipkin-mysql
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - reverse-proxy-network
-
-  grafana:
-    image: grafana/grafana
-    expose:
-      - "3000"
-    depends_on:
-      - prometheus
-    environment:
-      - GRAFANA_VERSION=latest
-      - GF_INSTALL_PLUGINS=grafana-clock-panel,novatec-sdg-panel,camptocamp-prometheus-alertmanager-datasource,simpod-json-datasource
-    networks:
-      - reverse-proxy-network
-
 networks:
   reverse-proxy-network:
     name: reverse-proxy-network
