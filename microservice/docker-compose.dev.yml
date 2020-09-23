@@ -1,25 +1,28 @@
 version: '3.7'
 
 services:
+  portainer:
+    ports: 
+      - "9001:9000"
   config:
     ports: 
-      - 8888:8888
+      - "8888:8888"
   monitoring:
     ports: 
-      - 9000:9000
+      - "9000:9000"
   registry:
     ports: 
-      - 8761:8761
+      - "8761:8761"
   admin:
     ports: 
-      - 8081:8081
+      - "8081:8081"
   gateway:
     ports: 
-      - 80:80
+      - "80:80"
   zipkin:
     ports:
-      - 9411:9411
-      - 9410:9410
+      - "9411:9411"
+      - "9410:9410"
 
 networks:
   reverse-proxy-network:
