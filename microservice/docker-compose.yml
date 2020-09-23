@@ -1,6 +1,19 @@
 version: '3.7'
 
 services:
+
+  portainer:
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - "9001:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - reverse-proxy-network
+
   config:
     build:
       context: ./config
@@ -106,3 +119,6 @@ networks:
   reverse-proxy-network:
     name: reverse-proxy-network
     driver: bridge
+
+volumes: 
+  portainer_data:
