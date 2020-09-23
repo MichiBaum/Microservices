@@ -11,6 +11,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "10"
     volumes: 
       - /docker/reverse-proxy/logs:/var/log/nginx
       - /docker/reverse-proxy/certificates:/usr/share/nginx/certificates

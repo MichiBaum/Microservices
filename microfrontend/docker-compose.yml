@@ -8,6 +8,10 @@ services:
     build:
       context: ./shell
       dockerfile: Dockerfile
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "10"
     networks: 
       - reverse-proxy-network
 
