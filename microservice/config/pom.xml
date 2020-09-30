@@ -16,8 +16,6 @@
 	<name>config</name>
 
 	<properties>
-		<java.version>11</java.version>
-		<kotlin.version>1.4.10</kotlin.version>
 		<jar-filename>config</jar-filename>
 	</properties>
 
@@ -89,7 +87,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.3.3.RELEASE</version>
+				<version>${spring-boot-maven-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
