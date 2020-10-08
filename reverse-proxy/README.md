@@ -1,7 +1,3 @@
-# Reverse proxy for: 
-- lifemanagement-backend
-- lifemanagement-frontend
-
 # Access logs
 There are various ways you can use to display or parse the error/access logs. Using the cat command will display the complete access or error log file in your terminal window. For example you could use the following to display the contents of each file:
 

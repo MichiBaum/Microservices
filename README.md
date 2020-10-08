@@ -1,9 +1,8 @@
 # Lifemanagement
-This project contains:
+This project is all about microservices and microfrontends.
+There are microservices build with spring, spring cloud and so forth.
 
- - 
-
-## Docker
+## Docker documentation
 [Docker dokumentation](docker-documentation.md)
 
 # License
