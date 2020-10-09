@@ -23,6 +23,10 @@ spring:
       correlation-enabled: true
   boot:
     admin:
+      hazelcast:
+        enabled: true
+      ui:
+        title: Admin Server
       monitor:
         status-interval: 3s
         status-lifetime: 3s
