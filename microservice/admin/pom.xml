@@ -57,6 +57,12 @@
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 
+		<!-- Cluster replication -->
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast</artifactId>
+		</dependency>
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
