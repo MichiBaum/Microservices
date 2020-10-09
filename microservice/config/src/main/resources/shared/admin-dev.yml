@@ -30,6 +30,9 @@ spring:
       monitor:
         status-interval: 3s
         status-lifetime: 3s
+        info-interval: 30s
+        info-lifetime: 30s
+        default-retries: 5
       client:
         auto-deregistration: true
         auto-registration: true
@@ -40,6 +43,8 @@ spring:
 
 eureka:
   client:
+    healthcheck:
+      enabled: true
     registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
