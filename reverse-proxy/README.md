@@ -32,5 +32,13 @@ We can then display the URLs which are returning a particular status code.
 
     awk '($9 ~ /302/)' access.log | awk '{print $7}' | sort | uniq -c | sort -rn
 
-# Reload config
+## Reload config
+
     docker exec reverse-proxy nginx -s reload
+
+## Goaccess
+
+### Log generating
+
+Goaccess will generate from [time to time](./goaccess/goaccess-conjob) a log view from the logs in */var/log/nginx/access.log*  
+This log view will be served under the endpoint */administration/goaccess* and this path is set [here](./default.conf)

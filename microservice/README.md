@@ -10,9 +10,32 @@ There are these microservices:
 - [admin](./admin/README.md)
 - [gateway](./gateway/README.md)
 - [monitoring](./monitoring/README.md)
+- portainer
+- zipkin
 
-## build docker images
-Run:
+## Build docker images
+Build docker images:
 
     mvnw spring-boot:build-image
 
+Or you can run it via [python script](./python_scripts/maven.md):
+
+    python ./python_scripts/maven.py
+
+## Run
+First you have to run the 'Build docker images' step.  
+Then you can run the docker containers with docker compose:
+
+    docker-compose up --build -d
+    
+or via [python script](./python_scripts/docker.md):
+
+    python ./python_scripts/docker.py -startAll
+    
+If you want to renew a container you have to run the 'Build docker images' step and then:
+
+    docker-compose up -d --no-deps --build <containernames>
+    
+this can also be run via [python script](./python_scripts/docker.md) but you have to run the 'Build docker images' step first too:
+
+    python ./python_scripts/docker.py -containers <containernames>
