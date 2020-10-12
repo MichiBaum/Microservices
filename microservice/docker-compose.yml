@@ -19,9 +19,7 @@ services:
       - reverse-proxy-network
 
   config:
-    build:
-      context: ./config
-      dockerfile: Dockerfile
+    image: config:1.0.0-SNAPSHOT
     expose:
       - "8888"
     restart: always
@@ -33,9 +31,7 @@ services:
       - reverse-proxy-network
 
   monitoring:
-    build:
-      context: ./monitoring
-      dockerfile: Dockerfile
+    image: monitoring:1.0.0-SNAPSHOT
     restart: always
     depends_on: 
       - config
@@ -50,9 +46,7 @@ services:
       - reverse-proxy-network
     
   registry:
-    build:
-      context: ./registry
-      dockerfile: Dockerfile
+    image: registry:1.0.0-SNAPSHOT
     restart: always
     depends_on: 
       - config
@@ -66,9 +60,7 @@ services:
       - reverse-proxy-network
 
   admin:
-    build:
-      context: ./admin
-      dockerfile: Dockerfile
+    image: admin:1.0.0-SNAPSHOT
     restart: always
     depends_on: 
       - config
@@ -83,9 +75,7 @@ services:
       - reverse-proxy-network
   
   gateway:
-    build:
-      context: ./gateway
-      dockerfile: Dockerfile
+    image: gateway:1.0.0-SNAPSHOT
     restart: always
     depends_on: 
       - config

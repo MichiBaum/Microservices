@@ -6,18 +6,13 @@
 	<parent>
 		<groupId>com.michibaum</groupId>
 		<artifactId>microservice</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.michibaum</groupId>
 	<artifactId>registry</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>registry</name>
-
-	<properties>
-		<jar-filename>registry</jar-filename>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -72,7 +67,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>${jar-filename}</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
@@ -82,9 +76,12 @@
 					<execution>
 						<goals>
 							<goal>build-info</goal>
-							<goal>repackage</goal>
+							<goal>build-image</goal>
 						</goals>
 						<configuration>
+							<layers>
+								<enabled>true</enabled>
+							</layers>
 							<additionalProperties>
 								<java.target>${maven.compiler.target}</java.target>
 								<time>${maven.build.timestamp}</time>
