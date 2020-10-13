@@ -24,7 +24,6 @@ services:
     image: monitoring:LATEST
     restart: always
     depends_on: 
-      - config
       - registry
     expose:
       - ${MONITORING_PORT}
@@ -40,8 +39,6 @@ services:
   registry:
     image: registry:LATEST
     restart: always
-    depends_on: 
-      - config
     env_file:
       - ./.env
     expose:
@@ -57,7 +54,6 @@ services:
     image: admin:LATEST
     restart: always
     depends_on: 
-      - config
       - registry
     expose:
       - ${ADMIN_PORT}
@@ -74,7 +70,6 @@ services:
     image: gateway:LATEST
     restart: always
     depends_on: 
-      - config
       - registry
     expose:
       - ${GATEWAY_PORT}
