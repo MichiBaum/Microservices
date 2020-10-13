@@ -6,8 +6,10 @@ services:
     image: portainer/portainer-ce
     restart: always
     expose:
-      - "9000"
+      - ${PORTAINER_PORT}
     command: -H unix:///var/run/docker.sock
+    env_file:
+      - ./.env
     logging:
       options:
         max-size: "5m"
@@ -19,10 +21,12 @@ services:
       - reverse-proxy-network
 
   config:
-    image: config:1.0.0-SNAPSHOT
+    image: config:LATEST
     expose:
-      - "8888"
+      - ${CONFIG_PORT}
     restart: always
+    env_file:
+      - ./.env
     logging:
       options:
         max-size: "5m"
@@ -31,27 +35,31 @@ services:
       - reverse-proxy-network
 
   monitoring:
-    image: monitoring:1.0.0-SNAPSHOT
+    image: monitoring:LATEST
     restart: always
     depends_on: 
       - config
       - registry
     expose:
-      - "9000"
+      - ${MONITORING_PORT}
+    env_file:
+      - ./.env
     logging:
       options:
         max-size: "5m"
         max-file: "10"
     networks:
       - reverse-proxy-network
-    
+
   registry:
-    image: registry:1.0.0-SNAPSHOT
+    image: registry:LATEST
     restart: always
     depends_on: 
       - config
+    env_file:
+      - ./.env
     expose:
-      - "8761"
+      - ${REGISTRY_PORT}
     logging:
       options:
         max-size: "5m"
@@ -60,28 +68,32 @@ services:
       - reverse-proxy-network
 
   admin:
-    image: admin:1.0.0-SNAPSHOT
+    image: admin:LATEST
     restart: always
     depends_on: 
       - config
       - registry
     expose:
-      - "8081"
+      - ${ADMIN_PORT}
+    env_file:
+      - ./.env
     logging:
       options:
         max-size: "5m"
         max-file: "10"
     networks:
       - reverse-proxy-network
-  
+
   gateway:
-    image: gateway:1.0.0-SNAPSHOT
+    image: gateway:LATEST
     restart: always
     depends_on: 
       - config
       - registry
     expose:
-      - "80"
+      - ${GATEWAY_PORT}
+    env_file:
+      - ./.env
     logging:
       options:
         max-size: "5m"
@@ -92,7 +104,7 @@ services:
   zipkin-elasticsearch:
     image: openzipkin/zipkin-elasticsearch7
     expose:
-      - "9200"
+      - ${ZIPKIN_ELASTICSEARCH_PORT}
     networks:
       - reverse-proxy-network
 
@@ -103,8 +115,10 @@ services:
       - ES_HOSTS=zipkin-elasticsearch:9200
       - ES_HTTP_LOGGING=BODY
     expose:
-      - "9411"
-      - "9410"
+      - ${ZIPKIN_PORT_1}
+      - ${ZIPKIN_PORT_2}
+    env_file:
+      - ./.env
     depends_on:
       - zipkin-elasticsearch
     networks:

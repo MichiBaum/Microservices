@@ -1,7 +1,7 @@
 server:
   http2:
     enabled: true
-  port: 8888
+  port: ${CONFIG_PORT}
   undertow:
     url-charset: UTF-8
 
@@ -13,7 +13,7 @@ logging:
 
 spring:
   zipkin:
-    base-url: http://zipkin:9411/
+    base-url: http://zipkin:${ZIPKIN_PORT_2}/
     service:
       name: config
   sleuth:
@@ -49,7 +49,7 @@ eureka:
     registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
-    service-url.defaultZone: http://registry:8761/eureka/
+    service-url.defaultZone: http://registry:${REGISTRY_PORT}/eureka/
 
 management:
   endpoints:
@@ -58,8 +58,6 @@ management:
       exposure:
         include: "*"
   endpoint:
-    logfile:
-      external-file: /var/log/spring/spring_log.log
     env:
       post:
         enabled: true

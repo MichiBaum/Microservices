@@ -13,7 +13,7 @@ logging:
 
 spring:
   zipkin:
-    base-url: http://zipkin:9411/
+    base-url: http://zipkin:${ZIPKIN_PORT_2}/
     service:
       name: gateway
   sleuth:
@@ -38,7 +38,7 @@ eureka:
     registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
-    service-url.defaultZone: http://registry:8761/eureka/
+    service-url.defaultZone: http://registry:${REGISTRY_PORT}/eureka/
 
 hystrix:
   command:
@@ -59,13 +59,13 @@ zuul:
   routes:
     admin:
       path: /admin/**
-      url: http://admin:8081
+      url: http://admin:${ADMIN_PORT}
     monitoring:
       path: /monitoring/**
-      url: http://monitoring:9000
+      url: http://monitoring:${MONITORING_PORT}
     registry:
       path: /registry/**
-      url: http://registry:8761
+      url: http://registry:${REGISTRY_PORT}
 
 management:
   endpoints:
@@ -74,8 +74,6 @@ management:
       exposure:
         include: "*"
   endpoint:
-    logfile:
-      external-file: /var/log/spring/spring_log.log
     env:
       post:
         enabled: true

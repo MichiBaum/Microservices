@@ -1,5 +1,5 @@
 server:
-  port: 8761
+  port: ${REGISTRY_PORT}
 
 spring:
   application:
@@ -7,7 +7,7 @@ spring:
   cloud:
     config:
       profile: dev
-      uri: http://config:8888
+      uri: http://config:${CONFIG_PORT}
       enabled: true
       fail-fast: true
       allow-override: true

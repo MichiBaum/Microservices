@@ -1,7 +1,7 @@
 server:
   http2:
     enabled: true
-  port: 8761
+  port: ${REGISTRY_PORT}
   undertow:
     url-charset: UTF-8
 
@@ -13,7 +13,7 @@ logging:
 
 spring:
   zipkin:
-    base-url: http://zipkin:9411/
+    base-url: http://zipkin:${ZIPKIN_PORT_2}/
     service:
       name: registry
   sleuth:
@@ -52,8 +52,6 @@ management:
       exposure:
         include: "*"
   endpoint:
-    logfile:
-      external-file: /var/log/spring/spring_log.log
     env:
       post:
         enabled: true

@@ -6,7 +6,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>LATEST</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 

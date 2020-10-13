@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>com.michibaum</groupId>
 		<artifactId>microservice</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>LATEST</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>config</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>LATEST</version>
 	<name>config</name>
 
 	<dependencies>
@@ -58,11 +58,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

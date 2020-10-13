@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: ${MONITORING_PORT}
 
 spring:
   application:
