@@ -4,9 +4,6 @@ services:
   portainer:
     ports: 
       - 9001:${PORTAINER_PORT}
-  config:
-    ports: 
-      - 8888:${CONFIG_PORT}
   monitoring:
     ports: 
       - 9000:${MONITORING_PORT}

@@ -20,20 +20,6 @@ services:
     networks:
       - reverse-proxy-network
 
-  config:
-    image: config:LATEST
-    expose:
-      - ${CONFIG_PORT}
-    restart: always
-    env_file:
-      - ./.env
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
-    networks:
-      - reverse-proxy-network
-
   monitoring:
     image: monitoring:LATEST
     restart: always
