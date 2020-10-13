@@ -110,6 +110,18 @@ services:
     networks:
       - reverse-proxy-network
 
+  zipkin-dependencies:
+    image: openzipkin/zipkin-dependencies
+    entrypoint: crond -f
+    depends_on:
+      - zipkin-elasticsearch
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - "ES_HOSTS=zipkin-elasticsearch:9200"
+      - "ES_NODES_WAN_ONLY=true"
+    networks:
+      - reverse-proxy-network
+
 networks:
   reverse-proxy-network:
     name: reverse-proxy-network
