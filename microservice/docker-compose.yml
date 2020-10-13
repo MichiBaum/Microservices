@@ -89,23 +89,24 @@ services:
     networks:
       - reverse-proxy-network
 
-  zipkin-mysql:
-    image: openzipkin/zipkin-mysql
+  zipkin-elasticsearch:
+    image: openzipkin/zipkin-elasticsearch7
+    expose:
+      - "9200"
     networks:
       - reverse-proxy-network
 
   zipkin:
     image: openzipkin/zipkin
     environment:
-      - STORAGE_TYPE=mysql
-      - MYSQL_HOST=zipkin-mysql
-      - SELF_TRACING_ENABLED=true
-      - SCRIBE_ENABLED=true
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=zipkin-elasticsearch:9200
+      - ES_HTTP_LOGGING=BODY
     expose:
       - "9411"
       - "9410"
     depends_on:
-      - zipkin-mysql
+      - zipkin-elasticsearch
     networks:
       - reverse-proxy-network
 
