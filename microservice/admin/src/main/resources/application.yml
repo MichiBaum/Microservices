@@ -1,15 +1,7 @@
 server:
-  http2:
-    enabled: true
   port: ${ADMIN_PORT}
   undertow:
     url-charset: UTF-8
-
-logging:
-  file:
-    path: /var/log
-  config: classpath:logback.xml
-  register-shutdown-hook: true
 
 spring:
   zipkin:
@@ -33,11 +25,6 @@ spring:
         info-interval: 30s
         info-lifetime: 30s
         default-retries: 5
-      client:
-        auto-deregistration: true
-        auto-registration: true
-        enabled: true
-        register-once: false
   application:
     name: admin
 

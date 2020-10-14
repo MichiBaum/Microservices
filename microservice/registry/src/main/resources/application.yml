@@ -1,15 +1,7 @@
 server:
-  http2:
-    enabled: true
   port: ${REGISTRY_PORT}
   undertow:
     url-charset: UTF-8
-
-logging:
-  file:
-    path: /var/log
-  config: classpath:logback.xml
-  register-shutdown-hook: true
 
 spring:
   zipkin:
@@ -21,13 +13,6 @@ spring:
       probability: 1
     baggage:
       correlation-enabled: true
-  boot:
-    admin:
-      client:
-        auto-deregistration: true
-        auto-registration: true
-        enabled: true
-        register-once: false
   application:
     name: registry
 

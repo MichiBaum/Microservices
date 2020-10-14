@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableHystrixDashboard
 @EnableDiscoveryClient
-@RefreshScope
 @EnableScheduling
 public class MonitoringApplication {
 

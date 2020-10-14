@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableEurekaServer
-@RefreshScope
 @EnableScheduling
 public class RegistryApplication {
 

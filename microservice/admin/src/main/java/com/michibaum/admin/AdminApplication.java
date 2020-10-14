@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableAdminServer
 @EnableDiscoveryClient
-@RefreshScope
 @EnableScheduling
 public class AdminApplication {
 
