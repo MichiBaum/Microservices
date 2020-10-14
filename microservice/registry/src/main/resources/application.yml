@@ -5,7 +5,7 @@ server:
 
 spring:
   zipkin:
-    base-url: http://zipkin:${ZIPKIN_PORT_2}/
+    base-url: ${ZIPKIN_BASE_URL}
     service:
       name: registry
   sleuth:
@@ -29,6 +29,8 @@ eureka:
       enabled: true
     register-with-eureka: false
     fetch-registry: false
+  dashboard:
+    enabled: true
 
 management:
   endpoints:

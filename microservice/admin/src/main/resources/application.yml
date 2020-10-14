@@ -5,7 +5,7 @@ server:
 
 spring:
   zipkin:
-    base-url: http://zipkin:${ZIPKIN_PORT_2}/
+    base-url: ${ZIPKIN_BASE_URL}
     service:
       name: admin
   sleuth:
@@ -22,9 +22,9 @@ spring:
       monitor:
         status-interval: 3s
         status-lifetime: 3s
-        info-interval: 30s
-        info-lifetime: 30s
-        default-retries: 5
+        info-interval: 20s
+        info-lifetime: 20s
+        default-retries: 3
   application:
     name: admin
 
@@ -35,7 +35,7 @@ eureka:
     registryFetchIntervalSeconds: 5
     register-with-eureka: true
     fetch-registry: true
-    service-url.defaultZone: http://registry:${REGISTRY_PORT}/eureka/
+    service-url.defaultZone: ${REGISTRY_SERVICE_URL}
 
 management:
   endpoints:
