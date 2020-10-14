@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencyManagement>
