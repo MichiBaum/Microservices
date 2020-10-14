@@ -21,7 +21,7 @@ services:
       - reverse-proxy-network
 
   registry:
-    image: registry:LATEST
+    image: registry:1.0.0-SNAPSHOT
     restart: always
     env_file:
       - ./.env
@@ -35,7 +35,7 @@ services:
       - reverse-proxy-network
 
   admin:
-    image: admin:LATEST
+    image: admin:1.0.0-SNAPSHOT
     restart: always
     depends_on: 
       - registry

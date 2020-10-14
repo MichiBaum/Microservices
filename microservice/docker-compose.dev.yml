@@ -3,17 +3,17 @@ version: '3.7'
 services:
   portainer:
     ports: 
-      - 9001:${PORTAINER_PORT}
+      - ${PORTAINER_PORT}:${PORTAINER_PORT}
   registry:
     ports: 
-      - 8761:${REGISTRY_PORT}
+      - ${REGISTRY_PORT}:${REGISTRY_PORT}
   admin:
     ports: 
-      - 8081:${ADMIN_PORT}
+      - ${ADMIN_PORT}:${ADMIN_PORT}
   zipkin:
     ports:
-      - 9410:${ZIPKIN_PORT_1}
-      - 9411:${ZIPKIN_PORT_2}
+      - ${ZIPKIN_PORT_1}:${ZIPKIN_PORT_1}
+      - ${ZIPKIN_PORT_2}:${ZIPKIN_PORT_2}
 
 networks:
   reverse-proxy-network:
