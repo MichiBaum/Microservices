@@ -14,7 +14,7 @@
 	<name>registry</name>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>15</java.version>
 	</properties>
 
 	<dependencies>
@@ -66,6 +66,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>
+						--enable-preview
+					</jvmArguments>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
