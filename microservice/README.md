@@ -5,13 +5,11 @@ The microservices run in Docker containers and these are defined in [docker-comp
 
 ## Available Microservices
 There are these microservices:
-- [config](./config/README.md)
 - [registry](./registry/README.md)
 - [admin](./admin/README.md)
-- [gateway](./gateway/README.md)
-- [monitoring](./monitoring/README.md)
 - portainer
 - zipkin
+- zipkin-elasticsearch
 
 ## Build docker images
 Build docker images:

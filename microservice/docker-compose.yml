@@ -20,22 +20,6 @@ services:
     networks:
       - reverse-proxy-network
 
-  monitoring:
-    image: monitoring:LATEST
-    restart: always
-    depends_on: 
-      - registry
-    expose:
-      - ${MONITORING_PORT}
-    env_file:
-      - ./.env
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
-    networks:
-      - reverse-proxy-network
-
   registry:
     image: registry:LATEST
     restart: always
@@ -57,22 +41,6 @@ services:
       - registry
     expose:
       - ${ADMIN_PORT}
-    env_file:
-      - ./.env
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
-    networks:
-      - reverse-proxy-network
-
-  gateway:
-    image: gateway:LATEST
-    restart: always
-    depends_on: 
-      - registry
-    expose:
-      - ${GATEWAY_PORT}
     env_file:
       - ./.env
     logging:
