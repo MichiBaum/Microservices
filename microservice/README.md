@@ -7,7 +7,7 @@ The microservices run in Docker containers and these are defined in [docker-comp
 There are these microservices:
 - [registry](./registry/README.md)
 - [admin](./admin/README.md)
-- portainer
+- [portainer](./portainer/README.md)
 - zipkin
 - zipkin-elasticsearch
 
