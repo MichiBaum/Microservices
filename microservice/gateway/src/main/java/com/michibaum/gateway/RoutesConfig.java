@@ -11,10 +11,15 @@ public class RoutesConfig {
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path("/service/admin/**")
+                .route(r -> r.path("/services/admin/**")
                         .filters(f -> f.stripPrefix(2))
                         .uri("lb://admin")
                         .id("admin-service")
+                )
+                .route(r -> r.path("/services/registry/**")
+                        .filters(f -> f.stripPrefix(2))
+                        .uri("lb://registry")
+                        .id("registry-service")
                 )
                 .build();
     }
