@@ -68,6 +68,7 @@ services:
 
   zipkin-elasticsearch:
     image: openzipkin/zipkin-elasticsearch7
+    restart: always
     expose:
       - ${ZIPKIN_ELASTICSEARCH_PORT}
     networks:
@@ -75,6 +76,7 @@ services:
 
   zipkin:
     image: openzipkin/zipkin
+    restart: always
     environment:
       - STORAGE_TYPE=elasticsearch
       - ES_HOSTS=zipkin-elasticsearch:9200
@@ -91,6 +93,7 @@ services:
 
   zipkin-dependencies:
     image: openzipkin/zipkin-dependencies
+    restart: always
     entrypoint: crond -f
     depends_on:
       - zipkin-elasticsearch
