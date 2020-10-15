@@ -50,6 +50,22 @@ services:
     networks:
       - reverse-proxy-network
 
+  gateway:
+    image: gateway:1.0.0-SNAPSHOT
+    restart: always
+    depends_on:
+      - registry
+    expose:
+      - ${GATEWAY_PORT}
+    env_file:
+      - ./.env
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "10"
+    networks:
+      - reverse-proxy-network
+
   zipkin-elasticsearch:
     image: openzipkin/zipkin-elasticsearch7
     expose:

@@ -1,0 +1,46 @@
+server:
+  port: ${GATEWAY_PORT}
+  undertow:
+    url-charset: UTF-8
+
+spring:
+  zipkin:
+    base-url: ${ZIPKIN_BASE_URL}
+    service:
+      name: gateway
+  sleuth:
+    sampler:
+      probability: 1
+    baggage:
+      correlation-enabled: true
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      fail-on-route-definition-error: false
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    registryFetchIntervalSeconds: 5
+    register-with-eureka: true
+    fetch-registry: true
+    service-url.defaultZone: ${REGISTRY_SERVICE_URL}
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+    health:
+      show-details: always

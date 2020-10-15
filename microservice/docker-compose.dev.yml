@@ -10,6 +10,9 @@ services:
   admin:
     ports: 
       - ${ADMIN_PORT}:${ADMIN_PORT}
+  gateway:
+    ports:
+      - ${GATEWAY_PORT}:${GATEWAY_PORT}
   zipkin:
     ports:
       - ${ZIPKIN_PORT_1}:${ZIPKIN_PORT_1}
