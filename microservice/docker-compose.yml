@@ -9,22 +9,22 @@ services:
       - ${PORTAINER_PORT}
     command: -H unix:///var/run/docker.sock
     env_file:
-      - ./.env
+      - ${ENV_FILE_PATH}
     logging:
       options:
         max-size: "5m"
         max-file: "10"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - ${PORTAINER_HOST_PATH}:${PORTAINER_CONTAINER_PATH}
     networks:
-      - reverse-proxy-network
+      - ${NETWORK}
 
   registry:
     image: registry:1.0.0-SNAPSHOT
     restart: always
     env_file:
-      - ./.env
+      - ${ENV_FILE_PATH}
     expose:
       - ${REGISTRY_PORT}
     logging:
@@ -32,7 +32,7 @@ services:
         max-size: "5m"
         max-file: "10"
     networks:
-      - reverse-proxy-network
+      - ${NETWORK}
 
   admin:
     image: admin:1.0.0-SNAPSHOT
@@ -42,13 +42,13 @@ services:
     expose:
       - ${ADMIN_PORT}
     env_file:
-      - ./.env
+      - ${ENV_FILE_PATH}
     logging:
       options:
         max-size: "5m"
         max-file: "10"
     networks:
-      - reverse-proxy-network
+      - ${NETWORK}
 
   gateway:
     image: gateway:1.0.0-SNAPSHOT
@@ -58,20 +58,20 @@ services:
     expose:
       - ${GATEWAY_PORT}
     env_file:
-      - ./.env
+      - ${ENV_FILE_PATH}
     logging:
       options:
         max-size: "5m"
         max-file: "10"
     networks:
-      - reverse-proxy-network
+      - ${NETWORK}
 
   zipkin-elasticsearch:
     image: openzipkin/zipkin-elasticsearch7
     expose:
       - ${ZIPKIN_ELASTICSEARCH_PORT}
     networks:
-      - reverse-proxy-network
+      - ${NETWORK}
 
   zipkin:
     image: openzipkin/zipkin
@@ -83,11 +83,11 @@ services:
       - ${ZIPKIN_PORT_1}
       - ${ZIPKIN_PORT_2}
     env_file:
-      - ./.env
+      - ${ENV_FILE_PATH}
     depends_on:
       - zipkin-elasticsearch
     networks:
-      - reverse-proxy-network
+      - ${NETWORK}
 
   zipkin-dependencies:
     image: openzipkin/zipkin-dependencies
@@ -99,12 +99,9 @@ services:
       - "ES_HOSTS=zipkin-elasticsearch:9200"
       - "ES_NODES_WAN_ONLY=true"
     networks:
-      - reverse-proxy-network
+      - ${NETWORK}
 
 networks:
   reverse-proxy-network:
-    name: reverse-proxy-network
+    name: ${NETWORK}
     driver: bridge
-
-volumes: 
-  portainer_data:

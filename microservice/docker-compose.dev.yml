@@ -20,5 +20,5 @@ services:
 
 networks:
   reverse-proxy-network:
-    name: reverse-proxy-network
+    name: ${NETWORK}
     driver: bridge
