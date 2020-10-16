@@ -103,8 +103,9 @@ services:
       - zipkin-elasticsearch
     environment:
       - STORAGE_TYPE=elasticsearch
-      - "ES_HOSTS=zipkin-elasticsearch:9200"
-      - "ES_NODES_WAN_ONLY=true"
+      - ES_HOSTS=zipkin-elasticsearch:9200
+      - ES_NODES_WAN_ONLY=true
+      - JAVA_OPTS=-verbose:gc -Xms512m -Xmx512m
     networks:
       - ${NETWORK}
 
