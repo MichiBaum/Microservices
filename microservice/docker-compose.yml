@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   portainer:
-    image: portainer/portainer-ce
+    image: ${PORTAINER_IMAGE}
     restart: always
     expose:
       - ${PORTAINER_PORT}
@@ -21,7 +21,7 @@ services:
       - ${NETWORK}
 
   registry:
-    image: registry:1.0.0-SNAPSHOT
+    image: ${REGISTRY_IMAGE}
     restart: always
     env_file:
       - ${ENV_FILE_PATH}
@@ -35,7 +35,7 @@ services:
       - ${NETWORK}
 
   admin:
-    image: admin:1.0.0-SNAPSHOT
+    image: ${ADMIN_IMAGE}
     restart: always
     depends_on: 
       - registry
@@ -51,7 +51,7 @@ services:
       - ${NETWORK}
 
   gateway:
-    image: gateway:1.0.0-SNAPSHOT
+    image: ${GATEWAY_IMAGE}
     restart: always
     depends_on:
       - registry
@@ -67,7 +67,7 @@ services:
       - ${NETWORK}
 
   zipkin-elasticsearch:
-    image: openzipkin/zipkin-elasticsearch7
+    image: ${ZIPKIN_ELASTICSEARCH_IMAGE}
     restart: always
     expose:
       - ${ZIPKIN_ELASTICSEARCH_PORT}
@@ -77,7 +77,7 @@ services:
       - ${NETWORK}
 
   zipkin:
-    image: openzipkin/zipkin
+    image: ${ZIPKIN_IMAGE}
     restart: always
     environment:
       - STORAGE_TYPE=elasticsearch
@@ -96,7 +96,7 @@ services:
       - ${NETWORK}
 
   zipkin-dependencies:
-    image: openzipkin/zipkin-dependencies
+    image: ${ZIPKIN_DEPENDENCIES_IMAGE}
     restart: always
     entrypoint: crond -f
     depends_on:
