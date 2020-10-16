@@ -72,7 +72,7 @@ services:
     expose:
       - ${ZIPKIN_ELASTICSEARCH_PORT}
     volumes:
-    - ${ZIPKIN-ELASTICSEARCH_HOST_PATH}:/usr/share/elasticsearch/data:rw
+    - ${ZIPKIN_ELASTICSEARCH_HOST_PATH}:/usr/share/elasticsearch/data:rw
     networks:
       - ${NETWORK}
 
