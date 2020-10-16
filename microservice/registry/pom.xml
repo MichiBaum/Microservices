@@ -10,7 +10,6 @@
 	</parent>
 
 	<artifactId>registry</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<name>registry</name>
 
 	<properties>
