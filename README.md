@@ -58,3 +58,13 @@ It is licensed under the MIT License.
     SOFTWARE.
 
 [MIT License](LICENSE)
+
+## Collaborators
+
+<!-- readme: MichiBaum,collaborators -start -->
+<!-- readme: MichiBaum,collaborators -end -->
+
+## Contributors
+
+<!-- readme: SeverinNauer,contributors -start -->
+<!-- readme: SeverinNauer,contributors -end -->
