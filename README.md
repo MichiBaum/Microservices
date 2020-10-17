@@ -16,8 +16,8 @@ It is licensed under the [MIT License](LICENSE).
 
 ## Collaborators
 
-<!-- readme: collaborators -start -->
-<!-- readme: collaborators -end -->
+<!-- readme: MichiBaum,collaborators -start -->
+<!-- readme: MichiBaum,collaborators -end -->
 
 ## Contributors
 
