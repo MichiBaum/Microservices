@@ -21,5 +21,5 @@ It is licensed under the [MIT License](LICENSE).
 
 ## Contributors
 
-<!-- readme: contributors -start -->
-<!-- readme: contributors -end -->
+<!-- readme: SeverinNauer,contributors -start -->
+<!-- readme: SeverinNauer,contributors -end -->
