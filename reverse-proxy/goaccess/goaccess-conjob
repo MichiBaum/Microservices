@@ -1,2 +1,0 @@
-# Creates a goaccess html report
-*/20 * * * * /usr/bin/goaccess -f /var/log/nginx/access_default.log --config-file /etc/goacces_custom.conf -o /var/www/goaccess/log_analysis_default.html -a >> /var/log/cron.log 2>&1
