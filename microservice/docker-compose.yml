@@ -85,8 +85,10 @@ services:
       - ES_HTTP_LOGGING=BODY
       - SELF_TRACING_ENABLED=true
       - SCRIBE_ENABLED=true
+      - QUERY_PORT=${ZIPKIN_ELASTICSEARCH_PORT}
+      - QUERY_ENABLED=true
+      - SEARCH_ENABLED=true
     expose:
-      - ${ZIPKIN_PORT_1}
       - ${ZIPKIN_PORT_2}
     env_file:
       - ${ENV_FILE_PATH}
@@ -105,7 +107,6 @@ services:
       - STORAGE_TYPE=elasticsearch
       - ES_HOSTS=zipkin-elasticsearch:9200
       - ES_NODES_WAN_ONLY=true
-      - JAVA_OPTS=-verbose:gc -Xms512m -Xmx512m
     networks:
       - ${NETWORK}
 

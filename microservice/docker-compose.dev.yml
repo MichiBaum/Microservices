@@ -15,7 +15,6 @@ services:
       - ${GATEWAY_PORT}:${GATEWAY_PORT}
   zipkin:
     ports:
-      - ${ZIPKIN_PORT_1}:${ZIPKIN_PORT_1}
       - ${ZIPKIN_PORT_2}:${ZIPKIN_PORT_2}
 
 networks:
