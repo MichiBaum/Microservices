@@ -90,7 +90,7 @@ It is licensed under the MIT License.
         <a href="https://github.com/severinnauer">
             <img src="https://avatars1.githubusercontent.com/u/43473975?v=4" width="100;" alt="severinnauer"/>
             <br />
-            <sub><b>severinnauer</b></sub>
+            <sub><b>Severinnauer</b></sub>
         </a>
     </td>
     <td align="center">
