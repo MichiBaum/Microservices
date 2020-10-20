@@ -170,6 +170,6 @@ services:
       - ${NETWORK}
 
 networks:
-  reverse-proxy-network:
+  microservice-network:
     name: ${NETWORK}
     driver: bridge
