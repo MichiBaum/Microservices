@@ -33,6 +33,12 @@ eureka:
     enabled: true
 
 management:
+  cloudfoundry:
+    enabled: false
+  metrics:
+    export:
+      elastic:
+        host: ${ACTUATOR_ELASTICSEARCH_URL}
   endpoints:
     enabled-by-default: true
     web:
@@ -44,3 +50,11 @@ management:
         enabled: true
     health:
       show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full

@@ -19,6 +19,7 @@ spring:
         enabled: true
       ui:
         title: Admin Server
+        public-url: ${ADMIN_PUBLIC_URL}
       monitor:
         status-interval: 3s
         status-lifetime: 3s
@@ -38,6 +39,12 @@ eureka:
     service-url.defaultZone: ${REGISTRY_SERVICE_URL}
 
 management:
+  cloudfoundry:
+    enabled: false
+  metrics:
+    export:
+      elastic:
+        host: ${ACTUATOR_ELASTICSEARCH_URL}
   endpoints:
     enabled-by-default: true
     web:
@@ -49,3 +56,11 @@ management:
         enabled: true
     health:
       show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full

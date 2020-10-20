@@ -20,59 +20,22 @@ services:
     networks:
       - ${NETWORK}
 
-  registry:
-    image: ${REGISTRY_IMAGE}
-    restart: always
-    env_file:
-      - ${ENV_FILE_PATH}
-    expose:
-      - ${REGISTRY_PORT}
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
-    networks:
-      - ${NETWORK}
-
-  admin:
-    image: ${ADMIN_IMAGE}
-    restart: always
-    depends_on: 
-      - registry
-    expose:
-      - ${ADMIN_PORT}
-    env_file:
-      - ${ENV_FILE_PATH}
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
-    networks:
-      - ${NETWORK}
-
-  gateway:
-    image: ${GATEWAY_IMAGE}
-    restart: always
-    depends_on:
-      - registry
-    expose:
-      - ${GATEWAY_PORT}
-    env_file:
-      - ${ENV_FILE_PATH}
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
-    networks:
-      - ${NETWORK}
-
   zipkin-elasticsearch:
     image: ${ZIPKIN_ELASTICSEARCH_IMAGE}
     restart: always
     expose:
       - ${ZIPKIN_ELASTICSEARCH_PORT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
     volumes:
-    - ${ZIPKIN_ELASTICSEARCH_HOST_PATH}:/data/
+      - ${ZIPKIN_ELASTICSEARCH_HOST_PATH}:/usr/share/elasticsearch/data
     networks:
       - ${NETWORK}
 
@@ -85,11 +48,8 @@ services:
       - ES_HTTP_LOGGING=BODY
       - SELF_TRACING_ENABLED=true
       - SCRIBE_ENABLED=true
-      - QUERY_PORT=${ZIPKIN_ELASTICSEARCH_PORT}
-      - QUERY_ENABLED=true
-      - SEARCH_ENABLED=true
     expose:
-      - ${ZIPKIN_PORT_2}
+      - ${ZIPKIN_PORT}
     env_file:
       - ${ENV_FILE_PATH}
     depends_on:
@@ -107,6 +67,105 @@ services:
       - STORAGE_TYPE=elasticsearch
       - ES_HOSTS=zipkin-elasticsearch:9200
       - ES_NODES_WAN_ONLY=true
+    networks:
+      - ${NETWORK}
+
+  zipkin-kibana:
+    image: ${ZIPKIN_KIBANA_IMAGE}
+    depends_on:
+      - zipkin-elasticsearch
+    expose:
+      - ${ZIPKIN_KIBANA_PORT}
+    volumes:
+      - ${ZIPKIN_KIBANA_CONFIG}:/opt/kibana/config/kibana.yml
+    networks:
+      - ${NETWORK}
+
+
+  actuator-elasticsearch:
+    image: ${ACTUATOR_ELASTICSEARCH_IMAGE}
+    expose:
+      - ${ACTUATOR_ELASTICSEARCH_PORT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ${ACTUATOR_ELASTICSEARCH_HOST_PATH}:/usr/share/elasticsearch/data
+    networks:
+      - ${NETWORK}
+
+  actuator-kibana:
+    image: ${ACTUATOR_KIBANA_IMAGE}
+    expose:
+      - ${ACTUATOR_KIBANA_PORT}
+    depends_on:
+      - actuator-elasticsearch
+    volumes:
+      - ${ACTUATOR_KIBANA_CONFIG}:/opt/kibana/config/kibana.yml
+    networks:
+      - ${NETWORK}
+
+  registry:
+    image: ${REGISTRY_IMAGE}
+    restart: always
+    depends_on:
+      - actuator-elasticsearch
+      - zipkin
+    env_file:
+      - ${ENV_FILE_PATH}
+    expose:
+      - ${REGISTRY_PORT}
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "10"
+    networks:
+      - ${NETWORK}
+
+  admin:
+    image: ${ADMIN_IMAGE}
+    restart: always
+    depends_on: 
+      - registry
+      - actuator-elasticsearch
+      - zipkin
+    expose:
+      - ${ADMIN_PORT}
+    env_file:
+      - ${ENV_FILE_PATH}
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "10"
+    networks:
+      - ${NETWORK}
+
+  gateway:
+    image: ${GATEWAY_IMAGE}
+    restart: always
+    depends_on:
+      - registry
+      - actuator-elasticsearch
+      - zipkin
+    ports:
+      - 80:${GATEWAY_PORT}
+    env_file:
+      - ${ENV_FILE_PATH}
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "10"
     networks:
       - ${NETWORK}
 

@@ -4,6 +4,18 @@ services:
   portainer:
     ports: 
       - ${PORTAINER_PORT}:${PORTAINER_PORT}
+
+  zipkin:
+    ports:
+      - ${ZIPKIN_PORT}:${ZIPKIN_PORT}
+  zipkin-kibana:
+    ports:
+      - ${ZIPKIN_KIBANA_PORT}:${ZIPKIN_KIBANA_PORT}
+
+  actuator-kibana:
+    ports:
+      - 5602:${ACTUATOR_KIBANA_PORT}
+
   registry:
     ports: 
       - ${REGISTRY_PORT}:${REGISTRY_PORT}
@@ -12,10 +24,7 @@ services:
       - ${ADMIN_PORT}:${ADMIN_PORT}
   gateway:
     ports:
-      - ${GATEWAY_PORT}:${GATEWAY_PORT}
-  zipkin:
-    ports:
-      - ${ZIPKIN_PORT_2}:${ZIPKIN_PORT_2}
+      - 80:${GATEWAY_PORT}
 
 networks:
   reverse-proxy-network:
