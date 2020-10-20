@@ -1,9 +1,12 @@
 server:
   port: ${ADMIN_PORT}
+  shutdown: graceful
   undertow:
     url-charset: UTF-8
 
 spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
   zipkin:
     base-url: ${ZIPKIN_BASE_URL}
     service:
