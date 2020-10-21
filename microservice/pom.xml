@@ -42,6 +42,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>dtos</module>
         <module>gateway</module>
         <module>admin</module>
         <module>registry</module>
