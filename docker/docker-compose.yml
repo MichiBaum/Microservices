@@ -10,10 +10,6 @@ services:
     command: -H unix:///var/run/docker.sock
     env_file:
       - ${ENV_FILE_PATH}
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${PORTAINER_HOST_PATH}:/data
@@ -72,6 +68,7 @@ services:
 
   zipkin-kibana:
     image: ${ZIPKIN_KIBANA_IMAGE}
+    restart: always
     depends_on:
       - zipkin-elasticsearch
     expose:
@@ -84,6 +81,7 @@ services:
 
   actuator-elasticsearch:
     image: ${ACTUATOR_ELASTICSEARCH_IMAGE}
+    restart: always
     expose:
       - ${ACTUATOR_ELASTICSEARCH_PORT}
     ulimits:
@@ -107,6 +105,7 @@ services:
 
   actuator-kibana:
     image: ${ACTUATOR_KIBANA_IMAGE}
+    restart: always
     expose:
       - ${ACTUATOR_KIBANA_PORT}
     depends_on:
@@ -126,10 +125,6 @@ services:
       - ${ENV_FILE_PATH}
     expose:
       - ${REGISTRY_PORT}
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
     networks:
       - ${NETWORK}
 
@@ -144,10 +139,6 @@ services:
       - ${ADMIN_PORT}
     env_file:
       - ${ENV_FILE_PATH}
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
     networks:
       - ${NETWORK}
 
@@ -162,10 +153,6 @@ services:
       - 80:${GATEWAY_PORT}
     env_file:
       - ${ENV_FILE_PATH}
-    logging:
-      options:
-        max-size: "5m"
-        max-file: "10"
     networks:
       - ${NETWORK}
 
