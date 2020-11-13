@@ -12,7 +12,7 @@ There are microservices build with spring, spring cloud and so forth.
 The Diagrams Readme can be found [here](./diagrams/README.md).
 
 ## License
-It is licensed under the [MIT License](LICENSE).
+It is licensed under the [Apache License Version 2.0](LICENSE).
 
 ## Collaborators
 
