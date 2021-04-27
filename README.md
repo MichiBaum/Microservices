@@ -89,7 +89,7 @@ It is licensed under the MIT License.
     </td>
     <td align="center">
         <a href="https://github.com/MichiBaum">
-            <img src="https://avatars1.githubusercontent.com/u/36712219?v=4" width="100;" alt="MichiBaum"/>
+            <img src="https://avatars.githubusercontent.com/u/36712219?v=4" width="100;" alt="MichiBaum"/>
             <br />
             <sub><b>Michael Baumberger</b></sub>
         </a>
