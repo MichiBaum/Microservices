@@ -1,0 +1,14 @@
+server:
+  name: actuator-kibana
+  host: "0"
+  basePath: /kibana/actuator
+  rewriteBasePath: true
+
+elasticsearch:
+  hosts: [ "http://actuator-elasticsearch:9200" ]
+
+monitoring:
+  ui:
+    container:
+      elasticsearch:
+        enabled: true

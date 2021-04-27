@@ -1,0 +1,63 @@
+server:
+  port: ${GATEWAY_PORT}
+  shutdown: graceful
+  undertow:
+    url-charset: UTF-8
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  zipkin:
+    base-url: ${ZIPKIN_BASE_URL}
+    service:
+      name: gateway
+  sleuth:
+    sampler:
+      probability: 1
+    baggage:
+      correlation-enabled: true
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      fail-on-route-definition-error: false
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    registryFetchIntervalSeconds: 5
+    register-with-eureka: true
+    fetch-registry: true
+    service-url.defaultZone: ${REGISTRY_SERVICE_URL}
+
+management:
+  cloudfoundry:
+    enabled: false
+  metrics:
+    export:
+      elastic:
+        host: ${ACTUATOR_ELASTICSEARCH_URL}
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+    health:
+      show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full
