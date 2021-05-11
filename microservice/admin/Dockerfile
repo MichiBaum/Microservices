@@ -6,6 +6,7 @@ COPY ./admin/.mvn .mvn
 COPY ./admin/pom.xml .
 COPY ./admin/src src
 
+RUN chmod a+x ./mvnw
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
