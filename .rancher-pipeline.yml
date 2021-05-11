@@ -3,16 +3,19 @@ stages:
   steps:
   - publishImageConfig:
       dockerfilePath: ./microservice/admin/Dockerfile
-      buildContext: .
+      buildContext: ./microservice
       tag: michibaum/admin
+      registry: 127.0.0.1:34198
   - publishImageConfig:
       dockerfilePath: ./microservice/gateway/Dockerfile
-      buildContext: .
+      buildContext: ./microservice
       tag: michibaum/gateway
+      registry: 127.0.0.1:34198
   - publishImageConfig:
       dockerfilePath: ./microservice/registry/Dockerfile
-      buildContext: .
+      buildContext: ./microservice
       tag: michibaum/registry
+      registry: 127.0.0.1:34198
 - name: sdc
   steps:
   - applyYamlConfig:
