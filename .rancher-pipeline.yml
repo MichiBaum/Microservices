@@ -3,13 +3,19 @@ stages:
   steps:
   - runScriptConfig:
       image: openjdk:16-jdk-alpine3.13
-      shellScript: ./microservice/admin/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/admin
+      shellScript: |-
+        chmod u+x ./microservice/admin/mvnw
+        ./microservice/admin/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/admin
   - runScriptConfig:
       image: openjdk:16-jdk-alpine3.13
-      shellScript: ./microservice/gateway/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/gateway
+      shellScript: |-
+        .chmod u+x ./microservice/admin/mvnw
+        ./microservice/gateway/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/gateway
   - runScriptConfig:
       image: openjdk:16-jdk-alpine3.13
-      shellScript: ./microservice/registry/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/registry
+      shellScript: |-
+        chmod u+x ./microservice/admin/mvnw
+        ./microservice/registry/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/registry
 - name: sdc
   steps:
   - applyYamlConfig:
