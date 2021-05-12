@@ -1,21 +1,21 @@
 stages:
 - name: Build and Publish
   steps:
-  - runScriptConfig:
-      image: openjdk:16-jdk-alpine3.13
-      shellScript: |-
-        chmod u+x ./microservice/admin/mvnw
-        ./microservice/admin/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/admin
-  - runScriptConfig:
-      image: openjdk:16-jdk-alpine3.13
-      shellScript: |-
-        .chmod u+x ./microservice/admin/mvnw
-        ./microservice/gateway/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/gateway
-  - runScriptConfig:
-      image: openjdk:16-jdk-alpine3.13
-      shellScript: |-
-        chmod u+x ./microservice/admin/mvnw
-        ./microservice/registry/mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=michibaum/registry
+  - publishImageConfig:
+      dockerfilePath: ./microservice/admin/Dockerfile
+      buildContext: ./microservice/admin
+      tag: michibaum/admin
+      registry: 127.0.0.1:34198
+  - publishImageConfig:
+      dockerfilePath: ./microservice/gateway/Dockerfile
+      buildContext: ./microservice/gateway
+      tag: michibaum/gateway
+      registry: 127.0.0.1:34198
+  - publishImageConfig:
+      dockerfilePath: ./microservice/registry/Dockerfile
+      buildContext: ./microservice/registry
+      tag: michibaum/registry
+      registry: 127.0.0.1:34198
 - name: sdc
   steps:
   - applyYamlConfig:
