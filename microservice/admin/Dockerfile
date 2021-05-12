@@ -1,10 +1,13 @@
 FROM openjdk:16-jdk-alpine3.13 as build
 WORKDIR /workspace/app
 
-COPY . .
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
 
-RUN ./admin/mvnw install -DskipTests
-RUN mkdir -p admin/target/dependency && (cd admin/target/dependency; jar -xf ../*.jar)
+RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:16-jdk-alpine3.13
 VOLUME /tmp
