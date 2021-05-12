@@ -1,30 +1,28 @@
 stages:
-- name: Build, Publish And Apply Registry
-  steps:
-  - publishImageConfig:
-      dockerfilePath: ./microservice/registry/Dockerfile
-      buildContext: ./microservice
-      tag: michibaum/registry
-      registry: 127.0.0.1:34198
-  - applyYamlConfig:
-      path: ./microservice/registry/deployment.yaml
-- name: Build, Publish And Apply Admin
+- name: Build and Publish
   steps:
   - publishImageConfig:
       dockerfilePath: ./microservice/admin/Dockerfile
       buildContext: ./microservice
       tag: michibaum/admin
       registry: 127.0.0.1:34198
-  - applyYamlConfig:
-      path: ./microservice/admin/deployment.yaml
-- name: Build, Publish And Apply Gateway
-  steps:
   - publishImageConfig:
       dockerfilePath: ./microservice/gateway/Dockerfile
       buildContext: ./microservice
       tag: michibaum/gateway
       registry: 127.0.0.1:34198
+  - publishImageConfig:
+      dockerfilePath: ./microservice/registry/Dockerfile
+      buildContext: ./microservice
+      tag: michibaum/registry
+      registry: 127.0.0.1:34198
+- name: sdc
+  steps:
+  - applyYamlConfig:
+      path: ./microservice/admin/deployment.yaml
   - applyYamlConfig:
       path: ./microservice/gateway/deployment.yaml
-timeout: 20
+  - applyYamlConfig:
+      path: ./microservice/registry/deployment.yaml
+timeout: 60
 notification: {}
