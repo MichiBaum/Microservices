@@ -1,14 +1,10 @@
 FROM openjdk:16-jdk-alpine3.13 as build
 WORKDIR /workspace/app
 
-COPY ./admin/mvnw .
-COPY ./admin/.mvn .mvn
-COPY ./admin/pom.xml .
-COPY ./admin/src src
+COPY . .
 
-RUN chmod a+x ./mvnw
-RUN ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+RUN ./admin/mvnw install -DskipTests
+RUN mkdir -p admin/target/dependency && (cd admin/target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:16-jdk-alpine3.13
 VOLUME /tmp

@@ -1,14 +1,10 @@
 FROM openjdk:16-jdk-alpine3.13 as build
 WORKDIR /workspace/app
 
-COPY ./gateway/mvnw .
-COPY ./gateway/.mvn .mvn
-COPY ./gateway/pom.xml .
-COPY ./gateway/src src
+COPY . .
 
-RUN chmod a+x ./mvnw
-RUN ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+RUN ./gateway/mvnw install -DskipTests
+RUN mkdir -p gateway/target/dependency && (cd gateway/target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:16-jdk-alpine3.13
 VOLUME /tmp
