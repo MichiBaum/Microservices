@@ -1,13 +1,10 @@
 FROM openjdk:16-jdk-alpine3.13 as build
 WORKDIR /workspace/app
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+COPY . .
 
-RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+RUN ./registry/mvnw install -DskipTests
+RUN mkdir -p registry/target/dependency && (cd registry/target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:16-jdk-alpine3.13
 VOLUME /tmp
