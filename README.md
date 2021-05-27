@@ -20,9 +20,6 @@ Build docker images:
     mvnw spring-boot:build-image
 
 
-## Diagrams
-The Diagrams Readme can be found [here](./diagrams/README.md).
-
 ## License
 It is licensed under the [Apache License Version 2.0](LICENSE).
 
