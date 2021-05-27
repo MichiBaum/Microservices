@@ -4,23 +4,19 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.4.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<groupId>com.michibaum</groupId>
+		<artifactId>microservice</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.michibaum</groupId>
-	<version>1.0.0-SNAPSHOT</version>
 	<artifactId>gateway</artifactId>
 	<name>gateway</name>
-	<packaging>jar</packaging>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
 		<java.version>16</java.version>
+		<maven.compiler.source>16</maven.compiler.source>
+		<maven.compiler.target>16</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -42,7 +38,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-zipkin</artifactId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -69,30 +69,17 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>de.codecentric</groupId>
-				<artifactId>spring-boot-admin-dependencies</artifactId>
-				<version>${spring-boot-admin.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -115,8 +102,19 @@
 							<layers>
 								<enabled>true</enabled>
 							</layers>
+							<image>
+								<imageName>70131370/gateway</imageName>
+								<publish>true</publish>
+							</image>
+							<docker>
+								<publishRegistry>
+									<username>70131370</username>
+									<password>gZAxFiCAk75TdQmEs2Kk</password>
+									<url>https://docker.example.com/v1/</url>
+									<email>michael_baumberger@gmx.ch</email>
+								</publishRegistry>
+							</docker>
 							<additionalProperties>
-								<java.target>${maven.compiler.target}</java.target>
 								<time>${maven.build.timestamp}</time>
 							</additionalProperties>
 						</configuration>
