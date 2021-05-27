@@ -5,8 +5,20 @@ There are microservices build with spring, spring cloud and so forth.
 ## Docker documentation
 [Docker dokumentation](./docker/README.md)
 
-## Microservice Readme
-[Microservice dokumentation](./microservice/README.md)
+## Available Microservices
+There are these microservices:
+- [Registry](./registry/README.md)
+- [Admin](./admin/README.md)
+- [Gateway](./gateway/README.md)
+
+## Available Docker Containers
+The available docker containers can be found [here](./docker/README.md)
+
+## Build docker images
+Build docker images:
+
+    mvnw spring-boot:build-image
+
 
 ## Diagrams
 The Diagrams Readme can be found [here](./diagrams/README.md).
