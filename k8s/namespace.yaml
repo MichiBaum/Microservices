@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: microservices
+  annotations:
+    field.cattle.io/containerDefaultResourceLimit: '{}'
+    field.cattle.io/projectId: 'local:p-28sgh'
+#    key: string
+  labels:
+    field.cattle.io/projectId: p-28sgh
+#    key: string
+#  namespace: string
+spec:
+#  finalizers:
+#    - string
