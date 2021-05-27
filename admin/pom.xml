@@ -115,8 +115,6 @@
 							<docker>
 								<publishRegistry>
 									<username>70131370</username>
-									<password>gZAxFiCAk75TdQmEs2Kk</password>
-									<url>https://docker.example.com/v1/</url>
 									<email>michael_baumberger@gmx.ch</email>
 								</publishRegistry>
 							</docker>
