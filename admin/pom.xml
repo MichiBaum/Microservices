@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.michibaum</groupId>
 		<artifactId>microservice</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>latest</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -25,10 +25,6 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-elastic</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>de.codecentric</groupId>
 			<artifactId>spring-boot-admin-starter-server</artifactId>
 		</dependency>
@@ -39,14 +35,6 @@
 		<dependency>
 			<groupId>org.jolokia</groupId>
 			<artifactId>jolokia-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-sleuth</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
 		</dependency>
 
 		<!-- Cluster replication -->
@@ -97,6 +85,22 @@
 					<jvmArguments>
 						--enable-preview
 					</jvmArguments>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+					<additionalProperties>
+						<time>${maven.build.timestamp}</time>
+					</additionalProperties>
+					<image>
+						<name>registry.hub.docker.com/70131370/${project.artifactId}:${project.version}</name>
+						<publish>true</publish>
+					</image>
+					<docker>
+						<publishRegistry>
+							<username>70131370</username>
+							<url>https://registry.hub.docker.com</url>
+						</publishRegistry>
+					</docker>
 				</configuration>
 				<executions>
 					<execution>
@@ -104,24 +108,6 @@
 							<goal>build-info</goal>
 							<goal>build-image</goal>
 						</goals>
-						<configuration>
-							<layers>
-								<enabled>true</enabled>
-							</layers>
-							<image>
-								<imageName>70131370/admin</imageName>
-								<publish>true</publish>
-							</image>
-							<docker>
-								<publishRegistry>
-									<username>70131370</username>
-									<email>michael_baumberger@gmx.ch</email>
-								</publishRegistry>
-							</docker>
-							<additionalProperties>
-								<time>${maven.build.timestamp}</time>
-							</additionalProperties>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>

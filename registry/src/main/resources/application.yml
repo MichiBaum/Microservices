@@ -1,5 +1,4 @@
 server:
-  port: ${REGISTRY_PORT}
   shutdown: graceful
   undertow:
     url-charset: UTF-8
@@ -7,15 +6,6 @@ server:
 spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
-  zipkin:
-    base-url: ${ZIPKIN_BASE_URL}
-    service:
-      name: registry
-  sleuth:
-    sampler:
-      probability: 1
-    baggage:
-      correlation-enabled: true
   application:
     name: registry
 
@@ -38,10 +28,6 @@ eureka:
 management:
   cloudfoundry:
     enabled: false
-  metrics:
-    export:
-      elastic:
-        host: ${ACTUATOR_ELASTICSEARCH_URL}
   endpoints:
     enabled-by-default: true
     web:

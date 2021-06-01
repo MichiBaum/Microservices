@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-deployment
+  namespace: microservices
+  labels:
+    app: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+      - name: registry
+        image: registry:1.0.0-SNAPSHOT
+        ports:
+          - name: http-port
+            containerPort: 8080
+          - name: registry-port
+            containerPort: 8761
+        securityContext:
+          runAsRoot: true
+          readOnlyRootFilesystem: false
+          capabilities: { }
+          privileged: true
+          allowPrivilegeEscalation: true
