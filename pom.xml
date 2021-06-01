@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>latest</version>
+    <version>LATEST</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
