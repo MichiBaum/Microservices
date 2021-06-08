@@ -14,9 +14,6 @@
 	<name>admin</name>
 
 	<properties>
-		<java.version>16</java.version>
-		<maven.compiler.source>16</maven.compiler.source>
-		<maven.compiler.target>16</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -92,13 +89,14 @@
 						<time>${maven.build.timestamp}</time>
 					</additionalProperties>
 					<image>
-						<name>registry.hub.docker.com/70131370/${project.artifactId}:${project.version}</name>
+						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
+						<password>${dockerHub.password}</password>
 						<publish>true</publish>
 					</image>
 					<docker>
 						<publishRegistry>
-							<username>70131370</username>
-							<url>https://registry.hub.docker.com</url>
+							<username>${dockerHub.username}</username>
+							<url>${dockerHub.url}</url>
 						</publishRegistry>
 					</docker>
 				</configuration>

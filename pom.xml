@@ -22,6 +22,11 @@
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
         <java.version>16</java.version>
+
+        <!-- Docker Hub -->
+        <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
+        <dockerHub.username>70131370</dockerHub.username>
+        <dockerHub.password>5a1b40a9c9acf7320ee73b75c42f07400a2c440f9a7d8abdfd0269c21c370a74</dockerHub.password>
     </properties>
 
     <dependencyManagement>
