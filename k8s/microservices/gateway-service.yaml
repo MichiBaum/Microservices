@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: admin
+  name: gateway
   namespace: microservices
 spec:
-  type: LoadBalancer
+  selector:
+    app: gateway
+  type: ClusterIP
   ports:
     - name: http
-      protocol: TCP
       port: 8080
+      protocol: TCP
       targetPort: 8080
-  selector:
-    app: admin
+  sessionAffinity: None

@@ -22,26 +22,6 @@ public class RoutesConfig {
                         .uri("lb://admin")
                 )
 
-                // Registry
-                .route(r -> r.path("/services/registry/**") //TODO doesnt work
-                        .uri("lb://registry")
-                )
-
-                // Actuator Kibana
-                .route(r -> r.path("/kibana/actuator/**")
-                        .uri("http://actuator-kibana:5601")
-                )
-
-                // Zipkin Kibana
-                .route(r -> r.path("/kibana/zipkin/**")
-                        .uri("http://zipkin-kibana:5601")
-                )
-
-                // Zipkin
-                .route(r -> r.path("/zipkin/**")
-                        .uri("http://zipkin:9411")
-                )
-
                 .build();
     }
 

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-deployment
+  name: gateway-deployment
   namespace: microservices
   labels:
-    app: admin
+    app: gateway
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: admin
+      app: gateway
   template:
     metadata:
       labels:
-        app: admin
+        app: gateway
     spec:
       containers:
-      - name: admin
-        image: admin:1.0.0-SNAPSHOT
+      - name: gateway
+        image: 70131370/gateway:1.0.0-SNAPSHOT
         imagePullPolicy: Always
         ports:
           - name: http-port

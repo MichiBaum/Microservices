@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservices-gateway
+  namespace: microservices
+  annotations:
+    cert-manager.io/issuer: microservices-letsencrypt
+    cert-manager.io/issuer-kind: Issuer
+    cert-manager.io/issuer-name: microservices-letsencrypt
+spec:
+  rules:
+  - host: microservices.michibaum.ch
+    http:
+      paths:
+      - backend:
+          service:
+            port:
+              number: 8080
+            name: gateway
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - microservices.michibaum.ch
+    secretName: microservices.michibaum.ch
