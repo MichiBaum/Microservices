@@ -4,10 +4,15 @@ metadata:
   name: registry
   namespace: microservices
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-    - port: 8080
+    - name: http
+      protocol: TCP
+      port: 8080
       targetPort: 8080
-      nodePort: 30000
+    - name: registry-port
+      protocol: TCP
+      port: 8761
+      targetPort: 8761
   selector:
     app: registry

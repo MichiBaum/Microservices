@@ -22,15 +22,6 @@ spring:
   application:
     name: admin
 
-eureka:
-  client:
-    healthcheck:
-      enabled: true
-    registryFetchIntervalSeconds: 5
-    register-with-eureka: true
-    fetch-registry: true
-    service-url.defaultZone: http://registry:8761/eureka/
-
 management:
   cloudfoundry:
     enabled: false

@@ -6,7 +6,7 @@ metadata:
   labels:
     app: registry
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: registry
@@ -18,14 +18,9 @@ spec:
       containers:
       - name: registry
         image: registry:1.0.0-SNAPSHOT
+        imagePullPolicy: Always
         ports:
           - name: http-port
             containerPort: 8080
           - name: registry-port
             containerPort: 8761
-        securityContext:
-          runAsRoot: true
-          readOnlyRootFilesystem: false
-          capabilities: { }
-          privileged: true
-          allowPrivilegeEscalation: true
