@@ -25,8 +25,6 @@
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
-        <dockerHub.username>70131370</dockerHub.username>
-        <dockerHub.password>TODO how to change?</dockerHub.password>
     </properties>
 
     <dependencyManagement>

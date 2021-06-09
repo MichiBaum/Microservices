@@ -81,12 +81,12 @@
 					</layers>
 					<image>
 						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
-						<password>${dockerHub.password}</password>
 						<publish>true</publish>
 					</image>
 					<docker>
 						<publishRegistry>
 							<username>${dockerHub.username}</username>
+							<password>${dockerHub.password}</password>
 							<url>${dockerHub.url}</url>
 						</publishRegistry>
 					</docker>

@@ -17,7 +17,7 @@ The available docker containers can be found [here](./docker/README.md)
 ## Build docker images
 Build docker images:
 
-    mvnw spring-boot:build-image
+    mvnw spring-boot:build-image -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
 
 
 ## License
