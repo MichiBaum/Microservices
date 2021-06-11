@@ -2,11 +2,6 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: spring-cloud-fabric8
-  annotations:
-    meta.helm.sh/release-name: microservices-k8s
-    meta.helm.sh/release-namespace: microservices
-  labels:
-    app.kubernetes.io/managed-by: Helm
   namespace: microservices
 subjects:
   - kind: ServiceAccount

@@ -4,13 +4,9 @@ metadata:
   name: microservices-gateway
   namespace: microservices
   annotations:
-    meta.helm.sh/release-name: microservices-k8s
-    meta.helm.sh/release-namespace: microservices
     cert-manager.io/issuer: microservices-letsencrypt
     cert-manager.io/issuer-kind: Issuer
     cert-manager.io/issuer-name: microservices-letsencrypt
-  labels:
-    app.kubernetes.io/managed-by: Helm
 spec:
   rules:
   - host: microservices.michibaum.ch

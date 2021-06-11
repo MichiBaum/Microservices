@@ -2,11 +2,6 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: microservices-letsencrypt
-  annotations:
-    meta.helm.sh/release-name: microservices-k8s
-    meta.helm.sh/release-namespace: microservices
-  labels:
-    app.kubernetes.io/managed-by: Helm
   namespace: microservices
 spec:
   acme:
