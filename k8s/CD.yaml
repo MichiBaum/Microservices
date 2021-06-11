@@ -10,13 +10,15 @@ metadata:
   #    key: string
   namespace: fleet-default
 spec:
-  branch: master
+  branch: refactoring
   insecureSkipTLSVerify: false
   paths:
     - /k8s
   #    - string
   repo: 'https://github.com/MichiBaum/Microservices.git'
+  targetNamespace: michibaum
   targets:
+    - clusterSelector: {}
 #    - clusterGroup: string
 #      clusterGroupSelector:
 #        matchExpressions:
@@ -44,4 +46,3 @@ spec:
 #  pollingInterval: string
 #  revision: string
 #  serviceAccount: string
-#  targetNamespace: string
