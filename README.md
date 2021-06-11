@@ -2,23 +2,19 @@
 This project is all about microservices and microfrontends.
 There are microservices build with spring, spring cloud and so forth.
 
-## Docker documentation
-[Docker dokumentation](./docker/README.md)
-
 ## Available Microservices
 There are these microservices:
-- [Registry](./registry/README.md)
 - [Admin](./admin/README.md)
 - [Gateway](./gateway/README.md)
-
-## Available Docker Containers
-The available docker containers can be found [here](./docker/README.md)
 
 ## Build docker images
 Build docker images:
 
     mvnw spring-boot:build-image -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
 
+## Scan docker files
+
+    docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
 
 ## License
 It is licensed under the [Apache License Version 2.0](LICENSE).

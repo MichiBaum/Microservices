@@ -1,0 +1,47 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: microservices
+  annotations:
+    {}
+  #    key: string
+  labels:
+    {}
+  #    key: string
+  namespace: fleet-default
+spec:
+  branch: master
+  insecureSkipTLSVerify: false
+  paths:
+    - /k8s
+  #    - string
+  repo: 'https://github.com/MichiBaum/Microservices.git'
+  targets:
+#    - clusterGroup: string
+#      clusterGroupSelector:
+#        matchExpressions:
+#          - key: string
+#            operator: string
+#            values:
+#              - string
+#        matchLabels:
+#          key: string
+#      clusterName: string
+#      clusterSelector:
+#        matchExpressions:
+#          - key: string
+#            operator: string
+#            values:
+#              - string
+#        matchLabels:
+#          key: string
+#      name: string
+#  caBundle: string
+#  clientSecretName: string
+#  forceSyncGeneration: int
+#  helmSecretName: string
+#  paused: boolean
+#  pollingInterval: string
+#  revision: string
+#  serviceAccount: string
+#  targetNamespace: string
