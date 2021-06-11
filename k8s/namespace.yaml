@@ -3,13 +3,11 @@ kind: Namespace
 metadata:
   name: microservices
   annotations:
+    meta.helm.sh/release-name: microservices-k8s
+    meta.helm.sh/release-namespace: microservices
     field.cattle.io/containerDefaultResourceLimit: '{}'
     field.cattle.io/projectId: 'local:p-28sgh'
-#    key: string
   labels:
     field.cattle.io/projectId: p-28sgh
-#    key: string
-#  namespace: string
-spec:
-#  finalizers:
-#    - string
+    app.kubernetes.io/managed-by: Helm
+  namespace: default

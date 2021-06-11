@@ -3,7 +3,11 @@ kind: Deployment
 metadata:
   name: gateway-deployment
   namespace: microservices
+  annotations:
+    meta.helm.sh/release-name: microservices-k8s
+    meta.helm.sh/release-namespace: microservices
   labels:
+    app.kubernetes.io/managed-by: Helm
     app: gateway
 spec:
   replicas: 2
@@ -12,7 +16,11 @@ spec:
       app: gateway
   template:
     metadata:
+      annotations:
+        meta.helm.sh/release-name: microservices-k8s
+        meta.helm.sh/release-namespace: microservices
       labels:
+        app.kubernetes.io/managed-by: Helm
         app: gateway
     spec:
       containers:

@@ -5,45 +5,14 @@ metadata:
   annotations:
     meta.helm.sh/release-name: microservices-k8s
     meta.helm.sh/release-namespace: microservices
-  #    key: string
   labels:
     app.kubernetes.io/managed-by: Helm
-  #    key: string
   namespace: fleet-local
 spec:
   branch: refactoring
   insecureSkipTLSVerify: false
   paths:
     - /k8s
-  #    - string
   repo: 'https://github.com/MichiBaum/Microservices.git'
   targets:
     - clusterSelector: {}
-#    - clusterGroup: string
-#      clusterGroupSelector:
-#        matchExpressions:
-#          - key: string
-#            operator: string
-#            values:
-#              - string
-#        matchLabels:
-#          key: string
-#      clusterName: string
-#      clusterSelector:
-#        matchExpressions:
-#          - key: string
-#            operator: string
-#            values:
-#              - string
-#        matchLabels:
-#          key: string
-#      name: string
-#  caBundle: string
-#  clientSecretName: string
-#  forceSyncGeneration: int
-#  helmSecretName: string
-#  paused: boolean
-#  pollingInterval: string
-#  revision: string
-#  serviceAccount: string
-#  targetNamespace: string
