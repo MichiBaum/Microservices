@@ -3,10 +3,11 @@ kind: GitRepo
 metadata:
   name: microservices
   annotations:
-    {}
+    meta.helm.sh/release-name: microservices-k8s
+    meta.helm.sh/release-namespace: default
   #    key: string
   labels:
-    {}
+    app.kubernetes.io/managed-by: Helm
   #    key: string
   namespace: fleet-local
 spec:
