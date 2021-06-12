@@ -42,6 +42,19 @@
 			<artifactId>spring-cloud-starter-kubernetes-fabric8-all</artifactId>
 		</dependency>
 
+		<!-- Swagger -->
+		<!-- https://springdoc.org -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.9</version>
+		</dependency> <!-- /swagger-ui.html -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-data-rest</artifactId>
+			<version>1.5.9</version>
+		</dependency>
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
