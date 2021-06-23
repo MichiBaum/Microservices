@@ -95,6 +95,9 @@
 					<layers>
 						<enabled>true</enabled>
 					</layers>
+					<additionalProperties>
+						<time>${maven.build.timestamp}</time>
+					</additionalProperties>
 					<image>
 						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
 						<publish>true</publish>
@@ -106,9 +109,6 @@
 							<url>${dockerHub.url}</url>
 						</publishRegistry>
 					</docker>
-					<additionalProperties>
-						<time>${maven.build.timestamp}</time>
-					</additionalProperties>
 				</configuration>
 				<executions>
 					<execution>
