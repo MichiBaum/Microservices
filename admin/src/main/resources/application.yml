@@ -13,7 +13,7 @@ spring:
       ui:
         title: Admin Server
         # Public URL because of Gateway
-        public-url: microservices.michibaum.ch/admin
+        # public-url: https://microservices.michibaum.ch/admin/
       monitor:
         status-interval: 3s
         status-lifetime: 3s

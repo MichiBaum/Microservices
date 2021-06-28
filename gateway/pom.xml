@@ -58,11 +58,11 @@
 
 		<!-- Swagger -->
 		<!-- https://springdoc.org -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-webflux-ui</artifactId>
-			<version>1.5.9</version>
-		</dependency> <!-- /swagger-ui.html -->
+<!--		<dependency>-->
+<!--			<groupId>org.springdoc</groupId>-->
+<!--			<artifactId>springdoc-openapi-webflux-ui</artifactId>-->
+<!--			<version>1.5.9</version>-->
+<!--		</dependency> &lt;!&ndash; /swagger-ui.html &ndash;&gt;-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -89,9 +89,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<jvmArguments>
-						--enable-preview
-					</jvmArguments>
 					<layers>
 						<enabled>true</enabled>
 					</layers>
