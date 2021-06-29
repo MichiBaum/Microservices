@@ -24,6 +24,8 @@ spec:
         image: quay.io/keycloak/keycloak:14.0.0
         imagePullPolicy: Always
         env:
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
         - name: KEYCLOAK_USER
           value: "admin"
         - name: KEYCLOAK_PASSWORD
