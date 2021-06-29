@@ -16,6 +16,10 @@ Build docker images:
 
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
 
+## Keycloak add user
+
+    .../bin/add-user-keycloak.sh -r master -u <username> -p <password>
+
 ## License
 It is licensed under the [Apache License Version 2.0](LICENSE).
 
