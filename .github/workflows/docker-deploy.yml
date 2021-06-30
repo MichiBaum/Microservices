@@ -19,6 +19,4 @@ jobs:
           architecture: 'x64' # defaults to 'x64'
       - name: Build & Publish docker images
         run: mvn spring-boot:build-image -DdockerHub.username=$DOCKER_USERNAME -DdockerHub.password=$DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${secrets.DOCKER_USERNAME}
-          DOCKER_PASSWORD: ${secrets.DOCKER_PASSWORD}
+        
