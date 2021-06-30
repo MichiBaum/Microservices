@@ -13,7 +13,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/**")
-                .addResourceLocations("/resources/apidoc/");
+                .addResourceLocations("classpath:/apidoc/");
     }
 
 }
