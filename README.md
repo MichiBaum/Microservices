@@ -6,19 +6,26 @@ There are microservices build with spring, spring cloud and so forth.
 There are these microservices:
 - [Admin](./admin/README.md)
 - [Gateway](./gateway/README.md)
+- [Javadoc](./javadoc/README.md)
 
-## Build docker images
+## Docker
+
+### Build & Push docker images
 Build docker images:
 
     mvnw spring-boot:build-image -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
 
-## Scan docker files
+### Scan docker files
 
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
 
 ## Keycloak add user
 
     .../bin/add-user-keycloak.sh -r master -u <username> -p <password>
+
+## Kubernetes
+
+[Kubernetes README.md](./k8s/README.md)
 
 ## License
 It is licensed under the [Apache License Version 2.0](LICENSE).
