@@ -59,13 +59,13 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <!-- Default configuration for all reports -->
                     <outputDirectory>${basedir}/javadoc/src/main/resources</outputDirectory>
                     <reportOutputDirectory>${basedir}/javadoc/src/main/resources</reportOutputDirectory>
                     <level>private</level>
                     <detectLinks>true</detectLinks>
                     <detectJavaApiLink>true</detectJavaApiLink>
                     <quiet>true</quiet>
+                    <stylesheet>maven</stylesheet>
                 </configuration>
                 <executions>
                     <execution>
