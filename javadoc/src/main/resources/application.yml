@@ -8,9 +8,6 @@ spring:
     timeout-per-shutdown-phase: 20s
   application:
     name: javadoc
-  web:
-    resources:
-      static-locations: classpath:[/META-INF/resources/, /resources/, /static/, /public/, /resources/apidoc/]
 
 management:
   cloudfoundry:
