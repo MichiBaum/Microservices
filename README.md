@@ -19,6 +19,10 @@ Build docker images:
 
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
 
+## Keycloak add user
+
+    .../bin/add-user-keycloak.sh -r master -u <username> -p <password>
+
 ## Kubernetes
 
 [Kubernetes README.md](./k8s/README.md)

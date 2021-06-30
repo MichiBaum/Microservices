@@ -11,10 +11,21 @@ spring:
   cloud:
     gateway:
       fail-on-route-definition-error: false
+      default-filters:
+        - TokenRelay
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://keycloak/auth/realms/master/protocol/openid-connect/token
+            authorization-uri: http://keycloak/auth/realms/master/protocol/openid-connect/auth
+            userinfo-uri: http://keycloak/auth/realms/master/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
 
 management:
   cloudfoundry:
