@@ -32,4 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-./src/main/
+# That you can not accidentally commit this folder
+/src/main/resources/apidocs/
