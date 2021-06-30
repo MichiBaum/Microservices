@@ -49,6 +49,7 @@
     <modules>
         <module>gateway</module>
         <module>admin</module>
+        <module>javadoc</module>
     </modules>
 
     <build>
@@ -59,8 +60,8 @@
                 <version>3.3.0</version>
                 <configuration>
                     <!-- Default configuration for all reports -->
-                    <outputDirectory>${basedir}/javadoc</outputDirectory>
-                    <reportOutputDirectory>${basedir}/javadoc</reportOutputDirectory>
+                    <outputDirectory>${basedir}/javadoc/src/main/resources</outputDirectory>
+                    <reportOutputDirectory>${basedir}/javadoc/src/main/resources</reportOutputDirectory>
                     <level>private</level>
                     <detectLinks>true</detectLinks>
                     <detectJavaApiLink>true</detectJavaApiLink>

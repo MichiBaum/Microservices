@@ -62,14 +62,6 @@
 			<artifactId>log4j-over-slf4j</artifactId>
 		</dependency>
 
-		<!-- Swagger -->
-		<!-- https://springdoc.org -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-webflux-ui</artifactId>
-			<version>1.5.9</version>
-		</dependency> <!-- /swagger-ui.html -->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>

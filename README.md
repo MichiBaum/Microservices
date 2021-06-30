@@ -6,6 +6,7 @@ There are microservices build with spring, spring cloud and so forth.
 There are these microservices:
 - [Admin](./admin/README.md)
 - [Gateway](./gateway/README.md)
+- [Javadoc](./javadoc/README.md)
 
 ## Docker
 

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javadoc-deployment
+  namespace: microservices
+  labels:
+    app: javadoc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: javadoc
+  template:
+    metadata:
+      annotations:
+        meta.helm.sh/release-name: microservices-k8s
+        meta.helm.sh/release-namespace: microservices
+      labels:
+        app.kubernetes.io/managed-by: Helm
+        app: javadoc
+    spec:
+      containers:
+      - name: javadoc
+        image: 70131370/javadoc:1.0.0-SNAPSHOT
+        imagePullPolicy: Always
+        ports:
+          - name: http-port
+            containerPort: 8080
