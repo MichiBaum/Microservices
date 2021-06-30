@@ -1,0 +1,21 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [ refactoring ]
+
+jobs:
+  build:
+    name: 'Maven: Build and upload docker containers'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 16
+        # TODO joschi/setup-jdk@v2 isn't that popular and should be changed to actions/setup-java@v2 but they don't support java 16
+        uses: joschi/setup-jdk@v2
+        with:
+          java-version: '16' # The OpenJDK version to make available on the path
+          architecture: 'x64' # defaults to 'x64'
+      - name: Build & Publish docker images
+        run: mvn spring-boot:build-image -DdockerHub.username=${secrets.DOCKER_USERNAME} -DdockerHub.password=${secrets.DOCKER_PASSWORD}
