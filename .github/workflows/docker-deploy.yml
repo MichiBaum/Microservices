@@ -17,6 +17,6 @@ jobs:
         with:
           java-version: '16' # The OpenJDK version to make available on the path
           architecture: 'x64' # defaults to 'x64'
-      - name: Build & Publish docker images to User ${{secrets.DOCKER_USERNAME}}
+      - name: Build & Publish docker images
         run: mvn spring-boot:build-image -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
 

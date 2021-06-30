@@ -1,9 +1,11 @@
+name: Update contributors in README.md
+
 on: [push, pull_request]
 
 jobs:
-    contrib-readme-job:
-        runs-on: ubuntu-latest
-        name: Automate contrib in readme
+  contrib-readme-job:
+    runs-on: ubuntu-latest
+      name: Automate contrib in readme
         steps:
             - name: Contribute List
               uses: akhilmhdh/contributors-readme-action@v2.0.2
@@ -11,4 +13,4 @@ jobs:
                 collaborators: all
                 commit_message: updated contributors in readme
               env:
-                  GITHUB_TOKEN: ${{ secrets.CONTRIBUTORS }}
+                GITHUB_TOKEN: ${{ secrets.CONTRIBUTORS }}
