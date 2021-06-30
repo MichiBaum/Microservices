@@ -95,6 +95,8 @@
 					<additionalProperties>
 						<time>${maven.build.timestamp}</time>
 					</additionalProperties>
+					<excludeDevtools>true</excludeDevtools>
+					<optimizedLaunch>true</optimizedLaunch>
 					<image>
 						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
 						<publish>true</publish>
