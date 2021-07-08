@@ -97,7 +97,8 @@
         <module>gateway</module>
         <module>admin</module>
         <module>javadoc</module>
-    </modules>
+		<module>security-library</module>
+	</modules>
 
     <build>
         <plugins>
@@ -128,7 +129,7 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+		</plugins>
     </build>
 
 </project>
