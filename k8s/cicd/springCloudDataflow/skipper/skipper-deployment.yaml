@@ -43,8 +43,8 @@ spec:
             cpu: 1.0
             memory: 1024Mi
           requests:
-            cpu: 0.5
-            memory: 640Mi
+            cpu: 1.0
+            memory: 1024Mi
         env:
         - name: SPRING_CLOUD_CONFIG_ENABLED
           value: 'false'
