@@ -4,6 +4,7 @@ metadata:
   labels:
     app: grafana
   name: grafana
+  namespace: microservices
 spec:
   selector:
     matchLabels:
