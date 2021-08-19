@@ -20,12 +20,17 @@ spring:
   security:
     oauth2:
       client:
+        registration:
+          gateway:
+            provider: keycloak
+            client-id: gateway-service
+            client-authentication-method: none
+            scope: openid,profile,email
         provider:
           keycloak:
-            token-uri: http://keycloak/auth/realms/master/protocol/openid-connect/token
-            authorization-uri: http://keycloak/auth/realms/master/protocol/openid-connect/auth
-            userinfo-uri: http://keycloak/auth/realms/master/protocol/openid-connect/userinfo
-            user-name-attribute: preferred_username
+            issuer-uri: https://keycloak.michibaum.ch/auth/realms/master
+  main:
+    allow-bean-definition-overriding: true
 
 management:
   cloudfoundry:

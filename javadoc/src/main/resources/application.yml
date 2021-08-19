@@ -8,6 +8,20 @@ spring:
     timeout-per-shutdown-phase: 20s
   application:
     name: javadoc
+  security:
+    oauth2:
+      client:
+        registration:
+          javadoc:
+            provider: keycloak
+            client-id: javadoc-service
+            client-authentication-method: none
+            scope: openid,profile,email
+        provider:
+          keycloak:
+            issuer-uri: https://keycloak.michibaum.ch/auth/realms/master
+  main:
+    allow-bean-definition-overriding: true
 
 management:
   cloudfoundry:

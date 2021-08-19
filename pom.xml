@@ -43,6 +43,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>15.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -97,7 +104,6 @@
         <module>gateway</module>
         <module>admin</module>
         <module>javadoc</module>
-		<module>security-library</module>
 	</modules>
 
     <build>

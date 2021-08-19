@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservices-keycloak
+  namespace: microservices
+  annotations:
+    cert-manager.io/issuer: microservices-letsencrypt
+    cert-manager.io/issuer-kind: Issuer
+    cert-manager.io/issuer-name: microservices-letsencrypt
+spec:
+  rules:
+  - host: keycloak.michibaum.ch
+    http:
+      paths:
+      - backend:
+          service:
+            port:
+              number: 8080
+            name: keycloak
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - keycloak.michibaum.ch
+    secretName: keycloak.michibaum.ch
