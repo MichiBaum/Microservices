@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: scdf-server
+  namespace: microservices
   labels:
     app: scdf-server
     spring-deployment-id: scdf
