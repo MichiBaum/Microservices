@@ -19,7 +19,7 @@ spring:
             scope: openid,profile,email
         provider:
           keycloak:
-            issuer-uri: https://keycloak.michibaum.ch/auth/realms/master
+            issuer-uri: http://keycloak/auth/realms/master
   main:
     allow-bean-definition-overriding: true
 

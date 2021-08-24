@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: admin
   namespace: microservices
+  annotations:
+    cloud.google.com/neg: '{"ingress": false}'
 spec:
   selector:
     app: admin
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - name: http
     port: 8080

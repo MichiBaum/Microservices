@@ -1,26 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: keycloak
+  name: javadoc
   namespace: microservices
   annotations:
     kubernetes.io/ingress.class: "gce"
-    kubernetes.io/ingress.global-static-ip-name: keycloak-ip
+    kubernetes.io/ingress.global-static-ip-name: javadoc-ip
     cert-manager.io/cluster-issuer: microservices-letsencrypt
     acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
   rules:
-  - host: keycloak.michibaum.ch
+  - host: javadoc.michibaum.ch
     http:
       paths:
-      - path: /*
-        pathType: ImplementationSpecific
-        backend:
+      - backend:
           service:
             port:
               number: 8080
-            name: keycloak
+            name: javadoc
+        pathType: ImplementationSpecific
   tls:
   - hosts:
-    - keycloak.michibaum.ch
-    secretName: keycloak.michibaum.ch
+    - javadoc.michibaum.ch
+    secretName: javadoc.michibaum.ch

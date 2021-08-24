@@ -12,11 +12,7 @@ spec:
       app: keycloak
   template:
     metadata:
-      annotations:
-        meta.helm.sh/release-name: microservices-k8s
-        meta.helm.sh/release-namespace: microservices
       labels:
-        app.kubernetes.io/managed-by: Helm
         app: keycloak
     spec:
       containers:
@@ -33,7 +29,3 @@ spec:
         ports:
         - name: http
           containerPort: 8080
-        readinessProbe:
-          httpGet:
-            path: /auth/realms/master
-            port: 8080

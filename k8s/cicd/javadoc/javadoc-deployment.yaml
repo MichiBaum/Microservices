@@ -12,11 +12,7 @@ spec:
       app: javadoc
   template:
     metadata:
-      annotations:
-        meta.helm.sh/release-name: microservices-k8s
-        meta.helm.sh/release-namespace: microservices
       labels:
-        app.kubernetes.io/managed-by: Helm
         app: javadoc
     spec:
       containers:

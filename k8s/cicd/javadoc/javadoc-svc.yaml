@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: javadoc
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - name: http
     port: 8080

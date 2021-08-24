@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+  annotations:
+    field.cattle.io/containerDefaultResourceLimit: '{}'
+    field.cattle.io/projectId: 'local:p-28sgh'
+  labels:
+    field.cattle.io/projectId: p-28sgh
+  namespace: default

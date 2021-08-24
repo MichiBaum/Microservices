@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0</version>
+        <version>2.5.4</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -101,7 +101,6 @@
     </repositories>
 
     <modules>
-        <module>gateway</module>
         <module>admin</module>
         <module>javadoc</module>
 	</modules>
