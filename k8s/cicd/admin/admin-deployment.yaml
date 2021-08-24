@@ -19,13 +19,9 @@ spec:
       - name: admin
         image: 70131370/admin:1.0.0-SNAPSHOT
         imagePullPolicy: Always
-        env:
-          - name: GOOGLE_CLOUD_PROJECT
-            valueFrom:
-              configMapKeyRef:
-                name: gcp-projectname
-                # Specify the key associated with the value
-                key: GOOGLE_CLOUD_PROJECT
+        envFrom:
+          - configMapRef:
+              name: microservices-configmap
         ports:
           - name: http-port
             containerPort: 8080
