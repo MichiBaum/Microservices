@@ -8,16 +8,15 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: keycloak-ip
     cert-manager.io/cluster-issuer: microservices-letsencrypt
     acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.allow-http: "false"
 spec:
   rules:
   - host: keycloak.michibaum.ch
     http:
       paths:
-      - path: /*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: keycloak-svc
+        - backend:
+            service:
+              name: keycloak-svc
   tls:
   - hosts:
     - keycloak.michibaum.ch

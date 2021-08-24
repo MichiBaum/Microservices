@@ -8,16 +8,15 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: admin-ip
     cert-manager.io/cluster-issuer: microservices-letsencrypt
     acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.allow-http: "false"
 spec:
   rules:
   - host: admin.michibaum.ch
     http:
       paths:
-        - path: /*
-          pathType: ImplementationSpecific
-          backend:
-            service:
-              name: admin-svc
+      - backend:
+          service:
+            name: admin-svc
   tls:
   - hosts:
     - admin.michibaum.ch

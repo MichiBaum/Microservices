@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: javadoc-svc
   namespace: microservices
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
   selector:
     app: javadoc

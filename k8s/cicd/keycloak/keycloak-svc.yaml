@@ -4,7 +4,8 @@ metadata:
   name: keycloak-svc
   namespace: microservices
   annotations:
-    cloud.google.com/neg: '{"ingress": false}'
+    cloud.google.com/neg: '{"ingress": true}'
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
   selector:
     app: keycloak
