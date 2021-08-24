@@ -19,6 +19,9 @@ spec:
       - name: admin
         image: 70131370/admin:1.0.0-SNAPSHOT
         imagePullPolicy: Always
+        env:
+          - name: GOOGLE_CLOUD_PROJECT
+            value: TODO
         ports:
           - name: http-port
             containerPort: 8080

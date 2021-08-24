@@ -2,6 +2,11 @@
 
 ## Commands
 
+### Set Google Cloud Project
+
+    gcloud config set project microservices
+    gcloud auth application-default login
+
 ### Creating Google Cloud Kubernetes Cluster:
 
     gcloud container clusters create 

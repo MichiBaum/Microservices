@@ -34,6 +34,23 @@ spring:
         provider:
           keycloak:
             issuer-uri: https://keycloak.michibaum.ch
+  cloud:
+    gcp:
+      logging:
+        enabled: true
+      trace:
+        pubsub:
+          enabled: true
+    kubernetes:
+      reload:
+        enabled: true
+    discovery:
+      client:
+        health-indicator:
+          include-description: true
+  sleuth:
+    sampler:
+      probability: 1.0
   main:
     allow-bean-definition-overriding: true
 
