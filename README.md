@@ -7,7 +7,17 @@ There are these microservices:
 - [Admin](./admin/README.md)
 - [Javadoc](./javadoc/README.md)
 
+## Release
+
+### Maven release plugin
+
+    mvnw release:update-versions
+
 ## Docker
+
+### Build JavaDoc
+
+    mvnw javadoc:aggregate
 
 ### Build & Push docker images
 Build docker images:
