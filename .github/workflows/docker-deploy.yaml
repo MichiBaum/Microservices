@@ -17,4 +17,4 @@ jobs:
       - name: Generate Javadoc
         run: mvn javadoc:aggregate
       - name: Build & Publish docker images
-        run: mvn spring-boot:build-image -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
+        run: mvn spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}

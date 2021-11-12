@@ -10,8 +10,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>service-registry</artifactId>
-    <name>service-registry</name>
+    <artifactId>registry-service</artifactId>
+    <name>registry-service</name>
 
     <dependencies>
         <dependency>

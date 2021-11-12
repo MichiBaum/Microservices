@@ -9,8 +9,8 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>admin</artifactId>
-	<name>admin</name>
+	<artifactId>admin-service</artifactId>
+	<name>admin-service</name>
 
 	<properties>
 	</properties>

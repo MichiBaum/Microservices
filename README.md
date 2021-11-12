@@ -23,7 +23,7 @@ There are these microservices:
 ### Build & Push docker images
 Build docker images:
 
-    mvnw spring-boot:build-image --projects ./admin-service,./javadoc-service,registry-service -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
+    mvnw spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
 
 ### Scan docker files
 

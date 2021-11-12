@@ -9,8 +9,8 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>javadoc</artifactId>
-	<name>javadoc</name>
+	<artifactId>javadoc-service</artifactId>
+	<name>javadoc-service</name>
 
 	<dependencies>
 
