@@ -11,8 +11,8 @@ services:
     networks:
       - microservice-network
 
-  registry:
-    image: registry:1.0.0-TEST
+  registry-service:
+    image: 70131370/registry-service:1.0.0-TEST
     restart: always
     environment:
       - VIRTUAL_HOST=registry.michibaum.ch
@@ -22,11 +22,11 @@ services:
     networks:
       - microservice-network
 
-  admin:
-    image: admin:1.0.0-TEST
+  admin-service:
+    image: 70131370/admin-service:1.0.0-TEST
     restart: always
     depends_on:
-      - registry
+      - registry-service
     expose:
       - "8080"
     environment:
@@ -35,11 +35,11 @@ services:
     networks:
       - microservice-network
 
-  javadoc:
-    image: javadoc:1.0.0-TEST
+  javadoc-service:
+    image: 70131370/javadoc-service:1.0.0-TEST
     restart: always
     depends_on:
-      - registry
+      - registry-service
     expose:
       - "8080"
     environment:

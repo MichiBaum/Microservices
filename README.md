@@ -25,10 +25,25 @@ Build docker images:
 
     mvnw spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
 
+### Change HOSTS file
+
+#### Windows
+
+In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
+
+    # Microservises
+    127.0.0.1 registry.michibaum.ch
+    127.0.0.1 admin.michibaum.ch
+    127.0.0.1 javadoc.michibaum.ch
+
+#### Linux
+
+File: */etc/hosts*
+
+
 ### Scan docker files
 
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
-
 
 ## License
 It is licensed under the [Apache License Version 2.0](LICENSE).
