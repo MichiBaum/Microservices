@@ -22,7 +22,7 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://admin:admin@registry-service:8761/eureka
+      defaultZone: http://registry-service:8761/eureka
 
 management:
   endpoints:
