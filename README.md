@@ -5,8 +5,10 @@ There are microservices build with spring, spring cloud and so forth.
 ## Available Microservices
 There are these microservices:
 - [Admin Service](./admin-service/README.md)
+- [Authentication Service](./authentication-service/README.md)
 - [Javadoc Service](./javadoc-service/README.md)
-- [Registry Service](registry-service/README.md)
+- [Registry Service](./registry-service/README.md)
+- [Usermanagement Service](./usermanagement-service/README.md)
 
 ## Release
 
