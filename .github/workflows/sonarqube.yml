@@ -19,7 +19,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - name: Maven clean install
-        run: mvn clean install
+        run: mvn clean install -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any

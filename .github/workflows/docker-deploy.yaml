@@ -15,5 +15,7 @@ jobs:
           java-version: '17'
       - name: Generate Javadoc
         run: mvn javadoc:aggregate
+      - name: Maven Clean install
+        run: mvn clean install -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
       - name: Build & Publish docker images
         run: mvn spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service,./usermanagement-service,./authentication-service -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
