@@ -1,15 +1,51 @@
-# Microservices
+   # Microservices
 This project is all about microservices and microfrontends.
 There are microservices build with spring, spring cloud and so forth.
 
-## Docker documentation
-[Docker dokumentation](./docker/README.md)
+## Available Microservices
+There are these microservices:
+- [Admin Service](./admin-service/README.md)
+- [Javadoc Service](./javadoc-service/README.md)
+- [Registry Service](registry-service/README.md)
 
-## Microservice Readme
-[Microservice dokumentation](./microservice/README.md)
+## Release
 
-## Diagrams
-The Diagrams Readme can be found [here](./diagrams/README.md).
+### Maven release plugin
+
+    mvnw release:update-versions
+
+## Docker
+
+### Build JavaDoc
+
+    mvnw javadoc:aggregate
+
+### Build & Push docker images
+Build docker images:
+
+    mvnw spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
+
+### Change HOSTS file
+
+#### Windows
+
+In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
+
+    # Microservises
+    127.0.0.1 registry.michibaum.ch
+    127.0.0.1 admin.michibaum.ch
+    127.0.0.1 javadoc.michibaum.ch
+    127.0.0.1 usermanagement.michibaum.ch
+    127.0.0.1 authentication.michibaum.ch
+
+#### Linux
+
+File: */etc/hosts*
+
+
+### Scan docker files
+
+    docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
 
 ## License
 It is licensed under the [Apache License Version 2.0](LICENSE).
