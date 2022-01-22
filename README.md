@@ -35,6 +35,8 @@ In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
     127.0.0.1 registry.michibaum.ch
     127.0.0.1 admin.michibaum.ch
     127.0.0.1 javadoc.michibaum.ch
+    127.0.0.1 usermanagement.michibaum.ch
+    127.0.0.1 authentication.michibaum.ch
 
 #### Linux
 

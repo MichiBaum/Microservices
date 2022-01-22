@@ -26,7 +26,18 @@
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
+
+        <!-- Sonarqube -->
+        <sonar.organization>michibaum</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -105,7 +116,11 @@
         <module>admin-service</module>
         <module>javadoc-service</module>
         <module>registry-service</module>
-	</modules>
+        <module>authentication-service</module>
+        <module>usermanagement-service</module>
+        <module>authentication-library</module>
+        <module>usermanagement-library</module>
+    </modules>
 
     <build>
         <plugins>

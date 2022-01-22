@@ -9,11 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 17
-        # TODO joschi/setup-jdk@v2 isn't that popular and should be changed to actions/setup-java@v2 but they don't support java 16
-        uses: joschi/setup-jdk@v2
+        uses: actions/setup-java@v2
         with:
-          java-version: '17' # The OpenJDK version to make available on the path
-          architecture: 'x64' # defaults to 'x64'
+          distribution: 'zulu'
+          java-version: '17'
       - name: Generate Javadoc
         run: mvn javadoc:aggregate
       - name: Build & Publish docker images

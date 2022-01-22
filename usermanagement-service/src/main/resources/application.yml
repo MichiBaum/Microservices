@@ -6,22 +6,8 @@ server:
 spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
-  boot:
-    admin:
-      hazelcast:
-        enabled: true
-      ui:
-        title: Admin Server
-        # Public URL because of Gateway
-        public-url: http://admin.michibaum.ch
-      monitor:
-        status-interval: 3s
-        status-lifetime: 3s
-        info-interval: 20s
-        info-lifetime: 20s
-        default-retries: 3
   application:
-    name: admin-service
+    name: authentication-service
   cloud:
     discovery:
       client:
@@ -29,6 +15,11 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
+  datasource:
+    username: root
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://usermanagement-db:3308/${DATABASE}
 
 eureka:
   client:
@@ -49,6 +40,8 @@ management:
         enabled: true
     health:
       show-details: always
+      probes:
+        enabled: true
   health:
     livenessstate:
       enabled: true
