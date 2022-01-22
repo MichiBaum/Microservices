@@ -64,7 +64,8 @@ File: */etc/hosts*
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
 
 ## License
-It is licensed under the [Apache License Version 2.0](LICENSE).
+
+[![GitHub license](https://badgen.net/github/license/MichiBaum/Microservices)](https://github.com/MichiBaum/Microservices/blob/master/LICENSE)
 
 ## Collaborators
 
