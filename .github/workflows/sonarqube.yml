@@ -1,10 +1,7 @@
 name: Sonarqube
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    types: [opened, synchronize, reopened]
+
+on: [push, pull_request]
+
 jobs:
   build:
     name: Build

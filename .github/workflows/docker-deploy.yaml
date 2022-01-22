@@ -1,7 +1,7 @@
 name: Build and Publish
-on:
-  push:
-    branches: [ master ]
+
+on: [pull_request]
+
 jobs:
   build:
     name: 'Maven: Build and upload docker containers'
