@@ -1,4 +1,18 @@
-   # Microservices
+# Microservices
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)  
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=bugs)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=coverage)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
+
+
+
 This project is all about microservices and microfrontends.
 There are microservices build with spring, spring cloud and so forth.
 
