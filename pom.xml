@@ -120,6 +120,7 @@
         <module>usermanagement-service</module>
         <module>authentication-library</module>
         <module>usermanagement-library</module>
+        <module>devtool</module>
     </modules>
 
     <build>
