@@ -145,6 +145,7 @@
         <module>authentication-service</module>
         <module>usermanagement-service</module>
         <module>website-service</module>
+        <module>devtool</module>
     </modules>
 
     <build>
