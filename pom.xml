@@ -202,6 +202,9 @@
                     <compilerPlugins>
                         <plugin>spring</plugin>
                     </compilerPlugins>
+                    <sourceDirs>
+                        <source>src/main/kotlin</source>
+                    </sourceDirs>
                 </configuration>
                 <dependencies>
                     <dependency>
