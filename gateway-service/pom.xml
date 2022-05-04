@@ -1,72 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.michibaum</groupId>
 		<artifactId>microservice</artifactId>
+		<groupId>com.michibaum</groupId>
 		<version>1.0.0-TEST</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>admin-service</artifactId>
-	<name>admin-service</name>
-
-	<properties>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
-	</properties>
+	<groupId>com.michibaum</groupId>
+	<artifactId>gateway-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>gateway-service</name>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>de.codecentric</groupId>
-			<artifactId>spring-boot-admin-starter-server</artifactId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.jolokia</groupId>
-			<artifactId>jolokia-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
-		<!-- Cluster replication -->
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src/main/kotlin</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

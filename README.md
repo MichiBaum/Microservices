@@ -48,6 +48,7 @@ Build docker images:
 In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
 
     # Microservises
+    127.0.0.1 gateway.michibaum.ch
     127.0.0.1 registry.michibaum.ch
     127.0.0.1 admin.michibaum.ch
     127.0.0.1 javadoc.michibaum.ch

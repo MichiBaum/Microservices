@@ -12,6 +12,11 @@
 	<artifactId>javadoc-service</artifactId>
 	<name>javadoc-service</name>
 
+	<properties>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+	</properties>
+
 	<dependencies>
 
 		<dependency>
@@ -52,7 +57,7 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
+		<sourceDirectory>src/main/kotlin</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
