@@ -88,6 +88,10 @@ services:
     volumes:
       - /data/usermanagement-db:/var/lib/mysql
 
+#  Matomo
+# https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
+# https://github.com/matomo-org/docker
+
 networks:
   microservice-network:
     name: microservice-network
