@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: 'Maven: Build and upload docker containers'
+    name: 'Build, upload docker containers and deploy'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
