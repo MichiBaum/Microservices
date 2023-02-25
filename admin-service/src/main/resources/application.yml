@@ -8,12 +8,12 @@ spring:
     timeout-per-shutdown-phase: 20s
   boot:
     admin:
+      server:
+        enabled: true
       hazelcast:
         enabled: true
       ui:
         title: Admin Server
-        # Public URL because of Gateway
-        public-url: http://admin.michibaum.ch
       monitor:
         status-interval: 3s
         status-lifetime: 3s
@@ -31,9 +31,6 @@ spring:
     allow-bean-definition-overriding: true
 
 eureka:
-  client:
-    service-url:
-      defaultZone: http://registry-service:8761/eureka
   instance:
     prefer-ip-address: true
 

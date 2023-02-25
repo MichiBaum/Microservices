@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.0.0-TEST</version>
+        <version>1.0.0-TEST-4</version>
     </parent>
 
     <artifactId>authentication-service</artifactId>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.18.3</version>
+            <version>4.4.0</version>
         </dependency>
 
         <dependency>
@@ -40,8 +40,8 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jolokia</groupId>
-            <artifactId>jolokia-core</artifactId>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
         <dependency>
@@ -59,17 +59,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -80,12 +79,12 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>authentication-library</artifactId>
-            <version>1.0.0-TEST</version>
+            <version>1.0.0-TEST-4</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>usermanagement-library</artifactId>
-            <version>1.0.0-TEST</version>
+            <version>1.0.0-TEST-4</version>
         </dependency>
 
     </dependencies>
@@ -106,12 +105,15 @@
                     <excludeDevtools>true</excludeDevtools>
                     <optimizedLaunch>true</optimizedLaunch>
                     <image>
+                        <!--suppress UnresolvedMavenProperty -->
                         <name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
                         <publish>true</publish>
                     </image>
                     <docker>
                         <publishRegistry>
+                            <!--suppress UnresolvedMavenProperty -->
                             <username>${dockerHub.username}</username>
+                            <!--suppress UnresolvedMavenProperty -->
                             <password>${dockerHub.password}</password>
                             <url>${dockerHub.url}</url>
                         </publishRegistry>
@@ -127,8 +129,8 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
                 <configuration>
                     <failOnNoGitDirectory>false</failOnNoGitDirectory>
                 </configuration>

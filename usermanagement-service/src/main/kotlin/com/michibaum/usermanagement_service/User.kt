@@ -1,10 +1,10 @@
 package com.michibaum.usermanagement_service
 
-import javax.persistence.GeneratedValue
+import jakarta.persistence.GeneratedValue
 import org.hibernate.annotations.GenericGenerator
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 
 @Entity
 data class User (

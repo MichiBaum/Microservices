@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>microservice</artifactId>
 		<groupId>com.michibaum</groupId>
-		<version>1.0.0-TEST</version>
+		<version>1.0.0-TEST-4</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -29,13 +29,13 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.jolokia</groupId>
-			<artifactId>jolokia-core</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
 		</dependency>
 
 		<dependency>
@@ -72,12 +72,15 @@
 					<excludeDevtools>true</excludeDevtools>
 					<optimizedLaunch>true</optimizedLaunch>
 					<image>
+						<!--suppress UnresolvedMavenProperty -->
 						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
 						<publish>true</publish>
 					</image>
 					<docker>
 						<publishRegistry>
+							<!--suppress UnresolvedMavenProperty -->
 							<username>${dockerHub.username}</username>
+							<!--suppress UnresolvedMavenProperty -->
 							<password>${dockerHub.password}</password>
 							<url>${dockerHub.url}</url>
 						</publishRegistry>
@@ -93,8 +96,8 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
+				<groupId>io.github.git-commit-id</groupId>
+				<artifactId>git-commit-id-maven-plugin</artifactId>
 				<configuration>
 					<failOnNoGitDirectory>false</failOnNoGitDirectory>
 				</configuration>
