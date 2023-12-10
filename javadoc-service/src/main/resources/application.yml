@@ -16,10 +16,8 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+
 eureka:
-  client:
-    service-url:
-      defaultZone: http://registry-service:8761/eureka
   instance:
     prefer-ip-address: true
 

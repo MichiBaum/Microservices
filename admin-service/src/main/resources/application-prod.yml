@@ -1,0 +1,13 @@
+server:
+  port: 80
+
+spring:
+  boot:
+    admin:
+      ui:
+        public-url: http://admin.michibaum.ch
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://registry-service:8761/eureka

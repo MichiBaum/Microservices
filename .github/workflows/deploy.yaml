@@ -16,9 +16,13 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+
       - name: Generate Javadoc
         run: mvn javadoc:aggregate
+
       - name: Maven Clean install
+#        Windows: ./mvnw clean install "-DdockerHub.username=${{secrets.DOCKER_USERNAME}}" "-DdockerHub.password=${{secrets.DOCKER_PASSWORD}}"
         run: mvn clean install -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
+
       - name: Build & Publish docker images
         run: mvn spring-boot:build-image --projects ./gateway-service,./admin-service,./javadoc-service,./registry-service,./usermanagement-service,./authentication-service -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}

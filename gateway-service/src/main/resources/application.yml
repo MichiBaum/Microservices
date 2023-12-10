@@ -2,6 +2,7 @@ server:
   shutdown: graceful
   undertow:
     url-charset: UTF-8
+  port: 8080
 
 spring:
   lifecycle:
@@ -15,11 +16,15 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
+  boot:
+    admin:
+      client:
+        enabled: true
+        username: admin
+        password: admin
+
 
 eureka:
-  client:
-    service-url:
-      defaultZone: http://registry-service:8761/eureka
   instance:
     prefer-ip-address: true
 

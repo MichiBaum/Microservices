@@ -6,13 +6,11 @@
 	<parent>
 		<artifactId>microservice</artifactId>
 		<groupId>com.michibaum</groupId>
-		<version>1.0.0-TEST</version>
+		<version>1.0.0-TEST-4</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.michibaum</groupId>
 	<artifactId>gateway-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>gateway-service</name>
 
 	<dependencies>
@@ -20,10 +18,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>de.codecentric</groupId>
 			<artifactId>spring-boot-admin-starter-client</artifactId>
@@ -48,10 +46,17 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>com.michibaum</groupId>
+			<artifactId>permission-library</artifactId>
+			<version>1.0.0-TEST-4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
+		<sourceDirectory>src/main/kotlin</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -66,12 +71,15 @@
 					<excludeDevtools>true</excludeDevtools>
 					<optimizedLaunch>true</optimizedLaunch>
 					<image>
+						<!--suppress UnresolvedMavenProperty -->
 						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
 						<publish>true</publish>
 					</image>
 					<docker>
 						<publishRegistry>
+							<!--suppress UnresolvedMavenProperty -->
 							<username>${dockerHub.username}</username>
+							<!--suppress UnresolvedMavenProperty -->
 							<password>${dockerHub.password}</password>
 							<url>${dockerHub.url}</url>
 						</publishRegistry>
@@ -87,8 +95,8 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
+				<groupId>io.github.git-commit-id</groupId>
+				<artifactId>git-commit-id-maven-plugin</artifactId>
 				<configuration>
 					<failOnNoGitDirectory>false</failOnNoGitDirectory>
 				</configuration>
