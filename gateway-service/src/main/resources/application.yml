@@ -10,6 +10,11 @@ spring:
   application:
     name: gateway-service
   cloud:
+    gateway:
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
     discovery:
       client:
         health-indicator:
@@ -50,3 +55,12 @@ management:
   info:
     git:
       mode: full
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
