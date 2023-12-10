@@ -16,27 +16,27 @@ class RoutesConfiguration {
         return builder.routes {
             route {
                 host("admin.michibaum.ch")
-                filters { AuthorizationPreFilter() } // Permissions.Admin_Service.CAN_SEND_REQUEST
+//                filters { AuthorizationPreFilter() } // Permissions.Admin_Service.CAN_SEND_REQUEST
                 uri("lb:admin-service")
             }
             route {
                 host("authentication.michibaum.ch")
-                filters {}
+//                filters {}
                 uri("lb:authentication-service")
             }
             route {
                 host("javadoc.michibaum.ch")
-                filters { AuthorizationPreFilter() } // Permissions.JavaDoc_Service.CAN_READ
+//                filters { AuthorizationPreFilter() } // Permissions.JavaDoc_Service.CAN_READ
                 uri("lb:javadoc-service")
             }
             route {
                 host("registry.michibaum.ch")
-                filters { AuthorizationPreFilter() }
+//                filters { AuthorizationPreFilter() }
                 uri("lb:registry-service")
             }
             route {
                 host("usermanagement.michibaum.ch")
-                filters { AuthorizationPreFilter() }
+//                filters { AuthorizationPreFilter() }
                 uri("lb:usermanagement-service")
             }
         }
