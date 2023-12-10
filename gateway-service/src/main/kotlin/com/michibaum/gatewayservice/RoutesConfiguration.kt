@@ -20,6 +20,10 @@ class RoutesConfiguration {
                 uri("lb:admin-service")
             }
             route {
+                path("/admin")
+                uri("lb:admin-service")
+            }
+            route {
                 host("authentication.michibaum.ch")
 //                filters {}
                 uri("lb:authentication-service")
@@ -38,6 +42,11 @@ class RoutesConfiguration {
                 host("usermanagement.michibaum.ch")
 //                filters { AuthorizationPreFilter() }
                 uri("lb:usermanagement-service")
+            }
+            route {
+                host("google.michibaum.ch")
+//                filters { AuthorizationPreFilter() }
+                uri("https://www.google.ch/")
             }
         }
     }
