@@ -2,7 +2,8 @@ server:
   shutdown: graceful
   undertow:
     url-charset: UTF-8
-  port: 8080
+  port: 80
+
 
 spring:
   lifecycle:

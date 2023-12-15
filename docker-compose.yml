@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   registry-service:
-    image: 70131370/registry-service:1.0.0-TEST-4
+    image: 70131370/registry-service:1.0.0-TEST-5
     restart: always
     environment:
       spring_profiles_active: prod
@@ -13,7 +13,7 @@ services:
       - microservice-network
 
   admin-service:
-    image: 70131370/admin-service:1.0.0-TEST-4
+    image: 70131370/admin-service:1.0.0-TEST-5
     restart: always
     depends_on:
       - registry-service
@@ -25,7 +25,7 @@ services:
       - microservice-network
 
   javadoc-service:
-    image: 70131370/javadoc-service:1.0.0-TEST-4
+    image: 70131370/javadoc-service:1.0.0-TEST-5
     restart: always
     depends_on:
       - registry-service
@@ -37,7 +37,7 @@ services:
       - microservice-network
 
   authentication-service:
-    image: 70131370/authentication-service:1.0.0-TEST-4
+    image: 70131370/authentication-service:1.0.0-TEST-5
     restart: always
     depends_on:
       - registry-service
@@ -61,7 +61,7 @@ services:
       - /data/authentication-db:/var/lib/mysql
 
   usermanagement-service:
-    image: 70131370/usermanagement-service:1.0.0-TEST-4
+    image: 70131370/usermanagement-service:1.0.0-TEST-5
     restart: always
     depends_on:
       - registry-service
@@ -88,7 +88,7 @@ services:
       - /data/usermanagement-db:/var/lib/mysql
 
   gateway-service:
-    image: 70131370/gateway-service:1.0.0-TEST-4
+    image: 70131370/gateway-service:1.0.0-TEST-5
     restart: always
     depends_on:
       - registry-service
@@ -100,8 +100,6 @@ services:
       - "80:80"
     environment:
       spring_profiles_active: prod
-    expose:
-      - "80"
     networks:
       - microservice-network
 
