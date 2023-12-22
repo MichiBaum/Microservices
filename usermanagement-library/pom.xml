@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.0.0-TEST-6</version>
+        <version>1.0.0-TEST-7</version>
     </parent>
 
     <artifactId>usermanagement-library</artifactId>

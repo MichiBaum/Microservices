@@ -1,6 +1,12 @@
 name: Update contributors in README.md
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   contrib-readme-job:

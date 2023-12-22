@@ -20,6 +20,12 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
 
 management:
   endpoints:

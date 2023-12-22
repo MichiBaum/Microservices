@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>microservice</artifactId>
 		<groupId>com.michibaum</groupId>
-		<version>1.0.0-TEST-6</version>
+		<version>1.0.0-TEST-7</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>permission-library</artifactId>
-			<version>1.0.0-TEST-6</version>
+			<version>1.0.0-TEST-7</version>
 		</dependency>
 
 	</dependencies>
@@ -84,7 +84,11 @@
 					<image>
 						<!--suppress UnresolvedMavenProperty -->
 						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
-						<publish>true</publish>
+						<!--suppress UnresolvedMavenProperty -->
+						<publish>${dockerHub.publish}</publish>
+						<env>
+							<BP_JVM_VERSION>21</BP_JVM_VERSION>
+						</env>
 					</image>
 					<docker>
 						<publishRegistry>

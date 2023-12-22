@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   registry-service:
-    image: 70131370/registry-service:1.0.0-TEST-6
+    image: 70131370/registry-service:1.0.0-TEST-7
     env_file:
       - .env
       - .env.override
@@ -16,7 +16,7 @@ services:
       - microservice-network
 
   admin-service:
-    image: 70131370/admin-service:1.0.0-TEST-6
+    image: 70131370/admin-service:1.0.0-TEST-7
     env_file:
       - .env
       - .env.override
@@ -31,7 +31,7 @@ services:
       - microservice-network
 
   javadoc-service:
-    image: 70131370/javadoc-service:1.0.0-TEST-6
+    image: 70131370/javadoc-service:1.0.0-TEST-7
     env_file:
       - .env
       - .env.override
@@ -46,7 +46,7 @@ services:
       - microservice-network
 
   authentication-service:
-    image: 70131370/authentication-service:1.0.0-TEST-6
+    image: 70131370/authentication-service:1.0.0-TEST-7
     env_file:
       - .env
       - .env.override
@@ -73,9 +73,11 @@ services:
       - "3306"
     volumes:
       - /data/authentication-db:/var/lib/mysql
+    networks:
+      - microservice-network
 
   usermanagement-service:
-    image: 70131370/usermanagement-service:1.0.0-TEST-6
+    image: 70131370/usermanagement-service:1.0.0-TEST-7
     env_file:
       - .env
       - .env.override
@@ -105,9 +107,11 @@ services:
       - "3306"
     volumes:
       - /data/usermanagement-db:/var/lib/mysql
+    networks:
+      - microservice-network
 
   gateway-service:
-    image: 70131370/gateway-service:1.0.0-TEST-6
+    image: 70131370/gateway-service:1.0.0-TEST-7
     env_file:
       - .env
       - .env.override
@@ -118,10 +122,10 @@ services:
       - authentication-service
       - javadoc-service
       - admin-service
-    ports:
-      - "80:80"
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+    ports:
+      - "80:80"
     networks:
       - microservice-network
 

@@ -22,12 +22,20 @@ spring:
     url: jdbc:mysql://authentication-db:3306/${AUTHENTICATION_DB}
   jpa:
     hibernate:
-#      TODO Change to validate
       dll-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   instance:
     prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
 
 management:
   endpoints:
