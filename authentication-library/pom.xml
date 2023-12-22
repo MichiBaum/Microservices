@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.0.0-TEST-5</version>
+        <version>1.0.0-TEST-6</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -15,8 +15,8 @@
     <name>authentication-library</name>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
     <dependencies>
