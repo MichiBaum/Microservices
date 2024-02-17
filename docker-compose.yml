@@ -10,7 +10,7 @@ services:
     restart: always
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
-      JVM_OPTS: ${JAVA_MEMORY_SETTINGS}
+      JAVA_TOOL_OPTIONS: ${JAVA_MEMORY_SETTINGS}
     expose:
       - "8761"
     networks:
@@ -26,7 +26,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
-      JVM_OPTS: ${JAVA_MEMORY_SETTINGS}
+      JAVA_TOOL_OPTIONS: ${JAVA_MEMORY_SETTINGS}
     expose:
       - "80"
     networks:
@@ -42,7 +42,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
-      JVM_OPTS: ${JAVA_MEMORY_SETTINGS}
+      JAVA_TOOL_OPTIONS: ${JAVA_MEMORY_SETTINGS}
     expose:
       - "80"
     networks:
@@ -58,7 +58,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
-      JVM_OPTS: ${JAVA_MEMORY_SETTINGS}
+      JAVA_TOOL_OPTIONS: ${JAVA_MEMORY_SETTINGS}
     expose:
       - "80"
     networks:
@@ -93,7 +93,7 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       DATABASE: ${USERMANAGEMENT_DB}
-      JVM_OPTS: ${JAVA_MEMORY_SETTINGS}
+      JAVA_TOOL_OPTIONS: ${JAVA_MEMORY_SETTINGS}
     expose:
       - "80"
     networks:
@@ -125,7 +125,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
-      JVM_OPTS: ${JAVA_MEMORY_SETTINGS}
+      JAVA_TOOL_OPTIONS: ${JAVA_MEMORY_SETTINGS}
     ports:
       - "80:80"
     networks:
@@ -141,7 +141,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
-      JVM_OPTS: ${JAVA_MEMORY_SETTINGS}
+      JAVA_TOOL_OPTIONS: ${JAVA_MEMORY_SETTINGS}
     expose:
       - "80"
     networks:
