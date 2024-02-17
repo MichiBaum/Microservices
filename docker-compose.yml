@@ -12,6 +12,11 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "8761"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     networks:
       - microservice-network
 
@@ -27,6 +32,11 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     networks:
       - microservice-network
 
@@ -42,6 +52,11 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     networks:
       - microservice-network
 
@@ -57,6 +72,11 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     networks:
       - microservice-network
 
@@ -71,6 +91,11 @@ services:
       MYSQL_DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "3306"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     volumes:
       - /data/authentication-db:/var/lib/mysql
     networks:
@@ -91,6 +116,11 @@ services:
       DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "80"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     networks:
       - microservice-network
 
@@ -105,6 +135,11 @@ services:
       MYSQL_DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "3306"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     volumes:
       - /data/usermanagement-db:/var/lib/mysql
     networks:
@@ -122,6 +157,11 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     ports:
       - "80:80"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     networks:
       - microservice-network
 
@@ -137,6 +177,11 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 80M
     networks:
       - microservice-network
 
