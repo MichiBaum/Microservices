@@ -7,7 +7,7 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
   application:
-    name: usermanagement-service
+    name: zipkin-service
   cloud:
     discovery:
       client:
@@ -15,17 +15,6 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
-  datasource:
-    username: root
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://usermanagement-db:3306/${USERMANAGEMENT_DB}
-  jpa:
-    hibernate:
-      dll-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   instance:

@@ -18,7 +18,7 @@ spring:
   datasource:
     username: root
     password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://authentication-db:3306/${AUTHENTICATION_DB}
   jpa:
     hibernate:

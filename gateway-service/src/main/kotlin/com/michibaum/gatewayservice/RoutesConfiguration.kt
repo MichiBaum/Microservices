@@ -1,7 +1,9 @@
 package com.michibaum.gatewayservice
 
+import com.michibaum.permission_library.Permissions
 import org.springframework.cloud.gateway.route.RouteLocator
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
+import org.springframework.cloud.gateway.route.builder.filters
 import org.springframework.cloud.gateway.route.builder.routes
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,7 +16,7 @@ class RoutesConfiguration {
         return builder.routes {
             route {
                 host("admin.michibaum.ch")
-//                filters { AuthorizationPreFilter() } // Permissions.Admin_Service.CAN_SEND_REQUEST
+//                filters { AuthorizationPreFilter(Permissions.Admin_Service.CAN_SEND_REQUEST) }
                 uri("lb://admin-service")
             }
             route {
@@ -24,7 +26,7 @@ class RoutesConfiguration {
             }
             route {
                 host("javadoc.michibaum.ch")
-//                filters { AuthorizationPreFilter() } // Permissions.JavaDoc_Service.CAN_READ
+//                filters { AuthorizationPreFilter(Permissions.JavaDoc_Service.CAN_READ) }
                 uri("lb://javadoc-service")
             }
             route {
@@ -36,6 +38,11 @@ class RoutesConfiguration {
                 host("usermanagement.michibaum.ch")
 //                filters { AuthorizationPreFilter() }
                 uri("lb://usermanagement-service")
+            }
+            route {
+                host("zipkin.michibaum.ch")
+//                filters { AuthorizationPreFilter() }
+                uri("lb://zipkin-service")
             }
             route {
                 host("google.michibaum.ch")
