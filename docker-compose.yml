@@ -154,6 +154,8 @@ services:
     container_name: zipkin-db
     # ports:
     #   - 3306:3306
+    networks:
+      - microservice-network
 
   # The zipkin process services the UI, and also exposes a POST endpoint that
   # instrumentation can send trace data to. Scribe is disabled by default.
@@ -176,6 +178,8 @@ services:
       # - 9410:9410
     depends_on:
       - zipkin-db
+    networks:
+      - microservice-network
 
   # Adds a cron to process spans since midnight every hour, and all spans each day
   # This data is served by http://192.168.99.100:8080/dependency
@@ -197,6 +201,8 @@ services:
       # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
     depends_on:
       - zipkin-db
+    networks:
+      - microservice-network
 
 
 #  Matomo
