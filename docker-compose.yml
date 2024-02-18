@@ -160,8 +160,8 @@ services:
     container_name: zipkin
     # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
     environment:
-      - STORAGE_TYPE=mysql
-      - MYSQL_HOST=zipkin-db
+      - STORAGE_TYPE=mem
+#      - MYSQL_HOST=zipkin-db
       # Uncomment to enable scribe
       # - SCRIBE_ENABLED=true
       # Uncomment to enable self-tracing
