@@ -28,6 +28,11 @@ spring:
         enabled: true
         username: admin
         password: admin
+  zipkin:
+    base-url: http://zipkin:9411/
+  sleuth:
+    sampler:
+      probability: 1.0
 
 eureka:
   instance:

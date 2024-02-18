@@ -29,6 +29,11 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
+  zipkin:
+    base-url: http://zipkin:9411/
+  sleuth:
+    sampler:
+      probability: 1.0
 
 eureka:
   instance:
