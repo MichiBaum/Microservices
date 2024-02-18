@@ -1,1 +1,1 @@
-docker compose up --build -d
+docker compose up --build -d registry-service authentication-db usermanagement-db gateway-service zipkin-db zipkin zipkin-dependencies
