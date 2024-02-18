@@ -134,21 +134,6 @@ services:
     networks:
       - microservice-network
 
-#  zipkin-service:
-#    image: 70131370/zipkin-service:1.0.0-TEST-8
-#    env_file:
-#      - .env
-#      - .env.override
-#    restart: always
-#    depends_on:
-#      - registry-service
-#    environment:
-#      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
-#    expose:
-#      - "80"
-#    networks:
-#      - microservice-network
-
   zipkin-db:
     image: openzipkin/zipkin-mysql
     container_name: zipkin-db
