@@ -28,18 +28,6 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-brave</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.zipkin.reporter2</groupId>
-            <artifactId>zipkin-reporter-brave</artifactId>
-        </dependency>
-        <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
@@ -84,7 +72,7 @@
                         <time>${maven.build.timestamp}</time>
                     </additionalProperties>
                     <excludeDevtools>true</excludeDevtools>
-                    <optimizedLaunch>true</optimizedLaunch>
+                    <optimizedLaunch>false</optimizedLaunch>
                     <image>
                         <!--suppress UnresolvedMavenProperty -->
                         <name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>

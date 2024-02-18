@@ -80,7 +80,7 @@
 						<time>${maven.build.timestamp}</time>
 					</additionalProperties>
 					<excludeDevtools>true</excludeDevtools>
-					<optimizedLaunch>true</optimizedLaunch>
+					<optimizedLaunch>false</optimizedLaunch>
 					<image>
 						<!--suppress UnresolvedMavenProperty -->
 						<name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
