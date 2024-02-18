@@ -28,11 +28,6 @@ spring:
         enabled: true
         username: admin
         password: admin
-  zipkin:
-    base-url: http://localhost:9411/
-  sleuth:
-    sampler:
-      probability: 1.0
 
 eureka:
   instance:
@@ -66,6 +61,11 @@ management:
   info:
     git:
       mode: full
+  tracing:
+    brave:
+      span-joining-supported: true
+    sampling:
+      probability: 1.0
 
 logging:
   level:

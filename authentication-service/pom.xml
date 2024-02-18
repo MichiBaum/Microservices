@@ -65,6 +65,17 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing</artifactId>
         </dependency>
+        <!--OpenTelemetry Tracer: Bridges the Micrometer Observation API to OpenTelemetry-->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
+        </dependency>
+
+        <!--Reporter/Zipkin with OpenTelemetry: Reports traces to Zipkin-->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-zipkin</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

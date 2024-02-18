@@ -60,6 +60,8 @@ services:
       - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
+      DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "80"
     networks:
