@@ -143,7 +143,6 @@
         <module>registry-service</module>
         <module>authentication-service</module>
         <module>usermanagement-service</module>
-        <module>zipkin-service</module>
     </modules>
 
     <build>
