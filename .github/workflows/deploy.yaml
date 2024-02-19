@@ -17,6 +17,6 @@ jobs:
       - name: Generate Javadoc
         run: mvn javadoc:aggregate
 
-      - name: Maven Clean install
+      - name: Maven package
 #        Windows: ./mvnw compile jib:build "-DdockerHub.username=${{secrets.DOCKER_USERNAME}}" "-DdockerHub.password=${{secrets.DOCKER_PASSWORD}}"
-        run: mvn compile jib:build -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
+        run: mvn package -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
