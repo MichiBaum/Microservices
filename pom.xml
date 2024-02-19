@@ -143,6 +143,7 @@
         <module>registry-service</module>
         <module>authentication-service</module>
         <module>usermanagement-service</module>
+        <module>website-service</module>
     </modules>
 
     <build>

@@ -1,6 +1,9 @@
 name: Build and Publish
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -8,11 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK 21
+
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '21'
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Angular install
+        run: npm --prefix ./website install ./website
+
+      - name: Angular build
+        run: npm run --prefix website build-production
 
       - name: Generate Javadoc
         run: mvn javadoc:aggregate

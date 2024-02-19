@@ -175,6 +175,29 @@ services:
           cpus: '0.20'
           memory: 250M
 
+  website-service:
+    image: 70131370/website-service
+    env_file:
+      - .env
+      - .env.override
+    restart: always
+    depends_on:
+      - registry-service
+    environment:
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+    expose:
+      - "80"
+    networks:
+      - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
+
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
 # https://github.com/matomo-org/docker

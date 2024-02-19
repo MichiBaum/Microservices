@@ -20,9 +20,11 @@ There are microservices build with spring, spring cloud and so forth.
 There are these microservices:
 - [Admin Service](./admin-service/README.md)
 - [Authentication Service](./authentication-service/README.md)
+- [Gateway Service](./gateway-service/README.md)
 - [Javadoc Service](./javadoc-service/README.md)
 - [Registry Service](./registry-service/README.md)
 - [Usermanagement Service](./usermanagement-service/README.md)
+- [Website Service](./website-service/README.md)
 
 ## Release
 
@@ -41,6 +43,24 @@ Build docker images:
 
     mvnw spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
 
+### Container
+
+#### Up
+
+    docker compose up --build -d
+
+#### Down
+
+    docker compose down
+
+#### Logs
+
+    # Follow
+    docker compose logs -f
+
+    # Single container 
+    docker compose logs ´name´
+
 ### Change HOSTS file
 
 #### Windows
@@ -54,6 +74,7 @@ In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
     127.0.0.1 javadoc.michibaum.ch
     127.0.0.1 usermanagement.michibaum.ch
     127.0.0.1 authentication.michibaum.ch
+    127.0.0.1 michibaum.ch
 
 #### Linux
 

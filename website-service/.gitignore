@@ -4,4 +4,4 @@ target/
 !**/src/test/**/target/
 
 # That you can not accidentally commit this folder
-/src/main/resources/apidocs/
+src/main/resources/angular
