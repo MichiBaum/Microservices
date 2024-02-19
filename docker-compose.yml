@@ -8,14 +8,20 @@ services:
       - .env
       - .env.override
     restart: always
-    depends_on:
-      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "8761"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   admin-service:
     image: 70131370/admin-service:1.0.0-TEST-8
@@ -25,13 +31,20 @@ services:
     restart: always
     depends_on:
       - registry-service
-      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   javadoc-service:
     image: 70131370/javadoc-service:1.0.0-TEST-8
@@ -41,13 +54,20 @@ services:
     restart: always
     depends_on:
       - registry-service
-      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   authentication-service:
     image: 70131370/authentication-service:1.0.0-TEST-8
@@ -57,7 +77,6 @@ services:
     restart: always
     depends_on:
       - registry-service
-      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
@@ -66,6 +85,14 @@ services:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   authentication-db:
     image: mysql:8.0
@@ -92,7 +119,6 @@ services:
     depends_on:
       - registry-service
       - usermanagement-db
-      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
@@ -101,6 +127,14 @@ services:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   usermanagement-db:
     image: mysql:8.0
@@ -126,13 +160,20 @@ services:
     restart: always
     depends_on:
       - registry-service
-      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     ports:
       - "80:80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
