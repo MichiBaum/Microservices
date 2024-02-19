@@ -40,11 +40,6 @@ class RoutesConfiguration {
                 uri("lb://usermanagement-service")
             }
             route {
-                host("zipkin.michibaum.ch")
-//                filters { AuthorizationPreFilter() }
-                uri("lb://zipkin-service")
-            }
-            route {
                 host("google.michibaum.ch")
 //                filters { AuthorizationPreFilter() }
                 uri("https://www.google.ch/")

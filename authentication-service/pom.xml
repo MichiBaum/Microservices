@@ -93,44 +93,30 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.0</version>
                 <configuration>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                    <additionalProperties>
-                        <time>${maven.build.timestamp}</time>
-                    </additionalProperties>
-                    <excludeDevtools>true</excludeDevtools>
-                    <optimizedLaunch>false</optimizedLaunch>
-                    <image>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <publish>${dockerHub.publish}</publish>
-                        <env>
-                            <BP_JVM_VERSION>21</BP_JVM_VERSION>
-                        </env>
-                    </image>
-                    <docker>
-                        <publishRegistry>
+                    <from>
+                        <image>eclipse-temurin:21-jre</image>
+                        <auth>
                             <!--suppress UnresolvedMavenProperty -->
                             <username>${dockerHub.username}</username>
                             <!--suppress UnresolvedMavenProperty -->
                             <password>${dockerHub.password}</password>
-                            <url>${dockerHub.url}</url>
-                        </publishRegistry>
-                    </docker>
+                        </auth>
+                    </from>
+                    <to>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <image>docker.io/${dockerHub.username}/${project.artifactId}</image>
+                        <auth>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <username>${dockerHub.username}</username>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <password>${dockerHub.password}</password>
+                        </auth>
+                    </to>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build-info</goal>
-                            <goal>build-image</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
