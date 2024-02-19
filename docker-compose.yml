@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   registry-service:
-    image: 70131370/registry-service:1.0.0-TEST-8
+    image: 70131370/registry-service
     env_file:
       - .env
       - .env.override
@@ -24,7 +24,7 @@ services:
           memory: 250M
 
   admin-service:
-    image: 70131370/admin-service:1.0.0-TEST-8
+    image: 70131370/admin-service
     env_file:
       - .env
       - .env.override
@@ -47,7 +47,7 @@ services:
           memory: 250M
 
   javadoc-service:
-    image: 70131370/javadoc-service:1.0.0-TEST-8
+    image: 70131370/javadoc-service
     env_file:
       - .env
       - .env.override
@@ -70,7 +70,7 @@ services:
           memory: 250M
 
   authentication-service:
-    image: 70131370/authentication-service:1.0.0-TEST-8
+    image: 70131370/authentication-service
     env_file:
       - .env
       - .env.override
@@ -111,7 +111,7 @@ services:
       - microservice-network
 
   usermanagement-service:
-    image: 70131370/usermanagement-service:1.0.0-TEST-8
+    image: 70131370/usermanagement-service
     env_file:
       - .env
       - .env.override
@@ -153,7 +153,7 @@ services:
       - microservice-network
 
   gateway-service:
-    image: 70131370/gateway-service:1.0.0-TEST-8
+    image: 70131370/gateway-service
     env_file:
       - .env
       - .env.override
