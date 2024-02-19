@@ -17,7 +17,6 @@ class AuthorizationPreFilter() : GatewayFilter {
     }
 
     override fun filter(exchange: ServerWebExchange?, chain: GatewayFilterChain?): Mono<Void> {
-//        ServerWebExchangeUtils.
         exchange?.let {
              permissions.get(0).toPermissionString()
         }

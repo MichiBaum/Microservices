@@ -7,7 +7,7 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
   application:
-    name: website-service
+    name: javadoc-service
   cloud:
     discovery:
       client:
@@ -15,6 +15,9 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
+  web:
+    resources:
+      static-locations: classpath:/angular/browser
 
 
 eureka:
