@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Angular install
+        run: npm --prefix ./website install ./website
+
       - name: Angular build
         run: npm run --prefix website build-production
 
