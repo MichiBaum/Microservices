@@ -29,8 +29,8 @@ jobs:
       - name: Angular build
         run: npm run --prefix website build-production
 
-      - name: Generate Javadoc
-        run: mvn javadoc:aggregate
+#      - name: Generate Javadoc
+#        run: mvn javadoc:aggregate
 
       - name: Maven package
 #        Windows: ./mvnw compile jib:build "-DdockerHub.username=${{secrets.DOCKER_USERNAME}}" "-DdockerHub.password=${{secrets.DOCKER_PASSWORD}}"
