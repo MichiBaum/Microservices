@@ -2,7 +2,8 @@ server:
   shutdown: graceful
   undertow:
     url-charset: UTF-8
-  port: 8080
+  port: 80
+
 
 spring:
   lifecycle:
@@ -10,6 +11,11 @@ spring:
   application:
     name: gateway-service
   cloud:
+    gateway:
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
     discovery:
       client:
         health-indicator:
@@ -23,10 +29,15 @@ spring:
         username: admin
         password: admin
 
-
 eureka:
   instance:
     prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
 
 management:
   endpoints:
@@ -50,3 +61,12 @@ management:
   info:
     git:
       mode: full
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE

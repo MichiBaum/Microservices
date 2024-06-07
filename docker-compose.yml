@@ -3,107 +3,200 @@ version: '3.7'
 services:
 
   registry-service:
-    image: 70131370/registry-service:1.0.0-TEST-4
+    image: 70131370/registry-service
+    env_file:
+      - .env
+      - .env.override
     restart: always
     environment:
-      spring_profiles_active: prod
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "8761"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   admin-service:
-    image: 70131370/admin-service:1.0.0-TEST-4
+    image: 70131370/admin-service
+    env_file:
+      - .env
+      - .env.override
     restart: always
     depends_on:
       - registry-service
     environment:
-      spring_profiles_active: prod
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   javadoc-service:
-    image: 70131370/javadoc-service:1.0.0-TEST-4
+    image: 70131370/javadoc-service
+    env_file:
+      - .env
+      - .env.override
     restart: always
     depends_on:
       - registry-service
     environment:
-      spring_profiles_active: prod
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   authentication-service:
-    image: 70131370/authentication-service:1.0.0-TEST-4
+    image: 70131370/authentication-service
+    env_file:
+      - .env
+      - .env.override
     restart: always
     depends_on:
       - registry-service
     environment:
-      spring_profiles_active: prod
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
+      DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   authentication-db:
     image: mysql:8.0
+    env_file:
+      - .env
+      - .env.override
     restart: always
     environment:
-      spring_profiles_active: prod
       MYSQL_ROOT_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
       MYSQL_DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "3306"
     volumes:
       - /data/authentication-db:/var/lib/mysql
+    networks:
+      - microservice-network
 
   usermanagement-service:
-    image: 70131370/usermanagement-service:1.0.0-TEST-4
+    image: 70131370/usermanagement-service
+    env_file:
+      - .env
+      - .env.override
     restart: always
     depends_on:
       - registry-service
       - usermanagement-db
     environment:
-      spring_profiles_active: prod
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
   usermanagement-db:
     image: mysql:8.0
+    env_file:
+      - .env
+      - .env.override
     restart: always
     environment:
-      spring_profiles_active: prod
       MYSQL_ROOT_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       MYSQL_DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "3306"
     volumes:
       - /data/usermanagement-db:/var/lib/mysql
+    networks:
+      - microservice-network
 
   gateway-service:
-    image: 70131370/gateway-service:1.0.0-TEST-4
+    image: 70131370/gateway-service
+    env_file:
+      - .env
+      - .env.override
     restart: always
     depends_on:
       - registry-service
-      - usermanagement-service
-      - authentication-service
-      - javadoc-service
-      - admin-service
+    environment:
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     ports:
       - "80:80"
+    networks:
+      - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
+
+  website-service:
+    image: 70131370/website-service
+    env_file:
+      - .env
+      - .env.override
+    restart: always
+    depends_on:
+      - registry-service
     environment:
-      spring_profiles_active: prod
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "80"
     networks:
       - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76

@@ -18,16 +18,24 @@ spring:
   datasource:
     username: root
     password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://authentication-db:3306/${DATABASE}
   jpa:
     hibernate:
-#      TODO Change to validate
       dll-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   instance:
     prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
 
 management:
   endpoints:

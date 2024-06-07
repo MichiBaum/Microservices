@@ -6,7 +6,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.0.0-TEST-4</version>
+        <version>1.0.0-TEST-8</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -14,8 +14,8 @@
     <name>registry-service</name>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -26,11 +26,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>
@@ -59,39 +54,43 @@
 
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.0</version>
                 <configuration>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                    <additionalProperties>
-                        <time>${maven.build.timestamp}</time>
-                    </additionalProperties>
-                    <excludeDevtools>true</excludeDevtools>
-                    <optimizedLaunch>true</optimizedLaunch>
-                    <image>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <name>registry.hub.docker.com/${dockerHub.username}/${project.artifactId}:${project.version}</name>
-                        <publish>true</publish>
-                    </image>
-                    <docker>
-                        <publishRegistry>
+                    <from>
+                        <image>eclipse-temurin:21-jre</image>
+                        <auth>
                             <!--suppress UnresolvedMavenProperty -->
                             <username>${dockerHub.username}</username>
                             <!--suppress UnresolvedMavenProperty -->
                             <password>${dockerHub.password}</password>
-                            <url>${dockerHub.url}</url>
-                        </publishRegistry>
-                    </docker>
+                        </auth>
+                    </from>
+                    <to>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <image>docker.io/${dockerHub.username}/${project.artifactId}</image>
+                        <auth>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <username>${dockerHub.username}</username>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <password>${dockerHub.password}</password>
+                        </auth>
+                    </to>
                 </configuration>
                 <executions>
                     <execution>
+                        <phase>package</phase>
                         <goals>
-                            <goal>build-info</goal>
-                            <goal>build-image</goal>
+                            <goal>build</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -1,5 +1,6 @@
 package com.michibaum.javadoc_service
 
+import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.scheduling.annotation.EnableScheduling
@@ -11,5 +12,7 @@ import org.springframework.boot.runApplication
 class JavadocServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<JavadocServiceApplication>(*args)
+    runApplication<JavadocServiceApplication>(*args){
+        setBannerMode(Banner.Mode.OFF)
+    }
 }
