@@ -11,18 +11,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.3.0</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-cloud.version>2023.0.0</spring-cloud.version>
-        <spring-boot-admin.version>3.2.2</spring-boot-admin.version>
+        <spring-cloud.version>2023.0.2</spring-cloud.version>
+        <spring-boot-admin.version>3.3.1</spring-boot-admin.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <java.version>21</java.version>
-        <kotlin.version>1.9.22</kotlin.version>
+        <kotlin.version>1.9.24</kotlin.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
@@ -158,7 +158,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.3</version>
+                <version>3.7.0</version>
                 <configuration>
                     <outputDirectory>${basedir}/javadoc/src/main/resources</outputDirectory>
                     <reportOutputDirectory>${basedir}/javadoc/src/main/resources</reportOutputDirectory>
