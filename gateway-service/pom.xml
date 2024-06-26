@@ -58,6 +58,17 @@
 			<version>1.0.0-TEST-8</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.michibaum</groupId>
+			<artifactId>authentication-library</artifactId>
+			<version>1.0.0-TEST-8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.michibaum</groupId>
+			<artifactId>authentication-library</artifactId>
+			<version>1.0.0-TEST-8</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
