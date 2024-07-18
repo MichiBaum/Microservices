@@ -56,8 +56,7 @@ class RoutesConfiguration (private val authenticationFilter: AuthenticationFilte
             route {
                 host("michibaum.ch")
                 filters {
-                    authenticationFilter
-                    AuthorizationPreFilter()
+
                 }
                 uri("lb://website-service")
             }

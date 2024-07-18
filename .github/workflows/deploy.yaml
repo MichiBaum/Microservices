@@ -1,9 +1,11 @@
 name: Build and Publish
 
+# TODO Remove develop
 on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   build:
