@@ -7,7 +7,7 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
   application:
-    name: website-service
+    name: javadoc-service
   cloud:
     discovery:
       client:
