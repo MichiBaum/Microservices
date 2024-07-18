@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.0.0-TEST-8</version>
+        <version>1.0.0-TEST-9</version>
     </parent>
 
     <artifactId>authentication-service</artifactId>
@@ -73,12 +73,12 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>authentication-library</artifactId>
-            <version>1.0.0-TEST-8</version>
+            <version>1.0.0-TEST-9</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>usermanagement-library</artifactId>
-            <version>1.0.0-TEST-8</version>
+            <version>1.0.0-TEST-9</version>
         </dependency>
 
     </dependencies>

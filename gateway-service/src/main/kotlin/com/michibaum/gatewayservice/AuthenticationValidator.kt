@@ -9,8 +9,8 @@ class AuthenticationValidator: JWSValidator() {
 
     var publicKey: RSAPublicKey? = null
 
-    fun valid(token: String): Boolean {
-        return this.validate(token, publicKey)
-    }
+    fun valid(token: String): Boolean =
+        this.validate(token, publicKey)
+
 
 }
