@@ -9,24 +9,34 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @Component
-class AuthenticationFilter(private val authenticationValidator: AuthenticationValidator): GatewayFilter {
+class AuthenticationFilter(
+    private val authenticationValidator: AuthenticationValidator
+) : GatewayFilter {
 
-    override fun filter(exchange: ServerWebExchange?, chain: GatewayFilterChain?): Mono<Void> {
+    override fun filter(
+        exchange: ServerWebExchange?,
+        chain: GatewayFilterChain?
+    ): Mono<Void> {
         exchange?.let {
             val authHeaders = it.request.headers["Authorization"]
-            val headerExists = (authHeaders?.size ?: 0) == 1
-            if(headerExists){
-                val authHeader = authHeaders!![0]
-                val valid = authenticationValidator.valid(authHeader)
-                if(valid) {
-                    return chain!!.filter(exchange); // Forward to route
+            val headerExists = authHeaders?.size == 1
+
+            return if (headerExists) {
+                val authHeader = authHeaders?.get(0)
+                if (authenticationValidator.valid(authHeader ?: "")) {
+                    chain?.filter(exchange) ?: Mono.empty() // Continue the filter chain if it isn't null. If it is null, return an empty Mono.
+                } else {
+                    handleAuthenticationFailure(it)
                 }
+            } else {
+                handleAuthenticationFailure(it)
             }
         }
-        return exchange!!.let { this.onError(it) }
+
+        return Mono.error(Exception("ServerWebExchange or GatewayFilterChain is null"))
     }
 
-    private fun onError(exchange: ServerWebExchange): Mono<Void> {
+    private fun handleAuthenticationFailure(exchange: ServerWebExchange): Mono<Void> {
         val response: ServerHttpResponse = exchange.response
         response.setStatusCode(HttpStatus.FORBIDDEN)
         return response.setComplete()

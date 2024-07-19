@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import {Footer} from "primeng/api";
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [
+    Footer
+  ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
