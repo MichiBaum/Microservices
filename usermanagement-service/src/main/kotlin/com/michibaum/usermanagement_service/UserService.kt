@@ -2,6 +2,7 @@ package com.michibaum.usermanagement_service
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class UserService(
@@ -9,21 +10,19 @@ class UserService(
     private val passwordEncoder: PasswordEncoder
 ) {
 
-    fun getUser(id: String) =
-        userRepository.findById(id)
-            .convertToNullable()
+    fun getUser(id: String) = findUserById(id)
 
     fun update(id: String, updateUserDto: UpdateUserDto): User? =
-        userRepository.findById(id)
-            .convertToNullable()
+        this.findUserById(id)
             ?.copy(
                 username = updateUserDto.username,
                 email = updateUserDto.email,
-                password = encodePassword(updateUserDto.password)
+                password = passwordEncoder.encode(updateUserDto.password)
             )
             ?.let { userRepository.save(it) }
 
-    fun encodePassword(password: String): String =
-        passwordEncoder.encode(password)
+    private fun findUserById(id: String) = userRepository.findById(id).orElseNull()
 
 }
+
+private fun <T> Optional<T>.orElseNull(): T? = this.orElse(null)

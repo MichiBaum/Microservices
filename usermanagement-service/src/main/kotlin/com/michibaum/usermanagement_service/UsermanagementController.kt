@@ -35,11 +35,8 @@ class UsermanagementController (
 
 fun convertUserToDto(user: User?) =
     user?.let {
-        ReturnUserDto(user.id, user.username, user.email)
+        ReturnUserDto(user.id.toString(), user.username, user.email)
     }
-
-fun <T> Optional<T>.convertToNullable(): T? =
-    this.get()
 
 fun <T> toResponseEntity(nullableEntity: T?): ResponseEntity<T> =
     nullableEntity?.let {

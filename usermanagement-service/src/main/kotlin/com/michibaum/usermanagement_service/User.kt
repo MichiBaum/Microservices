@@ -1,17 +1,16 @@
 package com.michibaum.usermanagement_service
 
-import jakarta.persistence.GeneratedValue
-import org.hibernate.annotations.GenericGenerator
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import org.hibernate.annotations.UuidGenerator
+import java.util.*
 
 @Entity
 data class User (
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    val id: String,
+    @UuidGenerator
+    val id: UUID,
 
     @Column(nullable = false, unique = true)
     val username: String,
@@ -22,7 +21,7 @@ data class User (
     @Column(nullable = false)
     val password: String
 ) {
-    constructor() : this("", "", "", "") {
+    constructor() : this(UUID.randomUUID(), "", "", "") {
 
     }
 }
