@@ -26,6 +26,12 @@ class RoutesConfiguration(private val authenticationFilter: AuthenticationFilter
         const val WEBSITE_SERVICE_URI = "lb://website-service"
     }
 
+    /**
+     * Creates and returns a RouteLocator bean that defines the routes for the application.
+     *
+     * @param builder The RouteLocatorBuilder used to build the routes.
+     * @return A RouteLocator object that represents the defined routes.
+     */
     @Bean
     fun routes(builder: RouteLocatorBuilder): RouteLocator {
         return builder.routes {

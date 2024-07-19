@@ -29,6 +29,7 @@ spring:
     admin:
       client:
         enabled: true
+#        ?
         username: admin
         password: admin
 
