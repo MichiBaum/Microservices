@@ -33,7 +33,7 @@ jobs:
       - name: Maven package
         run: |
           if [[ "${{github.ref}}" == "refs/heads/develop" ]]; then
-            mvn package
+            mvn test
           else
             mvn package -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
           fi

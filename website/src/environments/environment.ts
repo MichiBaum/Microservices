@@ -1,3 +1,3 @@
 export const environment = {
-  url: 'http:michibaum.ch'
+  url: 'http:michibaum.ch/'
 };
