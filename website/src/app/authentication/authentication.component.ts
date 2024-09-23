@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
+import {FloatLabelModule} from "primeng/floatlabel";
+import {AuthService} from "../core/services/auth.service";
 
 @Component({
   selector: 'app-authentication',
@@ -11,7 +13,9 @@ import {PasswordModule} from "primeng/password";
     ReactiveFormsModule,
     Button,
     InputTextModule,
-    PasswordModule
+    PasswordModule,
+    FloatLabelModule,
+    FormsModule
   ],
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.scss'
@@ -20,7 +24,7 @@ export class AuthenticationComponent {
 
   loginFormGroup = new FormGroup(
     {
-      name: new FormControl('', [
+      username: new FormControl('', [
         Validators.required
       ]),
       password: new FormControl('', [
@@ -29,12 +33,14 @@ export class AuthenticationComponent {
     }
   );
 
-  login(){
-
+  constructor(private authService: AuthService) {
   }
 
-  loginOnEnter(event: KeyboardEvent){
-
+  login(){
+    if(!this.loginFormGroup.valid)
+      return;
+    var values = this.loginFormGroup.value
+    this.authService.login(values.username ?? '', values.password ?? '')
   }
 
 }

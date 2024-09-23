@@ -23,6 +23,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <java.version>21</java.version>
         <kotlin.version>1.9.24</kotlin.version>
+        <mockk.version>1.13.12</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>

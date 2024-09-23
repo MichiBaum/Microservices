@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service
 import java.security.KeyPair
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
+import java.time.Instant
 
 @Service
 @RequiredArgsConstructor
@@ -21,13 +22,16 @@ class AuthenticationService (
                 keyPair.public.encoded
         )
 
-    fun generateJWS(): String? {
+    fun generateJWS(username: String): String? {
         val publicKey: RSAPublicKey = keyPair.public as RSAPublicKey
         val privateKey: RSAPrivateKey = keyPair.private as RSAPrivateKey
         val algorithm = Algorithm.RSA256(publicKey, privateKey)
         return JWT.create()
                 .withHeader(jwsHeaders())
                 .withIssuer("authentication-service")
+                .withSubject(username)
+                .withExpiresAt(Instant.now().plusSeconds(60*60*8))
+                .withIssuedAt(Instant.now())
                 .sign(algorithm)
     }
 

@@ -2,17 +2,17 @@
   <div class="p-col-6 p-offset-2">
     <div class="p-grid p-dir-col p-justify-center">
       <form [formGroup]="loginFormGroup">
-        <div class="p-col">
-          <label for="nameField">Benutzername</label>
-          <input type="text" pInputText formControlName="name" id="nameField" (keydown)="loginOnEnter($event)">
+        <div class="p-col p-1">
+          <label for="usernameField">Username</label>
+          <input type="text" pInputText formControlName="username" id="usernameField">
         </div>
 
-        <div class="p-col">
-          <label for="passwordField">Passwort</label>
-          <input type="password" pPassword formControlName="password" id="passwordField" (keydown)="loginOnEnter($event)"/>
+        <div class="p-col p-1">
+          <label for="passwordField">Password</label>
+          <input type="password" pPassword formControlName="password" id="passwordField"/>
         </div>
       </form>
-      <div class="p-col">
+      <div class="p-col p-1">
         <p-button label="login" (onClick)="login()"></p-button>
       </div>
     </div>
