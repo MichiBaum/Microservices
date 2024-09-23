@@ -2,37 +2,39 @@ import { Routes } from '@angular/router';
 import {AuthenticationComponent} from "./authentication/authentication.component";
 import {MicroserviceOverviewComponent} from "./microservice-overview/microservice-overview.component";
 import {AboutMeComponent} from "./about-me/about-me.component";
-import {hasPermissionGuard, isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
 import {HomeComponent} from "./home/home.component";
 import {ImprintComponent} from "./imprint/imprint.component";
 import {Sides} from "./core/config/sides";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: Sides.default.navigation,
     component: HomeComponent,
-    // canActivate: [isPermittedGuard]
+    canActivate: Sides.default.canActivate
   },
   {
-    path: 'home',
+    path: Sides.home.navigation,
     component: HomeComponent,
-    // canActivate: [isPermittedGuard]
+    canActivate: Sides.home.canActivate
   },
   {
-    path: 'login',
-    component: AuthenticationComponent
+    path: Sides.login.navigation,
+    component: AuthenticationComponent,
+    canActivate: Sides.login.canActivate
   },
   {
-    path: 'microservices',
+    path: Sides.microservices.navigation,
     component: MicroserviceOverviewComponent,
-    // canActivate: [isPermittedGuard]
+    canActivate: Sides.microservices.canActivate
   },
   {
     path: Sides.imprint.navigation,
-    component: ImprintComponent
+    component: ImprintComponent,
+    canActivate: Sides.imprint.canActivate
   },
   {
-    path: 'about-me',
-    component: AboutMeComponent
+    path: Sides.about_me.navigation,
+    component: AboutMeComponent,
+    canActivate: Sides.about_me.canActivate
   }
 ];

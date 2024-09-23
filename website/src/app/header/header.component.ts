@@ -1,12 +1,11 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavigationComponent} from "./navigation/navigation.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {PrimeTemplate} from "primeng/api";
-import {animate, state, style, transition, trigger} from "@angular/animations";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {PrimeNgBase} from "../core/models/primeng-base.model";
-import {LanguageConfig, languages} from "../core/config/language.config";
+import {LanguageConfig} from "../core/config/language.config";
 
 @Component({
   selector: 'app-header',
