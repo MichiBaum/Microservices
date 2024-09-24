@@ -93,7 +93,7 @@ File: */etc/hosts*
 
 ## Collaborators
 
-<!-- readme: collaborators -start --> 
+<!-- readme: collaborators -start -->
 <table>
 <tr>
     <td align="center">
@@ -108,7 +108,7 @@ File: */etc/hosts*
 
 ## Contributors
 
-<!-- readme: SeverinNauer,contributors -start --> 
+<!-- readme: SeverinNauer,contributors -start -->
 <table>
 <tr>
     <td align="center">
