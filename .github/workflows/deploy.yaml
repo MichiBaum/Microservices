@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   build:
@@ -29,9 +30,10 @@ jobs:
       - name: Angular build
         run: npm run --prefix website build-production
 
-#      - name: Generate Javadoc
-#        run: mvn javadoc:aggregate
-
       - name: Maven package
-#        Windows: ./mvnw compile jib:build "-DdockerHub.username=${{secrets.DOCKER_USERNAME}}" "-DdockerHub.password=${{secrets.DOCKER_PASSWORD}}"
-        run: mvn package -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
+        run: |
+          if [[ "${{github.ref}}" == "refs/heads/develop" ]]; then
+            mvn test
+          else
+            mvn package -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
+          fi

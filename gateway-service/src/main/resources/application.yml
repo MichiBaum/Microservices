@@ -6,6 +6,9 @@ server:
 
 
 spring:
+  threads:
+    virtual:
+      enabled: true
   lifecycle:
     timeout-per-shutdown-phase: 20s
   application:
@@ -26,6 +29,7 @@ spring:
     admin:
       client:
         enabled: true
+#        ?
         username: admin
         password: admin
 

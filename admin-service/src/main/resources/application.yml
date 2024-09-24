@@ -3,7 +3,11 @@ server:
   undertow:
     url-charset: UTF-8
 
+
 spring:
+  threads:
+    virtual:
+      enabled: true
   lifecycle:
     timeout-per-shutdown-phase: 20s
   boot:

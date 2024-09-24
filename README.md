@@ -62,6 +62,8 @@ Build docker images:
     docker compose logs ´name´
 
 ### Change HOSTS file
+*Remember to take Backup before editing your `hosts` file, mistakes there can block your internet access or cause other network-related issues.*
+
 
 #### Windows
 

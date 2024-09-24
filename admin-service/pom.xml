@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.michibaum</groupId>
 		<artifactId>microservice</artifactId>
-		<version>1.0.0-TEST-8</version>
+		<version>1.0.0-TEST-9</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -53,6 +53,18 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.mockk</groupId>
+			<artifactId>mockk-jvm</artifactId>
+			<version>${mockk.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

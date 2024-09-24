@@ -1,0 +1,17 @@
+<p-sidebar
+  [(visible)]="sidebarVisible"
+>
+  <p-menu
+    [model]="navItems"
+  >
+  </p-menu>
+
+  <app-light-dark-mode></app-light-dark-mode>
+</p-sidebar>
+
+<button
+  type="button"
+  (click)="sidebarVisible = true"
+  pButton
+  icon="pi pi-align-left"
+></button>

@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTVerificationException
 import java.security.interfaces.RSAPublicKey
 
-class JWSValidator {
+open class JWSValidator {
     fun validate(token: String?, publicKey: RSAPublicKey?): Boolean {
         try {
             val algorithm = Algorithm.RSA256(publicKey, null)

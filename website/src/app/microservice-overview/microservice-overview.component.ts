@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './microservice-overview.component.html',
-  styleUrl: './microservice-overview.component.css'
+  styleUrl: './microservice-overview.component.scss'
 })
 export class MicroserviceOverviewComponent {
 
