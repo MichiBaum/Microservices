@@ -1,6 +1,7 @@
 package com.michibaum.gatewayservice
 
 import com.michibaum.permission_library.PermissionUtil
+import org.slf4j.LoggerFactory
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
 import org.springframework.web.server.ServerWebExchange
@@ -9,7 +10,7 @@ import reactor.core.publisher.Mono
 
 class AuthorizationPreFilter() : GatewayFilter {
 
-
+    private val logger = LoggerFactory.getLogger(AuthorizationPreFilter::class.java)
     private lateinit var permissions: List<PermissionUtil>
 
     constructor(vararg permissions: PermissionUtil) : this() {
@@ -17,6 +18,7 @@ class AuthorizationPreFilter() : GatewayFilter {
     }
 
     override fun filter(exchange: ServerWebExchange?, chain: GatewayFilterChain?): Mono<Void> {
+        logger.info(requestLog(exchange))
         exchange?.let {
              permissions[0].toPermissionString()
         }

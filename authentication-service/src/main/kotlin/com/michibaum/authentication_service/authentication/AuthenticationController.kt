@@ -1,7 +1,6 @@
 package com.michibaum.authentication_service.authentication
 
 import org.springframework.web.bind.annotation.RestController
-import lombok.RequiredArgsConstructor
 import com.michibaum.authentication_library.AuthenticationEndpoints
 import com.michibaum.authentication_service.config.UsermanagementClient
 import org.springframework.web.bind.annotation.PostMapping
@@ -10,12 +9,9 @@ import com.michibaum.usermanagement_library.LoginDto
 import com.michibaum.authentication_library.PublicKeyDto
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ResponseBody
 
 @RestController
-@RequiredArgsConstructor
 class AuthenticationController (
     val authenticationService: AuthenticationService,
     val usermanagementClient: UsermanagementClient

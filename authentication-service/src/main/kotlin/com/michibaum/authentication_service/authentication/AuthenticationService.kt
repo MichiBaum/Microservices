@@ -3,7 +3,6 @@ package com.michibaum.authentication_service.authentication
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.michibaum.authentication_library.PublicKeyDto
-import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import java.security.KeyPair
 import java.security.interfaces.RSAPrivateKey
@@ -11,7 +10,6 @@ import java.security.interfaces.RSAPublicKey
 import java.time.Instant
 
 @Service
-@RequiredArgsConstructor
 class AuthenticationService (
         private val keyPair: KeyPair
 ) {

@@ -1,5 +1,6 @@
 package com.michibaum.gatewayservice
 
+import org.slf4j.LoggerFactory
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
 import org.springframework.http.HttpStatus
@@ -12,6 +13,8 @@ import reactor.core.publisher.Mono
 class AuthenticationFilter(
     private val authenticationValidator: AuthenticationValidator
 ) : GatewayFilter {
+
+    private val logger = LoggerFactory.getLogger(AuthenticationFilter::class.java)
 
     /**
      * Filters the incoming request based on the presence and validity of the Authorization header.
@@ -26,21 +29,26 @@ class AuthenticationFilter(
         chain: GatewayFilterChain?
     ): Mono<Void> {
         exchange?.let {
+            logger.info(requestLog(it))
             val authHeaders = it.request.headers["Authorization"]
             val headerExists = authHeaders?.size == 1
 
             return if (headerExists) {
                 val authHeader = authHeaders?.get(0)
                 if (authenticationValidator.valid(authHeader ?: "")) {
+                    logger.info(requestLog(it))
                     chain?.filter(exchange) ?: Mono.empty() // Continue the filter chain if it isn't null. If it is null, return an empty Mono.
                 } else {
+                    logger.info(requestLog(exchange))
                     handleAuthenticationFailure(it)
                 }
             } else {
+                logger.info(requestLog(exchange))
                 handleAuthenticationFailure(it)
             }
         }
 
+        logger.info(requestLog(exchange))
         return Mono.error(Exception("ServerWebExchange or GatewayFilterChain is null"))
     }
 

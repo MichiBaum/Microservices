@@ -2,11 +2,11 @@
 <configuration>
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
+        <pattern class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
                 %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%throwable
             </Pattern>
-        </layout>
+        </pattern>
     </appender>
 
     <!-- LOG everything at INFO level -->
