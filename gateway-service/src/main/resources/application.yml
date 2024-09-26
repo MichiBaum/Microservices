@@ -64,12 +64,3 @@ management:
   info:
     git:
       mode: full
-
-logging:
-  level:
-    reactor:
-      netty: INFO
-    org:
-      springframework:
-        cloud:
-          gateway: TRACE
