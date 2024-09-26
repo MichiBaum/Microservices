@@ -7,26 +7,26 @@ enum class Permissions: PermissionUtil { // TODO write this better
     AUTHENTICATION_SERVICE { override fun toPermissionString(): String = createPermissionString(this) },
     USERMANAGEMENT_SERVICE { override fun toPermissionString(): String = createPermissionString(this) };
 
-    enum class Admin_Service: PermissionUtil {
+    enum class AdminService: PermissionUtil {
         CAN_SEND_REQUEST { override fun toPermissionString(): String = createPermissionString(this) },
         EVERYTHING { override fun toPermissionString(): String = createPermissionString(this) }
     }
 
-    enum class Registry_Service: PermissionUtil {
+    enum class RegistryService: PermissionUtil {
         CAN_SEND_REQUEST { override fun toPermissionString(): String = createPermissionString(this) },
         EVERYTHING { override fun toPermissionString(): String = createPermissionString(this) }
     }
 
-    enum class Authentication_Service: PermissionUtil {
+    enum class AuthenticationService: PermissionUtil {
         REFRESH_AUTH { override fun toPermissionString(): String = createPermissionString(this) }
     }
 
-    enum class Usermanagement_Service: PermissionUtil {
+    enum class UsermanagementService: PermissionUtil {
         EDIT_OWN_USER { override fun toPermissionString(): String = createPermissionString(this) },
         EDIT_ALL_USER { override fun toPermissionString(): String = createPermissionString(this) }
     }
 
-    enum class JavaDoc_Service: PermissionUtil {
+    enum class JavaDocService: PermissionUtil {
         CAN_READ { override fun toPermissionString(): String = createPermissionString(this) }
     }
 }

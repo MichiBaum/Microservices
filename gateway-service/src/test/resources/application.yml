@@ -4,6 +4,7 @@ server:
     url-charset: UTF-8
   port: 80
 
+
 spring:
   threads:
     virtual:
@@ -22,6 +23,7 @@ spring:
       client:
         health-indicator:
           include-description: true
+
   main:
     allow-bean-definition-overriding: true
   boot:
@@ -36,7 +38,7 @@ eureka:
   instance:
     prefer-ip-address: true
   client:
-    enabled: true
+    enabled: false
     fetch-registry: true
     register-with-eureka: true
     refresh:

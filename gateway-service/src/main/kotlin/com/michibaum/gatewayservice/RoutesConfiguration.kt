@@ -1,6 +1,7 @@
 package com.michibaum.gatewayservice
 
 import com.michibaum.permission_library.Permissions
+import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.route.RouteLocator
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
 import org.springframework.cloud.gateway.route.builder.filters
@@ -9,7 +10,9 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RoutesConfiguration(private val authenticationFilter: AuthenticationFilter) {
+class RoutesConfiguration(
+//    private val authenticationFilter: GatewayFilter
+) {
 
     companion object {
         const val ADMIN_SERVICE_HOST = "admin.michibaum.ch"
@@ -38,8 +41,8 @@ class RoutesConfiguration(private val authenticationFilter: AuthenticationFilter
             route {
                 host(ADMIN_SERVICE_HOST)
                 filters {
-                    authenticationFilter
-                    AuthorizationPreFilter(Permissions.Admin_Service.CAN_SEND_REQUEST)
+//                    authenticationFilter
+                    AuthorizationPreFilter(Permissions.AdminService.CAN_SEND_REQUEST)
                 }
                 uri(ADMIN_SERVICE_URI)
             }
@@ -53,15 +56,15 @@ class RoutesConfiguration(private val authenticationFilter: AuthenticationFilter
             route {
                 host(JAVADOC_SERVICE_HOST)
                 filters {
-                    authenticationFilter
-                    AuthorizationPreFilter(Permissions.JavaDoc_Service.CAN_READ)
+//                    authenticationFilter
+                    AuthorizationPreFilter(Permissions.JavaDocService.CAN_READ)
                 }
                 uri(JAVADOC_SERVICE_URI)
             }
             route {
                 host(REGISTRY_SERVICE_HOST)
                 filters {
-                    authenticationFilter
+//                    authenticationFilter
                     AuthorizationPreFilter()
                 }
                 uri(REGISTRY_SERVICE_URI)
@@ -69,7 +72,7 @@ class RoutesConfiguration(private val authenticationFilter: AuthenticationFilter
             route {
                 host(USERMANAGEMENT_SERVICE_HOST)
                 filters {
-                    authenticationFilter
+//                    authenticationFilter
                     AuthorizationPreFilter()
                 }
                 uri(USERMANAGEMENT_SERVICE_URI)

@@ -39,6 +39,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,6 +82,11 @@
 			<groupId>io.mockk</groupId>
 			<artifactId>mockk-jvm</artifactId>
 			<version>${mockk.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.wiremock</groupId>
+			<artifactId>wiremock-standalone</artifactId>
 			<scope>test</scope>
 		</dependency>
 

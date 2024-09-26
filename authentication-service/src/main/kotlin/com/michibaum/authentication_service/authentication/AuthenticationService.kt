@@ -11,7 +11,8 @@ import java.time.Instant
 
 @Service
 class AuthenticationService (
-        private val keyPair: KeyPair
+        private val keyPair: KeyPair,
+        private val algorithm: Algorithm
 ) {
 
     val publicKey: PublicKeyDto
@@ -21,9 +22,6 @@ class AuthenticationService (
         )
 
     fun generateJWS(username: String): String? {
-        val publicKey: RSAPublicKey = keyPair.public as RSAPublicKey
-        val privateKey: RSAPrivateKey = keyPair.private as RSAPrivateKey
-        val algorithm = Algorithm.RSA256(publicKey, privateKey)
         return JWT.create()
                 .withHeader(jwsHeaders())
                 .withIssuer("authentication-service")

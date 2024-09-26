@@ -1,5 +1,7 @@
 package com.michibaum.gatewayservice
 
+import com.michibaum.authentication_library.AuthenticationClient
+import com.michibaum.authentication_library.JWSValidator
 import org.slf4j.LoggerFactory
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
@@ -8,13 +10,18 @@ import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
+import java.security.interfaces.RSAPublicKey
 
 @Component
 class AuthenticationFilter(
-    private val authenticationValidator: AuthenticationValidator
-) : GatewayFilter {
+    private val authenticationClient: AuthenticationClient
+) : GatewayFilter, JWSValidator() {
 
     private val logger = LoggerFactory.getLogger(AuthenticationFilter::class.java)
+
+    fun valid(token: String, publicKey: RSAPublicKey): Boolean {
+        return this.validate(token, publicKey)
+    }
 
     /**
      * Filters the incoming request based on the presence and validity of the Authorization header.
@@ -35,7 +42,9 @@ class AuthenticationFilter(
 
             return if (headerExists) {
                 val authHeader = authHeaders?.get(0)
-                if (authenticationValidator.valid(authHeader ?: "")) {
+                var dto = authenticationClient.publicKey()
+                var publicKey = dto.key as RSAPublicKey
+                if (valid(authHeader ?: "", publicKey)) {
                     logger.info(requestLog(it))
                     chain?.filter(exchange) ?: Mono.empty() // Continue the filter chain if it isn't null. If it is null, return an empty Mono.
                 } else {

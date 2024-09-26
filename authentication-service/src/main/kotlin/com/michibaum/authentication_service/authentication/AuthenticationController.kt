@@ -31,7 +31,7 @@ class AuthenticationController (
         }.build()
     }
 
-    @get:Override
-    override val publicKey: PublicKeyDto
-        get() = authenticationService.publicKey
+    override fun publicKey(): PublicKeyDto {
+        return authenticationService.publicKey
+    }
 }
