@@ -4,7 +4,6 @@ server:
     url-charset: UTF-8
   port: 80
 
-
 spring:
   threads:
     virtual:
@@ -14,14 +13,6 @@ spring:
   application:
     name: gateway-service
   cloud:
-    openfeign:
-      client:
-        config:
-          authentication-service:
-            url: http://localhost:8899
-      micrometer:
-#        Disable micrometer for openfeign client because of exception if url set like above
-        enabled: false
     gateway:
       httpclient:
         wiretap: true
@@ -46,7 +37,7 @@ eureka:
   instance:
     prefer-ip-address: true
   client:
-    enabled: false
+    enabled: true
     fetch-registry: true
     register-with-eureka: true
     refresh:

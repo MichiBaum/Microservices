@@ -12,7 +12,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.reactive.server.WebTestClient
 
-@SpringBootTest
+@SpringBootTest(properties = [
+    "spring.cloud.openfeign.client.config.authentication-service.url=http://localhost:8899",
+    "spring.cloud.openfeign.micrometer.enabled=false", // Disable micrometer for openfeign client because of exception if url set like above
+    "eureka.client.enabled=false"
+])
 @AutoConfigureMockMvc
 class AuthenticationClientIT {
 

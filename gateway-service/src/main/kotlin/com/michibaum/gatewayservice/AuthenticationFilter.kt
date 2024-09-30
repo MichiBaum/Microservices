@@ -2,26 +2,26 @@ package com.michibaum.gatewayservice
 
 import com.michibaum.authentication_library.AuthenticationClient
 import com.michibaum.authentication_library.JWSValidator
-import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
+import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpStatus
 import org.springframework.http.server.reactive.ServerHttpResponse
-import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import java.security.interfaces.RSAPublicKey
 
-@Component
-class AuthenticationFilter(
-    private val authenticationClient: AuthenticationClient
-) : GatewayFilter, JWSValidator() {
+class AuthenticationFilter: GatewayFilter, JWSValidator() { // TODO write it different. Has Cycling Dependencies. Very difficult to test
 
-    private val logger = LoggerFactory.getLogger(AuthenticationFilter::class.java)
-
-    fun valid(token: String, publicKey: RSAPublicKey): Boolean {
+    fun isValid(token: String, publicKey: RSAPublicKey): Boolean {
         return this.validate(token, publicKey)
     }
+
+    @Autowired
+    @Lazy
+    // Cycling Dependencies
+    lateinit var authenticationClient: AuthenticationClient
 
     /**
      * Filters the incoming request based on the presence and validity of the Authorization header.
@@ -36,29 +36,25 @@ class AuthenticationFilter(
         chain: GatewayFilterChain?
     ): Mono<Void> {
         exchange?.let {
-            logger.info(requestLog(it))
             val authHeaders = it.request.headers["Authorization"]
             val headerExists = authHeaders?.size == 1
 
             return if (headerExists) {
+                val dto = authenticationClient.publicKey()
+                val publicKey = dto.key as RSAPublicKey
+
                 val authHeader = authHeaders?.get(0)
-                var dto = authenticationClient.publicKey()
-                var publicKey = dto.key as RSAPublicKey
-                if (valid(authHeader ?: "", publicKey)) {
-                    logger.info(requestLog(it))
+                if (isValid(authHeader ?: "", publicKey)) {
                     chain?.filter(exchange) ?: Mono.empty() // Continue the filter chain if it isn't null. If it is null, return an empty Mono.
                 } else {
-                    logger.info(requestLog(exchange))
                     handleAuthenticationFailure(it)
                 }
             } else {
-                logger.info(requestLog(exchange))
                 handleAuthenticationFailure(it)
             }
         }
 
-        logger.info(requestLog(exchange))
-        return Mono.error(Exception("ServerWebExchange or GatewayFilterChain is null"))
+        return Mono.error(Exception("ServerWebExchange is null"))
     }
 
     /**

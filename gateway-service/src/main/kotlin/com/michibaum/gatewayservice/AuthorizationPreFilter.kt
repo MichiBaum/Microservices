@@ -4,9 +4,9 @@ import com.michibaum.permission_library.PermissionUtil
 import org.slf4j.LoggerFactory
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
+import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
-
 
 class AuthorizationPreFilter() : GatewayFilter {
 
@@ -18,7 +18,6 @@ class AuthorizationPreFilter() : GatewayFilter {
     }
 
     override fun filter(exchange: ServerWebExchange?, chain: GatewayFilterChain?): Mono<Void> {
-        logger.info(requestLog(exchange))
         exchange?.let {
              permissions[0].toPermissionString()
         }
