@@ -1,27 +1,15 @@
 package com.michibaum.gatewayservice
 
-import com.michibaum.authentication_library.AuthenticationClient
-import com.michibaum.authentication_library.JWSValidator
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
-import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpStatus
 import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
-import java.security.interfaces.RSAPublicKey
 
-class AuthenticationFilter: GatewayFilter, JWSValidator() { // TODO write it different. Has Cycling Dependencies. Very difficult to test
-
-    fun isValid(token: String, publicKey: RSAPublicKey): Boolean {
-        return this.validate(token, publicKey)
-    }
-
-    @Autowired
-    @Lazy
-    // Cycling Dependencies
-    lateinit var authenticationClient: AuthenticationClient
+class AuthenticationFilter(
+    private val jwsValidator: JWSValidator
+): GatewayFilter {
 
     /**
      * Filters the incoming request based on the presence and validity of the Authorization header.
@@ -40,11 +28,8 @@ class AuthenticationFilter: GatewayFilter, JWSValidator() { // TODO write it dif
             val headerExists = authHeaders?.size == 1
 
             return if (headerExists) {
-                val dto = authenticationClient.publicKey()
-                val publicKey = dto.key as RSAPublicKey
-
                 val authHeader = authHeaders?.get(0)
-                if (isValid(authHeader ?: "", publicKey)) {
+                if (jwsValidator.validate(authHeader ?: "")) {
                     chain?.filter(exchange) ?: Mono.empty() // Continue the filter chain if it isn't null. If it is null, return an empty Mono.
                 } else {
                     handleAuthenticationFailure(it)

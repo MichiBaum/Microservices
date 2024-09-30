@@ -22,17 +22,17 @@ class AuthenticationServiceIT {
     lateinit var keyPair: KeyPair
 
     @Test
-    fun `jwt valid`() {
+    fun `jws valid`() {
         // GIVEN
 
         // WHEN
-        var jwt = authService.generateJWS("Michi")
+        val jws = authService.generateJWS("Michi")
 
         // THEN
-        assertNotNull(jwt)
-        var alg = Algorithm.RSA256(keyPair.public as RSAPublicKey, keyPair.private as RSAPrivateKey)
-        var verifier = JWT.require(alg).build()
-        assertDoesNotThrow { verifier.verify(jwt) }
+        assertNotNull(jws)
+        val alg = Algorithm.RSA256(keyPair.public as RSAPublicKey, keyPair.private as RSAPrivateKey)
+        val verifier = JWT.require(alg).build()
+        assertDoesNotThrow { verifier.verify(jws) }
     }
 
 }

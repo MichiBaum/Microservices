@@ -16,15 +16,12 @@ import reactor.core.publisher.Mono
 @ExtendWith(MockitoExtension::class)
 class AuthenticationFilterUT{
 
-    private val authenticationClient: AuthenticationClient = mockk()
-
-    @BeforeEach
+    private val jwsValidator: JWSValidator = mockk()
 
     @Test
     fun `exchange null returns error`(){
         // GIVEN
-        val authenticationFilter = AuthenticationFilter()
-        authenticationFilter.authenticationClient = this.authenticationClient
+        val authenticationFilter = AuthenticationFilter(jwsValidator)
 
         val gatewayFilterChain: GatewayFilterChain = mockk()
 
@@ -42,8 +39,7 @@ class AuthenticationFilterUT{
     @Test
     fun `authorization header does not exist`(){
         // GIVEN
-        val authenticationFilter = AuthenticationFilter()
-        authenticationFilter.authenticationClient = this.authenticationClient
+        val authenticationFilter = AuthenticationFilter(jwsValidator)
 
         val gatewayFilterChain: GatewayFilterChain = mockk()
         val httpResponse: ServerHttpResponse = mockk {

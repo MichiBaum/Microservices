@@ -19,4 +19,5 @@ open class JWSValidator {
         }
         return false
     }
+
 }
