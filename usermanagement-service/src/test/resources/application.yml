@@ -10,7 +10,7 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
   application:
-    name: authentication-service
+    name: usermanagement-service
   cloud:
     discovery:
       client:
@@ -22,7 +22,7 @@ spring:
     username: sa
     password: password
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:authentication-db
+    url: jdbc:h2:mem:usermanagement-db
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -34,7 +34,7 @@ eureka:
   instance:
     prefer-ip-address: true
   client:
-    enabled: false
+    enabled: true
     fetch-registry: true
     register-with-eureka: true
     refresh:

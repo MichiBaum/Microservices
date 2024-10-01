@@ -21,7 +21,7 @@ data class User (
     @Column(nullable = false)
     val password: String
 ) {
-    constructor() : this(UUID.randomUUID(), "", "", "") {
+    constructor() : this(id = UUID.randomUUID(), username = "", email = "", password = "") {
 
     }
 }

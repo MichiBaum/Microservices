@@ -25,7 +25,7 @@ spring:
     url: jdbc:mysql://usermanagement-db:3306/${DATABASE}
   jpa:
     hibernate:
-      dll-auto: update
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
