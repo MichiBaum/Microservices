@@ -1,0 +1,235 @@
+{
+  "user": {
+    "name": "JanistanTV"
+  },
+  "perf": {
+    "glicko": {
+      "rating": 2802.37,
+      "deviation": 157.09,
+      "provisional": true
+    },
+    "nb": 370,
+    "progress": 0
+  },
+  "rank": null,
+  "percentile": null,
+  "stat": {
+    "count": {
+      "berserk": 0,
+      "win": 322,
+      "all": 411,
+      "seconds": 376963,
+      "opAvg": 2151.22,
+      "draw": 28,
+      "tour": 0,
+      "disconnects": 0,
+      "rated": 370,
+      "loss": 61
+    },
+    "resultStreak": {
+      "win": {
+        "cur": {
+          "v": 51,
+          "from": {
+            "at": "2023-10-12T21:16:11.384Z",
+            "gameId": "R58cB97q"
+          },
+          "to": {
+            "at": "2024-07-30T17:22:26.252Z",
+            "gameId": "iN9Jj002"
+          }
+        },
+        "max": {
+          "v": 64,
+          "from": {
+            "at": "2023-04-10T22:04:25.709Z",
+            "gameId": "eK071Aj1"
+          },
+          "to": {
+            "at": "2023-09-04T18:50:07.495Z",
+            "gameId": "YLUpTCoA"
+          }
+        }
+      },
+      "loss": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 5,
+          "from": {
+            "at": "2022-07-14T23:01:06.714Z",
+            "gameId": "59WXj4ci"
+          },
+          "to": {
+            "at": "2022-07-15T22:58:35.513Z",
+            "gameId": "CMc9vNgq"
+          }
+        }
+      }
+    },
+    "lowest": {
+      "int": 2637,
+      "at": "2022-05-24T21:30:20.418Z",
+      "gameId": "ICIGxOFI"
+    },
+    "worstLosses": {
+      "results": [
+        {
+          "opRating": 2466,
+          "opId": {
+            "id": "sportcar797",
+            "name": "Sportcar797",
+            "title": null
+          },
+          "at": "2022-09-01T22:18:56.448Z",
+          "gameId": "rq9V5wpW"
+        },
+        {
+          "opRating": 2477,
+          "opId": {
+            "id": "bwarechess",
+            "name": "bWareChess",
+            "title": null
+          },
+          "at": "2022-07-10T21:26:41.173Z",
+          "gameId": "YB9GTlnV"
+        },
+        {
+          "opRating": 2480,
+          "opId": {
+            "id": "konstantinpfennig",
+            "name": "KonstantinPfennig",
+            "title": null
+          },
+          "at": "2022-11-06T23:20:13.813Z",
+          "gameId": "fgjCiDEv"
+        },
+        {
+          "opRating": 2480,
+          "opId": {
+            "id": "smirnovplatonchess",
+            "name": "SmirnovPlatonCHESS",
+            "title": null
+          },
+          "at": "2023-09-08T20:22:33.102Z",
+          "gameId": "xwNS2nNR"
+        },
+        {
+          "opRating": 2490,
+          "opId": {
+            "id": "torjaeger10",
+            "name": "Torjaeger10",
+            "title": null
+          },
+          "at": "2022-09-18T20:47:25.692Z",
+          "gameId": "6NjUP4pe"
+        }
+      ]
+    },
+    "perfType": {
+      "key": "rapid",
+      "name": "Rapid"
+    },
+    "id": "janistantv/6",
+    "bestWins": {
+      "results": [
+        {
+          "opRating": 2855,
+          "opId": {
+            "id": "gogotaniye",
+            "name": "gogotaniye",
+            "title": "FM"
+          },
+          "at": "2022-11-13T21:08:41.096Z",
+          "gameId": "2xtGz3ga"
+        },
+        {
+          "opRating": 2806,
+          "opId": {
+            "id": "enmq",
+            "name": "enmQ",
+            "title": "GM"
+          },
+          "at": "2022-11-09T22:56:41.424Z",
+          "gameId": "tzNKYKNq"
+        },
+        {
+          "opRating": 2749,
+          "opId": {
+            "id": "inkognito_2222",
+            "name": "inkognito_2222",
+            "title": null
+          },
+          "at": "2022-09-17T19:52:54.54Z",
+          "gameId": "1pZy5m0w"
+        },
+        {
+          "opRating": 2749,
+          "opId": {
+            "id": "chainsoffantasia",
+            "name": "ChainsOfFantasia",
+            "title": "IM"
+          },
+          "at": "2023-04-10T22:22:12.264Z",
+          "gameId": "eK071Aj1"
+        },
+        {
+          "opRating": 2728,
+          "opId": {
+            "id": "inkognito_2222",
+            "name": "inkognito_2222",
+            "title": null
+          },
+          "at": "2022-09-17T20:17:17.702Z",
+          "gameId": "KfhW1I68"
+        }
+      ]
+    },
+    "userId": {
+      "id": "janistantv",
+      "name": "JanistanTV",
+      "title": "GM"
+    },
+    "playStreak": {
+      "nb": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 11,
+          "from": {
+            "at": "2022-07-10T21:02:28.505Z",
+            "gameId": "D9DVxknK"
+          },
+          "to": {
+            "at": "2022-07-10T23:35:08.333Z",
+            "gameId": "FfjYHLIY"
+          }
+        }
+      },
+      "time": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 8432,
+          "from": {
+            "at": "2022-07-10T21:02:28.505Z",
+            "gameId": "D9DVxknK"
+          },
+          "to": {
+            "at": "2022-07-10T23:35:08.333Z",
+            "gameId": "FfjYHLIY"
+          }
+        }
+      },
+      "lastDate": "2024-07-30T17:22:26.252Z"
+    },
+    "highest": {
+      "int": 2806,
+      "at": "2022-11-10T21:23:30.791Z",
+      "gameId": "fxwIlkH6"
+    }
+  }
+}

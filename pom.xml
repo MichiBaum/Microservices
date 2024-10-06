@@ -141,6 +141,7 @@
         <module>authentication-service</module>
         <module>usermanagement-service</module>
         <module>website-service</module>
+        <module>chess-service</module>
     </modules>
 
     <build>
@@ -189,6 +190,7 @@
                     </args>
                     <compilerPlugins>
                         <plugin>spring</plugin>
+                        <plugin>jpa</plugin>
                     </compilerPlugins>
                     <sourceDirs>
                         <source>src/main/kotlin</source>
@@ -198,6 +200,11 @@
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
                         <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-noarg</artifactId>
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>

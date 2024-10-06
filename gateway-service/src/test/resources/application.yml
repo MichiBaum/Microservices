@@ -37,7 +37,7 @@ eureka:
   instance:
     prefer-ip-address: true
   client:
-    enabled: true
+    enabled: false
     fetch-registry: true
     register-with-eureka: true
     refresh:

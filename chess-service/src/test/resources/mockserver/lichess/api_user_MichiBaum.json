@@ -1,0 +1,77 @@
+{
+  "id": "michibaum",
+  "username": "MichiBaum",
+  "perfs": {
+    "bullet": {
+      "games": 0,
+      "rating": 1500,
+      "rd": 500,
+      "prog": 0,
+      "prov": true
+    },
+    "blitz": {
+      "games": 109,
+      "rating": 1073,
+      "rd": 194,
+      "prog": -25,
+      "prov": true
+    },
+    "rapid": {
+      "games": 0,
+      "rating": 1500,
+      "rd": 500,
+      "prog": 0,
+      "prov": true
+    },
+    "classical": {
+      "games": 0,
+      "rating": 1500,
+      "rd": 500,
+      "prog": 0,
+      "prov": true
+    },
+    "correspondence": {
+      "games": 0,
+      "rating": 1500,
+      "rd": 500,
+      "prog": 0,
+      "prov": true
+    },
+    "puzzle": {
+      "games": 122,
+      "rating": 1410,
+      "rd": 154,
+      "prog": 0,
+      "prov": true
+    }
+  },
+  "createdAt": 1595005065053,
+  "profile": {
+    "location": "Einsiedeln",
+    "realName": "Michael Baumberger",
+    "flag": "CH",
+    "bio": "Bad in chess but i love to play it",
+    "links": "https://www.chess.com/member/ezgat"
+  },
+  "seenAt": 1728239098207,
+  "playTime": {
+    "total": 39916,
+    "tv": 0
+  },
+  "url": "https://lichess.org/@/MichiBaum",
+  "count": {
+    "all": 115,
+    "rated": 109,
+    "ai": 6,
+    "draw": 4,
+    "drawH": 4,
+    "loss": 84,
+    "lossH": 84,
+    "win": 27,
+    "winH": 21,
+    "bookmark": 0,
+    "playing": 0,
+    "import": 0,
+    "me": 0
+  }
+}

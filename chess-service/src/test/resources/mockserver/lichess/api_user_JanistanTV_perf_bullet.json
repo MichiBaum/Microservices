@@ -1,0 +1,234 @@
+{
+  "user": {
+    "name": "JanistanTV"
+  },
+  "perf": {
+    "glicko": {
+      "rating": 2767.04,
+      "deviation": 52.12
+    },
+    "nb": 1027,
+    "progress": -54
+  },
+  "rank": 1019,
+  "percentile": 99.9,
+  "stat": {
+    "count": {
+      "berserk": 1,
+      "win": 629,
+      "all": 1044,
+      "seconds": 104813,
+      "opAvg": 2611.07,
+      "draw": 63,
+      "tour": 44,
+      "disconnects": 0,
+      "rated": 1027,
+      "loss": 352
+    },
+    "resultStreak": {
+      "win": {
+        "cur": {
+          "v": 1,
+          "from": {
+            "at": "2024-10-06T22:17:22.155Z",
+            "gameId": "iza6kGZ9"
+          },
+          "to": {
+            "at": "2024-10-06T22:18:48.531Z",
+            "gameId": "iza6kGZ9"
+          }
+        },
+        "max": {
+          "v": 18,
+          "from": {
+            "at": "2023-09-04T17:10:14.447Z",
+            "gameId": "ZOhAI7ps"
+          },
+          "to": {
+            "at": "2023-09-04T23:15:34.077Z",
+            "gameId": "DqA3uMVC"
+          }
+        }
+      },
+      "loss": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 5,
+          "from": {
+            "at": "2023-05-18T19:14:23.903Z",
+            "gameId": "jSoLIE9G"
+          },
+          "to": {
+            "at": "2023-05-18T19:21:00.971Z",
+            "gameId": "b6gTGEUr"
+          }
+        }
+      }
+    },
+    "lowest": {
+      "int": 2389,
+      "at": "2022-04-04T00:33:44.944Z",
+      "gameId": "x8fVfgnr"
+    },
+    "worstLosses": {
+      "results": [
+        {
+          "opRating": 2331,
+          "opId": {
+            "id": "islamov2",
+            "name": "Islamov2",
+            "title": null
+          },
+          "at": "2022-04-04T00:33:44.944Z",
+          "gameId": "x8fVfgnr"
+        },
+        {
+          "opRating": 2343,
+          "opId": {
+            "id": "ultrazocker",
+            "name": "UltraZocker",
+            "title": null
+          },
+          "at": "2022-04-04T00:20:33.539Z",
+          "gameId": "sM7gXfPm"
+        },
+        {
+          "opRating": 2429,
+          "opId": {
+            "id": "heynaci",
+            "name": "heynaci",
+            "title": null
+          },
+          "at": "2023-04-14T21:01:27.636Z",
+          "gameId": "c8DUU5B6"
+        },
+        {
+          "opRating": 2454,
+          "opId": {
+            "id": "jawadf8",
+            "name": "jawadf8",
+            "title": null
+          },
+          "at": "2022-10-07T22:49:27.08Z",
+          "gameId": "BY0FLVGX"
+        },
+        {
+          "opRating": 2457,
+          "opId": {
+            "id": "acaa_sensei",
+            "name": "ACAA_SENSEI",
+            "title": null
+          },
+          "at": "2022-04-24T09:48:46.772Z",
+          "gameId": "FUkMhhlP"
+        }
+      ]
+    },
+    "perfType": {
+      "key": "bullet",
+      "name": "Bullet"
+    },
+    "id": "janistantv/1",
+    "bestWins": {
+      "results": [
+        {
+          "opRating": 3041,
+          "opId": {
+            "id": "jasugi99",
+            "name": "Jasugi99",
+            "title": "NM"
+          },
+          "at": "2024-05-15T04:11:46.315Z",
+          "gameId": "QFDZITSw"
+        },
+        {
+          "opRating": 2933,
+          "opId": {
+            "id": "agressivemode",
+            "name": "AgressiveMode",
+            "title": null
+          },
+          "at": "2024-02-05T21:29:14.059Z",
+          "gameId": "7cymXME4"
+        },
+        {
+          "opRating": 2920,
+          "opId": {
+            "id": "liochess13",
+            "name": "Liochess13",
+            "title": null
+          },
+          "at": "2024-02-07T23:51:10.871Z",
+          "gameId": "uuu5jpbg"
+        },
+        {
+          "opRating": 2905,
+          "opId": {
+            "id": "egor_pakhomov",
+            "name": "Egor_Pakhomov",
+            "title": null
+          },
+          "at": "2024-10-02T02:45:49.443Z",
+          "gameId": "z1bNZHYW"
+        },
+        {
+          "opRating": 2905,
+          "opId": {
+            "id": "satunnainen",
+            "name": "satunnainen",
+            "title": null
+          },
+          "at": "2022-08-18T23:20:52.607Z",
+          "gameId": "HFYRJErJ"
+        }
+      ]
+    },
+    "userId": {
+      "id": "janistantv",
+      "name": "JanistanTV",
+      "title": "GM"
+    },
+    "playStreak": {
+      "nb": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 61,
+          "from": {
+            "at": "2022-04-04T00:10:52.938Z",
+            "gameId": "JbJB3PVR"
+          },
+          "to": {
+            "at": "2022-04-04T02:03:24.262Z",
+            "gameId": "eczYZShC"
+          }
+        }
+      },
+      "time": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 6074,
+          "from": {
+            "at": "2024-05-15T01:43:12.965Z",
+            "gameId": "rlLwZ5e2"
+          },
+          "to": {
+            "at": "2024-05-15T04:32:22.514Z",
+            "gameId": "7PFAWs2J"
+          }
+        }
+      },
+      "lastDate": "2024-10-06T22:18:48.531Z"
+    },
+    "highest": {
+      "int": 2886,
+      "at": "2024-05-15T01:50:34.534Z",
+      "gameId": "bjKJ7pPx"
+    }
+  }
+}

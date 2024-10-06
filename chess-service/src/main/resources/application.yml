@@ -1,0 +1,73 @@
+server:
+  shutdown: graceful
+  undertow:
+    url-charset: UTF-8
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  application:
+    name: chess-service
+  cloud:
+    discovery:
+      client:
+        health-indicator:
+          include-description: true
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    username: root
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://chess-db:3306/${DATABASE}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full
+
+chess-apis:
+  properties:
+    chesscom:
+      name: Chess.com
+      base-url: https://api.chess.com
+    lichess:
+      name: Lichess
+      base-url: https://lichess.org
