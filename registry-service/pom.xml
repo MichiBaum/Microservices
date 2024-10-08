@@ -71,6 +71,50 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>publish-image</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.4.3</version>
+                        <configuration>
+                            <from>
+                                <image>eclipse-temurin:21-jre</image>
+                                <auth>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${dockerHub.username}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${dockerHub.password}</password>
+                                </auth>
+                            </from>
+                            <to>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <image>docker.io/${dockerHub.username}/${project.artifactId}</image>
+                                <auth>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${dockerHub.username}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${dockerHub.password}</password>
+                                </auth>
+                            </to>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <resources>
@@ -80,40 +124,6 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.3</version>
-                <configuration>
-                    <from>
-                        <image>eclipse-temurin:21-jre</image>
-                        <auth>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <username>${dockerHub.username}</username>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <password>${dockerHub.password}</password>
-                        </auth>
-                    </from>
-                    <to>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <image>docker.io/${dockerHub.username}/${project.artifactId}</image>
-                        <auth>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <username>${dockerHub.username}</username>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <password>${dockerHub.password}</password>
-                        </auth>
-                    </to>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>

@@ -35,5 +35,5 @@ jobs:
           if [[ "${{github.ref}}" == "refs/heads/develop" ]]; then
             mvn test
           else
-            mvn package -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
+            mvn package -Ppublish-image -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}}
           fi
