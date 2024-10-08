@@ -27,10 +27,6 @@
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
-
-        <!-- Sonarqube -->
-        <sonar.organization>michibaum</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -63,6 +59,13 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
                 <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-bom</artifactId>
+                <version>${kotlin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -144,7 +147,49 @@
         <module>chess-service</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>sonar-report</id>
+            <properties>
+                <sonar.organization>michibaum</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+                <sonar.language>kotlin</sonar.language>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.12</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <formats>
+                                        <format>XML</format>
+                                    </formats>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -183,6 +228,7 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
+                <extensions>true</extensions>
                 <configuration>
                     <jvmTarget>${java.version}</jvmTarget>
                     <args>
@@ -208,6 +254,75 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal> <!-- You can skip the <goals> element if you enable extensions for the plugin -->
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>test-compile</goal> <!-- You can skip the <goals> element if you enable extensions for the plugin -->
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>
+                        @{argLine} --illegal-access=permit
+                    </argLine>
+                    <testSourceDirectory>
+                        ${project.basedir}/src/test/kotlin
+                    </testSourceDirectory>
+                    <includes>
+                        <include>**/*UT.java</include>
+                        <include>**/*UT.kt</include>
+                        <include>**/*UT.class</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <argLine>
+                        @{argLine} --illegal-access=permit
+                    </argLine>
+                    <testSourceDirectory>
+                        ${project.basedir}/src/test/kotlin
+                    </testSourceDirectory>
+                    <includes>
+                        <include>**/*IT.java</include>
+                        <include>**/*IT.kt</include>
+                        <include>**/*IT.class</include>
+                    </includes>
+                </configuration>
             </plugin>
 		</plugins>
     </build>

@@ -117,10 +117,11 @@
 	</profiles>
 
 	<build>
-		<sourceDirectory>src/main/kotlin</sourceDirectory>
+		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 		<resources>
 			<resource>
-				<directory>src/main/resources</directory>
+				<directory>${project.basedir}/src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
 		</resources>

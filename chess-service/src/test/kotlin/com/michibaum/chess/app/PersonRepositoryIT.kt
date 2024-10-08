@@ -54,7 +54,7 @@ class PersonRepositoryIT {
         assertNotEquals(playerWithAccount.id, result.id)
 
         assertEquals(1, result.accounts.size)
-        assertEquals(savedAccount.id, result.accounts[0].id)
+        assertEquals(savedAccount.id, result.accounts.get(0).id)
     }
 
 }

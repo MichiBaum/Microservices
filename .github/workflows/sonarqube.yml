@@ -19,5 +19,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn clean compile
-          mvn sonar:sonar -Dsonar.projectKey=MichiBaum_Microservices
+          mvn clean verify -fn -Psonar-report
+          mvn sonar:sonar -Psonar-report -Dsonar.projectKey=MichiBaum_Microservices
