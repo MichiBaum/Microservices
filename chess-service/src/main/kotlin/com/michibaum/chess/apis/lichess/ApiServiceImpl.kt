@@ -5,6 +5,7 @@ import com.michibaum.chess.apis.config.ChessConfigProperties
 import com.michibaum.chess.apis.dtos.AccountDto
 import com.michibaum.chess.apis.dtos.GameDto
 import com.michibaum.chess.apis.dtos.StatsDto
+import com.michibaum.chess.apis.dtos.TopAccountDto
 import com.michibaum.chess.domain.Account
 import com.michibaum.chess.domain.ChessPlatform
 import org.springframework.http.MediaType
@@ -30,7 +31,7 @@ class ApiServiceImpl(
                 .bodyToMono(LichessAccountDto::class.java)
                 .block()
         } catch (throwable: Throwable) {
-            return Exception(throwable)
+            return Exception("Exception lichess findUser with username=${username}", throwable)
         }
 
         if(result == null)
@@ -53,17 +54,17 @@ class ApiServiceImpl(
         val bullet = try {
             statsRequest("bullet")
         } catch (throwable: Throwable) {
-            return Exception(throwable)
+            return Exception("Exception lichess getStats with username=${account.username} and perf=bullet", throwable)
         }
         val blitz = try {
             statsRequest("blitz")
         } catch (throwable: Throwable) {
-            return Exception(throwable)
+            return Exception("Exception lichess getStats with username=${account.username} and perf=blitz", throwable)
         }
         val rapid = try {
             statsRequest("rapid")
         } catch (throwable: Throwable) {
-            return Exception(throwable)
+            return Exception("Exception lichess getStats with username=${account.username} and perf=rapid", throwable)
         }
 
         if(bullet == null)
@@ -89,7 +90,7 @@ class ApiServiceImpl(
                 .collectList()
                 .block()
         } catch (throwable: Throwable) {
-            return Exception(throwable)
+            return Exception("Exception lichess getGames with username=${account.username}", throwable)
         }
 
         if (result == null)
@@ -97,6 +98,25 @@ class ApiServiceImpl(
 
         val gameDtos = result.mapNotNull { converter.convert(it) }
         return Success(gameDtos)
+    }
+
+    override fun findTopAccounts(): ApiResult<List<TopAccountDto>> {
+        val result = try {
+            client.get()
+                .uri("/api/player")
+                .accept(MediaType.APPLICATION_NDJSON)
+                .retrieve()
+                .bodyToMono(LichessLeaderboards::class.java)
+                .block()
+        } catch (throwable: Throwable) {
+            return Exception("Exception lichess findTopAccounts", throwable)
+        }
+
+        if(result == null)
+            return Error("")
+
+        val topAccountDto = result.let { converter.convert(it) }
+        return Success(topAccountDto)
     }
 
 }

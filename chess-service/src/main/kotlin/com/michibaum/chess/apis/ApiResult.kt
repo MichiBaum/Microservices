@@ -18,9 +18,9 @@ data class Error<T>(val error: String): ApiResult<T>(), Loggable{
     }
 }
 
-data class Exception<T>(val throwable: Throwable): ApiResult<T>(), Loggable{
+data class Exception<T>(val message: String, val throwable: Throwable): ApiResult<T>(), Loggable{
     private val logger = LoggerFactory.getLogger(Exception::class.java)
     override fun log(){
-        logger.error(throwable.message, throwable)
+        logger.error(message + " " + throwable.message, throwable)
     }
 }

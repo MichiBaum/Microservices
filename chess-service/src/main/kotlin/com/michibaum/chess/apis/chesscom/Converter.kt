@@ -1,7 +1,7 @@
 package com.michibaum.chess.apis.chesscom
 
 import com.michibaum.chess.apis.dtos.*
-import com.michibaum.chess.apis.dtos.Player
+import com.michibaum.chess.apis.dtos.PlayerDto
 import com.michibaum.chess.domain.ChessPlatform
 import com.michibaum.chess.domain.GameType
 import org.springframework.stereotype.Component
@@ -22,11 +22,11 @@ class Converter {
 
     fun convert(gameDto: ChesscomGameDto): GameDto {
         val player1 = gameDto.white?.let {
-            Player(id = it.uuid, username = it.username, rating = it.rating, pieceColor = PieceColor.WHITE)
+            PlayerDto(id = it.uuid, username = it.username, rating = it.rating, pieceColor = PieceColor.WHITE)
         }
 
         val player2 = gameDto.black?.let {
-            Player(id = it.uuid, username = it.username, rating = it.rating, pieceColor = PieceColor.BLACK)
+            PlayerDto(id = it.uuid, username = it.username, rating = it.rating, pieceColor = PieceColor.BLACK)
         }
 
         val gametype = when(gameDto.timeClass){
@@ -63,5 +63,14 @@ class Converter {
                 highest = stats.chessRapid?.best?.rating
             ),
         )
+
+    fun convert(leaderboards: ChesscomLeaderboards): List<TopAccountDto> {
+        val topBullet = leaderboards.liveBullet.map { TopAccountDto(it.username.lowercase()) } // TODO BUG example: usernames are MagnusCarlsen. Player endpoint accepts magnuscarlsen
+        val topBlitz = leaderboards.liveBlitz.map { TopAccountDto(it.username.lowercase()) } // TODO BUG example: usernames are MagnusCarlsen. Player endpoint accepts magnuscarlsen
+        val topRapid = leaderboards.liveRapid.map { TopAccountDto(it.username.lowercase()) } // TODO BUG example: usernames are MagnusCarlsen. Player endpoint accepts magnuscarlsen
+
+        return topBullet + topBlitz + topRapid
+
+    }
 
 }

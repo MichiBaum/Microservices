@@ -12,8 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension
 @ExtendWith(MockitoExtension::class)
 class PersonServiceUT{
 
-    private val playerRepository: PlayerRepository = mockk()
-    private val playerService: PlayerService = PlayerService(playerRepository)
+    private val personRepository: PersonRepository = mockk()
+    private val personService: PersonService = PersonService(personRepository)
 
     @Test
     fun `connect first account`(){
@@ -21,10 +21,10 @@ class PersonServiceUT{
         val player = PlayerProvider.player()
         val account = AccountProvider.account()
 
-        every { playerRepository.save(any()) } returnsArgument 0
+        every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = playerService.connectAccount(player, account)
+        val result = personService.connectAccount(player, account)
 
         // THEN
         Assertions.assertEquals(1, result.accounts.size)
@@ -37,10 +37,10 @@ class PersonServiceUT{
         val player = PlayerProvider.player().copy(accounts = setOf(account))
         val secondAccount = AccountProvider.account()
 
-        every { playerRepository.save(any()) } returnsArgument 0
+        every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = playerService.connectAccount(player, secondAccount)
+        val result = personService.connectAccount(player, secondAccount)
 
         // THEN
         Assertions.assertEquals(2, result.accounts.size)
@@ -53,10 +53,10 @@ class PersonServiceUT{
         val account = AccountProvider.account()
         val secondAccount = AccountProvider.account()
 
-        every { playerRepository.save(any()) } returnsArgument 0
+        every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = playerService.connectAccounts(player, listOf(account, secondAccount))
+        val result = personService.connectAccounts(player, listOf(account, secondAccount))
 
         // THEN
         Assertions.assertEquals(2, result.accounts.size)
@@ -69,10 +69,10 @@ class PersonServiceUT{
         val account = AccountProvider.account()
         val secondAccount = AccountProvider.account()
 
-        every { playerRepository.save(any()) } returnsArgument 0
+        every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = playerService.connectAccounts(player, listOf(account, secondAccount))
+        val result = personService.connectAccounts(player, listOf(account, secondAccount))
 
         // THEN
         Assertions.assertEquals(3, result.accounts.size)

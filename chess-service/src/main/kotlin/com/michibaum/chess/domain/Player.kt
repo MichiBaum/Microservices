@@ -1,7 +1,7 @@
 package com.michibaum.chess.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
+import com.michibaum.chess.apis.dtos.PieceColor
+import jakarta.persistence.*
 import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
@@ -11,6 +11,19 @@ data class Player(
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
 
+    @Column(nullable = false)
+    val platformId: String,
 
+    @Column(nullable = false)
+    val username: String,
 
+    @Column(nullable = false)
+    val rating: Long,
+
+    @Enumerated(EnumType.STRING)
+    val pieceColor: PieceColor,
+
+    @ManyToOne
+    @JoinColumn(name="game_id", nullable=false)
+    val game: Game,
 )

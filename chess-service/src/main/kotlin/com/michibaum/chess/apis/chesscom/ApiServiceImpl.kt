@@ -5,6 +5,7 @@ import com.michibaum.chess.apis.config.ChessConfigProperties
 import com.michibaum.chess.apis.dtos.AccountDto
 import com.michibaum.chess.apis.dtos.GameDto
 import com.michibaum.chess.apis.dtos.StatsDto
+import com.michibaum.chess.apis.dtos.TopAccountDto
 import com.michibaum.chess.domain.Account
 import com.michibaum.chess.domain.ChessPlatform
 import org.springframework.http.MediaType
@@ -32,7 +33,7 @@ class ApiServiceImpl(
                 .bodyToMono(ChesscomAccountDto::class.java) // TODO onError
                 .block()
         } catch (throwable: Throwable){
-            return Exception(throwable)
+            return Exception("Exception chesscom findUser with username=$username", throwable)
         }
 
         if(result == null)
@@ -51,7 +52,7 @@ class ApiServiceImpl(
                 .bodyToMono(ChesscomStatsDto::class.java) // TODO onError
                 .block()
         } catch (throwable: Throwable){
-            return Exception(throwable)
+            return Exception("Exception chesscom getStats with username=${account.username}", throwable)
         }
 
         if(result == null)
@@ -90,7 +91,7 @@ class ApiServiceImpl(
                         .mapNotNull { it.games }
                         .block()
                 } catch (throwable: Throwable){
-                    return Exception(throwable)
+                    return Exception("Exception chesscom getGames with username=${account.username} and year=$currentYear and month=$currentMonth", throwable)
                 }
                 results.add(result)
             }
@@ -105,6 +106,25 @@ class ApiServiceImpl(
 
         val gameDtos = allResults.map { it.let { converter.convert(it) } }
         return Success(gameDtos)
+    }
+
+    override fun findTopAccounts(): ApiResult<List<TopAccountDto>> {
+        val result = try {
+            client.get()
+                .uri("/pub/leaderboards")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(ChesscomLeaderboards::class.java) // TODO onError
+                .block()
+        } catch (throwable: Throwable){
+            return Exception("Exception chesscom findTopAccounts", throwable)
+        }
+
+        if(result == null)
+            return Error("Error happend while fetching chesscom top accounts")
+
+        val topAccountDto = result.let { converter.convert(it) }
+        return Success(topAccountDto)
     }
 
     private fun getMonth(month: Int): String =

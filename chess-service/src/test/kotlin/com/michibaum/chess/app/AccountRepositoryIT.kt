@@ -14,7 +14,7 @@ class AccountRepositoryIT {
     lateinit var accountRepository: AccountRepository
 
     @Autowired
-    lateinit var playerRepository: PlayerRepository
+    lateinit var personRepository: PersonRepository
 
     @Test
     fun `insert account without player`(){
@@ -22,7 +22,7 @@ class AccountRepositoryIT {
         val account = AccountProvider.account()
 
         // WHEN
-        var result = accountRepository.save(account)
+        val result = accountRepository.save(account)
 
         // THEN
         assertNotNull(account.id)
@@ -43,7 +43,7 @@ class AccountRepositoryIT {
         val account = AccountProvider.account()
 
         // WHEN
-        val savedPlayer = playerRepository.save(player)
+        val savedPlayer = personRepository.save(player)
         val accWithPlayer = account.copy(person = savedPlayer)
         val result = accountRepository.save(accWithPlayer)
 

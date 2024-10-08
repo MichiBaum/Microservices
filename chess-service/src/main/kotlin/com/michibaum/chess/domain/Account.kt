@@ -30,7 +30,7 @@ data class Account(
     val createdAt: Date,
 
     @ManyToOne
-    @JoinColumn(name="player_id", nullable=true)
+    @JoinColumn(name="person_id", nullable=true)
     val person: Person?,
 
     @ManyToMany(fetch = FetchType.LAZY)

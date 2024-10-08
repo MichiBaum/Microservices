@@ -11,6 +11,7 @@ data class ApisConfigProperties(
 
     val webClient: WebClient = WebClient.builder()
         .baseUrl(baseUrl)
+        .defaultHeader("User-Agent", "chess-statistic-application/0.1; +http://www.michibaum.ch")
         .codecs { configurer ->
             configurer.defaultCodecs()
             .maxInMemorySize(10000000)

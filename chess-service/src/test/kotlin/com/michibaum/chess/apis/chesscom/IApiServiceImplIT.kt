@@ -6,10 +6,12 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension
 import com.michibaum.chess.apis.IApiService
 import com.michibaum.chess.apis.Success
+import com.michibaum.chess.apis.dtos.TopAccountDto
 import com.michibaum.chess.chesscomMockserverJson
 import com.michibaum.chess.domain.AccountProvider
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -91,6 +93,24 @@ class IApiServiceImplIT {
 
         // THEN
         assertTrue(result is Success)
+    }
+
+    @Test
+    fun `get leaderboard`(){
+        // GIVEN
+        val json = chesscomMockserverJson("leaderboards.json")
+        wireMockServer.stubFor(
+            WireMock.get("/pub/leaderboards")
+                .willReturn(WireMock.okJson(json))
+        )
+
+        // WHEN
+        val result = chesscomApiService.findTopAccounts()
+
+        // THEN
+        assertTrue(result is Success)
+        val castedResult = result as Success
+        assertEquals(150, castedResult.result.size)
     }
 
 }

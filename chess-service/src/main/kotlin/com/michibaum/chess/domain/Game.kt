@@ -14,7 +14,7 @@ data class Game(
     val chessPlatform: ChessPlatform,
 
     @Column(nullable = false)
-    val platformGameId: String,
+    val platformId: String,
 
     @Column(nullable = false)
     val pgn: String,
@@ -25,6 +25,9 @@ data class Game(
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "ACCOUNT_GAME_MAPPING", joinColumns = [JoinColumn(name = "game_id")],
         inverseJoinColumns = [JoinColumn(name = "account_id")])
-    val accounts: Set<Account> = emptySet()
+    val accounts: Set<Account> = emptySet(),
+
+    @OneToMany(mappedBy="game", fetch = FetchType.EAGER)
+    val players: Set<Player> = emptySet()
 
 )

@@ -5,10 +5,14 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension
 import com.michibaum.chess.apis.IApiService
 import com.michibaum.chess.apis.Success
+import com.michibaum.chess.apis.chesscom.IApiServiceImplIT
+import com.michibaum.chess.apis.chesscom.IApiServiceImplIT.Companion
+import com.michibaum.chess.chesscomMockserverJson
 import com.michibaum.chess.domain.AccountProvider
 import com.michibaum.chess.lichessMockserverJson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -95,6 +99,22 @@ class IApiServiceImplIT{
 
         // WHEN
         val result = lichessApiService.getStats(account)
+
+        // THEN
+        assertTrue(result is Success)
+    }
+
+    @Test
+    fun `get leaderboard`(){
+        // GIVEN
+        val json = lichessMockserverJson("api_player.json")
+        wireMockServer.stubFor(
+            WireMock.get("/api/player")
+                .willReturn(WireMock.okJson(json))
+        )
+
+        // WHEN
+        val result = lichessApiService.findTopAccounts()
 
         // THEN
         assertTrue(result is Success)

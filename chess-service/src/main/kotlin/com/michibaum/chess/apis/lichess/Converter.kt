@@ -1,7 +1,7 @@
 package com.michibaum.chess.apis.lichess
 
 import com.michibaum.chess.apis.dtos.*
-import com.michibaum.chess.apis.dtos.Player
+import com.michibaum.chess.apis.dtos.PlayerDto
 import com.michibaum.chess.domain.ChessPlatform
 import com.michibaum.chess.domain.GameType
 import org.springframework.stereotype.Component
@@ -13,16 +13,16 @@ class Converter {
     fun convert(accountDto: LichessAccountDto): AccountDto =
         AccountDto(
             id = accountDto.id,
-            url = accountDto.url,
+            url = accountDto.url ?: "",
             username = accountDto.username,
-            name = accountDto.profile.realName,
+            name = accountDto.profile?.realName ?: "",
             platform = ChessPlatform.LICHESS,
             createdAt = Date(accountDto.createdAt)
         )
 
     fun convert(gameDto: LichessGameDto): GameDto {
         val player1 = gameDto.players.white.let {
-            Player(
+            PlayerDto(
                 id = it.user?.id ?: "",
                 username = it.user?.name ?: "",
                 rating = it.rating ?: 0,
@@ -31,7 +31,7 @@ class Converter {
         }
 
         val player2 = gameDto.players.black.let {
-            Player(
+            PlayerDto(
                 id = it.user?.id ?: "",
                 username = it.user?.name ?: "",
                 rating = it.rating ?: 0,
@@ -73,5 +73,16 @@ class Converter {
                 highest = rapid.stat.highest?.int
             )
         )
+
+    fun convert(leaderboards: LichessLeaderboards): List<TopAccountDto> {
+        val topUltraBullet = leaderboards.ultraBullet.map { TopAccountDto(it.username) }
+        val topBullet = leaderboards.bullet.map { TopAccountDto(it.username) }
+        val topBlitz = leaderboards.blitz.map { TopAccountDto(it.username) }
+        val topRapid = leaderboards.rapid.map { TopAccountDto(it.username) }
+        val topClassical = leaderboards.classical.map { TopAccountDto(it.username) }
+
+        return topUltraBullet + topBullet + topBlitz + topRapid + topClassical
+
+    }
 
 }

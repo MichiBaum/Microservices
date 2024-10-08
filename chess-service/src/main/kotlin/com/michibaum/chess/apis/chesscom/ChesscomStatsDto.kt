@@ -3,7 +3,7 @@ package com.michibaum.chess.apis.chesscom
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
-@JsonIgnoreProperties(value = ["puzzle_rush"])
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ChesscomStatsDto(
     @JsonProperty("chess_rapid")
     val chessRapid: Rapid?,
@@ -12,7 +12,6 @@ data class ChesscomStatsDto(
     @JsonProperty("chess_blitz")
     val chessBlitz: Blitz?,
     val fide: Double?,
-    val tactics: Tactics,
 )
 
 data class Rapid(
@@ -49,11 +48,6 @@ data class Blitz(
     val last: Last,
     val best: Best,
     val record: Record,
-)
-
-data class Tactics(
-    val highest: Highest,
-    val lowest: Lowest,
 )
 
 data class Highest(

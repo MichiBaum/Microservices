@@ -6,13 +6,13 @@ import com.michibaum.chess.domain.GameType
 
 data class GameDto(
     val chessPlatform: ChessPlatform,
-    val id: String?,
-    val players: List<Player>,
+    val id: String,
+    val players: List<PlayerDto>,
     val pgn: String,
     val gameType: GameType
 )
 
-data class Player(
+data class PlayerDto(
     val id: String,
     val username: String,
     val rating: Long,
