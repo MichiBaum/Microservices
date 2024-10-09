@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension
+import com.michibaum.chess.apis.Exception
 import com.michibaum.chess.apis.IApiService
 import com.michibaum.chess.apis.Success
 import com.michibaum.chess.apis.dtos.TopAccountDto
@@ -35,7 +36,7 @@ class IApiServiceImplIT {
 
     @ParameterizedTest
     @ValueSource(strings = ["ezgat", "janistantv"])
-    fun `get userdata`(username: String){
+    fun `should return userdata for given username`(username: String){
         // GIVEN
         val json = chesscomMockserverJson("player_$username.json")
         wireMockServer.stubFor(
@@ -53,7 +54,18 @@ class IApiServiceImplIT {
 
     @ParameterizedTest
     @ValueSource(strings = ["ezgat", "janistantv"])
-    fun `get games`(username: String){
+    fun `get userdata handles exception`(username: String){
+        wireMockServer.stubFor(
+            WireMock.get("/pub/player/$username")
+                .willReturn(WireMock.serverError())
+        )
+        val errorResult = chesscomApiService.findUser(username)
+        assertTrue(errorResult is Exception)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["ezgat", "janistantv"])
+    fun `fetch games for usernames`(username: String){
         // GIVEN
         val account = AccountProvider.account().copy(username = username)
         val gamesJson = chesscomMockserverJson("player_${username}_games.json")
@@ -79,6 +91,18 @@ class IApiServiceImplIT {
 
     @ParameterizedTest
     @ValueSource(strings = ["ezgat", "janistantv"])
+    fun `get games handles exception`(username: String){
+        val account = AccountProvider.account().copy(username = username)
+        wireMockServer.stubFor(
+            WireMock.get("/pub/player/$username/games/2024/09")
+                .willReturn(WireMock.serverError())
+        )
+        val errorResult = chesscomApiService.getGames(account)
+        assertTrue(errorResult is Exception)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["ezgat", "janistantv"])
     fun `get stats`(username: String){
         // GIVEN
         val account = AccountProvider.account().copy(username = username)
@@ -93,6 +117,18 @@ class IApiServiceImplIT {
 
         // THEN
         assertTrue(result is Success)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["ezgat", "janistantv"])
+    fun `get stats handles exception`(username: String){
+        val account = AccountProvider.account().copy(username = username)
+        wireMockServer.stubFor(
+            WireMock.get("/pub/player/$username/stats")
+                .willReturn(WireMock.serverError())
+        )
+        val errorResult = chesscomApiService.getStats(account)
+        assertTrue(errorResult is Exception)
     }
 
     @Test
@@ -111,6 +147,16 @@ class IApiServiceImplIT {
         assertTrue(result is Success)
         val castedResult = result as Success
         assertEquals(150, castedResult.result.size)
+    }
+
+    @Test
+    fun `get leaderboard handles exception`(){
+        wireMockServer.stubFor(
+            WireMock.get("/pub/leaderboards")
+                .willReturn(WireMock.serverError())
+        )
+        val errorResult = chesscomApiService.findTopAccounts()
+        assertTrue(errorResult is Exception)
     }
 
 }

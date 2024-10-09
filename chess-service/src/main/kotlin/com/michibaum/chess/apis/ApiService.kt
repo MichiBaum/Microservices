@@ -67,5 +67,4 @@ class ApiService(
             .map { it.result }
     }
 
-
 }

@@ -12,14 +12,14 @@ class GameController(
     private val gameConverter: GameConverter
 ) {
 
-    @GetMapping(value = ["/account/{accountId}/load-games"])
+    @GetMapping(value = ["/api/account/{accountId}/load-games"])
     fun loadGamesFor(@PathVariable("accountId") accountId: UUID){
         accountService.findById(accountId)?.let {
             gameService.loadGamesFor(it)
         }
     }
 
-    @GetMapping(value = ["/account/{accountId}/games"])
+    @GetMapping(value = ["/api/account/{accountId}/games"])
     fun getGamesFor(@PathVariable("accountId") accountId: UUID): Set<GameDto>{
         val games = accountService.findById(accountId)?.games ?: emptySet()
         return games.map(gameConverter::convert).toSet()

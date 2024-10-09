@@ -1,7 +1,7 @@
 package com.michibaum.chess.app
 
 import com.michibaum.chess.domain.AccountProvider
-import com.michibaum.chess.domain.PlayerProvider
+import com.michibaum.chess.domain.PersonProvider
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
@@ -18,7 +18,7 @@ class PersonServiceUT{
     @Test
     fun `connect first account`(){
         // GIVEN
-        val player = PlayerProvider.player()
+        val player = PersonProvider.person()
         val account = AccountProvider.account()
 
         every { personRepository.save(any()) } returnsArgument 0
@@ -34,7 +34,7 @@ class PersonServiceUT{
     fun `connect second account`(){
         // GIVEN
         val account = AccountProvider.account()
-        val player = PlayerProvider.player().copy(accounts = setOf(account))
+        val player = PersonProvider.person().copy(accounts = setOf(account))
         val secondAccount = AccountProvider.account()
 
         every { personRepository.save(any()) } returnsArgument 0
@@ -49,7 +49,7 @@ class PersonServiceUT{
     @Test
     fun `connect multiple account`(){
         // GIVEN
-        val player = PlayerProvider.player()
+        val player = PersonProvider.person()
         val account = AccountProvider.account()
         val secondAccount = AccountProvider.account()
 
@@ -65,7 +65,7 @@ class PersonServiceUT{
     @Test
     fun `connect multiple account when one is connected`(){
         // GIVEN
-        val player = PlayerProvider.player().copy(accounts = setOf(AccountProvider.account()))
+        val player = PersonProvider.person().copy(accounts = setOf(AccountProvider.account()))
         val account = AccountProvider.account()
         val secondAccount = AccountProvider.account()
 

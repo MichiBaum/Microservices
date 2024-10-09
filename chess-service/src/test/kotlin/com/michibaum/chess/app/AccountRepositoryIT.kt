@@ -1,7 +1,7 @@
 package com.michibaum.chess.app
 
 import com.michibaum.chess.domain.AccountProvider
-import com.michibaum.chess.domain.PlayerProvider
+import com.michibaum.chess.domain.PersonProvider
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -39,7 +39,7 @@ class AccountRepositoryIT {
     @Test
     fun `insert account with player`(){
         // GIVEN
-        val player = PlayerProvider.player()
+        val player = PersonProvider.person()
         val account = AccountProvider.account()
 
         // WHEN

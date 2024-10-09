@@ -1,6 +1,16 @@
 package com.michibaum.chess
 
-operator fun <T> Iterable<T>.get(index: Int): T{
+/**
+ * Returns the element at the specified index in the iterable.
+ *
+ * @param index the index of the element to return
+ * @return the element at the specified index
+ * @throws IndexOutOfBoundsException if the index is out of bounds (index < 0 || index >= size)
+ */
+operator fun <T> Iterable<T>.get(index: Int): T {
+    if (index < 0 || index >= this.count()) {
+        throw IndexOutOfBoundsException("Index $index is out of bounds for this iterable.")
+    }
     return this.elementAt(index)
 }
 

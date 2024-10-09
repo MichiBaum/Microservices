@@ -4,9 +4,7 @@ import com.michibaum.chess.anyIterable
 import com.michibaum.chess.apis.ApiService
 import com.michibaum.chess.apis.Success
 import com.michibaum.chess.apis.dtos.AccountDto
-import com.michibaum.chess.domain.Account
 import com.michibaum.chess.domain.ChessPlatform
-import com.michibaum.chess.domain.Player
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals

@@ -19,4 +19,8 @@ class PersonService(
         return personRepository.save(newPlayer)
     }
 
+    fun savePerson(person: Person): Person {
+        return personRepository.save(person)
+    }
+
 }

@@ -3,11 +3,9 @@ package com.michibaum.chess.apis.lichess
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension
+import com.michibaum.chess.apis.Exception
 import com.michibaum.chess.apis.IApiService
 import com.michibaum.chess.apis.Success
-import com.michibaum.chess.apis.chesscom.IApiServiceImplIT
-import com.michibaum.chess.apis.chesscom.IApiServiceImplIT.Companion
-import com.michibaum.chess.chesscomMockserverJson
 import com.michibaum.chess.domain.AccountProvider
 import com.michibaum.chess.lichessMockserverJson
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -36,7 +34,7 @@ class IApiServiceImplIT{
 
     @ParameterizedTest
     @ValueSource(strings = ["MichiBaum", "JanistanTV"])
-    fun `get userdata`(username: String){
+    fun `should return userdata for given username`(username: String){
         // GIVEN
         val json = lichessMockserverJson("api_user_$username.json")
         wireMockServer.stubFor(
@@ -54,7 +52,18 @@ class IApiServiceImplIT{
 
     @ParameterizedTest
     @ValueSource(strings = ["MichiBaum", "JanistanTV"])
-    fun `get games`(username: String){
+    fun `get userdata handles exception`(username: String){
+        wireMockServer.stubFor(
+            WireMock.get("/api/user/$username")
+                .willReturn(WireMock.serverError())
+        )
+        val errorResult = lichessApiService.findUser(username)
+        assertTrue(errorResult is Exception)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["MichiBaum", "JanistanTV"])
+    fun `fetch games for usernames`(username: String){
         // GIVEN
         val account = AccountProvider.account().copy(username = username)
         val json = lichessMockserverJson("api_games_user_$username.json")
@@ -69,7 +78,18 @@ class IApiServiceImplIT{
         // THEN
         assertTrue(result is Success)
         assertTrue((result as Success).result.size > 1)
+    }
 
+    @ParameterizedTest
+    @ValueSource(strings = ["MichiBaum", "JanistanTV"])
+    fun `get games handles exception`(username: String){
+        val account = AccountProvider.account().copy(username = username)
+        wireMockServer.stubFor(
+            WireMock.get("/api/games/user/$username")
+                .willReturn(WireMock.serverError())
+        )
+        val errorResult = lichessApiService.getGames(account)
+        assertTrue(errorResult is Exception)
     }
 
     @ParameterizedTest
@@ -118,6 +138,16 @@ class IApiServiceImplIT{
 
         // THEN
         assertTrue(result is Success)
+    }
+
+    @Test
+    fun `get leaderboard handles exception`(){
+        wireMockServer.stubFor(
+            WireMock.get("/api/player")
+                .willReturn(WireMock.serverError())
+        )
+        val errorResult = lichessApiService.findTopAccounts()
+        assertTrue(errorResult is Exception)
     }
 
 }

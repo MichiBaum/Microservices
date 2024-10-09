@@ -1,6 +1,7 @@
 package com.michibaum.chess.app
 
 import com.michibaum.chess.apis.ApiService
+import com.michibaum.chess.apis.dtos.GameDto
 import com.michibaum.chess.domain.Account
 import com.michibaum.chess.domain.Game
 import com.michibaum.chess.domain.Player
@@ -28,27 +29,33 @@ class GameService(
                 )
             }.toSet()
 
-            val newGame = Game(
-                chessPlatform = game.chessPlatform,
-                platformId = game.id,
-                pgn = game.pgn,
-                gameType = game.gameType,
-                accounts = accounts,
-                players = emptySet()
-            )
+            val gameToSave = convertGame(game, accounts)
+            gameRepository.save(gameToSave)
+        }
 
-            val players = game.players.map { Player(
+    }
+
+    private fun convertGame(game: GameDto, accounts: Set<Account>): Game {
+        val newGame = Game(
+            chessPlatform = game.chessPlatform,
+            platformId = game.id,
+            pgn = game.pgn,
+            gameType = game.gameType,
+            accounts = accounts,
+            players = emptySet()
+        )
+
+        val players = game.players.map {
+            Player(
                 platformId = it.id,
                 username = it.username,
                 rating = it.rating,
                 pieceColor = it.pieceColor,
                 game = newGame
-            ) }.toSet()
+            )
+        }.toSet()
 
-            newGame.copy(players = players)
-            gameRepository.save(newGame)
-        }
-
+        return newGame.copy(players = players)
     }
 
 }

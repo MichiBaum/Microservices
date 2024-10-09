@@ -1,8 +1,7 @@
 package com.michibaum.chess.app
 
 import com.michibaum.chess.domain.AccountProvider
-import com.michibaum.chess.domain.PlayerProvider
-import com.michibaum.chess.get
+import com.michibaum.chess.domain.PersonProvider
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +19,7 @@ class PersonRepositoryIT {
     @Test
     fun `insert player without accounts`(){
         // GIVEN
-        val player = PlayerProvider.player()
+        val player = PersonProvider.person()
 
         // WHEN
         val result = personRepository.save(player)
@@ -36,7 +35,7 @@ class PersonRepositoryIT {
     @Test
     fun `insert player with account`(){
         // GIVEN
-        val player = PlayerProvider.player()
+        val player = PersonProvider.person()
         val account = AccountProvider.account()
 
         // WHEN
@@ -54,7 +53,7 @@ class PersonRepositoryIT {
         assertNotEquals(playerWithAccount.id, result.id)
 
         assertEquals(1, result.accounts.size)
-        assertEquals(savedAccount.id, result.accounts.get(0).id)
+        assertEquals(savedAccount.id, result.accounts.elementAt(0).id)
     }
 
 }

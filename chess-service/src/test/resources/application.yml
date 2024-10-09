@@ -29,6 +29,9 @@ spring:
     properties:
       hibernate:
         globally_quoted_identifiers: true
+  h2:
+    console:
+      enabled: true
 
 eureka:
   instance:
