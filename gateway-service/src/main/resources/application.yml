@@ -18,6 +18,50 @@ spring:
         wiretap: true
       httpserver:
         wiretap: true
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns:
+              - "http://*.michibaum.ch"
+              - "http://localhost:4200"
+            allowed-headers:
+              - "*"
+            allowed-methods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
+      routes:
+        - id: admin
+          uri: lb://admin-service
+          predicates:
+            - Host=admin.michibaum.ch
+        - id: authentication
+          uri: lb://authentication-service
+          predicates:
+            - Host=authentication.michibaum.ch
+        - id: javadoc
+          uri: lb://javadoc-service
+          predicates:
+            - Host=javadoc.michibaum.ch
+        - id: registry
+          uri: lb://registry-service
+          predicates:
+            - Host=registry.michibaum.ch
+        - id: usermanagement
+          uri: lb://usermanagement-service
+          predicates:
+            - Host=usermanagement.michibaum.ch
+        - id: chess
+          uri: lb://chess-service
+          predicates:
+            - Host=chess.michibaum.ch
+        - id: website
+          uri: lb://website-service
+          predicates:
+            - Host=michibaum.ch
     discovery:
       client:
         health-indicator:

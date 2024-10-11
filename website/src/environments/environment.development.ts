@@ -1,3 +1,4 @@
 export const environment = {
-  url: 'http://localhost:80/'
+  authenticationService: 'http://authentication.michibaum.ch/api',
+  chessService: 'http://chess.michibaum.ch/api'
 };

@@ -25,4 +25,8 @@ export class RouternavigationService {
   conceptNavigate() {
 
   }
+
+  chessNavigation() {
+    this.router.navigate(['/chess'], { skipLocationChange: true });
+  }
 }

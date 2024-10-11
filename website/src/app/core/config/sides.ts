@@ -39,6 +39,12 @@ export const Sides = {
     navigation: "home",
     canActivate: [isPermittedGuard]
   } as Side,
+  chess: {
+    name: "chess",
+    translationKey: "",
+    navigation: "chess",
+    canActivate: []
+  } as Side,
   default: {
     name: "default",
     translationKey: "",

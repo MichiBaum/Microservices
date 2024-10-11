@@ -17,7 +17,7 @@ class AuthenticationController (
     val usermanagementClient: UsermanagementClient
 ) : AuthenticationEndpoints {
 
-    @PostMapping(value = ["/authenticate"])
+    @PostMapping(value = ["/api/authenticate"])
     fun authenticate(@RequestBody authenticationDto: AuthenticationDto): ResponseEntity<Any> {
         val loginDto = LoginDto(authenticationDto.username, authenticationDto.password)
         val passwordCorrect: Boolean = usermanagementClient.checkPassword(loginDto)

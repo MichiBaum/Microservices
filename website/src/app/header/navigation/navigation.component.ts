@@ -55,6 +55,14 @@ export class NavigationComponent implements OnInit{
         }
       } as MenuItem,
       {
+        label: this.translate.instant('navigation.chess'),
+        icon: 'fa fa-home',
+        command: () => {
+          this.sidebarVisible = false;
+          this.routernavigationService.chessNavigation();
+        }
+      } as MenuItem,
+      {
         label: this.translate.instant('navigation.imprint'),
         icon: 'fa fa-copyright',
         command: () => {

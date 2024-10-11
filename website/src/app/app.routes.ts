@@ -5,6 +5,7 @@ import {AboutMeComponent} from "./about-me/about-me.component";
 import {HomeComponent} from "./home/home.component";
 import {ImprintComponent} from "./imprint/imprint.component";
 import {Sides} from "./core/config/sides";
+import {ChessComponent} from "./chess/chess.component";
 
 export const routes: Routes = [
   {
@@ -36,5 +37,10 @@ export const routes: Routes = [
     path: Sides.about_me.navigation,
     component: AboutMeComponent,
     canActivate: Sides.about_me.canActivate
+  },
+  {
+    path: Sides.chess.navigation,
+    component: ChessComponent,
+    canActivate: Sides.chess.canActivate
   }
 ];

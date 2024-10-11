@@ -25,6 +25,7 @@ There are these microservices:
 - [Registry Service](./registry-service/README.md)
 - [Usermanagement Service](./usermanagement-service/README.md)
 - [Website Service](./website-service/README.md)
+- [Chess Service](./chess-service/README.md)
 
 ## Release
 
@@ -70,6 +71,7 @@ Build docker images:
 In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
 
     # Microservices
+    127.0.0.1 chess.michibaum.ch
     127.0.0.1 gateway.michibaum.ch
     127.0.0.1 registry.michibaum.ch
     127.0.0.1 admin.michibaum.ch
@@ -86,6 +88,10 @@ File: */etc/hosts*
 ### Scan docker files
 
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
+
+## Local DB
+
+    docker run --name microservices -e MYSQL_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mysql:9.0.1
 
 ## License
 

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {ActivatedRouteSnapshot, Router} from "@angular/router";
 import {Authentication} from "../models/authentication.model";
+import {environment} from "../../../environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
 
   login(username:string, password:string ) {
     let autenticationModel = {username: username, password: password} as Authentication
-    this.http.post('/authenticate', autenticationModel).subscribe(value => console.log(value))
+    this.http.post(environment.authenticationService + '/authenticate', autenticationModel).subscribe(value => console.log(value))
   }
 
   getJwtTokenFromCookie(){
