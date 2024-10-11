@@ -1,10 +1,11 @@
 package com.michibaum.authentication_service.authentication
 
-import com.michibaum.authentication_service.config.UsermanagementClient
+import com.michibaum.usermanagement_library.UsermanagementClient
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
@@ -17,7 +18,10 @@ class AuthenticationControllerUT {
     private val authenticationService: AuthenticationService = mockk()
     private val usermanagementClient: UsermanagementClient = mockk()
 
-    private val authenticationController: AuthenticationController = AuthenticationController(authenticationService, usermanagementClient)
+    private val authenticationController: AuthenticationController = AuthenticationController(authenticationService)
+    init {
+        authenticationController.usermanagementClient = usermanagementClient
+    }
 
     @Test
     fun `Authentication successful`(){

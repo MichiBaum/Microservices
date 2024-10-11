@@ -12,14 +12,13 @@ class UserService(
 
     fun getUser(id: String) = findUserById(id)
 
-    fun update(id: String, updateUserDto: UpdateUserDto): User? =
-        this.findUserById(id)
-            ?.copy(
-                username = updateUserDto.username,
-                email = updateUserDto.email,
-                password = passwordEncoder.encode(updateUserDto.password)
-            )
-            ?.let { userRepository.save(it) }
+    fun update(id: String, updateUserDto: UpdateUserDto): User? {
+        val foundUser = userRepository.findById(id).orElse(null)
+        return foundUser?.let {
+            // TODO update User
+            userRepository.save(foundUser)
+        }
+    }
 
     private fun findUserById(id: String) = userRepository.findById(id).orElseNull()
 

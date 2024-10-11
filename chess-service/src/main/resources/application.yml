@@ -16,6 +16,8 @@ spring:
       client:
         health-indicator:
           include-description: true
+    openfeign:
+      lazy-attributes-resolution: true
   main:
     allow-bean-definition-overriding: true
   datasource:

@@ -7,11 +7,7 @@ import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity
-data class User (
-    @Id
-    @UuidGenerator
-    val id: UUID,
-
+class User (
     @Column(nullable = false, unique = true)
     val username: String,
 
@@ -19,9 +15,10 @@ data class User (
     val email: String,
 
     @Column(nullable = false)
-    val password: String
-) {
-    constructor() : this(id = UUID.randomUUID(), username = "", email = "", password = "") {
+    val password: String,
 
-    }
+    @Id
+    @UuidGenerator
+    val id: UUID,
+) {
 }

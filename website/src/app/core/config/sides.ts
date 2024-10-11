@@ -1,4 +1,4 @@
-import {isPermittedGuard} from "../guards/auth.guard";
+import {isAuthenticatedGuard, isPermittedGuard} from "../guards/auth.guard";
 import {CanActivateFn} from "@angular/router";
 
 interface Side{
@@ -19,7 +19,7 @@ export const Sides = {
     name: "microservices",
     translationKey: "",
     navigation: "microservices",
-    canActivate: [isPermittedGuard]
+    canActivate: [isAuthenticatedGuard]
   } as Side,
   about_me: {
     name: "about-me",
@@ -37,13 +37,13 @@ export const Sides = {
     name: "home",
     translationKey: "",
     navigation: "home",
-    canActivate: [isPermittedGuard]
+    canActivate: [isAuthenticatedGuard]
   } as Side,
   chess: {
     name: "chess",
     translationKey: "",
     navigation: "chess",
-    canActivate: []
+    canActivate: [isAuthenticatedGuard]
   } as Side,
   default: {
     name: "default",

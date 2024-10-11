@@ -18,6 +18,8 @@ spring:
         wiretap: true
       httpserver:
         wiretap: true
+    openfeign:
+      lazy-attributes-resolution: true
     discovery:
       client:
         health-indicator:
