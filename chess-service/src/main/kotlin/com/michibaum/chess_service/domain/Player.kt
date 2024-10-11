@@ -6,7 +6,7 @@ import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity
-data class Player(
+class Player(
     @Column(nullable = false)
     val platformId: String,
 

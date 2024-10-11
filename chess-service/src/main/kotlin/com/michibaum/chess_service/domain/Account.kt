@@ -25,7 +25,7 @@ class Account(
     @Temporal(TemporalType.DATE)
     val createdAt: Date,
 
-    @ManyToOne(targetEntity = Person::class, fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(targetEntity = Person::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinColumn(name="person_id", nullable=true)
     val person: Person?,
 

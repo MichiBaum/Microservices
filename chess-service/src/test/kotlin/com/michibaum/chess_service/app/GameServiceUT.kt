@@ -28,7 +28,7 @@ class GameServiceUT {
         val account = AccountProvider.account()
         val tmpGame = GameProvider.game(account)
         val player = PlayerProvider.player(tmpGame)
-            .copy(username = account.username, platformId = account.accId)
+//            .copy(username = account.username, platformId = account.accId)
         val game = tmpGame //.copy(players = setOf(player))
         val gameDto =  GameDto(
             chessPlatform = game.chessPlatform,

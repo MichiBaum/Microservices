@@ -18,13 +18,13 @@ class PersonServiceUT{
     @Test
     fun `connect first account`(){
         // GIVEN
-        val player = PersonProvider.person()
+        val person = PersonProvider.person()
         val account = AccountProvider.account()
 
         every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = personService.connectAccount(player, account)
+        val result = personService.connectAccount(person, account)
 
         // THEN
         Assertions.assertEquals(1, result.accounts.size)
@@ -34,13 +34,13 @@ class PersonServiceUT{
     fun `connect second account`(){
         // GIVEN
         val account = AccountProvider.account()
-        val player = PersonProvider.person() //.copy(accounts = setOf(account))
+        val person = PersonProvider.person(setOf(account))
         val secondAccount = AccountProvider.account()
 
         every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = personService.connectAccount(player, secondAccount)
+        val result = personService.connectAccount(person, secondAccount)
 
         // THEN
         Assertions.assertEquals(2, result.accounts.size)
@@ -49,14 +49,14 @@ class PersonServiceUT{
     @Test
     fun `connect multiple account`(){
         // GIVEN
-        val player = PersonProvider.person()
+        val person = PersonProvider.person()
         val account = AccountProvider.account()
         val secondAccount = AccountProvider.account()
 
         every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = personService.connectAccounts(player, listOf(account, secondAccount))
+        val result = personService.connectAccounts(person, listOf(account, secondAccount))
 
         // THEN
         Assertions.assertEquals(2, result.accounts.size)
@@ -65,17 +65,20 @@ class PersonServiceUT{
     @Test
     fun `connect multiple account when one is connected`(){
         // GIVEN
-        val player = PersonProvider.person() //.copy(accounts = setOf(AccountProvider.account()))
         val account = AccountProvider.account()
         val secondAccount = AccountProvider.account()
+        val person = PersonProvider.person(setOf(account, secondAccount))
+
+        val additionalAccount = AccountProvider.account()
+        val additionalSecondAccount = AccountProvider.account()
 
         every { personRepository.save(any()) } returnsArgument 0
 
         // WHEN
-        val result = personService.connectAccounts(player, listOf(account, secondAccount))
+        val result = personService.connectAccounts(person, listOf(additionalAccount, additionalSecondAccount))
 
         // THEN
-        Assertions.assertEquals(3, result.accounts.size)
+        Assertions.assertEquals(4, result.accounts.size)
     }
 
 }
