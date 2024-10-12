@@ -4,6 +4,8 @@ import {ChessPlayerSearchComponent} from "./chess-player-search/chess-player-sea
 import {ChessAccountsComponent} from "./chess-accounts/chess-accounts.component";
 import {ChessStatisticComponent} from "./chess-statistic/chess-statistic.component";
 import {Account, Person} from "../core/models/chess.models";
+import {HeaderService} from "../core/services/header.service";
+import {Sides} from "../core/config/sides";
 
 @Component({
   selector: 'app-chess',
@@ -20,6 +22,10 @@ import {Account, Person} from "../core/models/chess.models";
 export class ChessComponent {
 
   persons: Person[] = []
+
+  constructor(private headerService: HeaderService) {
+    this.headerService.changeTitle(Sides.chess.translationKey)
+  }
 
   onAccountsToAdd(person: Person) {
     this.persons = [...this.persons, person]

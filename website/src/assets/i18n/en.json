@@ -9,7 +9,8 @@
   "navigation": {
     "home": "Home",
     "imprint": "Imprint",
-    "github": "Github"
+    "github": "Github",
+    "chess": "Chess"
   },
   "owner": {
     "name": "Michael Baumberger",
@@ -18,7 +19,8 @@
     "country": "Switzerland",
     "email": "michael_baumberger@gmx.ch"
   },
-  "impress": {
+  "imprint": {
+    "title": "Imprint",
     "contact-address-title": "Contact address",
     "email-title": "E-mail:",
     "disclaimer-of-liability-title": "Disclaimer of liability",
@@ -33,5 +35,14 @@
     "source": "SwissAnwalt",
     "translation-title": "Translation",
     "translation-description": "This application / website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors."
+  },
+  "home": {
+    "title": "Home"
+  },
+  "chess": {
+    "title": "Chess"
+  },
+  "login": {
+    "title": "Login"
   }
 }

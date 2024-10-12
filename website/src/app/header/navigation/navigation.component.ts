@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenubarModule} from "primeng/menubar";
-import {MenuItem} from "primeng/api";
+import {MenuItem, PrimeIcons} from "primeng/api";
 import {TranslateService} from "@ngx-translate/core";
 import {RouternavigationService} from "../../core/services/router-navigation.service";
 import {LanguageConfig} from "../../core/config/language.config";
@@ -48,7 +48,7 @@ export class NavigationComponent implements OnInit{
     this.navItems = [
       {
         label: this.translate.instant('navigation.home'),
-        icon: 'fa fa-home',
+        icon: PrimeIcons.HOME,
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.homeNavigate();
@@ -56,7 +56,7 @@ export class NavigationComponent implements OnInit{
       } as MenuItem,
       {
         label: this.translate.instant('navigation.chess'),
-        icon: 'fa fa-home',
+        icon: '',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.chessNavigation();
@@ -64,7 +64,7 @@ export class NavigationComponent implements OnInit{
       } as MenuItem,
       {
         label: this.translate.instant('navigation.imprint'),
-        icon: 'fa fa-copyright',
+        icon: '',
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.imprintNavigate();
@@ -72,7 +72,7 @@ export class NavigationComponent implements OnInit{
       } as MenuItem,
       {
         label: this.translate.instant('navigation.github'),
-        icon: 'fab fa-github',
+        icon: PrimeIcons.GITHUB,
         command: () => {
           this.sidebarVisible = false;
           this.routernavigationService.githubNavigate();

@@ -5,6 +5,8 @@ import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
 import {FloatLabelModule} from "primeng/floatlabel";
 import {AuthService} from "../core/services/auth.service";
+import {HeaderService} from "../core/services/header.service";
+import {Sides} from "../core/config/sides";
 
 @Component({
   selector: 'app-authentication',
@@ -33,7 +35,8 @@ export class AuthenticationComponent {
     }
   );
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private headerService: HeaderService) {
+    this.headerService.changeTitle(Sides.login.translationKey)
   }
 
   login(){

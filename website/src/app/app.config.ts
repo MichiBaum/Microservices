@@ -21,7 +21,7 @@ export function TranslateLoaderFactory(http: HttpClient) {
 
 function appInitializerFactory(translate: TranslateService) {
   return () => {
-    var lang = localStorage.getItem('languageIso') || 'en'
+    const lang = localStorage.getItem('languageIso') || 'en';
     translate.setDefaultLang(lang);
     return translate.use(lang).toPromise();
   };

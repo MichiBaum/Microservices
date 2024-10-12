@@ -6,6 +6,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {PrimeNgBase} from "../core/models/primeng-base.model";
 import {LanguageConfig} from "../core/config/language.config";
+import {HeaderService} from "../core/services/header.service";
 
 @Component({
   selector: 'app-header',
@@ -24,8 +25,11 @@ export class HeaderComponent implements OnInit{
 
   languages: PrimeNgBase[] | undefined;
 
-  constructor(private languageConfig: LanguageConfig, private translate: TranslateService) {
+  title = "application.title"
+
+  constructor(private languageConfig: LanguageConfig, private translate: TranslateService, private headerService: HeaderService) {
     this.languages = this.initLanguages();
+    this.headerService.titleChangeEmitter.subscribe(value => this.title = value)
   }
 
   ngOnInit(): void {

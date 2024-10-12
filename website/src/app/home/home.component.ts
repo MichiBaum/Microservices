@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {HeaderService} from "../core/services/header.service";
+import {Sides} from "../core/config/sides";
 
 @Component({
   selector: 'app-home',
@@ -8,5 +10,9 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+
+  constructor(private headerService: HeaderService) {
+    this.headerService.changeTitle(Sides.home.translationKey)
+  }
 
 }

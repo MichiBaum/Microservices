@@ -11,7 +11,7 @@ interface Side{
 export const Sides = {
   imprint : {
     name: "imprint",
-    translationKey: "",
+    translationKey: "imprint.title",
     navigation: "imprint",
     canActivate: []
   } as Side,
@@ -29,19 +29,19 @@ export const Sides = {
   } as Side,
   login: {
     name: "login",
-    translationKey: "",
+    translationKey: "login.title",
     navigation: "login",
     canActivate: []
   } as Side,
   home: {
     name: "home",
-    translationKey: "",
+    translationKey: "home.title",
     navigation: "home",
     canActivate: [isAuthenticatedGuard]
   } as Side,
   chess: {
     name: "chess",
-    translationKey: "",
+    translationKey: "chess.title",
     navigation: "chess",
     canActivate: [isAuthenticatedGuard]
   } as Side,
