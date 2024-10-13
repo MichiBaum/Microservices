@@ -37,8 +37,8 @@ class AuthenticationControllerUT {
 
         // THEN
         assertEquals(HttpStatus.OK, result.statusCode)
-        assertNotNull(result.headers)
-        assertEquals(jws, result.headers[HttpHeaders.AUTHORIZATION]?.get(0) ?: "")
+        assertEquals(jws, result.body?.jwt ?: "")
+        assertEquals(authenticationDto.username, result.body?.username ?: "")
     }
 
     @Test

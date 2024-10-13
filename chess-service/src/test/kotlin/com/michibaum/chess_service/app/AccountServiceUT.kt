@@ -4,6 +4,7 @@ import com.michibaum.chess_service.anyIterable
 import com.michibaum.chess_service.apis.ApiService
 import com.michibaum.chess_service.apis.Success
 import com.michibaum.chess_service.apis.dtos.AccountDto
+import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.ChessPlatform
 import io.mockk.every
 import io.mockk.mockk

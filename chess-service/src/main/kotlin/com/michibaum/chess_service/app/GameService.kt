@@ -20,7 +20,7 @@ class GameService(
 
         for (game in games){
             val exists = gameRepository.existsByChessPlatformAndPlatformId(game.chessPlatform, game.id)
-            if(exists) continue
+            if(!exists) continue
 
             val accounts = game.players.mapNotNull {
                 accountRepository.findByPlatformAndAccIdAndUsername(
