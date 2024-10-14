@@ -9,24 +9,23 @@ export class RouternavigationService {
   constructor(private router: Router) {
   }
 
-  homeNavigate() {
+  home() {
     this.router.navigate(['/home'], {skipLocationChange: true});
   }
 
-  githubNavigate() {
-    const url = 'https://github.com/MichiBaum';
-    window.open(url, '_blank');
+  github() {
+    open('https://github.com/MichiBaum');
   }
 
-  imprintNavigate() {
+  imprint() {
     this.router.navigate(['/imprint'], { skipLocationChange: true });
   }
 
-  conceptNavigate() {
-
+  chess() {
+    this.router.navigate(['/chess'], { skipLocationChange: true });
   }
 
-  chessNavigation() {
-    this.router.navigate(['/chess'], { skipLocationChange: true });
+  open(url: string) {
+    window.open(url, '_blank');
   }
 }

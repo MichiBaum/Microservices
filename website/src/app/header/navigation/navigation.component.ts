@@ -8,7 +8,8 @@ import {SidebarModule} from "primeng/sidebar";
 import {SlideMenuModule} from "primeng/slidemenu";
 import {ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
-import {LightDarkModeComponent} from "../../light-dark-mode/light-dark-mode.component";
+import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
+import {Ripple} from "primeng/ripple";
 
 @Component({
   selector: 'app-navigation',
@@ -19,7 +20,7 @@ import {LightDarkModeComponent} from "../../light-dark-mode/light-dark-mode.comp
     SlideMenuModule,
     ButtonDirective,
     MenuModule,
-    LightDarkModeComponent
+    Ripple,
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
@@ -31,7 +32,8 @@ export class NavigationComponent implements OnInit{
   constructor(
     private translate: TranslateService,
     private languageConfig: LanguageConfig,
-    private routernavigationService: RouternavigationService
+    private routernavigationService: RouternavigationService,
+    private lightDarkModeService: LightDarkModeService
   ) {
 
     this.languageConfig.languageChanged.subscribe(() => {
@@ -47,37 +49,63 @@ export class NavigationComponent implements OnInit{
   setItems = (): void => {
     this.navItems = [
       {
-        label: this.translate.instant('navigation.home'),
-        icon: PrimeIcons.HOME,
-        command: () => {
-          this.sidebarVisible = false;
-          this.routernavigationService.homeNavigate();
-        }
-      } as MenuItem,
+        label: 'Apps',
+        items: [
+          {
+            label: this.translate.instant('navigation.home'),
+            icon: PrimeIcons.HOME,
+            command: () => {
+              this.sidebarVisible = false;
+              this.routernavigationService.home();
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant('navigation.chess'),
+            icon: '',
+            command: () => {
+              this.sidebarVisible = false;
+              this.routernavigationService.chess();
+            }
+          } as MenuItem
+          ]
+      },
       {
-        label: this.translate.instant('navigation.chess'),
-        icon: '',
-        command: () => {
-          this.sidebarVisible = false;
-          this.routernavigationService.chessNavigation();
-        }
-      } as MenuItem,
-      {
-        label: this.translate.instant('navigation.imprint'),
-        icon: '',
-        command: () => {
-          this.sidebarVisible = false;
-          this.routernavigationService.imprintNavigate();
-        }
-      } as MenuItem,
-      {
-        label: this.translate.instant('navigation.github'),
-        icon: PrimeIcons.GITHUB,
-        command: () => {
-          this.sidebarVisible = false;
-          this.routernavigationService.githubNavigate();
-        }
-      } as MenuItem
+        label: 'Settings & else',// TODO
+        items: [
+          {
+            label: 'Change light/dark mode',
+            icon: PrimeIcons.LIGHTBULB,
+            command: () => {
+              this.sidebarVisible = false;
+              this.lightDarkModeService.changeMode(document);
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant('navigation.imprint'),
+            icon: '',
+            command: () => {
+              this.sidebarVisible = false;
+              this.routernavigationService.imprint();
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant('navigation.github'),
+            icon: PrimeIcons.GITHUB,
+            command: () => {
+              this.sidebarVisible = false;
+              this.routernavigationService.github();
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant('navigation.buymeacoffee'),
+            icon: PrimeIcons.CODE,
+            command: () => {
+              this.sidebarVisible = false;
+              this.routernavigationService.open("https://www.buymeacoffee.com/michibaum");
+            }
+          } as MenuItem
+        ]
+      }
     ] as MenuItem[];
   }
 }
