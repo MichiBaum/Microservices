@@ -10,6 +10,9 @@ import {ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
 import {Ripple} from "primeng/ripple";
+import {faChess, faCoffee, faHouse, faLightbulb, faStamp} from "@fortawesome/free-solid-svg-icons";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faGithub} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-navigation',
@@ -21,6 +24,7 @@ import {Ripple} from "primeng/ripple";
     ButtonDirective,
     MenuModule,
     Ripple,
+    FaIconComponent,
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
@@ -53,7 +57,7 @@ export class NavigationComponent implements OnInit{
         items: [
           {
             label: this.translate.instant('navigation.home'),
-            icon: PrimeIcons.HOME,
+            customIcon: faHouse,
             command: () => {
               this.sidebarVisible = false;
               this.routernavigationService.home();
@@ -61,7 +65,7 @@ export class NavigationComponent implements OnInit{
           } as MenuItem,
           {
             label: this.translate.instant('navigation.chess'),
-            icon: '',
+            customIcon: faChess,
             command: () => {
               this.sidebarVisible = false;
               this.routernavigationService.chess();
@@ -74,7 +78,7 @@ export class NavigationComponent implements OnInit{
         items: [
           {
             label: 'Change light/dark mode',
-            icon: PrimeIcons.LIGHTBULB,
+            customIcon: faLightbulb,
             command: () => {
               this.sidebarVisible = false;
               this.lightDarkModeService.changeMode(document);
@@ -82,7 +86,7 @@ export class NavigationComponent implements OnInit{
           } as MenuItem,
           {
             label: this.translate.instant('navigation.imprint'),
-            icon: '',
+            customIcon: faStamp,
             command: () => {
               this.sidebarVisible = false;
               this.routernavigationService.imprint();
@@ -90,7 +94,7 @@ export class NavigationComponent implements OnInit{
           } as MenuItem,
           {
             label: this.translate.instant('navigation.github'),
-            icon: PrimeIcons.GITHUB,
+            customIcon: faGithub,
             command: () => {
               this.sidebarVisible = false;
               this.routernavigationService.github();
@@ -98,7 +102,7 @@ export class NavigationComponent implements OnInit{
           } as MenuItem,
           {
             label: this.translate.instant('navigation.buymeacoffee'),
-            icon: PrimeIcons.CODE,
+            customIcon: faCoffee,
             command: () => {
               this.sidebarVisible = false;
               this.routernavigationService.open("https://www.buymeacoffee.com/michibaum");
@@ -108,4 +112,5 @@ export class NavigationComponent implements OnInit{
       }
     ] as MenuItem[];
   }
+  protected readonly faLightbulb = faLightbulb;
 }
