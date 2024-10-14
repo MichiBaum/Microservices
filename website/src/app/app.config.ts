@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom, isDevMode} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -14,6 +14,7 @@ import {TranslateLoader, TranslateModule, TranslatePipe, TranslateService} from 
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+import { provideServiceWorker } from '@angular/service-worker';
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,6 +51,9 @@ export const appConfig: ApplicationConfig = {
         useFactory: TranslateLoaderFactory,
         deps: [HttpClient]
       }
-    }).providers!,
+    }).providers!, provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }),
   ]
 };
