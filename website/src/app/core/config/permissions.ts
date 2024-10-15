@@ -1,8 +1,6 @@
-package com.michibaum.permission_library
-
-enum class Permissions {
-
+export enum Permissions {
     ADMIN_SERVICE,
+    ADMIN_SERVICE_CAN_SEND_REQUEST,
 
     REGISTRY_SERVICE,
 
@@ -14,5 +12,5 @@ enum class Permissions {
 
     JAVADOC_SERVICE,
 
-    CHESS_SERVICE;
+    CHESS_SERVICE
 }

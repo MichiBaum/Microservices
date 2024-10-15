@@ -22,6 +22,14 @@ class UserService(
 
     private fun findUserById(id: String) = userRepository.findById(id).orElseNull()
 
+    fun findByUsername(username: String): User? {
+        return userRepository.findByUsername(username).orElseNull()
+    }
+
+    fun checkPassword(dtoPassword: String, passwordHash: String): Boolean {
+        return passwordEncoder.matches(dtoPassword, passwordHash)
+    }
+
 }
 
 private fun <T> Optional<T>.orElseNull(): T? = this.orElse(null)

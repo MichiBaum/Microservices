@@ -65,6 +65,11 @@
             <artifactId>usermanagement-library</artifactId>
             <version>1.0.0-TEST-9</version>
         </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>permission-library</artifactId>
+            <version>1.0.0-TEST-9</version>
+        </dependency>
 
         <dependency>
             <groupId>com.michibaum</groupId>

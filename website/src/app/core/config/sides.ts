@@ -13,42 +13,49 @@ export const Sides = {
     name: "imprint",
     translationKey: "imprint.title",
     navigation: "imprint",
-    canActivate: []
+    canActivate: [],
+    needsPermission: []
   } as Side,
   microservices: {
     name: "microservices",
     translationKey: "",
     navigation: "microservices",
-    canActivate: [isAuthenticatedGuard]
+    canActivate: [isPermittedGuard],
+    needsPermission: []
   } as Side,
   about_me: {
     name: "about-me",
     translationKey: "",
     navigation: "about-me",
-    canActivate: []
+    canActivate: [],
+    needsPermission: []
   } as Side,
   login: {
     name: "login",
     translationKey: "login.title",
     navigation: "login",
-    canActivate: []
+    canActivate: [],
+    needsPermission: []
   } as Side,
   home: {
     name: "home",
     translationKey: "home.title",
     navigation: "home",
-    canActivate: [isAuthenticatedGuard]
+    canActivate: [isAuthenticatedGuard],
+    needsPermission: []
   } as Side,
   chess: {
     name: "chess",
     translationKey: "chess.title",
     navigation: "chess",
-    canActivate: [isAuthenticatedGuard]
+    canActivate: [isAuthenticatedGuard],
+    needsPermission: []
   } as Side,
   default: {
     name: "default",
     translationKey: "",
     navigation: "",
-    canActivate: [isPermittedGuard]
+    canActivate: [isAuthenticatedGuard],
+    needsPermission: []
   } as Side
 }

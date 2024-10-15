@@ -1,8 +1,7 @@
 package com.michibaum.usermanagement_service
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
+import jakarta.persistence.*
+import jakarta.persistence.FetchType.EAGER
 import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
@@ -16,6 +15,10 @@ class User (
 
     @Column(nullable = false)
     val password: String,
+
+    @ManyToMany(fetch = EAGER, targetEntity = Permission::class)
+    @JoinTable(name = "USER_PERMISSION_MAPPING", joinColumns = [JoinColumn(name = "user_id")], inverseJoinColumns = [JoinColumn(name = "permission_id")])
+    val permissions: Set<Permission>,
 
     @Id
     @UuidGenerator

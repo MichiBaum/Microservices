@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-microservice-overview',
@@ -9,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class MicroserviceOverviewComponent {
 
+  protected readonly environment = environment;
 }

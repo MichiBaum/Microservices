@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import com.michibaum.usermanagement_library.LoginDto
 import com.michibaum.authentication_library.PublicKeyDto
+import com.michibaum.usermanagement_library.UserDetailsDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpStatus
@@ -24,12 +25,10 @@ class AuthenticationController (
     @PostMapping(value = ["/api/authenticate"])
     fun authenticate(@RequestBody authenticationDto: AuthenticationDto): ResponseEntity<AuthenticationResponse> {
         val loginDto = LoginDto(authenticationDto.username, authenticationDto.password)
-        val passwordCorrect: Boolean = usermanagementClient.checkPassword(loginDto)
+        val userDetailsDto: UserDetailsDto = usermanagementClient.checkUserDetails(loginDto)
+            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
 
-        if (!passwordCorrect)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-
-        val jws = authenticationService.generateJWS(loginDto.username)!!
+        val jws = authenticationService.generateJWS(userDetailsDto)!!
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
         return ResponseEntity.ok(responseBody)
     }

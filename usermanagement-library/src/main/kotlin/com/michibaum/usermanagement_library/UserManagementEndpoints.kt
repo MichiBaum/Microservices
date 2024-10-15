@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody
 
 interface UserManagementEndpoints {
 
-    @PostMapping(value = ["/checkPassword"])
-    fun checkPassword(@RequestBody loginDto: LoginDto): Boolean
+    @PostMapping(value = ["/checkUserDetails"])
+    fun checkUserDetails(@RequestBody loginDto: LoginDto): UserDetailsDto?
 
 }

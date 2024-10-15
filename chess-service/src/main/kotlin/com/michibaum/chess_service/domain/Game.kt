@@ -19,8 +19,7 @@ class Game(
     val gameType: GameType,
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Account::class)
-    @JoinTable(name = "ACCOUNT_GAME_MAPPING", joinColumns = [JoinColumn(name = "game_id")],
-        inverseJoinColumns = [JoinColumn(name = "account_id")])
+    @JoinTable(name = "ACCOUNT_GAME_MAPPING", joinColumns = [JoinColumn(name = "game_id")], inverseJoinColumns = [JoinColumn(name = "account_id")])
     val accounts: Set<Account>,
 
     @OneToMany(mappedBy="game", fetch = FetchType.EAGER, targetEntity = Player::class, cascade = [CascadeType.ALL])

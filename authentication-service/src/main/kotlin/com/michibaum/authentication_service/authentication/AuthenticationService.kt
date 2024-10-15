@@ -3,6 +3,7 @@ package com.michibaum.authentication_service.authentication
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.michibaum.authentication_library.PublicKeyDto
+import com.michibaum.usermanagement_library.UserDetailsDto
 import org.springframework.stereotype.Service
 import java.security.KeyPair
 import java.security.interfaces.RSAPrivateKey
@@ -21,13 +22,15 @@ class AuthenticationService (
                 keyPair.public.encoded
         )
 
-    fun generateJWS(username: String): String? {
+    fun generateJWS(userDetails: UserDetailsDto): String? {
         return JWT.create()
                 .withHeader(jwsHeaders())
                 .withIssuer("authentication-service")
-                .withSubject(username)
+                .withSubject(userDetails.username)
                 .withExpiresAt(Instant.now().plusSeconds(60*60*8))
                 .withIssuedAt(Instant.now())
+                .withClaim("userId", userDetails.id)
+                .withArrayClaim("permissions", userDetails.permissions.toTypedArray())
                 .sign(algorithm)
     }
 
