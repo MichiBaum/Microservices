@@ -13,10 +13,10 @@
 
 
 
-This project is all about microservices and microfrontends.
+This project is all about microservices. Frontend is currently build with Angular.
 There are microservices build with spring, spring cloud and so forth.
 
-## Available Microservices
+## Modules
 There are these microservices:
 - [Admin Service](./admin-service/README.md)
 - [Authentication Service](./authentication-service/README.md)
@@ -26,6 +26,11 @@ There are these microservices:
 - [Usermanagement Service](./usermanagement-service/README.md)
 - [Website Service](./website-service/README.md)
 - [Chess Service](./chess-service/README.md)
+
+And these libraries
+- [Authentication Library](./authentication-library/README.md)
+- [Permission Library](./permission-library/README.md)
+- [Usermanagement Library](./usermanagement-library/README.md)
 
 ## Release
 
@@ -62,7 +67,7 @@ Build docker images:
     # Single container 
     docker compose logs ´name´
 
-### Change HOSTS file
+### Change HOSTS file (for dev on local machine)
 *Remember to take Backup before editing your `hosts` file, mistakes there can block your internet access or cause other network-related issues.*
 
 
@@ -92,6 +97,14 @@ File: */etc/hosts*
 ## Local DB
 
     docker run --name microservices -e MYSQL_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mysql:9.0.1
+
+After that create the databases in the container.
+The tables are created trough
+
+    spring
+      jpa:
+        hibernate:
+          ddl-auto: update
 
 ## License
 
