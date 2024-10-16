@@ -33,7 +33,7 @@ class AuthenticationControllerUT {
 
         val jws = "1234qwer"
         val authenticationDto = AuthenticationDto("UName", "Passwört")
-        every { authenticationService.generateJWS(authenticationDto.username) } returns jws
+        every { authenticationService.generateJWS(userDetailsDto) } returns jws
 
         // WHEN
         val result = authenticationController.authenticate(authenticationDto)
@@ -47,12 +47,7 @@ class AuthenticationControllerUT {
     @Test
     fun `Bad credentials`(){
         // GIVEN
-        val userDetailsDto = UserDetailsDto(
-            id = "ubdf-sdfg-sdfv-sdfv",
-            username = "UName",
-            permissions = emptySet()
-        )
-        every { usermanagementClient.checkUserDetails(any()) } returns userDetailsDto
+        every { usermanagementClient.checkUserDetails(any()) } returns null
         val authenticationDto = AuthenticationDto("UName", "Passwört")
 
         // WHEN

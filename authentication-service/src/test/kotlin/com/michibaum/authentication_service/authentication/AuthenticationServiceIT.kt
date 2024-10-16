@@ -2,6 +2,7 @@ package com.michibaum.authentication_service.authentication
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.michibaum.usermanagement_library.UserDetailsDto
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -24,9 +25,14 @@ class AuthenticationServiceIT {
     @Test
     fun `jws valid`() {
         // GIVEN
+        val userDetailsDto = UserDetailsDto(
+            id = "ubdf-sdfg-sdfv-sdfv",
+            username = "UName",
+            permissions = emptySet()
+        )
 
         // WHEN
-        val jws = authService.generateJWS("Michi")
+        val jws = authService.generateJWS(userDetailsDto)
 
         // THEN
         assertNotNull(jws)
