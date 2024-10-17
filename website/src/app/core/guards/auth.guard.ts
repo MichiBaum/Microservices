@@ -11,7 +11,7 @@ export const isAuthenticatedGuard: CanActivateFn = (route, state) => {
 export const hasPermissionGuard: CanActivateFn = (route, state) => {
   // TODO get jwt && look at permissions
   // inject(PermissionsService).canActivate(inject(UserToken), route. params['id']);
-  inject(PermissionService).canActivate(route.params['id'])
+  inject(PermissionService).hasAnyOf(route.params['id'])
   return true;
 };
 

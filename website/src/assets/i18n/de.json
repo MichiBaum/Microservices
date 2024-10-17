@@ -7,11 +7,11 @@
     "english": "English"
   },
   "navigation": {
-    "home": "Startseite",
-    "imprint": "Impressum",
+    "apps": "Apps",
     "github": "Github",
-    "chess": "Schach",
-    "buymeacoffee": "Spende einen Kaffee"
+    "buymeacoffee": "Spende einen Kaffee",
+    "light-dark-mode": "Hell-/Dunkelmodus",
+    "settings-and-else": "Einstellungen und anderes"
   },
   "owner": {
     "name": "Michael Baumberger",
@@ -45,5 +45,11 @@
   },
   "login": {
     "title": "Login"
+  },
+  "about-me": {
+    "title": "Über mich"
+  },
+  "microservices": {
+    "title": "Microservices"
   }
 }

@@ -1,6 +1,5 @@
 export enum Permissions {
     ADMIN_SERVICE,
-    ADMIN_SERVICE_CAN_SEND_REQUEST,
 
     REGISTRY_SERVICE,
 

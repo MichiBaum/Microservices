@@ -1,16 +1,20 @@
-import {inject, Injectable} from "@angular/core";
+import {EventEmitter, inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {ActivatedRouteSnapshot, Router} from "@angular/router";
 import {Authentication, AuthenticationResponse} from "../models/authentication.model";
 import {environment} from "../../../environments/environment";
 import {Sides} from "../config/sides";
-import {RouternavigationService} from "./router-navigation.service";
+import {RouterNavigationService} from "./router-navigation.service";
+import {PermissionService} from "./permission.service";
+import {Subject} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  constructor(private http: HttpClient, private router:Router, private routernavigationService: RouternavigationService) {
+  successLoginEmitter = new Subject<void>();
+
+  constructor(private http: HttpClient, private router:Router, private routerNavigationService: RouterNavigationService) {
   }
 
   login(username:string, password:string ) {
@@ -20,6 +24,7 @@ export class AuthService {
         if(value.jwt != null && value.jwt !== ""){
           console.log("Successful authentication -> jwt saved in localstorage");
           localStorage.setItem('Authentication', value.jwt);
+          this.successLoginEmitter.next()
           this.router.navigate(["/home"])
         }
       })
@@ -40,7 +45,7 @@ export class AuthService {
     let jwtIsPresent = this.jwtIsPresent();
 
     if (!jwtIsPresent) {
-      this.routernavigationService.login()
+      this.routerNavigationService.login()
       return false;
     }
 

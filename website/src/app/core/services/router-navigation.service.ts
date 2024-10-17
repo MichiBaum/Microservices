@@ -5,7 +5,7 @@ import {Sides} from "../config/sides";
 @Injectable({
   providedIn: 'root'
 })
-export class RouternavigationService {
+export class RouterNavigationService {
 
   constructor(private router: Router) {
   }
@@ -36,5 +36,13 @@ export class RouternavigationService {
 
   login() {
     this.router.navigate(['/login']);
+  }
+
+  about_me(){
+    this.router.navigate(['/about-me']);
+  }
+
+  donate() {
+    window.open("https://www.buymeacoffee.com/michibaum", '_blank');
   }
 }

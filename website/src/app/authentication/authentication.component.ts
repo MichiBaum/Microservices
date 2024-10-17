@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
@@ -22,7 +22,7 @@ import {Sides} from "../core/config/sides";
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.scss'
 })
-export class AuthenticationComponent {
+export class AuthenticationComponent implements OnInit{
 
   loginFormGroup = new FormGroup(
     {
@@ -36,6 +36,9 @@ export class AuthenticationComponent {
   );
 
   constructor(private authService: AuthService, private headerService: HeaderService) {
+  }
+
+  ngOnInit(): void {
     this.headerService.changeTitle(Sides.login.translationKey)
   }
 

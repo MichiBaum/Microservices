@@ -3,6 +3,7 @@ import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
+import {RouterNavigationService} from "../core/services/router-navigation.service";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import {CardModule} from "primeng/card";
 })
 export class HomeComponent {
 
-  constructor(private headerService: HeaderService) {
+  constructor(private headerService: HeaderService, protected routerNavigationService: RouterNavigationService) {
     this.headerService.changeTitle(Sides.home.translationKey)
   }
 

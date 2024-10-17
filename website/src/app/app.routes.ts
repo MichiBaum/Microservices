@@ -11,36 +11,36 @@ export const routes: Routes = [
   {
     path: Sides.default.navigation,
     component: HomeComponent,
-    canActivate: Sides.default.canActivate
+    canActivate: Sides.default.routeCanActivate
   },
   {
     path: Sides.home.navigation,
     component: HomeComponent,
-    canActivate: Sides.home.canActivate
+    canActivate: Sides.home.routeCanActivate
   },
   {
     path: Sides.login.navigation,
     component: AuthenticationComponent,
-    canActivate: Sides.login.canActivate
+    canActivate: Sides.login.routeCanActivate
   },
   {
     path: Sides.microservices.navigation,
     component: MicroserviceOverviewComponent,
-    canActivate: Sides.microservices.canActivate
+    canActivate: Sides.microservices.routeCanActivate
   },
   {
     path: Sides.imprint.navigation,
     component: ImprintComponent,
-    canActivate: Sides.imprint.canActivate
+    canActivate: Sides.imprint.routeCanActivate
   },
   {
     path: Sides.about_me.navigation,
     component: AboutMeComponent,
-    canActivate: Sides.about_me.canActivate
+    canActivate: Sides.about_me.routeCanActivate
   },
   {
     path: Sides.chess.navigation,
     component: ChessComponent,
-    canActivate: Sides.chess.canActivate
+    canActivate: Sides.chess.routeCanActivate
   }
 ];
