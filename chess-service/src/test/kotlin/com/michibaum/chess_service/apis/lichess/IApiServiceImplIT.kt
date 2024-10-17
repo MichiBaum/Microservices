@@ -7,7 +7,7 @@ import com.michibaum.chess_service.apis.Exception
 import com.michibaum.chess_service.apis.IApiService
 import com.michibaum.chess_service.apis.Success
 import com.michibaum.chess_service.domain.AccountProvider
-import com.michibaum.chess_service.lichessMockserverJson
+import com.michibaum.chess_service.lichessJson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -36,7 +36,7 @@ class IApiServiceImplIT{
     @ValueSource(strings = ["MichiBaum", "JanistanTV"])
     fun `should return userdata for given username`(username: String){
         // GIVEN
-        val json = lichessMockserverJson("api_user_$username.json")
+        val json = lichessJson("api_user_$username.json")
         wireMockServer.stubFor(
             WireMock.get("/api/user/$username")
                 .willReturn(WireMock.okJson(json))
@@ -66,7 +66,7 @@ class IApiServiceImplIT{
     fun `fetch games for usernames`(username: String){
         // GIVEN
         val account = AccountProvider.account(username)
-        val json = lichessMockserverJson("api_games_user_$username.json")
+        val json = lichessJson("api_games_user_$username.json")
         wireMockServer.stubFor(
             WireMock.get("/api/games/user/$username")
                 .willReturn(WireMock.okJson(json))
@@ -98,19 +98,19 @@ class IApiServiceImplIT{
         // GIVEN
         val account = AccountProvider.account(username)
 
-        val jsonBullet = lichessMockserverJson("api_user_${username}_perf_bullet.json")
+        val jsonBullet = lichessJson("api_user_${username}_perf_bullet.json")
         wireMockServer.stubFor(
             WireMock.get("/api/user/$username/perf/bullet")
                 .willReturn(WireMock.okJson(jsonBullet))
 
         )
-        val jsonBlitz = lichessMockserverJson("api_user_${username}_perf_blitz.json")
+        val jsonBlitz = lichessJson("api_user_${username}_perf_blitz.json")
         wireMockServer.stubFor(
             WireMock.get("/api/user/$username/perf/blitz")
                 .willReturn(WireMock.okJson(jsonBlitz))
 
         )
-        val jsonRapid = lichessMockserverJson("api_user_${username}_perf_rapid.json")
+        val jsonRapid = lichessJson("api_user_${username}_perf_rapid.json")
         wireMockServer.stubFor(
             WireMock.get("/api/user/$username/perf/rapid")
                 .willReturn(WireMock.okJson(jsonRapid))
@@ -127,7 +127,7 @@ class IApiServiceImplIT{
     @Test
     fun `get leaderboard`(){
         // GIVEN
-        val json = lichessMockserverJson("api_player.json")
+        val json = lichessJson("api_player.json")
         wireMockServer.stubFor(
             WireMock.get("/api/player")
                 .willReturn(WireMock.okJson(json))

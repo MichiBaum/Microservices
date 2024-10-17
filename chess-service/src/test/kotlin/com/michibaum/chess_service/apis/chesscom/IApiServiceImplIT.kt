@@ -7,7 +7,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockExtension
 import com.michibaum.chess_service.apis.Exception
 import com.michibaum.chess_service.apis.IApiService
 import com.michibaum.chess_service.apis.Success
-import com.michibaum.chess_service.chesscomMockserverJson
+import com.michibaum.chess_service.chesscomJson
 import com.michibaum.chess_service.domain.AccountProvider
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -37,7 +37,7 @@ class IApiServiceImplIT {
     @ValueSource(strings = ["ezgat", "janistantv"])
     fun `should return userdata for given username`(username: String){
         // GIVEN
-        val json = chesscomMockserverJson("player_$username.json")
+        val json = chesscomJson("player_$username.json")
         wireMockServer.stubFor(
             WireMock.get("/pub/player/$username")
                 .willReturn(WireMock.okJson(json))
@@ -67,13 +67,13 @@ class IApiServiceImplIT {
     fun `fetch games for usernames`(username: String){
         // GIVEN
         val account = AccountProvider.account(username)
-        val gamesJson = chesscomMockserverJson("player_${username}_games.json")
+        val gamesJson = chesscomJson("player_${username}_games.json")
         wireMockServer.stubFor(
             WireMock.get("/pub/player/$username/games/2024/09")
                 .atPriority(1) // Highest
                 .willReturn(WireMock.okJson(gamesJson))
         )
-        val emptyJson = chesscomMockserverJson("player_empty_games.json")
+        val emptyJson = chesscomJson("player_empty_games.json")
         wireMockServer.stubFor(
             WireMock.get(urlPathMatching("/pub/player/$username/games/[0-9]+/[0-9]+"))
                 .atPriority(2)
@@ -105,7 +105,7 @@ class IApiServiceImplIT {
     fun `get stats`(username: String){
         // GIVEN
         val account = AccountProvider.account(username)
-        val json = chesscomMockserverJson("player_${username}_stats.json")
+        val json = chesscomJson("player_${username}_stats.json")
         wireMockServer.stubFor(
             WireMock.get("/pub/player/$username/stats")
                 .willReturn(WireMock.okJson(json))
@@ -133,7 +133,7 @@ class IApiServiceImplIT {
     @Test
     fun `get leaderboard`(){
         // GIVEN
-        val json = chesscomMockserverJson("leaderboards.json")
+        val json = chesscomJson("leaderboards.json")
         wireMockServer.stubFor(
             WireMock.get("/pub/leaderboards")
                 .willReturn(WireMock.okJson(json))
