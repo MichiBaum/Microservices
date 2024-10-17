@@ -14,23 +14,24 @@
         <appender-ref ref="Console" />
     </root>
 
-    <logger name="org.springframework.cloud.gateway" level="TRACE">
-        <appender-ref ref="Console" />
-    </logger>
-    <logger name="org.springframework.http.server.reactive" level="TRACE">
-        <appender-ref ref="Console" />
-    </logger>
-    <logger name="org.springframework.web.reactive" level="TRACE">
-        <appender-ref ref="Console" />
-    </logger>
-    <logger name="org.springframework.boot.autoconfigure.web" level="TRACE">
-        <appender-ref ref="Console" />
-    </logger>
-    <logger name="reactor.netty" level="TRACE">
-        <appender-ref ref="Console" />
-    </logger>
-    <logger name="redisratelimiter" level="TRACE">
-        <appender-ref ref="Console" />
-    </logger>
+
+<!--    <logger name="org.springframework.cloud.gateway" level="TRACE">-->
+<!--        <appender-ref ref="Console" />-->
+<!--    </logger>-->
+<!--    <logger name="org.springframework.http.server.reactive" level="TRACE">-->
+<!--        <appender-ref ref="Console" />-->
+<!--    </logger>-->
+<!--    <logger name="org.springframework.web.reactive" level="TRACE">-->
+<!--        <appender-ref ref="Console" />-->
+<!--    </logger>-->
+<!--    <logger name="org.springframework.boot.autoconfigure.web" level="TRACE">-->
+<!--        <appender-ref ref="Console" />-->
+<!--    </logger>-->
+<!--    <logger name="reactor.netty" level="TRACE">-->
+<!--        <appender-ref ref="Console" />-->
+<!--    </logger>-->
+<!--    <logger name="redisratelimiter" level="TRACE">-->
+<!--        <appender-ref ref="Console" />-->
+<!--    </logger>-->
 
 </configuration>

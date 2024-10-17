@@ -13,14 +13,4 @@ class FilterConfig {
         return JWSValidator(authenticationClient)
     }
 
-    @Bean
-    fun authenticationFilter(jwsValidator: JWSValidator): AuthenticationFilter {
-        return AuthenticationFilter(jwsValidator)
-    }
-
-    @Bean
-    fun authorizationPreFilter(): AuthorizationPreFilter {
-        return AuthorizationPreFilter()
-    }
-
 }

@@ -38,6 +38,8 @@ spring:
           uri: lb://admin-service
           predicates:
             - Host=admin.michibaum.ch
+          filters:
+            - Authentication
         - id: authentication
           uri: lb://authentication-service
           predicates:
@@ -46,18 +48,26 @@ spring:
           uri: lb://javadoc-service
           predicates:
             - Host=javadoc.michibaum.ch
+          filters:
+            - Authentication
         - id: registry
           uri: lb://registry-service
           predicates:
             - Host=registry.michibaum.ch
+          filters:
+            - Authentication
         - id: usermanagement
           uri: lb://usermanagement-service
           predicates:
             - Host=usermanagement.michibaum.ch
+          filters:
+            - Authentication
         - id: chess
           uri: lb://chess-service
           predicates:
             - Host=chess.michibaum.ch
+          filters:
+            - Authentication
         - id: website
           uri: lb://website-service
           predicates:
@@ -71,6 +81,7 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+    web-application-type: reactive
   boot:
     admin:
       client:
