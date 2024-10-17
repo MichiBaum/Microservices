@@ -5,11 +5,12 @@ import {ActivatedRouteSnapshot, Router} from "@angular/router";
 import {Authentication, AuthenticationResponse} from "../models/authentication.model";
 import {environment} from "../../../environments/environment";
 import {Sides} from "../config/sides";
+import {RouternavigationService} from "./router-navigation.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  constructor(private http: HttpClient, private router:Router) {
+  constructor(private http: HttpClient, private router:Router, private routernavigationService: RouternavigationService) {
   }
 
   login(username:string, password:string ) {
@@ -39,7 +40,7 @@ export class AuthService {
     let jwtIsPresent = this.jwtIsPresent();
 
     if (!jwtIsPresent) {
-      this.router.navigate(['/login']);
+      this.routernavigationService.login()
       return false;
     }
 

@@ -11,7 +11,7 @@ export class RouternavigationService {
   }
 
   home() {
-    this.router.navigate(['/home'], {skipLocationChange: true});
+    this.router.navigate(['/home']);
   }
 
   github() {
@@ -19,11 +19,11 @@ export class RouternavigationService {
   }
 
   imprint() {
-    this.router.navigate(['/imprint'], { skipLocationChange: true });
+    this.router.navigate(['/imprint']);
   }
 
   chess() {
-    this.router.navigate(['/chess'], { skipLocationChange: true });
+    this.router.navigate(['/chess']);
   }
 
   open(url: string) {
@@ -31,6 +31,10 @@ export class RouternavigationService {
   }
 
   microservices() {
-    this.router.navigate(['/microservices'], { skipLocationChange: true })
+    this.router.navigate(['/microservices'])
+  }
+
+  login() {
+    this.router.navigate(['/login']);
   }
 }

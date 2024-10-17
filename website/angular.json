@@ -18,7 +18,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "../website-service/src/main/resources/angular",
+            "outputPath": {
+              "base": "../website-service/src/main/resources/static",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
