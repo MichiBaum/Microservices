@@ -31,6 +31,7 @@ And these libraries
 - [Authentication Library](./authentication-library/README.md)
 - [Permission Library](./permission-library/README.md)
 - [Usermanagement Library](./usermanagement-library/README.md)
+- [Spring Boot Starter Discord](./spring-boot-starter-discord/README.md)
 
 ## Release
 

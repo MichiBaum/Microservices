@@ -9,10 +9,22 @@
         </encoder>
     </appender>
 
+    <appender name="Discord" class="com.michibaum.discord.logging.DiscordAppenderDelegator"/>
+
     <!-- LOG everything at INFO level -->
     <root level="info">
         <appender-ref ref="Console" />
     </root>
+
+    <logger name="com.michibaum" level="WARN">
+        <appender-ref ref="Console" />
+        <appender-ref ref="Discord" />
+    </logger>
+
+    <logger name="org.springframework" level="ERROR">
+        <appender-ref ref="Console" />
+        <appender-ref ref="Discord" />
+    </logger>
 
 
 <!--    <logger name="org.springframework.cloud.gateway" level="TRACE">-->

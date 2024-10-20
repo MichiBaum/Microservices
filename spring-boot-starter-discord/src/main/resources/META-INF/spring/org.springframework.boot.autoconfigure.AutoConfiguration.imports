@@ -1,0 +1,3 @@
+com.michibaum.discord.config.AutoConfigurationProperties
+com.michibaum.discord.config.DiscordAutoConfiguration
+com.michibaum.discord.config.DiscordLoggingAutoConfiguration

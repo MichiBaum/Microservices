@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {environment} from "../../environments/environment";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-microservice-overview',
@@ -10,5 +11,13 @@ import {environment} from "../../environments/environment";
 })
 export class MicroserviceOverviewComponent {
 
-  protected readonly environment = environment;
+  public adminServiceUrl: SafeResourceUrl;
+
+  constructor(private sanitizer: DomSanitizer) {
+    this.adminServiceUrl = this.sanitizeUrl(environment.adminService);
+  }
+
+  private sanitizeUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 }
