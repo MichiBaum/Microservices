@@ -10,20 +10,18 @@ class UserService(
     private val passwordEncoder: PasswordEncoder
 ) {
 
-    fun getUser(id: String) = findUserById(id)
+    fun getUser(id: String) = userRepository.findById(id).orElseNull()
 
     fun update(id: String, updateUserDto: UpdateUserDto): User? {
-        val foundUser = userRepository.findById(id).orElse(null)
+        val foundUser = userRepository.findById(id).orElseNull()
         return foundUser?.let {
             // TODO update User
             userRepository.save(foundUser)
         }
     }
 
-    private fun findUserById(id: String) = userRepository.findById(id).orElseNull()
-
     fun findByUsername(username: String): User? {
-        return userRepository.findByUsername(username).orElseNull()
+        return userRepository.findByUsername(username)
     }
 
     fun checkPassword(dtoPassword: String, passwordHash: String): Boolean {
