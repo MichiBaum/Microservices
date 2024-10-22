@@ -18,9 +18,8 @@ data class LichessLeaderboards(
     val rapid: List<LeaderboardRapid>,
     val classical: List<LeaderboardClassical>,
     val ultraBullet: List<LeaderboardUltraBullet>,
-) {
+)
 
-}
 @JsonIgnoreProperties(value = ["perfs"])
 data class LeaderboardBullet(
     val id: String,

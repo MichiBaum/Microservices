@@ -18,6 +18,4 @@ data class DiscordProperties (
     var enabled: Boolean = false,
     var botToken: String = "",
     var guildId: String = "",
-){
-
-}
+)
