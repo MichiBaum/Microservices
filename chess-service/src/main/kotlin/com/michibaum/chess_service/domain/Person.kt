@@ -18,6 +18,4 @@ class Person(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),
-){
-
-}
+)

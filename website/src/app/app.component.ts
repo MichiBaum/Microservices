@@ -28,10 +28,7 @@ export class AppComponent implements OnInit {
       this.translateService.get('primeng').subscribe(res => this.primengConfig.setTranslation(res));
     });
 
-    if(this.lightDarkModeService.isSystemDark()){
-      this.lightDarkModeService.changeModeTo(document, LightDarkMode.dark)
-    }
-
+    this.lightDarkModeService.init(document)
   }
 
 }

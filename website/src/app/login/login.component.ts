@@ -19,10 +19,10 @@ import {Sides} from "../core/config/sides";
     FloatLabelModule,
     FormsModule
   ],
-  templateUrl: './authentication.component.html',
-  styleUrl: './authentication.component.scss'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
-export class AuthenticationComponent implements OnInit{
+export class LoginComponent implements OnInit{
 
   loginFormGroup = new FormGroup(
     {

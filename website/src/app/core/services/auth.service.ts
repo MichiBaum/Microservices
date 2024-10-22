@@ -1,18 +1,16 @@
-import {EventEmitter, inject, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
-import {ActivatedRouteSnapshot, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Authentication, AuthenticationResponse} from "../models/authentication.model";
 import {environment} from "../../../environments/environment";
-import {Sides} from "../config/sides";
 import {RouterNavigationService} from "./router-navigation.service";
-import {PermissionService} from "./permission.service";
 import {Subject} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
   successLoginEmitter = new Subject<void>();
+  logoutEmitter = new Subject<void>()
 
   constructor(private http: HttpClient, private router:Router, private routerNavigationService: RouterNavigationService) {
   }
@@ -30,6 +28,10 @@ export class AuthService {
       })
   }
 
+  logout(){
+    localStorage.removeItem('Authentication');
+    this.logoutEmitter.next();
+  }
 
   getJwtTokenFromLocalStorage(){
     return localStorage.getItem('Authentication')
@@ -41,7 +43,7 @@ export class AuthService {
 
   }
 
-  isAuthenticated(route: ActivatedRouteSnapshot) {
+  isAuthenticated() {
     let jwtIsPresent = this.jwtIsPresent();
 
     if (!jwtIsPresent) {

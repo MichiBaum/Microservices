@@ -66,6 +66,24 @@
             <optional>true</optional>
         </dependency>
 
+            <!-- TODO make everything async with kotlinx coroutine (CoroutineCrudRepository, awaitBody<Class>(), etc) -->
+<!--        <dependency>-->
+<!--            <groupId>org.jetbrains.kotlinx</groupId>-->
+<!--            <artifactId>kotlinx-coroutines-core</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.jetbrains.kotlinx</groupId>-->
+<!--            <artifactId>kotlinx-coroutines-core-jvm</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.jetbrains.kotlinx</groupId>-->
+<!--            <artifactId>kotlinx-coroutines-reactive</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.jetbrains.kotlinx</groupId>-->
+<!--            <artifactId>kotlinx-coroutines-reactor</artifactId>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>usermanagement-library</artifactId>

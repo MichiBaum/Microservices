@@ -4,21 +4,28 @@ import {Sides} from "../core/config/sides";
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
+import {NgIf} from "@angular/common";
+import {PermissionService} from "../core/services/permission.service";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     Button,
-    CardModule
+    CardModule,
+    NgIf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
-  constructor(private headerService: HeaderService, protected routerNavigationService: RouterNavigationService) {
+  constructor(private headerService: HeaderService, protected routerNavigationService: RouterNavigationService, private permissionService: PermissionService) {
     this.headerService.changeTitle(Sides.home.translationKey)
   }
 
+
+  canActivateChess() {
+    return Sides.chess.canActivate(this.permissionService)
+  }
 }

@@ -23,5 +23,4 @@ class User (
     @Id
     @UuidGenerator
     val id: UUID,
-) {
-}
+)

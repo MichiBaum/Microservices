@@ -45,11 +45,6 @@ And these libraries
 
     mvnw javadoc:aggregate
 
-### Build & Push docker images
-Build docker images:
-
-    mvnw spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
-
 ### Container
 
 #### Up

@@ -66,7 +66,7 @@ class ApiServiceImpl(
         val creationYear = run {
             val calendar = Calendar.getInstance()
             calendar.time = account.createdAt
-            calendar.get(Calendar.YEAR);
+            calendar.get(Calendar.YEAR)
         }
 
         val years = IntRange(creationYear, Year.now().value)

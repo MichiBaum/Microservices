@@ -1,6 +1,5 @@
 package com.michibaum.gatewayservice
 
-import com.michibaum.permission_library.Permissions
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory
@@ -15,7 +14,7 @@ class AuthenticationGatewayFilterFactory(
     private val jwsValidator: JWSValidator
 ) : AbstractGatewayFilterFactory<AuthenticationGatewayFilterFactory.Config>(Config::class.java) {
 
-    class Config() // vararg val permissions: Permissions
+    class Config // TODO vararg val permissions: Permissions
 
     override fun apply(config: Config?): GatewayFilter {
         return GatewayFilter { exchange: ServerWebExchange, chain: GatewayFilterChain ->

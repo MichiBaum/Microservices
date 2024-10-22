@@ -1,5 +1,5 @@
-import { Routes } from '@angular/router';
-import {AuthenticationComponent} from "./authentication/authentication.component";
+import {Routes} from '@angular/router';
+import {LoginComponent} from "./login/login.component";
 import {MicroserviceOverviewComponent} from "./microservice-overview/microservice-overview.component";
 import {AboutMeComponent} from "./about-me/about-me.component";
 import {HomeComponent} from "./home/home.component";
@@ -11,36 +11,43 @@ export const routes: Routes = [
   {
     path: Sides.default.navigation,
     component: HomeComponent,
-    canActivate: Sides.default.routeCanActivate
+    canActivate: Sides.default.routeCanActivate,
+    data: {permissions: Sides.default.neededPermissions}
   },
   {
     path: Sides.home.navigation,
     component: HomeComponent,
-    canActivate: Sides.home.routeCanActivate
+    canActivate: Sides.home.routeCanActivate,
+    data: {permissions: Sides.home.neededPermissions}
   },
   {
     path: Sides.login.navigation,
-    component: AuthenticationComponent,
-    canActivate: Sides.login.routeCanActivate
+    component: LoginComponent,
+    canActivate: Sides.login.routeCanActivate,
+    data: {permissions: Sides.login.neededPermissions}
   },
   {
     path: Sides.microservices.navigation,
     component: MicroserviceOverviewComponent,
-    canActivate: Sides.microservices.routeCanActivate
+    canActivate: Sides.microservices.routeCanActivate,
+    data: {permissions: Sides.microservices.neededPermissions}
   },
   {
     path: Sides.imprint.navigation,
     component: ImprintComponent,
-    canActivate: Sides.imprint.routeCanActivate
+    canActivate: Sides.imprint.routeCanActivate,
+    data: {permissions: Sides.imprint.neededPermissions}
   },
   {
     path: Sides.about_me.navigation,
     component: AboutMeComponent,
-    canActivate: Sides.about_me.routeCanActivate
+    canActivate: Sides.about_me.routeCanActivate,
+    data: {permissions: Sides.about_me.neededPermissions}
   },
   {
     path: Sides.chess.navigation,
     component: ChessComponent,
-    canActivate: Sides.chess.routeCanActivate
+    canActivate: Sides.chess.routeCanActivate,
+    data: {permissions: Sides.chess.neededPermissions}
   }
 ];

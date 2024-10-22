@@ -37,6 +37,4 @@ class Account(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),
 
-) {
-
-}
+)

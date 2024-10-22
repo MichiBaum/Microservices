@@ -5,6 +5,19 @@ export class LightDarkModeService {
 
   isDarkMode = false;
 
+  currentMode(): LightDarkMode{
+    const theme: string | null = localStorage.getItem("theme");
+    if(theme == null){
+      return this.isSystemDark() ? LightDarkMode.dark : LightDarkMode.light;
+    }
+    // @ts-ignore
+    return LightDarkMode[theme]
+  }
+
+  private saveMode(mode: LightDarkMode){
+    localStorage.setItem("theme", LightDarkMode[mode]);
+  }
+
   isSystemDark(): boolean {
     return window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches;
   }
@@ -15,10 +28,10 @@ export class LightDarkModeService {
     ) as HTMLLinkElement;
     if (linkElement.href.includes('light')) {
       linkElement.href = 'theme-dark.css';
-      this.isDarkMode = true;
+      this.saveMode(LightDarkMode.dark)
     } else {
       linkElement.href = 'theme-light.css';
-      this.isDarkMode = false;
+      this.saveMode(LightDarkMode.light)
     }
   }
 
@@ -29,15 +42,20 @@ export class LightDarkModeService {
 
     if(lightDarkMode == LightDarkMode.dark){
       linkElement.href = 'theme-dark.css';
-      this.isDarkMode = true;
+      this.saveMode(LightDarkMode.dark)
     }
 
     if(lightDarkMode == LightDarkMode.light){
       linkElement.href = 'theme-light.css';
       this.isDarkMode = false;
+      this.saveMode(LightDarkMode.light)
     }
   }
 
+  init(document: Document) {
+    const current = this.currentMode();
+    this.changeModeTo(document, current)
+  }
 }
 
 export enum LightDarkMode{

@@ -43,6 +43,10 @@ export class RouterNavigationService {
   }
 
   donate() {
-    window.open("https://www.buymeacoffee.com/michibaum", '_blank');
+    open('https://www.buymeacoffee.com/michibaum');
+  }
+
+  linkedIn() {
+    open('https://linkedin.com/in/michael-baumberger-a06306198/')
   }
 }

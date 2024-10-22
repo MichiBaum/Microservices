@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenubarModule} from "primeng/menubar";
-import {MenuItem, PrimeIcons} from "primeng/api";
+import {MenuItem} from "primeng/api";
 import {TranslateService} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {LanguageConfig} from "../../core/config/language.config";
@@ -57,6 +57,10 @@ export class NavigationComponent implements OnInit{
     this.authService.successLoginEmitter.subscribe(() => {
       this.navItems = [...this.getNavItems()];
     });
+
+    this.authService.logoutEmitter.subscribe(() => {
+      this.navItems = [...this.getNavItems()];
+    })
 
   }
 

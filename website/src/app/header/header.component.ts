@@ -8,6 +8,8 @@ import {PrimeNgBase} from "../core/models/primeng-base.model";
 import {LanguageConfig} from "../core/config/language.config";
 import {HeaderService} from "../core/services/header.service";
 import {Title} from "@angular/platform-browser";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {LogoutComponent} from "../logout/logout.component";
 
 @Component({
   selector: 'app-header',
@@ -17,7 +19,9 @@ import {Title} from "@angular/platform-browser";
     TranslateModule,
     PrimeTemplate,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    FaIconComponent,
+    LogoutComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
