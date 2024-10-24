@@ -12,6 +12,7 @@ open class JWSValidator {
             val algorithm = JWSAlgorithm.algorithm(publicKey)
             val verifier: JWTVerifier = JWT.require(algorithm)
                     .withIssuer("authentication-service")
+                    // TODO check valid until
                     .build() //Reusable verifier instance
             verifier.verify(token)
             return true

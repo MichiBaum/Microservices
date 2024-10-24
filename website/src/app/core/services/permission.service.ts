@@ -28,8 +28,8 @@ export class PermissionService {
       return false
     }
 
-    if(permissions.length !== 0){
-      return true
+    if(permissions.length == 0){
+      return false
     }
 
     const userPermissions = this.getPermissions()

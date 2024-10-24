@@ -23,8 +23,7 @@ spring:
         cors-configurations:
           '[/**]':
             allowed-origin-patterns:
-              - "http://*.michibaum.ch"
-              - "http://localhost:4200"
+              - "http://michibaum.ch"
             allowed-headers:
               - "*"
             allowed-methods:

@@ -1,1 +1,39 @@
-<p>about-me works!</p>
+<section class="about-me">
+  <p-card header="{{'about-me.title' | translate}}" class="p-4 border-round">
+    <ng-template pTemplate="header">
+      <img alt="Card" src="../../assets/images/about-me.jpeg" />
+    </ng-template>
+    <div class="grid">
+      <div class="col-12">
+        <p>
+          {{"about-me.s1" | translate}}
+        </p>
+      </div>
+
+      <div class="col-12">
+        <p>
+          {{"about-me.s2" | translate}}
+        </p>
+      </div>
+
+      <div class="col-12">
+        <p>
+          {{"about-me.s3" | translate}}
+        </p>
+      </div>
+
+      <div class="col-12">
+        <p>
+          {{"about-me.s4" | translate}}
+        </p>
+      </div>
+
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="flex gap-3 mt-1">
+        <p-button label="LinkedIn" class="w-full" styleClass="w-full" (onClick)="openLinkedIn()" />
+        <p-button label="Github" class="w-full" styleClass="w-full" (onClick)="openGithub()"/>
+      </div>
+    </ng-template>
+  </p-card>
+</section>

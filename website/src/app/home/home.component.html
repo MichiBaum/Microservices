@@ -1,6 +1,6 @@
 <div class="flex flex-row flex-wrap">
-  <div class="flex align-items-center justify-content-center m-2">
-    <p-card header="Chess" subheader="Chess statistics" [style]="{ width: '360px' }">
+  <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateChess()">
+    <p-card header="Chess" subheader="Chess statistics" [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_chess.jpeg" />
       </ng-template>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="flex align-items-center justify-content-center m-2">
-    <p-card header="Donate" subheader="Donate a coffee" [style]="{ width: '360px' }">
+    <p-card header="Donate" subheader="Donate a coffee" [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_donate.jpeg" />
       </ng-template>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="flex align-items-center justify-content-center m-2">
-    <p-card header="About me" subheader="About me" [style]="{ width: '360px' }">
+    <p-card header="About me" subheader="About me" [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_about-me.jpeg" />
       </ng-template>

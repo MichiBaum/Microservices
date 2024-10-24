@@ -49,17 +49,17 @@ export const Sides = {
     name: "home",
     translationKey: "home.title",
     navigation: "home",
-    canActivate: (service: PermissionService) => service.isAuthenticated(),
-    routeCanActivate: [isAuthenticatedGuard],
+    canActivate: (service: PermissionService) => true,
+    routeCanActivate: [],
     neededPermissions: []
   } as Side,
   chess: {
     name: "chess",
     translationKey: "chess.title",
     navigation: "chess",
-    canActivate: (service: PermissionService) => service.isAuthenticated(),
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.CHESS_SERVICE]),
     routeCanActivate: [isAuthenticatedGuard],
-    neededPermissions: []
+    neededPermissions: [Permissions.CHESS_SERVICE]
   } as Side,
   default: {
     name: "default",
