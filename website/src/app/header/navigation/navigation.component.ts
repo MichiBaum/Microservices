@@ -16,6 +16,7 @@ import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import {Sides} from "../../core/config/sides";
 import {PermissionService} from "../../core/services/permission.service";
 import {AuthService} from "../../core/services/auth.service";
+import {ImageModule} from "primeng/image";
 
 @Component({
   selector: 'app-navigation',
@@ -28,6 +29,7 @@ import {AuthService} from "../../core/services/auth.service";
     MenuModule,
     Ripple,
     FaIconComponent,
+    ImageModule,
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
