@@ -1,0 +1,235 @@
+{
+  "user": {
+    "name": "MichiBaum"
+  },
+  "perf": {
+    "glicko": {
+      "rating": 1073.51,
+      "deviation": 194.97,
+      "provisional": true
+    },
+    "nb": 109,
+    "progress": -25
+  },
+  "rank": null,
+  "percentile": null,
+  "stat": {
+    "count": {
+      "berserk": 1,
+      "win": 21,
+      "all": 109,
+      "seconds": 39698,
+      "opAvg": 1429.14,
+      "draw": 4,
+      "tour": 86,
+      "disconnects": 0,
+      "rated": 109,
+      "loss": 84
+    },
+    "resultStreak": {
+      "win": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 3,
+          "from": {
+            "at": "2020-07-25T07:06:23.426Z",
+            "gameId": "r0NiTzmd"
+          },
+          "to": {
+            "at": "2020-07-25T07:16:15.641Z",
+            "gameId": "1cPchCWU"
+          }
+        }
+      },
+      "loss": {
+        "cur": {
+          "v": 18,
+          "from": {
+            "at": "2020-07-26T08:17:57.846Z",
+            "gameId": "k5aSmv16"
+          },
+          "to": {
+            "at": "2020-07-27T18:25:54.881Z",
+            "gameId": "dY36TFmf"
+          }
+        },
+        "max": {
+          "v": 18,
+          "from": {
+            "at": "2020-07-26T08:17:57.846Z",
+            "gameId": "k5aSmv16"
+          },
+          "to": {
+            "at": "2020-07-27T18:25:54.881Z",
+            "gameId": "dY36TFmf"
+          }
+        }
+      }
+    },
+    "lowest": {
+      "int": 968,
+      "at": "2020-07-20T18:41:52.773Z",
+      "gameId": "TyegZ3DB"
+    },
+    "worstLosses": {
+      "results": [
+        {
+          "opRating": 871,
+          "opId": {
+            "id": "seumadrug4",
+            "name": "SeuMadrug4",
+            "title": null
+          },
+          "at": "2020-07-19T18:36:34.932Z",
+          "gameId": "KOHUWex1"
+        },
+        {
+          "opRating": 916,
+          "opId": {
+            "id": "gemblue",
+            "name": "gemblue",
+            "title": null
+          },
+          "at": "2020-07-20T18:38:44.396Z",
+          "gameId": "E4Yi7KkV"
+        },
+        {
+          "opRating": 968,
+          "opId": {
+            "id": "alex217",
+            "name": "alex217",
+            "title": null
+          },
+          "at": "2020-07-20T18:04:46.888Z",
+          "gameId": "bWivfXtT"
+        },
+        {
+          "opRating": 972,
+          "opId": {
+            "id": "gabriele0",
+            "name": "Gabriele0",
+            "title": null
+          },
+          "at": "2020-07-20T18:17:29.734Z",
+          "gameId": "55b7kZoN"
+        },
+        {
+          "opRating": 979,
+          "opId": {
+            "id": "hpu",
+            "name": "HPU",
+            "title": null
+          },
+          "at": "2020-07-19T16:53:45.223Z",
+          "gameId": "mPrUtOkS"
+        }
+      ]
+    },
+    "perfType": {
+      "key": "blitz",
+      "name": "Blitz"
+    },
+    "id": "michibaum/2",
+    "bestWins": {
+      "results": [
+        {
+          "opRating": 1934,
+          "opId": {
+            "id": "simongiraldo8",
+            "name": "Simongiraldo8",
+            "title": null
+          },
+          "at": "2020-07-20T19:47:43.328Z",
+          "gameId": "Mjt3C4aY"
+        },
+        {
+          "opRating": 1745,
+          "opId": {
+            "id": "dimitris1",
+            "name": "dimitris1",
+            "title": null
+          },
+          "at": "2020-07-20T19:43:59.418Z",
+          "gameId": "qykHCodM"
+        },
+        {
+          "opRating": 1676,
+          "opId": {
+            "id": "bhavyaguptachess",
+            "name": "bhavyaguptachess",
+            "title": null
+          },
+          "at": "2020-07-21T15:34:56.741Z",
+          "gameId": "M84iFDd2"
+        },
+        {
+          "opRating": 1527,
+          "opId": {
+            "id": "q12345654321q",
+            "name": "q12345654321q",
+            "title": null
+          },
+          "at": "2020-07-25T22:29:03.217Z",
+          "gameId": "SMJejVhf"
+        },
+        {
+          "opRating": 1477,
+          "opId": {
+            "id": "purushottamdhadwe999",
+            "name": "purushottamdhadwe999",
+            "title": null
+          },
+          "at": "2020-07-25T07:10:56.975Z",
+          "gameId": "r0NiTzmd"
+        }
+      ]
+    },
+    "userId": {
+      "id": "michibaum",
+      "name": "MichiBaum",
+      "title": null
+    },
+    "playStreak": {
+      "nb": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 21,
+          "from": {
+            "at": "2020-07-20T18:07:08.632Z",
+            "gameId": "55b7kZoN"
+          },
+          "to": {
+            "at": "2020-07-20T20:56:55.421Z",
+            "gameId": "JREICJ0s"
+          }
+        }
+      },
+      "time": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 6543,
+          "from": {
+            "at": "2020-07-20T18:07:08.632Z",
+            "gameId": "55b7kZoN"
+          },
+          "to": {
+            "at": "2020-07-20T20:56:55.421Z",
+            "gameId": "JREICJ0s"
+          }
+        }
+      },
+      "lastDate": "2020-07-27T18:25:54.881Z"
+    },
+    "highest": {
+      "int": 1113,
+      "at": "2020-07-25T11:09:47.239Z",
+      "gameId": "KmMeVuiC"
+    }
+  }
+}

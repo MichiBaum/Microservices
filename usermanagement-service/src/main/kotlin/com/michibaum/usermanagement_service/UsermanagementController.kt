@@ -3,6 +3,7 @@ package com.michibaum.usermanagement_service
 import org.springframework.web.bind.annotation.RestController
 import com.michibaum.usermanagement_library.UserManagementEndpoints
 import com.michibaum.usermanagement_library.LoginDto
+import com.michibaum.usermanagement_library.UserDetailsDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -14,8 +15,16 @@ class UsermanagementController (
     private val userService: UserService
 ) : UserManagementEndpoints {
 
-    override fun checkPassword(loginDto: LoginDto): Boolean {
-        return true
+    override fun checkUserDetails(loginDto: LoginDto): UserDetailsDto? {
+        val user = userService.findByUsername(loginDto.username) ?: return null
+        val matching = userService.checkPassword(loginDto.password, user.password)
+        if (!matching) return null
+
+        return UserDetailsDto(
+            id = user.id.toString(),
+            username = user.username,
+            permissions = user.permissions.map { it.permission }.toSet()
+        )
     }
 
     @GetMapping("/user/{id}")

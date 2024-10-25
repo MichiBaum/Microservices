@@ -4,7 +4,6 @@ server:
     url-charset: UTF-8
   port: 80
 
-
 spring:
   threads:
     virtual:
@@ -19,12 +18,69 @@ spring:
         wiretap: true
       httpserver:
         wiretap: true
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns:
+              - "http://michibaum.ch"
+            allowed-headers:
+              - "*"
+            allowed-methods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
+      routes:
+        - id: admin
+          uri: lb://admin-service
+          predicates:
+            - Host=admin.michibaum.ch
+          filters:
+            - Authentication
+        - id: authentication
+          uri: lb://authentication-service
+          predicates:
+            - Host=authentication.michibaum.ch
+        - id: javadoc
+          uri: lb://javadoc-service
+          predicates:
+            - Host=javadoc.michibaum.ch
+          filters:
+            - Authentication
+        - id: registry
+          uri: lb://registry-service
+          predicates:
+            - Host=registry.michibaum.ch
+          filters:
+            - Authentication
+        - id: usermanagement
+          uri: lb://usermanagement-service
+          predicates:
+            - Host=usermanagement.michibaum.ch
+          filters:
+            - Authentication
+        - id: chess
+          uri: lb://chess-service
+          predicates:
+            - Host=chess.michibaum.ch
+          filters:
+            - Authentication
+        - id: website
+          uri: lb://website-service
+          predicates:
+            - Host=michibaum.ch
     discovery:
       client:
         health-indicator:
           include-description: true
+    openfeign:
+      lazy-attributes-resolution: true
+
   main:
     allow-bean-definition-overriding: true
+    web-application-type: reactive
   boot:
     admin:
       client:
@@ -65,12 +121,3 @@ management:
   info:
     git:
       mode: full
-
-logging:
-  level:
-    reactor:
-      netty: INFO
-    org:
-      springframework:
-        cloud:
-          gateway: TRACE

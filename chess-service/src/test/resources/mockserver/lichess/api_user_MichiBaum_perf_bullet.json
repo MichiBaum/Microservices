@@ -1,0 +1,82 @@
+{
+  "user": {
+    "name": "MichiBaum"
+  },
+  "perf": {
+    "glicko": {
+      "rating": 1500,
+      "deviation": 500,
+      "provisional": true
+    },
+    "nb": 0,
+    "progress": 0
+  },
+  "rank": null,
+  "percentile": null,
+  "stat": {
+    "count": {
+      "berserk": 0,
+      "win": 0,
+      "all": 0,
+      "seconds": 0,
+      "opAvg": 0,
+      "draw": 0,
+      "tour": 0,
+      "disconnects": 0,
+      "rated": 0,
+      "loss": 0
+    },
+    "resultStreak": {
+      "win": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 0
+        }
+      },
+      "loss": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 0
+        }
+      }
+    },
+    "worstLosses": {
+      "results": []
+    },
+    "perfType": {
+      "key": "bullet",
+      "name": "Bullet"
+    },
+    "id": "michibaum/1",
+    "playStreak": {
+      "nb": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 0
+        }
+      },
+      "time": {
+        "cur": {
+          "v": 0
+        },
+        "max": {
+          "v": 0
+        }
+      }
+    },
+    "bestWins": {
+      "results": []
+    },
+    "userId": {
+      "id": "michibaum",
+      "name": "MichiBaum",
+      "title": null
+    }
+  }
+}

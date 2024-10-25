@@ -80,6 +80,11 @@
             <artifactId>usermanagement-library</artifactId>
             <version>1.0.0-TEST-9</version>
         </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>spring-boot-starter-discord</artifactId>
+            <version>1.0.0-TEST-9</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -92,51 +97,67 @@
             <version>${mockk.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>publish-image</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.4.3</version>
+                        <configuration>
+                            <from>
+                                <image>eclipse-temurin:21-jre</image>
+                                <auth>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${dockerHub.username}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${dockerHub.password}</password>
+                                </auth>
+                            </from>
+                            <to>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <image>docker.io/${dockerHub.username}/${project.artifactId}</image>
+                                <auth>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${dockerHub.username}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${dockerHub.password}</password>
+                                </auth>
+                            </to>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
-        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.3</version>
-                <configuration>
-                    <from>
-                        <image>eclipse-temurin:21-jre</image>
-                        <auth>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <username>${dockerHub.username}</username>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <password>${dockerHub.password}</password>
-                        </auth>
-                    </from>
-                    <to>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <image>docker.io/${dockerHub.username}/${project.artifactId}</image>
-                        <auth>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <username>${dockerHub.username}</username>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <password>${dockerHub.password}</password>
-                        </auth>
-                    </to>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>

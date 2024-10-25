@@ -1,0 +1,17 @@
+{
+  "avatar": "https://images.chesscomfiles.com/uploads/v1/user/84645406.86ac9879.200x200o.c3b2f0c43392.jpeg",
+  "player_id": 84645406,
+  "@id": "https://api.chess.com/pub/player/ezgat",
+  "url": "https://www.chess.com/member/Ezgat",
+  "name": "Michael Baumberger",
+  "username": "ezgat",
+  "followers": 1,
+  "country": "https://api.chess.com/pub/country/CH",
+  "last_online": 1728216097,
+  "joined": 1593242640,
+  "status": "premium",
+  "is_streamer": false,
+  "verified": false,
+  "league": "Crystal",
+  "streaming_platforms": []
+}

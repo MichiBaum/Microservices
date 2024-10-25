@@ -7,9 +7,11 @@
     "english": "English"
   },
   "navigation": {
-    "home": "Home",
-    "imprint": "Imprint",
-    "github": "Github"
+    "apps": "Apps",
+    "github": "Github",
+    "buymeacoffee": "Buy me a coffee",
+    "light-dark-mode": "Light/dark mode",
+    "settings-and-else": "Settings and else"
   },
   "owner": {
     "name": "Michael Baumberger",
@@ -18,7 +20,8 @@
     "country": "Switzerland",
     "email": "michael_baumberger@gmx.ch"
   },
-  "impress": {
+  "imprint": {
+    "title": "Imprint",
     "contact-address-title": "Contact address",
     "email-title": "E-mail:",
     "disclaimer-of-liability-title": "Disclaimer of liability",
@@ -29,9 +32,26 @@
     "disclaimer-of-liability-for-links": "References and links to third party websites are outside our area of responsibility. It rejected any responsibility for such websites. Accessing and using such websites is at the user's own risk.",
     "copyrights-title": "Copyrights",
     "copyrights": "The copyrights and all other rights to content, images, photos or other files on this website belong exclusively to the above-mentioned owner or the specifically named rights holder. The written consent of the copyright holder must be obtained in advance for the reproduction of any elements.",
-    "source-title": "Source:",
-    "source": "SwissAnwalt",
     "translation-title": "Translation",
     "translation-description": "This application / website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors."
+  },
+  "home": {
+    "title": "Home"
+  },
+  "chess": {
+    "title": "Chess"
+  },
+  "login": {
+    "title": "Login"
+  },
+  "about-me": {
+    "title": "About me",
+    "s1": "Hello! I'm a software developer from Switzerland. My journey in the world of IT began with an apprenticeship at Würth ITensis from 2017 to 2021, where I honed my skills and continued working until 2024. During this time, I developed a deep passion for programming, which I continue to pursue in my free time.",
+    "s2": "I’m particularly fond of Java and the Spring Framework ☕\uD83C\uDF31, which I used extensively in my professional work. When working on personal backend projects, I prefer to use Kotlin, as I like the null safety and functional style \uD83D\uDCA1.",
+    "s3": "On the frontend side, I've worked with technologies like HTML, CSS, JSP, JavaScript, Knockout.js, and Angular \uD83C\uDFA8. But my interests don’t stop there! I'm also passionate about software architecture \uD83C\uDFDB\uFE0F, IT security \uD83D\uDD12, and team management \uD83D\uDC65—essentially, anything related to the IT world excites me \uD83D\uDE80.",
+    "s4": "When I’m not coding, I’m likely reading up on the latest developments in tech or brainstorming new projects. I’m always eager to grow, learn, and take on new challenges."
+  },
+  "microservices": {
+    "title": "Microservices"
   }
 }

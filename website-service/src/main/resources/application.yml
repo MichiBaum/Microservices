@@ -18,10 +18,6 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
-  web:
-    resources:
-      static-locations: classpath:/angular/browser
-
 
 eureka:
   instance:

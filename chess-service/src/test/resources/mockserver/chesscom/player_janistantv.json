@@ -1,0 +1,18 @@
+{
+  "avatar": "https://images.chesscomfiles.com/uploads/v1/user/223134493.fecd91ad.200x200o.8ef461f5a152.jpg",
+  "player_id": 223134493,
+  "@id": "https://api.chess.com/pub/player/janistantv",
+  "url": "https://www.chess.com/member/JanistanTV",
+  "name": "Jan Gustafsson",
+  "username": "janistantv",
+  "title": "GM",
+  "followers": 325,
+  "country": "https://api.chess.com/pub/country/DE",
+  "last_online": 1728243445,
+  "joined": 1673367837,
+  "status": "premium",
+  "is_streamer": false,
+  "verified": false,
+  "league": "Elite",
+  "streaming_platforms": []
+}

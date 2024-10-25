@@ -1,0 +1,70 @@
+server:
+  shutdown: graceful
+  undertow:
+    url-charset: UTF-8
+  port: 80
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
+    openfeign:
+      lazy-attributes-resolution: true
+    discovery:
+      client:
+        health-indicator:
+          include-description: true
+
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  boot:
+    admin:
+      client:
+        enabled: true
+#        ?
+        username: admin
+        password: admin
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: false
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full

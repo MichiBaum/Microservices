@@ -1,48 +1,72 @@
-import {isPermittedGuard} from "../guards/auth.guard";
+import {isAuthenticatedGuard, isPermittedGuard} from "../guards/auth.guard";
 import {CanActivateFn} from "@angular/router";
+import {Permissions} from "./permissions";
+import {PermissionService} from "../services/permission.service";
 
 interface Side{
-  canActivate: Array<CanActivateFn>;
   name: string
   translationKey: string,
-  navigation: string
+  navigation: string,
+  canActivate: (service: PermissionService) => boolean,
+  routeCanActivate: Array<CanActivateFn>,
+  neededPermissions: Permissions[]
 }
 
 export const Sides = {
   imprint : {
     name: "imprint",
-    translationKey: "",
+    translationKey: "imprint.title",
     navigation: "imprint",
-    canActivate: []
+    canActivate: (service: PermissionService) => true,
+    routeCanActivate: [],
+    neededPermissions: []
   } as Side,
   microservices: {
     name: "microservices",
-    translationKey: "",
+    translationKey: "microservices.title",
     navigation: "microservices",
-    canActivate: [isPermittedGuard]
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.ADMIN_SERVICE]),
+    routeCanActivate: [isPermittedGuard],
+    neededPermissions: [Permissions.ADMIN_SERVICE]
   } as Side,
   about_me: {
     name: "about-me",
-    translationKey: "",
+    translationKey: "about-me.title",
     navigation: "about-me",
-    canActivate: []
+    canActivate: (service: PermissionService) => true,
+    routeCanActivate: [],
+    neededPermissions: []
   } as Side,
   login: {
     name: "login",
-    translationKey: "",
+    translationKey: "login.title",
     navigation: "login",
-    canActivate: []
+    canActivate: (service: PermissionService) => !service.isAuthenticated(),
+    routeCanActivate: [],
+    neededPermissions: []
   } as Side,
   home: {
     name: "home",
-    translationKey: "",
+    translationKey: "home.title",
     navigation: "home",
-    canActivate: [isPermittedGuard]
+    canActivate: (service: PermissionService) => true,
+    routeCanActivate: [],
+    neededPermissions: []
+  } as Side,
+  chess: {
+    name: "chess",
+    translationKey: "chess.title",
+    navigation: "chess",
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.CHESS_SERVICE]),
+    routeCanActivate: [isAuthenticatedGuard],
+    neededPermissions: [Permissions.CHESS_SERVICE]
   } as Side,
   default: {
     name: "default",
     translationKey: "",
     navigation: "",
-    canActivate: [isPermittedGuard]
+    canActivate: (service: PermissionService) => service.isAuthenticated(),
+    routeCanActivate: [isAuthenticatedGuard],
+    neededPermissions: []
   } as Side
 }

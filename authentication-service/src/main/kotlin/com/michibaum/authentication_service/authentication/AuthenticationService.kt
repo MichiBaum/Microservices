@@ -3,6 +3,7 @@ package com.michibaum.authentication_service.authentication
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.michibaum.authentication_library.PublicKeyDto
+import com.michibaum.usermanagement_library.UserDetailsDto
 import org.springframework.stereotype.Service
 import java.security.KeyPair
 import java.security.interfaces.RSAPrivateKey
@@ -11,7 +12,8 @@ import java.time.Instant
 
 @Service
 class AuthenticationService (
-        private val keyPair: KeyPair
+        private val keyPair: KeyPair,
+        private val algorithm: Algorithm
 ) {
 
     val publicKey: PublicKeyDto
@@ -20,16 +22,15 @@ class AuthenticationService (
                 keyPair.public.encoded
         )
 
-    fun generateJWS(username: String): String? {
-        val publicKey: RSAPublicKey = keyPair.public as RSAPublicKey
-        val privateKey: RSAPrivateKey = keyPair.private as RSAPrivateKey
-        val algorithm = Algorithm.RSA256(publicKey, privateKey)
+    fun generateJWS(userDetails: UserDetailsDto): String? {
         return JWT.create()
                 .withHeader(jwsHeaders())
                 .withIssuer("authentication-service")
-                .withSubject(username)
+                .withSubject(userDetails.username)
                 .withExpiresAt(Instant.now().plusSeconds(60*60*8))
                 .withIssuedAt(Instant.now())
+                .withClaim("userId", userDetails.id)
+                .withArrayClaim("permissions", userDetails.permissions.toTypedArray())
                 .sign(algorithm)
     }
 

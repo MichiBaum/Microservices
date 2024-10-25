@@ -1,39 +1,53 @@
-import {inject, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
-import {ActivatedRouteSnapshot, Router} from "@angular/router";
-import {Authentication} from "../models/authentication.model";
+import {Router} from "@angular/router";
+import {Authentication, AuthenticationResponse} from "../models/authentication.model";
+import {environment} from "../../../environments/environment";
+import {RouterNavigationService} from "./router-navigation.service";
+import {Subject} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  cookieService = inject(CookieService);
+  successLoginEmitter = new Subject<void>();
+  logoutEmitter = new Subject<void>()
 
-  constructor(private http: HttpClient, private router:Router) {
+  constructor(private http: HttpClient, private router:Router, private routerNavigationService: RouterNavigationService) {
   }
 
   login(username:string, password:string ) {
-    let autenticationModel = {username: username, password: password} as Authentication
-    this.http.post('/authenticate', autenticationModel).subscribe(value => console.log(value))
+    let autentication = {username: username, password: password} as Authentication
+    this.http.post<AuthenticationResponse>(environment.authenticationService + '/authenticate', autentication)
+      .subscribe(value => {
+        if(value.jwt != null && value.jwt !== ""){
+          console.log("Successful authentication -> jwt saved in localstorage");
+          localStorage.setItem('Authentication', value.jwt);
+          this.successLoginEmitter.next()
+          this.router.navigate(["/home"])
+        }
+      })
   }
 
-  getJwtTokenFromCookie(){
-    return this.cookieService.get('JWT')
+  logout(){
+    localStorage.removeItem('Authentication');
+    this.logoutEmitter.next();
   }
 
   getJwtTokenFromLocalStorage(){
-    return localStorage.getItem('JWT')
+    return localStorage.getItem('Authentication')
   }
 
-  isAuthenticated(route: ActivatedRouteSnapshot) {
-    let jwtTokenFromCookie = this.getJwtTokenFromCookie();
-    let jwtTokenFromLocalStorage = this.getJwtTokenFromLocalStorage();
+  jwtIsPresent() {
+    const jwt = this.getJwtTokenFromLocalStorage();
+    return !(jwt == null || jwt === "");
 
-    let cookieInvalid = jwtTokenFromCookie == undefined || jwtTokenFromCookie == '';
-    let localStorageInvalid = jwtTokenFromLocalStorage == undefined || jwtTokenFromLocalStorage == '';
+  }
 
-    if (cookieInvalid && localStorageInvalid) {
-      this.router.navigate(['/login']);
+  isAuthenticated() {
+    let jwtIsPresent = this.jwtIsPresent();
+
+    if (!jwtIsPresent) {
+      this.routerNavigationService.login()
       return false;
     }
 

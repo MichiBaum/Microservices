@@ -1,12 +1,25 @@
 <p-sidebar
   [(visible)]="sidebarVisible"
 >
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2">
+      <span class="font-bold">Navigation</span>
+    </div>
+  </ng-template>
   <p-menu
     [model]="navItems"
   >
+    <ng-template pTemplate="submenuheader" let-item>
+      <span class="text-primary font-bold">{{ item.label }}</span>
+    </ng-template>
+    <ng-template pTemplate="item" let-item>
+      <a pRipple class="flex align-items-center p-menuitem-link">
+        <fa-icon  [icon]="item.customIcon"></fa-icon>
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template>
   </p-menu>
 
-  <app-light-dark-mode></app-light-dark-mode>
 </p-sidebar>
 
 <button

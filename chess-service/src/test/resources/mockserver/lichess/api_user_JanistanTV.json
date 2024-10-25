@@ -1,0 +1,97 @@
+{
+  "id": "janistantv",
+  "username": "JanistanTV",
+  "perfs": {
+    "bullet": {
+      "games": 1027,
+      "rating": 2767,
+      "rd": 52,
+      "prog": -54
+    },
+    "blitz": {
+      "games": 1543,
+      "rating": 2684,
+      "rd": 45,
+      "prog": -5
+    },
+    "rapid": {
+      "games": 370,
+      "rating": 2802,
+      "rd": 157,
+      "prog": 0,
+      "prov": true
+    },
+    "classical": {
+      "games": 4,
+      "rating": 2003,
+      "rd": 278,
+      "prog": 0,
+      "prov": true
+    },
+    "correspondence": {
+      "games": 0,
+      "rating": 1500,
+      "rd": 500,
+      "prog": 0,
+      "prov": true
+    },
+    "antichess": {
+      "games": 2,
+      "rating": 1852,
+      "rd": 363,
+      "prog": 0,
+      "prov": true
+    },
+    "puzzle": {
+      "games": 369,
+      "rating": 2829,
+      "rd": 87,
+      "prog": 0
+    },
+    "storm": {
+      "runs": 2,
+      "score": 58
+    },
+    "racer": {
+      "runs": 4,
+      "score": 57
+    },
+    "streak": {
+      "runs": 24,
+      "score": 96
+    }
+  },
+  "title": "GM",
+  "createdAt": 1624127091697,
+  "profile": {
+    "flag": "DE",
+    "location": "Hamburg",
+    "realName": "Jan Gustafsson"
+  },
+  "seenAt": 1728272821385,
+  "playTime": {
+    "total": 1396029,
+    "tv": 267063
+  },
+  "url": "https://lichess.org/@/JanistanTV",
+  "count": {
+    "all": 3630,
+    "rated": 2948,
+    "ai": 15,
+    "draw": 223,
+    "drawH": 222,
+    "loss": 808,
+    "lossH": 804,
+    "win": 2599,
+    "winH": 2589,
+    "bookmark": 0,
+    "playing": 0,
+    "import": 0,
+    "me": 0
+  },
+  "streamer": {
+    "twitch": {
+      "channel": "https://www.twitch.tv/JanistanTV"
+    }
+  }
+}

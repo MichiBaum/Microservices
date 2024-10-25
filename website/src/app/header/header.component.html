@@ -1,4 +1,4 @@
-<div class="grid flex bg-primary m-2">
+<div class="grid flex bg-primary">
 
   <div class="col-1 flex-none flex align-items-center justify-content-center bg-primary">
     <app-navigation></app-navigation>
@@ -6,19 +6,24 @@
 
   <div class="col-10 flex-grow-1 flex align-items-center justify-content-center bg-primary">
     <h1>
-      {{"application.title" | translate}}
+      {{ title | translate}}
     </h1>
   </div>
 
   <div class="col-1 flex-none flex align-items-center justify-content-center bg-primary">
-    <div class="mr-2">
-      <p-dropdown
-        class="ui-button-danger"
-        [options]="languages"
-        (onChange)="selectLanguage($event)"
-      >
-      </p-dropdown>
-    </div>
+    <app-logout></app-logout>
   </div>
+
+<!-- TODO where to put language select? -->
+<!--  <div class="col-1 flex-none flex align-items-center justify-content-center bg-primary">-->
+<!--    <div class="mr-2">-->
+<!--      <p-dropdown-->
+<!--        class="ui-button-danger"-->
+<!--        [options]="languages"-->
+<!--        (onChange)="selectLanguage($event)"-->
+<!--      >-->
+<!--      </p-dropdown>-->
+<!--    </div>-->
+<!--  </div>-->
 
 </div>

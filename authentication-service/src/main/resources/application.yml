@@ -16,6 +16,8 @@ spring:
       client:
         health-indicator:
           include-description: true
+    openfeign:
+      lazy-attributes-resolution: true
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -25,7 +27,7 @@ spring:
     url: jdbc:mysql://authentication-db:3306/${DATABASE}
   jpa:
     hibernate:
-      dll-auto: update
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect

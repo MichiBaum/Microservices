@@ -1,28 +1,52 @@
 import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
+import {Sides} from "../config/sides";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RouternavigationService {
+export class RouterNavigationService {
 
   constructor(private router: Router) {
   }
 
-  homeNavigate() {
-    this.router.navigate(['/home'], {skipLocationChange: true});
+  home() {
+    this.router.navigate(['/home']);
   }
 
-  githubNavigate() {
-    const url = 'https://github.com/MichiBaum';
+  github() {
+    open('https://github.com/MichiBaum');
+  }
+
+  imprint() {
+    this.router.navigate(['/imprint']);
+  }
+
+  chess() {
+    this.router.navigate(['/chess']);
+  }
+
+  open(url: string) {
     window.open(url, '_blank');
   }
 
-  imprintNavigate() {
-    this.router.navigate(['/imprint'], { skipLocationChange: true });
+  microservices() {
+    this.router.navigate(['/microservices'])
   }
 
-  conceptNavigate() {
+  login() {
+    this.router.navigate(['/login']);
+  }
 
+  about_me(){
+    this.router.navigate(['/about-me']);
+  }
+
+  donate() {
+    open('https://www.buymeacoffee.com/michibaum');
+  }
+
+  linkedIn() {
+    open('https://linkedin.com/in/michael-baumberger-a06306198/')
   }
 }

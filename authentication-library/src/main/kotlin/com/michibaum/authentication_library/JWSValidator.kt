@@ -7,11 +7,12 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import java.security.interfaces.RSAPublicKey
 
 open class JWSValidator {
-    fun validate(token: String?, publicKey: RSAPublicKey?): Boolean {
+    fun validate(token: String, publicKey: RSAPublicKey): Boolean {
         try {
-            val algorithm = Algorithm.RSA256(publicKey, null)
+            val algorithm = JWSAlgorithm.algorithm(publicKey)
             val verifier: JWTVerifier = JWT.require(algorithm)
                     .withIssuer("authentication-service")
+                    // TODO check valid until
                     .build() //Reusable verifier instance
             verifier.verify(token)
             return true
@@ -19,4 +20,5 @@ open class JWSValidator {
         }
         return false
     }
+
 }

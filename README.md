@@ -13,10 +13,10 @@
 
 
 
-This project is all about microservices and microfrontends.
+This project is all about microservices. Frontend is currently build with Angular.
 There are microservices build with spring, spring cloud and so forth.
 
-## Available Microservices
+## Modules
 There are these microservices:
 - [Admin Service](./admin-service/README.md)
 - [Authentication Service](./authentication-service/README.md)
@@ -25,6 +25,13 @@ There are these microservices:
 - [Registry Service](./registry-service/README.md)
 - [Usermanagement Service](./usermanagement-service/README.md)
 - [Website Service](./website-service/README.md)
+- [Chess Service](./chess-service/README.md)
+
+And these libraries
+- [Authentication Library](./authentication-library/README.md)
+- [Permission Library](./permission-library/README.md)
+- [Usermanagement Library](./usermanagement-library/README.md)
+- [Spring Boot Starter Discord](./spring-boot-starter-discord/README.md)
 
 ## Release
 
@@ -37,11 +44,6 @@ There are these microservices:
 ### Build JavaDoc
 
     mvnw javadoc:aggregate
-
-### Build & Push docker images
-Build docker images:
-
-    mvnw spring-boot:build-image --projects ./admin-service,./javadoc-service,./registry-service -DdockerHub.username=YourDockerHubUsername -DdockerHub.password=YourDockerHubPassword
 
 ### Container
 
@@ -61,7 +63,7 @@ Build docker images:
     # Single container 
     docker compose logs ´name´
 
-### Change HOSTS file
+### Change HOSTS file (for dev on local machine)
 *Remember to take Backup before editing your `hosts` file, mistakes there can block your internet access or cause other network-related issues.*
 
 
@@ -70,6 +72,7 @@ Build docker images:
 In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
 
     # Microservices
+    127.0.0.1 chess.michibaum.ch
     127.0.0.1 gateway.michibaum.ch
     127.0.0.1 registry.michibaum.ch
     127.0.0.1 admin.michibaum.ch
@@ -86,6 +89,18 @@ File: */etc/hosts*
 ### Scan docker files
 
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
+
+## Local DB
+
+    docker run --name microservices -e MYSQL_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mysql:9.0.1
+
+After that create the databases in the container.
+The tables are created trough
+
+    spring
+      jpa:
+        hibernate:
+          ddl-auto: update
 
 ## License
 

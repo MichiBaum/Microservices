@@ -95,7 +95,7 @@ services:
           memory: 250M
 
   authentication-db:
-    image: mysql:8.0
+    image: mysql:9.0
     env_file:
       - .env
       - .env.override
@@ -137,7 +137,7 @@ services:
           memory: 250M
 
   usermanagement-db:
-    image: mysql:8.0
+    image: mysql:9.0
     env_file:
       - .env
       - .env.override
@@ -197,6 +197,48 @@ services:
         reservations:
           cpus: '0.20'
           memory: 250M
+
+  chess-service:
+    image: 70131370/chess-service
+    env_file:
+      - .env
+      - .env.override
+    restart: always
+    depends_on:
+      - registry-service
+      - chess-db
+    environment:
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_PASSWORD: ${CHESS_DB_PASSWORD}
+      DATABASE: ${CHESS_DB}
+    expose:
+      - "80"
+    networks:
+      - microservice-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.20'
+          memory: 250M
+
+  chess-db:
+    image: mysql:9.0
+    env_file:
+      - .env
+      - .env.override
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${CHESS_DB_PASSWORD}
+      MYSQL_DATABASE: ${CHESS_DB}
+    expose:
+      - "3306"
+    volumes:
+      - /data/chess-db:/var/lib/mysql
+    networks:
+      - microservice-network
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76

@@ -6,6 +6,10 @@ import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {PrimeNgBase} from "../core/models/primeng-base.model";
 import {LanguageConfig} from "../core/config/language.config";
+import {HeaderService} from "../core/services/header.service";
+import {Title} from "@angular/platform-browser";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {LogoutComponent} from "../logout/logout.component";
 
 @Component({
   selector: 'app-header',
@@ -15,7 +19,9 @@ import {LanguageConfig} from "../core/config/language.config";
     TranslateModule,
     PrimeTemplate,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    FaIconComponent,
+    LogoutComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -24,13 +30,25 @@ export class HeaderComponent implements OnInit{
 
   languages: PrimeNgBase[] | undefined;
 
-  constructor(private languageConfig: LanguageConfig, private translate: TranslateService) {
-    this.languages = this.initLanguages();
+  title = "application.title"
+
+  constructor(private languageConfig: LanguageConfig, private translate: TranslateService, private headerService: HeaderService, private titleService: Title) {
+
   }
 
   ngOnInit(): void {
+    this.languages = this.initLanguages();
+    this.headerService.titleChangeEmitter.subscribe(value => {
+      this.changeTitle(value)
+    })
+    this.languageConfig.languageChanged.subscribe(() => {
+      this.changeTitle(this.title)
+    })
+  }
 
-
+  changeTitle(title: string){
+    this.title = title
+    this.titleService.setTitle(this.translate.instant(title))
   }
 
   initLanguages = () => {
