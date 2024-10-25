@@ -108,7 +108,7 @@ The tables are created trough
 
 ## Collaborators
 
-<!-- readme: collaborators -start --> 
+<!-- readme: collaborators -start -->
 <table>
 <tr>
     <td align="center">
@@ -123,7 +123,7 @@ The tables are created trough
 
 ## Contributors
 
-<!-- readme: SeverinNauer,contributors -start --> 
+<!-- readme: SeverinNauer,contributors -start -->
 <table>
 <tr>
     <td align="center">
