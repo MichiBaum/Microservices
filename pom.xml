@@ -139,13 +139,13 @@
         <module>authentication-library</module>
         <module>gateway-service</module>
         <module>admin-service</module>
-        <module>javadoc-service</module>
         <module>registry-service</module>
         <module>authentication-service</module>
         <module>usermanagement-service</module>
         <module>website-service</module>
         <module>chess-service</module>
         <module>spring-boot-starter-discord</module>
+        <module>fitness-service</module>
     </modules>
 
     <profiles>

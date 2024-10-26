@@ -1,18 +1,19 @@
-package com.michibaum.javadoc_service
+package com.michibaum.fitness_service
 
 import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.scheduling.annotation.EnableScheduling
-import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableScheduling
-class JavadocServiceApplication
+//@EnableFeignClients(basePackages = ["com.michibaum.usermanagement_library"])
+class FitnessServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<JavadocServiceApplication>(*args){
+    runApplication<FitnessServiceApplication>(*args){
         setBannerMode(Banner.Mode.OFF)
     }
 }

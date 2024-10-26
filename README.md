@@ -21,17 +21,23 @@ There are these microservices:
 - [Admin Service](./admin-service/README.md)
 - [Authentication Service](./authentication-service/README.md)
 - [Gateway Service](./gateway-service/README.md)
-- [Javadoc Service](./javadoc-service/README.md)
 - [Registry Service](./registry-service/README.md)
 - [Usermanagement Service](./usermanagement-service/README.md)
 - [Website Service](./website-service/README.md)
 - [Chess Service](./chess-service/README.md)
+- [Fitness Service](./fitness-service/README.md)
 
-And these libraries
+And these libraries:
 - [Authentication Library](./authentication-library/README.md)
 - [Permission Library](./permission-library/README.md)
 - [Usermanagement Library](./usermanagement-library/README.md)
 - [Spring Boot Starter Discord](./spring-boot-starter-discord/README.md)
+
+And these databases:
+- Authentication DB
+- Usermanagement DB
+- Chess DB
+- Fitness DB
 
 ## Release
 
@@ -40,10 +46,6 @@ And these libraries
     mvnw release:update-versions
 
 ## Docker
-
-### Build JavaDoc
-
-    mvnw javadoc:aggregate
 
 ### Container
 
@@ -76,7 +78,6 @@ In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
     127.0.0.1 gateway.michibaum.ch
     127.0.0.1 registry.michibaum.ch
     127.0.0.1 admin.michibaum.ch
-    127.0.0.1 javadoc.michibaum.ch
     127.0.0.1 usermanagement.michibaum.ch
     127.0.0.1 authentication.michibaum.ch
     127.0.0.1 michibaum.ch

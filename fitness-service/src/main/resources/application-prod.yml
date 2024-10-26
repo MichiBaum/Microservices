@@ -1,4 +1,5 @@
 server:
+  port: 80
   ssl:
     bundle: “web-server”
     client-auth: WANT
@@ -11,7 +12,7 @@ spring:
       guild-id: ${DISCORD_GUILD_ID}
       logging:
         enabled: true
-        channel-id: ${DISCORD_GATEWAY_SERVICE_LOG_CHANNEL}
+        channel-id: ${DISCORD_FITNESS_SERVICE_LOG_CHANNEL}
   ssl:
     bundle:
       jks:

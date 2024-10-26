@@ -1,3 +1,8 @@
+server:
+  ssl:
+    bundle: “web-server”
+    client-auth: WANT
+
 spring:
   microservices:
     discord:
@@ -7,6 +12,15 @@ spring:
       logging:
         enabled: true
         channel-id: ${DISCORD_REGISTRY_SERVICE_LOG_CHANNEL}
+  ssl:
+    bundle:
+      jks:
+        web-server:
+          key:
+            alias: "michibaum"
+          keystore:
+            location: "/data/ssl/keystore.p12"
+            password: ${SSL_KEYSTORE_PASSWORD}
 
 eureka:
   client:

@@ -1,7 +1,0 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-# That you can not accidentally commit this folder
-/src/main/resources/apidocs/
