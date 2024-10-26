@@ -36,7 +36,7 @@ services:
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
-      - "80"
+      - "443"
     volumes:
       - /data/ssl:/data/ssl
     networks:
@@ -63,7 +63,7 @@ services:
       DATABASE_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
       DATABASE: ${AUTHENTICATION_DB}
     expose:
-      - "80"
+      - "443"
     volumes:
       - /data/ssl:/data/ssl
     networks:
@@ -107,7 +107,7 @@ services:
       DATABASE_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       DATABASE: ${USERMANAGEMENT_DB}
     expose:
-      - "80"
+      - "443"
     volumes:
       - /data/ssl:/data/ssl
     networks:
@@ -148,8 +148,7 @@ services:
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     ports:
-      - "80:80"
-      - "443:80"
+      - "443:443"
     volumes:
       - /data/ssl:/data/ssl
     networks:
@@ -174,7 +173,7 @@ services:
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
-      - "80"
+      - "443"
     volumes:
       - /data/ssl:/data/ssl
     networks:
@@ -202,7 +201,7 @@ services:
       DATABASE_PASSWORD: ${CHESS_DB_PASSWORD}
       DATABASE: ${CHESS_DB}
     expose:
-      - "80"
+      - "443"
     volumes:
       - /data/ssl:/data/ssl
     networks:
@@ -246,7 +245,7 @@ services:
       DATABASE_PASSWORD: ${FITNESS_DB_PASSWORD}
       DATABASE: ${FITNESS_DB}
     expose:
-      - "80"
+      - "443"
     volumes:
       - /data/ssl:/data/ssl
     networks:
