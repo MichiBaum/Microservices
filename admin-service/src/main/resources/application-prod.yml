@@ -1,8 +1,5 @@
 server:
-  port: 443
-  ssl:
-    bundle: "server"
-    client-auth: WANT
+  port: 80
 
 spring:
   microservices:
@@ -16,22 +13,9 @@ spring:
   boot:
     admin:
       ui:
-        public-url: http://admin.michibaum.ch
-  ssl:
-    bundle:
-      jks:
-        server:
-          key:
-            alias: "michibaum"
-          keystore:
-            location: "/data/ssl/keystore.p12"
-            password: ${SSL_KEYSTORE_PASSWORD}
-            type: "PKCS12"
+        public-url: https://admin.michibaum.ch
 
 eureka:
   client:
     service-url:
       defaultZone: http://registry-service:8761/eureka
-  instance:
-    secure-port-enabled: true
-    non-secure-port-enabled: true

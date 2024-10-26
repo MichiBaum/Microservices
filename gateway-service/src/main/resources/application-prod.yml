@@ -28,6 +28,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://registry-service:8761/eureka
-  instance:
-    secure-port-enabled: true
-    non-secure-port-enabled: true

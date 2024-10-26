@@ -12,8 +12,6 @@ services:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
       - "8761"
-    volumes:
-      - /data/ssl:/data/ssl
     networks:
       - microservice-network
     deploy:
@@ -36,9 +34,7 @@ services:
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
-      - "443"
-    volumes:
-      - /data/ssl:/data/ssl
+      - "80"
     networks:
       - microservice-network
     deploy:
@@ -63,9 +59,7 @@ services:
       DATABASE_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
       DATABASE: ${AUTHENTICATION_DB}
     expose:
-      - "443"
-    volumes:
-      - /data/ssl:/data/ssl
+      - "80"
     networks:
       - microservice-network
     deploy:
@@ -107,9 +101,7 @@ services:
       DATABASE_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       DATABASE: ${USERMANAGEMENT_DB}
     expose:
-      - "443"
-    volumes:
-      - /data/ssl:/data/ssl
+      - "80"
     networks:
       - microservice-network
     deploy:
@@ -173,9 +165,7 @@ services:
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
     expose:
-      - "443"
-    volumes:
-      - /data/ssl:/data/ssl
+      - "80"
     networks:
       - microservice-network
     deploy:
@@ -201,9 +191,7 @@ services:
       DATABASE_PASSWORD: ${CHESS_DB_PASSWORD}
       DATABASE: ${CHESS_DB}
     expose:
-      - "443"
-    volumes:
-      - /data/ssl:/data/ssl
+      - "80"
     networks:
       - microservice-network
     deploy:
@@ -245,9 +233,7 @@ services:
       DATABASE_PASSWORD: ${FITNESS_DB_PASSWORD}
       DATABASE: ${FITNESS_DB}
     expose:
-      - "443"
-    volumes:
-      - /data/ssl:/data/ssl
+      - "80"
     networks:
       - microservice-network
     deploy:
