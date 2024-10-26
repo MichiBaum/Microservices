@@ -1,5 +1,8 @@
 server:
   port: 80
+  ssl:
+    bundle: “web-server”
+    client-auth: WANT
 
 spring:
   microservices:
@@ -14,6 +17,15 @@ spring:
     admin:
       ui:
         public-url: http://admin.michibaum.ch
+  ssl:
+    bundle:
+      jks:
+        web-server:
+          key:
+            alias: "michibaum"
+          keystore:
+            location: "/data/ssl/keystore.p12"
+            password: ${SSL_KEYSTORE_PASSWORD}
 
 eureka:
   client:

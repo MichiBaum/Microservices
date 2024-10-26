@@ -1,5 +1,5 @@
 export const environment = {
-  authenticationService: 'http://authentication.michibaum.ch/api',
-  chessService: 'http://chess.michibaum.ch/api',
-  adminService: 'http://admin.michibaum.ch'
+  authenticationService: 'https://authentication.michibaum.ch/api',
+  chessService: 'https://chess.michibaum.ch/api',
+  adminService: 'https://admin.michibaum.ch'
 };
