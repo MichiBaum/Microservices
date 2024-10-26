@@ -1,7 +1,7 @@
 server:
   port: 80
   ssl:
-    bundle: “web-server”
+    bundle: "server"
     client-auth: WANT
 
 spring:
@@ -20,12 +20,13 @@ spring:
   ssl:
     bundle:
       jks:
-        web-server:
+        server:
           key:
             alias: "michibaum"
           keystore:
             location: "/data/ssl/keystore.p12"
             password: ${SSL_KEYSTORE_PASSWORD}
+            type: "PKCS12"
 
 eureka:
   client:
