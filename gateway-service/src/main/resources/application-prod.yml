@@ -1,4 +1,5 @@
 server:
+  port: 443
   ssl:
     bundle: "server"
     client-auth: WANT
