@@ -1,7 +1,7 @@
-server:
-  ssl:
-    bundle: "server"
-    client-auth: WANT
+#server:
+#  ssl:
+#    bundle: "server"
+#    client-auth: WANT
 
 spring:
   microservices:
@@ -12,21 +12,21 @@ spring:
       logging:
         enabled: true
         channel-id: ${DISCORD_REGISTRY_SERVICE_LOG_CHANNEL}
-  ssl:
-    bundle:
-      jks:
-        server:
-          key:
-            alias: "michibaum"
-          keystore:
-            location: "/data/ssl/keystore.p12"
-            password: ${SSL_KEYSTORE_PASSWORD}
-            type: "PKCS12"
+#  ssl:
+#    bundle:
+#      jks:
+#        server:
+#          key:
+#            alias: "michibaum"
+#          keystore:
+#            location: "/data/ssl/keystore.p12"
+#            password: ${SSL_KEYSTORE_PASSWORD}
+#            type: "PKCS12"
 
 eureka:
   client:
     service-url:
-      defaultZone: https://registry-service:8761/eureka
+      defaultZone: http://registry-service:8761/eureka
   instance:
     secure-port-enabled: true
     non-secure-port-enabled: false
