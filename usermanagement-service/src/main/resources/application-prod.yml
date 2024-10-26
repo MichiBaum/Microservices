@@ -1,8 +1,5 @@
 server:
-  port: 443
-  ssl:
-    bundle: "server"
-    client-auth: WANT
+  port: 80
 
 spring:
   microservices:
@@ -13,21 +10,8 @@ spring:
       logging:
         enabled: true
         channel-id: ${DISCORD_USERMANAGEMENT_SERVICE_LOG_CHANNEL}
-  ssl:
-    bundle:
-      jks:
-        server:
-          key:
-            alias: "michibaum"
-          keystore:
-            location: "/data/ssl/keystore.p12"
-            password: ${SSL_KEYSTORE_PASSWORD}
-            type: "PKCS12"
 
 eureka:
   client:
     service-url:
       defaultZone: http://registry-service:8761/eureka
-  instance:
-    secure-port-enabled: true
-    non-secure-port-enabled: true
