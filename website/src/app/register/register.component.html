@@ -1,0 +1,27 @@
+<section class="register">
+
+  <p-card class="p-4 border-round">
+    <div class="flex flex-column align-items-center justify-content-center gap-4">
+      <p-floatLabel>
+        <input id="username" type="text" pInputText [(ngModel)]="username" />
+        <label for="username">Username</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" />
+        <label for="password">Password</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-password id="passwordRepeat" [feedback]="false" [toggleMask]="true" [(ngModel)]="passwordRepeat" />
+        <label for="passwordRepeat">Password</label>
+      </p-floatLabel>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex gap-3 mt-1">
+        <p-button label="Login" class="w-full" styleClass="w-full" (onClick)="login()"></p-button>
+        <p-button label="Register" class="w-full" styleClass="w-full" (onClick)="register()"></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+
+</section>

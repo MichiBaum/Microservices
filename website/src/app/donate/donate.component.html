@@ -1,0 +1,33 @@
+<section class="donate">
+  <p-card header="{{'donate.title' | translate}}" class="p-4 border-round">
+    <ng-template pTemplate="header">
+      <img alt="Card" src="../../assets/images/donate.jpeg" />
+    </ng-template>
+    <div class="grid">
+      <div class="col-12">
+        <p>
+          Hello! I’m passionate about creating this website and am committed to delivering high-quality content and a seamless experience.
+          To keep everything running smoothly, I spend around 30 hours each week working on improvements, features, and maintenance.
+          Additionally, maintaining the server costs about 70 CHF per month.
+        </p>
+        <p>
+          If you’ve enjoyed the website or found it helpful, consider supporting my work.
+          Your sponsorship helps cover the costs and allows me to dedicate even more time to building and refining the site.
+        </p>
+        <p>
+          And if you’re looking for a reliable server yourself, I recommend Hosttech.
+          Use my promo code 31886957 to get started with their services.
+        </p>
+        <p>
+          Thank you for your support and for being part of this journey!
+        </p>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="flex gap-3 mt-1">
+        <p-button label="Buy me a coffee" class="w-full" styleClass="w-full" (onClick)="router.buymeacoffee()" />
+        <p-button label="Go to Hosttech" class="w-full" styleClass="w-full" (onClick)="router.hosttech()" />
+      </div>
+    </ng-template>
+  </p-card>
+</section>

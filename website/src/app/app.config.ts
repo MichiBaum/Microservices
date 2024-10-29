@@ -15,6 +15,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import { provideServiceWorker } from '@angular/service-worker';
+import {MessageService} from "primeng/api";
 
 export function TranslateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

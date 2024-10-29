@@ -44,6 +44,9 @@
   "login": {
     "title": "Login"
   },
+  "register": {
+    "title": "Register"
+  },
   "about-me": {
     "title": "About me",
     "s1": "Hello! I'm a software developer from Switzerland. My journey in the world of IT began with an apprenticeship at Würth ITensis from 2017 to 2021, where I honed my skills and continued working until 2024. During this time, I developed a deep passion for programming, which I continue to pursue in my free time.",
@@ -53,5 +56,8 @@
   },
   "microservices": {
     "title": "Microservices"
+  },
+  "donate": {
+    "title": "Donate"
   }
 }

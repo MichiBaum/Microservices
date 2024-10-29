@@ -43,10 +43,23 @@ export class RouterNavigationService {
   }
 
   donate() {
+    this.router.navigate(['/donate']);
+    // open('https://www.buymeacoffee.com/michibaum');
+  }
+
+  buymeacoffee() {
     open('https://www.buymeacoffee.com/michibaum');
   }
 
   linkedIn() {
     open('https://linkedin.com/in/michael-baumberger-a06306198/')
+  }
+
+  hosttech(){
+    open('https://www.hosttech.ch/?promocode=31886957')
+  }
+
+  register() {
+    this.router.navigate(['/register']);
   }
 }

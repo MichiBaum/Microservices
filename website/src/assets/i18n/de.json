@@ -44,6 +44,9 @@
   "login": {
     "title": "Login"
   },
+  "register": {
+    "title": "Registrieren"
+  },
   "about-me": {
     "title": "Über mich",
     "s1": "Hallo! Ich bin ein Softwareentwickler aus der Schweiz. Meine Reise in die IT-Welt begann mit einer Ausbildung bei Würth ITensis von 2017 bis 2021, wo ich meine Fähigkeiten verfeinerte und bis 2024 weiterarbeitete. Während dieser Zeit entwickelte ich eine tiefe Leidenschaft für das Programmieren, der ich in meiner Freizeit weiterhin nachgehe.",
@@ -53,5 +56,8 @@
   },
   "microservices": {
     "title": "Microservices"
+  },
+  "donate": {
+    "title": "Spenden"
   }
 }

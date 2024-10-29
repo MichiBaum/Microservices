@@ -28,4 +28,8 @@ export class HomeComponent {
   canActivateChess() {
     return Sides.chess.canActivate(this.permissionService)
   }
+
+  canLogin() {
+    return Sides.login.canActivate(this.permissionService)
+  }
 }
