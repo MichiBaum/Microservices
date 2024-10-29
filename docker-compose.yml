@@ -14,14 +14,6 @@ services:
       - "8761"
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   admin-service:
     image: 70131370/admin-service
@@ -37,14 +29,6 @@ services:
       - "80"
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   authentication-service:
     image: 70131370/authentication-service
@@ -62,24 +46,16 @@ services:
       - "80"
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   authentication-db:
-    image: mysql:9.0
+    image: mariadb:lts-noble
     env_file:
       - .env
       - .env.override
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
-      MYSQL_DATABASE: ${AUTHENTICATION_DB}
+      MARIADB_ROOT_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
+      MARIADB_DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "3306"
     volumes:
@@ -104,24 +80,16 @@ services:
       - "80"
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   usermanagement-db:
-    image: mysql:9.0
+    image: mariadb:lts-noble
     env_file:
       - .env
       - .env.override
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
-      MYSQL_DATABASE: ${USERMANAGEMENT_DB}
+      MARIADB_ROOT_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
+      MARIADB_DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "3306"
     volumes:
@@ -145,14 +113,6 @@ services:
       - /data/ssl:/data/ssl
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   website-service:
     image: 70131370/website-service
@@ -168,14 +128,6 @@ services:
       - "80"
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   chess-service:
     image: 70131370/chess-service
@@ -194,24 +146,16 @@ services:
       - "80"
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   chess-db:
-    image: mysql:9.0
+    image: mariadb:lts-noble
     env_file:
       - .env
       - .env.override
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${CHESS_DB_PASSWORD}
-      MYSQL_DATABASE: ${CHESS_DB}
+      MARIADB_ROOT_PASSWORD: ${CHESS_DB_PASSWORD}
+      MARIADB_DATABASE: ${CHESS_DB}
     expose:
       - "3306"
     volumes:
@@ -236,24 +180,16 @@ services:
       - "80"
     networks:
       - microservice-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.20'
-          memory: 250M
 
   fitness-db:
-    image: mysql:9.0
+    image: mariadb:lts-noble
     env_file:
       - .env
       - .env.override
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${FITNESS_DB_PASSWORD}
-      MYSQL_DATABASE: ${FITNESS_DB}
+      MARIADB_ROOT_PASSWORD: ${FITNESS_DB_PASSWORD}
+      MARIADB_DATABASE: ${FITNESS_DB}
     expose:
       - "3306"
     volumes:

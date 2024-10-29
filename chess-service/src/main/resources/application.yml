@@ -23,14 +23,14 @@ spring:
   datasource:
     username: root
     password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://chess-db:3306/${DATABASE}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://chess-db:3306/${DATABASE}
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.MariaDBDialect
 
 eureka:
   instance:

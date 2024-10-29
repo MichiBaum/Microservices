@@ -12,9 +12,11 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
 
 
-
 This project is all about microservices. Frontend is currently build with Angular.
 There are microservices build with spring, spring cloud and so forth.
+
+
+![Alt](https://repobeats.axiom.co/api/embed/69bb8de5fa17a6f9aa3c3c0ffad238a1e056edac.svg "Repobeats analytics image")
 
 ## Modules
 There are these microservices:
@@ -65,6 +67,10 @@ And these databases:
     # Single container 
     docker compose logs ´name´
 
+#### Stats
+
+    docker stats
+
 ### Change HOSTS file (for dev on local machine)
 *Remember to take Backup before editing your `hosts` file, mistakes there can block your internet access or cause other network-related issues.*
 
@@ -93,7 +99,7 @@ File: */etc/hosts*
 
 ## Local DB
 
-    docker run --name microservices -e MYSQL_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mysql:9.0.1
+    docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:lts-noble
 
 After that create the databases in the container.
 The tables are created trough
