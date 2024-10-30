@@ -92,7 +92,7 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.chess.translationKey),
             customIcon: faChess,
-            visible: Sides.chess.canActivate(this.permissionService), // TODO
+            visible: Sides.chess.canActivate(this.permissionService),
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.chess();
@@ -101,8 +101,14 @@ export class NavigationComponent implements OnInit{
           ]
       },
       {
-        label: this.translate.instant('navigation.settings-and-else'),// TODO
+        label: this.translate.instant('navigation.settings'),
         items: [
+
+        ]
+      },
+      {
+         label: this.translate.instant('navigation.developer-and-project'),
+         items: [
           {
             label: this.translate.instant(Sides.about_me.translationKey),
             customIcon: faUser,
@@ -124,16 +130,30 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.microservices.translationKey),
             customIcon: faMicrochip,
-            visible: Sides.microservices.canActivate(this.permissionService), // TODO
+            visible: Sides.microservices.canActivate(this.permissionService),
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.microservices();
             }
           } as MenuItem,
           {
+            label: this.translate.instant('navigation.github'),
+            customIcon: faGithub,
+            visible: true,
+            command: () => {
+              this.sidebarVisible = false;
+              this.routerNavigationService.github();
+            }
+          } as MenuItem
+         ]
+       },
+      {
+        label: this.translate.instant('navigation.else'),
+        items: [
+          {
             label: this.translate.instant('navigation.light-dark-mode'),
             customIcon: faLightbulb,
-            visible: true, // TODO
+            visible: true,
             command: () => {
               this.sidebarVisible = false;
               this.lightDarkModeService.changeMode(document);
@@ -148,15 +168,6 @@ export class NavigationComponent implements OnInit{
               this.routerNavigationService.imprint();
             }
           } as MenuItem,
-          {
-            label: this.translate.instant('navigation.github'),
-            customIcon: faGithub,
-            visible: true, // TODO
-            command: () => {
-              this.sidebarVisible = false;
-              this.routerNavigationService.github();
-            }
-          } as MenuItem
         ]
       }
     ] as MenuItem[];
