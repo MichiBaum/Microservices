@@ -18,6 +18,7 @@ spring:
         enabled: true
       ui:
         title: Admin Server
+        enable-toasts: true
       monitor:
         status-interval: 3s
         status-lifetime: 3s
