@@ -1,6 +1,23 @@
 <div class="flex flex-row flex-wrap">
+
+  <div class="flex align-items-center justify-content-center m-2" *ngIf="canLogin()">
+    <p-card header="Login" [style]="{ width: '20rem' }">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="../../assets/images/login.jpeg" />
+      </ng-template>
+      <p>
+        Wanna see more content? Login or Register!
+      </p>
+      <ng-template pTemplate="footer">
+        <div class="flex gap-3 mt-1">
+          <p-button label="Go to login" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.login()" />
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
   <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateChess()">
-    <p-card header="Chess" subheader="Chess statistics" [style]="{ width: '20rem' }">
+    <p-card header="Chess" [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_chess.jpeg" />
       </ng-template>
@@ -9,39 +26,39 @@
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
-          <p-button label="Navigate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.chess()" />
+          <p-button label="Go to chess" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.chess()" />
         </div>
       </ng-template>
     </p-card>
   </div>
 
   <div class="flex align-items-center justify-content-center m-2">
-    <p-card header="Donate" subheader="Donate a coffee" [style]="{ width: '20rem' }">
+    <p-card header="Donate" [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_donate.jpeg" />
       </ng-template>
       <p>
-        Lorem ipsum dolor sit amet...
+        Do you like the website? Think about donating me a coffee.
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
-          <p-button label="Navigate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.donate()" />
+          <p-button label="Go to donate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.donate()" />
         </div>
       </ng-template>
     </p-card>
   </div>
 
   <div class="flex align-items-center justify-content-center m-2">
-    <p-card header="About me" subheader="About me" [style]="{ width: '20rem' }">
+    <p-card header="About me" [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_about-me.jpeg" />
       </ng-template>
       <p>
-        Lorem ipsum dolor sit amet...
+        Who is the developer of this platform? Learn more about me!
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
-          <p-button label="Navigate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.about_me()" />
+          <p-button label="Go to about me" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.about_me()" />
         </div>
       </ng-template>
     </p-card>

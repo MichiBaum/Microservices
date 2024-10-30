@@ -10,5 +10,5 @@ spring:
   datasource:
     username: root
     password: someRootPass
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/fitness-db
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/fitness-db

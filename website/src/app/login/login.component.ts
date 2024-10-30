@@ -7,35 +7,32 @@ import {FloatLabelModule} from "primeng/floatlabel";
 import {AuthService} from "../core/services/auth.service";
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
+import {CardModule} from "primeng/card";
+import {TranslateModule} from "@ngx-translate/core";
+import {RouterNavigationService} from "../core/services/router-navigation.service";
 
 @Component({
   selector: 'app-authentication',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    Button,
-    InputTextModule,
-    PasswordModule,
-    FloatLabelModule,
-    FormsModule
-  ],
+    imports: [
+        ReactiveFormsModule,
+        Button,
+        InputTextModule,
+        PasswordModule,
+        FloatLabelModule,
+        FormsModule,
+        CardModule,
+        TranslateModule
+    ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
 
-  loginFormGroup = new FormGroup(
-    {
-      username: new FormControl('', [
-        Validators.required
-      ]),
-      password: new FormControl('', [
-        Validators.required
-      ]),
-    }
-  );
+  username: string = "";
+  password: string = "";
 
-  constructor(private authService: AuthService, private headerService: HeaderService) {
+  constructor(private authService: AuthService, private headerService: HeaderService, private router: RouterNavigationService) {
   }
 
   ngOnInit(): void {
@@ -43,10 +40,12 @@ export class LoginComponent implements OnInit{
   }
 
   login(){
-    if(!this.loginFormGroup.valid)
+    if(this.username == '' || this.password == '')
       return;
-    var values = this.loginFormGroup.value
-    this.authService.login(values.username ?? '', values.password ?? '')
+    this.authService.login(this.username ?? '', this.password ?? '')
   }
 
+  register() {
+    this.router.register()
+  }
 }

@@ -113,6 +113,15 @@ export class NavigationComponent implements OnInit{
             }
           },
           {
+            label: this.translate.instant(Sides.donate.translationKey),
+            customIcon: faCoffee,
+            visible: Sides.donate.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible = false;
+              this.routerNavigationService.donate();
+            }
+          } as MenuItem,
+          {
             label: this.translate.instant(Sides.microservices.translationKey),
             customIcon: faMicrochip,
             visible: Sides.microservices.canActivate(this.permissionService), // TODO
@@ -133,7 +142,7 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.imprint.translationKey),
             customIcon: faStamp,
-            visible: Sides.imprint.canActivate(this.permissionService), // TODO
+            visible: Sides.imprint.canActivate(this.permissionService),
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.imprint();
@@ -146,15 +155,6 @@ export class NavigationComponent implements OnInit{
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.github();
-            }
-          } as MenuItem,
-          {
-            label: this.translate.instant('navigation.buymeacoffee'),
-            customIcon: faCoffee,
-            visible: true, // TODO
-            command: () => {
-              this.sidebarVisible = false;
-              this.routerNavigationService.donate();
             }
           } as MenuItem
         ]

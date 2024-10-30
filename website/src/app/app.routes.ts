@@ -6,6 +6,8 @@ import {HomeComponent} from "./home/home.component";
 import {ImprintComponent} from "./imprint/imprint.component";
 import {Sides} from "./core/config/sides";
 import {ChessComponent} from "./chess/chess.component";
+import {DonateComponent} from "./donate/donate.component";
+import {RegisterComponent} from "./register/register.component";
 
 export const routes: Routes = [
   {
@@ -25,6 +27,12 @@ export const routes: Routes = [
     component: LoginComponent,
     canActivate: Sides.login.routeCanActivate,
     data: {permissions: Sides.login.neededPermissions}
+  },
+  {
+    path: Sides.register.navigation,
+    component: RegisterComponent,
+    canActivate: Sides.register.routeCanActivate,
+    data: {permissions: Sides.register.neededPermissions}
   },
   {
     path: Sides.microservices.navigation,
@@ -49,5 +57,11 @@ export const routes: Routes = [
     component: ChessComponent,
     canActivate: Sides.chess.routeCanActivate,
     data: {permissions: Sides.chess.neededPermissions}
+  },
+  {
+    path: Sides.donate.navigation,
+    component: DonateComponent,
+    canActivate: Sides.donate.routeCanActivate,
+    data: {permissions: Sides.donate.neededPermissions}
   }
 ];

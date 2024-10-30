@@ -9,12 +9,12 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(!this.authService.jwtIsPresent()){
-      return next.handle(req);
+      return next.handle(request);
     }
 
-    req = req.clone({
+    request = request.clone({
       setHeaders: {
         // 'Content-Type' : 'application/json; charset=utf-8',
         // 'Accept'       : 'application/json',
@@ -22,6 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
       },
     });
 
-    return next.handle(req);
+    return next.handle(request);
   }
 }

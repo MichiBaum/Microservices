@@ -1,4 +1,9 @@
 spring:
+  boot:
+    admin:
+      client:
+        username: ${ADMIN_SERVICE_USERNAME}
+        password: ${ADMIN_SERVICE_PASSWORD}
   microservices:
     discord:
       enabled: true

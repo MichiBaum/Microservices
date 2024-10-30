@@ -45,6 +45,14 @@ export const Sides = {
     routeCanActivate: [],
     neededPermissions: []
   } as Side,
+  register: {
+    name: "register",
+    translationKey: "register.title",
+    navigation: "register",
+    canActivate: (service: PermissionService) => !service.isAuthenticated(),
+    routeCanActivate: [],
+    neededPermissions: []
+  } as Side,
   home: {
     name: "home",
     translationKey: "home.title",
@@ -67,6 +75,14 @@ export const Sides = {
     navigation: "",
     canActivate: (service: PermissionService) => service.isAuthenticated(),
     routeCanActivate: [isAuthenticatedGuard],
+    neededPermissions: []
+  } as Side,
+  donate:{
+    name: "donate",
+    translationKey: "donate.title",
+    navigation: "donate",
+    canActivate: (service: PermissionService) => true,
+    routeCanActivate: [],
     neededPermissions: []
   } as Side
 }

@@ -37,4 +37,8 @@ export class AboutMeComponent implements OnInit{
   openGithub() {
     this.routerNavigationService.github()
   }
+
+  openDonate() {
+    this.routerNavigationService.donate()
+  }
 }
