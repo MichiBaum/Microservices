@@ -21,9 +21,14 @@ spring:
     allow-bean-definition-overriding: true
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
 
 management:
   endpoints:
