@@ -45,7 +45,9 @@ And these databases:
 
 ### Maven release plugin
 
-    mvnw release:update-versions
+The Maven Release Plugin automates the process of releasing project versions by updating version numbers and creating
+tags in the version control system. Use the command `mvn release:update-versions` to update the version information in
+your project's `pom.xml` files.
 
 ## Docker
 
@@ -53,7 +55,7 @@ And these databases:
 
 #### Up
 
-    docker compose up --build -d
+    docker compose up -d
 
 #### Down
 
