@@ -11,7 +11,9 @@
     "github": "Github",
     "buymeacoffee": "Buy me a coffee",
     "light-dark-mode": "Light/dark mode",
-    "settings-and-else": "Settings and else"
+    "settings": "Settings",
+    "developer-and-project": "Developer & Project",
+    "else": "Else"
   },
   "owner": {
     "name": "Michael Baumberger",
