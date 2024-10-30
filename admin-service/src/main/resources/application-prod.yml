@@ -14,7 +14,14 @@ spring:
     admin:
       ui:
         public-url: https://admin.michibaum.ch
-
+      instance-auth:
+        default-user-name: ${ADMIN_SERVICE_USERNAME}
+        default-password: ${ADMIN_SERVICE_PASSWORD}
+        enabled: true
+      notify:
+        custom-discord:
+          enabled: true
+          channel-id: ${ADMIN_SERVICE_NOTIFY_DISCORD_CHANNEL}
 eureka:
   client:
     service-url:
