@@ -10,7 +10,16 @@ import {ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
 import {Ripple} from "primeng/ripple";
-import {faChess, faCoffee, faHouse, faLightbulb, faMicrochip, faStamp, faUser} from "@fortawesome/free-solid-svg-icons";
+import {
+  faChess,
+  faCoffee,
+  faDumbbell,
+  faHouse,
+  faLightbulb,
+  faMicrochip,
+  faStamp,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import {Sides} from "../../core/config/sides";
@@ -87,6 +96,15 @@ export class NavigationComponent implements OnInit{
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.home();
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant(Sides.fitness.translationKey),
+            customIcon: faDumbbell,
+            visible: Sides.fitness.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible = false;
+              this.routerNavigationService.fitness();
             }
           } as MenuItem,
           {

@@ -1,6 +1,11 @@
 server:
   port: 80
 
+fitbit:
+  oauth:
+    client-id: ${FITBIT_CLIENT_ID}
+    client-secret: ${FITBIT_CLIENT_SECRET}
+
 spring:
   boot:
     admin:

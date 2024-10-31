@@ -62,4 +62,8 @@ export class RouterNavigationService {
   register() {
     this.router.navigate(['/register']);
   }
+
+  fitness() {
+    this.router.navigate(['/fitness']);
+  }
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
@@ -39,7 +39,7 @@ class AuthenticationGatewayFilterIT{
     }
 
     @MockBean
-    lateinit var jwsValidator: JWSValidator
+    lateinit var jwsValidator: JwsValidator
 
     @Test
     fun `without authentication header gets forbidden`(){
@@ -60,7 +60,7 @@ class AuthenticationGatewayFilterIT{
     fun `with valid authentication header forwards request`(){
         // GIVEN
         wireMockServer.stubFor(post("/post").willReturn(ok()))
-        Mockito.`when`(jwsValidator.validate(anyString())).thenReturn(true)
+        `when`(jwsValidator.validate(anyString())).thenReturn(true)
 
         // WHEN
         webTestClient.post().uri("/post")
@@ -79,7 +79,7 @@ class AuthenticationGatewayFilterIT{
     fun `with invalid authentication header gets forbidden`(){
         // GIVEN
         wireMockServer.stubFor(post("/post").willReturn(ok()))
-        Mockito.`when`(jwsValidator.validate(anyString())).thenReturn(false)
+        `when`(jwsValidator.validate(anyString())).thenReturn(false)
 
         // WHEN
         webTestClient.post().uri("/post")

@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Lazy
 class FilterConfig {
 
     @Bean
-    fun jwsValidator(@Lazy authenticationClient: AuthenticationClient): JWSValidator{ // Cycling Dependencies
-        return JWSValidator(authenticationClient)
+    fun jwsValidator(@Lazy authenticationClient: AuthenticationClient): JwsValidator{ // Cycling Dependencies
+        return JwsValidator(authenticationClient)
     }
 
 }

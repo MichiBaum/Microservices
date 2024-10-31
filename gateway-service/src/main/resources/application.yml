@@ -42,12 +42,6 @@ spring:
           uri: lb://authentication-service
           predicates:
             - Host=authentication.michibaum.ch
-        - id: registry
-          uri: lb://registry-service
-          predicates:
-            - Host=registry.michibaum.ch
-          filters:
-            - Authentication
         - id: usermanagement
           uri: lb://usermanagement-service
           predicates:

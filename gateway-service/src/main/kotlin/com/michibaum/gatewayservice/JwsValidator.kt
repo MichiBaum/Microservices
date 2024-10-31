@@ -1,7 +1,7 @@
 package com.michibaum.gatewayservice
 
 import com.michibaum.authentication_library.AuthenticationClient
-import com.michibaum.authentication_library.JWSValidator
+import com.michibaum.authentication_library.JwsValidator
 import org.springframework.scheduling.annotation.Scheduled
 import java.security.KeyFactory
 import java.security.PublicKey
@@ -10,9 +10,9 @@ import java.security.spec.X509EncodedKeySpec
 import java.util.concurrent.TimeUnit
 
 
-class JWSValidator(
+class JwsValidator(
     private val authenticationClient: AuthenticationClient
-): JWSValidator() {
+): JwsValidator() {
 
     private lateinit var publicKey: RSAPublicKey
 
