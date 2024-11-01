@@ -56,6 +56,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
       MARIADB_DATABASE: ${AUTHENTICATION_DB}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
     ports:
@@ -92,6 +94,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       MARIADB_DATABASE: ${USERMANAGEMENT_DB}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
     ports:
@@ -160,6 +164,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${CHESS_DB_PASSWORD}
       MARIADB_DATABASE: ${CHESS_DB}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
     ports:
@@ -196,6 +202,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${FITNESS_DB_PASSWORD}
       MARIADB_DATABASE: ${FITNESS_DB}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
     ports:
