@@ -56,12 +56,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
       MARIADB_DATABASE: ${AUTHENTICATION_DB}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
-    ports:
-      - "3307:3306"  # TODO remove
     volumes:
       - /data/authentication-db:/var/lib/mysql
     networks:
@@ -94,12 +90,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       MARIADB_DATABASE: ${USERMANAGEMENT_DB}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
-    ports:
-      - "3308:3306"  # TODO remove
     volumes:
       - /data/usermanagement-db:/var/lib/mysql
     networks:
@@ -164,12 +156,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${CHESS_DB_PASSWORD}
       MARIADB_DATABASE: ${CHESS_DB}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
-    ports:
-      - "3309:3306"  # TODO remove
     volumes:
       - /data/chess-db:/var/lib/mysql
     networks:
@@ -202,12 +190,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: ${FITNESS_DB_PASSWORD}
       MARIADB_DATABASE: ${FITNESS_DB}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     expose:
       - "3306"
-    ports:
-      - "3310:3306"  # TODO remove
     volumes:
       - /data/fitness-db:/var/lib/mysql
     networks:
