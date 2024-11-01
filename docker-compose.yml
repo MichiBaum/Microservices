@@ -57,6 +57,8 @@ services:
       MARIADB_DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "3306"
+    ports:
+      - "127.0.0.1:3307:3306"
     volumes:
       - /data/authentication-db:/var/lib/mysql
     networks:
@@ -92,6 +94,8 @@ services:
       MARIADB_DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "3306"
+    ports:
+      - "127.0.0.1:3308:3306"
     volumes:
       - /data/usermanagement-db:/var/lib/mysql
     networks:
@@ -157,6 +161,8 @@ services:
       MARIADB_DATABASE: ${CHESS_DB}
     expose:
       - "3306"
+    ports:
+      - "127.0.0.1:3309:3306"
     volumes:
       - /data/chess-db:/var/lib/mysql
     networks:
@@ -192,6 +198,8 @@ services:
       MARIADB_DATABASE: ${FITNESS_DB}
     expose:
       - "3306"
+    ports:
+      - "127.0.0.1:3310:3306"
     volumes:
       - /data/fitness-db:/var/lib/mysql
     networks:
