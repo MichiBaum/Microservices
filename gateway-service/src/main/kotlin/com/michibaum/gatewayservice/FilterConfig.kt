@@ -1,6 +1,7 @@
 package com.michibaum.gatewayservice
 
 import com.michibaum.authentication_library.AuthenticationClient
+import com.michibaum.authentication_library.security.netty.JwsValidator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.Lazy
 class FilterConfig {
 
     @Bean
-    fun jwsValidator(@Lazy authenticationClient: AuthenticationClient): JwsValidator{ // Cycling Dependencies
+    fun jwsValidator(@Lazy authenticationClient: AuthenticationClient): JwsValidator { // Cycling Dependencies
         return JwsValidator(authenticationClient)
     }
 

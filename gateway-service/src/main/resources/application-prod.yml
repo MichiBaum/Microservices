@@ -3,6 +3,8 @@ server:
   ssl:
     bundle: "server"
     client-auth: WANT
+  http2:
+    enabled: true
 
 spring:
   boot:

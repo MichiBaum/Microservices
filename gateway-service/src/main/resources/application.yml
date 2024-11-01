@@ -17,20 +17,6 @@ spring:
         wiretap: true
       httpserver:
         wiretap: true
-      globalcors:
-        add-to-simple-url-handler-mapping: true
-        cors-configurations:
-          '[/**]':
-            allowed-origin-patterns:
-              - "http://michibaum.ch"
-            allowed-headers:
-              - "*"
-            allowed-methods:
-              - GET
-              - POST
-              - DELETE
-              - PUT
-              - OPTIONS
       routes:
         - id: admin
           uri: lb://admin-service
