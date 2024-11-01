@@ -40,6 +40,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_USERNAME: ${AUTHENTICATION_DB_USERNAME}
       DATABASE_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
       DATABASE: ${AUTHENTICATION_DB}
     expose:
@@ -54,7 +55,9 @@ services:
       - .env.override
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
+      MARIADB_USER: ${AUTHENTICATION_DB_USERNAME}
+      MARIADB_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${AUTHENTICATION_DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "3306"
@@ -74,6 +77,7 @@ services:
       - usermanagement-db
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_USERNAME: ${USERMANAGEMENT_DB_USERNAME}
       DATABASE_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       DATABASE: ${USERMANAGEMENT_DB}
     expose:
@@ -88,7 +92,9 @@ services:
       - .env.override
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
+      MARIADB_USER: ${USERMANAGEMENT_DB_USERNAME}
+      MARIADB_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${USERMANAGEMENT_DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "3306"
@@ -140,6 +146,7 @@ services:
       - chess-db
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_USERNAME: ${CHESS_DB_USERNAME}
       DATABASE_PASSWORD: ${CHESS_DB_PASSWORD}
       DATABASE: ${CHESS_DB}
     expose:
@@ -154,7 +161,9 @@ services:
       - .env.override
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: ${CHESS_DB_PASSWORD}
+      MARIADB_USER: ${CHESS_DB_USERNAME}
+      MARIADB_PASSWORD: ${CHESS_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${CHESS_DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${CHESS_DB}
     expose:
       - "3306"
@@ -174,6 +183,7 @@ services:
       - fitness-db
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_USERNAME: ${FITNESS_DB_USERNAME}
       DATABASE_PASSWORD: ${FITNESS_DB_PASSWORD}
       DATABASE: ${FITNESS_DB}
     expose:
@@ -188,7 +198,9 @@ services:
       - .env.override
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: ${FITNESS_DB_PASSWORD}
+      MARIADB_USER: ${FITNESS_DB_USERNAME}
+      MARIADB_PASSWORD: ${FITNESS_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${FITNESS_DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${FITNESS_DB}
     expose:
       - "3306"
