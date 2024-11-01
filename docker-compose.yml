@@ -58,6 +58,8 @@ services:
       MARIADB_DATABASE: ${AUTHENTICATION_DB}
     expose:
       - "3306"
+    ports:
+      - "3307:3306"  # TODO remove
     volumes:
       - /data/authentication-db:/var/lib/mysql
     networks:
@@ -92,6 +94,8 @@ services:
       MARIADB_DATABASE: ${USERMANAGEMENT_DB}
     expose:
       - "3306"
+    ports:
+      - "3308:3306"  # TODO remove
     volumes:
       - /data/usermanagement-db:/var/lib/mysql
     networks:
@@ -158,6 +162,8 @@ services:
       MARIADB_DATABASE: ${CHESS_DB}
     expose:
       - "3306"
+    ports:
+      - "3309:3306"  # TODO remove
     volumes:
       - /data/chess-db:/var/lib/mysql
     networks:
@@ -192,6 +198,8 @@ services:
       MARIADB_DATABASE: ${FITNESS_DB}
     expose:
       - "3306"
+    ports:
+      - "3310:3306"  # TODO remove
     volumes:
       - /data/fitness-db:/var/lib/mysql
     networks:
