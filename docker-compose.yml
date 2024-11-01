@@ -5,7 +5,6 @@ services:
   registry-service:
     image: 70131370/registry-service
     env_file:
-      - .env
       - .env.override
     restart: always
     environment:
@@ -18,7 +17,6 @@ services:
   admin-service:
     image: 70131370/admin-service
     env_file:
-      - .env
       - .env.override
     restart: always
     depends_on:
@@ -33,7 +31,6 @@ services:
   authentication-service:
     image: 70131370/authentication-service
     env_file:
-      - .env
       - .env.override
     restart: always
     depends_on:
@@ -51,7 +48,6 @@ services:
   authentication-db:
     image: mariadb:lts-noble
     env_file:
-      - .env
       - .env.override
     restart: always
     environment:
@@ -69,7 +65,6 @@ services:
   usermanagement-service:
     image: 70131370/usermanagement-service
     env_file:
-      - .env
       - .env.override
     restart: always
     depends_on:
@@ -88,7 +83,6 @@ services:
   usermanagement-db:
     image: mariadb:lts-noble
     env_file:
-      - .env
       - .env.override
     restart: always
     environment:
@@ -106,7 +100,6 @@ services:
   gateway-service:
     image: 70131370/gateway-service
     env_file:
-      - .env
       - .env.override
     restart: always
     depends_on:
@@ -123,7 +116,6 @@ services:
   website-service:
     image: 70131370/website-service
     env_file:
-      - .env
       - .env.override
     restart: always
     depends_on:
@@ -138,7 +130,6 @@ services:
   chess-service:
     image: 70131370/chess-service
     env_file:
-      - .env
       - .env.override
     restart: always
     depends_on:
@@ -157,7 +148,6 @@ services:
   chess-db:
     image: mariadb:lts-noble
     env_file:
-      - .env
       - .env.override
     restart: always
     environment:
@@ -175,7 +165,6 @@ services:
   fitness-service:
     image: 70131370/fitness-service
     env_file:
-      - .env
       - .env.override
     restart: always
     depends_on:
@@ -194,7 +183,6 @@ services:
   fitness-db:
     image: mariadb:lts-noble
     env_file:
-      - .env
       - .env.override
     restart: always
     environment:
