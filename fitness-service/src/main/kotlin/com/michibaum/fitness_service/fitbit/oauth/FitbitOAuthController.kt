@@ -17,11 +17,11 @@ class FitbitOAuthController(
     private val logger = LoggerFactory.getLogger(FitbitOAuthController::class.java)
 
     @GetMapping("/api/fitbit/token")
-    fun token(principal: JwtToken): String {
+    fun token(principal: JwtToken): FitbitLoginDto {
         val fitbitOAuthData = fitbitOAuthService.generateData(principal)
 
         // Construct the URL
-        return "https://www.fitbit.com/oauth2/authorize?" +
+        val url = "www.fitbit.com/oauth2/authorize?" +
                 "response_type=code" +
                 "&client_id=${fitbitOAuthProperties.clientId}" +
                 "&scope=activity+cardio_fitness+electrocardiogram+heartrate+irregular_rhythm_notifications+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight" +
@@ -29,6 +29,13 @@ class FitbitOAuthController(
                 "&code_challenge_method=S256" +
                 "&state=${fitbitOAuthData.state}" +
                 "&redirect_uri=https%3A%2F%2Fmichibaum.ch%2Fapi%2Ffitbit%2Fauth"
+
+        return FitbitLoginDto(
+            clientId = fitbitOAuthProperties.clientId,
+            codeChallenge = fitbitOAuthData.codeChallenge,
+            state = fitbitOAuthData.state,
+            url = url
+        )
 
     }
 
@@ -54,27 +61,18 @@ class FitbitOAuthController(
             .bodyValue(
                 "client_id=${fitbitOAuthProperties.clientId}" +
                         "&grant_type=authorization_code" +
-                        "&redirect_uri=https%3A%2F%2Fmichibaum.ch%2Fapi%2Ffitbit%2Fauth" +
                         "&code=$code" +
                         "&code_verifier=${fitbitOAuthData.codeVerifier}"
             )
             .retrieve()
-            .bodyToMono(String::class.java)
+            .bodyToMono(FitbitOAuthCredentialsDto::class.java)
             .block()
 
-        logger.info("Response: $response")
-        
-        // exchange the authorization code for a pair of Access and Request Tokens
-        // An example call using curl:
-        //curl -i -X POST \
-        //https://api.fitbit.com/oauth2/token \
-        // -H 'Authorization: Basic ${authBasic}' \
-        // -H 'Content-Type: application/x-www-form-urlencoded' \
-        // --data "client_id=${fitbitOAuthProperties.clientId}" \
-        // --data "grant_type=authorization_code" \
-        // --data "redirect_uri=https%3A%2F%2Fmichibaum.ch" \
-        // --data "code=${code}" \
-        // --data "code_verifier=${fitbitOAuthData.codeVerifier}"
+        if(response == null){
+            throw Exception("Fitbit OAuth exchange for access token returned null")
+        }
+
+        fitbitOAuthService.save(response, fitbitOAuthData)
 
     }
 

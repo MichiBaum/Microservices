@@ -10,7 +10,7 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableScheduling
-@EnableFeignClients(basePackages = ["com.michibaum.usermanagement_library"])
+@EnableFeignClients(basePackages = ["com.michibaum.usermanagement_library", "com.michibaum.authentication_library"])
 class UsermanagementServiceApplication
 
 fun main(args: Array<String>) {

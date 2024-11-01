@@ -7,10 +7,10 @@ import java.security.SecureRandom
 import java.util.*
 
 @Service
-class FitbitOAuthService(val fitbitOAuthRepository: FitbitOAuthRepository) {
-
-    fun save(fitbitOAuthData: FitbitOAuthData) =
-        fitbitOAuthRepository.save(fitbitOAuthData)
+class FitbitOAuthService(
+    val fitbitOAuthRepository: FitbitOAuthRepository,
+    val fitbitOAuthCredentialsRepository: FitbitOAuthCredentialsRepository
+) {
 
     fun findByState(state: String) =
         fitbitOAuthRepository.findByState(state)
@@ -83,6 +83,19 @@ class FitbitOAuthService(val fitbitOAuthRepository: FitbitOAuthRepository) {
         val state = ByteArray(16)
         secureRandom.nextBytes(state)
         return Base64.getUrlEncoder().withoutPadding().encodeToString(state)
+    }
+
+    fun save(credentialsDto: FitbitOAuthCredentialsDto, fitbitOAuthData: FitbitOAuthData) {
+        val fitbitOAuthCredentials = FitbitOAuthCredentials(
+            accessToken = credentialsDto.accessToken,
+            expiresIn = credentialsDto.expiresIn,
+            refreshToken = credentialsDto.refreshToken,
+            scope = credentialsDto.scope,
+            fitbitUserId = credentialsDto.userId,
+            userId = fitbitOAuthData.userId,
+        )
+
+        fitbitOAuthCredentialsRepository.save(fitbitOAuthCredentials)
     }
 
 }

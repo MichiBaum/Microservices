@@ -5,8 +5,7 @@ spring:
   boot:
     admin:
       ui:
-        public-url: http://admin.michibaum.ch
-      #        public-url: http://localhost:8082
+          public-url: http://localhost:8082
       notify:
         custom-discord:
           enabled: false

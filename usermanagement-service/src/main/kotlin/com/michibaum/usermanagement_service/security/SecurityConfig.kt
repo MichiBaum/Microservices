@@ -1,4 +1,4 @@
-package com.michibaum.fitness_service.security
+package com.michibaum.usermanagement_service.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -31,7 +31,7 @@ class SecurityConfig {
             .authorizeExchange { exchanges: AuthorizeExchangeSpec ->
                 exchanges
                     .pathMatchers(
-                        "/api/fitbit/auth",
+                        "/api/checkUserDetails",
                         "/actuator",
                         "/actuator/**"
                     ).permitAll()

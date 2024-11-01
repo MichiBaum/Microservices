@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody
 
 interface UserManagementEndpoints {
 
-    @PostMapping(value = ["/checkUserDetails"])
+    @PostMapping(value = ["/api/checkUserDetails"])
     fun checkUserDetails(@RequestBody loginDto: LoginDto): UserDetailsDto?
 
 }

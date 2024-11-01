@@ -2,6 +2,7 @@ package com.michibaum.authentication_library.security.netty
 
 import com.michibaum.authentication_library.AuthenticationClient
 import com.michibaum.authentication_library.JwsValidator
+import feign.FeignException
 import org.springframework.scheduling.annotation.Scheduled
 import java.security.KeyFactory
 import java.security.PublicKey
@@ -14,10 +15,18 @@ class JwsValidator(
     private val authenticationClient: AuthenticationClient
 ): JwsValidator() {
 
+    val logger = org.slf4j.LoggerFactory.getLogger(this.javaClass)
+
     private lateinit var publicKey: RSAPublicKey
 
     fun reloadPublicKey() {
-        val dto = authenticationClient.publicKey()
+        val dto = try {
+             authenticationClient.publicKey()
+        } catch (ex: FeignException.Unauthorized){
+            logger.info(ex.message, ex)
+            logger.error("JwsValidator could not reload public key: ${ex.message}")
+            return
+        }
         val pubkey: PublicKey = KeyFactory.getInstance(dto.algorithm).generatePublic(X509EncodedKeySpec(dto.key))
         publicKey = pubkey as RSAPublicKey
     }

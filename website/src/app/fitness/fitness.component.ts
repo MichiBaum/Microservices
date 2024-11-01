@@ -3,6 +3,7 @@ import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {FitnessService} from "../core/services/fitness.service";
 import {Button} from "primeng/button";
+import {RouterNavigationService} from "../core/services/router-navigation.service";
 
 @Component({
   selector: 'app-fitness',
@@ -15,14 +16,12 @@ import {Button} from "primeng/button";
 })
 export class FitnessComponent {
 
-  constructor(private headerService: HeaderService, private fitnessService: FitnessService) {
+  constructor(private headerService: HeaderService, private fitnessService: FitnessService, private router: RouterNavigationService) {
     this.headerService.changeTitle(Sides.fitness.translationKey)
   }
 
-  open(){
-    this.fitnessService.getToken().subscribe(token => {
-      console.log(token);
-    });
+  getTokenUrl(){
+    this.fitnessService.getToken().subscribe(token => this.router.open(token.url));
   }
 
 }

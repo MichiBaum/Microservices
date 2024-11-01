@@ -89,8 +89,8 @@ export const Sides = {
     name: "fitness",
     translationKey: "fitness.title",
     navigation: "fitness",
-    canActivate: (service: PermissionService) => true,
-    routeCanActivate: [],
-    neededPermissions: []
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.FITNESS_SERVICE]),
+    routeCanActivate: [isAuthenticatedGuard],
+    neededPermissions: [Permissions.FITNESS_SERVICE]
   } as Side
 }
