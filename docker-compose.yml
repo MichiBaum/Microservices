@@ -5,7 +5,7 @@ services:
   registry-service:
     image: 70131370/registry-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
@@ -17,7 +17,7 @@ services:
   admin-service:
     image: 70131370/admin-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     depends_on:
       - registry-service
@@ -31,7 +31,7 @@ services:
   authentication-service:
     image: 70131370/authentication-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     depends_on:
       - registry-service
@@ -48,7 +48,7 @@ services:
   authentication-db:
     image: mariadb:lts-noble
     env_file:
-      - .env.override
+      - .env
     restart: always
     environment:
       MARIADB_USER: ${AUTHENTICATION_DB_USERNAME}
@@ -65,7 +65,7 @@ services:
   usermanagement-service:
     image: 70131370/usermanagement-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     depends_on:
       - registry-service
@@ -83,7 +83,7 @@ services:
   usermanagement-db:
     image: mariadb:lts-noble
     env_file:
-      - .env.override
+      - .env
     restart: always
     environment:
       MARIADB_USER: ${USERMANAGEMENT_DB_USERNAME}
@@ -100,7 +100,7 @@ services:
   gateway-service:
     image: 70131370/gateway-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     depends_on:
       - registry-service
@@ -116,7 +116,7 @@ services:
   website-service:
     image: 70131370/website-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     depends_on:
       - registry-service
@@ -130,7 +130,7 @@ services:
   chess-service:
     image: 70131370/chess-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     depends_on:
       - registry-service
@@ -148,7 +148,7 @@ services:
   chess-db:
     image: mariadb:lts-noble
     env_file:
-      - .env.override
+      - .env
     restart: always
     environment:
       MARIADB_USER: ${CHESS_DB_USERNAME}
@@ -165,7 +165,7 @@ services:
   fitness-service:
     image: 70131370/fitness-service
     env_file:
-      - .env.override
+      - .env
     restart: always
     depends_on:
       - registry-service
@@ -183,7 +183,7 @@ services:
   fitness-db:
     image: mariadb:lts-noble
     env_file:
-      - .env.override
+      - .env
     restart: always
     environment:
       MARIADB_USER: ${FITNESS_DB_USERNAME}
