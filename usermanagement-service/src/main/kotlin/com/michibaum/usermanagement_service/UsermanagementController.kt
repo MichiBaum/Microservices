@@ -27,13 +27,13 @@ class UsermanagementController (
         )
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/api/user/{id}")
     fun get(@PathVariable id: String) =
         userService.getUser(id)
             .let { convertUserToDto(it) }
             .let { toResponseEntity(it) }
 
-    @PostMapping("/user/{id}")
+    @PostMapping("/api/user/{id}")
     fun update(@PathVariable id: String, @RequestBody updateUserDto: UpdateUserDto) =
         userService.update(id, updateUserDto)
             .let { toResponseEntity(it) }

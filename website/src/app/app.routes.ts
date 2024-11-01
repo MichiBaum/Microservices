@@ -8,6 +8,7 @@ import {Sides} from "./core/config/sides";
 import {ChessComponent} from "./chess/chess.component";
 import {DonateComponent} from "./donate/donate.component";
 import {RegisterComponent} from "./register/register.component";
+import {FitnessComponent} from "./fitness/fitness.component";
 
 export const routes: Routes = [
   {
@@ -63,5 +64,11 @@ export const routes: Routes = [
     component: DonateComponent,
     canActivate: Sides.donate.routeCanActivate,
     data: {permissions: Sides.donate.neededPermissions}
+  },
+  {
+    path: Sides.fitness.navigation,
+    component: FitnessComponent,
+    canActivate: Sides.fitness.routeCanActivate,
+    data: {permissions: Sides.fitness.neededPermissions}
   }
 ];

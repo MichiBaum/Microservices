@@ -1,4 +1,4 @@
-package com.michibaum.authentication_service.config
+package com.michibaum.authentication_service.security
 
 import feign.codec.Decoder
 import feign.codec.Encoder

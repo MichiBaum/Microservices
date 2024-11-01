@@ -4,7 +4,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 
-class JWSAlgorithm {
+class JwsAlgorithm {
 
     companion object {
         fun algorithm(publicKey: RSAPublicKey, privateKey: RSAPrivateKey): Algorithm {

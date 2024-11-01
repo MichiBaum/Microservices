@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono
 
 @Component
 class AuthenticationGatewayFilterFactory(
-    private val jwsValidator: JWSValidator
+    private val jwsValidator: JwsValidator
 ) : AbstractGatewayFilterFactory<AuthenticationGatewayFilterFactory.Config>(Config::class.java) {
 
     class Config // TODO vararg val permissions: Permissions

@@ -23,7 +23,7 @@ class AuthenticationControllerIT {
     fun `getAuthDetails endpoint returns result`() {
 
         client.get()
-            .uri("/getAuthDetails")
+            .uri("/api/getAuthDetails")
             .exchange()
             .expectAll(
                 {it.expectStatus().isOk},

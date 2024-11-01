@@ -26,9 +26,28 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>4.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>permission-library</artifactId>
+            <version>1.0.0-TEST-9</version>
         </dependency>
 
         <dependency>
@@ -42,6 +61,7 @@
             <version>${mockk.version}</version>
             <scope>test</scope>
         </dependency>
+
 
     </dependencies>
 
