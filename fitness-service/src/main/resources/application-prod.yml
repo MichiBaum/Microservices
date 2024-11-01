@@ -7,6 +7,17 @@ fitbit:
     client-secret: ${FITBIT_CLIENT_SECRET}
 
 spring:
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://fitness-db:3306/${DATABASE}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
   boot:
     admin:
       client:
