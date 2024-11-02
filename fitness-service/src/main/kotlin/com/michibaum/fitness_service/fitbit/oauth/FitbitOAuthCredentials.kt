@@ -3,12 +3,14 @@ package com.michibaum.fitness_service.fitbit.oauth
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Lob
 import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity
 class FitbitOAuthCredentials(
-    @Column(nullable = false, unique = true)
+    @Lob
+    @Column(nullable = false, unique = true, length=512)
     val accessToken: String,
 
     @Column(nullable = false, unique = false)
