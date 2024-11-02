@@ -34,17 +34,15 @@ class AuthenticationController (
 
         val cookie = ResponseCookie.from("jwt", jws)
             .httpOnly(true)
-            .domain(".michibaum.ch")
+            .domain("michibaum.ch")
             .secure(true)
-            .path("/")
             .sameSite("Strict")
             .build()
 
-        val responseHeaders = HttpHeaders()
-        responseHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString())
-        
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
-        return ResponseEntity.ok().headers(responseHeaders).body(responseBody)
+        return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .body(responseBody)
     }
 
     override fun publicKey(): PublicKeyDto {
