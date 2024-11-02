@@ -3,12 +3,15 @@ package com.michibaum.fitness_service.fitbit.oauth
 import com.michibaum.authentication_library.security.netty.JwtToken
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.server.ServerWebExchange
+import java.net.URI
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -45,13 +48,12 @@ class FitbitOAuthController(
     }
 
     @GetMapping("/api/fitbit/auth")
-    fun authorizationCode(@RequestParam code: String, @RequestParam state: String){
+    fun authorizationCode(@RequestParam code: String, @RequestParam state: String, exchange: ServerWebExchange){
         val fitbitOAuthData = fitbitOAuthService.findByState(state) ?: throw Exception("")
 
         val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
         val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
 
-        val redirectUri = URLEncoder.encode("https://fitness.michibaum.ch/api/fitbit/auth", StandardCharsets.UTF_8)
         val response = WebClient.builder()
             .baseUrl("https://api.fitbit.com/oauth2/token")
             .defaultHeaders { 
@@ -66,7 +68,7 @@ class FitbitOAuthController(
                     .with("grant_type", "authorization_code")
                     .with("code", code)
                     .with("code_verifier", fitbitOAuthData.codeVerifier)
-                    .with("redirect_uri", redirectUri)
+                    .with("redirect_uri", "https://fitness.michibaum.ch/api/fitbit/auth")
             )
             .retrieve()
             .bodyToMono(FitbitOAuthCredentialsDto::class.java)
@@ -77,6 +79,12 @@ class FitbitOAuthController(
         }
 
         fitbitOAuthService.save(response, fitbitOAuthData)
+
+        return exchange.response.let {
+            it.statusCode = HttpStatus.FOUND
+            it.headers.location = URI("https://michibaum.ch/fitness")
+            it.setComplete()
+        }
 
     }
 
