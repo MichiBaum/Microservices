@@ -13,11 +13,6 @@ spring:
   application:
     name: gateway-service
   cloud:
-    gateway:
-      httpclient:
-        wiretap: true
-      httpserver:
-        wiretap: true
     openfeign:
       lazy-attributes-resolution: true
     discovery:
