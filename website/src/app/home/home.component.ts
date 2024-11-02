@@ -32,4 +32,8 @@ export class HomeComponent {
   canLogin() {
     return Sides.login.canActivate(this.permissionService)
   }
+
+  canActivateFitness() {
+    return Sides.fitness.canActivate(this.permissionService)
+  }
 }
