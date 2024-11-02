@@ -2,7 +2,7 @@ server:
   port: 443
   ssl:
     bundle: "server"
-    client-auth: WANT
+    enabled: true
   http2:
     enabled: true
 
