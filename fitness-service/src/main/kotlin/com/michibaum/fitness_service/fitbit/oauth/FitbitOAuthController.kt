@@ -28,7 +28,7 @@ class FitbitOAuthController(
                 "&code_challenge=${fitbitOAuthData.codeChallenge}" +
                 "&code_challenge_method=S256" +
                 "&state=${fitbitOAuthData.state}" +
-                "&redirect_uri=https%3A%2F%2Fmichibaum.ch%2Fapi%2Ffitbit%2Fauth"
+                "&redirect_uri=https%3A%2F%2Ffitness.michibaum.ch%2Fapi%2Ffitbit%2Fauth"
 
         return FitbitLoginDto(
             clientId = fitbitOAuthProperties.clientId,
