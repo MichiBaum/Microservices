@@ -4,7 +4,6 @@ import com.michibaum.discord.api.DiscordClient
 import de.codecentric.boot.admin.server.config.AdminServerNotifierAutoConfiguration
 import de.codecentric.boot.admin.server.domain.entities.InstanceRepository
 import de.codecentric.boot.admin.server.notify.Notifier
-import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.context.annotation.Bean

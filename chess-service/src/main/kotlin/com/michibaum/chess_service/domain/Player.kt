@@ -2,7 +2,6 @@ package com.michibaum.chess_service.domain
 
 import com.michibaum.chess_service.apis.dtos.PieceColor
 import jakarta.persistence.*
-import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity

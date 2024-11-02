@@ -6,8 +6,6 @@ import com.michibaum.authentication_library.PublicKeyDto
 import com.michibaum.usermanagement_library.UserDetailsDto
 import org.springframework.stereotype.Service
 import java.security.KeyPair
-import java.security.interfaces.RSAPrivateKey
-import java.security.interfaces.RSAPublicKey
 import java.time.Instant
 
 @Service

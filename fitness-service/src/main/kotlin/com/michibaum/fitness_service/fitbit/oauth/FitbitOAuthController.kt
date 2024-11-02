@@ -1,7 +1,6 @@
 package com.michibaum.fitness_service.fitbit.oauth
 
 import com.michibaum.authentication_library.security.netty.JwtToken
-import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType

@@ -15,8 +15,7 @@ open class JwsValidator {
                     .build() //Reusable verifier instance
             verifier.verify(token)
             return true
-        } catch (_: JWTVerificationException) {
-        }
+        } catch (_: JWTVerificationException){}
         return false
     }
 
