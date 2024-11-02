@@ -26,7 +26,7 @@ export const Sides = {
     translationKey: "microservices.title",
     navigation: "microservices",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.ADMIN_SERVICE]),
-    routeCanActivate: [isPermittedGuard],
+    routeCanActivate: [isAuthenticatedGuard, isPermittedGuard],
     neededPermissions: [Permissions.ADMIN_SERVICE]
   } as Side,
   about_me: {
