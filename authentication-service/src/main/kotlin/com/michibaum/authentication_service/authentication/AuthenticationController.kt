@@ -36,7 +36,7 @@ class AuthenticationController (
             .httpOnly(true)
             .domain(".michibaum.ch")
             .secure(true)
-            .sameSite("Strict")
+            .sameSite("None")
             .build()
 
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)

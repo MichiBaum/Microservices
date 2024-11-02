@@ -51,6 +51,7 @@ class FitbitOAuthController(
         val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
         val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
 
+        val redirectUri = URLEncoder.encode("https://fitness.michibaum.ch/api/fitbit/auth", StandardCharsets.UTF_8)
         val response = WebClient.builder()
             .baseUrl("https://api.fitbit.com/oauth2/token")
             .defaultHeaders { 
@@ -65,6 +66,7 @@ class FitbitOAuthController(
                     .with("grant_type", "authorization_code")
                     .with("code", code)
                     .with("code_verifier", fitbitOAuthData.codeVerifier)
+                    .with("redirect_uri", redirectUri)
             )
             .retrieve()
             .bodyToMono(FitbitOAuthCredentialsDto::class.java)
