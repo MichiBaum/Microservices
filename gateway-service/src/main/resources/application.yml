@@ -13,10 +13,6 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      httpclient:
-        wiretap: true
-      httpserver:
-        wiretap: true
       routes:
         - id: admin
           uri: lb://admin-service
@@ -66,7 +62,7 @@ spring:
     admin:
       client:
         enabled: true
-#        ?
+#        TODO ?
         username: admin
         password: admin
 

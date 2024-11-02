@@ -201,7 +201,9 @@ services:
     volumes:
       - /data/fitness-db:/var/lib/mysql
     networks:
-      - microservice-network
+      microservice-network:
+        - aliases:
+            -
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
