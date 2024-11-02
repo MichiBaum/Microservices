@@ -21,7 +21,7 @@ export class FitnessComponent {
   }
 
   getTokenUrl(){
-    this.fitnessService.getToken().subscribe(token => this.router.open(token.url));
+    this.fitnessService.getToken().subscribe(token => this.router.openPopup(token.url.replace(/ /g, "")));
   }
 
 }
