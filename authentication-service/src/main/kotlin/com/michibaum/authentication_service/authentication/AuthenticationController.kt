@@ -34,7 +34,7 @@ class AuthenticationController (
 
         val cookie = ResponseCookie.from("jwt", jws)
             .httpOnly(true)
-            .domain("michibaum.ch")
+            .domain(".michibaum.ch")
             .secure(true)
             .sameSite("Strict")
             .build()

@@ -30,6 +30,13 @@ export class RouterNavigationService {
     window.open(url, '_blank');
   }
 
+  openPopup(url: string){
+    const handle = window.open(url, '_blank', 'popup');
+    if (!handle) {
+      this.open(url)
+    }
+  }
+
   microservices() {
     this.router.navigate(['/microservices'])
   }
@@ -44,7 +51,6 @@ export class RouterNavigationService {
 
   donate() {
     this.router.navigate(['/donate']);
-    // open('https://www.buymeacoffee.com/michibaum');
   }
 
   buymeacoffee() {

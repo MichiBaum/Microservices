@@ -23,6 +23,8 @@ class FitbitOAuthController(
     fun token(principal: JwtToken): FitbitLoginDto {
         val fitbitOAuthData = fitbitOAuthService.generateData(principal)
 
+        val redirectUri = URLEncoder.encode("https://fitness.michibaum.ch/api/fitbit/auth", StandardCharsets.UTF_8)
+
         // Construct the URL
         val url = "https://www.fitbit.com/oauth2/authorize?" +
                 "response_type=code" +
@@ -31,13 +33,13 @@ class FitbitOAuthController(
                 "&code_challenge=${fitbitOAuthData.codeChallenge}" +
                 "&code_challenge_method=S256" +
                 "&state=${fitbitOAuthData.state}" +
-                "&redirect_uri=https://fitness.michibaum.ch/api/fitbit/auth"
+                "&redirect_uri=$redirectUri"
 
         return FitbitLoginDto(
             clientId = fitbitOAuthProperties.clientId,
             codeChallenge = fitbitOAuthData.codeChallenge,
             state = fitbitOAuthData.state,
-            url = URLEncoder.encode(url, StandardCharsets.UTF_8)
+            url = url
         )
 
     }
