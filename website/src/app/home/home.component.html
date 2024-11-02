@@ -32,6 +32,22 @@
     </p-card>
   </div>
 
+  <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateFitness()">
+    <p-card header="Fitness" [style]="{ width: '20rem' }">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="../../assets/images/home_fitness.jpeg" />
+      </ng-template>
+      <p>
+        Lorem ipsum dolor sit amet...
+      </p>
+      <ng-template pTemplate="footer">
+        <div class="flex gap-3 mt-1">
+          <p-button label="Go to fitness" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.fitness()" />
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
   <div class="flex align-items-center justify-content-center m-2">
     <p-card header="Donate" [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">

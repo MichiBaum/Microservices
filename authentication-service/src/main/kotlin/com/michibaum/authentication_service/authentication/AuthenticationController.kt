@@ -10,7 +10,9 @@ import com.michibaum.authentication_library.PublicKeyDto
 import com.michibaum.usermanagement_library.UserDetailsDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
 
 @RestController
@@ -29,8 +31,20 @@ class AuthenticationController (
             ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
 
         val jws = authenticationService.generateJWS(userDetailsDto)!!
+
+        val cookie = ResponseCookie.from("jwt", jws)
+            .httpOnly(true)
+            .domain(".michibaum.ch")
+            .secure(true)
+            .path("/")
+            .sameSite("Strict")
+            .build()
+
+        val responseHeaders = HttpHeaders()
+        responseHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString())
+        
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
-        return ResponseEntity.ok(responseBody)
+        return ResponseEntity.ok().headers(responseHeaders).body(responseBody)
     }
 
     override fun publicKey(): PublicKeyDto {

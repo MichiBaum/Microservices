@@ -40,8 +40,8 @@ spring:
           uri: lb://fitness-service
           predicates:
             - Host=fitness.michibaum.ch
-          filters:
-            - Authentication
+#          filters:
+#            - Authentication  TODO doesnt work because of oAuth
         - id: website
           uri: lb://website-service
           predicates:
