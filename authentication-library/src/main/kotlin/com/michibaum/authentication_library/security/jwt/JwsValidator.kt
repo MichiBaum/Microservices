@@ -17,7 +17,13 @@ class JwsValidator(
 
     val logger = org.slf4j.LoggerFactory.getLogger(this.javaClass)
 
-    private lateinit var publicKey: RSAPublicKey
+    private var publicKey: RSAPublicKey? = null
+        get() {
+            if (field == null) {
+                reloadPublicKey()
+            }
+            return field
+        }
 
     fun reloadPublicKey() {
         val dto = try {

@@ -20,12 +20,8 @@ class AuthenticationGatewayFilterFactory(
     override fun apply(config: Config?): GatewayFilter {
         return GatewayFilter { exchange: ServerWebExchange, chain: GatewayFilterChain ->
             exchange.let {
-                val authHeaders = it.request.headers["Authorization"]
-                val headerExists = authHeaders?.size == 1
-
-                return@GatewayFilter if (headerExists) {
-                    val authHeader = authHeaders?.get(0)
-                    val token = authHeader?.substring("Bearer ".length) ?: ""
+                val token = getToken(it)
+                return@GatewayFilter if (token != null) {
                     if (jwsValidator.validate(token)) {
                         chain.filter(exchange) ?: Mono.empty() // Continue the filter chain if it isn't null. If it is null, return an empty Mono.
                     } else {
@@ -37,6 +33,23 @@ class AuthenticationGatewayFilterFactory(
             }
 
         }
+    }
+
+    private fun getToken(serverWebExchange: ServerWebExchange): String? {
+        val authHeaders = serverWebExchange.request.headers["Authorization"]
+        val headerExists = authHeaders?.size == 1
+        if(headerExists){
+            val authHeader = authHeaders?.get(0)
+            if(authHeader?.startsWith("Bearer ") == true)
+            return authHeader.substring("Bearer ".length)
+        }
+
+        val authCookie = serverWebExchange.request.cookies["jwt"]
+        val cookieExists = authCookie?.size == 1
+        if(cookieExists){
+            return authCookie?.get(0)?.value
+        }
+        return null
     }
 
     /**

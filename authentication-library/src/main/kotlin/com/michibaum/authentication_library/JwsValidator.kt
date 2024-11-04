@@ -6,8 +6,10 @@ import com.auth0.jwt.exceptions.JWTVerificationException
 import java.security.interfaces.RSAPublicKey
 
 open class JwsValidator {
-    fun validate(token: String, publicKey: RSAPublicKey): Boolean {
+    fun validate(token: String, publicKey: RSAPublicKey?): Boolean {
         try {
+            if (publicKey == null)
+                return false
             val algorithm = JwsAlgorithm.algorithm(publicKey)
             val verifier: JWTVerifier = JWT.require(algorithm)
                     .withIssuer("authentication-service")
