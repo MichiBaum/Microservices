@@ -21,8 +21,6 @@ class ServletAuthenticationFilter(val authenticationManager: AuthenticationManag
 
     private val securityContextHolderStrategy: SecurityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy()
 
-    private val successHandler: AuthenticationSuccessHandler = SavedRequestAwareAuthenticationSuccessHandler()
-
     private val failureHandler: AuthenticationFailureHandler = AuthenticationEntryPointFailureHandler(
         HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
     )
@@ -75,7 +73,7 @@ class ServletAuthenticationFilter(val authenticationManager: AuthenticationManag
         context.authentication = authentication
         this.securityContextHolderStrategy.setContext(context)
         this.securityContextRepository.saveContext(context, request, response)
-        this.successHandler.onAuthenticationSuccess(request, response, chain, authentication)
+        chain.doFilter(request, response)
     }
 
 }
