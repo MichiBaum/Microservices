@@ -1,5 +1,6 @@
-package com.michibaum.authentication_service.security
+package com.michibaum.chess_service.security
 
+import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.ReactiveAuthenticationManager
@@ -16,29 +17,25 @@ import org.springframework.security.web.server.authentication.ServerAuthenticati
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-class SecurityConfig {
+class SecurityConfiguration {
 
     @Bean
     fun securityFilterChain(
         http: ServerHttpSecurity,
-        jwtAuthenticationManager: ReactiveAuthenticationManager,
-        jwtAuthenticationConverter: ServerAuthenticationConverter,
+        jwtAuthenticationWebFilter: AuthenticationWebFilter,
+        basicAuthenticationWebFilter: AuthenticationWebFilter,
     ): SecurityWebFilterChain {
-        val authenticationWebFilter = AuthenticationWebFilter(jwtAuthenticationManager)
-        authenticationWebFilter.setServerAuthenticationConverter(jwtAuthenticationConverter)
-
         return http
             .authorizeExchange { exchanges: AuthorizeExchangeSpec ->
                 exchanges
                     .pathMatchers(
-                        "/api/authenticate",
-                        "/api/getAuthDetails",
                         "/actuator",
                         "/actuator/**"
-                    ).permitAll()
+                    ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
                     .anyExchange().authenticated()
             }
-            .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+            .addFilterAt(basicAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+            .addFilterAt(jwtAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
             .httpBasic { httpBasicSpec: HttpBasicSpec -> httpBasicSpec.disable() }
             .formLogin { formLoginSpec: FormLoginSpec -> formLoginSpec.disable() }
             .csrf { csrfSpec: CsrfSpec -> csrfSpec.disable() }

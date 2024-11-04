@@ -1,6 +1,6 @@
 package com.michibaum.fitness_service.fitbit.oauth
 
-import com.michibaum.authentication_library.security.netty.JwtToken
+import com.michibaum.authentication_library.security.netty.jwt.JwtAuthentication
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,7 +20,7 @@ class FitbitOAuthController(
 ) {
 
     @GetMapping("/api/fitbit/token")
-    fun token(principal: JwtToken): FitbitLoginDto {
+    fun token(principal: JwtAuthentication): FitbitLoginDto {
         val fitbitOAuthData = fitbitOAuthService.generateData(principal)
 
         val redirectUri = URLEncoder.encode("https://fitness.michibaum.ch/api/fitbit/auth", StandardCharsets.UTF_8)

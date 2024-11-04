@@ -1,4 +1,4 @@
-package com.michibaum.authentication_library.security.netty
+package com.michibaum.authentication_library.security.netty.jwt
 
 import com.michibaum.authentication_library.JwsWrapper
 import org.springframework.http.HttpHeaders
@@ -17,7 +17,7 @@ class JwtAuthenticationConverter: ServerAuthenticationConverter {
         return Mono.justOrEmpty(exchange.request.headers.getFirst(HttpHeaders.AUTHORIZATION))
             .filter { header -> header.startsWith("Bearer ") }
             .map { header -> header.substring("Bearer ".length) }
-            .map { token -> JwtToken(token, createUserDetails(token)) }
+            .map { token -> JwtAuthentication(token, createUserDetails(token)) }
     }
 
     private fun createUserDetails(token: String): UserDetails {
@@ -31,7 +31,7 @@ class JwtAuthenticationConverter: ServerAuthenticationConverter {
 
     private fun createAuthorities(token: String): List<SimpleGrantedAuthority> {
         return JwsWrapper(token).getPermissions().stream()
-            .map { permission -> "PERMISSION_$permission" }
+            .map { permission -> "$permission" }
             .map { permission: String? -> SimpleGrantedAuthority(permission) }
             .toList()
     }

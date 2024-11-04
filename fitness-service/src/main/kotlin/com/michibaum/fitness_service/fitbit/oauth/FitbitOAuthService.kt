@@ -1,6 +1,6 @@
 package com.michibaum.fitness_service.fitbit.oauth
 
-import com.michibaum.authentication_library.security.netty.JwtToken
+import com.michibaum.authentication_library.security.netty.jwt.JwtAuthentication
 import org.springframework.stereotype.Service
 import java.security.MessageDigest
 import java.security.SecureRandom
@@ -24,7 +24,7 @@ class FitbitOAuthService(
      *
      * @return The newly created and saved `FitbitOAuthData` object containing the OAuth parameters.
      */
-    fun generateData(principal: JwtToken): FitbitOAuthData {
+    fun generateData(principal: JwtAuthentication): FitbitOAuthData {
         // PKCE Code Verifier | A cryptographically secure random value. Recommended for all apps and required when omitting the Client Secret.
         val codeVerifier = generateCodeVerifier()
         // PKCE Code Challenge | A base64-encoded SHA-256 transformation of the Code Verifier

@@ -9,6 +9,10 @@ spring:
       notify:
         custom-discord:
           enabled: false
+      instance-auth:
+        default-user-name: admin_username
+        default-password: admin_password
+        enabled: true
 
 eureka:
   client:

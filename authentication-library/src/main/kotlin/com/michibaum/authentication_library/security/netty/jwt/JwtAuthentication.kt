@@ -1,10 +1,10 @@
-package com.michibaum.authentication_library.security.netty
+package com.michibaum.authentication_library.security.netty.jwt
 
 import com.michibaum.authentication_library.JwsWrapper
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
 
-class JwtToken(val token: String, val principal: UserDetails): AbstractAuthenticationToken(principal.authorities) {
+class JwtAuthentication(val token: String, val principal: UserDetails): AbstractAuthenticationToken(principal.authorities) {
 
     private val jwsWrapper = JwsWrapper(token)
 
@@ -19,4 +19,9 @@ class JwtToken(val token: String, val principal: UserDetails): AbstractAuthentic
     fun getUsername() = jwsWrapper.getUsername()
 
     fun getUserId() = jwsWrapper.getUserId()
+
+    override fun toString(): String {
+        return super.toString()
+    }
+
 }

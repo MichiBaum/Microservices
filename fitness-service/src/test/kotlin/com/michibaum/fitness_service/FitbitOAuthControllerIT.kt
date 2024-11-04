@@ -2,7 +2,7 @@ package com.michibaum.fitness_service
 
 import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthProperties
 import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthRepository
-import com.michibaum.authentication_library.security.netty.JwsValidator
+import com.michibaum.authentication_library.security.netty.jwt.JwsValidator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -17,7 +17,10 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @ExtendWith(SpringExtension::class)
 @AutoConfigureWebTestClient
-@SpringBootTest
+@SpringBootTest(properties = [
+    "fitbit.oauth.client-id=someClientId",
+    "fitbit.oauth.client-secret=someClientSecret",
+])
 class FitbitOAuthControllerIT {
 
     @Autowired
@@ -25,9 +28,6 @@ class FitbitOAuthControllerIT {
 
     @Autowired
     lateinit var fitbitOAuthRepository: FitbitOAuthRepository
-
-    @MockBean
-    lateinit var fitbitOAuthProperties: FitbitOAuthProperties
 
     @MockBean
     lateinit var jwsValidator: JwsValidator
