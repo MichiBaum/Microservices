@@ -5,7 +5,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
-
 spring:
   datasource:
     username: root
@@ -18,3 +17,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MariaDBDialect
+  boot:
+    admin:
+      client:
+        username: admin_username
+        password: admin_password

@@ -20,6 +20,12 @@ spring:
             - Host=admin.michibaum.ch
 #          filters:
 #            - Authentication
+        - id: registry
+          uri: lb://registry-service
+          predicates:
+            - Host=registry.michibaum.ch
+#          filters:
+#            - Authentication
         - id: authentication
           uri: lb://authentication-service
           predicates:

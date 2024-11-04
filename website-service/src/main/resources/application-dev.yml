@@ -1,6 +1,13 @@
 server:
   port: 8081
 
+spring:
+  boot:
+    admin:
+      client:
+        username: admin_username
+        password: admin_password
+
 eureka:
   client:
     service-url:

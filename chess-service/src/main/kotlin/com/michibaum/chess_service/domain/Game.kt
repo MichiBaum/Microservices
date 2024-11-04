@@ -1,7 +1,6 @@
 package com.michibaum.chess_service.domain
 
 import jakarta.persistence.*
-import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity

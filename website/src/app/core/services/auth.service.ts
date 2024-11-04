@@ -12,7 +12,7 @@ export class AuthService {
   successLoginEmitter = new Subject<void>();
   logoutEmitter = new Subject<void>()
 
-  constructor(private http: HttpClient, private router:Router, private routerNavigationService: RouterNavigationService) {
+  constructor(private http: HttpClient, private router: RouterNavigationService) {
   }
 
   login(username:string, password:string ) {
@@ -23,7 +23,7 @@ export class AuthService {
           console.log("Successful authentication -> jwt saved in localstorage");
           localStorage.setItem('Authentication', value.jwt);
           this.successLoginEmitter.next()
-          this.router.navigate(["/home"])
+          this.router.home()
         }
       })
   }
@@ -31,6 +31,7 @@ export class AuthService {
   logout(){
     localStorage.removeItem('Authentication');
     this.logoutEmitter.next();
+    this.router.home()
   }
 
   getJwtTokenFromLocalStorage(){
@@ -44,13 +45,10 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    let jwtIsPresent = this.jwtIsPresent();
+    return this.jwtIsPresent();
+  }
 
-    if (!jwtIsPresent) {
-      this.routerNavigationService.login()
-      return false;
-    }
-
-    return true;
+  navigate() {
+    this.router.home()
   }
 }

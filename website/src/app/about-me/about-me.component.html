@@ -28,6 +28,87 @@
         </p>
       </div>
 
+      <div class="col-12">
+        <p>
+          Here you see a List of my experiences.
+        </p>
+        <p-accordion>
+          <p-accordionTab header="Programming Languages & Databases">
+            <p-table [value]="programmingLanguages" >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="experience" style="width:20%">
+                    Experience <p-sortIcon field="experience" />
+                  </th>
+                  <th pSortableColumn="years" style="width:20%">
+                    Years <p-sortIcon field="years" />
+                  </th>
+                  <th pSortableColumn="rating" style="width:20%">
+                    Rating <p-sortIcon field="rating" />
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-element>
+                <tr>
+                  <td>{{ element.experience }}</td>
+                  <td>{{ element.years }}</td>
+                  <td><p-rating [(ngModel)]="element.rating" [cancel]="false" [readonly]="true" /></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </p-accordionTab>
+          <p-accordionTab header="Platforms">
+            <p-table [value]="platforms" >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="experience" style="width:20%">
+                    Experience <p-sortIcon field="experience" />
+                  </th>
+                  <th pSortableColumn="years" style="width:20%">
+                    Years <p-sortIcon field="years" />
+                  </th>
+                  <th pSortableColumn="rating" style="width:20%">
+                    Rating <p-sortIcon field="rating" />
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-element>
+                <tr>
+                  <td>{{ element.experience }}</td>
+                  <td>{{ element.years }}</td>
+                  <td><p-rating [(ngModel)]="element.rating" [cancel]="false" [readonly]="true" /></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </p-accordionTab>
+          <p-accordionTab header="Softskills">
+            <p-table [value]="softskills" >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="experience" style="width:20%">
+                    Experience <p-sortIcon field="experience" />
+                  </th>
+                  <th pSortableColumn="years" style="width:20%">
+                    Years <p-sortIcon field="years" />
+                  </th>
+                  <th pSortableColumn="rating" style="width:20%">
+                    Rating <p-sortIcon field="rating" />
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-element>
+                <tr>
+                  <td>{{ element.experience }}</td>
+                  <td>{{ element.years }}</td>
+                  <td><p-rating [(ngModel)]="element.rating" [cancel]="false" [readonly]="true" /></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </p-accordionTab>
+        </p-accordion>
+
+      </div>
+
     </div>
     <ng-template pTemplate="footer">
       <div class="flex gap-3 mt-1">

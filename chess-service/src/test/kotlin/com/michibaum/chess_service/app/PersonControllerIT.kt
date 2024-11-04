@@ -1,18 +1,16 @@
 package com.michibaum.chess_service.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.michibaum.authentication_library.security.netty.JwsValidator
+import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.chess_service.domain.Person
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
-import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import java.util.*

@@ -5,7 +5,7 @@ import {FloatLabelModule} from "primeng/floatlabel";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {PasswordModule} from "primeng/password";
-import {MessageService, PrimeTemplate} from "primeng/api";
+import {PrimeTemplate} from "primeng/api";
 import {AuthService} from "../core/services/auth.service";
 import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";

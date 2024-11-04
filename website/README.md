@@ -1,12 +1,15 @@
 # Website
 
 ## Update Angular
-ng version
-ng update @angular/core @angular/cli
+
+    ng version
+    ng update @angular/core @angular/cli
 
 ## Update packages
-npm outdated
-npm update
+
+    npm outdated
+    npm update
 
 ## Potential Issues
-ng lint
+
+    ng lint

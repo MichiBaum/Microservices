@@ -2,6 +2,10 @@ server:
   shutdown: graceful
   undertow:
     url-charset: UTF-8
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 2048
 
 spring:
   threads:
@@ -20,6 +24,8 @@ spring:
     allow-bean-definition-overriding: true
 
 eureka:
+  dashboard:
+    enabled: true
   instance:
     prefer-ip-address: true
   client:

@@ -18,3 +18,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MariaDBDialect
+  boot:
+    admin:
+      client:
+        username: admin_username
+        password: admin_password

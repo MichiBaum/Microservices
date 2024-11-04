@@ -1,0 +1,71 @@
+server:
+  shutdown: graceful
+  undertow:
+    url-charset: UTF-8
+
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  boot:
+    admin:
+      server:
+        enabled: true
+      hazelcast:
+        enabled: true
+      ui:
+        title: Admin Server
+        enable-toasts: true
+      monitor:
+        status-interval: 3s
+        status-lifetime: 3s
+        info-interval: 20s
+        info-lifetime: 20s
+        default-retries: 3
+  application:
+    name: admin-service
+  cloud:
+    discovery:
+      client:
+        health-indicator:
+          include-description: true
+    openfeign:
+      lazy-attributes-resolution: true
+      httpclient:
+        disable-ssl-validation: true
+  main:
+    allow-bean-definition-overriding: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: false
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+    health:
+      show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full
