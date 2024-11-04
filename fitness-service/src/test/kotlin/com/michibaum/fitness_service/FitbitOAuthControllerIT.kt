@@ -1,8 +1,7 @@
 package com.michibaum.fitness_service
 
-import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthProperties
 import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthRepository
-import com.michibaum.authentication_library.security.netty.jwt.JwsValidator
+import com.michibaum.authentication_library.security.jwt.JwsValidator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

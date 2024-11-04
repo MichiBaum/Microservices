@@ -12,6 +12,9 @@ spring:
         channel-id: ${DISCORD_ADMIN_SERVICE_LOG_CHANNEL}
   boot:
     admin:
+      client:
+        username: ${ADMIN_SERVICE_USERNAME}
+        password: ${ADMIN_SERVICE_PASSWORD}
       ui:
         public-url: https://admin.michibaum.ch
       instance-auth:

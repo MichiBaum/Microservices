@@ -1,4 +1,4 @@
-package com.michibaum.authentication_library.security.netty.jwt
+package com.michibaum.authentication_library.security.jwt
 
 import com.michibaum.authentication_library.AuthenticationClient
 import com.michibaum.authentication_library.JwsValidator

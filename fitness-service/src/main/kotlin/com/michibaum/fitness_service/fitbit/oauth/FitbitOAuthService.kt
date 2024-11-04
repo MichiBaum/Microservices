@@ -1,6 +1,6 @@
 package com.michibaum.fitness_service.fitbit.oauth
 
-import com.michibaum.authentication_library.security.netty.jwt.JwtAuthentication
+import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import org.springframework.stereotype.Service
 import java.security.MessageDigest
 import java.security.SecureRandom

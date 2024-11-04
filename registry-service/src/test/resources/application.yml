@@ -2,10 +2,7 @@ server:
   shutdown: graceful
   undertow:
     url-charset: UTF-8
-  compression:
-    enabled: true
-    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
-    min-response-size: 2048
+  port: 8761
 
 spring:
   threads:
@@ -14,7 +11,7 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
   application:
-    name: website-service
+    name: registry-service
   cloud:
     discovery:
       client:
@@ -24,11 +21,11 @@ spring:
     allow-bean-definition-overriding: true
 
 eureka:
-  dashboard:
-    enabled: true
   instance:
     prefer-ip-address: true
   client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
     enabled: true
     fetch-registry: true
     register-with-eureka: true

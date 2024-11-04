@@ -24,12 +24,10 @@ spring:
     allow-bean-definition-overriding: true
 
 eureka:
-  dashboard:
-    enabled: true
   instance:
     prefer-ip-address: true
   client:
-    enabled: true
+    enabled: false
     fetch-registry: true
     register-with-eureka: true
     refresh:

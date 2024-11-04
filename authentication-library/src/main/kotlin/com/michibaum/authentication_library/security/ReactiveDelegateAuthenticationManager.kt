@@ -1,10 +1,10 @@
-package com.michibaum.authentication_library.security.netty
+package com.michibaum.authentication_library.security
 
 import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.core.Authentication
 import reactor.core.publisher.Mono
 
-class DelegateAuthenticationManager(val authenticationManagers: List<SpecificAuthenticationManager>): ReactiveAuthenticationManager {
+class ReactiveDelegateAuthenticationManager(val authenticationManagers: List<SpecificAuthenticationManager>): ReactiveAuthenticationManager {
     override fun authenticate(authentication: Authentication?): Mono<Authentication> {
         if (authentication == null) {
             return Mono.empty()

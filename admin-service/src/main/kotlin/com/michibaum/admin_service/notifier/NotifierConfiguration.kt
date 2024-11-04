@@ -1,4 +1,4 @@
-package com.michibaum.admin_service
+package com.michibaum.admin_service.notifier
 
 import com.michibaum.discord.api.DiscordClient
 import de.codecentric.boot.admin.server.config.AdminServerNotifierAutoConfiguration

@@ -1,7 +1,7 @@
 package com.michibaum.chess_service.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.michibaum.authentication_library.security.netty.jwt.JwsValidator
+import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.chess_service.domain.Person
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

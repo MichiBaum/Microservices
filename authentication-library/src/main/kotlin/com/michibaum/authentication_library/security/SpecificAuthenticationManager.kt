@@ -1,4 +1,4 @@
-package com.michibaum.authentication_library.security.netty
+package com.michibaum.authentication_library.security
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException

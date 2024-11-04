@@ -1,4 +1,4 @@
-package com.michibaum.authentication_library.security.netty.basic
+package com.michibaum.authentication_library.security.basic
 
 data class AdminServiceProperties(
     var username: String = "",

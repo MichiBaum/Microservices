@@ -31,6 +31,10 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -60,6 +64,11 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-discord</artifactId>
+            <version>1.0.0-TEST-9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>authentication-library</artifactId>
             <version>1.0.0-TEST-9</version>
         </dependency>
 

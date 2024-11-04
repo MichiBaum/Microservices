@@ -1,6 +1,6 @@
 package com.michibaum.gatewayservice
 
-import com.michibaum.authentication_library.security.netty.jwt.JwsValidator
+import com.michibaum.authentication_library.security.jwt.JwsValidator
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory

@@ -1,7 +1,6 @@
-package com.michibaum.authentication_library.security.netty.jwt
+package com.michibaum.authentication_library.security.jwt
 
-import com.michibaum.authentication_library.security.netty.SpecificAuthenticationManager
-import org.springframework.security.authentication.ReactiveAuthenticationManager
+import com.michibaum.authentication_library.security.SpecificAuthenticationManager
 import org.springframework.security.core.Authentication
 import reactor.core.publisher.Mono
 

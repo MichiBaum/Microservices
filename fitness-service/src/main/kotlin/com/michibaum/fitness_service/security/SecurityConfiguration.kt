@@ -37,10 +37,10 @@ class SecurityConfiguration {
             }
             .addFilterAt(basicAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
             .addFilterAt(jwtAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-            .httpBasic { httpBasicSpec: HttpBasicSpec -> httpBasicSpec.disable() }
-            .formLogin { formLoginSpec: FormLoginSpec -> formLoginSpec.disable() }
-            .csrf { csrfSpec: CsrfSpec -> csrfSpec.disable() }
-            .logout { logoutSpec: LogoutSpec -> logoutSpec.disable() }
+            .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }
+            .formLogin { formLoginSpec -> formLoginSpec.disable() }
+            .csrf { csrfSpec -> csrfSpec.disable() }
+            .logout { logoutSpec -> logoutSpec.disable() }
             .build()
     }
 

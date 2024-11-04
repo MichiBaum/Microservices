@@ -4,6 +4,9 @@ server:
 spring:
   boot:
     admin:
+      client:
+        username: admin_username
+        password: admin_password
       ui:
           public-url: http://localhost:8082
       notify:

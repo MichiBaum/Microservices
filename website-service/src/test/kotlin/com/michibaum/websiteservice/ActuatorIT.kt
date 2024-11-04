@@ -9,46 +9,92 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.*
 
 @ExtendWith(SpringExtension::class)
 @AutoConfigureMockMvc
-@SpringBootTest
+@SpringBootTest(properties = [
+    "spring.boot.admin.client.username=someUsername",
+    "spring.boot.admin.client.password=somePasswööörd"
+])
 class ActuatorIT {
 
     @Autowired
     lateinit var webClient: MockMvc
 
     @Test
-    fun `actuator is allowed without authentication`(){
+    fun `actuator without authentication returns 401`(){
         // GIVEN
 
         // WHEN
         webClient.perform(get("/actuator"))
-            .andExpect(status().isOk())
+            .andExpect(status().isUnauthorized())
 
         // THEN
 
     }
 
     @Test
-    fun `actuator health is allowed without authentication`(){
+    fun `actuator health without authentication returns 401`(){
         // GIVEN
 
         // WHEN
         webClient.perform(get("/actuator/health"))
-            .andExpect(status().isOk())
+            .andExpect(status().isUnauthorized())
 
         // THEN
 
     }
 
     @Test
-    fun `actuator info is allowed without authentication`(){
+    fun `actuator info without authentication returns 401`(){
         // GIVEN
 
         // WHEN
         webClient.perform(get("/actuator/info"))
-            .andExpect(status().isOk())
+            .andExpect(status().isUnauthorized())
+
+        // THEN
+
+    }
+
+    @Test
+    fun `actuator with authentication returns 200`(){
+        // GIVEN
+        val basicAuth = "someUsername:somePasswööörd"
+        val basicAuthEncoded = Base64.getEncoder().encodeToString(basicAuth.toByteArray())
+
+        // WHEN
+        webClient.perform(get("/actuator").header("Authorization", "Basic $basicAuthEncoded"))
+            .andExpect(status().isOk()) // TODO returns 302 redirect to / because of success authentication
+
+        // THEN
+
+    }
+
+    @Test
+    fun `actuator health with authentication returns 200`(){
+        // GIVEN
+        val basicAuth = "someUsername:somePasswööörd"
+        val basicAuthEncoded = Base64.getEncoder().encodeToString(basicAuth.toByteArray())
+
+        // WHEN
+        webClient.perform(get("/actuator/health").header("Authorization", "Basic $basicAuthEncoded"))
+            .andExpect(status().isOk()) // TODO returns 302 redirect to / because of success authentication
+
+        // THEN
+
+    }
+
+    @Test
+    fun `actuator info with authentication returns 200`(){
+        // GIVEN
+        val basicAuth = "someUsername:somePasswööörd"
+        val basicAuthEncoded = Base64.getEncoder().encodeToString(basicAuth.toByteArray())
+
+        // WHEN
+        webClient.perform(get("/actuator/info").header("Authorization", "Basic $basicAuthEncoded"))
+            .andExpect(status().isOk()) // TODO returns 302 redirect to / because of success authentication
 
         // THEN
 

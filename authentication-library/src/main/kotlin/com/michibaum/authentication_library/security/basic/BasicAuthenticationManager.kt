@@ -1,10 +1,11 @@
-package com.michibaum.authentication_library.security.netty.basic
+package com.michibaum.authentication_library.security.basic
 
-import com.michibaum.authentication_library.security.netty.SpecificAuthenticationManager
+import com.michibaum.authentication_library.security.SpecificAuthenticationManager
 import org.springframework.security.core.Authentication
 import reactor.core.publisher.Mono
 
-class BasicAuthenticationManager(private val credentialsValidator: CredentialsValidator): SpecificAuthenticationManager {
+class BasicAuthenticationManager(private val credentialsValidator: CredentialsValidator):
+    SpecificAuthenticationManager {
 
     override fun authenticate(authentication: Authentication): Mono<Authentication> {
         return Mono.just(authentication)
@@ -18,11 +19,5 @@ class BasicAuthenticationManager(private val credentialsValidator: CredentialsVa
     override fun supports(authentication: Class<*>): Boolean {
         return BasicAuthentication::class.java.isAssignableFrom(authentication)
     }
-
-//    private fun validateCredentials(basic: BasicAuthentication): Boolean {
-//        val validUsername = basic.getUsername().equals(adminServiceProperties.username)
-//        val validPassword = basic.getPassword().equals(adminServiceProperties.password)
-//        return validUsername && validPassword
-//    }
 
 }

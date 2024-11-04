@@ -1,14 +1,14 @@
 package com.michibaum.usermanagement_service.security
 
 import com.michibaum.authentication_library.AuthenticationClient
-import com.michibaum.authentication_library.security.netty.DelegateAuthenticationManager
-import com.michibaum.authentication_library.security.netty.SpecificAuthenticationManager
-import com.michibaum.authentication_library.security.netty.basic.BasicAuthenticationConverter
-import com.michibaum.authentication_library.security.netty.basic.BasicAuthenticationManager
-import com.michibaum.authentication_library.security.netty.basic.CredentialsValidator
-import com.michibaum.authentication_library.security.netty.jwt.JwsValidator
-import com.michibaum.authentication_library.security.netty.jwt.JwtAuthenticationConverter
-import com.michibaum.authentication_library.security.netty.jwt.JwtAuthenticationManager
+import com.michibaum.authentication_library.security.ReactiveDelegateAuthenticationManager
+import com.michibaum.authentication_library.security.SpecificAuthenticationManager
+import com.michibaum.authentication_library.security.basic.netty.BasicAuthenticationConverter
+import com.michibaum.authentication_library.security.basic.BasicAuthenticationManager
+import com.michibaum.authentication_library.security.basic.CredentialsValidator
+import com.michibaum.authentication_library.security.jwt.JwsValidator
+import com.michibaum.authentication_library.security.jwt.netty.JwtAuthenticationConverter
+import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
@@ -46,7 +46,7 @@ class SecurityBeansConfiguration {
 
     @Bean
     fun authenticationManager(specificAuthenticationManagers: List<SpecificAuthenticationManager>): ReactiveAuthenticationManager =
-        DelegateAuthenticationManager(specificAuthenticationManagers)
+        ReactiveDelegateAuthenticationManager(specificAuthenticationManagers)
 
 
 

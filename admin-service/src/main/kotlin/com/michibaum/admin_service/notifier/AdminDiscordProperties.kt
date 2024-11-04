@@ -1,4 +1,4 @@
-package com.michibaum.admin_service
+package com.michibaum.admin_service.notifier
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

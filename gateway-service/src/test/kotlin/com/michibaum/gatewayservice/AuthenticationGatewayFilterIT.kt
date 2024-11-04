@@ -3,7 +3,7 @@ package com.michibaum.gatewayservice
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension
-import com.michibaum.authentication_library.security.netty.jwt.JwsValidator
+import com.michibaum.authentication_library.security.jwt.JwsValidator
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension

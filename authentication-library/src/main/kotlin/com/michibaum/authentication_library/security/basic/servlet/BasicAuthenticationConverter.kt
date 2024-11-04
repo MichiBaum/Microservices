@@ -1,22 +1,30 @@
-package com.michibaum.authentication_library.security.netty.basic
+package com.michibaum.authentication_library.security.basic.servlet
 
+import com.michibaum.authentication_library.security.basic.BasicAuthentication
 import com.michibaum.permission_library.Permissions
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.web.server.authentication.ServerAuthenticationConverter
-import org.springframework.web.server.ServerWebExchange
-import reactor.core.publisher.Mono
+import org.springframework.security.web.authentication.AuthenticationConverter
 import java.util.*
 
-class BasicAuthenticationConverter: ServerAuthenticationConverter {
-    override fun convert(exchange: ServerWebExchange): Mono<Authentication> {
-        return Mono.justOrEmpty(exchange.request.headers.getFirst(HttpHeaders.AUTHORIZATION))
-            .filter { header -> header.startsWith("Basic ") }
-            .map { header -> header.substring("Basic ".length) }
-            .map { token -> BasicAuthentication(createUserDetails(token)) }
+class BasicAuthenticationConverter: AuthenticationConverter {
+    override fun convert(request: HttpServletRequest?): Authentication? {
+        if (request == null) {
+            return null
+        }
+
+        val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
+
+        if (authHeader == null || !authHeader.startsWith("Basic ")) {
+            return null
+        }
+
+        val token = authHeader.substring("Basic ".length)
+        return BasicAuthentication(createUserDetails(token))
     }
 
     private fun createUserDetails(token: String): UserDetails {
@@ -28,4 +36,5 @@ class BasicAuthenticationConverter: ServerAuthenticationConverter {
             .password(usernameAndPassword[1])
             .build()
     }
+
 }
