@@ -26,6 +26,10 @@
         <appender-ref ref="Discord" />
     </logger>
 
+    <logger name="javax.net.ssl" level="OFF">
+
+    </logger>
+
 
 <!--    <logger name="org.springframework.cloud.gateway" level="TRACE">-->
 <!--        <appender-ref ref="Console" />-->
