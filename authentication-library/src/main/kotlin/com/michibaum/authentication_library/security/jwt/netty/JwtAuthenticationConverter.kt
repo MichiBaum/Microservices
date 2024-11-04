@@ -23,13 +23,13 @@ class JwtAuthenticationConverter: ServerAuthenticationConverter {
     }
 
     fun getToken(exchange: ServerWebExchange): String? {
-        val header = exchange.request.headers.getFirst(HttpHeaders.AUTHORIZATION)
+        val header = exchange.request?.headers?.getFirst(HttpHeaders.AUTHORIZATION)
 
         if(header != null && header.startsWith("Bearer ")) {
             return header.substring("Bearer ".length)
         }
 
-        val cookie = exchange.request.cookies.getFirst("jwt")?.value
+        val cookie = exchange.request?.cookies?.getFirst("jwt")?.value
 
         if(!cookie.isNullOrBlank()) {
             return cookie
