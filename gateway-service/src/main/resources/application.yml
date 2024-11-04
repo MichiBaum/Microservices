@@ -18,14 +18,14 @@ spring:
           uri: lb://admin-service
           predicates:
             - Host=admin.michibaum.ch
-#          filters:
-#            - Authentication
+          filters:
+            - Authentication
         - id: registry
           uri: lb://registry-service
           predicates:
             - Host=registry.michibaum.ch
-#          filters:
-#            - Authentication
+          filters:
+            - Authentication
         - id: authentication
           uri: lb://authentication-service
           predicates:
