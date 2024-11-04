@@ -26,7 +26,7 @@ class JwtAuthenticationConverter: AuthenticationConverter {
             return header.substring("Bearer ".length)
         }
 
-        val cookie = request.cookies.firstOrNull { cookie -> cookie.name == "jwt" }?.value
+        val cookie = request.cookies?.firstOrNull { cookie -> cookie.name == "jwt" }?.value
         if(!cookie.isNullOrBlank()) {
             return cookie
         }
