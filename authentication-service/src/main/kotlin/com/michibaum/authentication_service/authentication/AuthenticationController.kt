@@ -33,8 +33,10 @@ class AuthenticationController (
         val jws = authenticationService.generateJWS(userDetailsDto)!!
 
         val cookie = ResponseCookie.from("jwt", jws)
-            .httpOnly(true)
-            .domain(".michibaum.ch") // TODO secure
+//            .httpOnly(true)
+            .domain(".michibaum.ch")
+            .secure(true)
+            .sameSite("None")
             .build()
 
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
