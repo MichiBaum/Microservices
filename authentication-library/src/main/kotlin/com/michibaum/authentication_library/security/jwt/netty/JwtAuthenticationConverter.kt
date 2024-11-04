@@ -14,12 +14,30 @@ import reactor.core.publisher.Mono
 
 class JwtAuthenticationConverter: ServerAuthenticationConverter {
 
-    override fun convert(exchange: ServerWebExchange): Mono<Authentication> {
-        return Mono.justOrEmpty(exchange.request.headers.getFirst(HttpHeaders.AUTHORIZATION))
-            .filter { header -> header.startsWith("Bearer ") }
-            .map { header -> header.substring("Bearer ".length) }
-            .map { token -> JwtAuthentication(token, createUserDetails(token)) }
+    override fun convert(exchange: ServerWebExchange?): Mono<Authentication> {
+        if(exchange == null)
+            return Mono.empty()
+
+        val token = getToken(exchange) ?: return Mono.empty()
+        return Mono.just(JwtAuthentication(token, createUserDetails(token)))
     }
+
+    fun getToken(exchange: ServerWebExchange): String? {
+        val header = exchange.request.headers.getFirst(HttpHeaders.AUTHORIZATION)
+
+        if(header != null && header.startsWith("Bearer ")) {
+            return header.substring("Bearer ".length)
+        }
+
+        val cookie = exchange.request.cookies.getFirst("jwt")?.value
+
+        if(!cookie.isNullOrBlank()) {
+            return cookie
+        }
+
+        return null
+    }
+
 
     private fun createUserDetails(token: String): UserDetails {
         val username: String = JwsWrapper(token).getUsername()

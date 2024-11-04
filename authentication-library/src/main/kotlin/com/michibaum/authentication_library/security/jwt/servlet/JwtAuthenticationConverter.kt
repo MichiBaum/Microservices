@@ -2,7 +2,6 @@ package com.michibaum.authentication_library.security.jwt.servlet
 
 import com.michibaum.authentication_library.JwsWrapper
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
-import com.michibaum.authentication_library.security.jwt.JwtAuthenticationException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.Authentication
@@ -17,14 +16,21 @@ class JwtAuthenticationConverter: AuthenticationConverter {
             return null
         }
 
-        val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
+        val token = getToken(request) ?: return null
+        return JwtAuthentication(token, createUserDetails(token))
+    }
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return null
+    fun getToken(request: HttpServletRequest): String? {
+        val header = request.getHeader(HttpHeaders.AUTHORIZATION)
+        if(header != null && header.startsWith("Bearer ")) {
+            return header.substring("Bearer ".length)
         }
 
-        val token = authHeader.substring("Bearer ".length)
-        return JwtAuthentication(token, createUserDetails(token))
+        val cookie = request.cookies.firstOrNull { cookie -> cookie.name == "jwt" }?.value
+        if(!cookie.isNullOrBlank()) {
+            return cookie
+        }
+        return null
     }
 
     private fun createUserDetails(token: String): UserDetails {
