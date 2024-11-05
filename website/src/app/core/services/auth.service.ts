@@ -30,6 +30,7 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('Authentication');
+    this.http.post(environment.authenticationService + '/logout', {}).subscribe();
     this.logoutEmitter.next();
     this.router.home()
   }
