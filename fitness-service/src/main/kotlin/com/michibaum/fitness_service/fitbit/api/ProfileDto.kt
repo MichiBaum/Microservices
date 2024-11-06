@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ProfileDto(
-    val user: UserDto,
+    val user: UserDto? = null,
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -24,7 +24,6 @@ data class UserDto(
     val displayNameSetting: String,
     val distanceUnit: String,
     val encodedId: String,
-    val features: FeaturesDto,
     val firstName: String,
     val foodsLocale: String,
     val fullName: String,
@@ -34,13 +33,10 @@ data class UserDto(
     val heightUnit: String,
     val languageLocale: String,
     val lastName: String,
-    val legalTermsAcceptRequired: Boolean,
     val locale: String,
     val memberSince: String,
-    val mfaEnabled: Boolean,
     @JsonProperty("offsetFromUTCMillis")
     val offsetFromUtcmillis: Long,
-    val sdkDeveloper: Boolean,
     val sleepTracking: String,
     val startDayOfWeek: String,
     val strideLengthRunning: Double,
@@ -50,17 +46,12 @@ data class UserDto(
     val swimUnit: String,
     val temperatureUnit: String,
     val timezone: String,
-    val topBadges: List<TopBadgeDto>,
+    val topBadges: List<TopBadgeDto> = mutableListOf(),
     val visibleUser: Boolean,
     val waterUnit: String,
     val waterUnitName: String,
     val weight: Double,
     val weightUnit: String,
-)
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class FeaturesDto(
-    val exerciseGoal: Boolean,
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

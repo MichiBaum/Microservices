@@ -5,6 +5,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Lob
 import org.hibernate.annotations.UuidGenerator
+import org.springframework.data.annotation.CreatedDate
+import java.time.Instant
 import java.util.*
 
 @Entity
@@ -14,7 +16,7 @@ class FitbitOAuthCredentials(
     val accessToken: String,
 
     @Column(nullable = false, unique = false)
-    val expiresIn: String,
+    val expiresIn: Int,
 
     @Column(nullable = false, unique = true)
     val refreshToken: String,
@@ -27,6 +29,15 @@ class FitbitOAuthCredentials(
 
     @Column(nullable = false, unique = false)
     val userId: String,
+
+    @Column(nullable = false, unique = false)
+    val createdDate: Instant,
+
+    @Column(nullable = false, unique = false)
+    val validUntil: Instant,
+
+    @Column(nullable = false, unique = false)
+    var deactivated: Boolean = false,
 
     @Id
     @UuidGenerator

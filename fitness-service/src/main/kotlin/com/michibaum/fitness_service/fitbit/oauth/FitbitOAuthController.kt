@@ -56,6 +56,7 @@ class FitbitOAuthController(
             .defaultHeaders { 
                 it.set("Authorization", "Basic $authBasic")
                 it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                it.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
             }
             .build()
             .post()

@@ -2,15 +2,20 @@ package com.michibaum.fitness_service.fitbit.oauth
 
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.security.MessageDigest
 import java.security.SecureRandom
+import java.time.Instant
 import java.util.*
 
 @Service
 class FitbitOAuthService(
-    val fitbitOAuthRepository: FitbitOAuthRepository,
-    val fitbitOAuthCredentialsRepository: FitbitOAuthCredentialsRepository
+    private val fitbitOAuthRepository: FitbitOAuthRepository,
+    private val fitbitOAuthCredentialsRepository: FitbitOAuthCredentialsRepository
 ) {
+
+    fun credentialsByUser(userId: String) =
+        fitbitOAuthCredentialsRepository.findByUserId(userId)
 
     fun findByState(state: String) =
         fitbitOAuthRepository.findByState(state)
@@ -88,14 +93,33 @@ class FitbitOAuthService(
     fun save(credentialsDto: FitbitOAuthCredentialsDto, fitbitOAuthData: FitbitOAuthData) {
         val fitbitOAuthCredentials = FitbitOAuthCredentials(
             accessToken = credentialsDto.accessToken,
-            expiresIn = credentialsDto.expiresIn,
+            expiresIn = credentialsDto.expiresIn.toInt(),
             refreshToken = credentialsDto.refreshToken,
             scope = credentialsDto.scope,
             fitbitUserId = credentialsDto.userId,
+            validUntil = Instant.now().plusSeconds(credentialsDto.expiresIn.toLong()),
+            createdDate = Instant.now(),
             userId = fitbitOAuthData.userId,
         )
 
         fitbitOAuthCredentialsRepository.save(fitbitOAuthCredentials)
+    }
+
+    @Transactional
+    fun saveNewAndDeactivateOld(new: FitbitOAuthCredentialsDto, old: FitbitOAuthCredentials): FitbitOAuthCredentials {
+        val fitbitOAuthCredentials = FitbitOAuthCredentials(
+            accessToken = new.accessToken,
+            expiresIn = new.expiresIn.toInt(),
+            refreshToken = new.refreshToken,
+            scope = new.scope,
+            fitbitUserId = new.userId,
+            validUntil = Instant.now().plusSeconds(new.expiresIn.toLong()),
+            createdDate = Instant.now(),
+            userId = old.userId,
+        )
+        fitbitOAuthCredentialsRepository.save(fitbitOAuthCredentials)
+        old.deactivated = true
+        return fitbitOAuthCredentialsRepository.save(old)
     }
 
 }
