@@ -1,5 +1,8 @@
 package com.michibaum.fitness_service.fitbit.api
 
+import com.michibaum.fitness_service.fitbit.api.profile.ProfileDto
+import com.michibaum.fitness_service.fitbit.api.sleep.SleepDto
+import com.michibaum.fitness_service.fitbit.api.weight.WeightDto
 import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthCredentials
 
 interface FitbitApi {

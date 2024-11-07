@@ -1,4 +1,4 @@
-package com.michibaum.fitness_service.fitbit.api
+package com.michibaum.fitness_service.fitbit.api.profile
 
 import com.michibaum.fitness_service.api.profile.Profile
 import org.springframework.stereotype.Component

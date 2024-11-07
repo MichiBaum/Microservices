@@ -1,5 +1,10 @@
 package com.michibaum.fitness_service.fitbit.api
 
+import com.michibaum.fitness_service.fitbit.api.profile.ProfileDto
+import com.michibaum.fitness_service.fitbit.api.sleep.SleepDto
+import com.michibaum.fitness_service.fitbit.api.sleep.SleepLogDto
+import com.michibaum.fitness_service.fitbit.api.weight.WeightDto
+import com.michibaum.fitness_service.fitbit.api.weight.WeightLogDto
 import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthCredentials
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType

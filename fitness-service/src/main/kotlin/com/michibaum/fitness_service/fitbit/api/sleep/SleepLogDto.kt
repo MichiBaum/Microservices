@@ -1,4 +1,4 @@
-package com.michibaum.fitness_service.fitbit.api
+package com.michibaum.fitness_service.fitbit.api.sleep
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 

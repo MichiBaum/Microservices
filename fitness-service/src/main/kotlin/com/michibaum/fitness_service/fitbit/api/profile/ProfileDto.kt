@@ -1,4 +1,4 @@
-package com.michibaum.fitness_service.fitbit.api
+package com.michibaum.fitness_service.fitbit.api.profile
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
