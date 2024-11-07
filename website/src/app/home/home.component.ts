@@ -6,6 +6,7 @@ import {CardModule} from "primeng/card";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {NgIf} from "@angular/common";
 import {PermissionService} from "../core/services/permission.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ import {PermissionService} from "../core/services/permission.service";
   imports: [
     Button,
     CardModule,
-    NgIf
+    NgIf,
+    TranslateModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

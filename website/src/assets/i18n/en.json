@@ -7,6 +7,7 @@
     "english": "English"
   },
   "navigation": {
+    "navigation": "Navigation",
     "apps": "Apps",
     "github": "Github",
     "buymeacoffee": "Buy me a coffee",
@@ -38,31 +39,90 @@
     "translation-description": "This application / website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors."
   },
   "home": {
-    "title": "Home"
+    "title": "Home",
+    "login": {
+      "title": "Login",
+      "content": "Wanna see more content? Login or Register!"
+    },
+    "chess": {
+      "title": "Chess",
+      "content": "Chess is interesting. Statistics about chess player is even more interesting."
+    },
+    "fitness": {
+      "title": "Fitness",
+      "content": "Fitness and statistics together? Wooooowww!!"
+    },
+    "about-me": {
+      "title": "About me",
+      "content": "Who is the developer of this platform? Learn more about me!"
+    },
+    "donate": {
+      "title": "Donate",
+      "content": "Do you like the website? Think about donating me a coffee."
+    }
   },
   "chess": {
-    "title": "Chess"
+    "title": "Chess",
+    "account": {
+      "name": "Name",
+      "size": "Size",
+      "platform": "Platform"
+    },
+    "player": {
+      "search-person": "Search Person",
+      "firstname": "Firstname",
+      "lastname": "Lastname"
+    }
   },
   "login": {
-    "title": "Login"
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "register": "Register"
   },
   "register": {
-    "title": "Register"
+    "title": "Register",
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "register": "Register"
   },
   "about-me": {
     "title": "About me",
     "s1": "Hello! I'm a software developer from Switzerland. My journey in the world of IT began with an apprenticeship at Würth ITensis from 2017 to 2021, where I honed my skills and continued working until 2024. During this time, I developed a deep passion for programming, which I continue to pursue in my free time.",
     "s2": "I’m particularly fond of Java and the Spring Framework ☕\uD83C\uDF31, which I used extensively in my professional work. When working on personal backend projects, I prefer to use Kotlin, as I like the null safety and functional style \uD83D\uDCA1.",
     "s3": "On the frontend side, I've worked with technologies like HTML, CSS, JSP, JavaScript, Knockout.js, and Angular \uD83C\uDFA8. But my interests don’t stop there! I'm also passionate about software architecture \uD83C\uDFDB\uFE0F, IT security \uD83D\uDD12, and team management \uD83D\uDC65—essentially, anything related to the IT world excites me \uD83D\uDE80.",
-    "s4": "When I’m not coding, I’m likely reading up on the latest developments in tech or brainstorming new projects. I’m always eager to grow, learn, and take on new challenges."
+    "s4": "When I’m not coding, I’m likely reading up on the latest developments in tech or brainstorming new projects. I’m always eager to grow, learn, and take on new challenges.",
+    "experience": {
+      "intro": "Here you see a List of my experiences.",
+      "programming-languages-and-databases": "Programming Languages & Databases",
+      "platforms": "Platforms",
+      "softskills": "Softskills",
+      "experience": "Experience",
+      "years": "Years",
+      "rating": "Rating (about myself)"
+    }
   },
   "microservices": {
     "title": "Microservices"
   },
   "donate": {
-    "title": "Donate"
+    "title": "Donate",
+    "s1": "👋 Hello! I’m passionate about creating this website 🌐 and am committed to delivering high-quality content 📚 and a seamless experience. To keep everything running smoothly, I spend around 30 hours each week 🕒 working on improvements, features, and maintenance. Additionally, maintaining the server costs about 70 CHF per month 💰.",
+    "s2": "💡 If you’ve enjoyed the website or found it helpful, consider supporting my work 🤝. Your sponsorship helps cover the costs and allows me to dedicate even more time to building and refining the site 🛠️.",
+    "s3": "🌟 And if you’re looking for a reliable server yourself, I recommend Hosttech. Use my promo code 31886957 to get started with their services 🚀.",
+    "s4": "🙏 Thank you for your support and for being part of this journey! 🌈",
+    "buy-me-a-coffee": "Buy me a coffee",
+    "hosttech": "Go to Hosttech"
   },
   "fitness": {
     "title": "Fitness"
+  },
+  "sw-update": {
+    "update-available": "Update available!",
+    "update-available-message": "A new version is available. Do you want to update? It is recommended",
+    "update": "Update",
+    "later": "Later"
   }
 }

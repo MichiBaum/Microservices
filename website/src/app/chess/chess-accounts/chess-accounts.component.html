@@ -2,9 +2,9 @@
   <p-treeTable [value]="tree" [scrollable]="true" class="p-treetable-sm" [selection]="'multiple'" [(selection)]="selectedNodes">
     <ng-template pTemplate="header">
       <tr>
-        <th>Name</th>
-        <th>Size</th>
-        <th>Platform</th>
+        <th>{{"chess.account.name" | translate}}</th>
+        <th>{{"chess.account.size" | translate}}</th>
+        <th>{{"chess.account.platform" | translate}}</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">

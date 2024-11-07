@@ -11,19 +11,21 @@ import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {Sides} from "../core/config/sides";
 import {UserInfoService} from "../core/services/user-info.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-    imports: [
-        Button,
-        CardModule,
-        FloatLabelModule,
-        InputTextModule,
-        PaginatorModule,
-        PasswordModule,
-        PrimeTemplate
-    ],
+  imports: [
+    Button,
+    CardModule,
+    FloatLabelModule,
+    InputTextModule,
+    PaginatorModule,
+    PasswordModule,
+    PrimeTemplate,
+    TranslateModule
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
