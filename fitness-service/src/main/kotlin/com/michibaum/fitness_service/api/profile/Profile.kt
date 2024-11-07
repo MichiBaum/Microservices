@@ -7,7 +7,7 @@ import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity
-class Profile (
+open class Profile (
 
     @Column(nullable = false, unique = false)
     val age: String,

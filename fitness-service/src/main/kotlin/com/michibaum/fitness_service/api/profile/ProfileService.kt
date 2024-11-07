@@ -6,15 +6,6 @@ import org.springframework.stereotype.Service
 @Service
 class ProfileService(val profileRepository: ProfileRespository) {
 
-    fun update(profile: Profile) {
-        val existingProfile = profileRepository.findByUserId(profile.userId)
-        if (existingProfile != null) {
-            profileRepository.delete(existingProfile)
-        }
-
-        profileRepository.save(profile)
-    }
-
     fun findByUser(principal: JwtAuthentication): Profile? =
         profileRepository.findByUserId(principal.getUserId())
 

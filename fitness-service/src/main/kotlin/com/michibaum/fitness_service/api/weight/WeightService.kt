@@ -10,6 +10,4 @@ class WeightService(
     fun getByUser(userId: String): List<Weight> =
         weightRepository.findAllByUserId(userId)
 
-    fun update(weight: List<Weight>) =
-        weightRepository.saveAll(weight)
 }

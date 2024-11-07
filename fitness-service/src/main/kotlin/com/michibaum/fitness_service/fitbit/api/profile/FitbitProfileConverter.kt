@@ -1,13 +1,12 @@
 package com.michibaum.fitness_service.fitbit.api.profile
 
-import com.michibaum.fitness_service.api.profile.Profile
 import org.springframework.stereotype.Component
 
 @Component
 class FitbitProfileConverter {
 
-    fun toDomain(user: UserDto, userId: String): Profile {
-        return Profile(
+    fun toDomain(user: UserDto, userId: String): FitbitProfile {
+        return FitbitProfile(
             age = user.age.toString(),
             country = user.country,
             fullName = user.fullName,

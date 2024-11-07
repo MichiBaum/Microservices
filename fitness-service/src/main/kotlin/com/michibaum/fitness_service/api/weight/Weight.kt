@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Entity
-class Weight(
+open class Weight(
 
     @Column(nullable = false, unique = false)
     val weight: Double,
@@ -20,8 +20,6 @@ class Weight(
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     val date: LocalDateTime,
-
-    // TODO platform id like 'fitbit:84b81873-bf7e-4f20-8897-61a3ac8cf738'
 
     @Column(nullable = false, unique = false)
     val userId: String,

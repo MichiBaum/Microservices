@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
+import java.time.Instant
 import java.util.*
 
 @Component
@@ -17,7 +18,7 @@ class FitbitOAuthImpl(
 ): FitbitOAuth {
 
     override fun refreshToken(principal: JwtAuthentication): FitbitOAuthCredentials {
-        val fitbitOAuthData = fitbitOAuthService.credentialsByUser("") ?: throw Exception("")
+        val credentials = fitbitOAuthService.activeCredentialsByUser("") ?: throw Exception("")
 
         val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
         val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
@@ -34,7 +35,7 @@ class FitbitOAuthImpl(
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .body(
                 BodyInserters.fromFormData("grant_type", "refresh_token")
-                    .with("refresh_token", fitbitOAuthData.refreshToken)
+                    .with("refresh_token", credentials.refreshToken)
             )
             .retrieve()
             .onStatus({ t -> t.is4xxClientError }, { Mono.error(Exception()) }) // TODO https://dev.fitbit.com/build/reference/web-api/troubleshooting-guide/error-messages/#authorization-errors
@@ -42,14 +43,29 @@ class FitbitOAuthImpl(
             .block()
 
         if(response == null){
-            throw Exception("Fitbit OAuth exchange for access token returned null")
+            throw Exception("Fitbit OAuth refresh access token returned null")
         }
 
-        return fitbitOAuthService.saveNewAndDeactivateOld(response, fitbitOAuthData)
+        return fitbitOAuthService.saveNewAndDeactivateOld(response, credentials)
     }
 
+    /**
+     * Fetches the active Fitbit OAuth credentials for the given user, represented by the provided principal.
+     * If the credentials are expired, attempts to refresh the token and returns the new credentials.
+     *
+     * @param principal The JWT authentication token containing the user's details.
+     * @return The active or refreshed Fitbit OAuth credentials, or null if no valid credentials are found.
+     */
     override fun getCredentials(principal: JwtAuthentication): FitbitOAuthCredentials? {
-        return fitbitOAuthService.credentialsByUser(principal.getUserId())
+        val credentials = fitbitOAuthService.activeCredentialsByUser(principal.getUserId()) ?: return null
+
+        // Now, but with a buffer of 5 minutes, so that there can be no error by the access token expiring during the request
+        val now = Instant.now().minusSeconds(300)
+        if(credentials.validUntil.isBefore(now)){
+            return refreshToken(principal)
+        }
+
+        return credentials
     }
 
 }
