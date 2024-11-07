@@ -29,6 +29,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "chart.js": "^4.4.6",
     "jwt-decode": "^4.0.0",
     "ngx-cookie-service": "^18.0.0",
     "primeflex": "^3.3.1",

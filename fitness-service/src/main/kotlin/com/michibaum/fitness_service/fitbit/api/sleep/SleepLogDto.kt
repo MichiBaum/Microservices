@@ -1,9 +1,12 @@
-package com.michibaum.fitness_service.fitbit.api
+package com.michibaum.fitness_service.fitbit.api.sleep
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 data class SleepLogDto(
     val sleep: List<SleepDto>,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class SleepDto(
     val dateOfSleep: String,
     val duration: Long,
@@ -23,24 +26,28 @@ data class SleepDto(
     val type: String,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Levels(
     val data: List<Data>,
     val shortData: List<ShortData>?,
     val summary: Summary,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Data(
     val dateTime: String,
     val level: String,
     val seconds: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ShortData(
     val dateTime: String,
     val level: String,
     val seconds: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Summary(
     val deep: Deep?,
     val light: Light?,
@@ -51,40 +58,47 @@ data class Summary(
     val restless: Restless?,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Deep(
     val count: Long,
     val minutes: Long,
     val thirtyDayAvgMinutes: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Light(
     val count: Long,
     val minutes: Long,
     val thirtyDayAvgMinutes: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Rem(
     val count: Long,
     val minutes: Long,
     val thirtyDayAvgMinutes: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Wake(
     val count: Long,
     val minutes: Long,
     val thirtyDayAvgMinutes: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Asleep(
     val count: Long,
     val minutes: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Awake(
     val count: Long,
     val minutes: Long,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Restless(
     val count: Long,
     val minutes: Long,

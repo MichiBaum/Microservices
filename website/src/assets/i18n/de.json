@@ -7,6 +7,7 @@
     "english": "English"
   },
   "navigation": {
+    "navigation": "Navigation",
     "apps": "Apps",
     "github": "Github",
     "buymeacoffee": "Spende einen Kaffee",
@@ -38,31 +39,90 @@
     "translation-description": "Diese Applikation/Webseite wurde auf Deutsch geschrieben. Alle anderen Sprachen, welche zur Verfügung stehen wurden nicht von Menschen übersetzt und können deswegen Übersetzungsfehler beinhalten."
   },
   "home": {
-    "title": "Startseite"
+    "title": "Startseite",
+    "login": {
+      "title": "Anmelden",
+      "content": "Du willst mehr Inhalt sehen? Melde dich an!"
+    },
+    "chess": {
+      "title": "Schach",
+      "content": "Schach ist interessant. Statistiken über Schachspieler is umso interessanter"
+    },
+    "fitness": {
+      "title": "Fitness",
+      "content": "Fitness und Statistiken zusammen? Wooooowww!!"
+    },
+    "about-me": {
+      "title": "About me",
+      "content": "Wer ist der Entwickler dieser Plattform? Lerne mehr über mich!"
+    },
+    "donate": {
+      "title": "Spenden",
+      "content": "Magst du die Webseite? Denke darüber nach mir einen Kaffee zu spenden."
+    }
   },
   "chess": {
-    "title": "Schach"
+    "title": "Schach",
+    "account": {
+      "name": "Name",
+      "size": "Anz.",
+      "platform": "Plattform"
+    },
+    "player": {
+      "search-person": "Person suchen",
+      "firstname": "Vorname",
+      "lastname": "Nachname"
+    }
   },
   "login": {
-    "title": "Login"
+    "title": "Anmelden",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login": "Anmelden",
+    "register": "Registrieren"
   },
   "register": {
-    "title": "Registrieren"
+    "title": "Registrieren",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login": "Anmelden",
+    "register": "Registrieren"
   },
   "about-me": {
     "title": "Über mich",
     "s1": "Hallo! Ich bin ein Softwareentwickler aus der Schweiz. Meine Reise in die IT-Welt begann mit einer Ausbildung bei Würth ITensis von 2017 bis 2021, wo ich meine Fähigkeiten verfeinerte und bis 2024 weiterarbeitete. Während dieser Zeit entwickelte ich eine tiefe Leidenschaft für das Programmieren, der ich in meiner Freizeit weiterhin nachgehe.",
     "s2": "Ich mag insbesondere Java und das Spring Framework ☕\uD83C\uDF31, das ich in meiner beruflichen Arbeit ausgiebig verwende. Bei der Arbeit an persönlichen Backend-Projekten verwende ich am liebsten Kotlin, da mir die Nullsicherheit und der funktionale Stil gefallen \uD83D\uDCA1.",
     "s3": "Auf der Frontend-Seite habe ich mit Technologien wie HTML, CSS, JSP, JavaScript, Knockout.js und Angular \uD83C\uDFA8 gearbeitet. Aber meine Interessen enden hier nicht! Ich interessiere mich auch leidenschaftlich für Softwarearchitektur \uD83C\uDFDB\uFE0F, IT-Sicherheit \uD83D\uDD12 und Teammanagement \uD83D\uDC65 – im Grunde begeistert mich alles, was mit der IT-Welt zu tun hat \uD83D\uDE80.",
-    "s4": "Wenn ich nicht gerade programmiere, lese ich wahrscheinlich die neuesten technischen Entwicklungen oder mache Brainstorming für neue Projekte. Ich bin immer bestrebt, zu wachsen, zu lernen und neue Herausforderungen anzunehmen."
+    "s4": "Wenn ich nicht gerade programmiere, lese ich wahrscheinlich die neuesten technischen Entwicklungen oder mache Brainstorming für neue Projekte. Ich bin immer bestrebt, zu wachsen, zu lernen und neue Herausforderungen anzunehmen.",
+    "experience": {
+      "intro": "Hier ist eine Liste mit meinen Erfahrungen.",
+      "programming-languages-and-databases": "Programmiersprachen & Datenbanken",
+      "platforms": "Plattformen",
+      "softskills": "Soziale Kompetenzen",
+      "experience": "Erfahrung",
+      "years": "Jahre",
+      "rating": "Bewertung (über mich selbst)"
+    }
   },
   "microservices": {
     "title": "Microservices"
   },
   "donate": {
-    "title": "Spenden"
+    "title": "Spenden",
+    "s1": "👋 Hallo! Ich bin begeistert, diese Website 🌐 zu erstellen, und setze mich dafür ein, hochwertige Inhalte 📚 und ein nahtloses Erlebnis zu bieten. Um alles reibungslos am Laufen zu halten, arbeite ich etwa 30 Stunden pro Woche 🕒 an Verbesserungen, neuen Funktionen und Wartung. Außerdem kostet die Wartung des Servers etwa 70 CHF pro Monat 💰.",
+    "s2": "💡 Wenn dir die Website gefallen hat oder sie dir hilfreich war, kannst du meine Arbeit gerne unterstützen 🤝. Deine Unterstützung hilft, die Kosten zu decken und ermöglicht es mir, noch mehr Zeit in den Aufbau und die Weiterentwicklung der Seite zu investieren 🛠️.",
+    "s3": "🌟 Wenn du selbst einen zuverlässigen Server suchst, empfehle ich Hosttech. Verwende meinen Promo-Code 31886957, um mit deren Dienstleistungen zu starten 🚀.",
+    "s4": "🙏 Vielen Dank für deine Unterstützung und dafür, dass du Teil dieser Reise bist! 🌈",
+    "buy-me-a-coffee": "Spende einen Kaffee",
+    "hosttech": "Zu Hosttech"
   },
   "fitness": {
     "title": "Fitness"
+  },
+  "sw-update": {
+    "update-available": "Update verfügbar!",
+    "update-available-message": "Eine neue Version ist verfügbar. Möchtest du ein Update machen? Es ist empfohlen",
+    "update": "Update",
+    "later": "Später"
   }
 }

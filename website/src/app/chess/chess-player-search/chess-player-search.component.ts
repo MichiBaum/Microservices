@@ -6,6 +6,7 @@ import {Button} from "primeng/button";
 import {FormsModule} from "@angular/forms";
 import {Account, Person, SearchPerson} from "../../core/models/chess.models";
 import {ChessService} from "../../core/services/chess.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess-player-search',
@@ -15,7 +16,8 @@ import {ChessService} from "../../core/services/chess.service";
     PickListModule,
     FloatLabelModule,
     Button,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   templateUrl: './chess-player-search.component.html',
   styleUrl: './chess-player-search.component.scss'

@@ -38,6 +38,7 @@ export class AboutMeComponent implements OnInit{
     {"experience": "Spring Jpa", "years": "6", "rating": 5},
     {"experience": "Spring Mvc", "years": "6", "rating": 5},
     {"experience": "Spring Webflux", "years": "1", "rating": 2},
+    {"experience": "Spring Cloud", "years": "1", "rating": 2},
     {"experience": "MariaDB & MySql", "years": "5", "rating": 4},
     {"experience": "OracleDB", "years": "3", "rating": 3},
     {"experience": "H2", "years": "4", "rating": 3},

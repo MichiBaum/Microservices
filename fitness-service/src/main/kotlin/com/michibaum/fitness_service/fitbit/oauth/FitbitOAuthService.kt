@@ -2,16 +2,33 @@ package com.michibaum.fitness_service.fitbit.oauth
 
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.security.MessageDigest
 import java.security.SecureRandom
+import java.time.Instant
 import java.util.*
 
 @Service
 class FitbitOAuthService(
-    val fitbitOAuthRepository: FitbitOAuthRepository,
-    val fitbitOAuthCredentialsRepository: FitbitOAuthCredentialsRepository
+    private val fitbitOAuthRepository: FitbitOAuthRepository,
+    private val fitbitOAuthCredentialsRepository: FitbitOAuthCredentialsRepository
 ) {
 
+    /**
+     * Retrieves active Fitbit OAuth credentials for a given user.
+     *
+     * @param userId The unique identifier of the user whose active credentials are retrieved.
+     * @return The active Fitbit OAuth credentials for the specified user.
+     */
+    fun activeCredentialsByUser(userId: String) =
+        fitbitOAuthCredentialsRepository.findByUserIdAndDeactivatedFalse(userId)
+
+    /**
+     * Retrieves Fitbit OAuth data associated with a specific state value.
+     *
+     * @param state The unique state value associated with the Fitbit OAuth data.
+     * @return The `FitbitOAuthData` object containing the code verifier and challenge.
+     */
     fun findByState(state: String) =
         fitbitOAuthRepository.findByState(state)
 
@@ -85,17 +102,57 @@ class FitbitOAuthService(
         return Base64.getUrlEncoder().withoutPadding().encodeToString(state)
     }
 
+    /**
+     * Saves the Fitbit OAuth credentials to the repository.
+     *
+     * This method converts the provided `FitbitOAuthCredentialsDto` and `FitbitOAuthData`
+     * into a `FitbitOAuthCredentials` entity and saves it to the `fitbitOAuthCredentialsRepository`.
+     *
+     * @param credentialsDto The DTO containing the OAuth credentials.
+     * @param fitbitOAuthData The associated Fitbit OAuth data.
+     */
     fun save(credentialsDto: FitbitOAuthCredentialsDto, fitbitOAuthData: FitbitOAuthData) {
         val fitbitOAuthCredentials = FitbitOAuthCredentials(
             accessToken = credentialsDto.accessToken,
-            expiresIn = credentialsDto.expiresIn,
+            expiresIn = credentialsDto.expiresIn.toInt(),
             refreshToken = credentialsDto.refreshToken,
             scope = credentialsDto.scope,
             fitbitUserId = credentialsDto.userId,
+            validUntil = Instant.now().plusSeconds(credentialsDto.expiresIn.toLong()),
+            createdDate = Instant.now(),
             userId = fitbitOAuthData.userId,
         )
 
         fitbitOAuthCredentialsRepository.save(fitbitOAuthCredentials)
+    }
+
+    /**
+     * Persists new Fitbit OAuth credentials and deactivates the old ones.
+     *
+     * This method saves the new Fitbit OAuth credentials passed in the `new` parameter
+     * and sets the `deactivated` flag of the old credentials to `true`, effectively
+     * deactivating the old credentials. Both the new and old credentials are saved in the repository.
+     *
+     * @param new The new Fitbit OAuth credentials to be saved.
+     * @param old The old Fitbit OAuth credentials to be deactivated.
+     * @return The newly saved Fitbit OAuth credentials.
+     */
+    @Transactional
+    fun saveNewAndDeactivateOld(new: FitbitOAuthCredentialsDto, old: FitbitOAuthCredentials): FitbitOAuthCredentials {
+        val fitbitOAuthCredentials = FitbitOAuthCredentials(
+            accessToken = new.accessToken,
+            expiresIn = new.expiresIn.toInt(),
+            refreshToken = new.refreshToken,
+            scope = new.scope,
+            fitbitUserId = new.userId,
+            validUntil = Instant.now().plusSeconds(new.expiresIn.toLong()),
+            createdDate = Instant.now(),
+            userId = old.userId,
+        )
+        val newSaved = fitbitOAuthCredentialsRepository.save(fitbitOAuthCredentials)
+        old.deactivated = true
+        fitbitOAuthCredentialsRepository.save(old)
+        return newSaved
     }
 
 }

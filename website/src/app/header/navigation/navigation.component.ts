@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenubarModule} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {LanguageConfig} from "../../core/config/language.config";
 import {SidebarModule} from "primeng/sidebar";
@@ -39,6 +39,7 @@ import {ImageModule} from "primeng/image";
     Ripple,
     FaIconComponent,
     ImageModule,
+    TranslateModule,
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'

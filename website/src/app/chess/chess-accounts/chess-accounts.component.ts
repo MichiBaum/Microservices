@@ -3,13 +3,15 @@ import {TableModule} from "primeng/table";
 import {Account, Person} from "../../core/models/chess.models";
 import {TreeTableModule} from "primeng/treetable";
 import {TreeNode} from "primeng/api";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess-accounts',
   standalone: true,
   imports: [
     TableModule,
-    TreeTableModule
+    TreeTableModule,
+    TranslateModule
   ],
   templateUrl: './chess-accounts.component.html',
   styleUrl: './chess-accounts.component.scss'
@@ -23,6 +25,8 @@ export class ChessAccountsComponent {
   set persons(value: Person[]){
     this.tree = [...this.mapPersonsToTreeNodes(value)]
   }
+
+  constructor() { }
 
    mapPersonsToTreeNodes(persons: Person[]): TreeNode[] {
     return persons.map((person, personIndex) => ({

@@ -1,12 +1,12 @@
 <div class="flex flex-row flex-wrap">
 
   <div class="flex align-items-center justify-content-center m-2" *ngIf="canLogin()">
-    <p-card header="Login" [style]="{ width: '20rem' }">
+    <p-card header='{{"home.login.title" | translate}}' [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/login.jpeg" />
       </ng-template>
       <p>
-        Wanna see more content? Login or Register!
+        {{"home.login.content" | translate}}
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
@@ -17,12 +17,12 @@
   </div>
 
   <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateChess()">
-    <p-card header="Chess" [style]="{ width: '20rem' }">
+    <p-card header='{{"home.chess.title" | translate}}' [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_chess.jpeg" />
       </ng-template>
       <p>
-        Lorem ipsum dolor sit amet...
+        {{"home.chess.content" | translate}}
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
@@ -33,12 +33,12 @@
   </div>
 
   <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateFitness()">
-    <p-card header="Fitness" [style]="{ width: '20rem' }">
+    <p-card header='{{"home.fitness.title" | translate}}' [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_fitness.jpeg" />
       </ng-template>
       <p>
-        Lorem ipsum dolor sit amet...
+        {{"home.fitness.content" | translate}}
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
@@ -49,12 +49,12 @@
   </div>
 
   <div class="flex align-items-center justify-content-center m-2">
-    <p-card header="About me" [style]="{ width: '20rem' }">
+    <p-card header='{{"home.about-me.title" | translate}}' [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_about-me.jpeg" />
       </ng-template>
       <p>
-        Who is the developer of this platform? Learn more about me!
+        {{"home.about-me.content" | translate}}
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
@@ -65,12 +65,12 @@
   </div>
 
   <div class="flex align-items-center justify-content-center m-2">
-    <p-card header="Donate" [style]="{ width: '20rem' }">
+    <p-card header='{{"home.donate.title" | translate}}' [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">
         <img alt="Card" src="../../assets/images/home_donate.jpeg" />
       </ng-template>
       <p>
-        Do you like the website? Think about donating me a coffee.
+        {{"home.donate.content" | translate}}
       </p>
       <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">

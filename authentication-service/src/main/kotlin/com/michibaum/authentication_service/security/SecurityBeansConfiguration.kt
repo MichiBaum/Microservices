@@ -4,16 +4,15 @@ import com.michibaum.authentication_library.AuthenticationClient
 import com.michibaum.authentication_library.PublicKeyDto
 import com.michibaum.authentication_library.security.ReactiveDelegateAuthenticationManager
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
-import com.michibaum.authentication_library.security.basic.netty.BasicAuthenticationConverter
 import com.michibaum.authentication_library.security.basic.BasicAuthenticationManager
 import com.michibaum.authentication_library.security.basic.CredentialsValidator
+import com.michibaum.authentication_library.security.basic.netty.BasicAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwsValidator
-import com.michibaum.authentication_library.security.jwt.netty.JwtAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
+import com.michibaum.authentication_library.security.jwt.netty.JwtAuthenticationConverter
 import com.michibaum.authentication_service.authentication.AuthenticationService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Lazy
 import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter
 

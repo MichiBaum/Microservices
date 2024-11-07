@@ -30,21 +30,24 @@
 
       <div class="col-12">
         <p>
-          Here you see a List of my experiences.
+          {{ "about-me.experience.intro" | translate }}
         </p>
         <p-accordion>
-          <p-accordionTab header="Programming Languages & Databases">
+          <p-accordionTab header='{{ "about-me.experience.programming-languages-and-databases" | translate }}'>
             <p-table [value]="programmingLanguages" >
               <ng-template pTemplate="header">
                 <tr>
                   <th pSortableColumn="experience" style="width:20%">
-                    Experience <p-sortIcon field="experience" />
+                    {{ "about-me.experience.experience" | translate }}
+                    <p-sortIcon field="experience" />
                   </th>
                   <th pSortableColumn="years" style="width:20%">
-                    Years <p-sortIcon field="years" />
+                    {{ "about-me.experience.years" | translate }}
+                    <p-sortIcon field="years" />
                   </th>
                   <th pSortableColumn="rating" style="width:20%">
-                    Rating <p-sortIcon field="rating" />
+                    {{ "about-me.experience.rating" | translate }}
+                    <p-sortIcon field="rating" />
                   </th>
                 </tr>
               </ng-template>
@@ -57,18 +60,21 @@
               </ng-template>
             </p-table>
           </p-accordionTab>
-          <p-accordionTab header="Platforms">
+          <p-accordionTab header='{{ "about-me.experience.platforms" | translate }}'>
             <p-table [value]="platforms" >
               <ng-template pTemplate="header">
                 <tr>
                   <th pSortableColumn="experience" style="width:20%">
-                    Experience <p-sortIcon field="experience" />
+                    {{ "about-me.experience.experience" | translate }}
+                    <p-sortIcon field="experience" />
                   </th>
                   <th pSortableColumn="years" style="width:20%">
-                    Years <p-sortIcon field="years" />
+                    {{ "about-me.experience.years" | translate }}
+                    <p-sortIcon field="years" />
                   </th>
                   <th pSortableColumn="rating" style="width:20%">
-                    Rating <p-sortIcon field="rating" />
+                    {{ "about-me.experience.rating" | translate }}
+                    <p-sortIcon field="rating" />
                   </th>
                 </tr>
               </ng-template>
@@ -81,18 +87,21 @@
               </ng-template>
             </p-table>
           </p-accordionTab>
-          <p-accordionTab header="Softskills">
+          <p-accordionTab header='{{ "about-me.experience.softskills" | translate }}'>
             <p-table [value]="softskills" >
               <ng-template pTemplate="header">
                 <tr>
                   <th pSortableColumn="experience" style="width:20%">
-                    Experience <p-sortIcon field="experience" />
+                    {{ "about-me.experience.experience" | translate }}
+                    <p-sortIcon field="experience" />
                   </th>
                   <th pSortableColumn="years" style="width:20%">
-                    Years <p-sortIcon field="years" />
+                    {{ "about-me.experience.years" | translate }}
+                    <p-sortIcon field="years" />
                   </th>
                   <th pSortableColumn="rating" style="width:20%">
-                    Rating <p-sortIcon field="rating" />
+                    {{ "about-me.experience.rating" | translate }}
+                    <p-sortIcon field="rating" />
                   </th>
                 </tr>
               </ng-template>

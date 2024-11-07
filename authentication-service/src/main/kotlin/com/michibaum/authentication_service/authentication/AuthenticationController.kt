@@ -33,16 +33,26 @@ class AuthenticationController (
         val jws = authenticationService.generateJWS(userDetailsDto)!!
 
         val cookie = ResponseCookie.from("jwt", jws)
-//            .httpOnly(true)
             .domain(".michibaum.ch")
-            .secure(false)
-            .sameSite("None")
+            .secure(true)
             .build()
 
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
         return ResponseEntity.ok()
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
             .body(responseBody)
+    }
+
+    @PostMapping(value = ["/api/logout"])
+    fun logout(): ResponseEntity<Any> {
+        val cookie = ResponseCookie.from("jwt")
+            .maxAge(0)
+            .domain(".michibaum.ch")
+            .secure(true)
+            .build()
+        return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .build()
     }
 
     override fun publicKey(): PublicKeyDto {
