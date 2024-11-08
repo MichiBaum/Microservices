@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {Button} from "primeng/button";

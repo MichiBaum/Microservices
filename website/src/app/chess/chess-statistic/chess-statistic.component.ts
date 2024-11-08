@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TabMenuModule} from "primeng/tabmenu";
-import {MenuItem} from "primeng/api";
 import {TabViewModule} from "primeng/tabview";
 
 @Component({

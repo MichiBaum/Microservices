@@ -1,12 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {FitnessService} from "../core/services/fitness.service";
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {ChartModule} from "primeng/chart";
-import {Weight} from "../core/models/fitness/weight.model";
-import {DOCUMENT} from "@angular/common";
 import {FitnessWeightComponent} from "./fitness-weight/fitness-weight.component";
 import {FitnessProfileComponent} from "./fitness-profile/fitness-profile.component";
 import {FieldsetModule} from "primeng/fieldset";

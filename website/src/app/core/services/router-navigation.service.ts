@@ -1,6 +1,5 @@
 import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
-import {Sides} from "../config/sides";
 
 @Injectable({
   providedIn: 'root'

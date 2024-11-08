@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {SplitterModule} from "primeng/splitter";
 import {ChessPlayerSearchComponent} from "./chess-player-search/chess-player-search.component";
 import {ChessAccountsComponent} from "./chess-accounts/chess-accounts.component";
 import {ChessStatisticComponent} from "./chess-statistic/chess-statistic.component";
-import {Account, Person} from "../core/models/chess.models";
+import {Person} from "../core/models/chess.models";
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 

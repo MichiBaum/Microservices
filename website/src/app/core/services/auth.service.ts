@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
 import {Authentication, AuthenticationResponse} from "../models/authentication.model";
 import {environment} from "../../../environments/environment";
 import {RouterNavigationService} from "./router-navigation.service";

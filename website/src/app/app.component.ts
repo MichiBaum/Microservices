@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
-import {LightDarkMode, LightDarkModeService} from "./core/services/light-dark-mode.service";
+import {LightDarkModeService} from "./core/services/light-dark-mode.service";
 import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
 import {TranslateService} from "@ngx-translate/core";
 import {ToastModule} from "primeng/toast";

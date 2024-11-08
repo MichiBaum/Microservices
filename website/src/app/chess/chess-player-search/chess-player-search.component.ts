@@ -4,7 +4,7 @@ import {PickListModule, PickListMoveToSourceEvent, PickListMoveToTargetEvent} fr
 import {FloatLabelModule} from "primeng/floatlabel";
 import {Button} from "primeng/button";
 import {FormsModule} from "@angular/forms";
-import {Account, Person, SearchPerson} from "../../core/models/chess.models";
+import {Person, SearchPerson} from "../../core/models/chess.models";
 import {ChessService} from "../../core/services/chess.service";
 import {TranslateModule} from "@ngx-translate/core";
 

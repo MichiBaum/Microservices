@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Message, MessageService} from "primeng/api";
+import {Message} from "primeng/api";
 import {Subject} from "rxjs";
 
 @Injectable({
