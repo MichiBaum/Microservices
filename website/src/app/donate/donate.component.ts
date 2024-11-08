@@ -21,7 +21,10 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
 })
 export class DonateComponent {
 
-  constructor(private headerService: HeaderService, protected router: RouterNavigationService) {
+  constructor(
+    private readonly headerService: HeaderService,
+    protected router: RouterNavigationService
+  ) {
     this.headerService.changeTitle(Sides.donate.translationKey)
   }
 

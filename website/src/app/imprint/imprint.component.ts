@@ -16,7 +16,9 @@ import {Sides} from "../core/config/sides";
 })
 export class ImprintComponent {
 
-  constructor(private headerService: HeaderService) {
+  constructor(
+    private readonly headerService: HeaderService
+  ) {
     this.headerService.changeTitle(Sides.imprint.translationKey)
   }
 

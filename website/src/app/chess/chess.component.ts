@@ -23,7 +23,9 @@ export class ChessComponent {
 
   persons: Person[] = []
 
-  constructor(private headerService: HeaderService) {
+  constructor(
+    private readonly headerService: HeaderService
+  ) {
     this.headerService.changeTitle(Sides.chess.translationKey)
   }
 

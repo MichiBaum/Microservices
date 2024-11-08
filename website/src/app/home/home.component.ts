@@ -22,7 +22,11 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class HomeComponent {
 
-  constructor(private headerService: HeaderService, protected routerNavigationService: RouterNavigationService, private permissionService: PermissionService) {
+  constructor(
+    private readonly headerService: HeaderService,
+    protected routerNavigationService: RouterNavigationService,
+    private readonly permissionService: PermissionService
+  ) {
     this.headerService.changeTitle(Sides.home.translationKey)
   }
 

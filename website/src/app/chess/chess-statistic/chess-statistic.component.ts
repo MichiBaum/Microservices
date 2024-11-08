@@ -15,6 +15,8 @@ import {TabViewModule} from "primeng/tabview";
 })
 export class ChessStatisticComponent implements OnInit {
 
+  constructor() { }
+
   ngOnInit() {
 
   }

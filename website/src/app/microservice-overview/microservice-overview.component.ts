@@ -13,7 +13,9 @@ export class MicroserviceOverviewComponent {
 
   public adminServiceUrl: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(
+    private readonly sanitizer: DomSanitizer
+  ) {
     this.adminServiceUrl = this.sanitizeUrl(environment.adminService);
   }
 

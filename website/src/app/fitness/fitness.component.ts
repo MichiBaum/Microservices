@@ -30,12 +30,15 @@ import {FormsModule} from "@angular/forms";
 })
 export class FitnessComponent implements OnInit{
   settingsCollapsed: boolean = true;
-  cols: string = "col-6";
 
   screenSizeOptions: any[] = [{ label: 'Small', value: 'col-12' },{ label: 'Big', value: 'col-6' }];
   screenSize: string = 'col-12';
 
-  constructor(private headerService: HeaderService, private fitnessService: FitnessService, private router: RouterNavigationService) {
+  constructor(
+    private readonly headerService: HeaderService,
+    private readonly fitnessService: FitnessService,
+    private readonly router: RouterNavigationService
+  ) {
   }
 
   getTokenUrl(){

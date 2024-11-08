@@ -17,7 +17,10 @@ export class LanguageSelectComponent implements OnInit{
 
   languages: PrimeNgBase[] | undefined;
 
-  constructor(private languageConfig: LanguageConfig, private translate: TranslateService) { }
+  constructor(
+    private readonly languageConfig: LanguageConfig,
+    private readonly translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.languages = this.initLanguages();

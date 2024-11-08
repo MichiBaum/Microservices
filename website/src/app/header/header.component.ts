@@ -28,7 +28,12 @@ import {LogoutComponent} from "../logout/logout.component";
 export class HeaderComponent implements OnInit{
   title = "application.title"
 
-  constructor(private languageConfig: LanguageConfig, private translate: TranslateService, private headerService: HeaderService, private titleService: Title) {
+  constructor(
+    private readonly languageConfig: LanguageConfig,
+    private readonly translate: TranslateService,
+    private readonly headerService: HeaderService,
+    private readonly titleService: Title
+  ) {
 
   }
 

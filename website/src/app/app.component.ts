@@ -20,13 +20,13 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 export class AppComponent implements OnInit {
 
   constructor(
-    private lightDarkModeService: LightDarkModeService,
-    private primengConfig: PrimeNGConfig,
-    private translateService: TranslateService,
-    private messageService: MessageService,
-    private userInfoService: UserInfoService,
-    private swUpdate: SwUpdate,
-    private confirmationService: ConfirmationService
+    private readonly lightDarkModeService: LightDarkModeService,
+    private readonly primengConfig: PrimeNGConfig,
+    private readonly translateService: TranslateService,
+    private readonly messageService: MessageService,
+    private readonly userInfoService: UserInfoService,
+    private readonly swUpdate: SwUpdate,
+    private readonly confirmationService: ConfirmationService
   ) {
   }
 

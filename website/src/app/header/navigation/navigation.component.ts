@@ -49,12 +49,12 @@ export class NavigationComponent implements OnInit{
   sidebarVisible: boolean = false;
 
   constructor(
-    private translate: TranslateService,
-    private languageConfig: LanguageConfig,
-    private routerNavigationService: RouterNavigationService,
-    private lightDarkModeService: LightDarkModeService,
-    private permissionService: PermissionService,
-    private authService: AuthService
+    private readonly translate: TranslateService,
+    private readonly languageConfig: LanguageConfig,
+    private readonly routerNavigationService: RouterNavigationService,
+    private readonly lightDarkModeService: LightDarkModeService,
+    private readonly permissionService: PermissionService,
+    private readonly authService: AuthService
   ) {
 
   }

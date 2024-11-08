@@ -36,7 +36,7 @@ export class ChessPlayerSearchComponent implements OnInit{
   firstname: string = "";
 
   constructor(
-    private chessService: ChessService
+    private readonly chessService: ChessService
   ) {}
 
   ngOnInit() {
