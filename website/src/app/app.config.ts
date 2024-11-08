@@ -23,7 +23,7 @@ export function TranslateLoaderFactory(http: HttpClient) {
 
 function appInitializerFactory(translate: TranslateService) {
   return () => {
-    const lang = localStorage.getItem('languageIso') || 'en';
+    const lang = localStorage.getItem('languageIso') ?? 'en';
     translate.setDefaultLang(lang);
     return translate.use(lang).toPromise();
   };
@@ -46,7 +46,7 @@ export const appConfig: ApplicationConfig = {
       multi   : true,
     },
     TranslateModule.forRoot({
-      defaultLanguage: localStorage.getItem('languageIso') || 'en',
+      defaultLanguage: localStorage.getItem('languageIso') ?? 'en',
       loader: {
         provide: TranslateLoader,
         useFactory: TranslateLoaderFactory,
