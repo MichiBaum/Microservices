@@ -3,6 +3,8 @@ package com.michibaum.gatewayservice
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension
+import com.michibaum.authentication_library.JwsValidationFailed
+import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -61,7 +63,7 @@ class AuthenticationGatewayFilterIT{
     fun `with valid authentication header forwards request`(){
         // GIVEN
         wireMockServer.stubFor(post("/post").willReturn(ok()))
-        `when`(jwsValidator.validate(anyString())).thenReturn(true)
+        `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationSuccess())
 
         // WHEN
         webTestClient.post().uri("/post")
@@ -80,7 +82,7 @@ class AuthenticationGatewayFilterIT{
     fun `with invalid authentication header gets forbidden`(){
         // GIVEN
         wireMockServer.stubFor(post("/post").willReturn(ok()))
-        `when`(jwsValidator.validate(anyString())).thenReturn(false)
+        `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationFailed(Exception()))
 
         // WHEN
         webTestClient.post().uri("/post")

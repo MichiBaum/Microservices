@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
+import java.time.Duration
 
 @RestController
 class AuthenticationController (
@@ -33,7 +34,9 @@ class AuthenticationController (
         val jws = authenticationService.generateJWS(userDetailsDto)!!
 
         val cookie = ResponseCookie.from("jwt", jws)
-            .domain(".michibaum.ch")
+            .httpOnly(true)
+            .maxAge(Duration.ofHours(8))
+            .domain("michibaum.ch")
             .secure(true)
             .build()
 
@@ -47,7 +50,9 @@ class AuthenticationController (
     fun logout(): ResponseEntity<Any> {
         val cookie = ResponseCookie.from("jwt")
             .maxAge(0)
-            .domain(".michibaum.ch")
+            .httpOnly(true)
+            .maxAge(Duration.ofHours(8))
+            .domain("michibaum.ch")
             .secure(true)
             .build()
         return ResponseEntity.ok()

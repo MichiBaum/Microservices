@@ -1,21 +1,19 @@
 package com.michibaum.chess_service.app
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.chess_service.domain.Person
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import java.util.*
 
-@ExtendWith(SpringExtension::class)
 @AutoConfigureWebTestClient
 @SpringBootTest
 class PersonControllerIT {
@@ -63,7 +61,7 @@ class PersonControllerIT {
         `when`(personConverter.convert(requestPersonDto)).thenReturn(convertedPerson)
         `when`(personService.savePerson(convertedPerson)).thenReturn(savedPerson)
         `when`(personConverter.convert(savedPerson)).thenReturn(responsePersonDto)
-        `when`(jwsValidator.validate(anyString())).thenReturn(true)
+        `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationSuccess())
 
 
         // WHEN

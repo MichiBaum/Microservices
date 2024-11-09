@@ -1,6 +1,7 @@
 package com.michibaum.authentication_library.security.jwt
 
 import com.michibaum.authentication_library.AuthenticationClient
+import com.michibaum.authentication_library.JwsValidationResult
 import com.michibaum.authentication_library.JwsValidator
 import feign.FeignException
 import org.springframework.scheduling.annotation.Scheduled
@@ -31,7 +32,7 @@ class JwsValidator(
         publicKey = pubkey as RSAPublicKey
     }
 
-    fun validate(token: String): Boolean {
+    fun validate(token: String): JwsValidationResult {
         return validate(token, publicKey)
     }
 

@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.util.*
 
-@ExtendWith(SpringExtension::class)
 @AutoConfigureMockMvc
 @SpringBootTest(properties = [
     "spring.boot.admin.client.username=someUsername",
