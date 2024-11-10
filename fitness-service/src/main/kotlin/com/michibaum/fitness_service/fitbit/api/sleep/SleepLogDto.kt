@@ -3,7 +3,7 @@ package com.michibaum.fitness_service.fitbit.api.sleep
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 data class SleepLogDto(
-    val sleep: List<SleepDto>,
+    val sleep: List<SleepDto> = mutableListOf(),
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,20 +28,13 @@ data class SleepDto(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Levels(
-    val data: List<Data>,
-    val shortData: List<ShortData>?,
+    val data: List<Data>?,
+    val shortData: List<Data>?,
     val summary: Summary,
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Data(
-    val dateTime: String,
-    val level: String,
-    val seconds: Long,
-)
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class ShortData(
     val dateTime: String,
     val level: String,
     val seconds: Long,

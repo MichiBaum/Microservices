@@ -20,6 +20,10 @@ class FitbitApiImpl: FitbitApi {
     .defaultHeaders {
         it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
     }
+    .codecs { configurer ->
+        configurer.defaultCodecs()
+            .maxInMemorySize(10000000)
+    }
     .build()
 
     override fun profile(credentials: FitbitOAuthCredentials): ProfileDto? {
@@ -59,10 +63,8 @@ class FitbitApiImpl: FitbitApi {
             ?.weight ?: emptyList()
     }
 
-    override fun sleepLog(credentials: FitbitOAuthCredentials): List<SleepDto> {
+    override fun sleepLog(credentials: FitbitOAuthCredentials, startDate: String, endDate: String): List<SleepDto> {
         // Maximum range: 100 days
-        val startDate = "2024-10-01" // Format yyyy-MM-dd
-        val endDate= "2024-10-31"
 
         return client.get()
             .uri("/1.2/user/${credentials.fitbitUserId}/sleep/date/$startDate/$endDate.json")

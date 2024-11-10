@@ -11,6 +11,6 @@ interface FitbitApi {
 
     fun weightLog(credentials: FitbitOAuthCredentials, startDate: String, endDate: String): List<WeightDto>
 
-    fun sleepLog(credentials: FitbitOAuthCredentials): List<SleepDto>
+    fun sleepLog(credentials: FitbitOAuthCredentials, startDate: String, endDate: String): List<SleepDto>
 
 }

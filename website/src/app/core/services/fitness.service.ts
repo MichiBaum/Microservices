@@ -1,26 +1,31 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {Token} from "../models/fitness/token.model";
 import {Weight} from "../models/fitness/weight.model";
 import {Profile} from "../models/fitness/profile.model";
+import {HttpErrorHandler} from "../config/http-error-handler.service";
+import {UserInfoService} from "./user-info.service";
 
 @Injectable({providedIn: 'root'})
 export class FitnessService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private httpErrorConfig: HttpErrorHandler, private userInfoService: UserInfoService) {
   }
 
   getToken(): Observable<Token> {
     return this.http.get<Token>(environment.fitnessService + '/fitbit/token')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
   getWeight(): Observable<Weight[]> {
     return this.http.get<Weight[]>(environment.fitnessService + '/weight')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
   getProfile(): Observable<Profile> {
     return this.http.get<Profile>(environment.fitnessService + '/profile')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 }

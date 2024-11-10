@@ -51,15 +51,17 @@ class FitbitOAuthController(
         val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
         val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
 
-        val response = WebClient.builder()
-            .baseUrl("https://api.fitbit.com/oauth2/token")
-            .defaultHeaders { 
+        val client = WebClient.builder()
+            .baseUrl("https://api.fitbit.com")
+            .defaultHeaders {
                 it.set("Authorization", "Basic $authBasic")
                 it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 it.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
             }
             .build()
+        val response = client
             .post()
+            .uri("/oauth2/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .body(
                 BodyInserters.fromFormData("client_id", fitbitOAuthProperties.clientId)
