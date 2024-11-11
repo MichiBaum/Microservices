@@ -28,6 +28,6 @@ open class Sleep(
 
     @Id
     @UuidGenerator
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID = UUID.randomUUID()
 ) {
 }

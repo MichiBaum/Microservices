@@ -10,6 +10,7 @@ import {FitnessProfileComponent} from "./fitness-profile/fitness-profile.compone
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {FormsModule} from "@angular/forms";
+import {FitnessSleepComponent} from "./fitness-sleep/fitness-sleep.component";
 
 @Component({
   selector: 'app-fitness',
@@ -21,7 +22,8 @@ import {FormsModule} from "@angular/forms";
     FitnessProfileComponent,
     FieldsetModule,
     SelectButtonModule,
-    FormsModule
+    FormsModule,
+    FitnessSleepComponent
   ],
   templateUrl: './fitness.component.html',
   styleUrl: './fitness.component.scss'

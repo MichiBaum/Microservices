@@ -11,7 +11,7 @@ class SleepController(
 ) {
 
     @GetMapping(value = ["/api/sleep"])
-    fun getWeight(principal: JwtAuthentication) =
+    fun getSleep(principal: JwtAuthentication): List<SleepDto> =
         sleepService.getByUser(principal.getUserId())
             .map { sleepConverter.toDto(it) }
 

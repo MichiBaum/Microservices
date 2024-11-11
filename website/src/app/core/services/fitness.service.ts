@@ -7,6 +7,7 @@ import {Weight} from "../models/fitness/weight.model";
 import {Profile} from "../models/fitness/profile.model";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
 import {UserInfoService} from "./user-info.service";
+import {Sleep} from "../models/fitness/sleep.model";
 
 @Injectable({providedIn: 'root'})
 export class FitnessService {
@@ -26,6 +27,11 @@ export class FitnessService {
 
   getProfile(): Observable<Profile> {
     return this.http.get<Profile>(environment.fitnessService + '/profile')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  getSleep(): Observable<Sleep[]> {
+    return this.http.get<Sleep[]>(environment.fitnessService + '/sleep')
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 }
