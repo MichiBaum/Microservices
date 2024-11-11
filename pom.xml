@@ -146,6 +146,7 @@
         <module>chess-service</module>
         <module>spring-boot-starter-discord</module>
         <module>fitness-service</module>
+        <module>music-service</module>
     </modules>
 
     <profiles>

@@ -28,6 +28,7 @@ There are these microservices:
 - [Website Service](./website-service/README.md)
 - [Chess Service](./chess-service/README.md)
 - [Fitness Service](./fitness-service/README.md)
+- [Music Service](./music-service/README.md)
 
 And these libraries:
 - [Authentication Library](./authentication-library/README.md)

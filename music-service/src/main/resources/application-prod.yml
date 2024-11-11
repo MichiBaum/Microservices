@@ -1,0 +1,33 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://music-db:3306/${DATABASE}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+  boot:
+    admin:
+      client:
+        username: ${ADMIN_SERVICE_USERNAME}
+        password: ${ADMIN_SERVICE_PASSWORD}
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_MUSIC_SERVICE_LOG_CHANNEL}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://registry-service:8761/eureka
