@@ -54,4 +54,7 @@ class SpotifyOAuthService(
         return spotifyOAuthCredentialsRepository.save(credentials)
     }
 
+    fun activeCredentialsByUser(userId: String): SpotifyOAuthCredentials? =
+        spotifyOAuthCredentialsRepository.findByUserIdAndDeactivatedFalse(userId)
+
 }

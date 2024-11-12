@@ -48,6 +48,22 @@
     </p-card>
   </div>
 
+  <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateMusic()">
+    <p-card header='{{"home.music.title" | translate}}' [style]="{ width: '20rem' }">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="../../assets/images/home_music.jpeg" />
+      </ng-template>
+      <p>
+        {{"home.music.content" | translate}}
+      </p>
+      <ng-template pTemplate="footer">
+        <div class="flex gap-3 mt-1">
+          <p-button label="Go to music" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.music()" />
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
   <div class="flex align-items-center justify-content-center m-2">
     <p-card header='{{"home.about-me.title" | translate}}' [style]="{ width: '20rem' }">
       <ng-template pTemplate="header">

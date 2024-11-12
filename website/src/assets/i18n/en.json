@@ -52,6 +52,10 @@
       "title": "Fitness",
       "content": "Fitness and statistics together? Wooooowww!!"
     },
+    "music": {
+      "title": "Music",
+      "content": "Music speaks what words cannot, touching hearts beyond measure."
+    },
     "about-me": {
       "title": "About me",
       "content": "Who is the developer of this platform? Learn more about me!"
@@ -118,6 +122,9 @@
   },
   "fitness": {
     "title": "Fitness"
+  },
+  "music": {
+    "title": "Music"
   },
   "sw-update": {
     "update-available": "Update available!",

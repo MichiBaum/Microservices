@@ -71,4 +71,8 @@ export class RouterNavigationService {
   fitness() {
     this.router.navigate(['/fitness']);
   }
+
+  music() {
+    this.router.navigate(['/music']);
+  }
 }
