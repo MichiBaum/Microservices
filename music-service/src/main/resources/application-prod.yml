@@ -1,6 +1,11 @@
 server:
   port: 80
 
+spotify:
+  oauth:
+    client-id: ${SPOTIFY_CLIENT_ID}
+    client-secret: ${SPOTIFY_CLIENT_SECRET}
+
 spring:
   datasource:
     username: ${DATABASE_USERNAME}
