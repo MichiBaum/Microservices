@@ -234,7 +234,7 @@ services:
     expose:
       - "3306"
     ports:
-      - "127.0.0.1:3310:3306"
+      - "127.0.0.1:3311:3306"
     volumes:
       - /data/music-db:/var/lib/mysql
     networks:
