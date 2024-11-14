@@ -10,9 +10,11 @@ class BasicAuthenticationManager(private val credentialsValidator: CredentialsVa
     override fun authenticate(authentication: Authentication): Mono<Authentication> {
         return Mono.just(authentication)
             .cast(BasicAuthentication::class.java)
-            .filter { basic: BasicAuthentication -> credentialsValidator.validate(basic) }
-            .map { basic: BasicAuthentication -> basic.apply { isAuthenticated = true } }
-            .switchIfEmpty(Mono.error(BasicAuthenticationException("Invalid token.")))
+            .map { basic: BasicAuthentication ->
+                val valid = credentialsValidator.validate(basic)
+                basic.apply { isAuthenticated = valid }
+            }
+            .switchIfEmpty(Mono.error(BasicAuthenticationException("")))
             .cast(Authentication::class.java)
     }
 

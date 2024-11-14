@@ -29,7 +29,7 @@ class FitbitOAuthService(
      * @param state The unique state value associated with the Fitbit OAuth data.
      * @return The `FitbitOAuthData` object containing the code verifier and challenge.
      */
-    fun findByState(state: String) =
+    fun findByState(state: String): FitbitOAuthData? =
         fitbitOAuthRepository.findByState(state)
 
     /**
@@ -111,7 +111,7 @@ class FitbitOAuthService(
      * @param credentialsDto The DTO containing the OAuth credentials.
      * @param fitbitOAuthData The associated Fitbit OAuth data.
      */
-    fun save(credentialsDto: FitbitOAuthCredentialsDto, fitbitOAuthData: FitbitOAuthData) {
+    fun save(credentialsDto: FitbitOAuthCredentialsDto, fitbitOAuthData: FitbitOAuthData): FitbitOAuthCredentials {
         val fitbitOAuthCredentials = FitbitOAuthCredentials(
             accessToken = credentialsDto.accessToken,
             expiresIn = credentialsDto.expiresIn.toInt(),
@@ -123,7 +123,7 @@ class FitbitOAuthService(
             userId = fitbitOAuthData.userId,
         )
 
-        fitbitOAuthCredentialsRepository.save(fitbitOAuthCredentials)
+        return fitbitOAuthCredentialsRepository.save(fitbitOAuthCredentials)
     }
 
     /**

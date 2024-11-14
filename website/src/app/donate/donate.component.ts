@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {Button} from "primeng/button";
@@ -21,7 +21,10 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
 })
 export class DonateComponent {
 
-  constructor(private headerService: HeaderService, protected router: RouterNavigationService) {
+  constructor(
+    private readonly headerService: HeaderService,
+    protected router: RouterNavigationService
+  ) {
     this.headerService.changeTitle(Sides.donate.translationKey)
   }
 

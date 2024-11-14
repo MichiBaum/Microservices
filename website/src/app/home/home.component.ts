@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {Button} from "primeng/button";
@@ -22,7 +22,11 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class HomeComponent {
 
-  constructor(private headerService: HeaderService, protected routerNavigationService: RouterNavigationService, private permissionService: PermissionService) {
+  constructor(
+    private readonly headerService: HeaderService,
+    protected routerNavigationService: RouterNavigationService,
+    private readonly permissionService: PermissionService
+  ) {
     this.headerService.changeTitle(Sides.home.translationKey)
   }
 
@@ -37,5 +41,9 @@ export class HomeComponent {
 
   canActivateFitness() {
     return Sides.fitness.canActivate(this.permissionService)
+  }
+
+  canActivateMusic() {
+    return Sides.music.canActivate(this.permissionService)
   }
 }

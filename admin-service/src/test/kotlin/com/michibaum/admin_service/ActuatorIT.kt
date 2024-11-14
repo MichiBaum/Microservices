@@ -10,7 +10,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import java.util.*
 
-@ExtendWith(SpringExtension::class)
 @AutoConfigureMockMvc
 @SpringBootTest(properties = [
     "spring.boot.admin.client.username=someUsername",

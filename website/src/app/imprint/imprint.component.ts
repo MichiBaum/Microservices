@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CardModule} from "primeng/card";
 import {TranslateModule} from "@ngx-translate/core";
 import {HeaderService} from "../core/services/header.service";
@@ -16,7 +16,9 @@ import {Sides} from "../core/config/sides";
 })
 export class ImprintComponent {
 
-  constructor(private headerService: HeaderService) {
+  constructor(
+    private readonly headerService: HeaderService
+  ) {
     this.headerService.changeTitle(Sides.imprint.translationKey)
   }
 

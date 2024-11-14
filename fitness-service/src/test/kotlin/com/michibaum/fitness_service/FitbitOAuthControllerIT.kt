@@ -1,20 +1,18 @@
 package com.michibaum.fitness_service
 
-import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthRepository
+import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
+import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 
-@ExtendWith(SpringExtension::class)
 @AutoConfigureWebTestClient
 @SpringBootTest(properties = [
     "fitbit.oauth.client-id=someClientId",
@@ -48,7 +46,7 @@ class FitbitOAuthControllerIT {
     @Test
     fun `isOk`(){
         // GIVEN
-        `when`(jwsValidator.validate(anyString())).thenReturn(true)
+        `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationSuccess())
 
         // WHEN
         webClient.get()

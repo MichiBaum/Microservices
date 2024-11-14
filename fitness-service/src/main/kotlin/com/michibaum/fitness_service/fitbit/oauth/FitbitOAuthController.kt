@@ -15,30 +15,47 @@ import java.util.*
 
 @RestController
 class FitbitOAuthController(
-    val fitbitOAuthService: FitbitOAuthService,
-    val fitbitOAuthProperties: FitbitOAuthProperties
+    private val fitbitOAuthService: FitbitOAuthService,
+    private val fitbitOAuthProperties: FitbitOAuthProperties
 ) {
+
+    private final val client: WebClient
+
+    init {
+        val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
+        val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
+
+        client = WebClient.builder()
+            .baseUrl("https://api.fitbit.com")
+            .defaultHeaders {
+                it.set("Authorization", "Basic $authBasic")
+                it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                it.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+            }
+            .build()
+    }
 
     @GetMapping("/api/fitbit/token")
     fun token(principal: JwtAuthentication): FitbitLoginDto {
-        val fitbitOAuthData = fitbitOAuthService.generateData(principal)
+        val oAuthData = fitbitOAuthService.generateData(principal)
 
         val redirectUri = URLEncoder.encode("https://fitness.michibaum.ch/api/fitbit/auth", StandardCharsets.UTF_8)
 
         // Construct the URL
+        val scopes = "activity+cardio_fitness+electrocardiogram+heartrate+irregular_rhythm_notifications+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight"
         val url = "https://www.fitbit.com/oauth2/authorize?" +
                 "response_type=code" +
                 "&client_id=${fitbitOAuthProperties.clientId}" +
-                "&scope=activity+cardio_fitness+electrocardiogram+heartrate+irregular_rhythm_notifications+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight" +
-                "&code_challenge=${fitbitOAuthData.codeChallenge}" +
+                "&scope=$scopes" +
+                "&code_challenge=${oAuthData.codeChallenge}" +
                 "&code_challenge_method=S256" +
-                "&state=${fitbitOAuthData.state}" +
+                "&state=${oAuthData.state}" +
                 "&redirect_uri=$redirectUri"
 
         return FitbitLoginDto(
             clientId = fitbitOAuthProperties.clientId,
-            codeChallenge = fitbitOAuthData.codeChallenge,
-            state = fitbitOAuthData.state,
+            codeChallenge = oAuthData.codeChallenge,
+            state = oAuthData.state,
             url = url
         )
 
@@ -46,26 +63,17 @@ class FitbitOAuthController(
 
     @GetMapping("/api/fitbit/auth")
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String){
-        val fitbitOAuthData = fitbitOAuthService.findByState(state) ?: throw Exception("")
+        val oAuthData = fitbitOAuthService.findByState(state) ?: throw Exception("No oAuthData found by state $state")
 
-        val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
-        val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
-
-        val response = WebClient.builder()
-            .baseUrl("https://api.fitbit.com/oauth2/token")
-            .defaultHeaders { 
-                it.set("Authorization", "Basic $authBasic")
-                it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                it.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-            }
-            .build()
+        val response = client
             .post()
+            .uri("/oauth2/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .body(
                 BodyInserters.fromFormData("client_id", fitbitOAuthProperties.clientId)
                     .with("grant_type", "authorization_code")
                     .with("code", code)
-                    .with("code_verifier", fitbitOAuthData.codeVerifier)
+                    .with("code_verifier", oAuthData.codeVerifier)
                     .with("redirect_uri", "https://fitness.michibaum.ch/api/fitbit/auth")
             )
             .retrieve()
@@ -77,7 +85,7 @@ class FitbitOAuthController(
             throw Exception("Fitbit OAuth exchange for access token returned null")
         }
 
-        fitbitOAuthService.save(response, fitbitOAuthData)
+        val credentials = fitbitOAuthService.save(response, oAuthData)
 
         // TODO return something
 

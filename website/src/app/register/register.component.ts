@@ -34,7 +34,12 @@ export class RegisterComponent implements OnInit{
   password: string = "";
   passwordRepeat: string = "";
 
-  constructor(private authService: AuthService, private headerService: HeaderService, private router: RouterNavigationService, private userInfoService: UserInfoService) {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly headerService: HeaderService,
+    private readonly router: RouterNavigationService,
+    private readonly userInfoService: UserInfoService
+  ) {
   }
 
   ngOnInit(): void {

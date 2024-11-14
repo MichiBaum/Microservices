@@ -1,5 +1,6 @@
 package com.michibaum.gatewayservice
 
+import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import org.springframework.cloud.gateway.filter.GatewayFilter
 import org.springframework.cloud.gateway.filter.GatewayFilterChain
@@ -22,7 +23,7 @@ class AuthenticationGatewayFilterFactory(
             exchange.let {
                 val token = getToken(it)
                 return@GatewayFilter if (token != null) {
-                    if (jwsValidator.validate(token)) {
+                    if (validate(token)) {
                         chain.filter(exchange) ?: Mono.empty() // Continue the filter chain if it isn't null. If it is null, return an empty Mono.
                     } else {
                         handleAuthenticationFailure(it)
@@ -32,6 +33,14 @@ class AuthenticationGatewayFilterFactory(
                 }
             }
 
+        }
+    }
+
+    fun validate(token: String): Boolean {
+        val valid = jwsValidator.validate(token)
+        return when(valid){
+            is JwsValidationSuccess -> true
+            else -> false
         }
     }
 

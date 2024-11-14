@@ -15,7 +15,9 @@ import {NgIf} from "@angular/common";
 export class FitnessProfileComponent implements OnInit{
   protected profile: Profile | undefined;
 
-  constructor(private fitnessService: FitnessService) {
+  constructor(
+    private readonly fitnessService: FitnessService
+  ) {
   }
 
   ngOnInit(): void {

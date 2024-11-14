@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
-import {LightDarkMode, LightDarkModeService} from "./core/services/light-dark-mode.service";
+import {LightDarkModeService} from "./core/services/light-dark-mode.service";
 import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
 import {TranslateService} from "@ngx-translate/core";
 import {ToastModule} from "primeng/toast";
@@ -20,13 +20,13 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 export class AppComponent implements OnInit {
 
   constructor(
-    private lightDarkModeService: LightDarkModeService,
-    private primengConfig: PrimeNGConfig,
-    private translateService: TranslateService,
-    private messageService: MessageService,
-    private userInfoService: UserInfoService,
-    private swUpdate: SwUpdate,
-    private confirmationService: ConfirmationService
+    private readonly lightDarkModeService: LightDarkModeService,
+    private readonly primengConfig: PrimeNGConfig,
+    private readonly translateService: TranslateService,
+    private readonly messageService: MessageService,
+    private readonly userInfoService: UserInfoService,
+    private readonly swUpdate: SwUpdate,
+    private readonly confirmationService: ConfirmationService
   ) {
   }
 

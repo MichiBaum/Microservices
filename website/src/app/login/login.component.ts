@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
@@ -32,7 +32,11 @@ export class LoginComponent implements OnInit{
   username: string = "";
   password: string = "";
 
-  constructor(private authService: AuthService, private headerService: HeaderService, private router: RouterNavigationService) {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly headerService: HeaderService,
+    private readonly router: RouterNavigationService
+  ) {
   }
 
   ngOnInit(): void {

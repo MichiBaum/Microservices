@@ -1,5 +1,4 @@
 <div class="grid">
-  <p-button (onClick)="getTokenUrl()">Fitbit Login</p-button>
   <div class="col-12">
     <p-fieldset legend="Profile" [toggleable]="true">
       <app-fitness-profile></app-fitness-profile>
@@ -22,6 +21,7 @@
   </div>
   <div class="{{screenSize}}">
     <p-fieldset legend="Sleep" [toggleable]="true">
+      <app-fitness-sleep></app-fitness-sleep>
     </p-fieldset>
   </div>
   <div class="{{screenSize}}">

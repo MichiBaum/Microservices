@@ -21,7 +21,9 @@ export class FitnessWeightComponent implements OnInit {
   bmiChartData: any;
   bmiChartOptions: any;
 
-  constructor(private fitnessService: FitnessService) {}
+  constructor(
+    private readonly fitnessService: FitnessService
+  ) {}
 
   ngOnInit(): void {
     this.getWeightData()

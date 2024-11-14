@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
 import {Authentication, AuthenticationResponse} from "../models/authentication.model";
 import {environment} from "../../../environments/environment";
 import {RouterNavigationService} from "./router-navigation.service";
-import {Subject} from "rxjs";
+import {catchError, Subject} from "rxjs";
+import {HttpErrorHandler} from "../config/http-error-handler.service";
+import {UserInfoService} from "./user-info.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -12,12 +13,18 @@ export class AuthService {
   successLoginEmitter = new Subject<void>();
   logoutEmitter = new Subject<void>()
 
-  constructor(private http: HttpClient, private router: RouterNavigationService) {
+  constructor(
+    private http: HttpClient,
+    private router: RouterNavigationService,
+    private httpErrorConfig: HttpErrorHandler,
+    private userInfoService: UserInfoService
+  ) {
   }
 
   login(username:string, password:string ) {
     let autentication = {username: username, password: password} as Authentication
     this.http.post<AuthenticationResponse>(environment.authenticationService + '/authenticate', autentication)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)))
       .subscribe(value => {
         if(value.jwt != null && value.jwt !== ""){
           console.log("Successful authentication -> jwt saved in localstorage");
@@ -30,7 +37,9 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('Authentication');
-    this.http.post(environment.authenticationService + '/logout', {}).subscribe();
+    this.http.post(environment.authenticationService + '/logout', {})
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)))
+      .subscribe();
     this.logoutEmitter.next();
     this.router.home()
   }

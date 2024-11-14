@@ -20,7 +20,10 @@ export class LogoutComponent implements OnInit{
   protected readonly faArrowRightFromBracket = faArrowRightFromBracket;
   visible = true
 
-  constructor(private authService: AuthService, private routerNavigation: RouterNavigationService) {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly routerNavigation: RouterNavigationService
+  ) {
 
   }
 

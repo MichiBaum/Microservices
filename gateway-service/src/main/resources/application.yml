@@ -46,6 +46,10 @@ spring:
           uri: lb://fitness-service
           predicates:
             - Host=fitness.michibaum.ch
+        - id: music
+          uri: lb://music-service
+          predicates:
+            - Host=music.michibaum.ch
         - id: website
           uri: lb://website-service
           predicates:

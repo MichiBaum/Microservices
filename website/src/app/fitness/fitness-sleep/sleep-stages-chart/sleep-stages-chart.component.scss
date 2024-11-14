@@ -1,0 +1,35 @@
+/* Define colors for each sleep stage */
+.wake { fill: orange; }
+.light { fill: skyblue; }
+.deep { fill: navy; }
+.rem { fill: purple; }
+
+/* Styling for axes */
+.axis text {
+  font-size: 12px;
+  font-weight: bold;
+  fill: #555;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #777;
+  shape-rendering: crispEdges;
+}
+
+/* Tooltip styling */
+:host {
+  ::ng-deep .sleep-chart-tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    padding: 8px;
+    font-size: 12px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    pointer-events: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    color: #333;
+  }
+}

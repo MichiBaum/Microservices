@@ -69,7 +69,10 @@ export class AboutMeComponent implements OnInit{
     {"experience": "Willingness to compromise", "years": "-", "rating": 4},
   ];
 
-  constructor(private headerService: HeaderService, private routerNavigationService: RouterNavigationService) {
+  constructor(
+    private readonly headerService: HeaderService,
+    private readonly routerNavigationService: RouterNavigationService
+  ) {
   }
 
   ngOnInit(): void {
