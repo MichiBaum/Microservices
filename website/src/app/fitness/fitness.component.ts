@@ -36,13 +36,7 @@ export class FitnessComponent implements OnInit{
 
   constructor(
     private readonly headerService: HeaderService,
-    private readonly fitnessService: FitnessService,
-    private readonly router: RouterNavigationService
   ) {
-  }
-
-  getTokenUrl(){
-    this.fitnessService.getToken().subscribe(token => this.router.openPopup(token.url.replace(/ /g, "")));
   }
 
   ngOnInit(): void {

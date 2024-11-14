@@ -42,4 +42,8 @@ export class HomeComponent {
   canActivateFitness() {
     return Sides.fitness.canActivate(this.permissionService)
   }
+
+  canActivateMusic() {
+    return Sides.music.canActivate(this.permissionService)
+  }
 }

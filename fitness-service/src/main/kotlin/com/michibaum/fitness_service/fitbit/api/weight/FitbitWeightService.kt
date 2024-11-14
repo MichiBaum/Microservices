@@ -11,6 +11,8 @@ class FitbitWeightService(
     @Transactional
     fun update(weights: List<FitbitWeight>) {
         fitbitWeightRepository.deleteAllByFitbitIdIn(weights.map { it.fitbitId })
+        // TODO does work with flush, but there is a risk of loosing data. Problem ist transaction and sequence of statements
+        fitbitWeightRepository.flush()
         fitbitWeightRepository.saveAll(weights)
     }
 

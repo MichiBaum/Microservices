@@ -11,6 +11,8 @@ class FitbitSleepService(
     @Transactional
     fun update(sleeps: List<FitbitSleep>) {
         fitbitSleepRepository.deleteAllByFitbitIdIn(sleeps.map { it.fitbitId })
+        // TODO does work with flush, but there is a risk of loosing data. Problem ist transaction and sequence of statements
+        fitbitSleepRepository.flush()
         fitbitSleepRepository.saveAll(sleeps)
     }
 

@@ -17,7 +17,7 @@ class FitbitOAuthImpl(
     val fitbitOAuthProperties: FitbitOAuthProperties
 ): FitbitOAuth {
 
-    override fun refreshToken(principal: JwtAuthentication): FitbitOAuthCredentials {
+    private fun refreshToken(principal: JwtAuthentication): FitbitOAuthCredentials {
         val credentials = fitbitOAuthService.activeCredentialsByUser(principal.getUserId()) ?: throw Exception("")
 
         val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
@@ -52,18 +52,17 @@ class FitbitOAuthImpl(
     }
 
     /**
-     * Fetches the active Fitbit OAuth credentials for the given user, represented by the provided principal.
-     * If the credentials are expired, attempts to refresh the token and returns the new credentials.
+     * Retrieves the Fitbit OAuth credentials for a given user, refreshing the token if necessary.
      *
-     * @param principal The JWT authentication token containing the user's details.
-     * @return The active or refreshed Fitbit OAuth credentials, or null if no valid credentials are found.
+     * @param principal The principal containing user authentication details.
+     * @return The Fitbit OAuth credentials or null if no active credentials are found.
      */
     override fun getCredentials(principal: JwtAuthentication): FitbitOAuthCredentials? {
         val credentials = fitbitOAuthService.activeCredentialsByUser(principal.getUserId()) ?: return null
 
-        // Now, but with a buffer of 5 minutes, so that there can be no error by the access token expiring during the request
+        // Now, but with a buffer of 5 minutes, so that there should not occur an error by the access token expiring during the request
         val now = Instant.now().minusSeconds(300)
-        if(credentials.validUntil.isBefore(now)){
+        if(credentials.validUntil.isAfter(now)){
             return refreshToken(principal)
         }
 

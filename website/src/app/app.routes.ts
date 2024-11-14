@@ -9,6 +9,7 @@ import {ChessComponent} from "./chess/chess.component";
 import {DonateComponent} from "./donate/donate.component";
 import {RegisterComponent} from "./register/register.component";
 import {FitnessComponent} from "./fitness/fitness.component";
+import {MusicComponent} from "./music/music.component";
 
 export const routes: Routes = [
   {
@@ -70,5 +71,11 @@ export const routes: Routes = [
     component: FitnessComponent,
     canActivate: Sides.fitness.routeCanActivate,
     data: {permissions: Sides.fitness.neededPermissions}
+  },
+  {
+    path: Sides.music.navigation,
+    component: MusicComponent,
+    canActivate: Sides.music.routeCanActivate,
+    data: {permissions: Sides.music.neededPermissions}
   }
 ];

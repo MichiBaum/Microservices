@@ -12,7 +12,7 @@ import {LightDarkModeService} from "../../core/services/light-dark-mode.service"
 import {Ripple} from "primeng/ripple";
 import {
   faChess,
-  faCoffee,
+  faCoffee, faCompactDisc,
   faDumbbell,
   faHouse,
   faLightbulb,
@@ -106,6 +106,15 @@ export class NavigationComponent implements OnInit{
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.fitness();
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant(Sides.music.translationKey),
+            customIcon: faCompactDisc,
+            visible: Sides.music.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible = false;
+              this.routerNavigationService.music();
             }
           } as MenuItem,
           {

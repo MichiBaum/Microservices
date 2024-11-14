@@ -203,6 +203,43 @@ services:
     networks:
       - microservice-network
 
+  music-service:
+    image: 70131370/music-service
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - registry-service
+      - music-db
+    environment:
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_USERNAME: ${MUSIC_DB_USERNAME}
+      DATABASE_PASSWORD: ${MUSIC_DB_PASSWORD}
+      DATABASE: ${MUSIC_DB}
+    expose:
+      - "80"
+    networks:
+      - microservice-network
+
+  music-db:
+    image: mariadb:lts-noble
+    env_file:
+      - .env
+    restart: always
+    environment:
+      MARIADB_USER: ${MUSIC_DB_USERNAME}
+      MARIADB_PASSWORD: ${MUSIC_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MUSIC_DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MUSIC_DB}
+    expose:
+      - "3306"
+    ports:
+      - "127.0.0.1:3310:3306"
+    volumes:
+      - /data/music-db:/var/lib/mysql
+    networks:
+      - microservice-network
+
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
 # https://github.com/matomo-org/docker
