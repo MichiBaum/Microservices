@@ -89,6 +89,8 @@ In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
     127.0.0.1 admin.michibaum.ch
     127.0.0.1 usermanagement.michibaum.ch
     127.0.0.1 authentication.michibaum.ch
+    127.0.0.1 fitness.michibaum.ch
+    127.0.0.1 music.michibaum.ch
     127.0.0.1 michibaum.ch
 
 #### Linux

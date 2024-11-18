@@ -6,8 +6,10 @@ import com.michibaum.music_service.spotify.api.user.dtos.TimeRange
 import com.michibaum.music_service.spotify.api.user.dtos.SpotifyTopItemsDto
 import com.michibaum.music_service.spotify.api.user.dtos.SpotifyUserDto
 import com.michibaum.music_service.spotify.oauth.SpotifyOAuthCredentials
+import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 
+@Component
 class SpotifyUserApiImpl: AbstractSpotifyApiClient(), SpotifyUserApi {
 
     override fun myProfile(credentials: SpotifyOAuthCredentials): SpotifyMeDto? {
