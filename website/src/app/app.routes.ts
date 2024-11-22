@@ -10,6 +10,9 @@ import {DonateComponent} from "./donate/donate.component";
 import {RegisterComponent} from "./register/register.component";
 import {FitnessComponent} from "./fitness/fitness.component";
 import {MusicComponent} from "./music/music.component";
+import {ChessSettingsComponent} from "./chess-settings/chess-settings.component";
+import {FitnessSettingsComponent} from "./fitness-settings/fitness-settings.component";
+import {MusicSettingsComponent} from "./music-settings/music-settings.component";
 
 export const routes: Routes = [
   {
@@ -61,6 +64,12 @@ export const routes: Routes = [
     data: {permissions: Sides.chess.neededPermissions}
   },
   {
+    path: Sides.chess_settings.navigation,
+    component: ChessSettingsComponent,
+    canActivate: Sides.chess_settings.routeCanActivate,
+    data: {permissions: Sides.chess_settings.neededPermissions}
+  },
+  {
     path: Sides.donate.navigation,
     component: DonateComponent,
     canActivate: Sides.donate.routeCanActivate,
@@ -73,9 +82,21 @@ export const routes: Routes = [
     data: {permissions: Sides.fitness.neededPermissions}
   },
   {
+    path: Sides.fitness_settings.navigation,
+    component: FitnessSettingsComponent,
+    canActivate: Sides.fitness_settings.routeCanActivate,
+    data: {permissions: Sides.fitness_settings.neededPermissions}
+  },
+  {
     path: Sides.music.navigation,
     component: MusicComponent,
     canActivate: Sides.music.routeCanActivate,
     data: {permissions: Sides.music.neededPermissions}
+  },
+  {
+    path: Sides.music_settings.navigation,
+    component: MusicSettingsComponent,
+    canActivate: Sides.music_settings.routeCanActivate,
+    data: {permissions: Sides.music_settings.neededPermissions}
   }
 ];

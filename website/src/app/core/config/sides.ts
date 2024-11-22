@@ -69,6 +69,14 @@ export const Sides = {
     routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.CHESS_SERVICE]
   } as Side,
+  chess_settings: {
+    name: "chess-settings",
+    translationKey: "chess-settings.title",
+    navigation: "chess-settings",
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.CHESS_SERVICE]),
+    routeCanActivate: [isAuthenticatedGuard],
+    neededPermissions: [Permissions.CHESS_SERVICE]
+  } as Side,
   default: {
     name: "default",
     translationKey: "",
@@ -93,6 +101,14 @@ export const Sides = {
     routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.FITNESS_SERVICE]
   } as Side,
+  fitness_settings:{
+    name: "fitness-settings",
+    translationKey: "fitness-settings.title",
+    navigation: "fitness-settings",
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.FITNESS_SERVICE]),
+    routeCanActivate: [isAuthenticatedGuard],
+    neededPermissions: [Permissions.FITNESS_SERVICE]
+  } as Side,
   music:{
     name: "music",
     translationKey: "music.title",
@@ -100,5 +116,13 @@ export const Sides = {
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
     routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.MUSIC_SERVICE]
-  } as Side
+  } as Side,
+  music_settings:{
+    name: "music-settings",
+    translationKey: "music-settings.title",
+    navigation: "music-settings",
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
+    routeCanActivate: [isAuthenticatedGuard],
+    neededPermissions: [Permissions.MUSIC_SERVICE]
+  } as Side,
 }

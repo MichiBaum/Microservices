@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SplitterModule} from "primeng/splitter";
 import {ChessPlayerSearchComponent} from "./chess-player-search/chess-player-search.component";
 import {ChessAccountsComponent} from "./chess-accounts/chess-accounts.component";
@@ -19,13 +19,15 @@ import {Sides} from "../core/config/sides";
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'
 })
-export class ChessComponent {
+export class ChessComponent implements OnInit{
 
   persons: Person[] = []
 
   constructor(
     private readonly headerService: HeaderService
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.headerService.changeTitle(Sides.chess.translationKey)
   }
 

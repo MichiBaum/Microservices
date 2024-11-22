@@ -131,7 +131,33 @@ export class NavigationComponent implements OnInit{
       {
         label: this.translate.instant('navigation.settings'),
         items: [
-
+          {
+            label: this.translate.instant(Sides.fitness_settings.translationKey),
+            customIcon: faDumbbell,
+            visible: Sides.fitness_settings.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible = false;
+              this.routerNavigationService.fitness_settings();
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant(Sides.music_settings.translationKey),
+            customIcon: faCompactDisc,
+            visible: Sides.music_settings.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible = false;
+              this.routerNavigationService.music_settings();
+            }
+          } as MenuItem,
+          {
+            label: this.translate.instant(Sides.chess_settings.translationKey),
+            customIcon: faChess,
+            visible: Sides.chess_settings.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible = false;
+              this.routerNavigationService.chess_settings();
+            }
+          } as MenuItem,
         ]
       },
       {

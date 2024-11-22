@@ -78,6 +78,9 @@
       "lastname": "Lastname"
     }
   },
+  "chess-settings": {
+    "title": "Chess Settings"
+  },
   "login": {
     "title": "Login",
     "username": "Username",
@@ -123,8 +126,14 @@
   "fitness": {
     "title": "Fitness"
   },
+  "fitness-settings": {
+    "title": "Fitness Settings"
+  },
   "music": {
     "title": "Music"
+  },
+  "music-settings": {
+    "title": "Music Settings"
   },
   "sw-update": {
     "update-available": "Update available!",

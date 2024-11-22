@@ -1,0 +1,444 @@
+// primeflex has these sizes
+//@media screen and (min-width: 1200px){ // xl
+//@media screen and (min-width: 992px) { // lg
+//@media screen and (min-width: 768px) { // md
+//@media screen and (min-width: 576px) { // sm
+
+
+$mobile-max: 500px;
+$tablet-max: 768px;
+$laptop-max: 1024px;
+$laptop-l-max: 1440px;
+$qhd: 2560px;
+
+@media screen and (0 <= width <= $mobile-max) {
+  .mobile\:col-width {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+  .mobile\:col-width-fixed {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+  }
+  .mobile\:col-width-1 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 8.3333%;
+  }
+  .mobile\:col-width-2 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 16.6667%;
+  }
+  .mobile\:col-width-3 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 25%;
+  }
+  .mobile\:col-width-4 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 33.3333%;
+  }
+  .mobile\:col-width-5 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 41.6667%;
+  }
+  .mobile\:col-width-6 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
+  }
+  .mobile\:col-width-7 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 58.3333%;
+  }
+  .mobile\:col-width-8 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 66.6667%;
+  }
+  .mobile\:col-width-9 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 75%;
+  }
+  .mobile\:col-width-10 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 83.3333%;
+  }
+  .mobile\:col-width-11 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 91.6667%;
+  }
+  .mobile\:col-width-12 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+  }
+}
+
+@media screen and ($mobile-max <= width <= $tablet-max) {
+  .tablet\:col-width {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+  .tablet\:col-width-fixed {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+  }
+  .tablet\:col-width-1 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 8.3333%;
+  }
+  .tablet\:col-width-2 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 16.6667%;
+  }
+  .tablet\:col-width-3 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 25%;
+  }
+  .tablet\:col-width-4 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 33.3333%;
+  }
+  .tablet\:col-width-5 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 41.6667%;
+  }
+  .tablet\:col-width-6 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
+  }
+  .tablet\:col-width-7 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 58.3333%;
+  }
+  .tablet\:col-width-8 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 66.6667%;
+  }
+  .tablet\:col-width-9 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 75%;
+  }
+  .tablet\:col-width-10 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 83.3333%;
+  }
+  .tablet\:col-width-11 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 91.6667%;
+  }
+  .tablet\:col-width-12 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+  }
+}
+
+@media screen and ($tablet-max <= width <= $laptop-max) {
+  .laptop\:col-width {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+  .laptop\:col-width-fixed {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+  }
+  .laptop\:col-width-1 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 8.3333%;
+  }
+  .laptop\:col-width-2 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 16.6667%;
+  }
+  .laptop\:col-width-3 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 25%;
+  }
+  .laptop\:col-width-4 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 33.3333%;
+  }
+  .laptop\:col-width-5 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 41.6667%;
+  }
+  .laptop\:col-width-6 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
+  }
+  .laptop\:col-width-7 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 58.3333%;
+  }
+  .laptop\:col-width-8 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 66.6667%;
+  }
+  .laptop\:col-width-9 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 75%;
+  }
+  .laptop\:col-width-10 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 83.3333%;
+  }
+  .laptop\:col-width-11 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 91.6667%;
+  }
+  .laptop\:col-width-12 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+  }
+}
+
+@media screen and ($laptop-max <= width <= $laptop-l-max) {
+  .laptop-l\:col-width {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+  .laptop-l\:col-width-fixed {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+  }
+  .laptop-l\:col-width-1 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 8.3333%;
+  }
+  .laptop-l\:col-width-2 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 16.6667%;
+  }
+  .laptop-l\:col-width-3 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 25%;
+  }
+  .laptop-l\:col-width-4 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 33.3333%;
+  }
+  .laptop-l\:col-width-5 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 41.6667%;
+  }
+  .laptop-l\:col-width-6 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
+  }
+  .laptop-l\:col-width-7 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 58.3333%;
+  }
+  .laptop-l\:col-width-8 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 66.6667%;
+  }
+  .laptop-l\:col-width-9 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 75%;
+  }
+  .laptop-l\:col-width-10 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 83.3333%;
+  }
+  .laptop-l\:col-width-11 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 91.6667%;
+  }
+  .laptop-l\:col-width-12 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+  }
+}
+
+@media screen and ($laptop-l-max <= width <= $qhd) {
+  .qhd\:col-width {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+  .qhd\:col-width-fixed {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+  }
+  .qhd\:col-width-1 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 8.3333%;
+  }
+  .qhd\:col-width-2 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 16.6667%;
+  }
+  .qhd\:col-width-3 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 25%;
+  }
+  .qhd\:col-width-4 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 33.3333%;
+  }
+  .qhd\:col-width-5 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 41.6667%;
+  }
+  .qhd\:col-width-6 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
+  }
+  .qhd\:col-width-7 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 58.3333%;
+  }
+  .qhd\:col-width-8 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 66.6667%;
+  }
+  .qhd\:col-width-9 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 75%;
+  }
+  .qhd\:col-width-10 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 83.3333%;
+  }
+  .qhd\:col-width-11 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 91.6667%;
+  }
+  .qhd\:col-width-12 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+  }
+}
+
+@media screen and ( width > $qhd) {
+  .max-width\:col-width {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+  .max-width\:col-width-fixed {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+  }
+  .max-width\:col-width-1 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 8.3333%;
+  }
+  .max-width\:col-width-2 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 16.6667%;
+  }
+  .max-width\:col-width-3 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 25%;
+  }
+  .max-width\:col-width-4 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 33.3333%;
+  }
+  .max-width\:col-width-5 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 41.6667%;
+  }
+  .max-width\:col-width-6 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 50%;
+  }
+  .max-width\:col-width-7 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 58.3333%;
+  }
+  .max-width\:col-width-8 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 66.6667%;
+  }
+  .max-width\:col-width-9 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 75%;
+  }
+  .max-width\:col-width-10 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 83.3333%;
+  }
+  .max-width\:col-width-11 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 91.6667%;
+  }
+  .max-width\:col-width-12 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+  }
+}
