@@ -13,3 +13,7 @@
 ## Potential Issues
 
     ng lint
+
+## Compodoc
+  
+    npm run compodoc:build-and-serve

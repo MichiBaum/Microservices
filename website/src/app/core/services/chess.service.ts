@@ -12,7 +12,6 @@ export class ChessService {
   constructor(private http: HttpClient, private httpErrorConfig: HttpErrorHandler, private userInfoService: UserInfoService) {
   }
 
-
   search(searchPerson: SearchPerson): Observable<Person[]> {
     return this.http.post<Person[]>(environment.chessService + '/persons/search', searchPerson)
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));

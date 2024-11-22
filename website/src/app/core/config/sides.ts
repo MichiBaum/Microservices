@@ -124,5 +124,5 @@ export const Sides = {
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
     routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.MUSIC_SERVICE]
-  } as Side,
+  } as Side
 }

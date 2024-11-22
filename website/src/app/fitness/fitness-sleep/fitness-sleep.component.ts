@@ -6,7 +6,7 @@ import {SleepStagesChartComponent} from "./sleep-stages-chart/sleep-stages-chart
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {DatePipe, NgIf} from "@angular/common";
-import {SecondsPipe} from "../../core/pipes/Seconds";
+import {SecondsPipe} from "../../core/pipes/seconds.pipe";
 
 @Component({
   selector: 'app-fitness-sleep',

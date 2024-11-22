@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build-production": "ng build --configuration production",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "compodoc:build": "compodoc -p tsconfig.doc.json",
+    "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
+    "compodoc:serve": "compodoc -s"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +49,7 @@
     "@angular/cli": "^18.2.11",
     "@angular/compiler-cli": "^18.2.10",
     "@angular/localize": "^18.2.10",
+    "@compodoc/compodoc": "^1.1.26",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "18.3.1",
     "eslint": "^9.9.1",

@@ -79,15 +79,30 @@ export class AboutMeComponent implements OnInit{
     this.headerService.changeTitle(Sides.about_me.translationKey)
   }
 
-  openLinkedIn() {
+  /**
+   * Navigates to the LinkedIn page using the router navigation service.
+   *
+   * @return {void} This method does not return a value.
+   */
+  openLinkedIn(): void {
     this.routerNavigationService.linkedIn()
   }
 
-  openGithub() {
+  /**
+   * Navigates the user to the GitHub page using the router navigation service.
+   *
+   * @return {void}
+   */
+  openGithub(): void {
     this.routerNavigationService.github()
   }
 
-  openDonate() {
+  /**
+   * Navigates the application to the donate page using the router navigation service.
+   *
+   * @return {void}
+   */
+  openDonate(): void {
     this.routerNavigationService.donate()
   }
 }
