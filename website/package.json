@@ -11,7 +11,10 @@
     "lint": "ng lint",
     "compodoc:build": "compodoc -p tsconfig.doc.json",
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
-    "compodoc:serve": "compodoc -s"
+    "compodoc:serve": "compodoc -s",
+    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -50,6 +53,7 @@
     "@angular/compiler-cli": "^18.2.10",
     "@angular/localize": "^18.2.10",
     "@compodoc/compodoc": "^1.1.26",
+    "@cypress/schematic": "^2.5.2",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "18.3.1",
     "eslint": "^9.9.1",
@@ -60,6 +64,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.5",
-    "typescript-eslint": "8.2.0"
+    "typescript-eslint": "8.2.0",
+    "cypress": "latest"
   }
 }
