@@ -6,7 +6,7 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
 import {PermissionService} from "../core/services/permission.service";
 import {AuthService} from "../core/services/auth.service";
 import {Sides} from "../core/config/sides";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
