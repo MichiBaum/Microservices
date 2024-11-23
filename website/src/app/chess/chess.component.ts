@@ -3,7 +3,7 @@ import {SplitterModule} from "primeng/splitter";
 import {ChessPlayerSearchComponent} from "./chess-player-search/chess-player-search.component";
 import {ChessAccountsComponent} from "./chess-accounts/chess-accounts.component";
 import {ChessStatisticComponent} from "./chess-statistic/chess-statistic.component";
-import {Person} from "../core/models/chess.models";
+import {Person} from "../core/models/chess/chess.models";
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 

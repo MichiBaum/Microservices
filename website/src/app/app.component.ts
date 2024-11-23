@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
     this.lightDarkModeService.init(document)
 
-    this.userInfoService.emitter.subscribe(message => this.messageService.add(message))
+    this.userInfoService.messageEmitter.subscribe(message => this.messageService.add(message))
 
     if(this.swUpdate.isEnabled){
       this.swUpdate.checkForUpdate().then((updateAvailable) => {

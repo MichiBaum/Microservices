@@ -4,6 +4,26 @@ import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
 import {RegisterComponent} from "./register/register.component";
 
+/**
+ * The set of routes for the application including navigation paths, components, activation guards, and required permissions.
+ * This configuration supports both eager and lazy loading of components.
+ *
+ * Paths and their corresponding components:
+ * - Default: HomeComponent
+ * - Home: HomeComponent
+ * - Login: LoginComponent
+ * - Register: RegisterComponent
+ * - Microservices: MicroserviceOverviewComponent (lazy-loaded)
+ * - Imprint: ImprintComponent (lazy-loaded)
+ * - About Me: AboutMeComponent (lazy-loaded)
+ * - Chess: ChessComponent (lazy-loaded)
+ * - Chess Settings: ChessSettingsComponent (lazy-loaded)
+ * - Donate: DonateComponent (lazy-loaded)
+ * - Fitness: FitnessComponent (lazy-loaded)
+ * - Fitness Settings: FitnessSettingsComponent (lazy-loaded)
+ * - Music: MusicComponent (lazy-loaded)
+ * - Music Settings: MusicSettingsComponent (lazy-loaded)
+ */
 export const routes: Routes = [
   {
     path: Sides.default.navigation,

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Person, SearchPerson} from "../models/chess.models";
+import {Person, SearchPerson} from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {HttpErrorHandler} from "../config/http-error-handler.service";

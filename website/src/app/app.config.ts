@@ -9,11 +9,25 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {provideServiceWorker} from '@angular/service-worker';
 
-export function TranslateLoaderFactory(http: HttpClient) {
+/**
+ * Creates a new instance of TranslateHttpLoader with the specified HttpClient.
+ *
+ * @param {HttpClient} http - The HttpClient instance to be used for loading translations.
+ *
+ * @return {TranslateHttpLoader} A new instance of TranslateHttpLoader configured with the provided HttpClient.
+ */
+export function TranslateLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-function appInitializerFactory(translate: TranslateService) {
+/**
+ * Initializes the application by setting the default language for the translation service based on
+ * the language preference stored in local storage or falling back to English if not available.
+ *
+ * @param {TranslateService} translate - The translation service used to set the language.
+ * @return {() => Promise<void>} A function that returns a promise, which resolves when the language has been set.
+ */
+function appInitializerFactory(translate: TranslateService): () => Promise<void> {
   return () => {
     const lang = localStorage.getItem('languageIso') ?? 'en';
     translate.setDefaultLang(lang);
@@ -21,6 +35,11 @@ function appInitializerFactory(translate: TranslateService) {
   };
 }
 
+/**
+ * `appConfig` is an object that holds configuration settings for an application.
+ * It specifies providers for various services such as routing, HTTP client,
+ * animations, translation services, and service worker.
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),

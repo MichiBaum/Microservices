@@ -3,8 +3,6 @@ import {Injectable} from "@angular/core";
 @Injectable({providedIn: 'root'})
 export class LightDarkModeService {
 
-  isDarkMode = false;
-
   currentMode(): LightDarkMode{
     const theme: string | null = localStorage.getItem("theme");
     if(theme == null){
@@ -47,7 +45,6 @@ export class LightDarkModeService {
 
     if(lightDarkMode == LightDarkMode.light){
       linkElement.href = 'theme-light.css';
-      this.isDarkMode = false;
       this.saveMode(LightDarkMode.light)
     }
   }
