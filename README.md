@@ -42,9 +42,9 @@ And these databases:
 - Chess DB
 - Fitness DB
 
-## Release
+## Maven
 
-### Maven release plugin
+### Release plugin
 
 The Maven Release Plugin automates the process of releasing project versions by updating version numbers and creating
 tags in the version control system. Use the command `mvn release:update-versions` to update the version information in
