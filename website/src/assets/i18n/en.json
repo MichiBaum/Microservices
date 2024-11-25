@@ -76,6 +76,23 @@
       "search-person": "Search Person",
       "firstname": "Firstname",
       "lastname": "Lastname"
+    },
+    "navigation": {
+      "news": "News",
+      "events": "Events",
+      "player-analysis": "Player Analysis",
+      "settings": "Settings"
+    },
+    "event": {
+      "chess-com": "Chess.com",
+      "details": "Details",
+      "fide": "Fide",
+      "fide-website": "Fide Website",
+      "participants": "Participants",
+      "participant": {
+        "firstname": "Firstname",
+        "lastname": "Lastname"
+      }
     }
   },
   "chess-settings": {

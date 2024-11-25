@@ -40,8 +40,6 @@ spring:
           uri: lb://chess-service
           predicates:
             - Host=chess.michibaum.ch
-          filters:
-            - Authentication
         - id: fitness
           uri: lb://fitness-service
           predicates:

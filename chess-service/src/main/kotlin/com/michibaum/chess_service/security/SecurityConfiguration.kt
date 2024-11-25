@@ -27,6 +27,11 @@ class SecurityConfiguration {
             .authorizeExchange { exchanges: AuthorizeExchangeSpec ->
                 exchanges
                     .pathMatchers(
+                        "/api/events",
+                        "/api/events/**"
+                        // "/api/events/**/participants"
+                    ).permitAll()
+                    .pathMatchers(
                         "/actuator",
                         "/actuator/**"
                     ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)

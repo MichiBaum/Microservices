@@ -3,6 +3,8 @@ import {LoginComponent} from "./login/login.component";
 import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
 import {RegisterComponent} from "./register/register.component";
+import {Permissions} from "./core/config/permissions";
+import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
 
 /**
  * The set of routes for the application including navigation paths, components, activation guards, and required permissions.
@@ -26,87 +28,96 @@ import {RegisterComponent} from "./register/register.component";
  */
 export const routes: Routes = [
   {
-    path: Sides.default.navigation,
+    path: '',
     component: HomeComponent,
-    canActivate: Sides.default.routeCanActivate,
-    data: {permissions: Sides.default.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.home.navigation,
+    path: 'home',
     component: HomeComponent,
-    canActivate: Sides.home.routeCanActivate,
-    data: {permissions: Sides.home.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.login.navigation,
+    path: 'login',
     component: LoginComponent,
-    canActivate: Sides.login.routeCanActivate,
-    data: {permissions: Sides.login.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.register.navigation,
+    path: 'register',
     component: RegisterComponent,
-    canActivate: Sides.register.routeCanActivate,
-    data: {permissions: Sides.register.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.microservices.navigation,
+    path: 'microservices',
     loadComponent: () => import("./microservice-overview/microservice-overview.component").then((c) => c.MicroserviceOverviewComponent),
-    canActivate: Sides.microservices.routeCanActivate,
-    data: {permissions: Sides.microservices.neededPermissions}
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.ADMIN_SERVICE]}
   },
   {
-    path: Sides.imprint.navigation,
+    path: 'imprint',
     loadComponent: () => import("./imprint/imprint.component").then((c) => c.ImprintComponent),
-    canActivate: Sides.imprint.routeCanActivate,
-    data: {permissions: Sides.imprint.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.about_me.navigation,
+    path: "about-me",
     loadComponent: () => import("./about-me/about-me.component").then((c) => c.AboutMeComponent),
-    canActivate: Sides.about_me.routeCanActivate,
-    data: {permissions: Sides.about_me.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.chess.navigation,
+    path: "chess",
     loadComponent: () => import("./chess/chess.component").then((c) => c.ChessComponent),
-    canActivate: Sides.chess.routeCanActivate,
-    data: {permissions: Sides.chess.neededPermissions}
+    children: [
+      {
+        path: "news",
+        loadComponent: () => import("./chess/chess-news/chess-news.component").then((c) => c.ChessNewsComponent),
+        canActivate: []
+      },
+      {
+        path: "events/:id",
+        loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
+        canActivate: []
+      },
+      {
+        path: "player-analysis",
+        loadComponent: () => import("./chess/chess-player-analysis/chess-player-analysis.component").then((c) => c.ChessPlayerAnalysisComponent),
+        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+        data: {"permissions": [Permissions.CHESS_SERVICE]},
+      },
+      {
+        path: "settings",
+        loadComponent: () => import("./chess-settings/chess-settings.component").then((c) => c.ChessSettingsComponent),
+        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+        data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]}
+      }
+    ]
   },
   {
-    path: Sides.chess_settings.navigation,
-    loadComponent: () => import("./chess-settings/chess-settings.component").then((c) => c.ChessSettingsComponent),
-    canActivate: Sides.chess_settings.routeCanActivate,
-    data: {permissions: Sides.chess_settings.neededPermissions}
-  },
-  {
-    path: Sides.donate.navigation,
+    path: 'donate',
     loadComponent: () => import("./donate/donate.component").then((c) => c.DonateComponent),
-    canActivate: Sides.donate.routeCanActivate,
-    data: {permissions: Sides.donate.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.fitness.navigation,
+    path: 'fitness',
     loadComponent: () => import("./fitness/fitness.component").then((c) => c.FitnessComponent),
-    canActivate: Sides.fitness.routeCanActivate,
-    data: {permissions: Sides.fitness.neededPermissions}
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.FITNESS_SERVICE]}
   },
   {
-    path: Sides.fitness_settings.navigation,
+    path: Sides.fitness_settings.navigation, // TODO remove like chess settings
     loadComponent: () => import("./fitness-settings/fitness-settings.component").then((c) => c.FitnessSettingsComponent),
-    canActivate: Sides.fitness_settings.routeCanActivate,
-    data: {permissions: Sides.fitness_settings.neededPermissions}
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.FITNESS_SERVICE]}
   },
   {
-    path: Sides.music.navigation,
+    path: 'music',
     loadComponent: () => import("./music/music.component").then((c) => c.MusicComponent),
-    canActivate: Sides.music.routeCanActivate,
-    data: {permissions: Sides.music.neededPermissions}
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.MUSIC_SERVICE]}
   },
   {
-    path: Sides.music_settings.navigation,
+    path: Sides.music_settings.navigation, // TODO remove like chess settings
     loadComponent: () => import("./music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
-    canActivate: Sides.music_settings.routeCanActivate,
-    data: {permissions: Sides.music_settings.neededPermissions}
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.MUSIC_SERVICE]}
   }
 ];

@@ -1,0 +1,14 @@
+<p-tabView [title]="event?.title">
+  <p-tabPanel header="{{'chess.event.chess-com' | translate}}">
+    <iframe style="border:0;" [src]="embedUrl" scrolling="no"></iframe>
+  </p-tabPanel>
+  <p-tabPanel header="{{'chess.event.details' | translate}}">
+
+    <app-chess-event-participants *ngIf="event" [event]="event"></app-chess-event-participants>
+
+    <div class="flex gap-3 mt-1">
+      <p-button label="Open Chess.com" class="w-full" styleClass="w-full" (onClick)="openEvent()" />
+    </div>
+  </p-tabPanel>
+
+</p-tabView>

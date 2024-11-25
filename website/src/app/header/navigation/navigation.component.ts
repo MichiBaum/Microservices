@@ -26,6 +26,8 @@ import {Sides} from "../../core/config/sides";
 import {PermissionService} from "../../core/services/permission.service";
 import {AuthService} from "../../core/services/auth.service";
 import {ImageModule} from "primeng/image";
+import {NgIf} from "@angular/common";
+import {Permissions} from "../../core/config/permissions";
 
 @Component({
   selector: 'app-navigation',
@@ -40,6 +42,7 @@ import {ImageModule} from "primeng/image";
     FaIconComponent,
     ImageModule,
     TranslateModule,
+    NgIf,
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
@@ -84,7 +87,7 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.login.translationKey),
             customIcon: faHouse,
-            visible: Sides.login.canActivate(this.permissionService),
+            visible: !this.permissionService.isAuthenticated(),
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.login();
@@ -93,7 +96,6 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.home.translationKey),
             customIcon: faHouse,
-            visible: Sides.home.canActivate(this.permissionService),
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.home();
@@ -102,7 +104,7 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.fitness.translationKey),
             customIcon: faDumbbell,
-            visible: Sides.fitness.canActivate(this.permissionService),
+            visible: this.permissionService.hasAnyOf([Permissions.FITNESS_SERVICE]),
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.fitness();
@@ -120,13 +122,12 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.chess.translationKey),
             customIcon: faChess,
-            visible: Sides.chess.canActivate(this.permissionService),
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.chess();
-            }
+            },
           } as MenuItem
-          ]
+        ]
       },
       {
         label: this.translate.instant('navigation.settings'),
@@ -147,15 +148,6 @@ export class NavigationComponent implements OnInit{
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.music_settings();
-            }
-          } as MenuItem,
-          {
-            label: this.translate.instant(Sides.chess_settings.translationKey),
-            customIcon: faChess,
-            visible: Sides.chess_settings.canActivate(this.permissionService),
-            command: () => {
-              this.sidebarVisible = false;
-              this.routerNavigationService.chess_settings();
             }
           } as MenuItem,
         ]

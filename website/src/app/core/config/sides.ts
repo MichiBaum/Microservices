@@ -1,5 +1,3 @@
-import {isAuthenticatedGuard, isPermittedGuard} from "../guards/auth.guard";
-import {CanActivateFn} from "@angular/router";
 import {Permissions} from "./permissions";
 import {PermissionService} from "../services/permission.service";
 
@@ -8,7 +6,6 @@ interface Side{
   translationKey: string,
   navigation: string,
   canActivate: (service: PermissionService) => boolean,
-  routeCanActivate: Array<CanActivateFn>,
   neededPermissions: Permissions[]
 }
 
@@ -18,7 +15,6 @@ export const Sides = {
     translationKey: "imprint.title",
     navigation: "imprint",
     canActivate: (service: PermissionService) => true,
-    routeCanActivate: [],
     neededPermissions: []
   } as Side,
   microservices: {
@@ -26,7 +22,6 @@ export const Sides = {
     translationKey: "microservices.title",
     navigation: "microservices",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.ADMIN_SERVICE]),
-    routeCanActivate: [isAuthenticatedGuard, isPermittedGuard],
     neededPermissions: [Permissions.ADMIN_SERVICE]
   } as Side,
   about_me: {
@@ -34,7 +29,6 @@ export const Sides = {
     translationKey: "about-me.title",
     navigation: "about-me",
     canActivate: (service: PermissionService) => true,
-    routeCanActivate: [],
     neededPermissions: []
   } as Side,
   login: {
@@ -42,7 +36,6 @@ export const Sides = {
     translationKey: "login.title",
     navigation: "login",
     canActivate: (service: PermissionService) => !service.isAuthenticated(),
-    routeCanActivate: [],
     neededPermissions: []
   } as Side,
   register: {
@@ -50,7 +43,6 @@ export const Sides = {
     translationKey: "register.title",
     navigation: "register",
     canActivate: (service: PermissionService) => !service.isAuthenticated(),
-    routeCanActivate: [],
     neededPermissions: []
   } as Side,
   home: {
@@ -58,7 +50,6 @@ export const Sides = {
     translationKey: "home.title",
     navigation: "home",
     canActivate: (service: PermissionService) => true,
-    routeCanActivate: [],
     neededPermissions: []
   } as Side,
   chess: {
@@ -66,7 +57,6 @@ export const Sides = {
     translationKey: "chess.title",
     navigation: "chess",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.CHESS_SERVICE]),
-    routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.CHESS_SERVICE]
   } as Side,
   chess_settings: {
@@ -74,15 +64,13 @@ export const Sides = {
     translationKey: "chess-settings.title",
     navigation: "chess-settings",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.CHESS_SERVICE]),
-    routeCanActivate: [isAuthenticatedGuard],
-    neededPermissions: [Permissions.CHESS_SERVICE]
+    neededPermissions: [Permissions.CHESS_SERVICE_ADMIN]
   } as Side,
   default: {
     name: "default",
     translationKey: "",
     navigation: "",
     canActivate: (service: PermissionService) => service.isAuthenticated(),
-    routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: []
   } as Side,
   donate:{
@@ -90,7 +78,6 @@ export const Sides = {
     translationKey: "donate.title",
     navigation: "donate",
     canActivate: (service: PermissionService) => true,
-    routeCanActivate: [],
     neededPermissions: []
   } as Side,
   fitness:{
@@ -98,7 +85,6 @@ export const Sides = {
     translationKey: "fitness.title",
     navigation: "fitness",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.FITNESS_SERVICE]),
-    routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.FITNESS_SERVICE]
   } as Side,
   fitness_settings:{
@@ -106,7 +92,6 @@ export const Sides = {
     translationKey: "fitness-settings.title",
     navigation: "fitness-settings",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.FITNESS_SERVICE]),
-    routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.FITNESS_SERVICE]
   } as Side,
   music:{
@@ -114,7 +99,6 @@ export const Sides = {
     translationKey: "music.title",
     navigation: "music",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
-    routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.MUSIC_SERVICE]
   } as Side,
   music_settings:{
@@ -122,7 +106,6 @@ export const Sides = {
     translationKey: "music-settings.title",
     navigation: "music-settings",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
-    routeCanActivate: [isAuthenticatedGuard],
     neededPermissions: [Permissions.MUSIC_SERVICE]
   } as Side
 }

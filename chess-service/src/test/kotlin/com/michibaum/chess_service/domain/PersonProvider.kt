@@ -4,7 +4,7 @@ class PersonProvider {
 
     companion object {
         fun person(accounts: Set<Account> = emptySet()): Person {
-            return Person(firstname = "Michi", lastname = "Baum", accounts = accounts)
+            return Person(firstname = "Michi", lastname = "Baum", fideId = null, accounts = accounts)
         }
     }
 

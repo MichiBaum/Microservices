@@ -11,6 +11,9 @@ class Person(
     @Column(nullable = false)
     val lastname: String,
 
+    @Column(nullable = true)
+    val fideId: String?,
+
     @OneToMany(mappedBy="person", fetch = FetchType.LAZY, targetEntity = Account::class)
     val accounts: Set<Account>,
 
