@@ -20,22 +20,30 @@ class EventController(
 
     @GetMapping("/api/events/{id}")
     fun getEvent(@PathVariable id: String): ResponseEntity<EventDto>{
-        val uuid = UUID.fromString(id)
-        val event = eventService.find(uuid) ?:
-            return ResponseEntity.notFound().build()
-        val dto = eventConverter.toDto(event)
-        return ResponseEntity.ok(dto)
+        return try {
+            val uuid = UUID.fromString(id)
+            val event = eventService.find(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val dto = eventConverter.toDto(event)
+            return ResponseEntity.ok(dto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        }
     }
 
     @GetMapping("/api/events/{id}/participants")
     @Transactional
     fun getEventParticipants(@PathVariable id: String): ResponseEntity<List<ParticipantDto>> {
-        val uuid = UUID.fromString(id)
-        val event = eventService.find(uuid) ?:
-        return ResponseEntity.notFound().build()
-        val participants = event.participants
-            .map { participantDto -> eventConverter.toDto(participantDto) }
-        return ResponseEntity.ok().body(participants)
+        return try {
+            val uuid = UUID.fromString(id)
+            val event = eventService.find(uuid) ?:
+            return ResponseEntity.notFound().build()
+            val participants = event.participants
+                .map { participantDto -> eventConverter.toDto(participantDto) }
+            return ResponseEntity.ok().body(participants)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        }
     }
 
 
