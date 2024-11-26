@@ -41,21 +41,19 @@ class SpotifyOAuthController(
 
         val redirectUri = URLEncoder.encode("https://music.michibaum.ch/api/spotify/auth", StandardCharsets.UTF_8)
         val scopes = "user-read-email user-read-private " + // User
-                "ugc-image-upload " + //Images
+                "ugc-image-upload " + // Images
                 "user-read-playback-state user-modify-playback-state user-read-currently-playing " + // Spotify Connect
                 "app-remote-control streaming " + // Playback
                 "playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public " + // Playlists
                 "user-follow-modify user-follow-read " + // Follow
                 "user-read-playback-position user-top-read user-read-recently-played " + // Listening History
                 "user-library-modify user-library-read" // Library
-        val url = """
-            https://accounts.spotify.com/authorize?
-            response_type=code
-            &client_id=${spotifyOAuthProperties.clientId}
-            &scope=$scopes
-            &redirect_uri=$redirectUri
-            &state=${oAuthData.state}
-        """
+        val url = "https://accounts.spotify.com/authorize?" +
+            "response_type=code" +
+            "&client_id=${spotifyOAuthProperties.clientId}" +
+            "&scope=$scopes" +
+            "&redirect_uri=$redirectUri" +
+            "&state=${oAuthData.state}"
 
         return SpotifyLoginDto(
             clientId = spotifyOAuthProperties.clientId,

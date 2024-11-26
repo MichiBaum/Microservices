@@ -1,0 +1,21 @@
+<p-splitter [panelSizes]="[25, 35, 40]" styleClass="mb-5">
+  <ng-template pTemplate>
+    <div class="col flex align-items-center justify-content-center">
+      <app-chess-player-search
+        style="width: 100%"
+        (accountsToAdd)="onAccountsToAdd($event)"
+        (accountsToRemove)="onAccountsToRemove($event)"
+      ></app-chess-player-search>
+    </div>
+  </ng-template>
+  <ng-template pTemplate>
+    <div class="col flex align-items-center justify-content-center">
+      <app-chess-accounts [persons]="persons"></app-chess-accounts>
+    </div>
+  </ng-template>
+  <ng-template pTemplate>
+    <div class="col flex align-items-center justify-content-center">
+      <app-chess-statistic></app-chess-statistic>
+    </div>
+  </ng-template>
+</p-splitter>

@@ -1,99 +1,111 @@
-<div class="flex flex-row flex-wrap">
+<div class="grid">
 
-  <div class="flex align-items-center justify-content-center m-2" *ngIf="canLogin()">
-    <p-card header='{{"home.login.title" | translate}}' [style]="{ width: '20rem' }">
-      <ng-template pTemplate="header">
-        <img alt="Card" src="../../assets/images/login.jpeg" />
-      </ng-template>
-      <p>
-        {{"home.login.content" | translate}}
-      </p>
-      <ng-template pTemplate="footer">
-        <div class="flex gap-3 mt-1">
-          <p-button label="Go to login" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.login()" />
-        </div>
-      </ng-template>
-    </p-card>
+  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canLogin()">
+    <div class=" align-items-center justify-content-center m-2">
+      <p-card header='{{"home.login.title" | translate}}'>
+        <ng-template pTemplate="header">
+          <img alt="Card" src="../../assets/images/login.jpeg" />
+        </ng-template>
+        <p>
+          {{"home.login.content" | translate}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="gap-3 mt-1">
+            <p-button label="Go to login" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.login()" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 
-  <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateChess()">
-    <p-card header='{{"home.chess.title" | translate}}' [style]="{ width: '20rem' }">
-      <ng-template pTemplate="header">
-        <img alt="Card" src="../../assets/images/home_chess.jpeg" />
-      </ng-template>
-      <p>
-        {{"home.chess.content" | translate}}
-      </p>
-      <ng-template pTemplate="footer">
-        <div class="flex gap-3 mt-1">
-          <p-button label="Go to chess" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.chess()" />
-        </div>
-      </ng-template>
-    </p-card>
+  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
+    <div class="align-items-center justify-content-center m-2">
+      <p-card header='{{"home.chess.title" | translate}}'>
+        <ng-template pTemplate="header">
+          <img alt="Card" src="../../assets/images/home_chess.jpeg" />
+        </ng-template>
+        <p>
+          {{"home.chess.content" | translate}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="gap-3 mt-1">
+            <p-button label="Go to chess" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.chess()" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 
-  <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateFitness()">
-    <p-card header='{{"home.fitness.title" | translate}}' [style]="{ width: '20rem' }">
-      <ng-template pTemplate="header">
-        <img alt="Card" src="../../assets/images/home_fitness.jpeg" />
-      </ng-template>
-      <p>
-        {{"home.fitness.content" | translate}}
-      </p>
-      <ng-template pTemplate="footer">
-        <div class="flex gap-3 mt-1">
-          <p-button label="Go to fitness" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.fitness()" />
-        </div>
-      </ng-template>
-    </p-card>
+  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canActivateFitness()">
+    <div class="align-items-center justify-content-center m-2">
+      <p-card header='{{"home.fitness.title" | translate}}'>
+        <ng-template pTemplate="header">
+          <img alt="Card" src="../../assets/images/home_fitness.jpeg" />
+        </ng-template>
+        <p>
+          {{"home.fitness.content" | translate}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="gap-3 mt-1">
+            <p-button label="Go to fitness" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.fitness()" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 
-  <div class="flex align-items-center justify-content-center m-2" *ngIf="canActivateMusic()">
-    <p-card header='{{"home.music.title" | translate}}' [style]="{ width: '20rem' }">
-      <ng-template pTemplate="header">
-        <img alt="Card" src="../../assets/images/home_music.jpeg" />
-      </ng-template>
-      <p>
-        {{"home.music.content" | translate}}
-      </p>
-      <ng-template pTemplate="footer">
-        <div class="flex gap-3 mt-1">
-          <p-button label="Go to music" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.music()" />
-        </div>
-      </ng-template>
-    </p-card>
+  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canActivateMusic()">
+    <div class="align-items-center justify-content-center m-2">
+      <p-card header='{{"home.music.title" | translate}}'>
+        <ng-template pTemplate="header">
+          <img alt="Card" src="../../assets/images/home_music.jpeg" />
+        </ng-template>
+        <p>
+          {{"home.music.content" | translate}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="gap-3 mt-1">
+            <p-button label="Go to music" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.music()" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 
-  <div class="flex align-items-center justify-content-center m-2">
-    <p-card header='{{"home.about-me.title" | translate}}' [style]="{ width: '20rem' }">
-      <ng-template pTemplate="header">
-        <img alt="Card" src="../../assets/images/home_about-me.jpeg" />
-      </ng-template>
-      <p>
-        {{"home.about-me.content" | translate}}
-      </p>
-      <ng-template pTemplate="footer">
-        <div class="flex gap-3 mt-1">
-          <p-button label="Go to about me" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.about_me()" />
-        </div>
-      </ng-template>
-    </p-card>
+  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
+    <div class="align-items-center justify-content-center m-2">
+      <p-card header='{{"home.about-me.title" | translate}}'>
+        <ng-template pTemplate="header">
+          <img alt="Card" src="../../assets/images/home_about-me.jpeg" />
+        </ng-template>
+        <p>
+          {{"home.about-me.content" | translate}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="gap-3 mt-1">
+            <p-button label="Go to about me" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.about_me()" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 
-  <div class="flex align-items-center justify-content-center m-2">
-    <p-card header='{{"home.donate.title" | translate}}' [style]="{ width: '20rem' }">
-      <ng-template pTemplate="header">
-        <img alt="Card" src="../../assets/images/home_donate.jpeg" />
-      </ng-template>
-      <p>
-        {{"home.donate.content" | translate}}
-      </p>
-      <ng-template pTemplate="footer">
-        <div class="flex gap-3 mt-1">
-          <p-button label="Go to donate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.donate()" />
-        </div>
-      </ng-template>
-    </p-card>
+  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
+    <div class="align-items-center justify-content-center m-2">
+      <p-card header='{{"home.donate.title" | translate}}'>
+        <ng-template pTemplate="header">
+          <img alt="Card" src="../../assets/images/home_donate.jpeg" />
+        </ng-template>
+        <p>
+          {{"home.donate.content" | translate}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="gap-3 mt-1">
+            <p-button label="Go to donate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.donate()" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 
 </div>

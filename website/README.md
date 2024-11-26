@@ -3,7 +3,7 @@
 ## Update Angular
 
     ng version
-    ng update @angular/core @angular/cli
+    ng update
 
 ## Update packages
 
@@ -13,3 +13,7 @@
 ## Potential Issues
 
     ng lint
+
+## Compodoc
+  
+    npm run compodoc:build-and-serve

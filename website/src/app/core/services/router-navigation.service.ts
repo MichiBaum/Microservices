@@ -25,6 +25,10 @@ export class RouterNavigationService {
     this.router.navigate(['/chess']);
   }
 
+  chess_settings() {
+    this.router.navigate(['/chess-settings']);
+  }
+
   open(url: string) {
     window.open(url, '_blank');
   }
@@ -72,7 +76,15 @@ export class RouterNavigationService {
     this.router.navigate(['/fitness']);
   }
 
+  fitness_settings() {
+    this.router.navigate(['/fitness-settings']);
+  }
+
   music() {
     this.router.navigate(['/music']);
+  }
+
+  music_settings() {
+    this.router.navigate(['/music-settings']);
   }
 }

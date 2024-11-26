@@ -76,7 +76,27 @@
       "search-person": "Person suchen",
       "firstname": "Vorname",
       "lastname": "Nachname"
+    },
+    "navigation": {
+      "news": "News",
+      "events": "Events",
+      "player-analysis": "Player Analysis",
+      "settings": "Einstellungen"
+    },
+    "event": {
+      "chess-com": "Chess.com",
+      "details": "Details",
+      "fide": "Fide",
+      "fide-website": "Fide Webseite",
+      "participants": "Teilnehmer",
+      "participant": {
+        "firstname": "Vorname",
+        "lastname": "Nachname"
+      }
     }
+  },
+  "chess-settings": {
+    "title": "Schach Einstellungen"
   },
   "login": {
     "title": "Anmelden",
@@ -123,8 +143,14 @@
   "fitness": {
     "title": "Fitness"
   },
+  "fitness-settings": {
+    "title": "Fitness Einstellungen"
+  },
   "music": {
     "title": "Musik"
+  },
+  "music-settings": {
+    "title": "Musik Einstellungen"
   },
   "sw-update": {
     "update-available": "Update verfügbar!",

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {TableModule} from "primeng/table";
-import {Person} from "../../core/models/chess.models";
+import {Person} from "../../core/models/chess/chess.models";
 import {TreeTableModule} from "primeng/treetable";
 import {TreeNode} from "primeng/api";
 import {TranslateModule} from "@ngx-translate/core";

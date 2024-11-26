@@ -1,81 +1,123 @@
 import {Routes} from '@angular/router';
 import {LoginComponent} from "./login/login.component";
-import {MicroserviceOverviewComponent} from "./microservice-overview/microservice-overview.component";
-import {AboutMeComponent} from "./about-me/about-me.component";
 import {HomeComponent} from "./home/home.component";
-import {ImprintComponent} from "./imprint/imprint.component";
 import {Sides} from "./core/config/sides";
-import {ChessComponent} from "./chess/chess.component";
-import {DonateComponent} from "./donate/donate.component";
 import {RegisterComponent} from "./register/register.component";
-import {FitnessComponent} from "./fitness/fitness.component";
-import {MusicComponent} from "./music/music.component";
+import {Permissions} from "./core/config/permissions";
+import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
 
+/**
+ * The set of routes for the application including navigation paths, components, activation guards, and required permissions.
+ * This configuration supports both eager and lazy loading of components.
+ *
+ * Paths and their corresponding components:
+ * - Default: HomeComponent
+ * - Home: HomeComponent
+ * - Login: LoginComponent
+ * - Register: RegisterComponent
+ * - Microservices: MicroserviceOverviewComponent (lazy-loaded)
+ * - Imprint: ImprintComponent (lazy-loaded)
+ * - About Me: AboutMeComponent (lazy-loaded)
+ * - Chess: ChessComponent (lazy-loaded)
+ * - Chess Settings: ChessSettingsComponent (lazy-loaded)
+ * - Donate: DonateComponent (lazy-loaded)
+ * - Fitness: FitnessComponent (lazy-loaded)
+ * - Fitness Settings: FitnessSettingsComponent (lazy-loaded)
+ * - Music: MusicComponent (lazy-loaded)
+ * - Music Settings: MusicSettingsComponent (lazy-loaded)
+ */
 export const routes: Routes = [
   {
-    path: Sides.default.navigation,
+    path: '',
     component: HomeComponent,
-    canActivate: Sides.default.routeCanActivate,
-    data: {permissions: Sides.default.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.home.navigation,
+    path: 'home',
     component: HomeComponent,
-    canActivate: Sides.home.routeCanActivate,
-    data: {permissions: Sides.home.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.login.navigation,
+    path: 'login',
     component: LoginComponent,
-    canActivate: Sides.login.routeCanActivate,
-    data: {permissions: Sides.login.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.register.navigation,
+    path: 'register',
     component: RegisterComponent,
-    canActivate: Sides.register.routeCanActivate,
-    data: {permissions: Sides.register.neededPermissions}
+    canActivate: [],
   },
   {
-    path: Sides.microservices.navigation,
-    component: MicroserviceOverviewComponent,
-    canActivate: Sides.microservices.routeCanActivate,
-    data: {permissions: Sides.microservices.neededPermissions}
+    path: 'microservices',
+    loadComponent: () => import("./microservice-overview/microservice-overview.component").then((c) => c.MicroserviceOverviewComponent),
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.ADMIN_SERVICE]}
   },
   {
-    path: Sides.imprint.navigation,
-    component: ImprintComponent,
-    canActivate: Sides.imprint.routeCanActivate,
-    data: {permissions: Sides.imprint.neededPermissions}
+    path: 'imprint',
+    loadComponent: () => import("./imprint/imprint.component").then((c) => c.ImprintComponent),
+    canActivate: [],
   },
   {
-    path: Sides.about_me.navigation,
-    component: AboutMeComponent,
-    canActivate: Sides.about_me.routeCanActivate,
-    data: {permissions: Sides.about_me.neededPermissions}
+    path: "about-me",
+    loadComponent: () => import("./about-me/about-me.component").then((c) => c.AboutMeComponent),
+    canActivate: [],
   },
   {
-    path: Sides.chess.navigation,
-    component: ChessComponent,
-    canActivate: Sides.chess.routeCanActivate,
-    data: {permissions: Sides.chess.neededPermissions}
+    path: "chess",
+    loadComponent: () => import("./chess/chess.component").then((c) => c.ChessComponent),
+    children: [
+      {
+        path: "news",
+        loadComponent: () => import("./chess/chess-news/chess-news.component").then((c) => c.ChessNewsComponent),
+        canActivate: []
+      },
+      {
+        path: "events/:id",
+        loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
+        canActivate: []
+      },
+      {
+        path: "player-analysis",
+        loadComponent: () => import("./chess/chess-player-analysis/chess-player-analysis.component").then((c) => c.ChessPlayerAnalysisComponent),
+        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+        data: {"permissions": [Permissions.CHESS_SERVICE]},
+      },
+      {
+        path: "settings",
+        loadComponent: () => import("./chess-settings/chess-settings.component").then((c) => c.ChessSettingsComponent),
+        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+        data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]}
+      }
+    ]
   },
   {
-    path: Sides.donate.navigation,
-    component: DonateComponent,
-    canActivate: Sides.donate.routeCanActivate,
-    data: {permissions: Sides.donate.neededPermissions}
+    path: 'donate',
+    loadComponent: () => import("./donate/donate.component").then((c) => c.DonateComponent),
+    canActivate: [],
   },
   {
-    path: Sides.fitness.navigation,
-    component: FitnessComponent,
-    canActivate: Sides.fitness.routeCanActivate,
-    data: {permissions: Sides.fitness.neededPermissions}
+    path: 'fitness',
+    loadComponent: () => import("./fitness/fitness.component").then((c) => c.FitnessComponent),
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.FITNESS_SERVICE]}
   },
   {
-    path: Sides.music.navigation,
-    component: MusicComponent,
-    canActivate: Sides.music.routeCanActivate,
-    data: {permissions: Sides.music.neededPermissions}
+    path: Sides.fitness_settings.navigation, // TODO remove like chess settings
+    loadComponent: () => import("./fitness-settings/fitness-settings.component").then((c) => c.FitnessSettingsComponent),
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.FITNESS_SERVICE]}
+  },
+  {
+    path: 'music',
+    loadComponent: () => import("./music/music.component").then((c) => c.MusicComponent),
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.MUSIC_SERVICE]}
+  },
+  {
+    path: Sides.music_settings.navigation, // TODO remove like chess settings
+    loadComponent: () => import("./music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
+    canActivate: [isAuthenticatedGuard, isPermittedGuard],
+    data: {"permissions": [Permissions.MUSIC_SERVICE]}
   }
 ];

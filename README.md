@@ -42,9 +42,9 @@ And these databases:
 - Chess DB
 - Fitness DB
 
-## Release
+## Maven
 
-### Maven release plugin
+### Release plugin
 
 The Maven Release Plugin automates the process of releasing project versions by updating version numbers and creating
 tags in the version control system. Use the command `mvn release:update-versions` to update the version information in
@@ -89,6 +89,8 @@ In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
     127.0.0.1 admin.michibaum.ch
     127.0.0.1 usermanagement.michibaum.ch
     127.0.0.1 authentication.michibaum.ch
+    127.0.0.1 fitness.michibaum.ch
+    127.0.0.1 music.michibaum.ch
     127.0.0.1 michibaum.ch
 
 #### Linux
