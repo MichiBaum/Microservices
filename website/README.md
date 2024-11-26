@@ -3,7 +3,7 @@
 ## Update Angular
 
     ng version
-    ng update @angular/core @angular/cli
+    ng update
 
 ## Update packages
 
