@@ -9,7 +9,7 @@ spring:
   sql:
     init:
       mode: always
-      data-locations: person.sql,data.sql
+      data-locations: data/*
   threads:
     virtual:
       enabled: true
