@@ -49,11 +49,8 @@ export class ChessEventComponent implements OnInit {
           this.event = ev
           this.setIframeUrl(this.event)
         })
-
       }
-
     });
-
   }
 
   setIframeUrl(event: ChessEvent): void {

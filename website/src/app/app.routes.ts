@@ -73,6 +73,11 @@ export const routes: Routes = [
         canActivate: []
       },
       {
+        path: "events",
+        loadComponent: () => import("./chess/chess-events-list/chess-events-list.component").then((c) => c.ChessEventsListComponent),
+        canActivate: []
+      },
+      {
         path: "events/:id",
         loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
         canActivate: []

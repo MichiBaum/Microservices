@@ -24,6 +24,10 @@ class Event(
     @Temporal(TemporalType.TIMESTAMP)
     val dateTo: LocalDateTime,
 
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
+    @JoinTable(name = "EVENT_CATEGORY_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "category_id")])
+    val categories: MutableSet<EventCategory> = mutableSetOf(),
+
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Person::class)
     @JoinTable(name = "EVENT_PARTICIPANTS_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "person_id")])
     val participants: Set<Person> = mutableSetOf(),

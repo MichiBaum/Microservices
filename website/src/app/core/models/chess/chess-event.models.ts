@@ -5,4 +5,11 @@ export interface ChessEvent {
   embedUrl: string | undefined;
   dateFrom: string | undefined;
   dateTo: string | undefined;
+  categories: ChessEventCategory[]
+}
+
+interface ChessEventCategory{
+  id: string;
+  title: string;
+  description: string;
 }
