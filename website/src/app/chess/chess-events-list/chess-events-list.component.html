@@ -1,1 +1,22 @@
-<p>chess-events-list works!</p>
+<div class="grid">
+
+  <ng-container *ngFor="let category of categories">
+    <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
+      <div class=" align-items-center justify-content-center m-2">
+
+        <p-card  [header]="category.title" [subheader]="category.description">
+          <ul>
+            <ng-container *ngFor="let event of events">
+              <ng-container *ngIf="eventOfCategory(event, category)">
+                <li>
+                  <a [routerLink]="['/chess/events', event.id]">{{ event.title }}</a>
+                </li>
+              </ng-container>
+            </ng-container>
+          </ul>
+        </p-card>
+
+      </div>
+    </div>
+  </ng-container>
+</div>

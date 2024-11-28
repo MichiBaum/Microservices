@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.UUID
 
 @RestController
@@ -14,11 +16,22 @@ class EventController(
 ) {
 
     @GetMapping("/api/events")
+    @Transactional
     fun getAllEvents(): List<EventDto> =
         eventService.findAll()
             .map { eventConverter.toDto(it) }
 
+    @GetMapping("/api/events/recent-upcoming")
+    @Transactional
+    fun getAllRecentAndUpcomingEvents(): List<EventDto> {
+        val recent = LocalDate.now().minusMonths(2)
+        val upcoming = LocalDate.now().plusMonths(2)
+        return eventService.findRecentAndUpcoming(recent, upcoming)
+            .map { eventConverter.toDto(it) }
+    }
+
     @GetMapping("/api/events/{id}")
+    @Transactional
     fun getEvent(@PathVariable id: String): ResponseEntity<EventDto>{
         return try {
             val uuid = UUID.fromString(id)
@@ -46,5 +59,11 @@ class EventController(
         }
     }
 
+    @GetMapping("/api/events/categories")
+    fun getEventCategories(): ResponseEntity<List<EventCategoryDto>> {
+        val categoryDtos = eventService.allCategories()
+            .map(eventConverter::toDto)
+        return ResponseEntity.ok().body(categoryDtos)
+    }
 
 }

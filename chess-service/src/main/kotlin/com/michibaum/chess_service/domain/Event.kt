@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.domain
 
 import jakarta.persistence.*
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
@@ -17,12 +18,10 @@ class Event(
     val embedUrl: String,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    val dateFrom: LocalDateTime,
+    val dateFrom: LocalDate,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    val dateTo: LocalDateTime,
+    val dateTo: LocalDate,
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
     @JoinTable(name = "EVENT_CATEGORY_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "category_id")])
@@ -36,5 +35,5 @@ class Event(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),
 
-) {
+    ) {
 }

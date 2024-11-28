@@ -42,7 +42,7 @@ export class ChessComponent implements OnInit{
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.chess.translationKey)
-    this.chessService.events().subscribe(events => { // TODO only get "recent" events +- 1 Month
+    this.chessService.eventsRecentUpcoming().subscribe(events => { // TODO only get "recent" events +- 1 Month
       this.events = [...events];
       this.createMenu();
     })

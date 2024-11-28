@@ -8,7 +8,7 @@ export interface ChessEvent {
   categories: ChessEventCategory[]
 }
 
-interface ChessEventCategory{
+export interface ChessEventCategory{
   id: string;
   title: string;
   description: string;
