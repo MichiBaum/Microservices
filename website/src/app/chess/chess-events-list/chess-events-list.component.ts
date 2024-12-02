@@ -34,11 +34,15 @@ export class ChessEventsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.chessService.events().subscribe(events => {
-      this.events = [...events];
+      this.events = [...events.sort((a, b) => {
+        if(a.dateFrom && b.dateFrom)
+          return new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime()
+        return 0;
+      })];
       let categories = events
         .map(event => event.categories ?? [])
         .flatMap(category => category)
-        .filter(Boolean); // Filters out any falsey values (undefined or null)
+        .filter(Boolean); // Filters out any false values (undefined or null)
 
       let uniqueCategoriesMap = new Map<string, ChessEventCategory>();
       categories.forEach(category => uniqueCategoriesMap.set(category.id, category));
