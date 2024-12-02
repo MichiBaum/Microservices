@@ -50,6 +50,7 @@ export class AboutMeComponent implements OnInit{
     {"experience": "Sharepoint OnPrem", "years": "1", "rating": 1},
   ];
   platforms: any[] = [
+    {"experience": "IntelliJ", "years": "5", "rating": 4},
     {"experience": "Linux", "years": "5", "rating": 4},
     {"experience": "Docker", "years": "5", "rating": 4},
     {"experience": "Git", "years": "5", "rating": 4},
