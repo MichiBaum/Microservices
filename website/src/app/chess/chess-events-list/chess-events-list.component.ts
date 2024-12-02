@@ -7,7 +7,7 @@ import {ChessEvent, ChessEventCategory} from "../../core/models/chess/chess.mode
 import {TimelineModule} from "primeng/timeline";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faClock} from "@fortawesome/free-regular-svg-icons";
-import {faQuestion} from "@fortawesome/free-solid-svg-icons";
+import {faCalendarDay, faCalendarPlus, faCalendarXmark, faQuestion} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-chess-events-list',
@@ -64,12 +64,20 @@ export class ChessEventsListComponent implements OnInit {
       const current = new Date()
       if(dateTo > current && dateFrom < current){ return "color: green"}
       if(dateTo < current ){ return "color: red"}
-      if(dateFrom > current){ return "color: yellow"}
+      if(dateFrom > current){ return "color: #0688fb"}
     }
     return ""
   }
 
   getIcon(event: ChessEvent) {
+    if(event.dateFrom && event.dateTo){
+      const dateFrom = new Date(event.dateFrom)
+      const dateTo = new Date(event.dateTo)
+      const current = new Date()
+      if(dateTo > current && dateFrom < current){ return faCalendarDay}
+      if(dateTo < current ){ return faCalendarXmark}
+      if(dateFrom > current){ return faCalendarPlus}
+    }
     return faClock;
   }
 }

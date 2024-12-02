@@ -9,7 +9,7 @@
               <fa-icon [icon]="getIcon(event)" [style]="getColor(event)"></fa-icon>
             </ng-template>
             <ng-template pTemplate="content" let-event>
-              <span [routerLink]="['/chess/events', event.id]">{{ event.title }}</span>
+              <span [routerLink]="['/chess/events', event.id]" style="cursor:pointer;">{{ event.title }}</span>
             </ng-template>
             <ng-template pTemplate="opposite" let-event>
               <small class="p-text-secondary">{{ event.dateFrom }} - {{event.dateTo}}</small>
