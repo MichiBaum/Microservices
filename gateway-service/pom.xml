@@ -69,11 +69,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.michibaum</groupId>
-			<artifactId>authentication-library</artifactId>
-			<version>1.0.0-TEST-9</version>
-		</dependency>
-		<dependency>
-			<groupId>com.michibaum</groupId>
 			<artifactId>spring-boot-starter-discord</artifactId>
 			<version>1.0.0-TEST-9</version>
 		</dependency>
