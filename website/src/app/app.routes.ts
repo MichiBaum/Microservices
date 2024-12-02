@@ -90,9 +90,34 @@ export const routes: Routes = [
       },
       {
         path: "settings",
-        loadComponent: () => import("./chess-settings/chess-settings.component").then((c) => c.ChessSettingsComponent),
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
-        data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]}
+        data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+        children: [
+          {
+            path:"persons",
+            loadComponent: () => import("./chess-settings/chess-update-person/chess-update-person.component").then((c) => c.ChessUpdatePersonComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
+            path:"accounts",
+            loadComponent: () => import("./chess-settings/chess-update-account/chess-update-account.component").then((c) => c.ChessUpdateAccountComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
+            path:"events",
+            loadComponent: () => import("./chess-settings/chess-update-event/chess-update-event.component").then((c) => c.ChessUpdateEventComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
+            path:"games",
+            loadComponent: () => import("./chess-settings/chess-update-game/chess-update-game.component").then((c) => c.ChessUpdateGameComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          }
+        ]
       }
     ]
   },

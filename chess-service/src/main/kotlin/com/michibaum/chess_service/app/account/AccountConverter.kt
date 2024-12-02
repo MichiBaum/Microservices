@@ -11,6 +11,7 @@ class AccountConverter {
             id = account.id.toString(),
             username = account.username,
             platform = account.platform,
+            url = account.url,
         )
     }
 

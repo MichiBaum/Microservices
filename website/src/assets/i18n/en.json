@@ -80,6 +80,7 @@
     "navigation": {
       "news": "News",
       "events": "Events",
+      "person": "Person",
       "player-analysis": "Player Analysis",
       "settings": "Settings"
     },
@@ -92,7 +93,8 @@
       "participant": {
         "firstname": "Firstname",
         "lastname": "Lastname"
-      }
+      },
+      "games": "Games"
     }
   },
   "chess-settings": {

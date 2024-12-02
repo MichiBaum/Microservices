@@ -6,4 +6,6 @@ import java.util.*
 
 interface PersonRepository: JpaRepository<Person, UUID> {
     fun findByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCase(firstname: String, lastname: String): Set<Person>
+    fun findByFirstnameContainingIgnoreCase(firstname: String): Set<Person>
+    fun findByLastnameContainingIgnoreCase(lastname: String): Set<Person>
 }

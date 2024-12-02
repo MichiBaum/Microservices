@@ -44,7 +44,7 @@ export class ChessPlayerSearchComponent implements OnInit{
 
   search() {
     let searchPerson = {firstname: this.firstname, lastname: this.lastname} as SearchPerson
-    this.chessService.search(searchPerson).subscribe(persons => // TODO check if persons are already in source or target
+    this.chessService.searchPersons(searchPerson).subscribe(persons => // TODO check if persons are already in source or target
       this.sourcePersons = [ ...persons])
 
   }

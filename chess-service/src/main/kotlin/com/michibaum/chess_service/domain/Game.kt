@@ -11,7 +11,8 @@ class Game(
     @Column(nullable = false)
     val platformId: String,
 
-    @Column(nullable = false)
+    @Lob
+    @Column(nullable = false, length=1024)
     val pgn: String,
 
     @Enumerated(EnumType.STRING)
@@ -23,6 +24,10 @@ class Game(
 
     @OneToMany(mappedBy="game", fetch = FetchType.EAGER, targetEntity = Player::class, cascade = [CascadeType.ALL])
     val players: Set<Player>,
+
+    @ManyToOne(targetEntity = Event::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinColumn(name="event_id", nullable=true)
+    val event: Event? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

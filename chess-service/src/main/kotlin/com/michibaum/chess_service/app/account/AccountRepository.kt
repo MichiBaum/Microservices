@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface AccountRepository: JpaRepository<Account, UUID> {
-    fun findByPlatformAndAccIdAndUsername(chessPlatform: ChessPlatform, id: String, username: String): Account?
+    fun findByPlatformAndPlatformIdAndUsername(chessPlatform: ChessPlatform, id: String, username: String): Account?
+    fun existsByPlatformIdAndUsername(id: String, username: String): Boolean
+    fun findByPlatformAndUsername(chessPlatform: ChessPlatform, username: String): Account?
+    fun findByUsernameContainingIgnoreCase(username: String): List<Account>
 
 }

@@ -12,8 +12,8 @@ data class LichessGameDto(
     val source: String,
     val players: Players,
     val winner: String?, // Can be null for some reason
-    val moves: String,
-    val pgn:String,
+    val moves: String?,
+    val pgn: String?,
     val tournament: String?, // Can be null for some reason
     val clock: Clock? // Can be null for some reason
 )

@@ -35,8 +35,16 @@ class PersonService(
         return personRepository.save(person)
     }
 
-    fun findPersonsByFirstnameAndLastname(firstname: String, lastname: String): Set<Person> {
-        return personRepository.findByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCase(firstname, lastname)
+    fun findByIfNotEmpty(firstname: String, lastname: String): Set<Person> =
+        when{
+            firstname.isBlank() && lastname.isBlank() -> emptySet()
+            firstname.isBlank() -> personRepository.findByLastnameContainingIgnoreCase(lastname)
+            lastname.isBlank() -> personRepository.findByFirstnameContainingIgnoreCase(firstname)
+            else -> personRepository.findByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCase(firstname, lastname)
+        }
+
+    fun getAll(): List<Person> {
+        return personRepository.findAll()
     }
 
 }

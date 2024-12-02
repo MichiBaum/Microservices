@@ -63,11 +63,7 @@ class ApiServiceImpl(
     }
 
     override fun getGames(account: Account): ApiResult<List<GameDto>> { // TODO Year and month
-        val creationYear = run {
-            val calendar = Calendar.getInstance()
-            calendar.time = account.createdAt
-            calendar.get(Calendar.YEAR)
-        }
+        val creationYear = account.createdAt?.year ?: return Error("Unknown account creation year")
 
         val years = IntRange(creationYear, Year.now().value)
         val months = IntRange(1, 12)

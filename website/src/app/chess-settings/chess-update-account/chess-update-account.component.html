@@ -1,0 +1,46 @@
+<div class="grid">
+  <div class="col-12">
+    <p-fieldset legend="Account search">
+      <p-inputGroup>
+        <input pInputText placeholder="Username" [(ngModel)]="username" />
+        <p-inputGroupAddon><p-checkbox [(ngModel)]="localSearch" [binary]="true" label="Only Local search"/></p-inputGroupAddon>
+        <p-button pButton label="Search" (click)="search()" />
+      </p-inputGroup>
+
+      <p-table [value]="importedAccounts">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Username</th>
+            <th>Platform</th>
+            <th>Number of games</th>
+            <th>Person</th>
+            <th>Url</th>
+            <th>Import Games</th>
+            <th>Delete</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-account>
+          <tr>
+            <td>{{ account.username }}</td>
+            <td>{{ account.platform }}</td>
+            <td> TODO </td>
+            <td>
+              <p-button *ngIf="" label="Connect Person" />
+              <p-button *ngIf="" label="Remove Person" />
+            </td>
+            <td><p-button (click)="open(account.url)" label="Open {{account.platform}}" /></td>
+            <td><p-button *ngIf="showImportGameButton(account)" (click)="importGames(account.id)" label="Import Games" /></td>
+            <td><p-button (click)="delete(account.id)" label="Delete" severity="danger" /></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-fieldset>
+  </div>
+
+  <div class="col-12">
+    <p-fieldset legend="Create OTB Account">
+
+    </p-fieldset>
+  </div>
+
+</div>

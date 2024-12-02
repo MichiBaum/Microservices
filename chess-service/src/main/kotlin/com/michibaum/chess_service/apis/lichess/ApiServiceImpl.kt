@@ -80,10 +80,10 @@ class ApiServiceImpl(
     }
 
     override fun getGames(account: Account): ApiResult<List<GameDto>> {
-
         val result = try {
+            val url = "/api/games/user/{0}?perfType=bullet,blitz,rapid&pgnInJson=true&tags=true&clocks=true"
             client.get()
-                .uri("/api/games/user/{0}", account.username)
+                .uri(url, account.username)
                 .accept(MediaType.APPLICATION_NDJSON)
                 .retrieve()
                 .bodyToFlux(LichessGameDto::class.java)

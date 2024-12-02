@@ -46,9 +46,9 @@ class GameServiceUT {
         every { apiService.getGames(account) } returns listOf(gameDto)
         every { gameRepository.existsByChessPlatformAndPlatformId(game.chessPlatform, game.platformId) } returns false
         every {
-            accountRepository.findByPlatformAndAccIdAndUsername(
+            accountRepository.findByPlatformAndPlatformIdAndUsername(
                 account.platform,
-                account.accId,
+                account.platformId,
                 account.username
             )
         } returns account
@@ -65,9 +65,9 @@ class GameServiceUT {
         }
 
         verify(exactly = 1) {
-            accountRepository.findByPlatformAndAccIdAndUsername(
+            accountRepository.findByPlatformAndPlatformIdAndUsername(
                 account.platform,
-                account.accId,
+                account.platformId,
                 account.username
             )
         }

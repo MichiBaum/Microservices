@@ -5,6 +5,9 @@ import com.michibaum.chess_service.apis.dtos.PlayerDto
 import com.michibaum.chess_service.domain.ChessPlatform
 import com.michibaum.chess_service.domain.GameType
 import org.springframework.stereotype.Component
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.*
 
 @Component(value = "chesscomConverter")
@@ -17,7 +20,7 @@ class Converter {
             username = accountDto.username,
             name = accountDto.name,
             platform = ChessPlatform.CHESSCOM,
-            createdAt = Date(accountDto.joined * 1000)
+            createdAt = LocalDate.ofInstant(Instant.ofEpochSecond(accountDto.joined), ZoneId.systemDefault()) // TODO dont know zone
         )
 
     fun convert(gameDto: ChesscomGameDto): GameDto {

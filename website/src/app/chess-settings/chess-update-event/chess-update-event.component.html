@@ -1,59 +1,91 @@
-<p-dropdown
-  [options]="events"
-  [(ngModel)]="selectedEvent"
-  (onChange)="onDropdownSelect($event)"
-  optionLabel="title"
-  placeholder="Event to update"
-  class="mb-2" />
+<div class="grid">
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
+    <p-fieldset legend="Event Select">
 
-<form [formGroup]="formGroup">
+      <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
 
-  <p-inputGroup class="mb-2">
-    <p-inputGroupAddon>
-      ID
-    </p-inputGroupAddon>
-    <input type="text" pInputText formControlName="id"/>
-  </p-inputGroup>
+      <p-button type="button" class="mr-4" label="Delete" (click)="delete()" [disabled]="!selectedEvent"></p-button>
+    </p-fieldset>
+  </div>
 
-  <p-inputGroup class="mb-2">
-    <p-inputGroupAddon>
-      Title
-    </p-inputGroupAddon>
-    <input type="text" pInputText formControlName="title"/>
-  </p-inputGroup>
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
+    <p-fieldset legend="Event Data">
+      <form [formGroup]="formGroup">
 
-  <p-inputGroup class="mb-2">
-    <p-inputGroupAddon>
-      Date from
-    </p-inputGroupAddon>
-    <p-calendar formControlName="dateFrom" dateFormat="dd.mm.yy"></p-calendar>
-  </p-inputGroup>
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            ID
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="id"/>
+        </p-inputGroup>
 
-  <p-inputGroup class="mb-2">
-    <p-inputGroupAddon>
-      Date to
-    </p-inputGroupAddon>
-    <p-calendar formControlName="dateTo" dateFormat="dd.mm.yy"></p-calendar>
-  </p-inputGroup>
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Title
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="title"/>
+        </p-inputGroup>
 
-  <p-inputGroup class="mb-2">
-    <p-inputGroupAddon>
-      Url
-    </p-inputGroupAddon>
-    <input type="text" pInputText formControlName="url" />
-  </p-inputGroup>
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Date from
+          </p-inputGroupAddon>
+          <p-calendar formControlName="dateFrom" dateFormat="dd.mm.yy"></p-calendar>
+        </p-inputGroup>
 
-  <p-inputGroup class="mb-2">
-    <p-inputGroupAddon>
-      Embed Url
-    </p-inputGroupAddon>
-    <input type="text" pInputText formControlName="embedUrl" />
-  </p-inputGroup>
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Date to
+          </p-inputGroupAddon>
+          <p-calendar formControlName="dateTo" dateFormat="dd.mm.yy"></p-calendar>
+        </p-inputGroup>
 
-  <p-multiSelect [options]="categories" optionLabel="title" placeholder="Select Categories" formControlName="categories" />
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Url
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="url" />
+        </p-inputGroup>
 
-  <br />
-  <p-button type="button" class="mr-4" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
-  <p-button type="button" class="mr-4" label="Delete" (click)="delete()" [disabled]="!selectedEvent"></p-button>
-  <p-button type="button" class="mr-4" label="Clear" (click)="clear()"></p-button>
-</form>
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Embed Url
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="embedUrl" />
+        </p-inputGroup>
+
+        <p-multiSelect [options]="categories" optionLabel="title" placeholder="Select Categories" formControlName="categories" />
+
+        <br />
+        <p-button type="button" class="mr-4" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+        <p-button type="button" class="mr-4" label="Clear" (click)="clear()"></p-button>
+      </form>
+    </p-fieldset>
+  </div>
+
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
+    <p-fieldset legend="Event Players">
+      <p-pickList
+        [source]="persons"
+        [target]="participants"
+        sourceHeader="People"
+        targetHeader="Participants"
+        [dragdrop]="true"
+        [responsive]="true"
+        filterBy="firstname,lastname"
+        [sourceStyle]="{ height: '20rem' }"
+        [targetStyle]="{ height: '20rem' }">
+        <ng-template let-person pTemplate="item">
+          <div class="flex flex-wrap p-2 align-items-center gap-3">
+            <div class="flex-1 flex flex-column gap-2">
+              <span class="font-bold">{{ person.firstname }} {{person.lastname}}</span>
+              <div class="flex align-products-center gap-2" *ngIf="person.fideId">
+                <span>Fide ID: {{ person.fideId }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-pickList>
+    </p-fieldset>
+  </div>
+</div>

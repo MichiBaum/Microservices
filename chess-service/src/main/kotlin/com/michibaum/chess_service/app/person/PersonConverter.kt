@@ -24,6 +24,7 @@ class PersonConverter(
             id = person.id,
             firstname = person.firstname,
             lastname = person.lastname,
+            fideId = person.fideId,
             accounts = person.accounts.map { account -> accountConverter.convert(account) }.toSet()
         )
     }

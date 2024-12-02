@@ -1,12 +1,15 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.EventCategory
 import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Component
 
 @Component
-class EventConverter {
+class EventConverter(
+    private val personConverter: PersonConverter
+) {
 
     fun toDto(event: Event): EventDto {
         return EventDto(
@@ -16,7 +19,8 @@ class EventConverter {
             embedUrl = event.embedUrl,
             dateFrom = event.dateFrom.toString(),
             dateTo = event.dateTo.toString(),
-            categories = event.categories.map { toDto(it) }
+            categories = event.categories.map { toDto(it) },
+            participants = event.participants.map { personConverter.convert(it) }
         )
     }
 
@@ -25,15 +29,6 @@ class EventConverter {
             id = category.id.toString(),
             title = category.name,
             description = category.description,
-        )
-    }
-
-    fun toDto(person: Person): ParticipantDto {
-        return ParticipantDto(
-            id = person.id.toString(),
-            firstName = person.firstname,
-            lastName = person.lastname,
-            fideId = person.fideId
         )
     }
 

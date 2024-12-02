@@ -1,22 +1,22 @@
 <div class="grid">
 
   <ng-container *ngFor="let category of categories">
-    <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
-      <div class=" align-items-center justify-content-center m-2">
+    <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-6 laptop-l:col-width-4 qhd:col-width-3 max-width:col-width-3">
 
         <p-card  [header]="category.title" [subheader]="category.description">
-          <ul>
-            <ng-container *ngFor="let event of events">
-              <ng-container *ngIf="eventOfCategory(event, category)">
-                <li>
-                  <a [routerLink]="['/chess/events', event.id]">{{ event.title }}</a>
-                </li>
-              </ng-container>
-            </ng-container>
-          </ul>
+          <p-timeline [value]="eventsOfCategory(events, category)">
+            <ng-template pTemplate="marker" let-event>
+              <fa-icon [icon]="getIcon(event)" [style]="getColor(event)"></fa-icon>
+            </ng-template>
+            <ng-template pTemplate="content" let-event>
+              <span [routerLink]="['/chess/events', event.id]">{{ event.title }}</span>
+            </ng-template>
+            <ng-template pTemplate="opposite" let-event>
+              <small class="p-text-secondary">{{ event.dateFrom }} - {{event.dateTo}}</small>
+            </ng-template>
+          </p-timeline>
         </p-card>
 
-      </div>
     </div>
   </ng-container>
 </div>

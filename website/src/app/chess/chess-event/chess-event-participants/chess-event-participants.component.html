@@ -9,8 +9,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-participant>
       <tr>
-        <td>{{ participant.firstName }}</td>
-        <td>{{ participant.lastName }}</td>
+        <td>{{ participant.firstname }}</td>
+        <td>{{ participant.lastname }}</td>
         <td><p-button *ngIf="participant.fideId" label="{{'chess.event.fide-website' | translate}}" (onClick)="openFide(participant.fideId)" /></td>
       </tr>
     </ng-template>

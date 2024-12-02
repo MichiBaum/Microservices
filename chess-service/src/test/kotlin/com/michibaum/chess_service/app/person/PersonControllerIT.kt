@@ -58,6 +58,7 @@ class PersonControllerIT {
             id = savedPerson.id,
             firstname = savedPerson.firstname,
             lastname = savedPerson.lastname,
+            fideId = savedPerson.fideId,
             accounts = emptySet()
         )
 

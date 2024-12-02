@@ -5,10 +5,16 @@ import {InputTextModule} from "primeng/inputtext";
 import {CalendarModule} from "primeng/calendar";
 import {MultiSelectModule} from "primeng/multiselect";
 import {ChessService} from "../../core/services/chess.service";
-import {ChessEvent, ChessEventCategory} from "../../core/models/chess/chess-event.models";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {PaginatorModule} from "primeng/paginator";
 import {DropdownModule} from "primeng/dropdown";
+import {FieldsetModule} from "primeng/fieldset";
+import {ListboxModule} from "primeng/listbox";
+import {TableModule} from "primeng/table";
+import {Ripple} from "primeng/ripple";
+import {ChessEvent, ChessEventCategory, Person} from "../../core/models/chess/chess.models";
+import {PickListModule} from "primeng/picklist";
+import {NgIf} from "@angular/common";
+import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -22,6 +28,13 @@ import {DropdownModule} from "primeng/dropdown";
     DropdownModule,
     FormsModule,
     ReactiveFormsModule,
+    FieldsetModule,
+    ListboxModule,
+    TableModule,
+    Ripple,
+    PickListModule,
+    NgIf,
+    SelectChessEventComponent,
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
@@ -32,6 +45,9 @@ export class ChessUpdateEventComponent implements OnInit{
   selectedEvent: ChessEvent | undefined;
 
   categories: ChessEventCategory[] = [];
+
+  persons: Person[] = [];
+  participants: Person[] = [];
 
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({
@@ -64,16 +80,28 @@ export class ChessUpdateEventComponent implements OnInit{
     })
   }
 
-  onDropdownSelect(event: any){
+  onEventSelect(event: ChessEvent){
+    this.selectedEvent = event;
+    this.loadPersons(event)
     this.patchForm()
   }
 
+  private loadPersons(event: ChessEvent) {
+    const eventParticipants = event.participants as Person[];
+    this.participants = [...eventParticipants];
+    this.chessService.persons().subscribe(
+      persons => {
+        const notParticipating = persons.filter(person => !eventParticipants?.some(participant => participant.id == person.id))
+        this.persons = [...notParticipating]
+      })
+  }
+
   patchForm(){
-    var dateFrom
+    let dateFrom;
     if(this.selectedEvent?.dateFrom){
       dateFrom = new Date(this.selectedEvent?.dateFrom)
     }
-    var dateTo
+    let dateTo;
     if(this.selectedEvent?.dateTo){
       dateTo = new Date(this.selectedEvent?.dateTo)
     }
@@ -99,6 +127,8 @@ export class ChessUpdateEventComponent implements OnInit{
   clear() {
     this.formGroup.reset();
     this.selectedEvent = undefined;
+    this.participants = [...[]];
+    this.persons = [...[]];
   }
 
   delete() {

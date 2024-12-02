@@ -2,6 +2,7 @@ package com.michibaum.chess_service.apis.dtos
 
 import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.ChessPlatform
+import java.time.LocalDate
 import java.util.*
 
 class AccountDto(
@@ -10,9 +11,9 @@ class AccountDto(
     val username: String,
     val name: String, // Realname
     val platform: ChessPlatform,
-    val createdAt: Date
+    val createdAt: LocalDate
 ) {
     fun toAccount(): Account {
-        return Account(accId = id, username = username, platform = platform, url = url, name = name, person = null, createdAt = createdAt, games = emptySet(), id = UUID.randomUUID())
+        return Account(platformId = id, username = username, platform = platform, url = url, name = name, person = null, createdAt = createdAt, games = emptySet(), id = UUID.randomUUID())
     }
 }

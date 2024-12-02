@@ -19,6 +19,7 @@ data class PersonDto(
     val id: UUID,
     val firstname: String,
     val lastname: String,
+    val fideId: String?,
     val accounts: Set<AccountDto> = emptySet(),
 )
 
