@@ -27,5 +27,4 @@ class FitbitSleep(
     stages = stages,
     userId = userId
 
-) {
-}
+)

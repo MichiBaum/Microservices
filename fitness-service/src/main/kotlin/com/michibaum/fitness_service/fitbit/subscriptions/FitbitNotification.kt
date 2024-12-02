@@ -28,5 +28,4 @@ class FitbitNotification(
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-) {
-}
+)

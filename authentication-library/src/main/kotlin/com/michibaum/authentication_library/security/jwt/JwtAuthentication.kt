@@ -22,8 +22,4 @@ class JwtAuthentication(val token: String, private val userDetails: UserDetails)
     fun getUserId(): String =
         jwsWrapper.getUserId()
 
-    override fun toString(): String {
-        return super.toString()
-    }
-
 }

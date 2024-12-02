@@ -17,7 +17,7 @@ import org.springframework.security.web.context.SecurityContextRepository
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 
-class ServletAuthenticationFilter(val authenticationManager: AuthenticationManager, val converters: List<AuthenticationConverter>): OncePerRequestFilter() {
+class ServletAuthenticationFilter(private val authenticationManager: AuthenticationManager, private val converters: List<AuthenticationConverter>): OncePerRequestFilter() {
 
     private val securityContextHolderStrategy: SecurityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy()
 
@@ -71,7 +71,7 @@ class ServletAuthenticationFilter(val authenticationManager: AuthenticationManag
     ) {
         val context: SecurityContext = this.securityContextHolderStrategy.createEmptyContext()
         context.authentication = authentication
-        this.securityContextHolderStrategy.setContext(context)
+        this.securityContextHolderStrategy.context = context
         this.securityContextRepository.saveContext(context, request, response)
         chain.doFilter(request, response)
     }

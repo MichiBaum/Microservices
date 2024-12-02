@@ -41,5 +41,4 @@ class FitbitOAuthCredentials(
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-) {
-}
+)

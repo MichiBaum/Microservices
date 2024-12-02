@@ -21,5 +21,4 @@ class FitbitProfile(
     gender = gender,
     height = height,
     userId = userId
-) {
-}
+)

@@ -18,5 +18,4 @@ class FitbitSubscription(
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-) {
-}
+)

@@ -39,8 +39,4 @@ class SpotifyOAuthCredentials(
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-) {
-
-
-
-}
+)

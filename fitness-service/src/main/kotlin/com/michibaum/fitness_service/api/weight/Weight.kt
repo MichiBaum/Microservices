@@ -27,5 +27,4 @@ open class Weight(
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-) {
-}
+)

@@ -25,5 +25,4 @@ class SleepStage(
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-) {
-}
+)
