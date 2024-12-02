@@ -26,7 +26,6 @@ import {Sides} from "../../core/config/sides";
 import {PermissionService} from "../../core/services/permission.service";
 import {AuthService} from "../../core/services/auth.service";
 import {ImageModule} from "primeng/image";
-import {NgIf} from "@angular/common";
 import {Permissions} from "../../core/config/permissions";
 
 @Component({
@@ -41,8 +40,7 @@ import {Permissions} from "../../core/config/permissions";
     Ripple,
     FaIconComponent,
     ImageModule,
-    TranslateModule,
-    NgIf,
+    TranslateModule
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
@@ -127,29 +125,6 @@ export class NavigationComponent implements OnInit{
               this.routerNavigationService.chess();
             },
           } as MenuItem
-        ]
-      },
-      {
-        label: this.translate.instant('navigation.settings'),
-        items: [
-          {
-            label: this.translate.instant(Sides.fitness_settings.translationKey),
-            customIcon: faDumbbell,
-            visible: Sides.fitness_settings.canActivate(this.permissionService),
-            command: () => {
-              this.sidebarVisible = false;
-              this.routerNavigationService.fitness_settings();
-            }
-          } as MenuItem,
-          {
-            label: this.translate.instant(Sides.music_settings.translationKey),
-            customIcon: faCompactDisc,
-            visible: Sides.music_settings.canActivate(this.permissionService),
-            command: () => {
-              this.sidebarVisible = false;
-              this.routerNavigationService.music_settings();
-            }
-          } as MenuItem,
         ]
       },
       {
