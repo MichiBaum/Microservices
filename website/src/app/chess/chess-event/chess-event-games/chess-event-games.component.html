@@ -1,0 +1,11 @@
+<ng-container *ngFor="let game of games">
+  <p-button (onClick)="showDialog(game)" label="Show" />
+</ng-container>
+
+<p-dialog header="Game" [modal]="true" [(visible)]="visible" [style]="{ width: '40%', height: '75%' }">
+  <div>
+    <div #game></div>
+  </div>
+</p-dialog>
+
+
