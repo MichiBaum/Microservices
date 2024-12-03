@@ -15,6 +15,9 @@ class Game(
     @Column(nullable = false, length=1024)
     val pgn: String,
 
+    @Column(nullable = true)
+    var openingName: String? = "",
+
     @Enumerated(EnumType.STRING)
     val gameType: GameType,
 
