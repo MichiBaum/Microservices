@@ -47,7 +47,8 @@
               },
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
-              "node_modules/primeicons/primeicons.css"
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.scss"
             ],
             "scripts": []
           },
