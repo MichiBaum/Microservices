@@ -3,6 +3,7 @@ package com.michibaum.chess_service.app.person
 import com.michibaum.chess_service.app.account.AccountConverter
 import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Component
+import java.time.LocalDate
 import java.util.*
 
 @Component
@@ -15,7 +16,10 @@ class PersonConverter(
             firstname = person.firstname,
             lastname = person.lastname,
             fideId = person.fideId,
-            accounts = emptySet()
+            accounts = emptySet(),
+            federation = person.federation,
+            birthDate = person.birthDate?.let { LocalDate.parse(it) },
+            gender = person.gender
         )
     }
 
@@ -25,7 +29,10 @@ class PersonConverter(
             firstname = person.firstname,
             lastname = person.lastname,
             fideId = person.fideId,
-            accounts = person.accounts.map { account -> accountConverter.convert(account) }.toSet()
+            federation = person.federation,
+            birthDate = person.birthDate?.toString(),
+            gender = person.gender,
+            accounts = person.accounts.map { account -> accountConverter.convert(account) }.toSet(),
         )
     }
 }

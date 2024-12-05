@@ -15,7 +15,10 @@ class PersonService(
             lastname = person.lastname,
             fideId = person.fideId,
             accounts = person.accounts + account,
-            id = person.id
+            id = person.id,
+            federation = person.federation,
+            birthDate = person.birthDate,
+            gender = person.gender
         )
         return personRepository.save(newPerson)
     }
@@ -26,7 +29,10 @@ class PersonService(
             lastname = person.lastname,
             fideId = person.fideId,
             accounts = person.accounts + accounts,
-            id = person.id
+            id = person.id,
+            federation = person.federation,
+            birthDate = person.birthDate,
+            gender = person.gender
         )
         return personRepository.save(newPerson)
     }

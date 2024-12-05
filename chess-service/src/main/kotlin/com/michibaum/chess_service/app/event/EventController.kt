@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.UUID
 
 @RestController
@@ -92,6 +93,35 @@ class EventController(
         val categoryDtos = eventService.allCategories()
             .map(eventConverter::toDto)
         return ResponseEntity.ok().body(categoryDtos)
+    }
+
+    @PostMapping("/api/events")
+    fun createEvent(@RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{
+        return try {
+            val event = eventService.create(eventDto)
+            val newEventDto = eventConverter.toDto(event)
+            ResponseEntity.ok(newEventDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @PostMapping("/api/events/{id}")
+    fun updateEvent(@PathVariable id: String, @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val event = eventService.find(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val newEvent = eventService.update(event, eventDto)
+            val newEventDto = eventConverter.toDto(newEvent)
+            ResponseEntity.ok(newEventDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
     }
 
 }

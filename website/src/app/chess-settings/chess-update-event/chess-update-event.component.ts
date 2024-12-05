@@ -10,11 +10,12 @@ import {DropdownModule} from "primeng/dropdown";
 import {FieldsetModule} from "primeng/fieldset";
 import {ListboxModule} from "primeng/listbox";
 import {TableModule} from "primeng/table";
-import {Ripple} from "primeng/ripple";
-import {ChessEvent, ChessEventCategory, Person} from "../../core/models/chess/chess.models";
+import {ChessEvent, ChessEventCategory, Gender, Person, WriteChessEvent} from "../../core/models/chess/chess.models";
 import {PickListModule} from "primeng/picklist";
 import {NgIf} from "@angular/common";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -31,10 +32,10 @@ import {SelectChessEventComponent} from "../select-chess-event/select-chess-even
     FieldsetModule,
     ListboxModule,
     TableModule,
-    Ripple,
     PickListModule,
     NgIf,
     SelectChessEventComponent,
+    FaIconComponent,
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
@@ -46,7 +47,8 @@ export class ChessUpdateEventComponent implements OnInit{
 
   categories: ChessEventCategory[] = [];
 
-  persons: Person[] = [];
+  allPersons: Person[] = [];
+  personsToSelect: Person[] = [];
   participants: Person[] = [];
 
   formGroup: FormGroup = new FormGroup({
@@ -54,17 +56,34 @@ export class ChessUpdateEventComponent implements OnInit{
       value: '',
       disabled: true
     }),
-    title: new FormControl<string | null>({
+    title: new FormControl<string>({
       value: '',
       disabled: false
     }, [
       Validators.required,
     ]),
-    dateFrom: new FormControl<Date | null>(null),
-    dateTo: new FormControl<Date | null>(null),
+    dateFrom: new FormControl<Date | null>({
+      value: null,
+      disabled: false
+    }, [
+      Validators.required,
+      Validators.nullValidator
+    ]),
+    dateTo: new FormControl<Date | null>({
+      value: null,
+      disabled: false
+    }, [
+      Validators.required,
+      Validators.nullValidator
+    ]),
     url: new FormControl<string | null>(null),
     embedUrl: new FormControl<string | null>(null),
-    categories: new FormControl<ChessEventCategory[] | null>(null),
+    categories: new FormControl<ChessEventCategory[]>({
+      value: [],
+      disabled: false
+    }, [
+      Validators.required,
+    ]),
   });
 
   constructor(
@@ -78,22 +97,30 @@ export class ChessUpdateEventComponent implements OnInit{
     this.chessService.eventCategories().subscribe(categories => {
       this.categories = [...categories];
     })
+    this.chessService.persons().subscribe(persons => {
+      this.allPersons = [...persons];
+      this.resetParticipantsSelect()
+    })
   }
 
   onEventSelect(event: ChessEvent){
     this.selectedEvent = event;
-    this.loadPersons(event)
+    this.resetParticipantsSelect()
     this.patchForm()
   }
 
-  private loadPersons(event: ChessEvent) {
-    const eventParticipants = event.participants as Person[];
-    this.participants = [...eventParticipants];
-    this.chessService.persons().subscribe(
-      persons => {
-        const notParticipating = persons.filter(person => !eventParticipants?.some(participant => participant.id == person.id))
-        this.persons = [...notParticipating]
-      })
+  private resetParticipantsSelect(){
+    this.personsToSelect = [...[]]
+    this.participants = [...[]]
+    if(this.selectedEvent){
+      const eventParticipants = this.selectedEvent.participants as Person[];
+      this.participants = [...eventParticipants];
+      const notParticipating = this.allPersons.filter(person => !eventParticipants?.some(participant => participant.id == person.id))
+      this.personsToSelect = [...notParticipating]
+    } else {
+      this.personsToSelect = [...this.allPersons]
+      this.participants = [...[]]
+    }
   }
 
   patchForm(){
@@ -115,23 +142,43 @@ export class ChessUpdateEventComponent implements OnInit{
       embedUrl: this.selectedEvent?.embedUrl ?? '',
       categories: this.selectedEvent?.categories ?? [],
     });
+    this.resetParticipantsSelect()
   }
 
   save() {
     if(this.formGroup.invalid){
       return;
     }
-    console.log(this.formGroup.getRawValue()) // TODO map and post save request
+    const event: WriteChessEvent = {
+      title: this.formGroup.controls['title'].value,
+      dateFrom: this.formGroup.controls['dateFrom'].value.toISOString().split('T')[0],
+      dateTo: this.formGroup.controls['dateTo'].value.toISOString().split('T')[0],
+      url: this.formGroup.controls['url'].value,
+      embedUrl: this.formGroup.controls['embedUrl'].value,
+      categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
+      participantsIds: this.participants.map(value => value.id)
+    };
+
+    // this.chessService.saveEvent(event).subscribe(event => {
+    // })
+    console.log(event)
   }
 
   clear() {
     this.formGroup.reset();
     this.selectedEvent = undefined;
-    this.participants = [...[]];
-    this.persons = [...[]];
+    this.resetParticipantsSelect();
   }
 
   delete() {
     console.log(this.formGroup.controls['id'].value) // TODO delete request
+  }
+
+  getGenderIcon(person: Person) {
+    if(person.gender == Gender.MALE)
+      return faMars
+    if (person.gender == Gender.FEMALE)
+      return faVenus
+    return faVenusMars;
   }
 }

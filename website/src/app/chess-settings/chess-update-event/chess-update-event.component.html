@@ -4,7 +4,6 @@
 
       <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
 
-      <p-button type="button" class="mr-4" label="Delete" (click)="delete()" [disabled]="!selectedEvent"></p-button>
     </p-fieldset>
   </div>
 
@@ -66,21 +65,22 @@
   <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Event Players">
       <p-pickList
-        [source]="persons"
+        [source]="personsToSelect"
         [target]="participants"
         sourceHeader="People"
         targetHeader="Participants"
         [dragdrop]="true"
         [responsive]="true"
-        filterBy="firstname,lastname"
+        filterBy="firstname,lastname,fideId,birthDate"
         [sourceStyle]="{ height: '20rem' }"
         [targetStyle]="{ height: '20rem' }">
         <ng-template let-person pTemplate="item">
           <div class="flex flex-wrap p-2 align-items-center gap-3">
             <div class="flex-1 flex flex-column gap-2">
-              <span class="font-bold">{{ person.firstname }} {{person.lastname}}</span>
-              <div class="flex align-products-center gap-2" *ngIf="person.fideId">
-                <span>Fide ID: {{ person.fideId }}</span>
+              <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="getGenderIcon(person)"></fa-icon></span>
+              <div class="flex align-products-center gap-2" *ngIf="person.fideId || person.birthDate">
+                <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
+                <span *ngIf="person.birthDate">Birthday: {{ person.birthDate }}</span>
               </div>
             </div>
           </div>

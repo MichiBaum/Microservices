@@ -3,7 +3,15 @@ export interface Person {
   firstname:string
   lastname:string
   fideId?:string
+  federation?:string
+  birthDate?:string
+  gender: Gender
   accounts: Account[]
+}
+
+export enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
 }
 
 export interface SearchPerson {
@@ -41,6 +49,16 @@ export interface ChessEvent {
   dateTo: string | undefined;
   categories: ChessEventCategory[];
   participants: Person[];
+}
+
+export interface WriteChessEvent {
+  title: string;
+  dateFrom: string | undefined;
+  dateTo: string | undefined;
+  url: string | undefined;
+  embedUrl: string | undefined;
+  categoryIds: string[];
+  participantsIds: string[];
 }
 
 export interface ChessEventCategory{

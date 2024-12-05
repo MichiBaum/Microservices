@@ -24,6 +24,8 @@
       <th>Title</th>
       <th>From</th>
       <th>To</th>
+      <th>Url</th>
+      <th>Embed Url</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
@@ -34,6 +36,8 @@
       <td>{{ event.title }}</td>
       <td>{{ event.dateFrom }}</td>
       <td>{{ event.dateTo }}</td>
+      <td><fa-icon [icon]="getIcon(event.url)" [style]="getColor(event.url)"></fa-icon></td>
+      <td><fa-icon [icon]="getIcon(event.embedUrl)" [style]="getColor(event.embedUrl)"></fa-icon></td>
     </tr>
   </ng-template>
 </p-table>

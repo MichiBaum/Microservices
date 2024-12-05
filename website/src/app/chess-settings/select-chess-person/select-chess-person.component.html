@@ -23,6 +23,9 @@
       <th>Firstname</th>
       <th>Lastname</th>
       <th>Fide Id</th>
+      <th>Federation</th>
+      <th>Birthday</th>
+      <th>Gender</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-person let-rowIndex="rowIndex">
@@ -33,6 +36,9 @@
       <td>{{ person.firstname }}</td>
       <td>{{ person.lastname }}</td>
       <td>{{ person.fideId }}</td>
+      <td>{{ person.federation }}</td>
+      <td>{{ person.birthDate }}</td>
+      <td><fa-icon [icon]="getGenderIcon(person)"></fa-icon></td>
     </tr>
   </ng-template>
 </p-table>

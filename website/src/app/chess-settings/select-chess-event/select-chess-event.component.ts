@@ -4,15 +4,17 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-select-chess-event',
   standalone: true,
   imports: [
     TableModule,
-    Button,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    FaIconComponent
   ],
   templateUrl: './select-chess-event.component.html',
   styleUrl: './select-chess-event.component.scss'
@@ -32,13 +34,20 @@ export class SelectChessEventComponent {
   }
 
   onSelectionChange() {
-    if(this.selectedEvent){
+    if(this.selectedEvent) {
       this.selectedEventEmitter.emit(this.selectedEvent)
     }
   }
 
-  clear(table: Table) {
-    table.clear();
-    this.tableSearch = ''
+  getIcon(url: string) {
+    if(url == undefined || url == "")
+      return faXmark
+    return faCheck
+  }
+
+  getColor(url: string) {
+    if(url == undefined || url == "")
+      return "color: red"
+    return "color: green"
   }
 }

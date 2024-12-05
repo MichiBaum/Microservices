@@ -1,20 +1,22 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ChessEvent, Person} from "../../core/models/chess/chess.models";
+import {ChessEvent, Gender, Person} from "../../core/models/chess/chess.models";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {PrimeTemplate} from "primeng/api";
 import {Table, TableModule} from "primeng/table";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-select-chess-person',
   standalone: true,
   imports: [
-    Button,
     InputTextModule,
     PaginatorModule,
     PrimeTemplate,
-    TableModule
+    TableModule,
+    FaIconComponent
   ],
   templateUrl: './select-chess-person.component.html',
   styleUrl: './select-chess-person.component.scss'
@@ -40,4 +42,13 @@ export class SelectChessPersonComponent {
     table.clear();
     this.tableSearch = ''
   }
+
+  getGenderIcon(person: Person) {
+    if(person.gender == Gender.MALE)
+      return faMars
+    if (person.gender == Gender.FEMALE)
+      return faVenus
+    return faVenusMars;
+  }
+
 }

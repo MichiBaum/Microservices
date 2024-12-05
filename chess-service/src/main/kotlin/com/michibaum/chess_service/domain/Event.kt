@@ -9,19 +9,19 @@ import java.util.*
 class Event(
 
     @Column(nullable = false)
-    val title: String,
+    var title: String,
 
     @Column(nullable = true)
-    val url: String,
+    var url: String?,
 
     @Column(nullable = true)
-    val embedUrl: String,
+    var embedUrl: String?,
 
     @Column(nullable = false)
-    val dateFrom: LocalDate,
+    var dateFrom: LocalDate,
 
     @Column(nullable = false)
-    val dateTo: LocalDate,
+    var dateTo: LocalDate,
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
     @JoinTable(name = "EVENT_CATEGORY_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "category_id")])
@@ -29,10 +29,10 @@ class Event(
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Person::class)
     @JoinTable(name = "EVENT_PARTICIPANTS_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "person_id")])
-    val participants: Set<Person> = mutableSetOf(),
+    val participants: MutableSet<Person> = mutableSetOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),
 
-    )
+)
