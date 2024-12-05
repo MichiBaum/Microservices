@@ -4,12 +4,6 @@ server:
     url-charset: UTF-8
 
 spring:
-  jpa:
-    defer-datasource-initialization: false
-  sql:
-    init:
-      mode: always
-      data-locations: data/*
   threads:
     virtual:
       enabled: true

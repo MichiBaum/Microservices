@@ -1,6 +1,12 @@
 -- FIDE World Championship
 INSERT IGNORE INTO event_category (id, description, name) VALUES ('860742ff-6cc4-415f-be27-67373962781d', 'FIDE World Championship', 'FIDE World Championship');
 
+-- FIDE World Championship 2018
+INSERT IGNORE INTO event (id, date_from, date_to, embed_url, title, url) VALUES ('2689e819-6e1f-4aaa-8692-6bb9ed9a31d4', '2018-11-09', '2018-11-30', 'https://www.chess.com/events/embed/2018-wcc', '2018 FIDE World Championship', 'https://www.chess.com/events/2018-wcc');
+INSERT IGNORE INTO event_category_mapping (event_id, category_id) VALUES ('2689e819-6e1f-4aaa-8692-6bb9ed9a31d4', '860742ff-6cc4-415f-be27-67373962781d');
+INSERT IGNORE INTO event_participants_mapping (event_id, person_id) VALUES ('2689e819-6e1f-4aaa-8692-6bb9ed9a31d4', '74dad1b1-2f90-45b4-8b1a-c1d47f2296ee');
+INSERT IGNORE INTO event_participants_mapping (event_id, person_id) VALUES ('2689e819-6e1f-4aaa-8692-6bb9ed9a31d4', '4008d5b0-1540-4e0c-82bf-de37b4f759c3');
+
 -- FIDE World Championship 2021
 INSERT IGNORE INTO event (id, date_from, date_to, embed_url, title, url) VALUES ('e4c203c8-f064-4a5f-a9af-8e4af0796921', '2021-11-24', '2021-12-14', 'https://www.chess.com/events/embed/2021-fide-world-chess-championship', '2021 FIDE World Championship', 'https://www.chess.com/events/2021-fide-world-chess-championship');
 INSERT IGNORE INTO event_category_mapping (event_id, category_id) VALUES ('e4c203c8-f064-4a5f-a9af-8e4af0796921', '860742ff-6cc4-415f-be27-67373962781d');
