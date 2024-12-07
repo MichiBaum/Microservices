@@ -7,11 +7,7 @@ import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.app.person.PersonDto
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import java.util.UUID
 
@@ -95,7 +91,8 @@ class EventController(
         return ResponseEntity.ok().body(categoryDtos)
     }
 
-    @PostMapping("/api/events")
+    @Transactional
+    @PutMapping("/api/events")
     fun createEvent(@RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{
         return try {
             val event = eventService.create(eventDto)
@@ -108,7 +105,8 @@ class EventController(
         }
     }
 
-    @PostMapping("/api/events/{id}")
+    @Transactional
+    @PutMapping("/api/events/{id}")
     fun updateEvent(@PathVariable id: String, @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto> {
         return try {
             val uuid = UUID.fromString(id)

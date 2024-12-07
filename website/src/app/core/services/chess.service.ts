@@ -1,6 +1,14 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Account, ChessEvent, ChessEventCategory, ChessGame, Person, SearchPerson} from "../models/chess/chess.models";
+import {
+  Account,
+  ChessEvent,
+  ChessEventCategory,
+  ChessGame,
+  Person,
+  SearchPerson,
+  WriteChessEvent
+} from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
@@ -64,6 +72,17 @@ export class ChessService {
 
   importGames(id: string): Observable<void> {
     return this.http.get<void>(environment.chessService + '/accounts/' + id + '/load-games')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  /**
+   *
+   */
+  saveEvent(id: string, event: WriteChessEvent): Observable<ChessEvent> {
+    let endPoint = "/events"
+    if(id !== undefined && id !== '')
+      endPoint = endPoint + "/" + id
+    return this.http.put<ChessEvent>(environment.chessService + endPoint, event)
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 }

@@ -18,7 +18,7 @@ class PersonConverter(
             fideId = person.fideId,
             accounts = emptySet(),
             federation = person.federation,
-            birthDate = person.birthDate?.let { LocalDate.parse(it) },
+            birthday = person.birthday?.let { LocalDate.parse(it) },
             gender = person.gender
         )
     }
@@ -30,7 +30,7 @@ class PersonConverter(
             lastname = person.lastname,
             fideId = person.fideId,
             federation = person.federation,
-            birthDate = person.birthDate?.toString(),
+            birthday = person.birthday?.toString(),
             gender = person.gender,
             accounts = person.accounts.map { account -> accountConverter.convert(account) }.toSet(),
         )

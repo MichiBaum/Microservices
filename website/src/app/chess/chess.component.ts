@@ -14,7 +14,16 @@ import {Ripple} from "primeng/ripple";
 import {BadgeModule} from "primeng/badge";
 import {NgClass, NgIf} from "@angular/common";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faChartLine, faGears, faNewspaper, faPerson} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarDay,
+  faCalendarPlus, faCalendarXmark,
+  faChartLine,
+  faGears,
+  faNewspaper,
+  faPerson
+} from "@fortawesome/free-solid-svg-icons";
+import {TagModule} from "primeng/tag";
+import {faClock} from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: 'app-chess',
@@ -26,7 +35,8 @@ import {faChartLine, faGears, faNewspaper, faPerson} from "@fortawesome/free-sol
     BadgeModule,
     NgClass,
     NgIf,
-    FaIconComponent
+    FaIconComponent,
+    TagModule
   ],
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'
@@ -62,11 +72,13 @@ export class ChessComponent implements OnInit{
         {
           label: event.title,
           routerLink: '/chess/events/' + event.id,
+          tag: this.getEventIcon(event),
+          tagColor: this.getEventIconColor(event),
         } as MenuItem
       )
     );
     menuEvents.push({
-      label: "All",
+      label: this.translate.instant('chess.navigation.all-events'),
       routerLink: '/chess/events/'
     } as MenuItem)
 
@@ -80,7 +92,7 @@ export class ChessComponent implements OnInit{
       {
         label: this.translate.instant('chess.navigation.events'),
         customIcon: faNewspaper,
-        items: menuEvents
+        items: menuEvents,
       },
       {
         label: this.translate.instant('chess.navigation.person'),
@@ -118,4 +130,29 @@ export class ChessComponent implements OnInit{
       },
     ];
   }
+
+  getEventIconColor(event: ChessEvent){
+    if(event.dateFrom && event.dateTo){
+      const dateFrom = new Date(event.dateFrom)
+      const dateTo = new Date(event.dateTo)
+      const current = new Date()
+      if(dateTo > current && dateFrom < current){ return "color: green"}
+      if(dateTo < current ){ return "color: red"}
+      if(dateFrom > current){ return "color: #0688fb"}
+    }
+    return ""
+  }
+
+  getEventIcon(event: ChessEvent) {
+    if(event.dateFrom && event.dateTo){
+      const dateFrom = new Date(event.dateFrom)
+      const dateTo = new Date(event.dateTo)
+      const current = new Date()
+      if(dateTo > current && dateFrom < current){ return faCalendarDay}
+      if(dateTo < current ){ return faCalendarXmark}
+      if(dateFrom > current){ return faCalendarPlus}
+    }
+    return faClock;
+  }
+
 }

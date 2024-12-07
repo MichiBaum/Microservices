@@ -15,7 +15,7 @@ data class CreatePersonDto(
     val lastname: String,
     val fideId: String? = null,
     val federation: String? = null,
-    val birthDate: String? = null,
+    val birthday: String? = null,
     val gender: Gender
 )
 
@@ -25,7 +25,7 @@ data class PersonDto(
     val lastname: String,
     val fideId: String?,
     val federation: String? = null,
-    val birthDate: String? = null,
+    val birthday: String? = null,
     val gender: Gender,
     val accounts: Set<AccountDto> = emptySet(),
 )

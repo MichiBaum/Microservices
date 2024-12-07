@@ -27,6 +27,13 @@
 
         <p-inputGroup class="mb-2">
           <p-inputGroupAddon>
+            Location
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="location"/>
+        </p-inputGroup>
+
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
             Date from
           </p-inputGroupAddon>
           <p-calendar formControlName="dateFrom" dateFormat="dd.mm.yy"></p-calendar>
@@ -55,9 +62,6 @@
 
         <p-multiSelect [options]="categories" optionLabel="title" placeholder="Select Categories" formControlName="categories" />
 
-        <br />
-        <p-button type="button" class="mr-4" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
-        <p-button type="button" class="mr-4" label="Clear" (click)="clear()"></p-button>
       </form>
     </p-fieldset>
   </div>
@@ -71,21 +75,28 @@
         targetHeader="Participants"
         [dragdrop]="true"
         [responsive]="true"
-        filterBy="firstname,lastname,fideId,birthDate"
+        filterBy="firstname,lastname,fideId,birthday"
         [sourceStyle]="{ height: '20rem' }"
         [targetStyle]="{ height: '20rem' }">
         <ng-template let-person pTemplate="item">
           <div class="flex flex-wrap p-2 align-items-center gap-3">
             <div class="flex-1 flex flex-column gap-2">
               <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="getGenderIcon(person)"></fa-icon></span>
-              <div class="flex align-products-center gap-2" *ngIf="person.fideId || person.birthDate">
+              <div class="flex align-products-center gap-2" *ngIf="person.fideId || person.birthday">
                 <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
-                <span *ngIf="person.birthDate">Birthday: {{ person.birthDate }}</span>
+                <span *ngIf="person.birthday">Birthday: {{ person.birthday }}</span>
               </div>
             </div>
           </div>
         </ng-template>
       </p-pickList>
+    </p-fieldset>
+  </div>
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
+    <p-fieldset legend="Action">
+      <p-button type="button" class="mr-4" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+      <p-button type="button" class="mr-4" label="Clear Data" (click)="clear()"></p-button>
+      <p-button (onClick)="confirmDelete($event)" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent" />
     </p-fieldset>
   </div>
 </div>

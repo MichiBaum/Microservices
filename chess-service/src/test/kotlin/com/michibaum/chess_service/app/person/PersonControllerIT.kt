@@ -50,7 +50,7 @@ class PersonControllerIT {
             gender = Gender.MALE,
             accounts = emptySet(),
             federation = null,
-            birthDate = null,
+            birthday = null,
         )
         val savedPerson = Person(
             id = UUID.randomUUID(),
@@ -59,7 +59,7 @@ class PersonControllerIT {
             fideId = convertedPerson.fideId,
             accounts = emptySet(),
             federation = null,
-            birthDate = null,
+            birthday = null,
             gender = Gender.MALE
         )
         val responsePersonDto = PersonDto(
@@ -68,7 +68,7 @@ class PersonControllerIT {
             lastname = savedPerson.lastname,
             fideId = savedPerson.fideId,
             federation = savedPerson.federation,
-            birthDate = savedPerson.birthDate.toString(),
+            birthday = savedPerson.birthday.toString(),
             gender = savedPerson.gender,
             accounts = emptySet(),
         )

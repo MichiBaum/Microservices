@@ -5,6 +5,7 @@ import com.michibaum.chess_service.app.person.PersonDto
 data class EventDto(
     val id: String? = null,
     val title: String,
+    val location: String?,
     val url: String? = null,
     val embedUrl: String? = null,
     val dateFrom: String? = null,

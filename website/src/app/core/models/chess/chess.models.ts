@@ -4,7 +4,7 @@ export interface Person {
   lastname:string
   fideId?:string
   federation?:string
-  birthDate?:string
+  birthday?:string
   gender: Gender
   accounts: Account[]
 }
@@ -43,6 +43,7 @@ export enum ChessGameType{
 export interface ChessEvent {
   id: string | undefined;
   title: string;
+  location: string | undefined;
   url: string | undefined;
   embedUrl: string | undefined;
   dateFrom: string | undefined;
@@ -53,6 +54,7 @@ export interface ChessEvent {
 
 export interface WriteChessEvent {
   title: string;
+  location: string | undefined;
   dateFrom: string | undefined;
   dateTo: string | undefined;
   url: string | undefined;

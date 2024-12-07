@@ -4,11 +4,34 @@
   </p-tabPanel>
   <p-tabPanel header="{{'chess.event.details' | translate}}">
 
-    <app-chess-event-participants *ngIf="event" [event]="event"></app-chess-event-participants>
+    <p-card >
+      <ng-template pTemplate="header">
 
-    <div *ngIf="event?.url" class="flex gap-3 mt-1">
-      <p-button label="Open Official Website" class="w-full" styleClass="w-full" (onClick)="openEvent()" />
-    </div>
+      </ng-template>
+
+      <div class="grid">
+        <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-4 qhd:col-width-3 max-width:col-width-3">
+          <p-card header="{{event?.title ?? ''}}" subheader="{{getCategories(event)}}">
+            <p><strong>Title:</strong> {{ event?.title }}</p>
+            <p><strong>Location:</strong> {{ event?.location }}</p>
+            <p><strong>Date from:</strong> {{ event?.dateFrom }}</p>
+            <p><strong>Date to:</strong> {{ event?.dateTo }}</p>
+          </p-card>
+        </div>
+
+        <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-8 qhd:col-width-9 max-width:col-width-9">
+          <app-chess-event-participants *ngIf="event" [event]="event"></app-chess-event-participants>
+        </div>
+
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div *ngIf="event?.url" class="flex gap-3 mt-1">
+          <p-button label="Open Official Website" class="w-full" styleClass="w-full" (onClick)="openEvent()" />
+        </div>
+      </ng-template>
+    </p-card>
+
   </p-tabPanel>
   <p-tabPanel header="{{'chess.event.games' | translate}}">
     <app-chess-event-games *ngIf="event" [event]="event"></app-chess-event-games>

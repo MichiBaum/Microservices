@@ -16,6 +16,7 @@ import {NgIf} from "@angular/common";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -62,6 +63,10 @@ export class ChessUpdateEventComponent implements OnInit{
     }, [
       Validators.required,
     ]),
+    location: new FormControl<string | null>({
+      value: '',
+      disabled: false
+    }),
     dateFrom: new FormControl<Date | null>({
       value: null,
       disabled: false
@@ -87,7 +92,8 @@ export class ChessUpdateEventComponent implements OnInit{
   });
 
   constructor(
-    private readonly chessService: ChessService
+    private readonly chessService: ChessService,
+    private readonly confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -136,6 +142,7 @@ export class ChessUpdateEventComponent implements OnInit{
     this.formGroup?.patchValue({
       id: this.selectedEvent?.id ?? '',
       title: this.selectedEvent?.title ?? '',
+      location: this.selectedEvent?.location ?? '',
       dateFrom: dateFrom ?? null,
       dateTo: dateTo ?? null,
       url: this.selectedEvent?.url ?? '',
@@ -151,6 +158,7 @@ export class ChessUpdateEventComponent implements OnInit{
     }
     const event: WriteChessEvent = {
       title: this.formGroup.controls['title'].value,
+      location: this.formGroup.controls['location'].value,
       dateFrom: this.formGroup.controls['dateFrom'].value.toISOString().split('T')[0],
       dateTo: this.formGroup.controls['dateTo'].value.toISOString().split('T')[0],
       url: this.formGroup.controls['url'].value,
@@ -159,9 +167,17 @@ export class ChessUpdateEventComponent implements OnInit{
       participantsIds: this.participants.map(value => value.id)
     };
 
-    // this.chessService.saveEvent(event).subscribe(event => {
-    // })
-    console.log(event)
+    const id = this.formGroup.controls['id'].value ?? ""
+    this.chessService.saveEvent(id, event).subscribe(newEvent => {
+      this.clear()
+      let isNewEvent = !this.events.some(old => old.id === newEvent.id);
+      if (isNewEvent){
+        this.events = [...this.events, newEvent]
+      } else {
+        const newEvents = this.events.map(old => old.id === newEvent.id ? newEvent : old);
+        this.events = [...newEvents]
+      }
+    })
   }
 
   clear() {
@@ -170,8 +186,26 @@ export class ChessUpdateEventComponent implements OnInit{
     this.resetParticipantsSelect();
   }
 
-  delete() {
-    console.log(this.formGroup.controls['id'].value) // TODO delete request
+  confirmDelete($event: Event) {
+    if (!this.selectedEvent)
+      return
+    this.confirmationService.confirm({
+      target: $event.target as EventTarget,
+      message: 'Do you want to delete the Event: ' + this.selectedEvent.title,
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass:"p-button-danger p-button-text",
+      rejectButtonStyleClass:"p-button-text p-button-text",
+      acceptIcon:"none",
+      rejectIcon:"none",
+
+      accept: () => {
+        console.log("Yes");
+      },
+      reject: () => {
+        console.log("No");
+      }
+    });
   }
 
   getGenderIcon(person: Person) {

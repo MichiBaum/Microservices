@@ -20,7 +20,7 @@ class Person(
 
     @Column(nullable = true)
     @Temporal(TemporalType.DATE)
-    val birthDate: LocalDate?,
+    val birthday: LocalDate?,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

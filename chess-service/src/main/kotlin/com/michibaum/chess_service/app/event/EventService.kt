@@ -37,6 +37,7 @@ class EventService(
 
         val event = Event(
             title = dto.title,
+            location = dto.location,
             url = dto.url,
             embedUrl = dto.embedUrl,
             dateFrom = LocalDate.parse(dto.dateFrom),
@@ -48,28 +49,24 @@ class EventService(
     }
 
     fun update(event: Event, dto: WriteEventDto): Event {
-        event.apply {
-            title = dto.title
-            dateFrom = LocalDate.parse(dto.dateFrom)
-            dateTo = LocalDate.parse(dto.dateTo)
-            url = dto.url
-            embedUrl = dto.embedUrl
-            // categories
-            categories.apply {
-                val categoryIds = dto.categoryIds.map { UUID.fromString(it) }
-                val newCategories = eventCategoryRepository.findAllById(categoryIds)
-                clear()
-                addAll(newCategories)
-            }
-            // participants
-            participants.apply {
-                // find
-                val participantsIds = dto.participantsIds.map { UUID.fromString(it) }
-                val newParticipants = personRepository.findAllById(participantsIds)
-                clear()
-                addAll(newParticipants)
-            }
-        }
-        return eventRepository.save(event)
+        val categoryIds = dto.categoryIds.map { UUID.fromString(it) }
+        val newCategories = eventCategoryRepository.findAllById(categoryIds).toMutableSet()
+
+        val participantsIds = dto.participantsIds.map { UUID.fromString(it) }
+        val newParticipants = personRepository.findAllById(participantsIds).toMutableSet()
+
+        val newEvent = Event(
+            title = dto.title,
+            location = dto.location,
+            url = dto.url,
+            embedUrl = dto.embedUrl,
+            dateFrom = LocalDate.parse(dto.dateFrom),
+            dateTo = LocalDate.parse(dto.dateTo),
+            categories = newCategories,
+            participants = newParticipants,
+            id = event.id
+        )
+
+        return eventRepository.save(newEvent)
     }
 }

@@ -15,6 +15,7 @@ class EventConverter(
         return EventDto(
             id = event.id.toString(),
             title = event.title,
+            location = event.location,
             url = event.url,
             embedUrl = event.embedUrl,
             dateFrom = event.dateFrom.toString(),

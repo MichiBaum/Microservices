@@ -9,27 +9,30 @@ import java.util.*
 class Event(
 
     @Column(nullable = false)
-    var title: String,
+    val title: String,
 
     @Column(nullable = true)
-    var url: String?,
+    val location: String?,
 
     @Column(nullable = true)
-    var embedUrl: String?,
+    val url: String?,
+
+    @Column(nullable = true)
+    val embedUrl: String?,
 
     @Column(nullable = false)
-    var dateFrom: LocalDate,
+    val dateFrom: LocalDate,
 
     @Column(nullable = false)
-    var dateTo: LocalDate,
+    val dateTo: LocalDate,
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
     @JoinTable(name = "EVENT_CATEGORY_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "category_id")])
-    val categories: MutableSet<EventCategory> = mutableSetOf(),
+    val categories: Set<EventCategory> = setOf(),
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Person::class)
     @JoinTable(name = "EVENT_PARTICIPANTS_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "person_id")])
-    val participants: MutableSet<Person> = mutableSetOf(),
+    val participants: Set<Person> = setOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

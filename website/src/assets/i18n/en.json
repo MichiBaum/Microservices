@@ -80,6 +80,7 @@
     "navigation": {
       "news": "News",
       "events": "Events",
+      "all-events": "All Events",
       "person": "Person",
       "player-analysis": "Player Analysis",
       "settings": "Settings"
@@ -88,6 +89,8 @@
       "chess-com": "Chess.com",
       "details": "Details",
       "fide": "Fide",
+      "federation": "Federation",
+      "birthday": "Birthday",
       "fide-website": "Fide Website",
       "participants": "Participants",
       "participant": {

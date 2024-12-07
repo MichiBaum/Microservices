@@ -30,7 +30,8 @@ class SecurityConfiguration {
                     .pathMatchers(
                         HttpMethod.GET,"/api/events",
                         "/api/events/*",
-                        "/api/events/*/participants"
+                        "/api/events/*/participants",
+                        "/api/events/*/games"
                     ).permitAll()
                     .pathMatchers(
                         "/actuator",

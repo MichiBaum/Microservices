@@ -12,7 +12,7 @@ class PersonProvider {
                 fideId = null,
                 accounts = accounts,
                 federation = "SUI",
-                birthDate = LocalDate.of(2001, 3, 31),
+                birthday = LocalDate.of(2001, 3, 31),
                 gender = Gender.MALE
             )
         }

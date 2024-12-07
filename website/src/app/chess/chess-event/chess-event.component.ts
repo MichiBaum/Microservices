@@ -12,6 +12,7 @@ import {NgIf} from "@angular/common";
 import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-event-participants.component";
 import {ChessEvent} from "../../core/models/chess/chess.models";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
+import {DividerModule} from "primeng/divider";
 
 @Component({
   selector: 'app-chess-events',
@@ -24,7 +25,8 @@ import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.co
     TableModule,
     NgIf,
     ChessEventParticipantsComponent,
-    ChessEventGamesComponent
+    ChessEventGamesComponent,
+    DividerModule
   ],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.scss'
@@ -64,4 +66,10 @@ export class ChessEventComponent implements OnInit {
       this.navigationService.open(this.event.url)
   }
 
+  getCategories(event: ChessEvent | undefined) {
+    if(event == undefined){
+      return "";
+    }
+    return event.categories.map(value => value.title).join(", ")
+  }
 }

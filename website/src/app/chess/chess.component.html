@@ -3,9 +3,19 @@
     <p-menubar [model]="menuItems">
       <ng-template pTemplate="item" let-item let-root="root">
         <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
-          <fa-icon [icon]="item.customIcon" *ngIf="item.customIcon"></fa-icon>
+          <ng-container *ngIf="item.customIcon">
+            <fa-icon [icon]="item.customIcon"></fa-icon>
+          </ng-container>
+
+          <ng-container *ngIf="item.tag">
+            <p-tag [style]="{ background: 'rgb(0 0 0 / 0%)' }">
+              <fa-icon [icon]="item.tag" [style]="item.tagColor"></fa-icon>
+            </p-tag>
+          </ng-container>
+
           <span class="ml-2">{{ item.label }}</span>
           <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+
           <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
           <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
         </a>

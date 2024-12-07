@@ -121,7 +121,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(setOf(savedPerson))
+        val event = EventProvider.event(mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
 
         // WHEN
@@ -144,7 +144,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(setOf(savedPerson))
+        val event = EventProvider.event(mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
         var uuid: UUID?
         do {
@@ -170,7 +170,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(setOf(savedPerson))
+        val event = EventProvider.event(mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
         val uuid = "abc"
 

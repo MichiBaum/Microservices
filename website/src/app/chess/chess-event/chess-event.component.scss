@@ -5,3 +5,7 @@ iframe{
   border: none; /* Remove default border */
   overflow: hidden;
 }
+
+:host ::ng-deep .p-card {
+  height: 100%;
+}

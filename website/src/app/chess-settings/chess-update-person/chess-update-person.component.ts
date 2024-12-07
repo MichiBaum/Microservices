@@ -3,6 +3,8 @@ import {DropdownModule} from "primeng/dropdown";
 import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
+import {FileUploadModule} from "primeng/fileupload";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-chess-update-person',
@@ -11,7 +13,8 @@ import {SelectChessPersonComponent} from "../select-chess-person/select-chess-pe
     DropdownModule,
     DividerModule,
     FieldsetModule,
-    SelectChessPersonComponent
+    SelectChessPersonComponent,
+    FileUploadModule
   ],
   templateUrl: './chess-update-person.component.html',
   styleUrl: './chess-update-person.component.scss'
@@ -22,4 +25,5 @@ export class ChessUpdatePersonComponent {
 
   ) { }
 
+  protected readonly environment = environment;
 }

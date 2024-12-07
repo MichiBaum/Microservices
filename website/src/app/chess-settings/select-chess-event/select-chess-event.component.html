@@ -1,3 +1,5 @@
+<p-confirmDialog />
+
 <p-table
   #gameEventsTable
   styleClass="p-datatable-striped"
@@ -6,7 +8,7 @@
   selectionMode="single"
   [paginator]="true"
   [rows]="5"
-  [globalFilterFields]="['title']"
+  [globalFilterFields]="['title','location']"
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
 >
@@ -22,6 +24,9 @@
     <tr>
       <th style="width: 4rem"></th>
       <th>Title</th>
+      <th>Category</th>
+      <th>Location</th>
+      <th>Nr. of Participants</th>
       <th>From</th>
       <th>To</th>
       <th>Url</th>
@@ -34,6 +39,14 @@
         <p-tableCheckbox [value]="event" />
       </td>
       <td>{{ event.title }}</td>
+      <td>
+        <!-- TODO Multiple not happened yet therefore no prio-->
+        <ng-container *ngFor="let category of event.categories">
+          <span>{{ category.title }}</span>
+        </ng-container>
+      </td>
+      <td>{{ event.location }}</td>
+      <td>{{ event.participants.length }}</td>
       <td>{{ event.dateFrom }}</td>
       <td>{{ event.dateTo }}</td>
       <td><fa-icon [icon]="getIcon(event.url)" [style]="getColor(event.url)"></fa-icon></td>

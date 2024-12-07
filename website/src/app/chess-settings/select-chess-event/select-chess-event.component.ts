@@ -1,11 +1,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Table, TableModule} from "primeng/table";
+import {TableModule} from "primeng/table";
 import {ChessEvent} from "../../core/models/chess/chess.models";
-import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {NgForOf} from "@angular/common";
+import {Button} from "primeng/button";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-select-chess-event',
@@ -14,7 +17,9 @@ import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
     TableModule,
     InputTextModule,
     FormsModule,
-    FaIconComponent
+    FaIconComponent,
+    NgForOf,
+    ConfirmDialogModule
   ],
   templateUrl: './select-chess-event.component.html',
   styleUrl: './select-chess-event.component.scss'
@@ -30,8 +35,9 @@ export class SelectChessEventComponent {
   selectedEvent: ChessEvent | undefined;
   tableSearch: string = "";
 
-  constructor() {
-  }
+  constructor(
+
+  ) { }
 
   onSelectionChange() {
     if(this.selectedEvent) {
@@ -50,4 +56,5 @@ export class SelectChessEventComponent {
       return "color: red"
     return "color: green"
   }
+
 }

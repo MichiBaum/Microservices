@@ -14,7 +14,7 @@ import {
   faChess,
   faCoffee, faCompactDisc,
   faDumbbell,
-  faHouse,
+  faHouse, faKey,
   faLightbulb,
   faMicrochip,
   faStamp,
@@ -27,6 +27,7 @@ import {PermissionService} from "../../core/services/permission.service";
 import {AuthService} from "../../core/services/auth.service";
 import {ImageModule} from "primeng/image";
 import {Permissions} from "../../core/config/permissions";
+import {LanguageSelectComponent} from "../../language-select/language-select.component";
 
 @Component({
   selector: 'app-navigation',
@@ -40,7 +41,8 @@ import {Permissions} from "../../core/config/permissions";
     Ripple,
     FaIconComponent,
     ImageModule,
-    TranslateModule
+    TranslateModule,
+    LanguageSelectComponent
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
@@ -84,7 +86,7 @@ export class NavigationComponent implements OnInit{
         items: [
           {
             label: this.translate.instant(Sides.login.translationKey),
-            customIcon: faHouse,
+            customIcon: faKey,
             visible: !this.permissionService.isAuthenticated(),
             command: () => {
               this.sidebarVisible = false;

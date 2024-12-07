@@ -17,7 +17,7 @@ class PersonService(
             accounts = person.accounts + account,
             id = person.id,
             federation = person.federation,
-            birthDate = person.birthDate,
+            birthday = person.birthday,
             gender = person.gender
         )
         return personRepository.save(newPerson)
@@ -31,7 +31,7 @@ class PersonService(
             accounts = person.accounts + accounts,
             id = person.id,
             federation = person.federation,
-            birthDate = person.birthDate,
+            birthday = person.birthday,
             gender = person.gender
         )
         return personRepository.save(newPerson)

@@ -12,6 +12,7 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
 import {Sides} from "../core/config/sides";
 import {UserInfoService} from "../core/services/user-info.service";
 import {TranslateModule} from "@ngx-translate/core";
+import {FocusTrapModule} from "primeng/focustrap";
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,8 @@ import {TranslateModule} from "@ngx-translate/core";
     PaginatorModule,
     PasswordModule,
     PrimeTemplate,
-    TranslateModule
+    TranslateModule,
+    FocusTrapModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'

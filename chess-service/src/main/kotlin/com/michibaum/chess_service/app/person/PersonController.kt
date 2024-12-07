@@ -1,18 +1,19 @@
 package com.michibaum.chess_service.app.person
 
+import com.michibaum.chess_service.apis.fide.FideImporter
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 class PersonController(
     private val personService: PersonService,
-    private val personConverter: PersonConverter
+    private val personConverter: PersonConverter,
+    private val fideImporter: FideImporter
 ) {
 
     @Transactional
@@ -40,6 +41,21 @@ class PersonController(
 
 
         return ResponseEntity(persons, HttpStatus.OK)
+    }
+
+    @PostMapping(value = ["/api/fide/ratings"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.TEXT_XML_VALUE])
+    fun fideImport(@RequestPart("file") file: MultipartFile){
+        val players = fideImporter.import(file.inputStream)
+        val playersToImport = players.asSequence()
+            .filter { it.rating < 2000 }
+            .filter { it.fideid.isNotBlank() }
+            .filter { it.name.isNotBlank() }
+            .filter { it.country.isNotBlank() }
+            .filter { it.name.contains(",") }
+            .toList()
+        // TODO Service find player by fideId >
+        //  > exists -> update rating, country (not Name). If no fide otb account exists create one
+        //  > not found -> create person with name, rating, country and gender. Also create an otb account
     }
 
 }

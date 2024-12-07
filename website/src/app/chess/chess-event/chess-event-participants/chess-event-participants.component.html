@@ -4,6 +4,8 @@
       <tr>
         <th>{{'chess.event.participant.firstname' | translate}}</th>
         <th>{{'chess.event.participant.lastname' | translate}}</th>
+        <th>{{'chess.event.federation' | translate}}</th>
+        <th>{{'chess.event.birthday' | translate}}</th>
         <th>{{'chess.event.fide' | translate}}</th>
       </tr>
     </ng-template>
@@ -11,6 +13,8 @@
       <tr>
         <td>{{ participant.firstname }}</td>
         <td>{{ participant.lastname }}</td>
+        <td>{{ participant.federation }}</td>
+        <td>{{ participant.birthday }}</td>
         <td><p-button *ngIf="participant.fideId" label="{{'chess.event.fide-website' | translate}}" (onClick)="openFide(participant.fideId)" /></td>
       </tr>
     </ng-template>
