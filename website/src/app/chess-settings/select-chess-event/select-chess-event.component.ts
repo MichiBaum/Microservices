@@ -6,9 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {NgForOf} from "@angular/common";
-import {Button} from "primeng/button";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
-import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-select-chess-event',

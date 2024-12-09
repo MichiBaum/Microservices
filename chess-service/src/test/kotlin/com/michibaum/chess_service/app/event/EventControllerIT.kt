@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.EventProvider
 import com.michibaum.chess_service.domain.PersonProvider
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
@@ -79,7 +80,7 @@ class EventControllerIT {
         var uuid: UUID?
         do {
             uuid = UUID.randomUUID()
-        } while (savedEvent.id != uuid)
+        } while (savedEvent.id == uuid)
 
         // WHEN
         webTestClient.get()
@@ -149,7 +150,7 @@ class EventControllerIT {
         var uuid: UUID?
         do {
             uuid = UUID.randomUUID()
-        } while (savedEvent.id != uuid)
+        } while (savedEvent.id == uuid)
 
         // WHEN
         webTestClient.get()

@@ -1,6 +1,8 @@
 package com.michibaum.chess_service.domain
 
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 
 class AccountProvider {
     companion object {
@@ -12,7 +14,7 @@ class AccountProvider {
                 url = "https://chess-is-best.com/Michi1",
                 platform = ChessPlatform.CHESSCOM,
                 person = person,
-                createdAt = LocalDate.ofEpochDay(1595005065053),
+                createdAt = LocalDate.ofInstant(Instant.ofEpochSecond(1595005065053), ZoneId.systemDefault()),
                 games = emptySet()
             )
         }

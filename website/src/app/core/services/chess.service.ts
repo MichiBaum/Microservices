@@ -76,7 +76,11 @@ export class ChessService {
   }
 
   /**
+   * Saves a chess event by sending it to the chess service endpoint. If an ID is provided, the event will be updated at the specified endpoint.
    *
+   * @param id - The unique identifier of the chess event. If the ID is provided, the event will be updated; otherwise, a new event will be created.
+   * @param event - The WriteChessEvent object containing the details of the chess event to be saved.
+   * @return An Observable of the ChessEvent object after being successfully saved.
    */
   saveEvent(id: string, event: WriteChessEvent): Observable<ChessEvent> {
     let endPoint = "/events"

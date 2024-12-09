@@ -11,19 +11,45 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.6</version> <!-- TODO Spring Boot [3.4.0] is not compatible with this Spring Cloud release train 2023.0.x https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2024.0-Release-Notes -->
-        <relativePath /> <!-- lookup parent from repository -->
+        <!--
+        TODO Spring Boot [3.4.0] is not compatible with this Spring Cloud release train 2023.0.x
+        https://github.com/spring-projects/spring-boot/wiki
+        -->
+        <version>3.3.6</version>
+        <relativePath />
     </parent>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--
+        https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
+        https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
+        https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2024.0-Release-Notes
+        -->
         <spring-cloud.version>2023.0.4</spring-cloud.version>
-        <spring-boot-admin.version>3.3.6</spring-boot-admin.version> <!-- TODO 3.4.0 -->
+
+        <!--
+        https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
+        TODO 3.4.1
+        -->
+        <spring-boot-admin.version>3.3.6</spring-boot-admin.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <java.version>21</java.version>
-        <kotlin.version>2.0.21</kotlin.version> <!-- TODO 2.1.0 -->
-        <mockk.version>1.13.13</mockk.version> <!-- https://mockk.io/ -->
+
+        <!--
+        https://stackoverflow.com/a/77179226/10258204
+        https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
+        TODO 2.1.0
+        -->
+        <kotlin.version>2.0.21</kotlin.version>
+
+        <!--
+        https://mockk.io/
+        https://mvnrepository.com/artifact/io.mockk/mockk-jvm
+        -->
+        <mockk.version>1.13.13</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>

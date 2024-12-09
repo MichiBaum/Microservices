@@ -3,6 +3,7 @@ package com.michibaum.chess_service.app.event
 import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.EventCategory
+import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
@@ -29,11 +30,8 @@ class EventService(
     }
 
     fun create(dto: WriteEventDto): Event {
-        val categoryIds = dto.categoryIds.map { UUID.fromString(it) }
-        val newCategories = eventCategoryRepository.findAllById(categoryIds).toMutableSet()
-
-        val participantsIds = dto.participantsIds.map { UUID.fromString(it) }
-        val newParticipants = personRepository.findAllById(participantsIds).toMutableSet()
+        val categories = getCategories(dto.categoryIds)
+        val participants = getPersons(dto.participantsIds)
 
         val event = Event(
             title = dto.title,
@@ -42,18 +40,15 @@ class EventService(
             embedUrl = dto.embedUrl,
             dateFrom = LocalDate.parse(dto.dateFrom),
             dateTo = LocalDate.parse(dto.dateTo),
-            categories = newCategories,
-            participants = newParticipants
+            categories = categories,
+            participants = participants
         )
         return eventRepository.save(event)
     }
 
     fun update(event: Event, dto: WriteEventDto): Event {
-        val categoryIds = dto.categoryIds.map { UUID.fromString(it) }
-        val newCategories = eventCategoryRepository.findAllById(categoryIds).toMutableSet()
-
-        val participantsIds = dto.participantsIds.map { UUID.fromString(it) }
-        val newParticipants = personRepository.findAllById(participantsIds).toMutableSet()
+        val categories = getCategories(dto.categoryIds)
+        val participants = getPersons(dto.participantsIds)
 
         val newEvent = Event(
             title = dto.title,
@@ -62,11 +57,21 @@ class EventService(
             embedUrl = dto.embedUrl,
             dateFrom = LocalDate.parse(dto.dateFrom),
             dateTo = LocalDate.parse(dto.dateTo),
-            categories = newCategories,
-            participants = newParticipants,
+            categories = categories,
+            participants = participants,
             id = event.id
         )
 
         return eventRepository.save(newEvent)
+    }
+
+    private fun getPersons(ids: List<String>): MutableSet<Person> {
+        val participantsIds = ids.map { UUID.fromString(it) }
+        return personRepository.findAllById(participantsIds).toMutableSet()
+    }
+
+    private fun getCategories(ids: List<String>): Set<EventCategory> {
+        val categoryIds = ids.map { UUID.fromString(it) }
+        return eventCategoryRepository.findAllById(categoryIds).toSet()
     }
 }
