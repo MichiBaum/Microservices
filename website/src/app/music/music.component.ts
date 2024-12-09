@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
-import { Sides } from '../core/config/sides';
+import {Sides} from '../core/config/sides';
 
 @Component({
   selector: 'app-music',

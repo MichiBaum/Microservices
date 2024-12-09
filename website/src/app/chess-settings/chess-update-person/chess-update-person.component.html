@@ -1,0 +1,34 @@
+<div class="grid">
+  <div class="col-12">
+    <p-fieldset legend="Person Select">
+      <app-select-chess-person></app-select-chess-person>
+    </p-fieldset>
+  </div>
+
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
+    <p-fieldset legend="Person Form">
+
+    </p-fieldset>
+  </div>
+
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
+    <p-fieldset legend="Account Connect">
+
+    </p-fieldset>
+  </div>
+
+  <div class="col-12">
+    <p-fieldset legend="Upload Fide Rating List">
+      <p-fileUpload
+        mode="basic"
+        chooseLabel="Choose"
+        chooseIcon="pi pi-upload"
+        name="file"
+        url="{{environment.chessService}}/fide/ratings"
+        accept=".xml"
+        maxFileSize="1000000000"
+      />
+    </p-fieldset>
+  </div>
+
+</div>

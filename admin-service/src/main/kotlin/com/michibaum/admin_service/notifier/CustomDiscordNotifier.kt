@@ -8,7 +8,7 @@ import de.codecentric.boot.admin.server.domain.events.InstanceEvent
 import de.codecentric.boot.admin.server.notify.AbstractEventNotifier
 import reactor.core.publisher.Mono
 
-class CustomDiscordNotifier(val discordClient: DiscordClient, val adminDiscordProperties: AdminDiscordProperties, instanceRepository: InstanceRepository) : AbstractEventNotifier(instanceRepository) {
+class CustomDiscordNotifier(private val discordClient: DiscordClient, private val adminDiscordProperties: AdminDiscordProperties, instanceRepository: InstanceRepository) : AbstractEventNotifier(instanceRepository) {
 
     override fun doNotify(event: InstanceEvent, instance: Instance): Mono<Void> {
         if(!adminDiscordProperties.enabled) {

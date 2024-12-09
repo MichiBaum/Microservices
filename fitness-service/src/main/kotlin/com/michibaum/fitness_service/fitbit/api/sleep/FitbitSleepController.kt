@@ -3,7 +3,6 @@ package com.michibaum.fitness_service.fitbit.api.sleep
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.fitness_service.fitbit.FitbitOAuth
 import com.michibaum.fitness_service.fitbit.api.FitbitApi
-import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthCredentials
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -11,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class FitbitSleepController(
-    val fitbitApi: FitbitApi,
-    val fitbitOAuth: FitbitOAuth,
-    val fitbitSleepConverter: FitbitSleepConverter,
-    val fitbitSleepService: FitbitSleepService,
-    val fitbitSleepValidator: FitbitSleepValidator
+    private val fitbitApi: FitbitApi,
+    private val fitbitOAuth: FitbitOAuth,
+    private val fitbitSleepConverter: FitbitSleepConverter,
+    private val fitbitSleepService: FitbitSleepService,
+    private val fitbitSleepValidator: FitbitSleepValidator
 ) {
 
     @PostMapping(value = ["/api/fitbit/sleep/{startDate}/{endDate}"])

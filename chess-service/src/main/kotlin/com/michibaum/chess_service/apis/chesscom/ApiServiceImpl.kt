@@ -13,13 +13,12 @@ import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.Year
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 @Service(value = "chesscomApiService")
 class ApiServiceImpl(
     chessConfigProperties: ChessConfigProperties,
-    val converter: Converter
+    private val converter: Converter
 ): IApiService {
 
     val client = chessConfigProperties.getWebClient(ChessPlatform.CHESSCOM)
@@ -63,11 +62,7 @@ class ApiServiceImpl(
     }
 
     override fun getGames(account: Account): ApiResult<List<GameDto>> { // TODO Year and month
-        val creationYear = run {
-            val calendar = Calendar.getInstance()
-            calendar.time = account.createdAt
-            calendar.get(Calendar.YEAR)
-        }
+        val creationYear = account.createdAt?.year ?: return Error("Unknown account creation year")
 
         val years = IntRange(creationYear, Year.now().value)
         val months = IntRange(1, 12)

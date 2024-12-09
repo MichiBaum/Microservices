@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
-import java.util.*
+import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
 class AccountServiceUT {
@@ -30,17 +30,17 @@ class AccountServiceUT {
             username = username,
             name = "Some Name",
             platform = ChessPlatform.CHESSCOM,
-            createdAt = Date()
+            createdAt = LocalDate.now()
         )
         every { apiService.findAccount(username) } returns listOf(Success(apiAccount))
         every { accountRepository.saveAll(anyIterable()) } returnsArgument 0
 
         // WHEN
-        val result = accountService.getAccounts(username)
+        val result = accountService.getAccounts(username, false)
 
         // THEN
         assertEquals(1, result.size)
-        assertEquals(apiAccount.id, result[0].accId)
+        assertEquals(apiAccount.id, result[0].platformId)
         assertEquals(apiAccount.username, result[0].username)
 
     }
@@ -55,7 +55,7 @@ class AccountServiceUT {
             username = username,
             name = "Some Name1",
             platform = ChessPlatform.CHESSCOM,
-            createdAt = Date()
+            createdAt = LocalDate.now()
         )
         val apiAccount2 = AccountDto(
             id = "someId2",
@@ -63,13 +63,13 @@ class AccountServiceUT {
             username = username,
             name = "Some Name2",
             platform = ChessPlatform.LICHESS,
-            createdAt = Date()
+            createdAt = LocalDate.now()
         )
         every { apiService.findAccount(username) } returns listOf(Success(apiAccount1), Success(apiAccount2))
         every { accountRepository.saveAll(anyIterable()) } returnsArgument 0
 
         // WHEN
-        val result = accountService.getAccounts(username)
+        val result = accountService.getAccounts(username, false)
 
         // THEN
         assertEquals(2, result.size)

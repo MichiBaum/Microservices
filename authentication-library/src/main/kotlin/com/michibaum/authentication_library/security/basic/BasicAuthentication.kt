@@ -19,8 +19,4 @@ class BasicAuthentication(private val userDetails: UserDetails) : AbstractAuthen
     fun getPassword(): String =
         userDetails.password
 
-    override fun toString(): String {
-        return super.toString()
-    }
-
 }

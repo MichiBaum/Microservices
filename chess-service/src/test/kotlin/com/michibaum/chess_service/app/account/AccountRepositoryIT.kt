@@ -30,7 +30,7 @@ class AccountRepositoryIT {
         assertNotNull(result.id)
         assertNotEquals(account.id, result.id)
         assertEquals(account.name, result.name)
-        assertEquals(account.accId, result.accId)
+        assertEquals(account.platformId, result.platformId)
         assertEquals(account.username, result.username)
         assertEquals(account.url, result.url)
         assertEquals(account.platform, result.platform)

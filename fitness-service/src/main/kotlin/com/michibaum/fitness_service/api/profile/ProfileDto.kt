@@ -6,5 +6,4 @@ data class ProfileDto(
     val fullName: String,
     val gender: String,
     val height: String
-) {
-}
+)

@@ -6,4 +6,5 @@ data class AccountDto(
     val id: String,
     val username: String,
     val platform: ChessPlatform,
+    val url: String,
 )

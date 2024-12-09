@@ -1,0 +1,44 @@
+<p-table
+  #gamePersonsTable
+  [value]="persons"
+  [(selection)]="selectedPersons"
+  selectionMode="multiple"
+  [paginator]="true"
+  [rows]="5"
+  [globalFilterFields]="['firstname', 'lastname']"
+  (onRowSelect)="onSelectionChange()"
+  (onRowUnselect)="onSelectionChange()"
+  xmlns="http://www.w3.org/1999/html">
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <span class="p-input-icon-left ml-auto">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="gamePersonsTable.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem"></th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Fide Id</th>
+      <th>Federation</th>
+      <th>Birthday</th>
+      <th>Gender</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-person let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="person" [pSelectableRowIndex]="rowIndex">
+      <td>
+        <p-tableCheckbox [value]="person" />
+      </td>
+      <td>{{ person.firstname }}</td>
+      <td>{{ person.lastname }}</td>
+      <td>{{ person.fideId }}</td>
+      <td>{{ person.federation }}</td>
+      <td>{{ person.birthday }}</td>
+      <td><fa-icon [icon]="getGenderIcon(person)"></fa-icon></td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class FitbitWeightController(
-    val fitbitApi: FitbitApi,
-    val fitbitOAuth: FitbitOAuth,
-    val fitbitWeightConverter: FitbitWeightConverter,
-    val fitbitWeightService: FitbitWeightService,
-    val fitbitWeightValidator: FitbitWeightValidator
+    private val fitbitApi: FitbitApi,
+    private val fitbitOAuth: FitbitOAuth,
+    private val fitbitWeightConverter: FitbitWeightConverter,
+    private val fitbitWeightService: FitbitWeightService,
+    private val fitbitWeightValidator: FitbitWeightValidator
 ) {
 
     @PostMapping(value = ["/api/fitbit/weight/{startDate}/{endDate}"])

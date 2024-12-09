@@ -10,20 +10,22 @@ import {Sides} from "../core/config/sides";
 import {CardModule} from "primeng/card";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
+import {FocusTrapModule} from "primeng/focustrap";
 
 @Component({
   selector: 'app-authentication',
   standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        Button,
-        InputTextModule,
-        PasswordModule,
-        FloatLabelModule,
-        FormsModule,
-        CardModule,
-        TranslateModule
-    ],
+  imports: [
+    ReactiveFormsModule,
+    Button,
+    InputTextModule,
+    PasswordModule,
+    FloatLabelModule,
+    FormsModule,
+    CardModule,
+    TranslateModule,
+    FocusTrapModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

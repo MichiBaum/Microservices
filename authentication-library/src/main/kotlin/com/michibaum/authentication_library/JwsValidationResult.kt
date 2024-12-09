@@ -6,7 +6,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException
 
 sealed class JwsValidationResult
 
-class JwsValidationSuccess() : JwsValidationResult()
+class JwsValidationSuccess : JwsValidationResult()
 
 open class JwsValidationFailed(val exception: Exception) : JwsValidationResult()
 class JwsValidationMissing(ex: Exception) : JwsValidationFailed(ex)

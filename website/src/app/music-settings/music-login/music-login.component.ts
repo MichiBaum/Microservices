@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {MusicService} from "../../core/services/music.service";

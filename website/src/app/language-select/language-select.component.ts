@@ -1,21 +1,27 @@
 import {Component, OnInit} from '@angular/core';
-import {PrimeNgBase} from "../core/models/primeng-base.model";
 import {LanguageConfig} from "../core/config/language.config";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
+import {SelectButtonModule} from "primeng/selectbutton";
+import {Language} from "../core/models/language.model";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-language-select',
   standalone: true,
   imports: [
-    DropdownModule
+    DropdownModule,
+    SelectButtonModule,
+    TranslateModule,
+    FormsModule
   ],
   templateUrl: './language-select.component.html',
   styleUrl: './language-select.component.scss'
 })
 export class LanguageSelectComponent implements OnInit{
 
-  languages: PrimeNgBase[] | undefined;
+  languages: Language[] | undefined;
+  selectedLanguage: Language | undefined;
 
   constructor(
     private readonly languageConfig: LanguageConfig,
@@ -23,20 +29,14 @@ export class LanguageSelectComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.languages = this.initLanguages();
+    this.languages = this.languageConfig.languages;
   }
 
-  initLanguages = () => {
-    return this.languageConfig.languages.map((lang) => {
-      return {label: this.translate.instant(lang.name), field: lang.isoCode, value: lang.isoCode} as PrimeNgBase;
-    });
-  }
-
-  selectLanguage = (event: any) => {
-    const language = this.languageConfig.languages.find((lang) => lang.isoCode === event.value);
-    if(language == undefined)
+  selectLanguage(event: any) {
+    if(this.selectedLanguage == undefined)
       return;
-    this.languageConfig.setLanguage(language);
+    this.languageConfig.setLanguage(this.selectedLanguage);
   }
+
 
 }

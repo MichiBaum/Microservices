@@ -1,12 +1,13 @@
 package com.michibaum.chess_service.domain
 
 import jakarta.persistence.*
+import java.time.LocalDate
 import java.util.*
 
 @Entity
 class Account(
     @Column(nullable = false)
-    val accId: String,
+    val platformId: String,
 
     @Column(nullable = false)
     val name: String,
@@ -20,9 +21,9 @@ class Account(
     @Enumerated(EnumType.STRING)
     val platform: ChessPlatform,
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
-    val createdAt: Date,
+    val createdAt: LocalDate?,
 
     @ManyToOne(targetEntity = Person::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinColumn(name="person_id", nullable=true)
@@ -36,4 +37,4 @@ class Account(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),
 
-)
+    )

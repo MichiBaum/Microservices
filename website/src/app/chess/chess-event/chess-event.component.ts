@@ -2,16 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
 import {ChessService} from "../../core/services/chess.service";
-import {ChessEvent} from "../../core/models/chess/chess-event.models";
 import {CardModule} from "primeng/card";
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {TabViewModule} from "primeng/tabview";
 import {TranslateModule} from "@ngx-translate/core";
-import {EventParticipant} from "../../core/models/chess/event-participant.model";
 import {TableModule} from "primeng/table";
 import {NgIf} from "@angular/common";
 import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-event-participants.component";
+import {ChessEvent} from "../../core/models/chess/chess.models";
+import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
+import {DividerModule} from "primeng/divider";
 
 @Component({
   selector: 'app-chess-events',
@@ -23,7 +24,9 @@ import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-
     TranslateModule,
     TableModule,
     NgIf,
-    ChessEventParticipantsComponent
+    ChessEventParticipantsComponent,
+    ChessEventGamesComponent,
+    DividerModule
   ],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.scss'
@@ -33,6 +36,7 @@ export class ChessEventComponent implements OnInit {
   embedUrl: SafeResourceUrl = "";
   event: ChessEvent | undefined;
 
+  gamesTabDisabled: boolean = true;
 
   constructor(
     private _sanitizer: DomSanitizer,
@@ -49,11 +53,8 @@ export class ChessEventComponent implements OnInit {
           this.event = ev
           this.setIframeUrl(this.event)
         })
-
       }
-
     });
-
   }
 
   setIframeUrl(event: ChessEvent): void {
@@ -64,6 +65,17 @@ export class ChessEventComponent implements OnInit {
   openEvent() {
     if(this.event && this.event.url)
       this.navigationService.open(this.event.url)
+  }
+
+  getCategories(event: ChessEvent | undefined) {
+    if(event == undefined){
+      return "";
+    }
+    return event.categories.map(value => value.title).join(", ")
+  }
+
+  changeGamesTabVisibility(hasContent: boolean){
+    this.gamesTabDisabled = !hasContent;
   }
 
 }

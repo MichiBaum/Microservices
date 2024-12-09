@@ -4,5 +4,6 @@ enum class GameType {
     BULLET,
     BLITZ,
     RAPID,
+    CLASSICAL,
     UNKNOWN
 }

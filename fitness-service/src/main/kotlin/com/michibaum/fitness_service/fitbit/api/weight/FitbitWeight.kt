@@ -25,5 +25,4 @@ class FitbitWeight(
     fatPercentage = fatPercentage,
     date = date,
     userId = userId
-) {
-}
+)

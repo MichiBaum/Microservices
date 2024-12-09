@@ -18,7 +18,7 @@ class Player(
     @Enumerated(EnumType.STRING)
     val pieceColor: PieceColor,
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Game::class, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="game_id", nullable=false)
     val game: Game,
 

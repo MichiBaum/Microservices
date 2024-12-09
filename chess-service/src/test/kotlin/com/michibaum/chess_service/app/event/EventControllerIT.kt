@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
-import java.util.UUID
+import java.util.*
 
 @AutoConfigureWebTestClient
 @SpringBootTest
@@ -79,7 +79,7 @@ class EventControllerIT {
         var uuid: UUID?
         do {
             uuid = UUID.randomUUID()
-        } while (savedEvent.id != uuid)
+        } while (savedEvent.id == uuid)
 
         // WHEN
         webTestClient.get()
@@ -121,7 +121,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(setOf(savedPerson))
+        val event = EventProvider.event(mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
 
         // WHEN
@@ -144,12 +144,12 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(setOf(savedPerson))
+        val event = EventProvider.event(mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
         var uuid: UUID?
         do {
             uuid = UUID.randomUUID()
-        } while (savedEvent.id != uuid)
+        } while (savedEvent.id == uuid)
 
         // WHEN
         webTestClient.get()
@@ -170,7 +170,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(setOf(savedPerson))
+        val event = EventProvider.event(mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
         val uuid = "abc"
 

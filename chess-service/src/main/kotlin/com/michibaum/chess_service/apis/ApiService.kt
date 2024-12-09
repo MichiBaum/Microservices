@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class ApiService(
-    val chesscomApiService: IApiService,
-    val lichessApiService: IApiService
+    private val chesscomApiService: IApiService,
+    private val lichessApiService: IApiService
 ) {
 
     fun findAccount(username: String): List<ApiResult<AccountDto>> {
@@ -26,6 +26,7 @@ class ApiService(
         return when (account.platform) {
             ChessPlatform.CHESSCOM -> chesscomApiService.getStats(account)
             ChessPlatform.LICHESS -> lichessApiService.getStats(account)
+            ChessPlatform.OVER_THE_BOARD -> TODO()
         }
 
     }
@@ -34,6 +35,7 @@ class ApiService(
         val result = when(account.platform) {
             ChessPlatform.CHESSCOM -> chesscomApiService.getGames(account)
             ChessPlatform.LICHESS -> lichessApiService.getGames(account)
+            ChessPlatform.OVER_THE_BOARD -> TODO()
         }
 
         if(result is Success){

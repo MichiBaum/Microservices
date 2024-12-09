@@ -1,11 +1,12 @@
 package com.michibaum.chess_service.apis.lichess
 
 import com.michibaum.chess_service.apis.dtos.*
-import com.michibaum.chess_service.apis.dtos.PlayerDto
 import com.michibaum.chess_service.domain.ChessPlatform
 import com.michibaum.chess_service.domain.GameType
 import org.springframework.stereotype.Component
-import java.util.*
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 
 @Component(value = "lichessConverter")
 class Converter {
@@ -17,7 +18,7 @@ class Converter {
             username = accountDto.username,
             name = accountDto.profile?.realName ?: "",
             platform = ChessPlatform.LICHESS,
-            createdAt = Date(accountDto.createdAt)
+            createdAt = LocalDate.ofInstant(Instant.ofEpochMilli(accountDto.createdAt), ZoneId.systemDefault())
         )
 
     fun convert(gameDto: LichessGameDto): GameDto {
@@ -50,7 +51,7 @@ class Converter {
             chessPlatform = ChessPlatform.LICHESS,
             id = gameDto.id,
             players = listOfNotNull(player1, player2),
-            pgn = gameDto.pgn,
+            pgn = gameDto.pgn ?: "",
             gameType = gametype
         )
     }

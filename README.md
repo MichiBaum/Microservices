@@ -102,7 +102,7 @@ File: */etc/hosts*
 
     docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
 
-## Local DB
+## Local dev db
 
     docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:lts-noble
 

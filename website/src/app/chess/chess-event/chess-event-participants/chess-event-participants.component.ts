@@ -4,11 +4,10 @@ import {CardModule} from "primeng/card";
 import {NgIf} from "@angular/common";
 import {PrimeTemplate} from "primeng/api";
 import {TableModule} from "primeng/table";
-import {ChessEvent} from "../../../core/models/chess/chess-event.models";
 import {RouterNavigationService} from "../../../core/services/router-navigation.service";
-import {EventParticipant} from "../../../core/models/chess/event-participant.model";
 import {ChessService} from "../../../core/services/chess.service";
 import {TranslateModule} from "@ngx-translate/core";
+import {ChessEvent, Person} from "../../../core/models/chess/chess.models";
 
 @Component({
   selector: 'app-chess-event-participants',
@@ -26,7 +25,7 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class ChessEventParticipantsComponent implements OnChanges {
   @Input() event: ChessEvent | undefined;
-  participants: EventParticipant[] | undefined;
+  participants: Person[] | undefined;
 
   constructor(
     private readonly navigationService: RouterNavigationService,
@@ -35,8 +34,8 @@ export class ChessEventParticipantsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['event'] && changes['event'].currentValue){
-      this.chessService.eventParticipants(changes['event'].currentValue.id).subscribe(p => {
-        this.participants = [...p]
+      this.chessService.eventParticipants(changes['event'].currentValue.id).subscribe(persons => {
+        this.participants = [...persons]
       })
     }
   }

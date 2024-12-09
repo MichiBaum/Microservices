@@ -8,7 +8,7 @@ import com.michibaum.chess_service.apis.dtos.AccountDto
 import com.michibaum.chess_service.doIfIsInstance
 import com.michibaum.chess_service.domain.Account
 import org.springframework.stereotype.Service
-import java.util.UUID
+import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 @Service
@@ -17,15 +17,24 @@ class AccountService(
     private val accountRepository: AccountRepository,
 ) {
 
-    fun getAccounts(username: String): List<Account> {
+    fun getAccounts(username: String, local: Boolean): List<Account> {
+        if(!local){
+            searchAccountOnApis(username)
+        }
+        return accountRepository.findByUsernameContainingIgnoreCase(username)
+    }
+
+    private fun searchAccountOnApis(username: String) {
         val apiResults = apiService.findAccount(username)
 
         val accounts = apiResults
             .doIfIsInstance<ApiResult<AccountDto>, Loggable> { it.log() }
             .filterIsInstance<Success<AccountDto>>()
             .map { it.result }
+            .filter { !accountRepository.existsByPlatformIdAndUsername(it.id, it.username) }
             .map { it.toAccount() }
-        return accountRepository.saveAll(accounts)
+        accountRepository.saveAll(accounts)
+        accountRepository.flush()
     }
 
     fun getTopAccounts(): List<Account>{
@@ -37,6 +46,7 @@ class AccountService(
 
         val accounts = apiResults.filterIsInstance<Success<AccountDto>>()
             .map { it.result }
+            .filter { !accountRepository.existsByPlatformIdAndUsername(it.id, it.username) }
             .map { it.toAccount() }
         return accountRepository.saveAll(accounts)
 

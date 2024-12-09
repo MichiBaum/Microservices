@@ -3,6 +3,7 @@ package com.michibaum.chess_service.app.person
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
+import com.michibaum.chess_service.domain.Gender
 import com.michibaum.chess_service.domain.Person
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
@@ -40,25 +41,36 @@ class PersonControllerIT {
             firstname = "John",
             lastname = "Doe",
             fideId = "121212",
+            gender = Gender.MALE,
         )
         val convertedPerson = Person(
             firstname = requestPersonDto.firstname,
             lastname = requestPersonDto.lastname,
             fideId = requestPersonDto.fideId,
-            accounts = emptySet()
+            gender = Gender.MALE,
+            accounts = emptySet(),
+            federation = null,
+            birthday = null,
         )
         val savedPerson = Person(
             id = UUID.randomUUID(),
             firstname = convertedPerson.firstname,
             lastname = convertedPerson.lastname,
             fideId = convertedPerson.fideId,
-            accounts = emptySet()
+            accounts = emptySet(),
+            federation = null,
+            birthday = null,
+            gender = Gender.MALE
         )
         val responsePersonDto = PersonDto(
             id = savedPerson.id,
             firstname = savedPerson.firstname,
             lastname = savedPerson.lastname,
-            accounts = emptySet()
+            fideId = savedPerson.fideId,
+            federation = savedPerson.federation,
+            birthday = savedPerson.birthday.toString(),
+            gender = savedPerson.gender,
+            accounts = emptySet(),
         )
 
         `when`(personConverter.convert(requestPersonDto)).thenReturn(convertedPerson)

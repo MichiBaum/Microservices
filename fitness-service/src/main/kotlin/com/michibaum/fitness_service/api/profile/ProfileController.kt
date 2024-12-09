@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ProfileController(val profileService: ProfileService, val profileConverter: ProfileConverter) {
+class ProfileController(
+    private val profileService: ProfileService,
+    private val profileConverter: ProfileConverter
+) {
 
     @GetMapping("/api/profile")
     fun getProfile(principal: JwtAuthentication): ProfileDto? {

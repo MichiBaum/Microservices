@@ -3,7 +3,7 @@ package com.michibaum.authentication_library.security
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.core.Authentication
 
-class ServletDelegateAuthenticationManager(val authenticationManagers: List<SpecificAuthenticationManager>): AuthenticationManager {
+class ServletDelegateAuthenticationManager(private val authenticationManagers: List<SpecificAuthenticationManager>): AuthenticationManager {
     override fun authenticate(authentication: Authentication?): Authentication {
         if (authentication == null) {
             throw Exception("Empty authentication")

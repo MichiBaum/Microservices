@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Person} from "../../core/models/chess/chess.models";
 import {SplitterModule} from "primeng/splitter";
 import {ChessPlayerSearchComponent} from "../chess-player-search/chess-player-search.component";

@@ -4,10 +4,10 @@ import com.michibaum.chess_service.apis.ApiService
 import com.michibaum.chess_service.apis.dtos.GameDto
 import com.michibaum.chess_service.app.account.AccountRepository
 import com.michibaum.chess_service.domain.Account
+import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.Game
 import com.michibaum.chess_service.domain.Player
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class GameService(
@@ -19,12 +19,13 @@ class GameService(
     fun loadGamesFor(account: Account){
         val games = apiService.getGames(account)
 
+        val gamesToSave = mutableListOf<Game>()
         for (game in games){
             val exists = gameRepository.existsByChessPlatformAndPlatformId(game.chessPlatform, game.id)
-            if(!exists) continue
+            if(exists) continue
 
-            val accounts = game.players.mapNotNull {
-                accountRepository.findByPlatformAndAccIdAndUsername(
+            val accounts = game.players.mapNotNull { // TODO doesnt work for chess.com playerId = UUID and accountId something like 3889224. Can not do with username because lower and upercase change somtimes
+                accountRepository.findByPlatformAndPlatformIdAndUsername(
                     game.chessPlatform,
                     it.id,
                     it.username
@@ -32,9 +33,16 @@ class GameService(
             }.toSet()
 
             val gameToSave = convertGame(game, accounts)
-            gameRepository.save(gameToSave)
+            gamesToSave.add(gameToSave)
+            if (gamesToSave.size == 100) {
+                gameRepository.saveAll(gamesToSave)
+                gamesToSave.clear()
+            }
         }
-
+        if (gamesToSave.isNotEmpty()) {
+            gameRepository.saveAll(gamesToSave)
+            gamesToSave.clear()
+        }
     }
 
     private fun convertGame(gameDto: GameDto, accounts: Set<Account>): Game {
@@ -44,8 +52,7 @@ class GameService(
             pgn = gameDto.pgn,
             gameType = gameDto.gameType,
             accounts = accounts,
-            players = mutableSetOf(),
-            id = UUID.randomUUID()
+            players = mutableSetOf()
         )
 
         val players = gameDto.players.map {
@@ -54,8 +61,7 @@ class GameService(
                 username = it.username,
                 rating = it.rating,
                 pieceColor = it.pieceColor,
-                game = game,
-                id = UUID.randomUUID()
+                game = game
             )
         }.toSet()
 
@@ -64,5 +70,8 @@ class GameService(
         return game
 
     }
+
+    fun getByEvent(event: Event): List<Game> =
+        gameRepository.findByEvent(event)
 
 }

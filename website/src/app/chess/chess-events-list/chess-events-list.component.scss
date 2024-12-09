@@ -1,0 +1,11 @@
+:host ::ng-deep .p-timeline-event-opposite, .p-timeline-event-content {
+  flex: none;
+}
+
+:host ::ng-deep .p-timeline-event-opposite {
+  text-align: left;
+}
+
+:host ::ng-deep .p-card {
+  height: 100%;
+}

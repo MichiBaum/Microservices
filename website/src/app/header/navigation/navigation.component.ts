@@ -12,9 +12,11 @@ import {LightDarkModeService} from "../../core/services/light-dark-mode.service"
 import {Ripple} from "primeng/ripple";
 import {
   faChess,
-  faCoffee, faCompactDisc,
+  faCoffee,
+  faCompactDisc,
   faDumbbell,
   faHouse,
+  faKey,
   faLightbulb,
   faMicrochip,
   faStamp,
@@ -26,8 +28,8 @@ import {Sides} from "../../core/config/sides";
 import {PermissionService} from "../../core/services/permission.service";
 import {AuthService} from "../../core/services/auth.service";
 import {ImageModule} from "primeng/image";
-import {NgIf} from "@angular/common";
 import {Permissions} from "../../core/config/permissions";
+import {LanguageSelectComponent} from "../../language-select/language-select.component";
 
 @Component({
   selector: 'app-navigation',
@@ -42,7 +44,7 @@ import {Permissions} from "../../core/config/permissions";
     FaIconComponent,
     ImageModule,
     TranslateModule,
-    NgIf,
+    LanguageSelectComponent
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
@@ -86,7 +88,7 @@ export class NavigationComponent implements OnInit{
         items: [
           {
             label: this.translate.instant(Sides.login.translationKey),
-            customIcon: faHouse,
+            customIcon: faKey,
             visible: !this.permissionService.isAuthenticated(),
             command: () => {
               this.sidebarVisible = false;
@@ -127,29 +129,6 @@ export class NavigationComponent implements OnInit{
               this.routerNavigationService.chess();
             },
           } as MenuItem
-        ]
-      },
-      {
-        label: this.translate.instant('navigation.settings'),
-        items: [
-          {
-            label: this.translate.instant(Sides.fitness_settings.translationKey),
-            customIcon: faDumbbell,
-            visible: Sides.fitness_settings.canActivate(this.permissionService),
-            command: () => {
-              this.sidebarVisible = false;
-              this.routerNavigationService.fitness_settings();
-            }
-          } as MenuItem,
-          {
-            label: this.translate.instant(Sides.music_settings.translationKey),
-            customIcon: faCompactDisc,
-            visible: Sides.music_settings.canActivate(this.permissionService),
-            command: () => {
-              this.sidebarVisible = false;
-              this.routerNavigationService.music_settings();
-            }
-          } as MenuItem,
         ]
       },
       {

@@ -3,6 +3,7 @@ package com.michibaum.chess_service.security
 import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
@@ -27,9 +28,10 @@ class SecurityConfiguration {
             .authorizeExchange { exchanges: AuthorizeExchangeSpec ->
                 exchanges
                     .pathMatchers(
-                        "/api/events",
-                        "/api/events/**"
-                        // "/api/events/**/participants"
+                        HttpMethod.GET,"/api/events",
+                        "/api/events/*",
+                        "/api/events/*/participants",
+                        "/api/events/*/games"
                     ).permitAll()
                     .pathMatchers(
                         "/actuator",

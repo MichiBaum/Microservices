@@ -1,29 +1,34 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.domain.Event
-import com.michibaum.chess_service.domain.Person
+import com.michibaum.chess_service.domain.EventCategory
 import org.springframework.stereotype.Component
 
 @Component
-class EventConverter {
+class EventConverter(
+    private val personConverter: PersonConverter
+) {
 
     fun toDto(event: Event): EventDto {
         return EventDto(
             id = event.id.toString(),
             title = event.title,
+            location = event.location,
             url = event.url,
             embedUrl = event.embedUrl,
             dateFrom = event.dateFrom.toString(),
-            dateTo = event.dateTo.toString()
+            dateTo = event.dateTo.toString(),
+            categories = event.categories.map { toDto(it) },
+            participants = event.participants.map { personConverter.convert(it) }
         )
     }
 
-    fun toDto(person: Person): ParticipantDto {
-        return ParticipantDto(
-            id = person.id.toString(),
-            firstName = person.firstname,
-            lastName = person.lastname,
-            fideId = person.fideId
+    fun toDto(category: EventCategory): EventCategoryDto {
+        return EventCategoryDto(
+            id = category.id.toString(),
+            title = category.name,
+            description = category.description,
         )
     }
 

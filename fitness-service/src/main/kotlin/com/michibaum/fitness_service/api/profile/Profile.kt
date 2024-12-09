@@ -26,5 +26,4 @@ open class Profile (
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-){
-}
+)

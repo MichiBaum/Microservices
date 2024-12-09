@@ -18,11 +18,15 @@
     </ng-template>
     <ng-template pTemplate="item" let-item>
       <a pRipple class="flex align-items-center p-menuitem-link">
-        <fa-icon  [icon]="item.customIcon"></fa-icon>
+        <fa-icon [icon]="item.customIcon"></fa-icon>
         <span class="ml-2">{{ item.label }}</span>
       </a>
     </ng-template>
   </p-menu>
+
+  <div class="mt-2">
+    <app-language-select></app-language-select>
+  </div>
 
   <div class="mt-2">
     <p-image src="https://hosttech.eu/affiliate/logos/ch-location/ch-location-234x60px-red.svg"

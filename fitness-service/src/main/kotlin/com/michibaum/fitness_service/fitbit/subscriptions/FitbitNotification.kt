@@ -19,6 +19,7 @@ class FitbitNotification(
     val ownerType: String,
 
     @ManyToOne(targetEntity = FitbitSubscription::class, fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
+    @JoinColumn(name="subscription_id", nullable=false)
     val subscriptionId: FitbitSubscription,
 
     @Column(nullable = false, unique = false)
@@ -27,5 +28,4 @@ class FitbitNotification(
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
-) {
-}
+)

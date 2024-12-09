@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class FitbitSleepService(
-    val fitbitSleepRepository: FitbitSleepRepository
+    private val fitbitSleepRepository: FitbitSleepRepository
 ) {
 
     @Transactional
