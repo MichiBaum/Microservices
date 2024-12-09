@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.person
 
+import com.michibaum.chess_service.apis.dtos.FidePersonDto
 import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Service
@@ -51,6 +52,18 @@ class PersonService(
 
     fun getAll(): List<Person> {
         return personRepository.findAll()
+    }
+
+    fun createAndUpdate(persons: List<FidePersonDto>): List<Person> {
+        return persons.map {
+            val foundPerson = personRepository.findByFideId(it.fideId)
+            if (foundPerson != null) {
+                val updatedPerson = it.toPerson(id = foundPerson.id, birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
+                personRepository.save(updatedPerson)
+            } else {
+                personRepository.save(it.toPerson())
+            }
+        }.toList()
     }
 
 }

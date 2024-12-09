@@ -18,4 +18,11 @@ class FideImporter {
         return fidePlayerList
     }
 
+    fun importJob(){
+        // TODO create night job
+        //  download zip from https://ratings.fide.com/download/standard_rating_list_xml.zip
+        //  unzip it and save if not same as downloaded before (hash?)
+        //  start import job
+    }
+
 }
