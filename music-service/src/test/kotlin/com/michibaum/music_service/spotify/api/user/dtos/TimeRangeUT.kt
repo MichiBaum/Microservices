@@ -1,6 +1,6 @@
 package com.michibaum.music_service.spotify.api.user.dtos
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class TimeRangeUT{

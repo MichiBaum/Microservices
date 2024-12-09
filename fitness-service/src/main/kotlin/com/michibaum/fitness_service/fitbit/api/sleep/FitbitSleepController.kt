@@ -3,7 +3,6 @@ package com.michibaum.fitness_service.fitbit.api.sleep
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.fitness_service.fitbit.FitbitOAuth
 import com.michibaum.fitness_service.fitbit.api.FitbitApi
-import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthCredentials
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

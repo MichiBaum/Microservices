@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChessUpdateEventComponent } from './chess-update-event.component';
+import {ChessUpdateEventComponent} from './chess-update-event.component';
 
 describe('ChessUpdateEventComponent', () => {
   let component: ChessUpdateEventComponent;

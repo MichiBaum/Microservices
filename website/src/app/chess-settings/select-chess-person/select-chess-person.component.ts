@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ChessEvent, Gender, Person} from "../../core/models/chess/chess.models";
-import {Button} from "primeng/button";
+import {Gender, Person} from "../../core/models/chess/chess.models";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {PrimeTemplate} from "primeng/api";

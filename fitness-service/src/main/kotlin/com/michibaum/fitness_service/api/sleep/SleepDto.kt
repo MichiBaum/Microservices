@@ -1,9 +1,6 @@
 package com.michibaum.fitness_service.api.sleep
 
-import jakarta.persistence.*
-import org.hibernate.annotations.UuidGenerator
 import java.time.LocalDateTime
-import java.util.*
 
 data class SleepDto(
     val startTime: LocalDateTime,

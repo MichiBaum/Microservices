@@ -8,7 +8,7 @@ import com.michibaum.chess_service.apis.dtos.AccountDto
 import com.michibaum.chess_service.doIfIsInstance
 import com.michibaum.chess_service.domain.Account
 import org.springframework.stereotype.Service
-import java.util.UUID
+import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 @Service

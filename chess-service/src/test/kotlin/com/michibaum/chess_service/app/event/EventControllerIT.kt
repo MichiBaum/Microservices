@@ -4,14 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.EventProvider
 import com.michibaum.chess_service.domain.PersonProvider
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
-import java.util.UUID
+import java.util.*
 
 @AutoConfigureWebTestClient
 @SpringBootTest

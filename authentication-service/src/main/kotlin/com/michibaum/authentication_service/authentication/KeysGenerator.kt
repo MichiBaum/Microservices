@@ -3,7 +3,8 @@ package com.michibaum.authentication_service.authentication
 import com.auth0.jwt.algorithms.Algorithm
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import java.security.*
+import java.security.KeyPair
+import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 

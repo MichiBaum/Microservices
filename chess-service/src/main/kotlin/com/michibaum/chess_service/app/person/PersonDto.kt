@@ -4,7 +4,7 @@ import com.michibaum.chess_service.app.account.AccountDto
 import com.michibaum.chess_service.domain.Gender
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
-import java.util.UUID
+import java.util.*
 
 data class CreatePersonDto(
     @NotBlank

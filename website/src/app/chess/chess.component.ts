@@ -16,7 +16,8 @@ import {NgClass, NgIf} from "@angular/common";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {
   faCalendarDay,
-  faCalendarPlus, faCalendarXmark,
+  faCalendarPlus,
+  faCalendarXmark,
   faChartLine,
   faGears,
   faNewspaper,

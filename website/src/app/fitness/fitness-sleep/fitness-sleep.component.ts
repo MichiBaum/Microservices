@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FitnessService} from "../../core/services/fitness.service";
-import * as d3 from 'd3';
-import {Sleep, SleepStage} from "../../core/models/fitness/sleep.model";
+import {Sleep} from "../../core/models/fitness/sleep.model";
 import {SleepStagesChartComponent} from "./sleep-stages-chart/sleep-stages-chart.component";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";

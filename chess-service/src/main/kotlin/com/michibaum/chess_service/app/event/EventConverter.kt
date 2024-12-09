@@ -3,7 +3,6 @@ package com.michibaum.chess_service.app.event
 import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.EventCategory
-import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Component
 
 @Component

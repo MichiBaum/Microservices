@@ -1,7 +1,6 @@
 package com.michibaum.chess_service.domain
 
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class EventProvider {
     

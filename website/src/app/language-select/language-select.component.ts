@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PrimeNgBase} from "../core/models/primeng-base.model";
 import {LanguageConfig} from "../core/config/language.config";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";

@@ -4,7 +4,7 @@ import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.Gender
 import com.michibaum.chess_service.domain.Person
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 
 class FidePersonDto(
     val firstname: String,

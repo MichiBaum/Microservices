@@ -1,19 +1,19 @@
 package com.michibaum.authentication_service.authentication
 
-import org.springframework.web.bind.annotation.RestController
 import com.michibaum.authentication_library.AuthenticationEndpoints
-import com.michibaum.usermanagement_library.UsermanagementClient
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import com.michibaum.usermanagement_library.LoginDto
 import com.michibaum.authentication_library.PublicKeyDto
+import com.michibaum.usermanagement_library.LoginDto
 import com.michibaum.usermanagement_library.UserDetailsDto
+import com.michibaum.usermanagement_library.UsermanagementClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 import java.time.Duration
 
 @RestController

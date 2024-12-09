@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {CardModule} from "primeng/card";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ChessEvent, ChessEventCategory} from "../../core/models/chess/chess.models";
 import {TimelineModule} from "primeng/timeline";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faClock} from "@fortawesome/free-regular-svg-icons";
-import {faCalendarDay, faCalendarPlus, faCalendarXmark, faQuestion} from "@fortawesome/free-solid-svg-icons";
+import {faCalendarDay, faCalendarPlus, faCalendarXmark} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-chess-events-list',
@@ -15,7 +15,6 @@ import {faCalendarDay, faCalendarPlus, faCalendarXmark, faQuestion} from "@forta
   imports: [
     CardModule,
     NgForOf,
-    NgIf,
     RouterLink,
     TimelineModule,
     FaIconComponent

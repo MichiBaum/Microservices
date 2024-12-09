@@ -11,7 +11,10 @@ import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.context.SecurityContextHolderStrategy
-import org.springframework.security.web.authentication.*
+import org.springframework.security.web.authentication.AuthenticationConverter
+import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler
+import org.springframework.security.web.authentication.AuthenticationFailureHandler
+import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository
 import org.springframework.security.web.context.SecurityContextRepository
 import org.springframework.web.filter.OncePerRequestFilter

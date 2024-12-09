@@ -8,8 +8,6 @@ import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.Game
 import com.michibaum.chess_service.domain.Player
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class GameService(
