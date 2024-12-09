@@ -2,7 +2,6 @@ server:
   port: 443
   ssl:
     enabled: true
-    key-alias: server
     bundle: "server"
     key-store-password: ${SSL_KEYSTORE_PASSWORD}
     key-store: "/data/ssl/keystore.p12"
