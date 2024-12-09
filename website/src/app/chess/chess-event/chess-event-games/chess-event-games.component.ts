@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {ChessEvent, ChessGame} from "../../../core/models/chess/chess.models";
 import {ChessService} from "../../../core/services/chess.service";
 
@@ -12,6 +12,7 @@ import {ChessService} from "../../../core/services/chess.service";
 export class ChessEventGamesComponent implements OnChanges {
   @Input() event: ChessEvent | undefined;
   games: ChessGame[] | undefined;
+  @Output() haveContent = new EventEmitter<boolean>();
 
   constructor(
     private readonly chessService: ChessService,
@@ -21,6 +22,7 @@ export class ChessEventGamesComponent implements OnChanges {
     if (changes['event'] && changes['event'].currentValue) {
       this.chessService.eventGames(changes['event'].currentValue.id).subscribe(games => {
         this.games = [...games]
+        this.haveContent.emit(this.games.length > 0)
       })
     }
   }

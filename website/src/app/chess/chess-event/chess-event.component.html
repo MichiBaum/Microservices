@@ -1,5 +1,5 @@
 <p-tabView [title]="event?.title">
-  <p-tabPanel *ngIf="event?.embedUrl" header="{{'chess.event.chess-com' | translate}}">
+  <p-tabPanel *ngIf="event?.embedUrl && event?.embedUrl !== ''" header="{{'chess.event.chess-com' | translate}}">
     <iframe style="border:0;" [src]="embedUrl" scrolling="no"></iframe>
   </p-tabPanel>
   <p-tabPanel header="{{'chess.event.details' | translate}}">
@@ -33,8 +33,8 @@
     </p-card>
 
   </p-tabPanel>
-  <p-tabPanel header="{{'chess.event.games' | translate}}">
-    <app-chess-event-games *ngIf="event" [event]="event"></app-chess-event-games>
+  <p-tabPanel header="{{'chess.event.games' | translate}}" [disabled]="gamesTabDisabled">
+    <app-chess-event-games *ngIf="event" [event]="event" (haveContent)="changeGamesTabVisibility($event)"></app-chess-event-games>
   </p-tabPanel>
 
 </p-tabView>

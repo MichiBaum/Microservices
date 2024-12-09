@@ -36,6 +36,7 @@ export class ChessEventComponent implements OnInit {
   embedUrl: SafeResourceUrl = "";
   event: ChessEvent | undefined;
 
+  gamesTabDisabled: boolean = true;
 
   constructor(
     private _sanitizer: DomSanitizer,
@@ -72,4 +73,9 @@ export class ChessEventComponent implements OnInit {
     }
     return event.categories.map(value => value.title).join(", ")
   }
+
+  changeGamesTabVisibility(hasContent: boolean){
+    this.gamesTabDisabled = !hasContent;
+  }
+
 }
