@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {Sleep, SleepStage} from "../../../core/models/fitness/sleep.model";
+import {Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {SleepStage} from "../../../core/models/fitness/sleep.model";
 import * as d3 from "d3";
 
 @Component({

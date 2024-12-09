@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChessUpdateAccountComponent } from './chess-update-account.component';
+import {ChessUpdateAccountComponent} from './chess-update-account.component';
 
 describe('ChessUpdateAccountComponent', () => {
   let component: ChessUpdateAccountComponent;

@@ -12,9 +12,11 @@ import {LightDarkModeService} from "../../core/services/light-dark-mode.service"
 import {Ripple} from "primeng/ripple";
 import {
   faChess,
-  faCoffee, faCompactDisc,
+  faCoffee,
+  faCompactDisc,
   faDumbbell,
-  faHouse, faKey,
+  faHouse,
+  faKey,
   faLightbulb,
   faMicrochip,
   faStamp,
