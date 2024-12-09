@@ -22,6 +22,11 @@ spring:
         disable-ssl-validation: true
   main:
     allow-bean-definition-overriding: true
+  jpa:
+    properties:
+      hibernate:
+        session_factory:
+          interceptor: com.michibaum.chess_service.utils.hibernate_entity_listener.HibernateEntityInterceptor
 
 eureka:
   instance:
