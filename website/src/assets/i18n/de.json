@@ -1,149 +1,74 @@
 {
+  "about-me": {
+    "experience": {
+      "experience": "Erfahrung",
+      "intro": "Hier ist eine Liste mit meinen Erfahrungen.",
+      "platforms-and-tools": "Plattformen & Tools",
+      "programming-languages-and-databases": "Programmiersprachen & Datenbanken",
+      "rating": "Bewertung (über mich selbst)",
+      "softskills": "Soziale Kompetenzen",
+      "years": "Jahre"
+    },
+    "s1": "Hallo! Ich bin ein Softwareentwickler aus der Schweiz. Meine Reise in die IT-Welt begann mit einer Ausbildung bei Würth ITensis von 2017 bis 2021, wo ich meine Fähigkeiten verfeinerte und bis 2024 weiterarbeitete. Während dieser Zeit entwickelte ich eine tiefe Leidenschaft für das Programmieren, der ich in meiner Freizeit weiterhin nachgehe.",
+    "s2": "Ich mag insbesondere Java und das Spring Framework ☕🌱, das ich in meiner beruflichen Arbeit ausgiebig verwende. Bei der Arbeit an persönlichen Backend-Projekten verwende ich am liebsten Kotlin, da mir die Nullsicherheit und der funktionale Stil gefallen 💡.",
+    "s3": "Auf der Frontend-Seite habe ich mit Technologien wie HTML, CSS, JSP, JavaScript, Knockout.js und Angular 🎨 gearbeitet. Aber meine Interessen enden hier nicht! Ich interessiere mich auch leidenschaftlich für Softwarearchitektur 🏛️, IT-Sicherheit 🔒 und Teammanagement 👥 – im Grunde begeistert mich alles, was mit der IT-Welt zu tun hat 🚀.",
+    "s4": "Wenn ich nicht gerade programmiere, lese ich wahrscheinlich die neuesten technischen Entwicklungen oder mache Brainstorming für neue Projekte. Ich bin immer bestrebt, zu wachsen, zu lernen und neue Herausforderungen anzunehmen.",
+    "title": "Über mich"
+  },
   "application": {
     "title": "Microservices"
   },
-  "languages": {
-    "german": "Deutsch",
-    "english": "English"
-  },
-  "navigation": {
-    "navigation": "Navigation",
-    "apps": "Apps",
-    "github": "Github",
-    "buymeacoffee": "Spende einen Kaffee",
-    "light-dark-mode": "Hell-/Dunkelmodus",
-    "settings": "Einstellungen",
-    "developer-and-project": "Entwickler & Projekt",
-    "else": "Anderes"
-  },
-  "owner": {
-    "name": "Michael Baumberger",
-    "address": "Birchli 14",
-    "city": "8840 Einsiedeln",
-    "country": "Schweiz",
-    "email": "michael_baumberger@gmx.ch"
-  },
-  "imprint": {
-    "title": "Impressum",
-    "contact-address-title": "Kontakt-Adresse",
-    "email-title": "E-Mail:",
-    "disclaimer-of-liability-title": "Haftungsausschluss",
-    "disclaimer-of-liability-1": "Der Autor übernimmt keinerlei Gewähr hinsichtlich der inhaltlichen Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen.",
-    "disclaimer-of-liability-2": "Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten Informationen, durch Missbrauch der Verbindung oder durch technische Störungen entstanden sind, werden ausgeschlossen.",
-    "disclaimer-of-liability-3": "Alle Angebote sind unverbindlich. Der Autor behält es sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne besondere Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.",
-    "disclaimer-of-liability-for-links-title": "Haftungsausschluss für Links",
-    "disclaimer-of-liability-for-links": "Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres Verantwortungsbereichs. Es wird jegliche Verantwortung für solche Webseiten abgelehnt. Der Zugriff und die Nutzung solcher Webseiten erfolgen auf eigene Gefahr des jeweiligen Nutzers.",
-    "copyrights-title": "Urheberrechte",
-    "copyrights": "Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf dieser Website, gehören ausschliesslich dem oben genannten Besitzer oder den speziell genannten Rechteinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung des Urheberrechtsträgers im Voraus einzuholen.",
-    "translation-title": "Übersetzung",
-    "translation-description": "Diese Applikation/Webseite wurde auf Deutsch geschrieben. Alle anderen Sprachen, welche zur Verfügung stehen wurden nicht von Menschen übersetzt und können deswegen Übersetzungsfehler beinhalten."
-  },
-  "home": {
-    "title": "Startseite",
-    "login": {
-      "title": "Anmelden",
-      "content": "Du willst mehr Inhalt sehen? Melde dich an!"
-    },
-    "chess": {
-      "title": "Schach",
-      "content": "Schach ist interessant. Statistiken über Schachspieler is umso interessanter"
-    },
-    "fitness": {
-      "title": "Fitness",
-      "content": "Fitness und Statistiken zusammen? Wooooowww!!"
-    },
-    "music": {
-      "title": "Musik",
-      "content": "Musik spricht, was Worte nicht können, berührt Herzen grenzenlos."
-    },
-    "about-me": {
-      "title": "About me",
-      "content": "Wer ist der Entwickler dieser Plattform? Lerne mehr über mich!"
-    },
-    "donate": {
-      "title": "Spenden",
-      "content": "Magst du die Webseite? Denke darüber nach mir einen Kaffee zu spenden."
-    }
-  },
   "chess": {
-    "title": "Schach",
     "account": {
       "name": "Name",
-      "size": "Anz.",
-      "platform": "Plattform"
-    },
-    "player": {
-      "search-person": "Person suchen",
-      "firstname": "Vorname",
-      "lastname": "Nachname"
-    },
-    "navigation": {
-      "news": "News",
-      "events": "Veranstaltungen",
-      "all-events": "Alle Veranstaltungen",
-      "person": "Person",
-      "player-analysis": "Player Analysis",
-      "settings": "Einstellungen"
+      "platform": "Plattform",
+      "size": "Anz."
     },
     "event": {
-      "chess-com": "Chess.com",
-      "details": "Details",
-      "fide": "Fide",
-      "federation": "Verband",
       "birthday": "Geburtstag",
+      "chess-com": "Chess.com",
+      "date-from": "Von",
+      "date-to": "Bis",
+      "details": "Details",
+      "federation": "Verband",
+      "fide": "Fide",
       "fide-website": "Fide Webseite",
-      "participants": "Teilnehmer",
+      "games": "Partien",
+      "location": "Standort",
+      "open-official-website": "Offizielle Webseite öffnen",
       "participant": {
         "firstname": "Vorname",
         "lastname": "Nachname"
       },
-      "games": "Partien"
-    }
+      "participants": "Teilnehmer",
+      "title": "Titel"
+    },
+    "navigation": {
+      "all-events": "Alle Veranstaltungen",
+      "events": "Veranstaltungen",
+      "news": "News",
+      "person": "Person",
+      "player-analysis": "Player Analysis",
+      "settings": "Einstellungen"
+    },
+    "player": {
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "search-person": "Person suchen"
+    },
+    "title": "Schach"
   },
   "chess-settings": {
     "title": "Schach Einstellungen"
   },
-  "login": {
-    "title": "Anmelden",
-    "username": "Benutzername",
-    "password": "Passwort",
-    "login": "Anmelden",
-    "register": "Registrieren"
-  },
-  "register": {
-    "title": "Registrieren",
-    "username": "Benutzername",
-    "password": "Passwort",
-    "login": "Anmelden",
-    "register": "Registrieren"
-  },
-  "about-me": {
-    "title": "Über mich",
-    "s1": "Hallo! Ich bin ein Softwareentwickler aus der Schweiz. Meine Reise in die IT-Welt begann mit einer Ausbildung bei Würth ITensis von 2017 bis 2021, wo ich meine Fähigkeiten verfeinerte und bis 2024 weiterarbeitete. Während dieser Zeit entwickelte ich eine tiefe Leidenschaft für das Programmieren, der ich in meiner Freizeit weiterhin nachgehe.",
-    "s2": "Ich mag insbesondere Java und das Spring Framework ☕\uD83C\uDF31, das ich in meiner beruflichen Arbeit ausgiebig verwende. Bei der Arbeit an persönlichen Backend-Projekten verwende ich am liebsten Kotlin, da mir die Nullsicherheit und der funktionale Stil gefallen \uD83D\uDCA1.",
-    "s3": "Auf der Frontend-Seite habe ich mit Technologien wie HTML, CSS, JSP, JavaScript, Knockout.js und Angular \uD83C\uDFA8 gearbeitet. Aber meine Interessen enden hier nicht! Ich interessiere mich auch leidenschaftlich für Softwarearchitektur \uD83C\uDFDB\uFE0F, IT-Sicherheit \uD83D\uDD12 und Teammanagement \uD83D\uDC65 – im Grunde begeistert mich alles, was mit der IT-Welt zu tun hat \uD83D\uDE80.",
-    "s4": "Wenn ich nicht gerade programmiere, lese ich wahrscheinlich die neuesten technischen Entwicklungen oder mache Brainstorming für neue Projekte. Ich bin immer bestrebt, zu wachsen, zu lernen und neue Herausforderungen anzunehmen.",
-    "experience": {
-      "intro": "Hier ist eine Liste mit meinen Erfahrungen.",
-      "programming-languages-and-databases": "Programmiersprachen & Datenbanken",
-      "platforms-and-tools": "Plattformen & Tools",
-      "softskills": "Soziale Kompetenzen",
-      "experience": "Erfahrung",
-      "years": "Jahre",
-      "rating": "Bewertung (über mich selbst)"
-    }
-  },
-  "microservices": {
-    "title": "Microservices"
-  },
   "donate": {
-    "title": "Spenden",
+    "buy-me-a-coffee": "Spende einen Kaffee",
+    "hosttech": "Zu Hosttech",
     "s1": "👋 Hallo! Ich bin begeistert, diese Website 🌐 zu erstellen, und setze mich dafür ein, hochwertige Inhalte 📚 und ein nahtloses Erlebnis zu bieten. Um alles reibungslos am Laufen zu halten, arbeite ich etwa 30 Stunden pro Woche 🕒 an Verbesserungen, neuen Funktionen und Wartung. Außerdem kostet die Wartung des Servers etwa 70 CHF pro Monat 💰.",
     "s2": "💡 Wenn dir die Website gefallen hat oder sie dir hilfreich war, kannst du meine Arbeit gerne unterstützen 🤝. Deine Unterstützung hilft, die Kosten zu decken und ermöglicht es mir, noch mehr Zeit in den Aufbau und die Weiterentwicklung der Seite zu investieren 🛠️.",
     "s3": "🌟 Wenn du selbst einen zuverlässigen Server suchst, empfehle ich Hosttech. Verwende meinen Promo-Code 31886957, um mit deren Dienstleistungen zu starten 🚀.",
     "s4": "🙏 Vielen Dank für deine Unterstützung und dafür, dass du Teil dieser Reise bist! 🌈",
-    "buy-me-a-coffee": "Spende einen Kaffee",
-    "hosttech": "Zu Hosttech"
+    "title": "Spenden"
   },
   "fitness": {
     "title": "Fitness"
@@ -151,16 +76,95 @@
   "fitness-settings": {
     "title": "Fitness Einstellungen"
   },
+  "home": {
+    "about-me": {
+      "content": "Wer ist der Entwickler dieser Plattform? Lerne mehr über mich!",
+      "title": "About me"
+    },
+    "chess": {
+      "content": "Schach ist interessant. Statistiken über Schachspieler is umso interessanter",
+      "title": "Schach"
+    },
+    "donate": {
+      "content": "Magst du die Webseite? Denke darüber nach mir einen Kaffee zu spenden.",
+      "title": "Spenden"
+    },
+    "fitness": {
+      "content": "Fitness und Statistiken zusammen? Wooooowww!!",
+      "title": "Fitness"
+    },
+    "login": {
+      "content": "Du willst mehr Inhalt sehen? Melde dich an!",
+      "title": "Anmelden"
+    },
+    "music": {
+      "content": "Musik spricht, was Worte nicht können, berührt Herzen grenzenlos.",
+      "title": "Musik"
+    },
+    "title": "Startseite"
+  },
+  "imprint": {
+    "contact-address-title": "Kontakt-Adresse",
+    "copyrights": "Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf dieser Website, gehören ausschliesslich dem oben genannten Besitzer oder den speziell genannten Rechteinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung des Urheberrechtsträgers im Voraus einzuholen.",
+    "copyrights-title": "Urheberrechte",
+    "disclaimer-of-liability-1": "Der Autor übernimmt keinerlei Gewähr hinsichtlich der inhaltlichen Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen.",
+    "disclaimer-of-liability-2": "Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten Informationen, durch Missbrauch der Verbindung oder durch technische Störungen entstanden sind, werden ausgeschlossen.",
+    "disclaimer-of-liability-3": "Alle Angebote sind unverbindlich. Der Autor behält es sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne besondere Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.",
+    "disclaimer-of-liability-for-links": "Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres Verantwortungsbereichs. Es wird jegliche Verantwortung für solche Webseiten abgelehnt. Der Zugriff und die Nutzung solcher Webseiten erfolgen auf eigene Gefahr des jeweiligen Nutzers.",
+    "disclaimer-of-liability-for-links-title": "Haftungsausschluss für Links",
+    "disclaimer-of-liability-title": "Haftungsausschluss",
+    "email-title": "E-Mail:",
+    "title": "Impressum",
+    "translation-description": "Diese Applikation/Webseite wurde auf Deutsch geschrieben. Alle anderen Sprachen, welche zur Verfügung stehen wurden nicht von Menschen übersetzt und können deswegen Übersetzungsfehler beinhalten.",
+    "translation-title": "Übersetzung"
+  },
+  "languages": {
+    "english": "English",
+    "german": "Deutsch"
+  },
+  "login": {
+    "login": "Anmelden",
+    "password": "Passwort",
+    "register": "Registrieren",
+    "title": "Anmelden",
+    "username": "Benutzername"
+  },
+  "microservices": {
+    "title": "Microservices"
+  },
   "music": {
     "title": "Musik"
   },
   "music-settings": {
     "title": "Musik Einstellungen"
   },
+  "navigation": {
+    "apps": "Apps",
+    "developer-and-project": "Entwickler & Projekt",
+    "else": "Anderes",
+    "github": "Github",
+    "light-dark-mode": "Hell-/Dunkelmodus",
+    "navigation": "Navigation",
+    "settings": "Einstellungen"
+  },
+  "owner": {
+    "address": "Birchli 14",
+    "city": "8840 Einsiedeln",
+    "country": "Schweiz",
+    "email": "michael_baumberger@gmx.ch",
+    "name": "Michael Baumberger"
+  },
+  "register": {
+    "login": "Anmelden",
+    "password": "Passwort",
+    "register": "Registrieren",
+    "title": "Registrieren",
+    "username": "Benutzername"
+  },
   "sw-update": {
-    "update-available": "Update verfügbar!",
-    "update-available-message": "Eine neue Version ist verfügbar. Möchtest du ein Update machen? Es ist empfohlen",
+    "later": "Später",
     "update": "Update",
-    "later": "Später"
+    "update-available": "Update verfügbar!",
+    "update-available-message": "Eine neue Version ist verfügbar. Möchtest du ein Update machen? Es ist empfohlen"
   }
 }

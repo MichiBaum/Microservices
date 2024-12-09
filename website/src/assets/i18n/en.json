@@ -1,149 +1,74 @@
 {
+  "about-me": {
+    "experience": {
+      "experience": "Experience",
+      "intro": "Here you see a List of my experiences.",
+      "platforms-and-tools": "Platforms & tools",
+      "programming-languages-and-databases": "Programming Languages & Databases",
+      "rating": "Rating (about myself)",
+      "softskills": "Softskills",
+      "years": "Years"
+    },
+    "s1": "Hello! I'm a software developer from Switzerland. My journey in the world of IT began with an apprenticeship at Würth ITensis from 2017 to 2021, where I honed my skills and continued working until 2024. During this time, I developed a deep passion for programming, which I continue to pursue in my free time.",
+    "s2": "I’m particularly fond of Java and the Spring Framework ☕🌱, which I used extensively in my professional work. When working on personal backend projects, I prefer to use Kotlin, as I like the null safety and functional style 💡.",
+    "s3": "On the frontend side, I've worked with technologies like HTML, CSS, JSP, JavaScript, Knockout.js, and Angular 🎨. But my interests don’t stop there! I'm also passionate about software architecture 🏛️, IT security 🔒, and team management 👥—essentially, anything related to the IT world excites me 🚀.",
+    "s4": "When I’m not coding, I’m likely reading up on the latest developments in tech or brainstorming new projects. I’m always eager to grow, learn, and take on new challenges.",
+    "title": "About me"
+  },
   "application": {
     "title": "Microservices"
   },
-  "languages": {
-    "german": "Deutsch",
-    "english": "English"
-  },
-  "navigation": {
-    "navigation": "Navigation",
-    "apps": "Apps",
-    "github": "Github",
-    "buymeacoffee": "Buy me a coffee",
-    "light-dark-mode": "Light/dark mode",
-    "settings": "Settings",
-    "developer-and-project": "Developer & Project",
-    "else": "Else"
-  },
-  "owner": {
-    "name": "Michael Baumberger",
-    "address": "Birchli 14",
-    "city": "8840 Einsiedeln",
-    "country": "Switzerland",
-    "email": "michael_baumberger@gmx.ch"
-  },
-  "imprint": {
-    "title": "Imprint",
-    "contact-address-title": "Contact address",
-    "email-title": "E-mail:",
-    "disclaimer-of-liability-title": "Disclaimer of liability",
-    "disclaimer-of-liability-1": "The author assumes no liability for the correctness, accuracy, timeliness, reliability and completeness of the information.",
-    "disclaimer-of-liability-2": "Liability claims against the author due to material or immaterial damage resulting from the access or use or non-use of the published information, misuse of the connection or technical faults are excluded.",
-    "disclaimer-of-liability-3": "All offers are non-binding. The author expressly reserves the right to change, supplement or delete parts of the pages or the entire offer without special announcement or to temporarily or permanently cease publication.",
-    "disclaimer-of-liability-for-links-title": "Disclaimer of liability for links",
-    "disclaimer-of-liability-for-links": "References and links to third party websites are outside our area of responsibility. It rejected any responsibility for such websites. Accessing and using such websites is at the user's own risk.",
-    "copyrights-title": "Copyrights",
-    "copyrights": "The copyrights and all other rights to content, images, photos or other files on this website belong exclusively to the above-mentioned owner or the specifically named rights holder. The written consent of the copyright holder must be obtained in advance for the reproduction of any elements.",
-    "translation-title": "Translation",
-    "translation-description": "This application / website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors."
-  },
-  "home": {
-    "title": "Home",
-    "login": {
-      "title": "Login",
-      "content": "Wanna see more content? Login or Register!"
-    },
-    "chess": {
-      "title": "Chess",
-      "content": "Chess is interesting. Statistics about chess player is even more interesting."
-    },
-    "fitness": {
-      "title": "Fitness",
-      "content": "Fitness and statistics together? Wooooowww!!"
-    },
-    "music": {
-      "title": "Music",
-      "content": "Music speaks what words cannot, touching hearts beyond measure."
-    },
-    "about-me": {
-      "title": "About me",
-      "content": "Who is the developer of this platform? Learn more about me!"
-    },
-    "donate": {
-      "title": "Donate",
-      "content": "Do you like the website? Think about donating me a coffee."
-    }
-  },
   "chess": {
-    "title": "Chess",
     "account": {
       "name": "Name",
-      "size": "Size",
-      "platform": "Platform"
-    },
-    "player": {
-      "search-person": "Search Person",
-      "firstname": "Firstname",
-      "lastname": "Lastname"
-    },
-    "navigation": {
-      "news": "News",
-      "events": "Events",
-      "all-events": "All Events",
-      "person": "Person",
-      "player-analysis": "Player Analysis",
-      "settings": "Settings"
+      "platform": "Platform",
+      "size": "Size"
     },
     "event": {
-      "chess-com": "Chess.com",
-      "details": "Details",
-      "fide": "Fide",
-      "federation": "Federation",
       "birthday": "Birthday",
+      "chess-com": "Chess.com",
+      "date-from": "From",
+      "date-to": "Until",
+      "details": "Details",
+      "federation": "Federation",
+      "fide": "Fide",
       "fide-website": "Fide Website",
-      "participants": "Participants",
+      "games": "Games",
+      "location": "Location",
+      "open-official-website": "Open official website",
       "participant": {
         "firstname": "Firstname",
         "lastname": "Lastname"
       },
-      "games": "Games"
-    }
+      "participants": "Participants",
+      "title": "Title"
+    },
+    "navigation": {
+      "all-events": "All Events",
+      "events": "Events",
+      "news": "News",
+      "person": "Person",
+      "player-analysis": "Player Analysis",
+      "settings": "Settings"
+    },
+    "player": {
+      "firstname": "Firstname",
+      "lastname": "Lastname",
+      "search-person": "Search Person"
+    },
+    "title": "Chess"
   },
   "chess-settings": {
     "title": "Chess Settings"
   },
-  "login": {
-    "title": "Login",
-    "username": "Username",
-    "password": "Password",
-    "login": "Login",
-    "register": "Register"
-  },
-  "register": {
-    "title": "Register",
-    "username": "Username",
-    "password": "Password",
-    "login": "Login",
-    "register": "Register"
-  },
-  "about-me": {
-    "title": "About me",
-    "s1": "Hello! I'm a software developer from Switzerland. My journey in the world of IT began with an apprenticeship at Würth ITensis from 2017 to 2021, where I honed my skills and continued working until 2024. During this time, I developed a deep passion for programming, which I continue to pursue in my free time.",
-    "s2": "I’m particularly fond of Java and the Spring Framework ☕\uD83C\uDF31, which I used extensively in my professional work. When working on personal backend projects, I prefer to use Kotlin, as I like the null safety and functional style \uD83D\uDCA1.",
-    "s3": "On the frontend side, I've worked with technologies like HTML, CSS, JSP, JavaScript, Knockout.js, and Angular \uD83C\uDFA8. But my interests don’t stop there! I'm also passionate about software architecture \uD83C\uDFDB\uFE0F, IT security \uD83D\uDD12, and team management \uD83D\uDC65—essentially, anything related to the IT world excites me \uD83D\uDE80.",
-    "s4": "When I’m not coding, I’m likely reading up on the latest developments in tech or brainstorming new projects. I’m always eager to grow, learn, and take on new challenges.",
-    "experience": {
-      "intro": "Here you see a List of my experiences.",
-      "programming-languages-and-databases": "Programming Languages & Databases",
-      "platforms-and-tools": "Platforms & tools",
-      "softskills": "Softskills",
-      "experience": "Experience",
-      "years": "Years",
-      "rating": "Rating (about myself)"
-    }
-  },
-  "microservices": {
-    "title": "Microservices"
-  },
   "donate": {
-    "title": "Donate",
+    "buy-me-a-coffee": "Buy me a coffee",
+    "hosttech": "Go to Hosttech",
     "s1": "👋 Hello! I’m passionate about creating this website 🌐 and am committed to delivering high-quality content 📚 and a seamless experience. To keep everything running smoothly, I spend around 30 hours each week 🕒 working on improvements, features, and maintenance. Additionally, maintaining the server costs about 70 CHF per month 💰.",
     "s2": "💡 If you’ve enjoyed the website or found it helpful, consider supporting my work 🤝. Your sponsorship helps cover the costs and allows me to dedicate even more time to building and refining the site 🛠️.",
     "s3": "🌟 And if you’re looking for a reliable server yourself, I recommend Hosttech. Use my promo code 31886957 to get started with their services 🚀.",
     "s4": "🙏 Thank you for your support and for being part of this journey! 🌈",
-    "buy-me-a-coffee": "Buy me a coffee",
-    "hosttech": "Go to Hosttech"
+    "title": "Donate"
   },
   "fitness": {
     "title": "Fitness"
@@ -151,16 +76,95 @@
   "fitness-settings": {
     "title": "Fitness Settings"
   },
+  "home": {
+    "about-me": {
+      "content": "Who is the developer of this platform? Learn more about me!",
+      "title": "About me"
+    },
+    "chess": {
+      "content": "Chess is interesting. Statistics about chess player is even more interesting.",
+      "title": "Chess"
+    },
+    "donate": {
+      "content": "Do you like the website? Think about donating me a coffee.",
+      "title": "Donate"
+    },
+    "fitness": {
+      "content": "Fitness and statistics together? Wooooowww!!",
+      "title": "Fitness"
+    },
+    "login": {
+      "content": "Wanna see more content? Login or Register!",
+      "title": "Login"
+    },
+    "music": {
+      "content": "Music speaks what words cannot, touching hearts beyond measure.",
+      "title": "Music"
+    },
+    "title": "Home"
+  },
+  "imprint": {
+    "contact-address-title": "Contact address",
+    "copyrights": "The copyrights and all other rights to content, images, photos or other files on this website belong exclusively to the above-mentioned owner or the specifically named rights holder. The written consent of the copyright holder must be obtained in advance for the reproduction of any elements.",
+    "copyrights-title": "Copyrights",
+    "disclaimer-of-liability-1": "The author assumes no liability for the correctness, accuracy, timeliness, reliability and completeness of the information.",
+    "disclaimer-of-liability-2": "Liability claims against the author due to material or immaterial damage resulting from the access or use or non-use of the published information, misuse of the connection or technical faults are excluded.",
+    "disclaimer-of-liability-3": "All offers are non-binding. The author expressly reserves the right to change, supplement or delete parts of the pages or the entire offer without special announcement or to temporarily or permanently cease publication.",
+    "disclaimer-of-liability-for-links": "References and links to third party websites are outside our area of responsibility. It rejected any responsibility for such websites. Accessing and using such websites is at the user's own risk.",
+    "disclaimer-of-liability-for-links-title": "Disclaimer of liability for links",
+    "disclaimer-of-liability-title": "Disclaimer of liability",
+    "email-title": "E-mail:",
+    "title": "Imprint",
+    "translation-description": "This application / website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors.",
+    "translation-title": "Translation"
+  },
+  "languages": {
+    "english": "English",
+    "german": "Deutsch"
+  },
+  "login": {
+    "login": "Login",
+    "password": "Password",
+    "register": "Register",
+    "title": "Login",
+    "username": "Username"
+  },
+  "microservices": {
+    "title": "Microservices"
+  },
   "music": {
     "title": "Music"
   },
   "music-settings": {
     "title": "Music Settings"
   },
+  "navigation": {
+    "apps": "Apps",
+    "developer-and-project": "Developer & Project",
+    "else": "Else",
+    "github": "Github",
+    "light-dark-mode": "Light/dark mode",
+    "navigation": "Navigation",
+    "settings": "Settings"
+  },
+  "owner": {
+    "address": "Birchli 14",
+    "city": "8840 Einsiedeln",
+    "country": "Switzerland",
+    "email": "michael_baumberger@gmx.ch",
+    "name": "Michael Baumberger"
+  },
+  "register": {
+    "login": "Login",
+    "password": "Password",
+    "register": "Register",
+    "title": "Register",
+    "username": "Username"
+  },
   "sw-update": {
-    "update-available": "Update available!",
-    "update-available-message": "A new version is available. Do you want to update? It is recommended",
+    "later": "Later",
     "update": "Update",
-    "later": "Later"
+    "update-available": "Update available!",
+    "update-available-message": "A new version is available. Do you want to update? It is recommended"
   }
 }
