@@ -1,12 +1,26 @@
 server:
   port: 443
   ssl:
-    bundle: "server"
     enabled: true
+    key-alias: server
+    bundle: "server"
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
+    key-store: "/data/ssl/keystore.p12"
+    key-store-type: PKCS12
   http2:
     enabled: true
-
+# TODO quick fix for ssl, look into whether server.ssl or spring.ssl is correct and which is needed
 spring:
+#  ssl:
+#    bundle:
+#      jks:
+#        server:
+#          key:
+#            alias: "michibaum"
+#          keystore:
+#            location: "/data/ssl/keystore.p12"
+#            password: ${SSL_KEYSTORE_PASSWORD}
+#            type: "PKCS12"
   boot:
     admin:
       client:
@@ -42,16 +56,6 @@ spring:
       logging:
         enabled: true
         channel-id: ${DISCORD_GATEWAY_SERVICE_LOG_CHANNEL}
-  ssl:
-    bundle:
-      jks:
-        server:
-          key:
-            alias: "michibaum"
-          keystore:
-            location: "/data/ssl/keystore.p12"
-            password: ${SSL_KEYSTORE_PASSWORD}
-            type: "PKCS12"
 
 eureka:
   client:
