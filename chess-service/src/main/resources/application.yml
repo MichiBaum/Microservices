@@ -28,6 +28,11 @@ spring:
     validateOnMigrate: true
     locations: classpath:db/migration
     driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        session_factory:
+          interceptor: com.michibaum.chess_service.utils.hibernate_entity_listener.HibernateEntityInterceptor
 
 eureka:
   instance:
