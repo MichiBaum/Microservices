@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class FitbitSleepController(
-    val fitbitApi: FitbitApi,
-    val fitbitOAuth: FitbitOAuth,
-    val fitbitSleepConverter: FitbitSleepConverter,
-    val fitbitSleepService: FitbitSleepService,
-    val fitbitSleepValidator: FitbitSleepValidator
+    private val fitbitApi: FitbitApi,
+    private val fitbitOAuth: FitbitOAuth,
+    private val fitbitSleepConverter: FitbitSleepConverter,
+    private val fitbitSleepService: FitbitSleepService,
+    private val fitbitSleepValidator: FitbitSleepValidator
 ) {
 
     @PostMapping(value = ["/api/fitbit/sleep/{startDate}/{endDate}"])

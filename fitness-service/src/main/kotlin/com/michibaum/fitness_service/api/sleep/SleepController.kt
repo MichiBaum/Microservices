@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class SleepController(
-    val sleepService: SleepService,
-    val sleepConverter: SleepConverter
+    private val sleepService: SleepService,
+    private val sleepConverter: SleepConverter
 ) {
 
     @GetMapping(value = ["/api/sleep"])

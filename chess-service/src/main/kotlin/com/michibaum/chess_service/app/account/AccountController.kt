@@ -10,8 +10,8 @@ import java.util.*
 
 @RestController
 class AccountController(
-    val accountService: AccountService,
-    val accountConverter: AccountConverter
+    private val accountService: AccountService,
+    private val accountConverter: AccountConverter
 ) {
 
     @GetMapping("/api/accounts/search/{accountName}")

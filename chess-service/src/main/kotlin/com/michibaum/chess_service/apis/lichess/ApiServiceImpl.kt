@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 @Service("lichessApiService")
 class ApiServiceImpl(
     chessConfigProperties: ChessConfigProperties,
-    val converter: Converter
+    private val converter: Converter
 ): IApiService {
 
     val client = chessConfigProperties.getWebClient(ChessPlatform.LICHESS)

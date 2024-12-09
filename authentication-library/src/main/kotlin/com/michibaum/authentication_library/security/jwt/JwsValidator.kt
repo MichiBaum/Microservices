@@ -4,6 +4,7 @@ import com.michibaum.authentication_library.AuthenticationClient
 import com.michibaum.authentication_library.JwsValidationResult
 import com.michibaum.authentication_library.JwsValidator
 import feign.FeignException
+import org.slf4j.Logger
 import org.springframework.scheduling.annotation.Scheduled
 import java.security.KeyFactory
 import java.security.PublicKey
@@ -16,7 +17,7 @@ class JwsValidator(
     private val authenticationClient: AuthenticationClient
 ): JwsValidator() {
 
-    val logger = org.slf4j.LoggerFactory.getLogger(this.javaClass)
+    val logger: Logger = org.slf4j.LoggerFactory.getLogger(this.javaClass)
 
     private var publicKey: RSAPublicKey? = null
 

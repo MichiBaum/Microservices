@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class FitbitProfileController(
-    val fitbitApi: FitbitApi,
-    val fitbitOAuth: FitbitOAuth,
-    val fitbitProfileConverter: FitbitProfileConverter,
-    val fitbitProfileService: FitbitProfileService,
+    private val fitbitApi: FitbitApi,
+    private val fitbitOAuth: FitbitOAuth,
+    private val fitbitProfileConverter: FitbitProfileConverter,
+    private val fitbitProfileService: FitbitProfileService,
 ) {
 
     @PostMapping(value = ["/api/fitbit/profile"])

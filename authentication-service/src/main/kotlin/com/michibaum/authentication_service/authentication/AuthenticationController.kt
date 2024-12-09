@@ -18,7 +18,7 @@ import java.time.Duration
 
 @RestController
 class AuthenticationController (
-    val authenticationService: AuthenticationService
+    private val authenticationService: AuthenticationService
 ) : AuthenticationEndpoints {
 
     @Autowired

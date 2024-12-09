@@ -13,8 +13,8 @@ import java.util.*
 
 @Component
 class FitbitOAuthImpl(
-    val fitbitOAuthService: FitbitOAuthService,
-    val fitbitOAuthProperties: FitbitOAuthProperties
+    private val fitbitOAuthService: FitbitOAuthService,
+    private val fitbitOAuthProperties: FitbitOAuthProperties
 ): FitbitOAuth {
 
     private fun refreshToken(principal: JwtAuthentication): FitbitOAuthCredentials {

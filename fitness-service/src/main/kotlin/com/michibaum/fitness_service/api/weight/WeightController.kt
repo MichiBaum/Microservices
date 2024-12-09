@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class WeightController(
-    val weightService: WeightService,
-    val weightConverter: WeightConverter
+    private val weightService: WeightService,
+    private val weightConverter: WeightConverter
 ) {
 
     @GetMapping(value = ["/api/weight"])

@@ -18,7 +18,10 @@ import reactor.netty.http.client.HttpClient
  * @property properties Configuration properties containing the bot token and guild ID.
  * @property objectMapper ObjectMapper instance for JSON serialization and deserialization.
  */
-open class DiscordClientImpl(val properties: DiscordProperties, val objectMapper: ObjectMapper): DiscordClient {
+open class DiscordClientImpl(
+    private val properties: DiscordProperties,
+    private val objectMapper: ObjectMapper
+): DiscordClient {
 
     /**
      * The base URL for the Discord API v10.

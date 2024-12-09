@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class FitbitProfileService(
-    val fitbitProfileRepository: FitbitProfileRepository
+    private val fitbitProfileRepository: FitbitProfileRepository
 ) {
 
     fun update(profile: FitbitProfile) {

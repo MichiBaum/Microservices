@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class WeightService(
-    val weightRepository: WeightRepository
+    private val weightRepository: WeightRepository
 ) {
 
     fun getByUser(userId: String): List<Weight> =

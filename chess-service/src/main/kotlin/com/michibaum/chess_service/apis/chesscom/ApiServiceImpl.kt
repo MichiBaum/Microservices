@@ -19,7 +19,7 @@ import java.util.*
 @Service(value = "chesscomApiService")
 class ApiServiceImpl(
     chessConfigProperties: ChessConfigProperties,
-    val converter: Converter
+    private val converter: Converter
 ): IApiService {
 
     val client = chessConfigProperties.getWebClient(ChessPlatform.CHESSCOM)

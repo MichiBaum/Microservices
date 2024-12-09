@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class FitbitWeightService(
-    val fitbitWeightRepository: FitbitWeightRepository
+    private val fitbitWeightRepository: FitbitWeightRepository
 ) {
 
     @Transactional
