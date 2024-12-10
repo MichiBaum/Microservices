@@ -76,7 +76,7 @@ eureka:
   instance:
     prefer-ip-address: true
   client:
-    enabled: false
+    enabled: true
     fetch-registry: true
     register-with-eureka: true
     refresh:
@@ -84,7 +84,8 @@ eureka:
 
 management:
   endpoints:
-    enabled-by-default: true
+    access:
+      default: unrestricted
     web:
       exposure:
         include: "*"

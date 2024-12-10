@@ -37,7 +37,8 @@ eureka:
 
 management:
   endpoints:
-    enabled-by-default: true
+    access:
+      default: unrestricted
     web:
       exposure:
         include: "*"

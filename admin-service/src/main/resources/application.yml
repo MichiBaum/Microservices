@@ -3,7 +3,6 @@ server:
   undertow:
     url-charset: UTF-8
 
-
 spring:
   threads:
     virtual:
@@ -51,7 +50,8 @@ eureka:
 
 management:
   endpoints:
-    enabled-by-default: true
+    access:
+      default: unrestricted
     web:
       exposure:
         include: "*"
