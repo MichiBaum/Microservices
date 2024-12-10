@@ -47,7 +47,6 @@ export class ChessEventsListComponent implements OnInit {
       categories.forEach(category => uniqueCategoriesMap.set(category.id, category));
 
       let uniqueCategories = Array.from(uniqueCategoriesMap.values());
-      console.log(uniqueCategories);
       this.categories = [...uniqueCategories];
     });
   }

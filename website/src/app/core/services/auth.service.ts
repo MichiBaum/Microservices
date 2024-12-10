@@ -27,7 +27,6 @@ export class AuthService {
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)))
       .subscribe(value => {
         if(value.jwt != null && value.jwt !== ""){
-          console.log("Successful authentication -> jwt saved in localstorage");
           localStorage.setItem('Authentication', value.jwt);
           this.successLoginEmitter.next()
           this.router.home()
