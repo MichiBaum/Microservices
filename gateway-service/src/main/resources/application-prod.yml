@@ -14,7 +14,7 @@ spring:
           key:
             alias: "michibaum"
           keystore:
-            location: "/data/ssl/keystore.p12"
+            location: "file:/data/ssl/keystore.p12"
             password: ${SSL_KEYSTORE_PASSWORD}
             type: "PKCS12"
   boot:
