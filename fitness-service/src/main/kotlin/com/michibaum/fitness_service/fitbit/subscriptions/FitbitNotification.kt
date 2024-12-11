@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 class FitbitNotification(
-    @Column(nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
     val collectionType: NotificationCollectionType,
 
     @Column(nullable = false, unique = false)

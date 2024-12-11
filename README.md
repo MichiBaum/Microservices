@@ -104,15 +104,20 @@ File: */etc/hosts*
 
 ## Local dev db
 
-    docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:lts-noble
+    docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:10.11
 
 After that create the databases in the container.
-The tables are created trough
 
-    spring
-      jpa:
-        hibernate:
-          ddl-auto: update
+```
+create schema `authentication-db`;
+create schema `chess-db`;
+create schema `fitness-db`;
+create schema `music-db`;
+create schema `usermanagement-db`;
+```
+
+The tables are created trough [flyway](https://documentation.red-gate.com/fd/migrations-184127470.html).
+
 
 ## License
 
