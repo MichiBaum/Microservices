@@ -16,7 +16,7 @@
         <appender-ref ref="Console" />
     </root>
 
-    <logger name="com.michibaum" level="WARN">
+    <logger name="com.michibaum" level="INFO">
         <appender-ref ref="Console" />
         <appender-ref ref="Discord" />
     </logger>
