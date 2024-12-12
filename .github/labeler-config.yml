@@ -1,0 +1,74 @@
+documentation:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['docs/**', '**/*.md']
+
+docker:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['.env', 'env-template', 'docker-compose.yml']
+
+dependencies:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['**/pom.xml']
+
+workflow:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['.github/workflows/**']
+
+issue_template:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['.github/ISSUE_TEMPLATE/**']
+
+admin-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['admin-service/**']
+
+authentication-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['authentication-service/**']
+
+chess-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['chess-service/**']
+
+fitness-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['fitness-service/**']
+
+gateway-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['gateway-service/**']
+
+music-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['music-service/**']
+
+registry-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['registry-service/**']
+
+usermanagement-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['usermanagement-service/**']
+
+website-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['website-service/**']
+
+website:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['website/**']
