@@ -2,8 +2,7 @@ name: Update contributors in README.md
 
 on:
   push:
-    branches:
-      - master
+    branches: [ "master" ]
 
 jobs:
   contrib-readme-job:

@@ -1,0 +1,20 @@
+name: OSV-Scanner PR Scan
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+  # Only need to read contents
+  contents: read
+
+jobs:
+  scan-pr:
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.9.1"
+    with:
+      scan-args: |-
+        --recursive
