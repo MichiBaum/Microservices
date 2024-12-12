@@ -42,6 +42,16 @@ And these databases:
 - Chess DB
 - Fitness DB
 
+## Actions
+
+### Labeler
+
+There is a github action, witch sets automatic labels on Pull requests.
+
+### OSV Scanner
+
+This scanner scans the dependencies and creates a vulnerability report.
+
 ## Maven
 
 ### Release plugin
