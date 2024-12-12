@@ -11,6 +11,11 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
 
+Actions Badges:  
+[![Automatic Dependency Submission](https://github.com/MichiBaum/Microservices/actions/workflows/dependency-graph/auto-submission/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/dependency-graph/auto-submission)
+[![Build and Publish](https://github.com/MichiBaum/Microservices/actions/workflows/deploy.yaml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/deploy.yaml)
+[![OSV-Scanner PR Scan](https://github.com/MichiBaum/Microservices/actions/workflows/osv-scanner.yml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/osv-scanner.yml)
+[![SonarQube Analysis](https://github.com/MichiBaum/Microservices/actions/workflows/sonarqube.yml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/sonarqube.yml)
 
 This project is all about microservices. Frontend is currently build with Angular.
 There are microservices build with spring, spring cloud and so forth.
