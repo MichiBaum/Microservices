@@ -1,0 +1,12 @@
+:host ::ng-deep .p-submenu-list {
+  width: max-content;
+}
+
+.event-category-text {
+  color: var(--text-color-secondary);
+}
+
+.no-top-bottom-margin {
+  margin-top: 0;
+  margin-bottom: 0;
+}

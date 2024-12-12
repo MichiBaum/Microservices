@@ -15,7 +15,7 @@ class AccountController(
 ) {
 
     @GetMapping("/api/accounts/search/{accountName}")
-    fun searchAccount(@PathVariable accountName: String, @RequestParam(required = false) local: Boolean = true): List<AccountDto> {
+    fun searchAccount(@PathVariable accountName: String, @RequestParam(required = false) local: Boolean = true): List<AccountDto> { // TODO throws ObjectOptimisticLockingFailureException if local false
         return accountService.getAccounts(accountName, local)
             .map { account: Account -> accountConverter.convert(account) }
     }

@@ -32,6 +32,43 @@
       <th>Url</th>
       <th>Embed Url</th>
     </tr>
+    <tr>
+      <th></th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="title"
+          placeholder="Search by title"
+          ariaLabel="Filter Title"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <!-- TODO filter doesnt work -->
+        <p-columnFilter
+          type="text"
+          field="categories"
+          placeholder="Search by category"
+          ariaLabel="Filter Category"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="location"
+          placeholder="Search by location"
+          ariaLabel="Filter Location"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th><!-- TODO filter doesnt work --><p-columnFilter type="boolean" field="url" /></th>
+      <th><!-- TODO filter doesnt work --><p-columnFilter type="boolean" field="embedUrl" /></th>
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
     <tr [pSelectableRow]="event" [pSelectableRowIndex]="rowIndex">
