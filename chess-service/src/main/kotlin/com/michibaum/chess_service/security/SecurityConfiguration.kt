@@ -31,7 +31,9 @@ class SecurityConfiguration {
                         HttpMethod.GET,"/api/events",
                         "/api/events/*",
                         "/api/events/*/participants",
-                        "/api/events/*/games"
+                        "/api/events/*/games",
+                        "/api/event-categories",
+                        "/api/event-categories/with-events"
                     ).permitAll()
                     .pathMatchers(
                         "/actuator",

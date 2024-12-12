@@ -9,7 +9,7 @@ spring:
     url: jdbc:mariadb://usermanagement-db:3306/${DATABASE}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
   boot:
     admin:
       client:

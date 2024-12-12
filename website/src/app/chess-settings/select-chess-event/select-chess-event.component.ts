@@ -28,7 +28,7 @@ export class SelectChessEventComponent {
   events: ChessEvent[] = [];
 
   @Output()
-  selectedEventEmitter: EventEmitter<ChessEvent> = new EventEmitter()
+  selectedEventEmitter: EventEmitter<ChessEvent | undefined> = new EventEmitter()
 
   selectedEvent: ChessEvent | undefined;
   tableSearch: string = "";
@@ -38,9 +38,7 @@ export class SelectChessEventComponent {
   ) { }
 
   onSelectionChange() {
-    if(this.selectedEvent) {
-      this.selectedEventEmitter.emit(this.selectedEvent)
-    }
+    this.selectedEventEmitter.emit(this.selectedEvent)
   }
 
   getIcon(url: string) {

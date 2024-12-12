@@ -7,4 +7,5 @@ import java.util.*
 
 interface EventRepository: JpaRepository<Event, UUID> {
     fun findByDateFromGreaterThanAndDateToLessThan(recent: LocalDate, upcoming: LocalDate): List<Event> // TODO maybe OR????
+    fun findByCategoriesId(id: UUID): Set<Event>
 }

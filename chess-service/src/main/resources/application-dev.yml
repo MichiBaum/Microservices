@@ -14,7 +14,7 @@ spring:
     url: jdbc:mariadb://localhost:3306/chess-db
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
   boot:
     admin:
       client:

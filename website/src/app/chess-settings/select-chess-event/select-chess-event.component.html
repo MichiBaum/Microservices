@@ -1,7 +1,7 @@
 <p-confirmDialog />
 
 <p-table
-  #gameEventsTable
+  #table
   styleClass="p-datatable-striped"
   [value]="events"
   [(selection)]="selectedEvent"
@@ -16,7 +16,7 @@
     <div class="flex">
       <span class="p-input-icon-left ml-auto">
         <i class="pi pi-search"></i>
-        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="gameEventsTable.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
+        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="table.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
       </span>
     </div>
   </ng-template>

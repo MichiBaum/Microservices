@@ -44,7 +44,7 @@ services:
       - microservice-network
 
   authentication-db:
-    image: mariadb:lts-noble
+    image: mariadb:10.11
     env_file:
       - .env
     restart: always
@@ -81,7 +81,7 @@ services:
       - microservice-network
 
   usermanagement-db:
-    image: mariadb:lts-noble
+    image: mariadb:10.11
     env_file:
       - .env
     restart: always
@@ -148,7 +148,7 @@ services:
       - microservice-network
 
   chess-db:
-    image: mariadb:lts-noble
+    image: mariadb:10.11
     env_file:
       - .env
     restart: always
@@ -185,7 +185,7 @@ services:
       - microservice-network
 
   fitness-db:
-    image: mariadb:lts-noble
+    image: mariadb:10.11
     env_file:
       - .env
     restart: always
@@ -222,7 +222,7 @@ services:
       - microservice-network
 
   music-db:
-    image: mariadb:lts-noble
+    image: mariadb:10.11
     env_file:
       - .env
     restart: always

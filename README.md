@@ -11,6 +11,11 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MichiBaum_Microservices&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=MichiBaum_Microservices)
 
+Actions Badges:  
+[![Automatic Dependency Submission](https://github.com/MichiBaum/Microservices/actions/workflows/dependency-graph/auto-submission/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/dependency-graph/auto-submission)
+[![Build and Publish](https://github.com/MichiBaum/Microservices/actions/workflows/deploy.yaml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/deploy.yaml)
+[![OSV-Scanner PR Scan](https://github.com/MichiBaum/Microservices/actions/workflows/osv-scanner.yml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/osv-scanner.yml)
+[![SonarQube Analysis](https://github.com/MichiBaum/Microservices/actions/workflows/sonarqube.yml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/sonarqube.yml)
 
 This project is all about microservices. Frontend is currently build with Angular.
 There are microservices build with spring, spring cloud and so forth.
@@ -41,6 +46,16 @@ And these databases:
 - Usermanagement DB
 - Chess DB
 - Fitness DB
+
+## Actions
+
+### Labeler
+
+There is a github action, witch sets automatic labels on Pull requests.
+
+### OSV Scanner
+
+This scanner scans the dependencies and creates a vulnerability report.
 
 ## Maven
 
@@ -104,15 +119,20 @@ File: */etc/hosts*
 
 ## Local dev db
 
-    docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:lts-noble
+    docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:10.11
 
 After that create the databases in the container.
-The tables are created trough
 
-    spring
-      jpa:
-        hibernate:
-          ddl-auto: update
+```
+create schema `authentication-db`;
+create schema `chess-db`;
+create schema `fitness-db`;
+create schema `music-db`;
+create schema `usermanagement-db`;
+```
+
+The tables are created trough [flyway](https://documentation.red-gate.com/fd/migrations-184127470.html).
+
 
 ## License
 

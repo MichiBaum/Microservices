@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.chess_service.app.eventcategory.EventCategoryDto
 import com.michibaum.chess_service.app.person.PersonDto
 
 data class EventDto(
@@ -12,10 +13,4 @@ data class EventDto(
     val dateTo: String? = null,
     val categories: List<EventCategoryDto> = mutableListOf(),
     val participants: List<PersonDto> = mutableListOf(),
-)
-
-data class EventCategoryDto(
-    val id: String,
-    val title: String,
-    val description: String,
 )

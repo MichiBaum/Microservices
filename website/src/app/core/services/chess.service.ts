@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {
   Account,
   ChessEvent,
-  ChessEventCategory,
+  ChessEventCategory, ChessEventCategoryWithEvents,
   ChessGame,
   Person,
   SearchPerson,
@@ -51,7 +51,12 @@ export class ChessService {
   }
 
   eventCategories(): Observable<ChessEventCategory[]> {
-    return this.http.get<ChessEventCategory[]>(environment.chessService + '/events/categories')
+    return this.http.get<ChessEventCategory[]>(environment.chessService + '/event-categories')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  eventCategoriesWithEvents(): Observable<ChessEventCategoryWithEvents[]> {
+    return this.http.get<ChessEventCategoryWithEvents[]>(environment.chessService + '/event-categories/with-events')
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 

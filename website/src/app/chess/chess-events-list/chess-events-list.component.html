@@ -4,7 +4,7 @@
     <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-6 laptop-l:col-width-4 qhd:col-width-3 max-width:col-width-3">
 
         <p-card  [header]="category.title" [subheader]="category.description">
-          <p-timeline [value]="eventsOfCategory(events, category)">
+          <p-timeline [value]="category.events">
             <ng-template pTemplate="marker" let-event>
               <fa-icon [icon]="getIcon(event)" [style]="getColor(event)"></fa-icon>
             </ng-template>
