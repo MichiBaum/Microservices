@@ -112,19 +112,23 @@ export class ChessComponent implements OnInit{
         visible: this.permissionService.hasAnyOf([Permissions.CHESS_SERVICE_ADMIN]),
         items: [
           {
-            label: "Persons",
+            label: "Update Persons",
             routerLink: "/chess/settings/persons"
           },
           {
-            label: "Accounts",
+            label: "Update Accounts",
             routerLink: "/chess/settings/accounts"
           },
           {
-            label: "Events",
+            label: "Update Event Categories",
+            routerLink: "/chess/settings/event-categories"
+          },
+          {
+            label: "Update Events",
             routerLink: "/chess/settings/events"
           },
           {
-            label: "Games",
+            label: "Update Games",
             routerLink: "/chess/settings/games"
           }
         ]

@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.chess_service.app.eventcategory.EventCategoryService
 import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.EventCategory
@@ -12,7 +13,7 @@ import kotlin.jvm.optionals.getOrNull
 @Service
 class EventService(
     private val eventRepository: EventRepository,
-    private val eventCategoryRepository: EventCategoryRepository,
+    private val eventCategoryService: EventCategoryService,
     private val personRepository: PersonRepository
 ) {
 
@@ -24,10 +25,6 @@ class EventService(
 
     fun findRecentAndUpcoming(recent: LocalDate, upcoming: LocalDate): List<Event> =
         eventRepository.findByDateFromGreaterThanAndDateToLessThan(recent, upcoming)
-
-    fun allCategories(): List<EventCategory> {
-        return eventCategoryRepository.findAll()
-    }
 
     fun create(dto: WriteEventDto): Event {
         val categories = getCategories(dto.categoryIds)
@@ -72,6 +69,9 @@ class EventService(
 
     private fun getCategories(ids: List<String>): Set<EventCategory> {
         val categoryIds = ids.map { UUID.fromString(it) }
-        return eventCategoryRepository.findAllById(categoryIds).toSet()
+        return eventCategoryService.findAllById(categoryIds).toSet()
     }
+
+    fun findByCategoryId(id: UUID): Set<Event> =
+        eventRepository.findByCategoriesId(id)
 }

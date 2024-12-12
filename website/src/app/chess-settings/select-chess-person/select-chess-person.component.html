@@ -1,5 +1,5 @@
 <p-table
-  #gamePersonsTable
+  #table
   [value]="persons"
   [(selection)]="selectedPersons"
   selectionMode="multiple"
@@ -13,7 +13,7 @@
     <div class="flex">
       <span class="p-input-icon-left ml-auto">
         <i class="pi pi-search"></i>
-        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="gamePersonsTable.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
+        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="table.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
       </span>
     </div>
   </ng-template>

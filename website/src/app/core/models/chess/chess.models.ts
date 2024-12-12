@@ -69,6 +69,13 @@ export interface ChessEventCategory{
   description: string;
 }
 
+export interface ChessEventCategoryWithEvents{
+  id: string;
+  title: string;
+  description: string;
+  events: ChessEvent[];
+}
+
 export interface ChessGame {
   id: string;
   chessPlatform: ChessPlatform;

@@ -106,6 +106,12 @@ export const routes: Routes = [
             data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
           },
           {
+            path:"event-categories",
+            loadComponent: () => import("./chess-settings/chess-update-event-category/chess-update-event-category.component").then((c) => c.ChessUpdateEventCategoryComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
             path:"events",
             loadComponent: () => import("./chess-settings/chess-update-event/chess-update-event.component").then((c) => c.ChessUpdateEventComponent),
             canActivate: [isAuthenticatedGuard, isPermittedGuard],

@@ -109,7 +109,7 @@ export class ChessUpdateEventComponent implements OnInit{
     })
   }
 
-  onEventSelect(event: ChessEvent){
+  onEventSelect(event: ChessEvent | undefined){
     this.selectedEvent = event;
     this.resetParticipantsSelect()
     this.patchForm()

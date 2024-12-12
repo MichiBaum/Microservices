@@ -1,0 +1,37 @@
+<p-table
+  #table
+  styleClass="p-datatable-striped"
+  [value]="categories"
+  [(selection)]="selectedCategory"
+  selectionMode="single"
+  [paginator]="true"
+  [rows]="5"
+  [globalFilterFields]="['title','location']"
+  (onRowSelect)="onSelectionChange()"
+  (onRowUnselect)="onSelectionChange()"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <span class="p-input-icon-left ml-auto">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="table.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem"></th>
+      <th>Title</th>
+      <th>Description</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="category" [pSelectableRowIndex]="rowIndex">
+      <td>
+        <p-tableCheckbox [value]="category" />
+      </td>
+      <td>{{ category.title }}</td>
+      <td>{{ category.description }}</td>
+    </tr>
+  </ng-template>
+</p-table>

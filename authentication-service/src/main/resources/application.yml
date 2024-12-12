@@ -29,8 +29,6 @@ spring:
     locations: classpath:db/migration
     driver-class-name: org.mariadb.jdbc.Driver
 
-
-
 eureka:
   instance:
     prefer-ip-address: true

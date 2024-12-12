@@ -84,13 +84,6 @@ class EventController(
         }
     }
 
-    @GetMapping("/api/events/categories")
-    fun getEventCategories(): ResponseEntity<List<EventCategoryDto>> {
-        val categoryDtos = eventService.allCategories()
-            .map(eventConverter::toDto)
-        return ResponseEntity.ok().body(categoryDtos)
-    }
-
     @Transactional
     @PutMapping("/api/events")
     fun createEvent(@RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{

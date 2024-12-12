@@ -64,7 +64,13 @@ export class ChessUpdateGameComponent implements OnInit {
     table.clear();
   }
 
-  onEventSelect(event: ChessEvent) {
+  onEventSelect(event: ChessEvent | undefined) {
+    if(event == undefined){
+      this.selectedEvent = undefined;
+      this.persons = [...[]]
+      this.selectedPersons = [...[]]
+      return
+    }
     this.selectedEvent = {...event}
     this.persons = [...event.participants]
     this.selectedPersons = [...[]]

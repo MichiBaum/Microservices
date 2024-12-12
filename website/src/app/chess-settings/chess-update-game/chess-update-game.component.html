@@ -11,7 +11,7 @@
 
       <p-card header="Select Accounts" *ngIf="selectedPersons.length == 2">
         <p-table
-          #gameAccountsTable
+          #table
           [value]="accounts"
           [(selection)]="selectedAccounts"
           selectionMode="multiple"
@@ -22,10 +22,10 @@
         >
           <ng-template pTemplate="caption">
             <div class="flex">
-              <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(gameAccountsTable)" />
+              <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(table)" />
               <span class="p-input-icon-left ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text" [(ngModel)]="accountTableSearch" (input)="gameAccountsTable.filterGlobal(accountTableSearch, 'contains')" placeholder="Search" />
+                  <input pInputText type="text" [(ngModel)]="accountTableSearch" (input)="table.filterGlobal(accountTableSearch, 'contains')" placeholder="Search" />
               </span>
             </div>
           </ng-template>
