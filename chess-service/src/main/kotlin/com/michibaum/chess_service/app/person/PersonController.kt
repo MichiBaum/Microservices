@@ -2,6 +2,7 @@ package com.michibaum.chess_service.app.person
 
 import com.michibaum.chess_service.apis.fide.FideApiService
 import com.michibaum.chess_service.app.FileImportResult
+import com.michibaum.chess_service.app.event.EventService
 import com.michibaum.chess_service.domain.Person
 import jakarta.validation.Valid
 import org.springframework.core.io.buffer.DataBuffer
@@ -18,6 +19,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.io.ByteArrayInputStream
 import java.io.InputStream
+import java.util.*
 
 
 @RestController
@@ -25,6 +27,7 @@ class PersonController(
     private val personService: PersonService,
     private val personConverter: PersonConverter,
     private val fideApiService: FideApiService,
+    private val eventService: EventService,
 ) {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
@@ -36,12 +39,34 @@ class PersonController(
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    @PostMapping(value = ["/api/persons"])
-    fun createPerson(@RequestBody personDto: CreatePersonDto): ResponseEntity<PersonDto> {
-        val convertedPerson = personConverter.convert(personDto)
-        val savedPerson = personService.savePerson(convertedPerson)
-        val responsePersonDto = personConverter.convert(savedPerson)
-        return ResponseEntity(responsePersonDto, HttpStatus.CREATED)
+    @PutMapping(value = ["/api/persons"])
+    fun createPerson(@Valid @RequestBody personDto: WritePersonDto): ResponseEntity<PersonDto> {
+        return try {
+            val newPerson = personService.create(personDto)
+            val responsePersonDto = personConverter.convert(newPerson)
+            ResponseEntity(responsePersonDto, HttpStatus.CREATED)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    @PutMapping(value = ["/api/persons/{id}"])
+    fun updatePerson(@PathVariable id: String, @Valid @RequestBody personDto: WritePersonDto): ResponseEntity<PersonDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val person = personService.find(uuid)?:
+                return ResponseEntity.notFound().build()
+            val newPerson = personService.update(person, personDto)
+            val responsePersonDto = personConverter.convert(newPerson)
+            return ResponseEntity.ok(responsePersonDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)

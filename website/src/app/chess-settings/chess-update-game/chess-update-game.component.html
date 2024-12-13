@@ -39,7 +39,7 @@
           <ng-template pTemplate="body" let-account let-rowIndex="rowIndex">
             <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
               <td>
-                <p-tableCheckbox [value]="account" />
+                <p-tableCheckbox [value]="account" disabled="true"/>
               </td>
               <td>{{ account.username }}</td>
               <td>{{ account.platform }}</td>

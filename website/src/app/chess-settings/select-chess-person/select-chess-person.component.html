@@ -1,22 +1,13 @@
 <p-table
-  #table
+  styleClass="p-datatable-striped"
   [value]="persons"
   [(selection)]="selectedPersons"
   selectionMode="multiple"
   [paginator]="true"
   [rows]="5"
-  [globalFilterFields]="['firstname', 'lastname']"
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
-  xmlns="http://www.w3.org/1999/html">
-  <ng-template pTemplate="caption">
-    <div class="flex">
-      <span class="p-input-icon-left ml-auto">
-        <i class="pi pi-search"></i>
-        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="table.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
-      </span>
-    </div>
-  </ng-template>
+>
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 4rem"></th>
@@ -27,11 +18,56 @@
       <th>Birthday</th>
       <th>Gender</th>
     </tr>
+    <tr>
+      <th></th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="firstname"
+          placeholder="Search by firstname"
+          ariaLabel="Filter Firstname"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="lastname"
+          placeholder="Search by lastname"
+          ariaLabel="Filter Lastname"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="fideId"
+          placeholder="Search by Fide Id"
+          ariaLabel="Filter Fide Id"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="federation"
+          placeholder="Search by federation"
+          ariaLabel="Filter Federation"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-person let-rowIndex="rowIndex">
     <tr [pSelectableRow]="person" [pSelectableRowIndex]="rowIndex">
       <td>
-        <p-tableCheckbox [value]="person" />
+        <p-tableCheckbox [value]="person" disabled="true"/>
       </td>
       <td>{{ person.firstname }}</td>
       <td>{{ person.lastname }}</td>

@@ -9,6 +9,15 @@ export interface Person {
   accounts: Account[]
 }
 
+export interface WritePerson {
+  firstname:string
+  lastname:string
+  fideId?:string
+  federation?:string
+  birthday?:string
+  gender: Gender
+}
+
 export enum Gender {
   MALE = "MALE",
   FEMALE = "FEMALE",

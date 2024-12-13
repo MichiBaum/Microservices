@@ -5,6 +5,8 @@ import com.michibaum.chess_service.app.game.GameDto
 import com.michibaum.chess_service.app.game.GameService
 import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.app.person.PersonDto
+import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
@@ -89,11 +91,11 @@ class EventController(
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     @PutMapping("/api/events")
-    fun createEvent(@RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{
+    fun createEvent(@Valid @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{
         return try {
             val event = eventService.create(eventDto)
             val newEventDto = eventConverter.toDto(event)
-            ResponseEntity.ok(newEventDto)
+            ResponseEntity(newEventDto, HttpStatus.CREATED)
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()
         } catch (ex: Exception) {
@@ -103,7 +105,7 @@ class EventController(
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     @PutMapping("/api/events/{id}")
-    fun updateEvent(@PathVariable id: String, @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto> {
+    fun updateEvent(@PathVariable id: String, @Valid @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto> {
         return try {
             val uuid = UUID.fromString(id)
             val event = eventService.find(uuid) ?:

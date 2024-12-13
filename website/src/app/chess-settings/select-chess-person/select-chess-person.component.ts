@@ -28,18 +28,12 @@ export class SelectChessPersonComponent {
   selectedPersonsEmitter: EventEmitter<Person[]> = new EventEmitter()
 
   selectedPersons: Person[] = [];
-  tableSearch: string = "";
 
   constructor() {
   }
 
   onSelectionChange() {
       this.selectedPersonsEmitter.emit(this.selectedPersons)
-  }
-
-  clear(table: Table) {
-    table.clear();
-    this.tableSearch = ''
   }
 
   getGenderIcon(person: Person) {

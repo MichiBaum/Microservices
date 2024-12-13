@@ -7,17 +7,84 @@
 
   <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Person Form">
+      <form [formGroup]="formGroup">
 
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            ID
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="id"/>
+        </p-inputGroup>
+
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Firstname
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="firstname"/>
+        </p-inputGroup>
+
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Lastname
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="lastname"/>
+        </p-inputGroup>
+
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Fide Id
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="fideId"/>
+        </p-inputGroup>
+
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Federation
+          </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="federation"/>
+        </p-inputGroup>
+
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Birthday
+          </p-inputGroupAddon>
+          <p-calendar formControlName="birthday" dateFormat="dd.mm.yy"></p-calendar>
+        </p-inputGroup>
+
+        <p-inputGroup class="mb-2">
+          <p-inputGroupAddon>
+            Gender
+          </p-inputGroupAddon>
+          <p-dropdown
+            formControlName="gender"
+            [options]="genders"
+            placeholder="Select a Gender" />
+        </p-inputGroup>
+
+      </form>
     </p-fieldset>
+
   </div>
 
   <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Account Connect">
+      <table
 
+      >
+
+      </table>
     </p-fieldset>
   </div>
 
-  <div class="col-12">
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
+    <p-fieldset legend="Action">
+      <p-button type="button" class="mr-4" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+      <p-button type="button" class="mr-4" label="Clear Data" (click)="clear()"></p-button>
+      <p-button (onClick)="confirmDelete($event)" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedPerson" />
+    </p-fieldset>
+  </div>
+
+  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Upload Fide Rating List">
       <p-fileUpload
         mode="basic"

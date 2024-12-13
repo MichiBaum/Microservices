@@ -32,7 +32,6 @@ export class SelectChessEventComponent implements OnInit{
   selectedEventEmitter: EventEmitter<ChessEvent | undefined> = new EventEmitter()
 
   selectedEvent: ChessEvent | undefined;
-  tableSearch: string = "";
   matchModeOptions: SelectItem[] = [];
   eventCategoryFilterName = 'anyEventCategoryLike';
   eventUrlFilterName = 'eventUrlPresent';

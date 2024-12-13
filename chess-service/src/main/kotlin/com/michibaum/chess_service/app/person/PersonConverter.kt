@@ -9,7 +9,7 @@ import java.time.LocalDate
 class PersonConverter(
     private val accountConverter: AccountConverter
 ) {
-    fun convert(person: CreatePersonDto): Person {
+    fun convert(person: WritePersonDto): Person {
         return Person(
             firstname = person.firstname,
             lastname = person.lastname,
@@ -33,4 +33,5 @@ class PersonConverter(
             accounts = person.accounts.map { account -> accountConverter.convert(account) }.toSet(),
         )
     }
+
 }
