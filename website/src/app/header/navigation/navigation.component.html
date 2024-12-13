@@ -1,10 +1,8 @@
-<!-- TODO z-index of navigation/sidebar somehow broken. On mobile overlay appears over sidebar. Somehow when other overlays spawned this index counts up but doesnt work -->
 <p-sidebar
   [(visible)]="sidebarVisible"
   [position]="'left'"
   [showCloseIcon]="true"
-  [modal]="true"
-  [autoZIndex]="true"
+  [modal]="false"
 >
   <ng-template pTemplate="header">
     <div class="flex align-items-center gap-2">

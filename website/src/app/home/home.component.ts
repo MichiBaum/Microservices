@@ -7,6 +7,7 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
 import {NgIf} from "@angular/common";
 import {PermissionService} from "../core/services/permission.service";
 import {TranslateModule} from "@ngx-translate/core";
+import {ScrollTopModule} from "primeng/scrolltop";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import {TranslateModule} from "@ngx-translate/core";
     Button,
     CardModule,
     NgIf,
-    TranslateModule
+    TranslateModule,
+    ScrollTopModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
