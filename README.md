@@ -145,7 +145,7 @@ The tables are created trough [flyway](https://documentation.red-gate.com/fd/mig
 <tr>
     <td align="center">
         <a href="https://github.com/MichiBaum">
-            <img src="https://avatars.githubusercontent.com/u/36712219?v=4" width="100;" alt="MichiBaum"/>
+            <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxMzUwMDAsIm5iZiI6MTczNDEzMzgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.eSp5XM1VttG-DHy7roCYnnmGS0SETbA53l-ba3srgh8&v=4" width="100;" alt="MichiBaum"/>
             <br />
             <sub><b>Michael Baumberger</b></sub>
         </a>
@@ -167,7 +167,7 @@ The tables are created trough [flyway](https://documentation.red-gate.com/fd/mig
     </td>
     <td align="center">
         <a href="https://github.com/MichiBaum">
-            <img src="https://avatars.githubusercontent.com/u/36712219?v=4" width="100;" alt="MichiBaum"/>
+            <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxMzUwMDAsIm5iZiI6MTczNDEzMzgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.eSp5XM1VttG-DHy7roCYnnmGS0SETbA53l-ba3srgh8&v=4" width="100;" alt="MichiBaum"/>
             <br />
             <sub><b>Michael Baumberger</b></sub>
         </a>
