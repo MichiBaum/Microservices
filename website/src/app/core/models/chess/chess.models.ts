@@ -78,6 +78,11 @@ export interface ChessEventCategory{
   description: string;
 }
 
+export interface WriteChessEventCategory{
+  title: string;
+  description: string;
+}
+
 export interface ChessEventCategoryWithEvents{
   id: string;
   title: string;

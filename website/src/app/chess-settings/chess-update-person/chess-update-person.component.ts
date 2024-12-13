@@ -152,7 +152,7 @@ export class ChessUpdatePersonComponent implements OnInit{
     this.selectedPerson = undefined;
   }
 
-  confirmDelete($event: MouseEvent) {
+  confirmDelete() {
 
   }
 }
