@@ -1,9 +1,8 @@
 <div class="grid">
+
   <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
-    <p-fieldset legend="Event Select">
-
+    <p-fieldset legend="Event Select" [toggleable]="true">
       <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
-
     </p-fieldset>
   </div>
 

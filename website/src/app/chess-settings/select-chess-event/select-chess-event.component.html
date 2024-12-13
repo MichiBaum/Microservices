@@ -45,8 +45,10 @@
         />
       </th>
       <th>
-        <!-- TODO filter doesnt work -->
         <p-columnFilter
+          [matchModeOptions]="matchModeOptions"
+          [matchMode]="eventCategoryFilterName"
+          [showMenu]="false"
           type="text"
           field="categories"
           placeholder="Search by category"
@@ -66,8 +68,22 @@
       <th></th>
       <th></th>
       <th></th>
-      <th><!-- TODO filter doesnt work --><p-columnFilter type="boolean" field="url" /></th>
-      <th><!-- TODO filter doesnt work --><p-columnFilter type="boolean" field="embedUrl" /></th>
+      <th>
+        <p-columnFilter
+          type="boolean"
+          field="url"
+          [matchModeOptions]="matchModeOptions"
+          [matchMode]="eventUrlFilterName"
+          [showMenu]="false" />
+      </th>
+      <th>
+        <p-columnFilter
+          type="boolean"
+          field="embedUrl"
+          [matchModeOptions]="matchModeOptions"
+          [matchMode]="eventUrlFilterName"
+          [showMenu]="false" />
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
