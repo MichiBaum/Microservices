@@ -2,6 +2,7 @@ package com.michibaum.chess_service.app.person
 
 import com.michibaum.chess_service.apis.fide.FideApiService
 import com.michibaum.chess_service.app.FileImportResult
+import com.michibaum.chess_service.app.event.EventService
 import com.michibaum.chess_service.domain.Person
 import jakarta.validation.Valid
 import org.springframework.core.io.buffer.DataBuffer
@@ -10,12 +11,15 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.codec.multipart.FilePart
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.io.ByteArrayInputStream
 import java.io.InputStream
+import java.util.*
 
 
 @RestController
@@ -23,9 +27,10 @@ class PersonController(
     private val personService: PersonService,
     private val personConverter: PersonConverter,
     private val fideApiService: FideApiService,
+    private val eventService: EventService,
 ) {
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping(value = ["/api/persons"])
     fun persons(): ResponseEntity<List<PersonDto>> {
         val personDtos = personService.getAll()
@@ -33,16 +38,39 @@ class PersonController(
         return ResponseEntity.ok(personDtos)
     }
 
-    @PostMapping(value = ["/api/persons"])
-    fun createPerson(@RequestBody personDto: CreatePersonDto): ResponseEntity<PersonDto> {
-        val convertedPerson = personConverter.convert(personDto)
-        val savedPerson = personService.savePerson(convertedPerson)
-        val responsePersonDto = personConverter.convert(savedPerson)
-        return ResponseEntity(responsePersonDto, HttpStatus.CREATED)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    @PutMapping(value = ["/api/persons"])
+    fun createPerson(@Valid @RequestBody personDto: WritePersonDto): ResponseEntity<PersonDto> {
+        return try {
+            val newPerson = personService.create(personDto)
+            val responsePersonDto = personConverter.convert(newPerson)
+            ResponseEntity(responsePersonDto, HttpStatus.CREATED)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
     }
 
-    @Transactional
-    @PostMapping(value = ["/api/persons/search"])
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    @PutMapping(value = ["/api/persons/{id}"])
+    fun updatePerson(@PathVariable id: String, @Valid @RequestBody personDto: WritePersonDto): ResponseEntity<PersonDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val person = personService.find(uuid)?:
+                return ResponseEntity.notFound().build()
+            val newPerson = personService.update(person, personDto)
+            val responsePersonDto = personConverter.convert(newPerson)
+            return ResponseEntity.ok(responsePersonDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @PostMapping(value = ["/api/persons/search"]) // TODO PostMapping?
     fun findPerson(@Valid @RequestBody personSearchDto: PersonSearchDto): ResponseEntity<List<PersonDto>> {
         val persons = personService.findByIfNotEmpty(
             personSearchDto.firstname, personSearchDto.lastname
@@ -52,7 +80,7 @@ class PersonController(
         return ResponseEntity(persons, HttpStatus.OK)
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     @PostMapping(value = ["/api/fide/ratings"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun fideImport(@RequestPart("file") filePartMono: Mono<FilePart>): Mono<ResponseEntity<FileImportResult>> {
         val processFileContent: (InputStream) -> List<Person> = { stream ->

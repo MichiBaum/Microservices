@@ -4,15 +4,13 @@ import com.michibaum.chess_service.app.account.AccountConverter
 import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Component
 import java.time.LocalDate
-import java.util.*
 
 @Component
 class PersonConverter(
     private val accountConverter: AccountConverter
 ) {
-    fun convert(person: CreatePersonDto): Person {
+    fun convert(person: WritePersonDto): Person {
         return Person(
-            id = UUID.randomUUID(),
             firstname = person.firstname,
             lastname = person.lastname,
             fideId = person.fideId,
@@ -25,7 +23,7 @@ class PersonConverter(
 
     fun convert(person: Person): PersonDto {
         return PersonDto(
-            id = person.id,
+            id = person.idOrThrow(),
             firstname = person.firstname,
             lastname = person.lastname,
             fideId = person.fideId,
@@ -35,4 +33,5 @@ class PersonConverter(
             accounts = person.accounts.map { account -> accountConverter.convert(account) }.toSet(),
         )
     }
+
 }

@@ -12,7 +12,7 @@ import {PermissionService} from "../core/services/permission.service";
 import {Permissions} from "../core/config/permissions";
 import {Ripple} from "primeng/ripple";
 import {BadgeModule} from "primeng/badge";
-import {NgClass, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {
   faCalendarDay,
@@ -37,7 +37,8 @@ import {faClock} from "@fortawesome/free-regular-svg-icons";
     NgClass,
     NgIf,
     FaIconComponent,
-    TagModule
+    TagModule,
+    NgForOf
   ],
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'
@@ -72,6 +73,7 @@ export class ChessComponent implements OnInit{
     const menuEvents = this.events.map(event => (
         {
           label: event.title,
+          eventCategories: event.categories,
           routerLink: '/chess/events/' + event.id,
           tag: this.getEventIcon(event),
           tagColor: this.getEventIconColor(event),

@@ -92,8 +92,7 @@ export class ChessUpdateEventComponent implements OnInit{
   });
 
   constructor(
-    private readonly chessService: ChessService,
-    private readonly confirmationService: ConfirmationService
+    private readonly chessService: ChessService
   ) { }
 
   ngOnInit(): void {
@@ -186,26 +185,8 @@ export class ChessUpdateEventComponent implements OnInit{
     this.resetParticipantsSelect();
   }
 
-  confirmDelete($event: Event) {
-    if (!this.selectedEvent)
-      return
-    this.confirmationService.confirm({
-      target: $event.target as EventTarget,
-      message: 'Do you want to delete the Event: ' + this.selectedEvent.title,
-      header: 'Delete Confirmation',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass:"p-button-danger p-button-text",
-      rejectButtonStyleClass:"p-button-text p-button-text",
-      acceptIcon:"none",
-      rejectIcon:"none",
+  confirmDelete() {
 
-      accept: () => {
-        console.log("Yes");
-      },
-      reject: () => {
-        console.log("No");
-      }
-    });
   }
 
   getGenderIcon(person: Person) {

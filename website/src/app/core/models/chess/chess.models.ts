@@ -9,6 +9,15 @@ export interface Person {
   accounts: Account[]
 }
 
+export interface WritePerson {
+  firstname:string
+  lastname:string
+  fideId?:string
+  federation?:string
+  birthday?:string
+  gender: Gender
+}
+
 export enum Gender {
   MALE = "MALE",
   FEMALE = "FEMALE",
@@ -65,6 +74,11 @@ export interface WriteChessEvent {
 
 export interface ChessEventCategory{
   id: string;
+  title: string;
+  description: string;
+}
+
+export interface WriteChessEventCategory{
   title: string;
   description: string;
 }

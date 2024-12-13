@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import java.util.*
 
-data class CreatePersonDto(
+data class WritePersonDto(
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Firstname must contain only alphabetic characters")
     val firstname: String,
@@ -15,6 +15,7 @@ data class CreatePersonDto(
     val lastname: String,
     val fideId: String? = null,
     val federation: String? = null,
+    @Pattern(regexp = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])\$")
     val birthday: String? = null,
     val gender: Gender
 )

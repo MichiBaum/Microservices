@@ -8,7 +8,7 @@ class AccountConverter {
 
     fun convert(account: Account): AccountDto {
         return AccountDto(
-            id = account.id.toString(),
+            id = account.idOrThrow(),
             username = account.username,
             platform = account.platform,
             url = account.url,

@@ -4,6 +4,9 @@ import com.michibaum.chess_service.apis.dtos.FidePersonDto
 import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Service
+import java.time.LocalDate
+import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class PersonService(
@@ -58,12 +61,42 @@ class PersonService(
         return persons.map {
             val foundPerson = personRepository.findByFideId(it.fideId)
             if (foundPerson != null) {
-                val updatedPerson = it.toPerson(id = foundPerson.id, birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
+                val updatedPerson = it.toPerson(id = foundPerson.idOrThrow(), birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
                 personRepository.save(updatedPerson)
             } else {
                 personRepository.save(it.toPerson())
             }
         }.toList()
+    }
+
+    fun find(uuid: UUID): Person? =
+        personRepository.findById(uuid).getOrNull()
+
+    fun update(person: Person, personDto: WritePersonDto): Person {
+        val newPerson = Person(
+            firstname = personDto.firstname,
+            lastname = personDto.lastname,
+            fideId = personDto.fideId,
+            federation = personDto.federation,
+            birthday = personDto.birthday?.let { LocalDate.parse(it) },
+            gender = personDto.gender,
+            accounts = person.accounts,
+            id = person.id
+        )
+        return personRepository.save(newPerson)
+    }
+
+    fun create(personDto: WritePersonDto): Person{
+        val newPerson = Person(
+            firstname = personDto.firstname,
+            lastname = personDto.lastname,
+            fideId = personDto.fideId,
+            federation = personDto.federation,
+            birthday = personDto.birthday?.let { LocalDate.parse(it) },
+            gender = personDto.gender,
+            accounts = emptySet(),
+        )
+        return personRepository.save(newPerson)
     }
 
 }

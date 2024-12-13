@@ -10,7 +10,7 @@ class EventCategoryConverter(
 
     fun toDto(category: EventCategory): EventCategoryDto {
         return EventCategoryDto(
-            id = category.id.toString(),
+            id = category.idOrThrow(),
             title = category.name,
             description = category.description,
         )
@@ -18,7 +18,7 @@ class EventCategoryConverter(
 
     fun toDto(category: EventCategory, events: List<EventDto>): EventCategoryWithEventDto{
         return EventCategoryWithEventDto(
-            id = category.id.toString(),
+            id = category.idOrThrow(),
             title = category.name,
             description = category.description,
             events = events

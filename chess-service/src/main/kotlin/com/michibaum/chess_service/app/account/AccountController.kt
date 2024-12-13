@@ -2,6 +2,9 @@ package com.michibaum.chess_service.app.account
 
 import com.michibaum.chess_service.domain.Account
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
@@ -15,12 +18,14 @@ class AccountController(
 ) {
 
     @GetMapping("/api/accounts/search/{accountName}")
-    fun searchAccount(@PathVariable accountName: String, @RequestParam(required = false) local: Boolean = true): List<AccountDto> {
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    fun searchAccount(@PathVariable accountName: String, @RequestParam(required = false) local: Boolean = true): List<AccountDto> { // TODO throws ObjectOptimisticLockingFailureException if local false
         return accountService.getAccounts(accountName, local)
             .map { account: Account -> accountConverter.convert(account) }
     }
 
     @GetMapping("/api/accounts/{id}")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAccount(@PathVariable id: String): ResponseEntity<AccountDto> {
         return try {
             val uuid = UUID.fromString(id)

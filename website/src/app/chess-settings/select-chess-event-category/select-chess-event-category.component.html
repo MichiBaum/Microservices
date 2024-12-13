@@ -28,7 +28,7 @@
   <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
     <tr [pSelectableRow]="category" [pSelectableRowIndex]="rowIndex">
       <td>
-        <p-tableCheckbox [value]="category" />
+        <p-tableCheckbox [value]="category" disabled="true"/>
       </td>
       <td>{{ category.title }}</td>
       <td>{{ category.description }}</td>

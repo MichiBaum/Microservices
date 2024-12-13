@@ -7,7 +7,7 @@ import {
   ChessGame,
   Person,
   SearchPerson,
-  WriteChessEvent
+  WriteChessEvent, WriteChessEventCategory, WritePerson
 } from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
@@ -92,6 +92,22 @@ export class ChessService {
     if(id !== undefined && id !== '')
       endPoint = endPoint + "/" + id
     return this.http.put<ChessEvent>(environment.chessService + endPoint, event)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  savePerson(id: string, person: WritePerson): Observable<Person>{
+    let endPoint = "/persons"
+    if(id !== undefined && id !== '')
+      endPoint = endPoint + "/" + id
+    return this.http.put<Person>(environment.chessService + endPoint, person)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  saveCategory(id: string, category: WriteChessEventCategory): Observable<ChessEventCategory> {
+    let endPoint = "/event-categories"
+    if(id !== undefined && id !== '')
+      endPoint = endPoint + "/" + id
+    return this.http.put<ChessEventCategory>(environment.chessService + endPoint, category)
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 }

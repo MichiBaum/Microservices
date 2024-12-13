@@ -1,7 +1,9 @@
 package com.michibaum.chess_service.app.eventcategory
 
+import java.util.UUID
+
 data class EventCategoryDto(
-    val id: String,
+    val id: UUID,
     val title: String,
     val description: String,
 )

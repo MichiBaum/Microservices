@@ -10,7 +10,7 @@ import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @AutoConfigureWebTestClient
@@ -26,7 +26,7 @@ class FitbitOAuthControllerIT {
     @Autowired
     lateinit var fitbitOAuthRepository: FitbitOAuthRepository
 
-    @MockBean
+    @MockitoBean
     lateinit var jwsValidator: JwsValidator
 
     @Test

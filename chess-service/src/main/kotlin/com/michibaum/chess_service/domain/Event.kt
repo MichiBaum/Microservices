@@ -20,9 +20,11 @@ class Event(
     val embedUrl: String?,
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     val dateFrom: LocalDate,
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     val dateTo: LocalDate,
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
@@ -35,6 +37,7 @@ class Event(
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
-
-)
+    val id: UUID? = null
+){
+    fun idOrThrow(): UUID = id ?: throw IdNullException()
+}

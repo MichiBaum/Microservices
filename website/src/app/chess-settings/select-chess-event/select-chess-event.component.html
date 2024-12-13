@@ -1,25 +1,13 @@
-<p-confirmDialog />
-
 <p-table
-  #table
   styleClass="p-datatable-striped"
   [value]="events"
   [(selection)]="selectedEvent"
   selectionMode="single"
   [paginator]="true"
   [rows]="5"
-  [globalFilterFields]="['title','location']"
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
 >
-  <ng-template pTemplate="caption">
-    <div class="flex">
-      <span class="p-input-icon-left ml-auto">
-        <i class="pi pi-search"></i>
-        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="table.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
-      </span>
-    </div>
-  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 4rem"></th>
@@ -32,11 +20,64 @@
       <th>Url</th>
       <th>Embed Url</th>
     </tr>
+    <tr>
+      <th></th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="title"
+          placeholder="Search by title"
+          ariaLabel="Filter Title"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          [matchModeOptions]="matchModeOptions"
+          [matchMode]="eventCategoryFilterName"
+          [showMenu]="false"
+          type="text"
+          field="categories"
+          placeholder="Search by category"
+          ariaLabel="Filter Category"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="location"
+          placeholder="Search by location"
+          ariaLabel="Filter Location"
+          matchMode="contains"
+          [showMenu]="false"
+        />
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>
+        <p-columnFilter
+          type="boolean"
+          field="url"
+          [matchModeOptions]="matchModeOptions"
+          [matchMode]="eventUrlFilterName"
+          [showMenu]="false" />
+      </th>
+      <th>
+        <p-columnFilter
+          type="boolean"
+          field="embedUrl"
+          [matchModeOptions]="matchModeOptions"
+          [matchMode]="eventUrlFilterName"
+          [showMenu]="false" />
+      </th>
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
     <tr [pSelectableRow]="event" [pSelectableRowIndex]="rowIndex">
       <td>
-        <p-tableCheckbox [value]="event" />
+        <p-tableCheckbox [value]="event" disabled="true"/>
       </td>
       <td>{{ event.title }}</td>
       <td>
