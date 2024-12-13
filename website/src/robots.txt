@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /*
+Allow: /index.html
+Allow: /home
+Allow: /login
+Allow: /register
+Allow: /chess
+Allow: /about-me
+Allow: /donate
+Allow: /imprint
+
