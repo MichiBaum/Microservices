@@ -6,6 +6,8 @@ import com.michibaum.chess_service.app.game.GameService
 import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.app.person.PersonDto
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
@@ -21,13 +23,13 @@ class EventController(
 ) {
 
     @GetMapping("/api/events")
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAllEvents(): List<EventDto> =
         eventService.findAll()
             .map { eventConverter.toDto(it) }
 
     @GetMapping("/api/events/recent-upcoming")
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAllRecentAndUpcomingEvents(): List<EventDto> {
         val recent = LocalDate.now().minusMonths(2)
         val upcoming = LocalDate.now().plusMonths(2)
@@ -36,7 +38,7 @@ class EventController(
     }
 
     @GetMapping("/api/events/{id}")
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEvent(@PathVariable id: String): ResponseEntity<EventDto>{
         return try {
             val uuid = UUID.fromString(id)
@@ -52,7 +54,7 @@ class EventController(
     }
 
     @GetMapping("/api/events/{id}/participants")
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEventParticipants(@PathVariable id: String): ResponseEntity<List<PersonDto>> {
         return try {
             val uuid = UUID.fromString(id)
@@ -69,6 +71,7 @@ class EventController(
     }
 
     @GetMapping("/api/events/{id}/games")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEventGames(@PathVariable id: String): ResponseEntity<List<GameDto>> {
         return try {
             val uuid = UUID.fromString(id)
@@ -84,7 +87,7 @@ class EventController(
         }
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     @PutMapping("/api/events")
     fun createEvent(@RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{
         return try {
@@ -98,7 +101,7 @@ class EventController(
         }
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     @PutMapping("/api/events/{id}")
     fun updateEvent(@PathVariable id: String, @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto> {
         return try {

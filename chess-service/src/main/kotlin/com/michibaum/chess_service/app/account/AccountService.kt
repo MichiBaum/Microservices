@@ -8,6 +8,9 @@ import com.michibaum.chess_service.apis.dtos.AccountDto
 import com.michibaum.chess_service.doIfIsInstance
 import com.michibaum.chess_service.domain.Account
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
@@ -24,7 +27,8 @@ class AccountService(
         return accountRepository.findByUsernameContainingIgnoreCase(username)
     }
 
-    private fun searchAccountOnApis(username: String) {
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    fun searchAccountOnApis(username: String) {
         val apiResults = apiService.findAccount(username)
 
         val accounts = apiResults
@@ -33,8 +37,7 @@ class AccountService(
             .map { it.result }
             .filter { !accountRepository.existsByPlatformIdAndUsername(it.id, it.username) }
             .map { it.toAccount() }
-        accountRepository.saveAll(accounts)
-        accountRepository.flush()
+        accountRepository.saveAllAndFlush(accounts)
     }
 
     fun getTopAccounts(): List<Account>{

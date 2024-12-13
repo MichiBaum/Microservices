@@ -23,7 +23,7 @@ class AccountServiceIT {
         val savedAccount = accountRepository.save(account)
 
         // WHEN
-        val result = accountService.findById(savedAccount.id)
+        val result = accountService.findById(savedAccount.idOrThrow())
 
         // THEN
         assertNotNull(result)
@@ -35,7 +35,7 @@ class AccountServiceIT {
         val account = AccountProvider.account()
 
         // WHEN
-        val result = accountService.findById(account.id)
+        val result = accountService.findById(account.idOrThrow())
 
         // THEN
         assertNull(result)

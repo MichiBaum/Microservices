@@ -8,7 +8,6 @@ class PlayerProvider {
     companion object {
         fun player(game: Game): Player {
             return Player(
-                id = UUID.randomUUID(),
                 platformId = "plattformId",
                 username = "someUsername",
                 rating = 1459,

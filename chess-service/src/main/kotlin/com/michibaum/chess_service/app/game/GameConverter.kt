@@ -8,7 +8,7 @@ class GameConverter {
 
     fun convert(game: Game): GameDto {
         return GameDto(
-            id = game.id,
+            id = game.idOrThrow(),
             chessPlatform = game.chessPlatform,
             platformId = game.platformId,
             pgn = game.pgn,

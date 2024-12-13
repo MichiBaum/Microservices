@@ -12,7 +12,7 @@ class EventCategoryService(
     fun getAll(): List<EventCategory> =
         eventCategoryRepository.findAll()
 
-    fun findAllById(categoryIds: List<UUID>) =
+    fun findAllById(categoryIds: List<UUID>): List<EventCategory> =
         eventCategoryRepository.findAllById(categoryIds)
 
 }

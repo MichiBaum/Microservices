@@ -10,8 +10,8 @@ import org.mockito.Mockito.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.reactive.server.WebTestClient
 import java.util.*
 
@@ -25,13 +25,13 @@ class PersonControllerIT {
     @Autowired
     lateinit var objectMapper: ObjectMapper
 
-    @MockBean
+    @MockitoBean
     lateinit var personService: PersonService
 
-    @MockBean
+    @MockitoBean
     lateinit var personConverter: PersonConverter
 
-    @MockBean
+    @MockitoBean
     lateinit var jwsValidator: JwsValidator
 
     @Test
@@ -63,7 +63,7 @@ class PersonControllerIT {
             gender = Gender.MALE
         )
         val responsePersonDto = PersonDto(
-            id = savedPerson.id,
+            id = savedPerson.idOrThrow(),
             firstname = savedPerson.firstname,
             lastname = savedPerson.lastname,
             fideId = savedPerson.fideId,

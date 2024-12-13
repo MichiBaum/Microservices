@@ -3,7 +3,6 @@ package com.michibaum.chess_service.app.event
 import com.michibaum.chess_service.app.eventcategory.EventCategoryConverter
 import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.domain.Event
-import com.michibaum.chess_service.domain.EventCategory
 import org.springframework.stereotype.Component
 
 @Component
@@ -14,7 +13,7 @@ class EventConverter(
 
     fun toDto(event: Event): EventDto {
         return EventDto(
-            id = event.id.toString(),
+            id = event.idOrThrow(),
             title = event.title,
             location = event.location,
             url = event.url,

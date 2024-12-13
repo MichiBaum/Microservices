@@ -58,7 +58,7 @@ class PersonService(
         return persons.map {
             val foundPerson = personRepository.findByFideId(it.fideId)
             if (foundPerson != null) {
-                val updatedPerson = it.toPerson(id = foundPerson.id, birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
+                val updatedPerson = it.toPerson(id = foundPerson.idOrThrow(), birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
                 personRepository.save(updatedPerson)
             } else {
                 personRepository.save(it.toPerson())

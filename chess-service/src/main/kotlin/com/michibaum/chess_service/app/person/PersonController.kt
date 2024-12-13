@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.codec.multipart.FilePart
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
@@ -25,7 +27,7 @@ class PersonController(
     private val fideApiService: FideApiService,
 ) {
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping(value = ["/api/persons"])
     fun persons(): ResponseEntity<List<PersonDto>> {
         val personDtos = personService.getAll()
@@ -33,6 +35,7 @@ class PersonController(
         return ResponseEntity.ok(personDtos)
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     @PostMapping(value = ["/api/persons"])
     fun createPerson(@RequestBody personDto: CreatePersonDto): ResponseEntity<PersonDto> {
         val convertedPerson = personConverter.convert(personDto)
@@ -41,8 +44,8 @@ class PersonController(
         return ResponseEntity(responsePersonDto, HttpStatus.CREATED)
     }
 
-    @Transactional
-    @PostMapping(value = ["/api/persons/search"])
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @PostMapping(value = ["/api/persons/search"]) // TODO PostMapping?
     fun findPerson(@Valid @RequestBody personSearchDto: PersonSearchDto): ResponseEntity<List<PersonDto>> {
         val persons = personService.findByIfNotEmpty(
             personSearchDto.firstname, personSearchDto.lastname
@@ -52,7 +55,7 @@ class PersonController(
         return ResponseEntity(persons, HttpStatus.OK)
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     @PostMapping(value = ["/api/fide/ratings"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun fideImport(@RequestPart("file") filePartMono: Mono<FilePart>): Mono<ResponseEntity<FileImportResult>> {
         val processFileContent: (InputStream) -> List<Person> = { stream ->

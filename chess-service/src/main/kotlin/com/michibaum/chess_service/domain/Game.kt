@@ -34,6 +34,8 @@ class Game(
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID? = null,
 
-)
+){
+    fun idOrThrow(): UUID = id ?: throw IdNullException()
+}
