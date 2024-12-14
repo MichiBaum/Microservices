@@ -10,35 +10,58 @@ export class PermissionService {
   constructor(private authService: AuthService) {
   }
 
-  getPermissions(): Permissions[]{
+  getJwt(): JwtPayload | undefined {
     let jwt = this.authService.getJwtTokenFromLocalStorage();
-    if(jwt){
-      const decodedToken = jwtDecode<JwtPayload>(jwt);
-      const permissions = decodedToken.permissions || [];
+    if(jwt) {
+      return jwtDecode<JwtPayload>(jwt);
+    }
+    return undefined
+  }
 
+  getPermissions(jwt: JwtPayload): Permissions[]{
+      const permissions = jwt.permissions || [];
       // @ts-ignore
       return permissions.map(permission => Permissions[permission]);
-    }else {
-      return [];
-    }
   }
 
   hasAnyOf(permissions: Permissions[]) {
-    if(!this.isAuthenticated()){
-      return false
-    }
-
     if(permissions.length == 0){
+      throw new Error("Permissions list is empty")
+    }
+
+    const jwt = this.getJwt()
+    if(jwt == undefined){
+      return false;
+    }
+
+    if(!this.isValid(jwt)){
       return false
     }
 
-    const userPermissions = this.getPermissions()
+    const userPermissions = this.getPermissions(jwt)
     return permissions.some(permission => userPermissions.includes(permission));
   }
 
   isAuthenticated(){
-    let jwt = this.authService.getJwtTokenFromLocalStorage();
-    return !!jwt;
+    let jwt = this.getJwt();
+    if(jwt == undefined){
+      return false;
+    }
+    return this.isValid(jwt);
+  }
+
+  isValid(jwt: JwtPayload) { // TODO implement time zones
+    let now = Date.now();
+
+    const exp = jwt.exp
+    const expiration = exp * 1000;
+    let isExpired = now >= expiration;
+
+    const iat = jwt.iat
+    const issued = exp * 1000;
+    let isIssuedBeforeNow = now <= issued;
+
+    return !isExpired && isIssuedBeforeNow;
   }
 
 }
