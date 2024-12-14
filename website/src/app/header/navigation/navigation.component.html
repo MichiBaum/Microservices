@@ -37,8 +37,9 @@
 </p-sidebar>
 
 <button
+  aria-label="Toggle Sidebar"
   type="button"
-  (click)="sidebarVisible = true"
+  (click)="sidebarVisible = !sidebarVisible"
   pButton
   icon="pi pi-align-left"
 ></button>

@@ -8,6 +8,8 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {provideServiceWorker} from '@angular/service-worker';
+import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
+import {environment} from "../environments/environment";
 
 /**
  * Creates a new instance of TranslateHttpLoader with the specified HttpClient.
@@ -33,6 +35,13 @@ function appInitializerFactory(translate: TranslateService): () => Promise<void>
     translate.setDefaultLang(lang);
     return translate.use(lang).toPromise();
   };
+}
+
+const imageLoader = (config: ImageLoaderConfig) => {
+  if(config.isPlaceholder){
+    return `${environment.fe_images + 'placeholder/' + config.src}`;
+  }
+  return `${environment.fe_images + config.src}`;
 }
 
 /**
@@ -68,5 +77,9 @@ export const appConfig: ApplicationConfig = {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'
           }),
+    {
+      provide: IMAGE_LOADER,
+      useValue: imageLoader,
+    }
   ]
 };
