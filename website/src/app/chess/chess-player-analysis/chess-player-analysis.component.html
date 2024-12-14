@@ -1,6 +1,6 @@
-<p-splitter [panelSizes]="[25, 35, 40]" styleClass="mb-5">
+<p-splitter [panelSizes]="[25, 35, 40]" styleClass="mb-20">
   <ng-template pTemplate>
-    <div class="col flex align-items-center justify-content-center">
+    <div class="col flex items-center justify-center">
       <app-chess-player-search
         style="width: 100%"
         (accountsToAdd)="onAccountsToAdd($event)"
@@ -9,12 +9,12 @@
     </div>
   </ng-template>
   <ng-template pTemplate>
-    <div class="col flex align-items-center justify-content-center">
+    <div class="col flex items-center justify-center">
       <app-chess-accounts [persons]="persons"></app-chess-accounts>
     </div>
   </ng-template>
   <ng-template pTemplate>
-    <div class="col flex align-items-center justify-content-center">
+    <div class="col flex items-center justify-center">
       <app-chess-statistic></app-chess-statistic>
     </div>
   </ng-template>

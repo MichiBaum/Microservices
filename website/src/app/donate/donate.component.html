@@ -1,10 +1,10 @@
 <section class="donate">
-  <p-card header="{{'donate.title' | translate}}" class="p-4 border-round">
+  <p-card header="{{'donate.title' | translate}}" class="p-12 rounded-border">
     <ng-template #header>
       <img alt="Donate 415 Teapot image" class="w-full h-full" ngSrc="donate.jpeg" height="1024" width="1792" priority placeholder/>
     </ng-template>
-    <div class="grid">
-      <div class="col-12">
+    <div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
+      <div class="col-span-12">
         <p>
           {{ "donate.s1" | translate }}
         </p>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <ng-template #footer>
-      <div class="flex gap-3 mt-1">
+      <div class="flex gap-6 mt-1">
         <p-button label='{{ "donate.buy-me-a-coffee" | translate }}' class="w-full" styleClass="w-full" (onClick)="router.buymeacoffee()" />
         <p-button label='{{ "donate.hosttech" | translate }}' class="w-full" styleClass="w-full" (onClick)="router.hosttech()" />
       </div>

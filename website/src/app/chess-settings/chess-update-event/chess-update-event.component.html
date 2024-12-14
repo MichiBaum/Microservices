@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
 
   <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
     <p-fieldset legend="Event Select" [toggleable]="true">
@@ -78,8 +78,8 @@
         [sourceStyle]="{ height: '20rem' }"
         [targetStyle]="{ height: '20rem' }">
         <ng-template let-person pTemplate="item">
-          <div class="flex flex-wrap p-2 align-items-center gap-3">
-            <div class="flex-1 flex flex-column gap-2">
+          <div class="flex flex-wrap p-2 items-center gap-6">
+            <div class="flex-1 flex flex-col gap-2">
               <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="getGenderIcon(person)"></fa-icon></span>
               <div class="flex align-products-center gap-2" *ngIf="person.fideId || person.birthday">
                 <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
@@ -94,8 +94,8 @@
 
   <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
     <p-fieldset legend="Action">
-      <p-button type="button" class="mr-4" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
-      <p-button type="button" class="mr-4" label="Clear Data" (click)="clear()"></p-button>
+      <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+      <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent" />
     </p-fieldset>
   </div>

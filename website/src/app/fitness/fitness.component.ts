@@ -27,8 +27,8 @@ import {FitnessSleepComponent} from "./fitness-sleep/fitness-sleep.component";
 export class FitnessComponent implements OnInit{
   settingsCollapsed: boolean = true;
 
-  screenSizeOptions: any[] = [{ label: 'Small', value: 'col-12' },{ label: 'Big', value: 'col-6' }];
-  screenSize: string = 'col-12';
+  screenSizeOptions: any[] = [{ label: 'Small', value: 'col-span-12' },{ label: 'Big', value: 'col-span-6' }];
+  screenSize: string = 'col-span-12';
 
   constructor(
     private readonly headerService: HeaderService,

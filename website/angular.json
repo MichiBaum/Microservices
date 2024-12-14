@@ -36,7 +36,6 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/primeflex/primeflex.css",
               "node_modules/primeicons/primeicons.css"
             ],
             "scripts": []

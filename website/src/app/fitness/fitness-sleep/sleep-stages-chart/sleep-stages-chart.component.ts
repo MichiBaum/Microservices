@@ -68,7 +68,7 @@ export class SleepStagesChartComponent implements OnChanges{
 
     // Add grid lines
     g.append("g")
-      .attr("class", "grid")
+      .attr("class", "grid grid-cols-12 gap-4 grid-cols-12 gap-6")
       .call(d3.axisLeft(stageScale).tickSize(-this.width).tickFormat((v, i) => ""))
       .selectAll("line")
       .attr("stroke", "#ddd");

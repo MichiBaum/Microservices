@@ -1,34 +1,34 @@
 <section class="about-me">
-  <p-card header="{{'about-me.title' | translate}}" class="p-4 border-round">
+  <p-card header="{{'about-me.title' | translate}}" class="p-12 rounded-border">
     <ng-template #header>
       <img alt="About me AI image" class="w-full h-full" ngSrc="about-me.jpeg" height="887" width="1792" priority placeholder/>
     </ng-template>
-    <div class="grid">
-      <div class="col-12">
+    <div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
+      <div class="col-span-12">
         <p>
           {{"about-me.s1" | translate}}
         </p>
       </div>
 
-      <div class="col-12">
+      <div class="col-span-12">
         <p>
           {{"about-me.s2" | translate}}
         </p>
       </div>
 
-      <div class="col-12">
+      <div class="col-span-12">
         <p>
           {{"about-me.s3" | translate}}
         </p>
       </div>
 
-      <div class="col-12">
+      <div class="col-span-12">
         <p>
           {{"about-me.s4" | translate}}
         </p>
       </div>
 
-      <div class="col-12">
+      <div class="col-span-12">
         <p>
           {{ "about-me.experience.intro" | translate }}
         </p>
@@ -120,7 +120,7 @@
 
     </div>
     <ng-template pTemplate="footer">
-      <div class="flex gap-3 mt-1">
+      <div class="flex gap-6 mt-1">
         <p-button label="LinkedIn" class="w-full" styleClass="w-full" (onClick)="openLinkedIn()" />
         <p-button label="Github" class="w-full" styleClass="w-full" (onClick)="openGithub()"/>
         <p-button label="Donate" class="w-full" styleClass="w-full" (onClick)="openDonate()"/>

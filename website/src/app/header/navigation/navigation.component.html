@@ -3,7 +3,7 @@
   [position]="'left'"
 >
   <ng-template #header>
-    <div class="flex align-items-center gap-2">
+    <div class="flex items-center gap-2">
       <span class="font-bold"> {{"navigation.navigation" | translate}} </span>
     </div>
   </ng-template>
@@ -15,7 +15,7 @@
       <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template #item let-item>
-      <a pRipple class="flex align-items-center p-menu-item-link" *ngIf="item.visible">
+      <a pRipple class="flex items-center p-menu-item-link" *ngIf="item.visible">
         <fa-icon [icon]="item.customIcon"></fa-icon>
         <span class="ml-2">{{ item.label }}</span>
       </a>

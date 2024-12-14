@@ -1,16 +1,16 @@
-<div class="grid flex bg-primary">
+<div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6 flex bg-primary text-primary-contrast text-primary-contrast">
 
-  <div class="col-1 flex-none flex align-items-center justify-content-center bg-primary">
+  <div class="col-span-1 flex-none flex items-center justify-center bg-primary text-primary-contrast text-primary-contrast">
     <app-navigation></app-navigation>
   </div>
 
-  <div class="col-10 flex-grow-1 flex align-items-center justify-content-center bg-primary">
+  <div class="col-span-10 grow flex items-center justify-center bg-primary text-primary-contrast text-primary-contrast">
     <h1>
       {{ title | translate}}
     </h1>
   </div>
 
-  <div class="col-1 flex-none flex align-items-center justify-content-center bg-primary">
+  <div class="col-span-1 flex-none flex items-center justify-center bg-primary text-primary-contrast text-primary-contrast">
     <app-logout></app-logout>
   </div>
 
