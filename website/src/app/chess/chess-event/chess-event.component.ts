@@ -67,10 +67,7 @@ export class ChessEventComponent implements OnInit {
       this.navigationService.open(this.event.url)
   }
 
-  getCategories(event: ChessEvent | undefined) {
-    if(event == undefined){
-      return "";
-    }
+  getCategories(event: ChessEvent) {
     return event.categories.map(value => value.title).join(", ")
   }
 

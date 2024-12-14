@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {CardModule} from "primeng/card";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ChessEvent, ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models";
 import {TimelineModule} from "primeng/timeline";
@@ -19,7 +19,8 @@ import {ScrollTopModule} from "primeng/scrolltop";
     RouterLink,
     TimelineModule,
     FaIconComponent,
-    ScrollTopModule
+    ScrollTopModule,
+    NgIf
   ],
   templateUrl: './chess-events-list.component.html',
   styleUrl: './chess-events-list.component.scss'

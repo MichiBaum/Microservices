@@ -12,7 +12,6 @@
       <div class="grid">
         <div *ngIf="event" class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-4 qhd:col-width-3 max-width:col-width-3">
           <p-card header="{{ event.title }}" subheader="{{getCategories(event)}}">
-            <p *ngIf="event?.title"><strong>{{'chess.event.title' | translate}}: </strong>{{ event.title }}</p>
             <p *ngIf="event?.location"><strong>{{'chess.event.location' | translate}}: </strong>{{ event.location }}</p>
             <p *ngIf="event?.dateFrom"><strong>{{'chess.event.date-from' | translate}}: </strong>{{ event.dateFrom }}</p>
             <p *ngIf="event?.dateTo"><strong>{{'chess.event.date-to' | translate}}: </strong>{{ event.dateTo }}</p>
