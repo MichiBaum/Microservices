@@ -17,6 +17,8 @@ import {SelectChessEventComponent} from "../select-chess-event/select-chess-even
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 import {ConfirmationService} from "primeng/api";
+import {Button} from "primeng/button";
+import {DatePicker} from "primeng/datepicker";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -37,6 +39,8 @@ import {ConfirmationService} from "primeng/api";
     NgIf,
     SelectChessEventComponent,
     FaIconComponent,
+    Button,
+    DatePicker,
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'

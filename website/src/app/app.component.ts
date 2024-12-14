@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {LightDarkModeService} from "./core/services/light-dark-mode.service";
-import {ConfirmationService, MessageService, PrimeNGConfig} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {TranslateService} from "@ngx-translate/core";
 import {ToastModule} from "primeng/toast";
 import {UserInfoService} from "./core/services/user-info.service";
 import {SwUpdate} from "@angular/service-worker";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {PrimeNG} from "primeng/config";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly lightDarkModeService: LightDarkModeService,
-    private readonly primengConfig: PrimeNGConfig,
+    private readonly primengConfig: PrimeNG,
     private readonly translateService: TranslateService,
     private readonly messageService: MessageService,
     private readonly userInfoService: UserInfoService,
@@ -31,8 +32,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.primengConfig.ripple = true;
-
     this.translateService.onLangChange.subscribe(() => {
       this.translateService.get('primeng').subscribe(res => this.primengConfig.setTranslation(res));
     });

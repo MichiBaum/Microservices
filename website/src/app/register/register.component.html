@@ -2,18 +2,18 @@
 
   <p-card pFocusTrap class="p-4 border-round">
     <div class="flex flex-column align-items-center justify-content-center gap-4">
-      <p-floatLabel>
+      <p-floatlabel>
         <input id="username" type="text" pInputText [(ngModel)]="username" />
         <label for="username">{{ "register.username" | translate }}</label>
-      </p-floatLabel>
-      <p-floatLabel>
+      </p-floatlabel>
+      <p-floatlabel>
         <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" />
         <label for="password">{{ "register.password" | translate }}</label>
-      </p-floatLabel>
-      <p-floatLabel>
+      </p-floatlabel>
+      <p-floatlabel>
         <p-password id="passwordRepeat" [feedback]="false" [toggleMask]="true" [(ngModel)]="passwordRepeat" />
         <label for="passwordRepeat">{{ "register.password" | translate }}</label>
-      </p-floatLabel>
+      </p-floatlabel>
     </div>
 
     <ng-template pTemplate="footer">

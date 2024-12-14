@@ -10,54 +10,54 @@
     <p-fieldset legend="Event Data">
       <form [formGroup]="formGroup">
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             ID
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="id"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Title
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="title"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Location
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="location"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Date from
           </p-inputGroupAddon>
-          <p-calendar formControlName="dateFrom" dateFormat="dd.mm.yy"></p-calendar>
-        </p-inputGroup>
+          <p-datePicker formControlName="dateFrom" dateFormat="dd.mm.yy"></p-datePicker>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Date to
           </p-inputGroupAddon>
-          <p-calendar formControlName="dateTo" dateFormat="dd.mm.yy"></p-calendar>
-        </p-inputGroup>
+          <p-datePicker formControlName="dateTo" dateFormat="dd.mm.yy"></p-datePicker>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Url
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="url" />
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Embed Url
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="embedUrl" />
-        </p-inputGroup>
+        </p-inputgroup>
 
         <p-multiSelect [options]="categories" optionLabel="title" placeholder="Select Categories" formControlName="categories" />
 

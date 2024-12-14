@@ -5,11 +5,13 @@ import {routes} from './app.routes';
 import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {provideServiceWorker} from '@angular/service-worker';
 import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
 import {environment} from "../environments/environment";
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
+import {providePrimeNG} from "primeng/config";
+import {MyPreset} from "./mytheme";
 
 /**
  * Creates a new instance of TranslateHttpLoader with the specified HttpClient.
@@ -53,7 +55,18 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
-    provideAnimations(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      inputStyle: 'outlined',
+      ripple: true,
+      theme: {
+        preset: MyPreset,
+        options: {
+          darkModeSelector: '.p-dark'
+        }
+      }
+    }
+    ),
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializerFactory,

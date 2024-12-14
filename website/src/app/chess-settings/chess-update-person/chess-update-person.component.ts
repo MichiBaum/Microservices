@@ -13,6 +13,9 @@ import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CalendarModule} from "primeng/calendar";
+import {Button} from "primeng/button";
+import {DatePicker} from "primeng/datepicker";
+import {Select} from "primeng/select";
 
 @Component({
   selector: 'app-chess-update-person',
@@ -28,7 +31,10 @@ import {CalendarModule} from "primeng/calendar";
     InputTextModule,
     PaginatorModule,
     ReactiveFormsModule,
-    CalendarModule
+    CalendarModule,
+    Button,
+    DatePicker,
+    Select
   ],
   templateUrl: './chess-update-person.component.html',
   styleUrl: './chess-update-person.component.scss'

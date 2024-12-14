@@ -3,7 +3,7 @@
   <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canLogin()">
     <div class="align-items-center justify-content-center m-2 h-full">
       <p-card header='{{"home.login.title" | translate}}'>
-        <ng-template pTemplate="header">
+        <ng-template #header>
           <img alt="Login Image" class="w-full h-full" ngSrc="home_login.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
         <p class="h-3rem">
@@ -21,7 +21,7 @@
   <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
     <div class="align-items-center justify-content-center m-2 h-full">
       <p-card header='{{"home.chess.title" | translate}}'>
-        <ng-template pTemplate="header">
+        <ng-template #header>
           <img alt="Chess Image" class="w-full h-full" ngSrc="home_chess.jpeg" width="1024" height="1024" priority placeholder />
         </ng-template>
         <p class="h-3rem">
@@ -39,7 +39,7 @@
   <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canActivateFitness()">
     <div class="align-items-center justify-content-center m-2 h-full">
       <p-card header='{{"home.fitness.title" | translate}}'>
-        <ng-template pTemplate="header">
+        <ng-template #header>
           <img alt="Fitness Image" class="w-full h-full" ngSrc="home_fitness.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
         <p class="h-3rem">
@@ -57,7 +57,7 @@
   <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canActivateMusic()">
     <div class="align-items-center justify-content-center m-2 h-full">
       <p-card header='{{"home.music.title" | translate}}'>
-        <ng-template pTemplate="header">
+        <ng-template #header>
           <img alt="Music Image" class="w-full h-full" ngSrc="home_music.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
         <p class="h-3rem">
@@ -75,7 +75,7 @@
   <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
     <div class="align-items-center justify-content-center m-2 h-full">
       <p-card header='{{"home.about-me.title" | translate}}'>
-        <ng-template pTemplate="header">
+        <ng-template #header>
           <img alt="About me Image" class="w-full h-full" ngSrc="home_about-me.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
         <p class="h-3rem">
@@ -93,7 +93,7 @@
   <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
     <div class="align-items-center justify-content-center m-2 h-full">
       <p-card header='{{"home.donate.title" | translate}}'>
-        <ng-template pTemplate="header">
+        <ng-template #header>
           <img alt="Donate Image" class="w-full h-full" ngSrc="home_donate.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
         <p class="h-3rem">

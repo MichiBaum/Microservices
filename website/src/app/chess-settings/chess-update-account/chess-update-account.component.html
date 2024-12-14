@@ -1,14 +1,14 @@
 <div class="grid">
   <div class="col-12">
     <p-fieldset legend="Account search">
-      <p-inputGroup>
+      <p-inputgroup>
         <input pInputText placeholder="Username" [(ngModel)]="username" />
         <p-inputGroupAddon><p-checkbox [(ngModel)]="localSearch" [binary]="true" label="Only Local search"/></p-inputGroupAddon>
         <p-button pButton label="Search" (click)="search()" />
-      </p-inputGroup>
+      </p-inputgroup>
 
       <p-table [value]="importedAccounts">
-        <ng-template pTemplate="header">
+        <ng-template #header>
           <tr>
             <th>Username</th>
             <th>Platform</th>

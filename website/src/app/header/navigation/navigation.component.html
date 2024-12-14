@@ -1,22 +1,21 @@
-<p-sidebar
+<p-drawer
   [(visible)]="sidebarVisible"
   [position]="'left'"
-  [showCloseIcon]="true"
-  [modal]="false"
 >
-  <ng-template pTemplate="header">
+  <ng-template #header>
     <div class="flex align-items-center gap-2">
       <span class="font-bold"> {{"navigation.navigation" | translate}} </span>
     </div>
   </ng-template>
+
   <p-menu
     [model]="navItems"
   >
-    <ng-template pTemplate="submenuheader" let-item>
+    <ng-template #submenuheader let-item>
       <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
-    <ng-template pTemplate="item" let-item>
-      <a pRipple class="flex align-items-center p-menuitem-link">
+    <ng-template #item let-item>
+      <a pRipple class="flex align-items-center p-menu-item-link" *ngIf="item.visible">
         <fa-icon [icon]="item.customIcon"></fa-icon>
         <span class="ml-2">{{ item.label }}</span>
       </a>
@@ -34,7 +33,7 @@
     />
   </div>
 
-</p-sidebar>
+</p-drawer>
 
 <button
   aria-label="Toggle Sidebar"

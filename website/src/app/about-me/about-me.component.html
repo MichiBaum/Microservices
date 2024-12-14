@@ -1,6 +1,6 @@
 <section class="about-me">
   <p-card header="{{'about-me.title' | translate}}" class="p-4 border-round">
-    <ng-template pTemplate="header">
+    <ng-template #header>
       <img alt="About me AI image" class="w-full h-full" ngSrc="about-me.jpeg" height="887" width="1792" priority placeholder/>
     </ng-template>
     <div class="grid">
@@ -35,7 +35,7 @@
         <p-accordion>
           <p-accordionTab header='{{ "about-me.experience.programming-languages-and-databases" | translate }}'>
             <p-table [value]="programmingLanguages" >
-              <ng-template pTemplate="header">
+              <ng-template #header>
                 <tr>
                   <th pSortableColumn="experience" style="width:20%">
                     {{ "about-me.experience.experience" | translate }}
@@ -55,14 +55,14 @@
                 <tr>
                   <td>{{ element.experience }}</td>
                   <td>{{ element.years }}</td>
-                  <td><p-rating [(ngModel)]="element.rating" [cancel]="false" [readonly]="true" /></td>
+                  <td><p-rating [(ngModel)]="element.rating" [readonly]="true" /></td>
                 </tr>
               </ng-template>
             </p-table>
           </p-accordionTab>
           <p-accordionTab header='{{ "about-me.experience.platforms-and-tools" | translate }}'>
             <p-table [value]="platforms" >
-              <ng-template pTemplate="header">
+              <ng-template #header>
                 <tr>
                   <th pSortableColumn="experience" style="width:20%">
                     {{ "about-me.experience.experience" | translate }}
@@ -82,14 +82,14 @@
                 <tr>
                   <td>{{ element.experience }}</td>
                   <td>{{ element.years }}</td>
-                  <td><p-rating [(ngModel)]="element.rating" [cancel]="false" [readonly]="true" /></td>
+                  <td><p-rating [(ngModel)]="element.rating" [readonly]="true" /></td>
                 </tr>
               </ng-template>
             </p-table>
           </p-accordionTab>
           <p-accordionTab header='{{ "about-me.experience.softskills" | translate }}'>
             <p-table [value]="softskills" >
-              <ng-template pTemplate="header">
+              <ng-template #header>
                 <tr>
                   <th pSortableColumn="experience" style="width:20%">
                     {{ "about-me.experience.experience" | translate }}
@@ -109,7 +109,7 @@
                 <tr>
                   <td>{{ element.experience }}</td>
                   <td>{{ element.years }}</td>
-                  <td><p-rating [(ngModel)]="element.rating" [cancel]="false" [readonly]="true" /></td>
+                  <td><p-rating [(ngModel)]="element.rating" [readonly]="true" /></td>
                 </tr>
               </ng-template>
             </p-table>

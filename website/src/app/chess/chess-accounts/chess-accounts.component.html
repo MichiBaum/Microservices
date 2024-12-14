@@ -1,6 +1,6 @@
 <div class="card">
   <p-treeTable [value]="tree" [scrollable]="true" class="p-treetable-sm" [selection]="'multiple'" [(selection)]="selectedNodes">
-    <ng-template pTemplate="header">
+    <ng-template #header>
       <tr>
         <th>{{"chess.account.name" | translate}}</th>
         <th>{{"chess.account.size" | translate}}</th>

@@ -9,57 +9,57 @@
     <p-fieldset legend="Person Form">
       <form [formGroup]="formGroup">
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             ID
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="id"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Firstname
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="firstname"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Lastname
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="lastname"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Fide Id
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="fideId"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Federation
           </p-inputGroupAddon>
           <input type="text" pInputText formControlName="federation"/>
-        </p-inputGroup>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Birthday
           </p-inputGroupAddon>
-          <p-calendar formControlName="birthday" dateFormat="dd.mm.yy"></p-calendar>
-        </p-inputGroup>
+          <p-datePicker formControlName="birthday" dateFormat="dd.mm.yy"></p-datePicker>
+        </p-inputgroup>
 
-        <p-inputGroup class="mb-2">
+        <p-inputgroup class="mb-2">
           <p-inputGroupAddon>
             Gender
           </p-inputGroupAddon>
-          <p-dropdown
+          <p-select
             formControlName="gender"
             [options]="genders"
             placeholder="Select a Gender" />
-        </p-inputGroup>
+        </p-inputgroup>
 
       </form>
     </p-fieldset>

@@ -6,6 +6,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {DatePipe, NgIf} from "@angular/common";
 import {SecondsPipe} from "../../core/pipes/seconds.pipe";
+import {Select} from "primeng/select";
 
 @Component({
   selector: 'app-fitness-sleep',
@@ -16,7 +17,8 @@ import {SecondsPipe} from "../../core/pipes/seconds.pipe";
     FormsModule,
     NgIf,
     DatePipe,
-    SecondsPipe
+    SecondsPipe,
+    Select
   ],
   templateUrl: './fitness-sleep.component.html',
   styleUrl: './fitness-sleep.component.scss'

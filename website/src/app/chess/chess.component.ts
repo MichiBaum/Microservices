@@ -25,6 +25,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {TagModule} from "primeng/tag";
 import {faClock} from "@fortawesome/free-regular-svg-icons";
+import {RouterLink, RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-chess',
@@ -38,7 +39,9 @@ import {faClock} from "@fortawesome/free-regular-svg-icons";
     NgIf,
     FaIconComponent,
     TagModule,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    RouterOutlet
   ],
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'

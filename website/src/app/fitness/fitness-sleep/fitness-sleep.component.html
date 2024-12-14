@@ -1,6 +1,6 @@
 <div class="grid">
   <div class="col-2">
-    <p-dropdown
+    <p-select
       [(ngModel)]="selectedSleep"
       [options]="sleeps"
       optionLabel="startTime"
@@ -17,7 +17,7 @@
           <div>{{ sleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
         </div>
       </ng-template>
-    </p-dropdown>
+    </p-select>
 
     <div *ngIf="selectedSleep">
       <p>Start: {{selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm'}}</p>

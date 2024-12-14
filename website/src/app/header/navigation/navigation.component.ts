@@ -5,7 +5,6 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {LanguageConfig} from "../../core/config/language.config";
 import {SidebarModule} from "primeng/sidebar";
-import {SlideMenuModule} from "primeng/slidemenu";
 import {ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
@@ -30,6 +29,8 @@ import {AuthService} from "../../core/services/auth.service";
 import {ImageModule} from "primeng/image";
 import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
+import {Drawer} from "primeng/drawer";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-navigation',
@@ -37,14 +38,15 @@ import {LanguageSelectComponent} from "../../language-select/language-select.com
   imports: [
     MenubarModule,
     SidebarModule,
-    SlideMenuModule,
     ButtonDirective,
     MenuModule,
     Ripple,
     FaIconComponent,
     ImageModule,
     TranslateModule,
-    LanguageSelectComponent
+    LanguageSelectComponent,
+    Drawer,
+    NgIf
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
@@ -98,6 +100,7 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.home.translationKey),
             customIcon: faHouse,
+            visible: true,
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.home();
@@ -124,6 +127,7 @@ export class NavigationComponent implements OnInit{
           {
             label: this.translate.instant(Sides.chess.translationKey),
             customIcon: faChess,
+            visible: true,
             command: () => {
               this.sidebarVisible = false;
               this.routerNavigationService.chess();
@@ -196,6 +200,5 @@ export class NavigationComponent implements OnInit{
         ]
       }
     ] as MenuItem[];
-
 
 }
