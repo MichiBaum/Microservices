@@ -142,14 +142,17 @@ The tables are created trough [flyway](https://documentation.red-gate.com/fd/mig
 
 <!-- readme: collaborators -start -->
 <table>
-<tr>
-    <td align="center">
-        <a href="https://github.com/MichiBaum">
-            <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxMzUwMDAsIm5iZiI6MTczNDEzMzgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.eSp5XM1VttG-DHy7roCYnnmGS0SETbA53l-ba3srgh8&v=4" width="100;" alt="MichiBaum"/>
-            <br />
-            <sub><b>Michael Baumberger</b></sub>
-        </a>
-    </td></tr>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/MichiBaum">
+                    <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxODAwMDAsIm5iZiI6MTczNDE3ODgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.I-u9EeFYkJ2vcFC2PjKRF-JBs_KzkuSqU6XSRjOfh0Y&v=4" width="100;" alt="MichiBaum"/>
+                    <br />
+                    <sub><b>Michael Baumberger</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
 </table>
 <!-- readme: collaborators -end -->
 
@@ -157,20 +160,23 @@ The tables are created trough [flyway](https://documentation.red-gate.com/fd/mig
 
 <!-- readme: SeverinNauer,contributors -start -->
 <table>
-<tr>
-    <td align="center">
-        <a href="https://github.com/severinnauer">
-            <img src="https://avatars.githubusercontent.com/u/43473975?v=4" width="100;" alt="severinnauer"/>
-            <br />
-            <sub><b>Severin</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/MichiBaum">
-            <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxMzUwMDAsIm5iZiI6MTczNDEzMzgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.eSp5XM1VttG-DHy7roCYnnmGS0SETbA53l-ba3srgh8&v=4" width="100;" alt="MichiBaum"/>
-            <br />
-            <sub><b>Michael Baumberger</b></sub>
-        </a>
-    </td></tr>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/severinnauer">
+                    <img src="https://avatars.githubusercontent.com/u/43473975?v=4" width="100;" alt="severinnauer"/>
+                    <br />
+                    <sub><b>Severin</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/MichiBaum">
+                    <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxODAwMDAsIm5iZiI6MTczNDE3ODgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.I-u9EeFYkJ2vcFC2PjKRF-JBs_KzkuSqU6XSRjOfh0Y&v=4" width="100;" alt="MichiBaum"/>
+                    <br />
+                    <sub><b>Michael Baumberger</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
 </table>
 <!-- readme: SeverinNauer,contributors -end -->
