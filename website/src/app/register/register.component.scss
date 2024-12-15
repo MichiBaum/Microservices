@@ -1,10 +1,8 @@
-.register {
-  max-width: 20rem;
-  margin: 0 auto;
-}
-
 :host {
+  ::ng-deep .p-password {
+    width: 100%;
+  }
   ::ng-deep .p-password-input {
-    padding-right: 0.5rem;
+    width: 100%;
   }
 }

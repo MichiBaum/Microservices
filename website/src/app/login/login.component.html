@@ -1,12 +1,12 @@
-<section class="login">
+<div class="flex justify-center items-center">
 
-  <p-card pFocusTrap class="p-12 rounded-border">
-    <div class="flex flex-col items-center justify-center gap-12">
-        <p-floatlabel>
-          <input id="username" type="text" pInputText [(ngModel)]="username" />
+  <p-card pFocusTrap class="max-w-xl mt-4">
+    <div class="flex flex-col items-center justify-center gap-6">
+        <p-floatlabel class="w-full">
+          <input id="username" class="w-full" type="text" pInputText [(ngModel)]="username"/>
           <label for="username">{{ "login.username" | translate }}</label>
         </p-floatlabel>
-        <p-floatlabel>
+        <p-floatlabel class="w-full">
           <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" />
           <label for="password">{{ "login.password" | translate }}</label>
         </p-floatlabel>
@@ -19,5 +19,5 @@
       </div>
     </ng-template>
   </p-card>
+</div>
 
-</section>

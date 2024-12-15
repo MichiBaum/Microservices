@@ -5,11 +5,12 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {LanguageConfig} from "../../core/config/language.config";
 import {SidebarModule} from "primeng/sidebar";
-import {ButtonDirective} from "primeng/button";
+import {Button, ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
 import {Ripple} from "primeng/ripple";
 import {
+  faArrowRightFromBracket, faBars,
   faChess,
   faCoffee,
   faCompactDisc,
@@ -38,7 +39,6 @@ import {NgIf} from "@angular/common";
   imports: [
     MenubarModule,
     SidebarModule,
-    ButtonDirective,
     MenuModule,
     Ripple,
     FaIconComponent,
@@ -46,12 +46,16 @@ import {NgIf} from "@angular/common";
     TranslateModule,
     LanguageSelectComponent,
     Drawer,
-    NgIf
+    NgIf,
+    ButtonDirective,
+    Button
   ],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent implements OnInit{
+  protected readonly buttonIcon = faBars;
+
   navItems: MenuItem[] = [];
   sidebarVisible: boolean = false;
 

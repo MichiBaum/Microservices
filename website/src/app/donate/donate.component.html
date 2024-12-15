@@ -1,24 +1,24 @@
-<section class="donate">
-  <p-card header="{{'donate.title' | translate}}" class="p-12 rounded-border">
-    <ng-template #header>
-      <img alt="Donate 415 Teapot image" class="w-full h-full" ngSrc="donate.jpeg" height="1024" width="1792" priority placeholder/>
+<div class="container mx-auto">
+  <p-card header="{{'donate.title' | translate}}" class="rounded-border">
+    <ng-template pTemplate="header">
+      <img alt="Donate 415 Teapot image" ngSrc="donate.jpeg" height="1024" width="1792" priority placeholder/>
     </ng-template>
-    <div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
-      <div class="col-span-12">
-        <p>
-          {{ "donate.s1" | translate }}
-        </p>
-        <p>
-          {{ "donate.s2" | translate }}
-        </p>
-        <p>
-          {{ "donate.s3" | translate }}
-        </p>
-        <p>
-          {{ "donate.s4" | translate }}
-        </p>
+
+    <div class="grid gap-6">
+      <div>
+        <p>{{ "donate.s1" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "donate.s2" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "donate.s3" | translate }}</p>
+      </div>
+      <div>
+        <p>{{ "donate.s4" | translate }}</p>
       </div>
     </div>
+
     <ng-template #footer>
       <div class="flex gap-6 mt-1">
         <p-button label='{{ "donate.buy-me-a-coffee" | translate }}' class="w-full" styleClass="w-full" (onClick)="router.buymeacoffee()" />
@@ -26,4 +26,4 @@
       </div>
     </ng-template>
   </p-card>
-</section>
+</div>

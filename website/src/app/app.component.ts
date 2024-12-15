@@ -9,11 +9,12 @@ import {UserInfoService} from "./core/services/user-info.service";
 import {SwUpdate} from "@angular/service-worker";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PrimeNG} from "primeng/config";
+import {ScrollTop} from "primeng/scrolltop";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule],
+  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule, ScrollTop],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [MessageService, ConfirmationService]

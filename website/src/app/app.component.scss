@@ -2,10 +2,5 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: calc(100% - var(--scrollbar-width, 0px));
-  z-index: 1102;
-}
-
-.content {
-  padding-top: 7rem;
+  z-index: 20;
 }

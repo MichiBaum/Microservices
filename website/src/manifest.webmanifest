@@ -1,8 +1,8 @@
 {
   "name": "MichiBaum",
   "short_name": "MichiBaum",
-  "theme_color": "#fbbf24",
-  "background_color": "#111827",
+  "theme_color": "#f6a010",
+  "background_color": "#2b2b2b",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
