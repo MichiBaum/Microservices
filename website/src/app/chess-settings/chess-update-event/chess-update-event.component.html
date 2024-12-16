@@ -64,14 +64,22 @@
           [filterMatchMode]="'contains'"
           [sourceStyle]="{ height: '30rem' }"
           [targetStyle]="{ height: '30rem' }"
+          scrollHeight="30rem"
           showSourceControls="false"
           showTargetControls="false"
         >
-          <ng-template let-person let-selected="selected" #item>
+          <!-- TODO sourceHeader and targetHeader are temporary because f PrimeNGs Filters are f broken -->
+          <ng-template #sourceHeader>
+            <input type="text" pInputText class="w-full" [(ngModel)]="sourceSearchText" (input)="onSourceSearch()" />
+          </ng-template>
+          <ng-template #targetHeader>
+            <input type="text" pInputText class="w-full" [(ngModel)]="targetSearchText" (input)="onTargetSearch()" />
+          </ng-template>
+          <ng-template let-person #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
               <div class="flex-1 flex flex-col">
                 <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="getGenderIcon(person)"></fa-icon></span>
-                <div class="flex align-products-center gap-2" *ngIf="person.fideId || person.birthday">
+                <div class="contents gap-2" *ngIf="person.fideId || person.birthday">
                   <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
                   <span *ngIf="person.birthday">Birthday: {{ person.birthday }}</span>
                 </div>

@@ -1,45 +1,37 @@
 import {Component, OnInit} from '@angular/core';
-import {InputGroupAddonModule} from "primeng/inputgroupaddon";
-import {InputGroupModule} from "primeng/inputgroup";
-import {InputTextModule} from "primeng/inputtext";
-import {MultiSelectModule} from "primeng/multiselect";
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {DropdownModule} from "primeng/dropdown";
-import {FieldsetModule} from "primeng/fieldset";
-import {ListboxModule} from "primeng/listbox";
-import {TableModule} from "primeng/table";
 import {ChessEvent, ChessEventCategory, Gender, Person, WriteChessEvent} from "../../core/models/chess/chess.models";
-import {PickListModule} from "primeng/picklist";
-import {NgIf} from "@angular/common";
-import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
-import {Button} from "primeng/button";
-import {DatePicker} from "primeng/datepicker";
+import {Fieldset} from "primeng/fieldset";
+import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
 import {FloatLabel} from "primeng/floatlabel";
+import {DatePicker} from "primeng/datepicker";
+import {MultiSelect} from "primeng/multiselect";
+import {Button} from "primeng/button";
+import {InputText} from "primeng/inputtext";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {NgIf} from "@angular/common";
+import {PickList} from "primeng/picklist";
+import {PrimeTemplate} from "primeng/api";
 
 @Component({
   selector: 'app-chess-update-event',
   standalone: true,
   imports: [
-    InputGroupAddonModule,
-    InputGroupModule,
-    InputTextModule,
-    MultiSelectModule,
-    DropdownModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FieldsetModule,
-    ListboxModule,
-    TableModule,
-    PickListModule,
-    NgIf,
+    Fieldset,
     SelectChessEventComponent,
-    FaIconComponent,
-    Button,
-    DatePicker,
+    ReactiveFormsModule,
     FloatLabel,
+    DatePicker,
+    MultiSelect,
+    Button,
+    InputText,
+    FaIconComponent,
+    NgIf,
+    PickList,
+    PrimeTemplate,
+    FormsModule
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
@@ -120,6 +112,7 @@ export class ChessUpdateEventComponent implements OnInit{
   private resetParticipantsSelect(){
     this.personsToSelect = [...[]]
     this.participants = [...[]]
+    this.resetSourceTargetFilter()
     if(this.selectedEvent){
       const eventParticipants = this.selectedEvent.participants as Person[];
       this.participants = [...eventParticipants];
@@ -199,4 +192,67 @@ export class ChessUpdateEventComponent implements OnInit{
       return faVenus
     return faVenusMars;
   }
+
+
+
+
+
+
+
+
+
+
+  // TODO sourceHeader and targetHeader are temporary because f PrimeNGs Filters are f broken
+  sourceSearchText: string = "";
+  targetSearchText: string = "";
+  beforeSourceSearchPersons: Person[] = [];
+  beforeTargetSearchPersons: Person[] = [];
+
+  onSourceSearch() {
+    if(this.sourceSearchText === ""){
+      if(this.beforeSourceSearchPersons.length == 0){
+        return;
+      }
+      this.personsToSelect = [...this.beforeSourceSearchPersons]
+      return;
+    }
+
+    if(this.beforeSourceSearchPersons.length == 0){
+      this.beforeSourceSearchPersons = [...this.personsToSelect]
+    }
+
+    const filtered = this.personsToSelect.filter(person =>
+      person.firstname.toLowerCase().includes(this.sourceSearchText.toLowerCase()) ||
+      person.lastname.toLowerCase().includes(this.sourceSearchText.toLowerCase())
+    )
+    this.personsToSelect = [...filtered]
+  }
+
+  onTargetSearch() {
+    if(this.targetSearchText === ""){
+      if(this.beforeTargetSearchPersons.length == 0){
+        return;
+      }
+      this.participants = [...this.beforeTargetSearchPersons]
+      return;
+    }
+
+    if(this.beforeTargetSearchPersons.length == 0){
+      this.beforeTargetSearchPersons = [...this.participants]
+    }
+
+    const filtered = this.participants.filter(person =>
+      person.firstname.toLowerCase().includes(this.targetSearchText.toLowerCase()) ||
+      person.lastname.toLowerCase().includes(this.targetSearchText.toLowerCase())
+    )
+    this.participants = [...filtered]
+  }
+
+  resetSourceTargetFilter(){
+    this.sourceSearchText = "";
+    this.targetSearchText = "";
+    this.beforeSourceSearchPersons = [...[]];
+    this.beforeTargetSearchPersons = [...[]];
+  }
+
 }
