@@ -35,6 +35,18 @@ export class ChessEventsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.chessService.eventCategoriesWithEvents().subscribe(categories => {
+      categories.forEach(category => {
+        if (category.events) {
+          category.events = category.events.sort((a, b) => {
+            if (a.dateFrom == undefined && b.dateFrom == undefined) return 0;
+            if (a.dateFrom == undefined) return 1;
+            if (b.dateFrom == undefined) return -1;
+            const dateA = new Date(a.dateFrom);
+            const dateB = new Date(b.dateFrom);
+            return dateA < dateB ? 1 : dateA > dateB ? -1 : 0;
+          });
+        }
+      });
       this.categories = [...categories];
     })
   }
