@@ -33,7 +33,7 @@
           </div>
 
 
-          <ng-template pTemplate="footer">
+          <ng-template #footer>
             <div *ngIf="event?.url" >
               <p-button [label]="'chess.event.open-official-website' | translate" class="w-full" styleClass="w-full" (onClick)="openEvent()" />
             </div>

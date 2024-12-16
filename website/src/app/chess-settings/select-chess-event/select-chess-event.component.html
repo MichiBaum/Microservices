@@ -74,7 +74,7 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
+  <ng-template #body let-event let-rowIndex="rowIndex">
     <tr [pSelectableRow]="event" [pSelectableRowIndex]="rowIndex">
       <td>
         <p-tableCheckbox [value]="event" disabled="true"/>

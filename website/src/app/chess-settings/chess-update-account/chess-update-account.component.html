@@ -1,6 +1,10 @@
 <div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
   <div class="col-span-12">
-    <p-fieldset legend="Account search">
+    <p-fieldset>
+      <ng-template #header>
+        Account search
+      </ng-template>
+
       <p-inputgroup>
         <input pInputText placeholder="Username" [(ngModel)]="username" />
         <p-inputGroupAddon><p-checkbox [(ngModel)]="localSearch" [binary]="true" label="Only Local search"/></p-inputGroupAddon>
@@ -19,14 +23,14 @@
             <th>Delete</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-account>
+        <ng-template #body let-account>
           <tr>
             <td>{{ account.username }}</td>
             <td>{{ account.platform }}</td>
             <td> TODO </td>
             <td>
-              <p-button *ngIf="" label="Connect Person" />
-              <p-button *ngIf="" label="Remove Person" />
+              <p-button label="Connect Person" />
+              <p-button label="Remove Person" />
             </td>
             <td><p-button (click)="open(account.url)" label="Open {{account.platform}}" /></td>
             <td><p-button *ngIf="showImportGameButton(account)" (click)="importGames(account.id)" label="Import Games" /></td>

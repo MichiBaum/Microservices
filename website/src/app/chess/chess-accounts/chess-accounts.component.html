@@ -7,7 +7,7 @@
         <th>{{"chess.account.platform" | translate}}</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template #body let-rowNode let-rowData="rowData">
       <tr [ttRow]="rowNode">
         <td>
           <p-treeTableToggler [rowNode]="rowNode" />

@@ -36,7 +36,7 @@
               <th>Platform</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-account let-rowIndex="rowIndex">
+          <ng-template #body let-account let-rowIndex="rowIndex">
             <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
               <td>
                 <p-tableCheckbox [value]="account" disabled="true"/>

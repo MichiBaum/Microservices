@@ -1,6 +1,6 @@
 <div class="container mx-auto">
   <p-card header="{{'about-me.title' | translate}}" class="rounded-border">
-    <ng-template pTemplate="header">
+    <ng-template #header>
       <img alt="About me AI image" ngSrc="about-me.jpeg" height="887" width="1792" priority placeholder/>
     </ng-template>
 
@@ -48,7 +48,7 @@
                   </th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-element>
+              <ng-template #body let-element>
                 <tr>
                   <td>{{ element.experience }}</td>
                   <td>{{ element.years }}</td>
@@ -78,7 +78,7 @@
                   </th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-element>
+              <ng-template #body let-element>
                 <tr>
                   <td>{{ element.experience }}</td>
                   <td>{{ element.years }}</td>
@@ -108,7 +108,7 @@
                   </th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-element>
+              <ng-template #body let-element>
                 <tr>
                   <td>{{ element.experience }}</td>
                   <td>{{ element.years }}</td>
@@ -121,7 +121,7 @@
       </p-accordion>
     </div>
 
-    <ng-template pTemplate="footer">
+    <ng-template #footer>
       <div class="flex gap-6 mt-1">
         <p-button label="LinkedIn" class="w-full" styleClass="w-full" (onClick)="openLinkedIn()" />
         <p-button label="Github" class="w-full" styleClass="w-full" (onClick)="openGithub()"/>

@@ -16,7 +16,7 @@
       </p-floatlabel>
     </div>
 
-    <ng-template pTemplate="footer">
+    <ng-template #footer>
       <div class="flex gap-6 mt-1">
         <p-button label='{{ "register.login" | translate }}' class="w-full" styleClass="w-full" (onClick)="login()"></p-button>
         <p-button label='{{ "register.register" | translate }}' class="w-full" styleClass="w-full" (onClick)="register()"></p-button>

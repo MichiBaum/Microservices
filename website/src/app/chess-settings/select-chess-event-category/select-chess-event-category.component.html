@@ -10,7 +10,7 @@
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
 >
-  <ng-template pTemplate="caption">
+  <ng-template #caption>
     <div class="flex">
       <span class="p-input-icon-left ml-auto">
         <i class="pi pi-search"></i>
@@ -25,7 +25,7 @@
       <th>Description</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+  <ng-template #body let-category let-rowIndex="rowIndex">
     <tr [pSelectableRow]="category" [pSelectableRowIndex]="rowIndex">
       <td>
         <p-tableCheckbox [value]="category" disabled="true"/>

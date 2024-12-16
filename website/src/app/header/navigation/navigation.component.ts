@@ -10,7 +10,7 @@ import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
 import {Ripple} from "primeng/ripple";
 import {
-  faArrowRightFromBracket, faBars,
+  faBars,
   faChess,
   faCoffee,
   faCompactDisc,
@@ -32,6 +32,7 @@ import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
 import {Drawer} from "primeng/drawer";
 import {NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
