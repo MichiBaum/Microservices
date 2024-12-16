@@ -22,7 +22,7 @@
           <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
             <div *ngIf="event" class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
-              <p-card header="{{ event.title }}" subheader="{{getCategories(event)}}">
+              <p-card header="{{ event.title }}" subheader="{{getCategories(event)}}" styleClass="h-full">
                 <p *ngIf="event?.location"><strong>{{'chess.event.location' | translate}}: </strong>{{ event.location }}</p>
                 <p *ngIf="event?.dateFrom"><strong>{{'chess.event.date-from' | translate}}: </strong>{{ event.dateFrom }}</p>
                 <p *ngIf="event?.dateTo"><strong>{{'chess.event.date-to' | translate}}: </strong>{{ event.dateTo }}</p>

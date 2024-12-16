@@ -1,7 +1,7 @@
 <div class="container mx-auto">
   <div class="grid grid-cols-1 4k:grid-cols-7 xlScreen:grid-cols-6 lScreen:grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
 
-      <p-card *ngIf="canLogin()">
+      <p-card *ngIf="canLogin()" styleClass="h-full">
         <ng-template #header>
           <img alt="Login Image" class="w-full h-full" ngSrc="home_login.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
@@ -16,7 +16,7 @@
         </ng-template>
       </p-card>
 
-      <p-card>
+      <p-card styleClass="h-full">
         <ng-template #header>
           <img alt="Chess Image" class="w-full h-full" ngSrc="home_chess.jpeg" width="1024" height="1024" priority placeholder />
         </ng-template>
@@ -31,7 +31,7 @@
         </ng-template>
       </p-card>
 
-      <p-card *ngIf="canActivateFitness()">
+      <p-card *ngIf="canActivateFitness()" styleClass="h-full">
         <ng-template #header>
           <img alt="Fitness Image" class="w-full h-full" ngSrc="home_fitness.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
@@ -46,7 +46,7 @@
         </ng-template>
       </p-card>
 
-      <p-card *ngIf="canActivateMusic()">
+      <p-card *ngIf="canActivateMusic()" styleClass="h-full">
         <ng-template #header>
           <img alt="Music Image" class="w-full h-full" ngSrc="home_music.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
@@ -61,7 +61,7 @@
         </ng-template>
       </p-card>
 
-      <p-card>
+      <p-card styleClass="h-full">
         <ng-template #header>
           <img alt="About me Image" class="w-full h-full" ngSrc="home_about-me.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
@@ -76,7 +76,7 @@
         </ng-template>
       </p-card>
 
-      <p-card>
+      <p-card styleClass="h-full">
         <ng-template #header>
           <img alt="Donate Image" class="w-full h-full" ngSrc="home_donate.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>

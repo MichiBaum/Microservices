@@ -60,6 +60,12 @@ export class NavigationComponent implements OnInit{
   navItems: MenuItem[] = [];
   sidebarVisible: boolean = false;
 
+  menuStyle = {
+    border:{
+      color: "var(--p-drawer-background)"
+    }
+  }
+
   constructor(
     private readonly translate: TranslateService,
     private readonly languageConfig: LanguageConfig,

@@ -4,7 +4,7 @@
   <ng-container *ngFor="let category of categories">
       <ng-container *ngIf="category.events && category.events.length > 0">
 
-            <p-card>
+            <p-card styleClass="h-full">
               <ng-template #title>{{category.title}}</ng-template>
               <ng-template #subtitle>{{category.description}}</ng-template>
 
