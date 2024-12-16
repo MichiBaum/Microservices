@@ -1,40 +1,38 @@
-<div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 gap-4">
+
     <p-fieldset legend="Category Select">
-
       <app-select-chess-event-category [categories]="categories" (selectedCategoryEmitter)="onCategorySelect($event)"></app-select-chess-event-category>
-
     </p-fieldset>
 
-    <p-fieldset legend="Category Update">
-      <form [formGroup]="formGroup">
+    <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            ID
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="id"/>
-        </p-inputgroup>
+      <p-fieldset legend="Category Update">
+        <form [formGroup]="formGroup">
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Title
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="title"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+            <label for="id">ID</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Description
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="description"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="title" formControlName="title" autocomplete="off" />
+            <label for="title">Title</label>
+          </p-floatlabel>
 
-      </form>
-    </p-fieldset>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="description" formControlName="description" autocomplete="off" />
+            <label for="description">Description</label>
+          </p-floatlabel>
 
-    <p-fieldset legend="Action">
-      <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
-      <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-      <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedCategory" />
-    </p-fieldset>
+        </form>
+      </p-fieldset>
+
+      <p-fieldset legend="Action">
+        <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+        <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+        <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedCategory" />
+      </p-fieldset>
+    </div>
+  </div>
 </div>

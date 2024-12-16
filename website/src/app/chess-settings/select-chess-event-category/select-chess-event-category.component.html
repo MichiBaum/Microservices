@@ -10,26 +10,30 @@
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
 >
-  <ng-template #caption>
+  <ng-template pTemplate="caption">
     <div class="flex">
-      <span class="p-input-icon-left ml-auto">
-        <i class="pi pi-search"></i>
-        <input pInputText type="text" [(ngModel)]="tableSearch" (input)="table.filterGlobal(tableSearch , 'contains')" placeholder="Search" />
-      </span>
+      <p-iconfield iconPosition="left" class="ml-auto">
+        <p-inputicon>
+          <i class="pi pi-search"></i>
+        </p-inputicon>
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="tableSearch"
+          (input)="table.filterGlobal(tableSearch, 'contains')"
+          placeholder="Search"
+        />
+      </p-iconfield>
     </div>
   </ng-template>
   <ng-template #header>
     <tr>
-      <th style="width: 4rem"></th>
       <th>Title</th>
       <th>Description</th>
     </tr>
   </ng-template>
   <ng-template #body let-category let-rowIndex="rowIndex">
     <tr [pSelectableRow]="category" [pSelectableRowIndex]="rowIndex">
-      <td>
-        <p-tableCheckbox [value]="category" disabled="true"/>
-      </td>
       <td>{{ category.title }}</td>
       <td>{{ category.description }}</td>
     </tr>

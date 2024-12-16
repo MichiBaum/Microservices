@@ -2,12 +2,12 @@
 
   <p-card pFocusTrap class="max-w-xl mt-4">
     <div class="flex flex-col items-center justify-center gap-6">
-        <p-floatlabel class="w-full">
+        <p-floatlabel class="w-full" variant="in">
           <input id="username" class="w-full" type="text" pInputText [(ngModel)]="username"/>
           <label for="username">{{ "login.username" | translate }}</label>
         </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" />
+        <p-floatlabel class="w-full" variant="in">
+          <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" styleClass="w-full"/>
           <label for="password">{{ "login.password" | translate }}</label>
         </p-floatlabel>
     </div>

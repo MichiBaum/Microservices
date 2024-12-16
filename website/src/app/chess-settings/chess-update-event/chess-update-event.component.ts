@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {InputGroupModule} from "primeng/inputgroup";
 import {InputTextModule} from "primeng/inputtext";
-import {CalendarModule} from "primeng/calendar";
 import {MultiSelectModule} from "primeng/multiselect";
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -16,9 +15,9 @@ import {NgIf} from "@angular/common";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
-import {ConfirmationService} from "primeng/api";
 import {Button} from "primeng/button";
 import {DatePicker} from "primeng/datepicker";
+import {FloatLabel} from "primeng/floatlabel";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -27,7 +26,6 @@ import {DatePicker} from "primeng/datepicker";
     InputGroupAddonModule,
     InputGroupModule,
     InputTextModule,
-    CalendarModule,
     MultiSelectModule,
     DropdownModule,
     FormsModule,
@@ -41,6 +39,7 @@ import {DatePicker} from "primeng/datepicker";
     FaIconComponent,
     Button,
     DatePicker,
+    FloatLabel,
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'

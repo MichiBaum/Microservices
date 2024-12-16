@@ -1,94 +1,87 @@
-<div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Event Select" [toggleable]="true">
       <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
 
-    <p-fieldset legend="Event Data">
-      <form [formGroup]="formGroup">
+    <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
+      <p-fieldset legend="Event Data">
+        <form [formGroup]="formGroup">
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            ID
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="id"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+            <label for="id">ID</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Title
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="title"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="title" formControlName="title" autocomplete="off" />
+            <label for="title">Title</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Location
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="location"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="location" formControlName="location" autocomplete="off" />
+            <label for="location">Location</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Date from
-          </p-inputGroupAddon>
-          <p-datePicker formControlName="dateFrom" dateFormat="dd.mm.yy"></p-datePicker>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <p-datePicker id="dateFrom" formControlName="dateFrom" dateFormat="dd.mm.yy" styleClass="w-full"></p-datePicker>
+            <label for="dateFrom">Start</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Date to
-          </p-inputGroupAddon>
-          <p-datePicker formControlName="dateTo" dateFormat="dd.mm.yy"></p-datePicker>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <p-datePicker id="dateTo" formControlName="dateTo" dateFormat="dd.mm.yy" styleClass="w-full"></p-datePicker>
+            <label for="dateTo">End</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Url
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="url" />
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="url" formControlName="url" autocomplete="off" />
+            <label for="url">Url</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Embed Url
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="embedUrl" />
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="embedUrl" formControlName="embedUrl" autocomplete="off" />
+            <label for="embedUrl">Embed Url</label>
+          </p-floatlabel>
 
-        <p-multiSelect [options]="categories" optionLabel="title" placeholder="Select Categories" formControlName="categories" />
+          <p-floatlabel variant="in" class="w-full">
+            <p-multiSelect id="category" [options]="categories" optionLabel="title" formControlName="categories" styleClass="w-full"/>
+            <label for="category">Categories</label>
+          </p-floatlabel>
 
-      </form>
-    </p-fieldset>
+        </form>
+      </p-fieldset>
 
-    <p-fieldset legend="Event Players">
-      <p-pickList
-        [source]="personsToSelect"
-        [target]="participants"
-        sourceHeader="People"
-        targetHeader="Participants"
-        [dragdrop]="true"
-        [responsive]="true"
-        filterBy="firstname,lastname,fideId,birthday"
-        [sourceStyle]="{ height: '20rem' }"
-        [targetStyle]="{ height: '20rem' }">
-        <ng-template let-person pTemplate="item">
-          <div class="flex flex-wrap p-2 items-center gap-6">
-            <div class="flex-1 flex flex-col gap-2">
-              <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="getGenderIcon(person)"></fa-icon></span>
-              <div class="flex align-products-center gap-2" *ngIf="person.fideId || person.birthday">
-                <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
-                <span *ngIf="person.birthday">Birthday: {{ person.birthday }}</span>
+      <p-fieldset legend="Event Players">
+        <p-pickList
+          [source]="personsToSelect"
+          [target]="participants"
+          sourceHeader="People"
+          targetHeader="Participants"
+          [dragdrop]="true"
+          [responsive]="true"
+          filterBy="firstname,lastname,fideId,birthday"
+          [sourceStyle]="{ height: '20rem' }"
+          [targetStyle]="{ height: '20rem' }">
+          <ng-template let-person pTemplate="item">
+            <div class="flex flex-wrap p-2 items-center gap-6">
+              <div class="flex-1 flex flex-col gap-2">
+                <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="getGenderIcon(person)"></fa-icon></span>
+                <div class="flex align-products-center gap-2" *ngIf="person.fideId || person.birthday">
+                  <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
+                  <span *ngIf="person.birthday">Birthday: {{ person.birthday }}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </ng-template>
-      </p-pickList>
-    </p-fieldset>
+          </ng-template>
+        </p-pickList>
+      </p-fieldset>
+    </div>
 
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent" />
     </p-fieldset>
+  </div>
 </div>

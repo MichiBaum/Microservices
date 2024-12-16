@@ -1,76 +1,58 @@
-<div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
-  <div class="col-span-12">
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 gap-4">
+
     <p-fieldset legend="Person Select">
       <app-select-chess-person [persons]="persons" (selectedPersonsEmitter)="selectedPersonsChange($event)"></app-select-chess-person>
     </p-fieldset>
-  </div>
 
-    <p-fieldset legend="Person Form">
-      <form [formGroup]="formGroup">
+    <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            ID
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="id"/>
-        </p-inputgroup>
+      <p-fieldset legend="Person Form">
+        <form [formGroup]="formGroup">
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Firstname
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="firstname"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+            <label for="id">ID</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Lastname
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="lastname"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="firstname" formControlName="firstname" autocomplete="off" />
+            <label for="firstname">Firstname</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Fide Id
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="fideId"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="lastname" formControlName="lastname" autocomplete="off" />
+            <label for="lastname">Lastname</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Federation
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="federation"/>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="fideId" formControlName="fideId" autocomplete="off" />
+            <label for="fideId">Fide Id</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Birthday
-          </p-inputGroupAddon>
-          <p-datePicker formControlName="birthday" dateFormat="dd.mm.yy"></p-datePicker>
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="federation" formControlName="federation" autocomplete="off" />
+            <label for="federation">Federation</label>
+          </p-floatlabel>
 
-        <p-inputgroup class="mb-2">
-          <p-inputGroupAddon>
-            Gender
-          </p-inputGroupAddon>
-          <p-select
-            formControlName="gender"
-            [options]="genders"
-            placeholder="Select a Gender" />
-        </p-inputgroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <p-datePicker id="birthday" formControlName="birthday" dateFormat="dd.mm.yy" styleClass="w-full"/>
+            <label for="birthday">Birthday</label>
+          </p-floatlabel>
 
-      </form>
-    </p-fieldset>
+          <p-floatlabel variant="in" class="w-full">
+            <p-select id="gender" formControlName="gender" [options]="genders" styleClass="w-full" variant="filled" />
+            <label for="gender">Gender</label>
+          </p-floatlabel>
+
+        </form>
+      </p-fieldset>
 
 
-    <p-fieldset legend="Account Connect">
-      <table
-
-      >
-
-      </table>
-    </p-fieldset>
+      <p-fieldset legend="Account Connect">
+        TODO
+      </p-fieldset>
+    </div>
 
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
@@ -78,16 +60,17 @@
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedPerson" />
     </p-fieldset>
 
-    <p-fieldset legend="Upload Fide Rating List">
-      <p-fileUpload
+    <p-fieldset legend="Upload Fide Rating List"> <!-- other place to upload fide ratings-->
+      <p-fileupload
         mode="basic"
-        chooseLabel="Choose"
+        chooseLabel="Choose File"
         chooseIcon="pi pi-upload"
         name="file"
         url="{{environment.chessService}}/fide/ratings"
         accept=".xml"
         maxFileSize="1000000000"
-      />
+      ></p-fileupload>
     </p-fieldset>
 
+  </div>
 </div>
