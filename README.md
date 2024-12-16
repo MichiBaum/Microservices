@@ -146,7 +146,7 @@ The tables are created trough [flyway](https://documentation.red-gate.com/fd/mig
 		<tr>
             <td align="center">
                 <a href="https://github.com/MichiBaum">
-                    <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxODAwMDAsIm5iZiI6MTczNDE3ODgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.I-u9EeFYkJ2vcFC2PjKRF-JBs_KzkuSqU6XSRjOfh0Y&v=4" width="100;" alt="MichiBaum"/>
+                    <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQzODcwMDAsIm5iZiI6MTczNDM4NTgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.Cqh4HrFeWvSQSxyf_Ki1hXmetR76DvsD7Re8wxdvhwk&v=4" width="100;" alt="MichiBaum"/>
                     <br />
                     <sub><b>Michael Baumberger</b></sub>
                 </a>
@@ -171,7 +171,7 @@ The tables are created trough [flyway](https://documentation.red-gate.com/fd/mig
             </td>
             <td align="center">
                 <a href="https://github.com/MichiBaum">
-                    <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQxODAwMDAsIm5iZiI6MTczNDE3ODgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.I-u9EeFYkJ2vcFC2PjKRF-JBs_KzkuSqU6XSRjOfh0Y&v=4" width="100;" alt="MichiBaum"/>
+                    <img src="https://private-avatars.githubusercontent.com/u/36712219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQzODcwMDAsIm5iZiI6MTczNDM4NTgwMCwicGF0aCI6Ii91LzM2NzEyMjE5In0.Cqh4HrFeWvSQSxyf_Ki1hXmetR76DvsD7Re8wxdvhwk&v=4" width="100;" alt="MichiBaum"/>
                     <br />
                     <sub><b>Michael Baumberger</b></sub>
                 </a>
