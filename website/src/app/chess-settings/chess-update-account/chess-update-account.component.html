@@ -8,7 +8,10 @@
 
       <p-inputgroup>
         <input pInputText placeholder="Username" [(ngModel)]="username" />
-        <p-inputGroupAddon><p-checkbox [(ngModel)]="localSearch" [binary]="true" label="Only Local search"/></p-inputGroupAddon>
+        <p-inputGroupAddon>
+        <p-checkbox [(ngModel)]="localSearch" [binary]="true" id="localSearch" />
+        <label for="localSearch" class="ml-2">Only Local search</label>
+        </p-inputGroupAddon>
         <p-button pButton label="Search" (click)="search()" />
       </p-inputgroup>
 
