@@ -4,17 +4,17 @@ import { definePreset } from "@primeng/themes";
 export const MyPreset = definePreset(Lara, {
   semantic: {
     primary: {
-      50: "#fffbeb",
-      100: "#fef3c7",
-      200: "#fde68a",
-      300: "#fcd34d",
-      400: "#fbbf24",
-      500: "#f6a010",
-      600: "#d97706",
-      700: "#b45309",
-      800: "#92400e",
-      900: "#78350f",
-      950: "#451a03"
+      50: "#fffbf2",
+      100: "#ffe9c2",
+      200: "#ffd891",
+      300: "#ffc761",
+      400: "#ffb630",
+      500: "#ffa500",
+      600: "#d98c00",
+      700: "#b37300",
+      800: "#8c5b00",
+      900: "#664200",
+      950: "#402900"
     },
     colorScheme: {
       light: {
@@ -39,17 +39,17 @@ export const MyPreset = definePreset(Lara, {
       dark: {
         surface: {
           0: "#ffffff",
-          50: "#fbfbfb",
-          100: "#ebebeb",
-          200: "#dbdbdb",
-          300: "#cbcbcb",
-          400: "#bbbbbb",
-          500: "#ababab",
-          600: "#919191",
-          700: "#787878",
-          800: "#5e5e5e",
-          900: "#444444",
-          950: "#2b2b2b"
+          50: "#fafafa",
+          100: "#f4f4f5",
+          200: "#e4e4e7",
+          300: "#d4d4d8",
+          400: "#a1a1aa",
+          500: "#71717a",
+          600: "#52525b",
+          700: "#3f3f46",
+          800: "#27272a",
+          900: "#18181b",
+          950: "#09090b"
         },
         primary: {
           color: "{primary.500}",
