@@ -6,7 +6,7 @@
         Account search
       </ng-template>
 
-      <p-inputgroup>
+      <p-inputgroup class="mb-6">
         <input pInputText placeholder="Username" [(ngModel)]="username" />
         <p-inputGroupAddon>
         <p-checkbox [(ngModel)]="localSearch" [binary]="true" id="localSearch" />
@@ -31,11 +31,8 @@
           <tr>
             <td>{{ account.username }}</td>
             <td>{{ account.platform }}</td>
-            <td> TODO </td>
-            <td>
-              <p-button label="Connect Person" />
-              <p-button label="Remove Person" />
-            </td>
+            <td>TODO</td>
+            <td>TODO</td>
             <td><p-button (click)="open(account.url)" label="Open {{account.platform}}" /></td>
             <td><p-button *ngIf="showImportGameButton(account)" (click)="importGames(account.id)" label="Import Games" /></td>
             <td><p-button (click)="delete(account.id)" label="Delete" severity="danger" /></td>
