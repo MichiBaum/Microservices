@@ -1,28 +1,31 @@
-<div class="grid">
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 4k:grid-cols-6 xlScreen:grid-cols-5 lScreen:grid-cols-4 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
   <ng-container *ngFor="let category of categories">
-    <ng-container *ngIf="category.events && category.events.length > 0">
+      <ng-container *ngIf="category.events && category.events.length > 0">
 
-      <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-6 laptop-l:col-width-4 qhd:col-width-3 max-width:col-width-3">
+            <p-card>
+              <ng-template #title>{{category.title}}</ng-template>
+              <ng-template #subtitle>{{category.description}}</ng-template>
 
-          <p-card  [header]="category.title" [subheader]="category.description">
-            <p-timeline [value]="category.events">
-              <ng-template pTemplate="marker" let-event>
-                <fa-icon [icon]="getIcon(event)" [style]="getColor(event)"></fa-icon>
-              </ng-template>
-              <ng-template pTemplate="content" let-event>
-                <span [routerLink]="['/chess/events', event.id]" style="cursor:pointer;">{{ event.title }}</span>
-              </ng-template>
-              <ng-template pTemplate="opposite" let-event>
-                <small class="p-text-secondary">{{ event.dateFrom }} - {{event.dateTo}}</small>
-              </ng-template>
-            </p-timeline>
-          </p-card>
+              <p-timeline [value]="category.events">
+                <ng-template pTemplate="marker" let-event>
+                  <fa-icon [icon]="getIcon(event)" [style]="getColor(event)"></fa-icon>
+                </ng-template>
+                <ng-template pTemplate="content" let-event>
+                  <div class="cursor-pointer">
+                    <p class="text-xs">{{ event.dateFrom }} - {{event.dateTo}}</p>
+                    <p [routerLink]="['/chess/events', event.id]">{{ event.title }}</p>
+                  </div>
+                </ng-template>
+              </p-timeline>
 
-      </div>
+            </p-card>
 
+
+      </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
 </div>
 
 <p-scrollTop />

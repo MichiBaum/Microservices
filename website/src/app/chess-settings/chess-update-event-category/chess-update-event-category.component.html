@@ -1,46 +1,38 @@
-<div class="grid">
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 gap-4">
+
     <p-fieldset legend="Category Select">
-
       <app-select-chess-event-category [categories]="categories" (selectedCategoryEmitter)="onCategorySelect($event)"></app-select-chess-event-category>
-
     </p-fieldset>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
-    <p-fieldset legend="Category Update">
-      <form [formGroup]="formGroup">
+    <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
-        <p-inputGroup class="mb-2">
-          <p-inputGroupAddon>
-            ID
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="id"/>
-        </p-inputGroup>
+      <p-fieldset legend="Category Update">
+        <form [formGroup]="formGroup">
 
-        <p-inputGroup class="mb-2">
-          <p-inputGroupAddon>
-            Title
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="title"/>
-        </p-inputGroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+            <label for="id">ID</label>
+          </p-floatlabel>
 
-        <p-inputGroup class="mb-2">
-          <p-inputGroupAddon>
-            Description
-          </p-inputGroupAddon>
-          <input type="text" pInputText formControlName="description"/>
-        </p-inputGroup>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="title" formControlName="title" autocomplete="off" />
+            <label for="title">Title</label>
+          </p-floatlabel>
 
-      </form>
-    </p-fieldset>
-  </div>
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="description" formControlName="description" autocomplete="off" />
+            <label for="description">Description</label>
+          </p-floatlabel>
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
-    <p-fieldset legend="Action">
-      <p-button type="button" class="mr-4" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
-      <p-button type="button" class="mr-4" label="Clear Data" (click)="clear()"></p-button>
-      <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedCategory" />
-    </p-fieldset>
+        </form>
+      </p-fieldset>
+
+      <p-fieldset legend="Action">
+        <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+        <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+        <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedCategory" />
+      </p-fieldset>
+    </div>
   </div>
 </div>

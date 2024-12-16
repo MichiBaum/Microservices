@@ -18,13 +18,15 @@ import {
   faCalendarDay,
   faCalendarPlus,
   faCalendarXmark,
-  faChartLine,
+  faChartLine, faChessQueen,
   faGears,
   faNewspaper,
   faPerson
 } from "@fortawesome/free-solid-svg-icons";
 import {TagModule} from "primeng/tag";
 import {faClock} from "@fortawesome/free-regular-svg-icons";
+import {RouterLink, RouterOutlet} from "@angular/router";
+import {Divider} from "primeng/divider";
 
 @Component({
   selector: 'app-chess',
@@ -38,12 +40,16 @@ import {faClock} from "@fortawesome/free-regular-svg-icons";
     NgIf,
     FaIconComponent,
     TagModule,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    RouterOutlet,
+    Divider
   ],
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'
 })
 export class ChessComponent implements OnInit{
+  protected readonly faChessQueen = faChessQueen;
 
   menuItems: MenuItem[] = [];
   events: ChessEvent[] = [];

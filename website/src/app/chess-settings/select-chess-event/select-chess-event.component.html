@@ -1,16 +1,16 @@
 <p-table
-  styleClass="p-datatable-striped"
+  stripedRows
   [value]="events"
   [(selection)]="selectedEvent"
   selectionMode="single"
   [paginator]="true"
+  [scrollable]="true"
   [rows]="5"
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
 >
-  <ng-template pTemplate="header">
+  <ng-template #header>
     <tr>
-      <th style="width: 4rem"></th>
       <th>Title</th>
       <th>Category</th>
       <th>Location</th>
@@ -21,7 +21,6 @@
       <th>Embed Url</th>
     </tr>
     <tr>
-      <th></th>
       <th>
         <p-columnFilter
           type="text"
@@ -74,11 +73,8 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
+  <ng-template #body let-event let-rowIndex="rowIndex">
     <tr [pSelectableRow]="event" [pSelectableRowIndex]="rowIndex">
-      <td>
-        <p-tableCheckbox [value]="event" disabled="true"/>
-      </td>
       <td>{{ event.title }}</td>
       <td>
         <!-- TODO Multiple not happened yet therefore no prio-->

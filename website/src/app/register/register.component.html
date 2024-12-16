@@ -1,27 +1,27 @@
-<section class="register">
+<div class="flex justify-center items-center">
 
-  <p-card pFocusTrap class="p-4 border-round">
-    <div class="flex flex-column align-items-center justify-content-center gap-4">
-      <p-floatLabel>
-        <input id="username" type="text" pInputText [(ngModel)]="username" />
+  <p-card pFocusTrap class="max-w-xl mt-4">
+    <div class="flex flex-col items-center justify-center gap-6">
+      <p-floatlabel class="w-full" variant="in">
+        <input class="w-full" id="username" type="text" pInputText [(ngModel)]="username" />
         <label for="username">{{ "register.username" | translate }}</label>
-      </p-floatLabel>
-      <p-floatLabel>
-        <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" />
+      </p-floatlabel>
+      <p-floatlabel class="w-full" variant="in">
+        <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" styleClass="w-full"/>
         <label for="password">{{ "register.password" | translate }}</label>
-      </p-floatLabel>
-      <p-floatLabel>
-        <p-password id="passwordRepeat" [feedback]="false" [toggleMask]="true" [(ngModel)]="passwordRepeat" />
+      </p-floatlabel>
+      <p-floatlabel class="w-full" variant="in">
+        <p-password id="passwordRepeat" [feedback]="false" [toggleMask]="true" [(ngModel)]="passwordRepeat" styleClass="w-full"/>
         <label for="passwordRepeat">{{ "register.password" | translate }}</label>
-      </p-floatLabel>
+      </p-floatlabel>
     </div>
 
-    <ng-template pTemplate="footer">
-      <div class="flex gap-3 mt-1">
+    <ng-template #footer>
+      <div class="flex gap-6 mt-1">
         <p-button label='{{ "register.login" | translate }}' class="w-full" styleClass="w-full" (onClick)="login()"></p-button>
         <p-button label='{{ "register.register" | translate }}' class="w-full" styleClass="w-full" (onClick)="register()"></p-button>
       </div>
     </ng-template>
   </p-card>
 
-</section>
+</div>

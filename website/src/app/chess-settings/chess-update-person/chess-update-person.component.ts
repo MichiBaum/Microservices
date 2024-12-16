@@ -5,14 +5,17 @@ import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
 import {FileUploadModule} from "primeng/fileupload";
 import {environment} from "../../../environments/environment";
-import {Gender, Person, WriteChessEvent, WritePerson} from "../../core/models/chess/chess.models";
+import {Gender, Person, WritePerson} from "../../core/models/chess/chess.models";
 import {ChessService} from "../../core/services/chess.service";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {InputGroupModule} from "primeng/inputgroup";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {CalendarModule} from "primeng/calendar";
+import {Button} from "primeng/button";
+import {DatePicker} from "primeng/datepicker";
+import {Select} from "primeng/select";
+import {FloatLabel} from "primeng/floatlabel";
 
 @Component({
   selector: 'app-chess-update-person',
@@ -28,7 +31,10 @@ import {CalendarModule} from "primeng/calendar";
     InputTextModule,
     PaginatorModule,
     ReactiveFormsModule,
-    CalendarModule
+    Button,
+    DatePicker,
+    Select,
+    FloatLabel
   ],
   templateUrl: './chess-update-person.component.html',
   styleUrl: './chess-update-person.component.scss'

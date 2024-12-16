@@ -8,6 +8,7 @@ import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {InputGroupModule} from "primeng/inputgroup";
 import {InputTextModule} from "primeng/inputtext";
 import {Button} from "primeng/button";
+import {FloatLabel} from "primeng/floatlabel";
 
 @Component({
   selector: 'app-chess-update-event-category',
@@ -20,7 +21,8 @@ import {Button} from "primeng/button";
     InputGroupModule,
     InputTextModule,
     ReactiveFormsModule,
-    Button
+    Button,
+    FloatLabel
   ],
   templateUrl: './chess-update-event-category.component.html',
   styleUrl: './chess-update-event-category.component.scss'

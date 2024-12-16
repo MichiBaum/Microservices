@@ -1,6 +1,6 @@
-<div class="grid">
-  <div class="col-2">
-    <p-dropdown
+<div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
+  <div class="col-span-2">
+    <p-select
       [(ngModel)]="selectedSleep"
       [options]="sleeps"
       optionLabel="startTime"
@@ -8,16 +8,16 @@
       [filterMatchMode]="'contains'"
     >
       <ng-template pTemplate="selectedItem">
-        <div class="flex align-items-center gap-2" *ngIf="selectedSleep">
+        <div class="flex items-center gap-2" *ngIf="selectedSleep">
           <div>{{ selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
         </div>
       </ng-template>
       <ng-template let-sleep pTemplate="item">
-        <div class="flex align-items-center gap-2">
+        <div class="flex items-center gap-2">
           <div>{{ sleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
         </div>
       </ng-template>
-    </p-dropdown>
+    </p-select>
 
     <div *ngIf="selectedSleep">
       <p>Start: {{selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm'}}</p>
@@ -31,7 +31,7 @@
 
   </div>
 
-  <div class="col-10">
+  <div class="col-span-10">
     <app-sleep-stages-chart [sleepStages]="selectedSleep?.stages"></app-sleep-stages-chart>
   </div>
 

@@ -1,1 +1,8 @@
-<fa-icon [icon]="faArrowRightFromBracket" size="lg" (click)="logout()" *ngIf="visible"></fa-icon>
+<p-button
+  pButton pRipple
+  (click)="logout()"
+  *ngIf="visible"
+  aria-label="Logout Button"
+>
+  <fa-icon [icon]="buttonIcon"></fa-icon>
+</p-button>

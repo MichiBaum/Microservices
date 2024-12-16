@@ -36,18 +36,6 @@
             ],
             "styles": [
               "src/styles.scss",
-              {
-                "input": "src/theme-dark.css",
-                "bundleName": "theme-dark",
-                "inject": false
-              },
-              {
-                "input": "src/theme-light.css",
-                "bundleName": "theme-light",
-                "inject": false
-              },
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeflex/primeflex.css",
               "node_modules/primeicons/primeicons.css"
             ],
             "scripts": []

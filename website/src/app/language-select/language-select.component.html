@@ -4,7 +4,7 @@
   [multiple]="false"
   (onChange)="selectLanguage($event)"
 >
-  <ng-template let-item pTemplate>
+  <ng-template #item let-item>
     <span>{{ item.name | translate }}</span>
   </ng-template>
 </p-selectButton>

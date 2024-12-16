@@ -1,113 +1,94 @@
-<div class="grid">
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 4k:grid-cols-7 xlScreen:grid-cols-6 lScreen:grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
 
-  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canLogin()">
-    <div class="align-items-center justify-content-center m-2 h-full">
-      <p-card header='{{"home.login.title" | translate}}'>
-        <ng-template pTemplate="header">
+      <p-card *ngIf="canLogin()">
+        <ng-template #header>
           <img alt="Login Image" class="w-full h-full" ngSrc="home_login.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
-        <p class="h-3rem">
+        <ng-template #title>{{"home.login.title" | translate}}</ng-template>
+        <p class="h-20">
           {{"home.login.content" | translate}}
         </p>
-        <ng-template pTemplate="footer">
-          <div class="gap-3 mt-1">
+        <ng-template #footer>
+          <div class="gap-6 mt-1">
             <p-button label="Go to login" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.login()" />
           </div>
         </ng-template>
       </p-card>
-    </div>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
-    <div class="align-items-center justify-content-center m-2 h-full">
-      <p-card header='{{"home.chess.title" | translate}}'>
-        <ng-template pTemplate="header">
+      <p-card>
+        <ng-template #header>
           <img alt="Chess Image" class="w-full h-full" ngSrc="home_chess.jpeg" width="1024" height="1024" priority placeholder />
         </ng-template>
-        <p class="h-3rem">
+        <ng-template #title>{{"home.chess.title" | translate}}</ng-template>
+        <p class="h-20">
           {{"home.chess.content" | translate}}
         </p>
-        <ng-template pTemplate="footer">
-          <div class="gap-3 mt-1">
+        <ng-template #footer>
+          <div class="gap-6 mt-1">
             <p-button label="Go to chess" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.chess()" />
           </div>
         </ng-template>
       </p-card>
-    </div>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canActivateFitness()">
-    <div class="align-items-center justify-content-center m-2 h-full">
-      <p-card header='{{"home.fitness.title" | translate}}'>
-        <ng-template pTemplate="header">
+      <p-card *ngIf="canActivateFitness()">
+        <ng-template #header>
           <img alt="Fitness Image" class="w-full h-full" ngSrc="home_fitness.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
-        <p class="h-3rem">
+        <ng-template #title>{{"home.fitness.title" | translate}}</ng-template>
+        <p class="h-20">
           {{"home.fitness.content" | translate}}
         </p>
-        <ng-template pTemplate="footer">
-          <div class="gap-3 mt-1">
+        <ng-template #footer>
+          <div class="gap-6 mt-1">
             <p-button label="Go to fitness" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.fitness()" />
           </div>
         </ng-template>
       </p-card>
-    </div>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2" *ngIf="canActivateMusic()">
-    <div class="align-items-center justify-content-center m-2 h-full">
-      <p-card header='{{"home.music.title" | translate}}'>
-        <ng-template pTemplate="header">
+      <p-card *ngIf="canActivateMusic()">
+        <ng-template #header>
           <img alt="Music Image" class="w-full h-full" ngSrc="home_music.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
-        <p class="h-3rem">
+        <ng-template #title>{{"home.music.title" | translate}}</ng-template>
+        <p class="h-20">
           {{"home.music.content" | translate}}
         </p>
-        <ng-template pTemplate="footer">
-          <div class="gap-3 mt-1">
+        <ng-template #footer>
+          <div class="gap-6 mt-1">
             <p-button label="Go to music" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.music()" />
           </div>
         </ng-template>
       </p-card>
-    </div>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
-    <div class="align-items-center justify-content-center m-2 h-full">
-      <p-card header='{{"home.about-me.title" | translate}}'>
-        <ng-template pTemplate="header">
+      <p-card>
+        <ng-template #header>
           <img alt="About me Image" class="w-full h-full" ngSrc="home_about-me.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
-        <p class="h-3rem">
+        <ng-template #title>{{"home.about-me.title" | translate}}</ng-template>
+        <p class="h-20">
           {{"home.about-me.content" | translate}}
         </p>
-        <ng-template pTemplate="footer">
-          <div class="gap-3 mt-1">
+        <ng-template #footer>
+          <div class="gap-6 mt-1">
             <p-button label="Go to about me" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.about_me()" />
           </div>
         </ng-template>
       </p-card>
-    </div>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-6 laptop:col-width-4 laptop-l:col-width-3 qhd:col-width-2 max-width:col-width-2">
-    <div class="align-items-center justify-content-center m-2 h-full">
-      <p-card header='{{"home.donate.title" | translate}}'>
-        <ng-template pTemplate="header">
+      <p-card>
+        <ng-template #header>
           <img alt="Donate Image" class="w-full h-full" ngSrc="home_donate.jpeg" width="1024" height="1024" priority placeholder/>
         </ng-template>
-        <p class="h-3rem">
+        <ng-template #title>{{"home.donate.title" | translate}}</ng-template>
+        <p class="h-20">
           {{"home.donate.content" | translate}}
         </p>
-        <ng-template pTemplate="footer">
-          <div class="gap-3 mt-1">
+        <ng-template #footer>
             <p-button label="Go to donate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.donate()" />
-          </div>
         </ng-template>
       </p-card>
-    </div>
+
   </div>
-
 </div>
-
 <p-scrollTop />
