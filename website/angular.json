@@ -68,6 +68,11 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "bundle-report": {
+              "optimization": true,
+              "outputHashing": "none",
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
