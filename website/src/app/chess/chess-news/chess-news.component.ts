@@ -1,20 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {MessagesModule} from "primeng/messages";
-import {Message} from "primeng/api";
+import {Message} from "primeng/message";
 
 @Component({
   selector: 'app-chess-news',
   standalone: true,
   imports: [
-    MessagesModule
+    Message
   ],
   templateUrl: './chess-news.component.html',
   styleUrl: './chess-news.component.scss'
 })
 export class ChessNewsComponent implements OnInit {
-  messages: Message[] = [
-    { severity: 'error', detail: 'Not implemented yet!' }
-  ];
 
   ngOnInit(): void {
   }

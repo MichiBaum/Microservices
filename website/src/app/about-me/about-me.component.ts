@@ -10,7 +10,8 @@ import {ImageModule} from "primeng/image";
 import {TableModule} from "primeng/table";
 import {RatingModule} from "primeng/rating";
 import {FormsModule} from "@angular/forms";
-import {AccordionModule} from "primeng/accordion";
+import {Accordion, AccordionContent, AccordionHeader, AccordionModule, AccordionPanel} from "primeng/accordion";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-about-me',
@@ -24,7 +25,11 @@ import {AccordionModule} from "primeng/accordion";
     TableModule,
     RatingModule,
     FormsModule,
-    AccordionModule
+    NgOptimizedImage,
+    AccordionHeader,
+    AccordionContent,
+    Accordion,
+    AccordionPanel
   ],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss'

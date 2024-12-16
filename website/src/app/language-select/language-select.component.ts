@@ -25,14 +25,14 @@ export class LanguageSelectComponent implements OnInit{
 
   constructor(
     private readonly languageConfig: LanguageConfig,
-    private readonly translate: TranslateService
   ) { }
 
   ngOnInit(): void {
     this.languages = this.languageConfig.languages;
+    this.selectedLanguage = this.languageConfig.current
   }
 
-  selectLanguage(event: any) {
+  selectLanguage() {
     if(this.selectedLanguage == undefined)
       return;
     this.languageConfig.setLanguage(this.selectedLanguage);

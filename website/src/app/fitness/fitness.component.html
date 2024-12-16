@@ -1,10 +1,10 @@
-<div class="grid">
-  <div class="col-12">
+<div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
+  <div class="col-span-12">
     <p-fieldset legend="Profile" [toggleable]="true">
       <app-fitness-profile></app-fitness-profile>
     </p-fieldset>
   </div>
-  <div class="col-12">
+  <div class="col-span-12">
     <p-fieldset legend="Settings" [toggleable]="true" [(collapsed)]="settingsCollapsed">
       Settings
       <p-selectButton

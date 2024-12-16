@@ -13,6 +13,7 @@ import {Sides} from "../core/config/sides";
 import {UserInfoService} from "../core/services/user-info.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {FocusTrapModule} from "primeng/focustrap";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-register',
@@ -26,7 +27,8 @@ import {FocusTrapModule} from "primeng/focustrap";
     PasswordModule,
     PrimeTemplate,
     TranslateModule,
-    FocusTrapModule
+    FocusTrapModule,
+    FormsModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'

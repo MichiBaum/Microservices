@@ -4,20 +4,24 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {AuthService} from "../core/services/auth.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {NgIf} from "@angular/common";
+import {Button, ButtonDirective} from "primeng/button";
+import {Ripple} from "primeng/ripple";
 
 @Component({
   selector: 'app-logout',
   standalone: true,
   imports: [
     FaIconComponent,
-    NgIf
+    NgIf,
+    Button,
+    ButtonDirective,
+    Ripple
   ],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss'
 })
 export class LogoutComponent implements OnInit{
-
-  protected readonly faArrowRightFromBracket = faArrowRightFromBracket;
+  protected readonly buttonIcon = faArrowRightFromBracket;
   visible = true
 
   constructor(

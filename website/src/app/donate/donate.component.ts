@@ -6,6 +6,7 @@ import {CardModule} from "primeng/card";
 import {PrimeTemplate} from "primeng/api";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-donate',
@@ -14,7 +15,8 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
     Button,
     CardModule,
     PrimeTemplate,
-    TranslateModule
+    TranslateModule,
+    NgOptimizedImage
   ],
   templateUrl: './donate.component.html',
   styleUrl: './donate.component.scss'

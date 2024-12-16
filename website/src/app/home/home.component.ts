@@ -4,7 +4,7 @@ import {Sides} from "../core/config/sides";
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {PermissionService} from "../core/services/permission.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {ScrollTopModule} from "primeng/scrolltop";
@@ -17,7 +17,8 @@ import {ScrollTopModule} from "primeng/scrolltop";
     CardModule,
     NgIf,
     TranslateModule,
-    ScrollTopModule
+    ScrollTopModule,
+    NgOptimizedImage
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

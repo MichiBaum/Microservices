@@ -1,57 +1,56 @@
-<div class="grid">
-  <div class="col-12">
-    <p-fieldset legend="Create Game" >
-      <p-card header="Select Event">
-        <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
-      </p-card>
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 gap-4">
 
-      <p-card header="Select Persons" *ngIf="persons.length !== 0">
-        <app-select-chess-person [persons]="persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
-      </p-card>
-
-      <p-card header="Select Accounts" *ngIf="selectedPersons.length == 2">
-        <p-table
-          #table
-          [value]="accounts"
-          [(selection)]="selectedAccounts"
-          selectionMode="multiple"
-          [paginator]="true"
-          [rows]="5"
-          [globalFilterFields]="['username', 'platform']"
-          (onRowSelect)="onSelectedAccountsChange()"
-        >
-          <ng-template pTemplate="caption">
-            <div class="flex">
-              <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(table)" />
-              <span class="p-input-icon-left ml-auto">
-                  <i class="pi pi-search"></i>
-                  <input pInputText type="text" [(ngModel)]="accountTableSearch" (input)="table.filterGlobal(accountTableSearch, 'contains')" placeholder="Search" />
-              </span>
-            </div>
-          </ng-template>
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="width: 4rem"></th>
-              <th>Username</th>
-              <th>Platform</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-account let-rowIndex="rowIndex">
-            <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
-              <td>
-                <p-tableCheckbox [value]="account" disabled="true"/>
-              </td>
-              <td>{{ account.username }}</td>
-              <td>{{ account.platform }}</td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-card>
-
-
-
-
+    <p-fieldset legend="Select Event" [toggleable]="true">
+      <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
-  </div>
 
+    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons.length !== 0">
+      <app-select-chess-person [persons]="persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
+    </p-fieldset>
+
+    <p-fieldset [toggleable]="true" *ngIf="selectedPersons.length == 2">
+      <ng-template #header>
+        Select Accounts
+      </ng-template>
+
+      <p-table
+        #table
+        [value]="accounts"
+        [(selection)]="selectedAccounts"
+        selectionMode="multiple"
+        [paginator]="true"
+        [rows]="5"
+        [globalFilterFields]="['username', 'platform']"
+        (onRowSelect)="onSelectedAccountsChange()"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(table)" />
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" [(ngModel)]="accountTableSearch" (input)="table.filterGlobal(accountTableSearch, 'contains')" placeholder="Search" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template #header>
+          <tr>
+            <th style="width: 4rem"></th>
+            <th>Username</th>
+            <th>Platform</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-account let-rowIndex="rowIndex">
+          <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
+            <td>
+              <p-tableCheckbox [value]="account" disabled="true"/>
+            </td>
+            <td>{{ account.username }}</td>
+            <td>{{ account.platform }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-fieldset>
+
+  </div>
 </div>

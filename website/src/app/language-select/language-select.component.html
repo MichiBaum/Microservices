@@ -2,9 +2,9 @@
   [options]="languages"
   [(ngModel)]="selectedLanguage"
   [multiple]="false"
-  (onChange)="selectLanguage($event)"
+  (onChange)="selectLanguage()"
 >
-  <ng-template let-item pTemplate>
+  <ng-template #item let-item>
     <span>{{ item.name | translate }}</span>
   </ng-template>
 </p-selectButton>

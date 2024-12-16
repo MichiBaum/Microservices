@@ -1,16 +1,14 @@
-<div class="grid flex bg-primary">
+<div class="flex bg-primary text-primary-contrast items-center justify-center shadow-md h-full">
 
-  <div class="col-1 flex-none flex align-items-center justify-content-center bg-primary">
+  <div class="basis-1/12 flex-none text-left">
     <app-navigation></app-navigation>
   </div>
 
-  <div class="col-10 flex-grow-1 flex align-items-center justify-content-center bg-primary">
-    <h1>
-      {{ title | translate}}
-    </h1>
+  <div class="grow text-center">
+    <h1 class="font-bold text-2xl">{{ title | translate}}</h1>
   </div>
 
-  <div class="col-1 flex-none flex align-items-center justify-content-center bg-primary">
+  <div class="basis-1/12 flex-none text-right">
     <app-logout></app-logout>
   </div>
 

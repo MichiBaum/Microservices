@@ -4,6 +4,8 @@ import {FormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {PrimeTemplate} from "primeng/api";
 import {TableModule} from "primeng/table";
+import {IconField} from "primeng/iconfield";
+import {InputIcon} from "primeng/inputicon";
 
 @Component({
   selector: 'app-select-chess-event-category',
@@ -12,7 +14,9 @@ import {TableModule} from "primeng/table";
     FormsModule,
     InputTextModule,
     PrimeTemplate,
-    TableModule
+    TableModule,
+    IconField,
+    InputIcon
   ],
   templateUrl: './select-chess-event-category.component.html',
   styleUrl: './select-chess-event-category.component.scss'

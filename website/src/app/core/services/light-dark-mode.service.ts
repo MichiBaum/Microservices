@@ -21,32 +21,45 @@ export class LightDarkModeService {
   }
 
   changeMode(document: Document){
-    const linkElement = document.getElementById(
-      'app-theme',
-    ) as HTMLLinkElement;
-    if (linkElement.href.includes('light')) {
-      linkElement.href = 'theme-dark.css';
-      this.saveMode(LightDarkMode.dark)
-    } else {
-      linkElement.href = 'theme-light.css';
+    const element = document.querySelector('html');
+    if(element == null){
+      return;
+    }
+
+    const darkModeEnabled = element.classList.contains('p-dark');
+    if (darkModeEnabled) {
       this.saveMode(LightDarkMode.light)
+      element.classList.remove('p-dark');
+    } else {
+      this.saveMode(LightDarkMode.dark)
+      element.classList.add('p-dark');
     }
   }
 
   changeModeTo(document: Document, lightDarkMode: LightDarkMode){
-    const linkElement = document.getElementById(
-      'app-theme',
-    ) as HTMLLinkElement;
-
-    if(lightDarkMode == LightDarkMode.dark){
-      linkElement.href = 'theme-dark.css';
-      this.saveMode(LightDarkMode.dark)
+    const element = document.querySelector('html');
+    if(element == null){
+      return;
     }
+
 
     if(lightDarkMode == LightDarkMode.light){
-      linkElement.href = 'theme-light.css';
-      this.saveMode(LightDarkMode.light)
+      const darkModeEnabled = element.classList.contains('p-dark');
+      if (darkModeEnabled) {
+        this.saveMode(LightDarkMode.light)
+        element.classList.remove('p-dark');
+      }
+      return;
     }
+    if(lightDarkMode == LightDarkMode.dark){
+      const darkModeEnabled = element.classList.contains('p-dark');
+      if (!darkModeEnabled) {
+        this.saveMode(LightDarkMode.dark)
+        element.classList.add('p-dark');
+      }
+      return;
+    }
+
   }
 
   init(document: Document) {

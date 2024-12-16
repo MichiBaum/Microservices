@@ -5,7 +5,6 @@ import {ChessService} from "../../core/services/chess.service";
 import {CardModule} from "primeng/card";
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
-import {TabViewModule} from "primeng/tabview";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableModule} from "primeng/table";
 import {NgIf} from "@angular/common";
@@ -13,6 +12,11 @@ import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-
 import {ChessEvent} from "../../core/models/chess/chess.models";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
+import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
+import {Avatar} from "primeng/avatar";
+import {FooterRowOutlet} from "@angular/cdk/table";
 
 @Component({
   selector: 'app-chess-events',
@@ -20,13 +24,20 @@ import {DividerModule} from "primeng/divider";
   imports: [
     CardModule,
     Button,
-    TabViewModule,
     TranslateModule,
     TableModule,
     NgIf,
     ChessEventParticipantsComponent,
     ChessEventGamesComponent,
-    DividerModule
+    DividerModule,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanel,
+    TabPanels,
+    FaIconComponent,
+    Avatar,
+    FooterRowOutlet
   ],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.scss'
@@ -67,10 +78,7 @@ export class ChessEventComponent implements OnInit {
       this.navigationService.open(this.event.url)
   }
 
-  getCategories(event: ChessEvent | undefined) {
-    if(event == undefined){
-      return "";
-    }
+  getCategories(event: ChessEvent) {
     return event.categories.map(value => value.title).join(", ")
   }
 
@@ -78,4 +86,5 @@ export class ChessEventComponent implements OnInit {
     this.gamesTabDisabled = !hasContent;
   }
 
+  protected readonly faCircleInfo = faCircleInfo;
 }

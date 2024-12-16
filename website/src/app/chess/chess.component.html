@@ -1,37 +1,5 @@
-<div class="grid">
-  <div class="col-12">
-    <p-menubar [model]="menuItems">
-      <ng-template pTemplate="item" let-item let-root="root">
-        <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
-          <ng-container *ngIf="item.customIcon">
-            <fa-icon [icon]="item.customIcon"></fa-icon>
-          </ng-container>
-
-          <ng-container *ngIf="item.tag">
-            <p-tag [style]="{ background: 'rgb(0 0 0 / 0%)' }">
-              <fa-icon [icon]="item.tag" [style]="item.tagColor"></fa-icon>
-            </p-tag>
-          </ng-container>
-
-          <div>
-            <ng-container *ngIf="item.eventCategories && item.eventCategories.length > 0">
-              <ng-container *ngFor="let category of item.eventCategories">
-                <h5 class="ml-2 event-category-text no-top-bottom-margin">{{ category.title }}</h5>
-              </ng-container>
-            </ng-container>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-          </div>
-
-          <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-          <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
-        </a>
-      </ng-template>
-    </p-menubar>
-  </div>
-  <div class="col-12">
-    <router-outlet></router-outlet>
-  </div>
+<div class="mb-4 mr-4 ml-4">
+  <app-chess-navigation></app-chess-navigation>
 </div>
 
-
+<router-outlet></router-outlet>

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Message} from "primeng/api";
+import {ToastMessageOptions} from "primeng/api";
 import {Subject} from "rxjs";
 
 /**
@@ -10,7 +10,7 @@ import {Subject} from "rxjs";
 @Injectable({ providedIn: 'root' })
 export class UserInfoService {
 
-  private _messageEmitter = new Subject<Message>();
+  private _messageEmitter = new Subject<ToastMessageOptions>();
 
   constructor() {
   }
@@ -18,9 +18,9 @@ export class UserInfoService {
   /**
    * Gets the message emitter subject.
    *
-   * @return {Subject<Message>} The current instance of the message emitter subject.
+   * @return {Subject<ToastMessageOptions>} The current instance of the message emitter subject.
    */
-  get messageEmitter(): Subject<Message> {
+  get messageEmitter(): Subject<ToastMessageOptions> {
     return this._messageEmitter;
   }
 

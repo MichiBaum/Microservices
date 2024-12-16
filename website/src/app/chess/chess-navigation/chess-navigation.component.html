@@ -1,0 +1,32 @@
+<p-menubar [model]="menuItems">
+  <ng-template #start>
+    <fa-icon [icon]="faChessQueen" size="2x" [routerLink]="'/chess/events/'" class="cursor-pointer"></fa-icon>
+    <p-divider layout="vertical" />
+  </ng-template>
+  <ng-template #item let-item let-root="root">
+    <a pRipple class="flex items-center p-menubar-item-link" [routerLink]="item.routerLink">
+      <ng-container *ngIf="item.customIcon">
+        <fa-icon [icon]="item.customIcon"></fa-icon>
+      </ng-container>
+
+      <ng-container *ngIf="item.tag">
+        <p-tag [style]="{ background: 'rgb(0 0 0 / 0%)' }">
+          <fa-icon [icon]="item.tag" [style]="item.tagColor"></fa-icon>
+        </p-tag>
+      </ng-container>
+
+      <div class="text-left">
+        <ng-container *ngIf="item.eventCategories && item.eventCategories.length > 0">
+          <ng-container *ngFor="let category of item.eventCategories">
+            <p class="text-xs">{{ category.title }}</p>
+          </ng-container>
+        </ng-container>
+        <p>{{ item.label }}</p>
+        <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+      </div>
+
+      <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+      <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+    </a>
+  </ng-template>
+</p-menubar>
