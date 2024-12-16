@@ -1,13 +1,10 @@
 <div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
     <p-fieldset legend="Category Select">
 
       <app-select-chess-event-category [categories]="categories" (selectedCategoryEmitter)="onCategorySelect($event)"></app-select-chess-event-category>
 
     </p-fieldset>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Category Update">
       <form [formGroup]="formGroup">
 
@@ -34,13 +31,10 @@
 
       </form>
     </p-fieldset>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedCategory" />
     </p-fieldset>
-  </div>
 </div>

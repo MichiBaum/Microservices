@@ -1,12 +1,9 @@
 <div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
     <p-fieldset legend="Event Select" [toggleable]="true">
       <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Event Data">
       <form [formGroup]="formGroup">
 
@@ -63,9 +60,7 @@
 
       </form>
     </p-fieldset>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-6 max-width:col-width-6">
     <p-fieldset legend="Event Players">
       <p-pickList
         [source]="personsToSelect"
@@ -90,13 +85,10 @@
         </ng-template>
       </p-pickList>
     </p-fieldset>
-  </div>
 
-  <div class="mobile:col-width-12 tablet:col-width-12 laptop:col-width-12 laptop-l:col-width-12 qhd:col-width-12 max-width:col-width-12">
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent" />
     </p-fieldset>
-  </div>
 </div>
