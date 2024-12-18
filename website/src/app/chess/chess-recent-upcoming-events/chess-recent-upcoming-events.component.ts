@@ -10,7 +10,6 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 
 @Component({
   selector: 'app-chess-recent-upcoming-events',
-  standalone: true,
   imports: [
     FaIconComponent,
     PrimeTemplate,

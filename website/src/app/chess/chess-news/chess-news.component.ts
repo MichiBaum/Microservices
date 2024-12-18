@@ -3,7 +3,6 @@ import {Message} from "primeng/message";
 
 @Component({
   selector: 'app-chess-news',
-  standalone: true,
   imports: [
     Message
   ],

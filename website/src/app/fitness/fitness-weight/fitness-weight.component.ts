@@ -5,7 +5,6 @@ import {ChartModule} from "primeng/chart";
 
 @Component({
   selector: 'app-fitness-weight',
-  standalone: true,
   imports: [
     ChartModule
   ],

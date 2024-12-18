@@ -13,11 +13,9 @@ import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
-import {PrimeTemplate} from "primeng/api";
 
 @Component({
   selector: 'app-chess-update-event',
-  standalone: true,
   imports: [
     Fieldset,
     SelectChessEventComponent,
@@ -30,7 +28,6 @@ import {PrimeTemplate} from "primeng/api";
     FaIconComponent,
     NgIf,
     PickList,
-    PrimeTemplate,
     FormsModule
   ],
   templateUrl: './chess-update-event.component.html',

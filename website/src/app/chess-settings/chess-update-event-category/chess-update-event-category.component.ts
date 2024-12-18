@@ -12,7 +12,6 @@ import {FloatLabel} from "primeng/floatlabel";
 
 @Component({
   selector: 'app-chess-update-event-category',
-  standalone: true,
   imports: [
     FieldsetModule,
     SelectChessEventCategoryComponent,

@@ -10,7 +10,6 @@ import {Select} from "primeng/select";
 
 @Component({
   selector: 'app-fitness-sleep',
-  standalone: true,
   imports: [
     SleepStagesChartComponent,
     DropdownModule,

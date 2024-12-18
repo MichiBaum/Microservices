@@ -4,10 +4,7 @@ import {Sides} from '../core/config/sides';
 
 @Component({
   selector: 'app-music',
-  standalone: true,
-  imports: [
-
-  ],
+  imports: [],
   templateUrl: './music.component.html',
   styleUrl: './music.component.scss'
 })

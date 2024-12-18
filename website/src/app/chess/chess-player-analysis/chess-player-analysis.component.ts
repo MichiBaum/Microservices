@@ -7,7 +7,6 @@ import {ChessStatisticComponent} from "../chess-statistic/chess-statistic.compon
 
 @Component({
   selector: 'app-chess-player-analysis',
-  standalone: true,
   imports: [
     SplitterModule,
     ChessPlayerSearchComponent,

@@ -4,7 +4,6 @@ import {TabViewModule} from "primeng/tabview";
 
 @Component({
   selector: 'app-chess-statistic',
-  standalone: true,
   imports: [
     TabMenuModule,
     TabViewModule

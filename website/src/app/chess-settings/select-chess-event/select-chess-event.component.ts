@@ -11,7 +11,6 @@ import {FilterService, SelectItem} from "primeng/api";
 
 @Component({
   selector: 'app-select-chess-event',
-  standalone: true,
   imports: [
     TableModule,
     InputTextModule,

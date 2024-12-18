@@ -28,7 +28,6 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 
 @Component({
   selector: 'app-chess-navigation',
-  standalone: true,
   providers: [EventIconPipe, EventIconColorPipe],
   imports: [
     Badge,

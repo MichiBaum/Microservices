@@ -13,14 +13,11 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
 import {Avatar} from "primeng/avatar";
-import {FooterRowOutlet} from "@angular/cdk/table";
 
 @Component({
   selector: 'app-chess-events',
-  standalone: true,
   imports: [
     CardModule,
     Button,
@@ -35,9 +32,7 @@ import {FooterRowOutlet} from "@angular/cdk/table";
     Tab,
     TabPanel,
     TabPanels,
-    FaIconComponent,
     Avatar,
-    FooterRowOutlet
   ],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.scss'

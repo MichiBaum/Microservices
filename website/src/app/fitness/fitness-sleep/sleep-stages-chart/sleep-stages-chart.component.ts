@@ -4,7 +4,6 @@ import * as d3 from "d3";
 
 @Component({
   selector: 'app-sleep-stages-chart',
-  standalone: true,
   imports: [],
   templateUrl: './sleep-stages-chart.component.html',
   styleUrl: './sleep-stages-chart.component.scss'

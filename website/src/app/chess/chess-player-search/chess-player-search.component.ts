@@ -10,7 +10,6 @@ import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess-player-search',
-  standalone: true,
   imports: [
     InputTextModule,
     PickListModule,

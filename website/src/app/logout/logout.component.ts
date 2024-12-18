@@ -9,7 +9,6 @@ import {Ripple} from "primeng/ripple";
 
 @Component({
   selector: 'app-logout',
-  standalone: true,
   imports: [
     FaIconComponent,
     NgIf,

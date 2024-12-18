@@ -4,7 +4,6 @@ import {ChessService} from "../../../core/services/chess.service";
 
 @Component({
   selector: 'app-chess-event-games',
-  standalone: true,
   imports: [],
   templateUrl: './chess-event-games.component.html',
   styleUrl: './chess-event-games.component.scss'

@@ -2,7 +2,6 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {NgIf} from "@angular/common";
-import {PrimeTemplate} from "primeng/api";
 import {TableModule} from "primeng/table";
 import {RouterNavigationService} from "../../../core/services/router-navigation.service";
 import {ChessService} from "../../../core/services/chess.service";
@@ -11,12 +10,10 @@ import {ChessEvent, Person} from "../../../core/models/chess/chess.models";
 
 @Component({
   selector: 'app-chess-event-participants',
-  standalone: true,
   imports: [
     Button,
     CardModule,
     NgIf,
-    PrimeTemplate,
     TableModule,
     TranslateModule
   ],

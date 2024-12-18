@@ -12,7 +12,6 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 
 @Component({
   selector: 'app-chess-events-list',
-  standalone: true,
   imports: [
     CardModule,
     NgForOf,
