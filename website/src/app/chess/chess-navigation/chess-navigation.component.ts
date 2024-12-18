@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  faCalendarDay, faCalendarPlus, faCalendarXmark,
+  faCalendarDays,
   faChartLine,
   faChessQueen,
   faGears,
+  faHouse,
   faNewspaper,
   faPerson
 } from "@fortawesome/free-solid-svg-icons";
@@ -22,11 +23,13 @@ import {PermissionService} from "../../core/services/permission.service";
 import {MenuItem} from "primeng/api";
 import {Permissions} from "../../core/config/permissions";
 import {ChessEvent} from "../../core/models/chess/chess.models";
-import {faClock} from "@fortawesome/free-regular-svg-icons";
+import { EventIconPipe } from 'src/app/core/pipes/event-icon.pipe';
+import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 
 @Component({
   selector: 'app-chess-navigation',
   standalone: true,
+  providers: [EventIconPipe, EventIconColorPipe],
   imports: [
     Badge,
     Divider,
@@ -53,11 +56,14 @@ export class ChessNavigationComponent implements OnInit{
     private readonly languageConfig: LanguageConfig,
     private readonly translate: TranslateService,
     private readonly permissionService: PermissionService,
+    private readonly eventIcon: EventIconPipe,
+    private readonly eventIconColor: EventIconColorPipe,
   ) { }
 
   ngOnInit(): void {
     this.chessService.eventsRecentUpcoming().subscribe(events => { // TODO only get "recent" events +- 1 Month
-      this.events = [...events];
+      const sorted = this.chessService.sortEvents(events)
+      this.events = [...sorted];
       this.createMenu();
     })
 
@@ -72,8 +78,8 @@ export class ChessNavigationComponent implements OnInit{
           label: event.title,
           eventCategories: event.categories,
           routerLink: '/chess/events/' + event.id,
-          tag: this.getEventIcon(event),
-          tagColor: this.getEventIconColor(event),
+          tag: this.eventIcon.transform(event),
+          tagColor: this.eventIconColor.transform(event),
         } as MenuItem
       )
     );
@@ -85,13 +91,18 @@ export class ChessNavigationComponent implements OnInit{
 
     this.menuItems = [
       {
+        label: this.translate.instant('chess.navigation.home'),
+        customIcon: faHouse,
+        routerLink: '/chess',
+      },
+      {
         label: this.translate.instant('chess.navigation.news'),
         customIcon: faNewspaper,
         routerLink: '/chess/news',
       },
       {
         label: this.translate.instant('chess.navigation.events'),
-        customIcon: faNewspaper,
+        customIcon: faCalendarDays,
         items: menuEvents,
       },
       {
@@ -133,30 +144,6 @@ export class ChessNavigationComponent implements OnInit{
         ]
       },
     ];
-  }
-
-  getEventIconColor(event: ChessEvent){
-    if(event.dateFrom && event.dateTo){
-      const dateFrom = new Date(event.dateFrom)
-      const dateTo = new Date(event.dateTo)
-      const current = new Date()
-      if(dateTo > current && dateFrom < current){ return "color: green"}
-      if(dateTo < current ){ return "color: red"}
-      if(dateFrom > current){ return "color: #0688fb"}
-    }
-    return ""
-  }
-
-  getEventIcon(event: ChessEvent) {
-    if(event.dateFrom && event.dateTo){
-      const dateFrom = new Date(event.dateFrom)
-      const dateTo = new Date(event.dateTo)
-      const current = new Date()
-      if(dateTo > current && dateFrom < current){ return faCalendarDay}
-      if(dateTo < current ){ return faCalendarXmark}
-      if(dateFrom > current){ return faCalendarPlus}
-    }
-    return faClock;
   }
 
 }

@@ -3,12 +3,12 @@ import {ChessService} from "../../core/services/chess.service";
 import {CardModule} from "primeng/card";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
-import {ChessEvent, ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models";
+import {ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models";
 import {TimelineModule} from "primeng/timeline";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faClock} from "@fortawesome/free-regular-svg-icons";
-import {faCalendarDay, faCalendarPlus, faCalendarXmark} from "@fortawesome/free-solid-svg-icons";
 import {ScrollTopModule} from "primeng/scrolltop";
+import {EventIconPipe} from "../../core/pipes/event-icon.pipe";
+import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 
 @Component({
   selector: 'app-chess-events-list',
@@ -20,7 +20,9 @@ import {ScrollTopModule} from "primeng/scrolltop";
     TimelineModule,
     FaIconComponent,
     ScrollTopModule,
-    NgIf
+    NgIf,
+    EventIconPipe,
+    EventIconColorPipe
   ],
   templateUrl: './chess-events-list.component.html',
   styleUrl: './chess-events-list.component.scss'
@@ -37,41 +39,11 @@ export class ChessEventsListComponent implements OnInit {
     this.chessService.eventCategoriesWithEvents().subscribe(categories => {
       categories.forEach(category => {
         if (category.events) {
-          category.events = category.events.sort((a, b) => {
-            if (a.dateFrom == undefined && b.dateFrom == undefined) return 0;
-            if (a.dateFrom == undefined) return 1;
-            if (b.dateFrom == undefined) return -1;
-            const dateA = new Date(a.dateFrom);
-            const dateB = new Date(b.dateFrom);
-            return dateA < dateB ? 1 : dateA > dateB ? -1 : 0;
-          });
+          category.events = this.chessService.sortEvents(category.events)
         }
       });
       this.categories = [...categories];
     })
   }
 
-  getColor(event: ChessEvent){
-    if(event.dateFrom && event.dateTo){
-      const dateFrom = new Date(event.dateFrom)
-      const dateTo = new Date(event.dateTo)
-      const current = new Date()
-      if(dateTo > current && dateFrom < current){ return "color: green"}
-      if(dateTo < current ){ return "color: red"}
-      if(dateFrom > current){ return "color: #0688fb"}
-    }
-    return ""
-  }
-
-  getIcon(event: ChessEvent) {
-    if(event.dateFrom && event.dateTo){
-      const dateFrom = new Date(event.dateFrom)
-      const dateTo = new Date(event.dateTo)
-      const current = new Date()
-      if(dateTo > current && dateFrom < current){ return faCalendarDay}
-      if(dateTo < current ){ return faCalendarXmark}
-      if(dateFrom > current){ return faCalendarPlus}
-    }
-    return faClock;
-  }
 }

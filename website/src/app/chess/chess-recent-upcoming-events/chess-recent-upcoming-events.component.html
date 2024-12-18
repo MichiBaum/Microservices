@@ -1,0 +1,11 @@
+<p-timeline [value]="events">
+  <ng-template pTemplate="marker" let-event>
+    <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
+  </ng-template>
+  <ng-template pTemplate="content" let-event>
+    <div class="cursor-pointer">
+      <p class="text-xs">{{ event.dateFrom }} - {{event.dateTo}}</p>
+      <p [routerLink]="['/chess/events', event.id]">{{ event.title }}</p>
+    </div>
+  </ng-template>
+</p-timeline>

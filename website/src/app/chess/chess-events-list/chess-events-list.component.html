@@ -10,7 +10,7 @@
 
               <p-timeline [value]="category.events">
                 <ng-template pTemplate="marker" let-event>
-                  <fa-icon [icon]="getIcon(event)" [style]="getColor(event)"></fa-icon>
+                  <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
                 </ng-template>
                 <ng-template pTemplate="content" let-event>
                   <div class="cursor-pointer">
