@@ -14,7 +14,6 @@ import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-chess-update-account',
-  standalone: true,
   imports: [
     FieldsetModule,
     InputTextModule,

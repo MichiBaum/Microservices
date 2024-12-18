@@ -11,7 +11,6 @@ import {ScrollTopModule} from "primeng/scrolltop";
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   imports: [
     Button,
     CardModule,

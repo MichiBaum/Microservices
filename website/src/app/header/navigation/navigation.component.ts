@@ -32,11 +32,9 @@ import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
 import {Drawer} from "primeng/drawer";
 import {NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
-  standalone: true,
   imports: [
     MenubarModule,
     SidebarModule,

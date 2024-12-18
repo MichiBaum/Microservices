@@ -17,7 +17,6 @@ import {PrimeTemplate} from "primeng/api";
 
 @Component({
   selector: 'app-chess-update-event',
-  standalone: true,
   imports: [
     Fieldset,
     SelectChessEventComponent,

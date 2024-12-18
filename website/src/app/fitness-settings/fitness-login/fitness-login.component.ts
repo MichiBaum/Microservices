@@ -5,7 +5,6 @@ import {RouterNavigationService} from "../../core/services/router-navigation.ser
 
 @Component({
   selector: 'app-fitness-login',
-  standalone: true,
   imports: [
     Button
   ],

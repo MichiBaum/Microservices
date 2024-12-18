@@ -19,7 +19,6 @@ import {FloatLabel} from "primeng/floatlabel";
 
 @Component({
   selector: 'app-chess-update-person',
-  standalone: true,
   imports: [
     DropdownModule,
     DividerModule,

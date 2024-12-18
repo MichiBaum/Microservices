@@ -16,16 +16,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^18.2.10",
+    "@angular/animations": "^19.0.4",
     "@angular/cdk": "^18.2.8",
-    "@angular/common": "^18.2.10",
-    "@angular/compiler": "^18.2.10",
-    "@angular/core": "^18.2.10",
-    "@angular/forms": "^18.2.10",
-    "@angular/platform-browser": "^18.2.10",
-    "@angular/platform-browser-dynamic": "^18.2.10",
-    "@angular/router": "^18.2.10",
-    "@angular/service-worker": "^18.2.10",
+    "@angular/common": "^19.0.4",
+    "@angular/compiler": "^19.0.4",
+    "@angular/core": "^19.0.4",
+    "@angular/forms": "^19.0.4",
+    "@angular/platform-browser": "^19.0.4",
+    "@angular/platform-browser-dynamic": "^19.0.4",
+    "@angular/router": "^19.0.4",
+    "@angular/service-worker": "^19.0.4",
     "@auth0/angular-jwt": "^5.2.0",
     "@fortawesome/angular-fontawesome": "^0.15.0",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
@@ -44,13 +44,13 @@
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.3.4",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.2.11",
-    "@angular/cli": "^18.2.11",
-    "@angular/compiler-cli": "^18.2.10",
-    "@angular/localize": "^18.2.10",
+    "@angular-devkit/build-angular": "^19.0.5",
+    "@angular/cli": "^19.0.5",
+    "@angular/compiler-cli": "^19.0.4",
+    "@angular/localize": "^19.0.4",
     "@compodoc/compodoc": "^1.1.26",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "18.3.1",
@@ -64,7 +64,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
-    "typescript": "~5.4.5",
+    "typescript": "~5.6.3",
     "typescript-eslint": "8.2.0"
   }
 }

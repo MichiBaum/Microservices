@@ -5,7 +5,6 @@ import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-fitness-profile',
-  standalone: true,
   imports: [
     NgIf
   ],

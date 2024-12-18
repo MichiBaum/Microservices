@@ -5,7 +5,6 @@ import {MusicService} from "../../core/services/music.service";
 
 @Component({
   selector: 'app-music-login',
-  standalone: true,
   imports: [
     Button
   ],

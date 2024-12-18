@@ -11,7 +11,6 @@ import {FitnessSleepComponent} from "./fitness-sleep/fitness-sleep.component";
 
 @Component({
   selector: 'app-fitness',
-  standalone: true,
   imports: [
     ChartModule,
     FitnessWeightComponent,

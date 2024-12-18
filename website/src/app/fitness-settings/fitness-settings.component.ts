@@ -5,7 +5,6 @@ import {FitnessLoginComponent} from "./fitness-login/fitness-login.component";
 
 @Component({
   selector: 'app-fitness-settings',
-  standalone: true,
   imports: [
     FitnessLoginComponent
   ],

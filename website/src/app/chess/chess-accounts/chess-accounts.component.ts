@@ -7,7 +7,6 @@ import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess-accounts',
-  standalone: true,
   imports: [
     TableModule,
     TreeTableModule,

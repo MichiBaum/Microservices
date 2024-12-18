@@ -5,7 +5,6 @@ import {MusicLoginComponent} from "./music-login/music-login.component";
 
 @Component({
   selector: 'app-music-settings',
-  standalone: true,
   imports: [
     MusicLoginComponent
   ],

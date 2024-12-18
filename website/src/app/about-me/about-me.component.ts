@@ -15,7 +15,6 @@ import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-about-me',
-  standalone: true,
   imports: [
     CardModule,
     TimelineModule,

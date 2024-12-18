@@ -6,7 +6,6 @@ import {Sides} from "../core/config/sides";
 
 @Component({
   selector: 'app-imprint',
-  standalone: true,
   imports: [
     CardModule,
     TranslateModule

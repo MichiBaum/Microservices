@@ -16,7 +16,6 @@ import {SelectChessPersonComponent} from "../select-chess-person/select-chess-pe
 
 @Component({
   selector: 'app-chess-update-game',
-  standalone: true,
   imports: [
     FieldsetModule,
     MultiSelectModule,

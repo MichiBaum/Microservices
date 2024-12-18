@@ -9,7 +9,6 @@ import {InputIcon} from "primeng/inputicon";
 
 @Component({
   selector: 'app-select-chess-event-category',
-  standalone: true,
   imports: [
     FormsModule,
     InputTextModule,

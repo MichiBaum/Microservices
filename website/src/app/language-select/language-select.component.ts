@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LanguageConfig} from "../core/config/language.config";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Language} from "../core/models/language.model";
@@ -8,7 +8,6 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-language-select',
-  standalone: true,
   imports: [
     DropdownModule,
     SelectButtonModule,

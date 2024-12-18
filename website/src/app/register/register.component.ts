@@ -5,7 +5,6 @@ import {FloatLabelModule} from "primeng/floatlabel";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {PasswordModule} from "primeng/password";
-import {PrimeTemplate} from "primeng/api";
 import {AuthService} from "../core/services/auth.service";
 import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
@@ -17,7 +16,6 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-register',
-  standalone: true,
   imports: [
     Button,
     CardModule,
@@ -25,7 +23,6 @@ import {FormsModule} from "@angular/forms";
     InputTextModule,
     PaginatorModule,
     PasswordModule,
-    PrimeTemplate,
     TranslateModule,
     FocusTrapModule,
     FormsModule

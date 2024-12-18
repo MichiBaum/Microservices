@@ -14,7 +14,6 @@ import {FocusTrapModule} from "primeng/focustrap";
 
 @Component({
   selector: 'app-authentication',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     Button,

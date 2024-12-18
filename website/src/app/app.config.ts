@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, ApplicationConfig, isDevMode} from '@angular/core';
+import { ApplicationConfig, isDevMode, inject, provideAppInitializer } from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -70,12 +70,10 @@ export const appConfig: ApplicationConfig = {
       }
     }
     ),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializerFactory,
-      deps: [TranslateService],
-      multi: true
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (appInitializerFactory)(inject(TranslateService));
+        return initializerFn();
+      }),
     {
       provide : HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

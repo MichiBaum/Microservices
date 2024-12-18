@@ -11,7 +11,6 @@ import {MenubarModule} from "primeng/menubar";
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [
     NavigationComponent,
     TranslateModule,

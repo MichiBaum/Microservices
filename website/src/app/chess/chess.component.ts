@@ -10,14 +10,13 @@ import {ChessNavigationComponent} from "./chess-navigation/chess-navigation.comp
 import {
   ChessRecentUpcomingEventsComponent
 } from "./chess-recent-upcoming-events/chess-recent-upcoming-events.component";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {Button} from "primeng/button";
 import {Card} from "primeng/card";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess',
-  standalone: true,
   imports: [
     SplitterModule,
     MenubarModule,

@@ -13,7 +13,6 @@ import {ScrollTop} from "primeng/scrolltop";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule, ScrollTop],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
