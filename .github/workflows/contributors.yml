@@ -10,6 +10,9 @@ jobs:
     name: Automate contrib in readme
     steps:
       - name: Contribute List
+        permissions:
+          contents: write
+          pull-requests: write
         uses: akhilmhdh/contributors-readme-action@v2.3.10
         with:
           collaborators: all
