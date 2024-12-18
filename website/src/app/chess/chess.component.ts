@@ -5,8 +5,15 @@ import {Sides} from "../core/config/sides";
 import {MenubarModule} from "primeng/menubar";
 import {BadgeModule} from "primeng/badge";
 import {TagModule} from "primeng/tag";
-import {RouterOutlet} from "@angular/router";
+import {RouterLink, RouterOutlet} from "@angular/router";
 import {ChessNavigationComponent} from "./chess-navigation/chess-navigation.component";
+import {
+  ChessRecentUpcomingEventsComponent
+} from "./chess-recent-upcoming-events/chess-recent-upcoming-events.component";
+import {NgIf, NgOptimizedImage} from "@angular/common";
+import {Button} from "primeng/button";
+import {Card} from "primeng/card";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess',
@@ -17,7 +24,13 @@ import {ChessNavigationComponent} from "./chess-navigation/chess-navigation.comp
     BadgeModule,
     TagModule,
     RouterOutlet,
-    ChessNavigationComponent
+    ChessNavigationComponent,
+    ChessRecentUpcomingEventsComponent,
+    NgIf,
+    Button,
+    Card,
+    TranslateModule,
+    RouterLink
   ],
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'

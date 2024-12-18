@@ -43,9 +43,14 @@
       "participants": "Teilnehmer",
       "title": "Titel"
     },
+    "home": {
+      "recent-upcoming": "Vergangene, laufende und zukünftige Veranstaltungen",
+      "to-all-events": "Zu allen Veranstaltungen"
+    },
     "navigation": {
       "all-events": "Alle Veranstaltungen",
       "events": "Veranstaltungen",
+      "home": "Startseite",
       "news": "News",
       "person": "Person",
       "player-analysis": "Player Analysis",
