@@ -9,11 +9,10 @@ import {UserInfoService} from "./core/services/user-info.service";
 import {SwUpdate} from "@angular/service-worker";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PrimeNG} from "primeng/config";
-import {ScrollTop} from "primeng/scrolltop";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule, ScrollTop],
+  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [MessageService, ConfirmationService]
@@ -56,13 +55,10 @@ export class AppComponent implements OnInit {
       icon: 'pi pi-spin pi-cog',
       rejectButtonStyleClass:"p-button-text",
       acceptLabel: this.translateService.instant('sw-update.update'),
-      rejectLabel: this.translateService.instant('sw-update.later'),
+      rejectVisible: false,
       accept: () => {
         swUpdate.activateUpdate().then(() => window.location.reload());
       },
-      reject: () => {
-
-      }
     })
   }
 
