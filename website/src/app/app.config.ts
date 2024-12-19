@@ -12,8 +12,6 @@ import {environment} from "../environments/environment";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {providePrimeNG} from "primeng/config";
 import {MyPreset} from "./mytheme";
-import {definePreset} from "@primeng/themes";
-import Lara from "@primeng/themes/lara";
 
 /**
  * Creates a new instance of TranslateHttpLoader with the specified HttpClient.
