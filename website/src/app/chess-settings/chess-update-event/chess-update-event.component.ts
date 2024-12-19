@@ -153,11 +153,15 @@ export class ChessUpdateEventComponent implements OnInit{
     if(this.formGroup.invalid){
       return;
     }
+
+    const dateFrom = this.getDate(this.formGroup.controls['dateFrom'].value)
+    const dateTo = this.getDate(this.formGroup.controls['dateTo'].value)
+
     const event: WriteChessEvent = {
       title: this.formGroup.controls['title'].value,
       location: this.formGroup.controls['location'].value,
-      dateFrom: this.formGroup.controls['dateFrom'].value.toISOString().split('T')[0],
-      dateTo: this.formGroup.controls['dateTo'].value.toISOString().split('T')[0],
+      dateFrom: dateFrom,
+      dateTo: dateTo,
       url: this.formGroup.controls['url'].value,
       embedUrl: this.formGroup.controls['embedUrl'].value,
       categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
@@ -175,6 +179,16 @@ export class ChessUpdateEventComponent implements OnInit{
         this.events = [...newEvents]
       }
     })
+  }
+
+  getDate(date: Date): string | undefined {
+    // TODO this is a quickfix for timezones
+    let dateString: string | undefined = undefined;
+    if(date != undefined){
+      const offset = date.getTimezoneOffset()
+      dateString = new Date(date.getTime() - (offset*60*1000)).toISOString().split('T')[0]
+    }
+    return dateString;
   }
 
   clear() {

@@ -129,12 +129,21 @@ export class ChessUpdatePersonComponent implements OnInit{
       return;
     }
 
+    // TODO this is a quickfix for timezones
+    let birthday: string | undefined = undefined;
+    if(this.formGroup.controls['birthday'].value != undefined){
+      const d = this.formGroup.controls['birthday'].value
+      const offset = d.getTimezoneOffset()
+      birthday = new Date(d.getTime() - (offset*60*1000)).toISOString().split('T')[0]
+    }
+
+    console.log(birthday)
     const person: WritePerson = {
       firstname: this.formGroup.controls['firstname'].value,
       lastname: this.formGroup.controls['lastname'].value,
       fideId: this.formGroup.controls['fideId'].value,
       federation: this.formGroup.controls['federation'].value,
-      birthday: this.formGroup.controls['birthday'].value?.toISOString().split('T')[0] ?? null,
+      birthday: birthday,
       gender: this.formGroup.controls['gender'].value,
     }
 
