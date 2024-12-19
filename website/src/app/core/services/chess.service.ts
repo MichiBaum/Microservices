@@ -6,6 +6,7 @@ import {
   ChessEventCategory, ChessEventCategoryWithEvents,
   ChessGame,
   Person,
+  SearchChessEvent,
   SearchPerson,
   WriteChessEvent, WriteChessEventCategory, WritePerson
 } from "../models/chess/chess.models";
@@ -32,6 +33,11 @@ export class ChessService {
 
   events(): Observable<ChessEvent[]> {
     return this.http.get<ChessEvent[]>(environment.chessService + '/events')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  searchEvents(search: SearchChessEvent): Observable<ChessEvent[]> {
+    return this.http.get<ChessEvent[]>(environment.chessService + '/events/search', { params: {...search} })
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 

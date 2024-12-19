@@ -1,7 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ChessEvent, ChessEventCategory, Gender, Person, WriteChessEvent} from "../../core/models/chess/chess.models";
+import {
+  ChessEvent,
+  ChessEventCategory,
+  Gender,
+  Person,
+  SearchChessEvent,
+  WriteChessEvent
+} from "../../core/models/chess/chess.models";
 import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 import {Fieldset} from "primeng/fieldset";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
@@ -13,6 +20,7 @@ import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
+import {LazyLoad} from "../../core/models/lazy-load.model";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -88,9 +96,6 @@ export class ChessUpdateEventComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.chessService.events().subscribe(events => {
-      this.events = [...events];
-    })
     this.chessService.eventCategories().subscribe(categories => {
       this.categories = [...categories];
     })
@@ -190,7 +195,14 @@ export class ChessUpdateEventComponent implements OnInit{
     return faVenusMars;
   }
 
-
+  lazyLoadEvents(lazyLoad: LazyLoad<SearchChessEvent>) {
+    this.chessService.searchEvents(lazyLoad.data).subscribe(newEvents => {
+      const filtered = newEvents.filter(event => this.events.every(oldEvent => oldEvent.id !== event.id))
+      if(filtered.length != 0){
+        this.events = [...this.events, ...filtered];
+      }
+    })
+  }
 
 
 

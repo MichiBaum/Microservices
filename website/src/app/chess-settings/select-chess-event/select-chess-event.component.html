@@ -3,11 +3,15 @@
   [value]="events"
   [(selection)]="selectedEvent"
   selectionMode="single"
-  [paginator]="true"
-  [scrollable]="true"
-  [rows]="5"
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
+  [scrollable]="true"
+  scrollHeight="400px"
+  [rows]="pageSize"
+  [virtualScroll]="true"
+  [virtualScrollItemSize]="virtualPageSize"
+  [lazy]="true"
+  (onLazyLoad)="lazyLoad($event)"
 >
   <ng-template #header>
     <tr>

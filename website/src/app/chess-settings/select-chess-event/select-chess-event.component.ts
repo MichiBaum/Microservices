@@ -1,13 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TableModule} from "primeng/table";
-import {ChessEvent, ChessEventCategory} from "../../core/models/chess/chess.models";
+import {TableLazyLoadEvent, TableModule} from "primeng/table";
+import {ChessEvent, ChessEventCategory, SearchChessEvent} from "../../core/models/chess/chess.models";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {NgForOf} from "@angular/common";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
-import {FilterService, SelectItem} from "primeng/api";
+import {FilterMetadata, FilterService, SelectItem} from "primeng/api";
+import {LazyLoad} from "../../core/models/lazy-load.model";
 
 @Component({
   selector: 'app-select-chess-event',
@@ -24,11 +25,17 @@ import {FilterService, SelectItem} from "primeng/api";
 })
 export class SelectChessEventComponent implements OnInit{
 
+  pageSize = 100 // TODO https://github.com/primefaces/primeng/issues/17106
+  virtualPageSize = this.pageSize/2
+
   @Input()
   events: ChessEvent[] = [];
 
   @Output()
   selectedEventEmitter: EventEmitter<ChessEvent | undefined> = new EventEmitter()
+
+  @Output()
+  lazyLoadEventEmitter: EventEmitter<LazyLoad<SearchChessEvent>> = new EventEmitter()
 
   selectedEvent: ChessEvent | undefined;
   matchModeOptions: SelectItem[] = [];
@@ -80,6 +87,31 @@ export class SelectChessEventComponent implements OnInit{
     if(url == undefined || url == "")
       return "color: red"
     return "color: green"
+  }
+
+  lazyLoad($event: TableLazyLoadEvent) {
+    console.log("First " + $event.first + " Last " + $event.last)
+
+    const last = $event.last
+    if(last == undefined){
+      return
+    }
+
+    const data: SearchChessEvent = {
+      title: ($event.filters?.['title'] as FilterMetadata)?.value ?? '',
+      category: ($event.filters?.['categories'] as FilterMetadata)?.value ?? '',
+      location: ($event.filters?.['location'] as FilterMetadata)?.value ?? '',
+      url: ($event.filters?.['url'] as FilterMetadata)?.value ?? '',
+      embedUrl: ($event.filters?.['url'] as FilterMetadata)?.value ?? '',
+      pageNumber: Math.round(last / this.pageSize),
+      pageSize: this.pageSize,
+    }
+
+    const lazyLoad: LazyLoad<SearchChessEvent> = {
+      data: data,
+      event: $event
+    }
+    this.lazyLoadEventEmitter.emit(lazyLoad)
   }
 
 }
