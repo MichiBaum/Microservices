@@ -71,23 +71,56 @@ your project's `pom.xml` files.
 
 #### Up
 
-    docker compose up -d
+```
+docker compose up -d
+```
 
 #### Down
 
-    docker compose down
+```
+docker compose down
+```
 
 #### Logs
 
-    # Follow
-    docker compose logs -f
+```
+# Follow
+docker compose logs -f
 
-    # Single container 
-    docker compose logs ´name´
+# Single container 
+docker compose logs ´name´
+```
 
 #### Stats
 
-    docker stats
+```
+docker stats
+```
+
+### Docker database backup
+
+Replace 'PASSWORD' with password defined in .env.  
+Replace path '/data/db-backup' if different location is needed.
+```
+# Save sql file
+docker exec microservices-chess-db-1 mysqldump -u root -pPASSWORD chess > someFilename.sql
+
+# Save gzip
+docker exec microservices-chess-db-1 mysqldump -u root -pPASSWORD chess | gzip -c > /data/db-backup/chess_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
+
+# All databases, replace password and save path
+docker exec microservices-chess-db-1 mysqldump -u root -pPASSWORD chess | gzip -c > /data/db-backup/chess_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
+docker exec microservices-music-db-1 mysqldump -u root -pPASSWORD music | gzip -c > /data/db-backup/music_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
+docker exec microservices-fitness-db-1 mysqldump -u root -pPASSWORD fitness | gzip -c > /data/db-backup/fitness_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
+docker exec microservices-usermanagement-db-1 mysqldump -u root -pPASSWORD usermanagement | gzip -c > /data/db-backup/usermanagement_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
+docker exec microservices-authentication-db-1 mysqldump -u root -pPASSWORD authentication | gzip -c > /data/db-backup/authentication_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
+
+# Add to crontab
+crontab -e
+
+# List cronjobs
+crontab -l
+```
 
 ### Change HOSTS file (for dev on local machine)
 *Remember to take Backup before editing your `hosts` file, mistakes there can block your internet access or cause other network-related issues.*
@@ -97,16 +130,18 @@ your project's `pom.xml` files.
 
 In *C:\Windows\System32\drivers\etc* find file *hosts* and add those lines:
 
-    # Microservices
-    127.0.0.1 chess.michibaum.ch
-    127.0.0.1 gateway.michibaum.ch
-    127.0.0.1 registry.michibaum.ch
-    127.0.0.1 admin.michibaum.ch
-    127.0.0.1 usermanagement.michibaum.ch
-    127.0.0.1 authentication.michibaum.ch
-    127.0.0.1 fitness.michibaum.ch
-    127.0.0.1 music.michibaum.ch
-    127.0.0.1 michibaum.ch
+```
+# Microservices
+127.0.0.1 chess.michibaum.ch
+127.0.0.1 gateway.michibaum.ch
+127.0.0.1 registry.michibaum.ch
+127.0.0.1 admin.michibaum.ch
+127.0.0.1 usermanagement.michibaum.ch
+127.0.0.1 authentication.michibaum.ch
+127.0.0.1 fitness.michibaum.ch
+127.0.0.1 music.michibaum.ch
+127.0.0.1 michibaum.ch
+```
 
 #### Linux
 
@@ -115,11 +150,15 @@ File: */etc/hosts*
 
 ### Scan docker files
 
-    docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
+```
+docker scan YourDockerHubUsername/DockerHubRepository:TagName --dependency-tree
+```
 
 ## Local dev db
 
-    docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:10.11
+```
+docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:10.11
+```
 
 After that create the databases in the container.
 
