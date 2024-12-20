@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://michibaum.ch/</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/home</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/login</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/register</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/about-me</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/donate</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/imprint</loc>
+  </url>
+
+  <url>
+    <loc>https://michibaum.ch/chess</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/chess/news</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.ch/chess/events</loc>
+  </url>
+</urlset>
