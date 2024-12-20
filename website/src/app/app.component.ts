@@ -52,6 +52,8 @@ export class AppComponent implements OnInit {
       rejectButtonStyleClass:"p-button-text",
       acceptLabel: this.translateService.instant('sw-update.update'),
       rejectVisible: false,
+      closeOnEscape: false,
+      closable: false,
       accept: () => {
         swUpdate.activateUpdate().then(() => window.location.reload());
       },
