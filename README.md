@@ -222,4 +222,8 @@ The tables are created trough [flyway](https://documentation.red-gate.com/fd/mig
 
 ## Sponsors
 <!-- readme: sponsors -start -->
+<table>
+	<tbody>
+	<tbody>
+</table>
 <!-- readme: sponsors -end -->
