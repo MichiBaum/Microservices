@@ -3,6 +3,10 @@ server:
   undertow:
     url-charset: UTF-8
   port: 8761
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 2048
 
 spring:
   threads:
