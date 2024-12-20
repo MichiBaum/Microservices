@@ -83,26 +83,32 @@
   },
   "home": {
     "about-me": {
+      "button": "Zu über mich",
       "content": "Wer ist der Entwickler dieser Plattform? Lerne mehr über mich!",
       "title": "About me"
     },
     "chess": {
+      "button": "Zu Schach",
       "content": "Schach ist interessant. Statistiken über Schachspieler is umso interessanter",
       "title": "Schach"
     },
     "donate": {
+      "button": "Zu Spenden",
       "content": "Magst du die Webseite? Denke darüber nach mir einen Kaffee zu spenden.",
       "title": "Spenden"
     },
     "fitness": {
+      "button": "Zu Fitness",
       "content": "Fitness und Statistiken zusammen? Wooooowww!!",
       "title": "Fitness"
     },
     "login": {
+      "button": "Zum Login",
       "content": "Du willst mehr Inhalt sehen? Melde dich an!",
       "title": "Anmelden"
     },
     "music": {
+      "button": "Zu Musik",
       "content": "Musik spricht, was Worte nicht können, berührt Herzen grenzenlos.",
       "title": "Musik"
     },
