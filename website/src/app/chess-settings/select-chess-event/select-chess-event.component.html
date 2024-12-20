@@ -1,6 +1,6 @@
 <p-table
   stripedRows
-  [value]="events"
+  [value]="events()"
   [(selection)]="selectedEvent"
   selectionMode="single"
   (onRowSelect)="onSelectionChange()"

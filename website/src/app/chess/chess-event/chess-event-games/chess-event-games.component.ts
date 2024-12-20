@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, OnChanges, SimpleChanges, input, output} from '@angular/core';
 import {ChessEvent, ChessGame} from "../../../core/models/chess/chess.models";
 import {ChessService} from "../../../core/services/chess.service";
 
@@ -9,9 +9,9 @@ import {ChessService} from "../../../core/services/chess.service";
   styleUrl: './chess-event-games.component.scss'
 })
 export class ChessEventGamesComponent implements OnChanges {
-  @Input() event: ChessEvent | undefined;
+  readonly event = input<ChessEvent>();
   games: ChessGame[] | undefined;
-  @Output() haveContent = new EventEmitter<boolean>();
+  readonly haveContent = output<boolean>();
 
   constructor(
     private readonly chessService: ChessService,

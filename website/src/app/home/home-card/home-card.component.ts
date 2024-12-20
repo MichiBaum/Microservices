@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {Card} from "primeng/card";
 import {Button} from "primeng/button";
 import {NgIf, NgOptimizedImage} from "@angular/common";
@@ -16,12 +16,12 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
 })
 export class HomeCardComponent {
 
-  @Input() headerImage: string | undefined;
-  @Input() titleText: string | undefined;
-  @Input() content: string | undefined;
-  @Input() buttonLabel: string | undefined;
+  readonly headerImage = input<string>();
+  readonly titleText = input<string>();
+  readonly content = input<string>();
+  readonly buttonLabel = input<string>();
 
-  @Output() navigate = new EventEmitter<void>();
+  readonly navigate = output<void>();
 
   constructor(
 

@@ -1,6 +1,7 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Language} from '../models/language.model';
+import {Subject} from "rxjs";
 
 export const languages: Language[] = [
   {
@@ -26,7 +27,7 @@ export class LanguageConfig {
   current: Language | undefined;
   defaultLanguage: Language;
 
-  @Output() languageChanged: EventEmitter<Language> = new EventEmitter<Language>();
+  languageChanged = new Subject<Language>;
 
   constructor(
     public translate: TranslateService
@@ -41,7 +42,7 @@ export class LanguageConfig {
     this.translate.use(language.isoCode);
     this.translate.setDefaultLang(language.isoCode);
     localStorage.setItem(this.localStorageKey, language.isoCode);
-    this.languageChanged.emit(language);
+    this.languageChanged.next(language);
   }
 
   private setInitLanguage = (): void => {

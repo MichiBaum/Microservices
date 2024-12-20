@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit, output} from '@angular/core';
 import {InputTextModule} from "primeng/inputtext";
 import {PickListModule, PickListMoveToSourceEvent, PickListMoveToTargetEvent} from "primeng/picklist";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -26,10 +26,8 @@ export class ChessPlayerSearchComponent implements OnInit{
   sourcePersons: Person[] = [];
   targetPersons: Person[] = [];
 
-  @Output()
-  accountsToAdd = new EventEmitter<Person>();
-  @Output()
-  accountsToRemove = new EventEmitter<Person>();
+  readonly accountsToAdd = output<Person>();
+  readonly accountsToRemove = output<Person>();
 
   lastname: string = "";
   firstname: string = "";

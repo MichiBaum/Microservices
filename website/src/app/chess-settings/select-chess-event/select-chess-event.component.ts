@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit, input, output} from '@angular/core';
 import {TableLazyLoadEvent, TableModule} from "primeng/table";
 import {ChessEvent, ChessEventCategory, SearchChessEvent} from "../../core/models/chess/chess.models";
 import {InputTextModule} from "primeng/inputtext";
@@ -28,14 +28,11 @@ export class SelectChessEventComponent implements OnInit{
   pageSize = 100 // TODO https://github.com/primefaces/primeng/issues/17106
   virtualPageSize = this.pageSize/2
 
-  @Input()
-  events: ChessEvent[] = [];
+  readonly events = input<ChessEvent[]>([]);
 
-  @Output()
-  selectedEventEmitter: EventEmitter<ChessEvent | undefined> = new EventEmitter()
+  readonly selectedEventEmitter = output<ChessEvent>();
 
-  @Output()
-  lazyLoadEventEmitter: EventEmitter<LazyLoad<SearchChessEvent>> = new EventEmitter()
+  readonly lazyLoadEventEmitter = output<LazyLoad<SearchChessEvent>>();
 
   selectedEvent: ChessEvent | undefined;
   matchModeOptions: SelectItem[] = [];
@@ -74,7 +71,8 @@ export class SelectChessEventComponent implements OnInit{
   }
 
   onSelectionChange() {
-    this.selectedEventEmitter.emit(this.selectedEvent)
+    if(this.selectedEvent !== undefined)
+      this.selectedEventEmitter.emit(this.selectedEvent)
   }
 
   getIcon(url: string) {

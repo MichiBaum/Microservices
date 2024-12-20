@@ -1,7 +1,7 @@
 <p-table
   #table
   stripedRows
-  [value]="categories"
+  [value]="categories()"
   [(selection)]="selectedCategory"
   selectionMode="single"
   [paginator]="true"

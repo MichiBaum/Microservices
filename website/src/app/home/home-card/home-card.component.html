@@ -1,18 +1,18 @@
 <p-card styleClass="h-full">
-  <ng-template #header *ngIf="headerImage">
-    <img alt="Card Image" class="w-full h-full" ngSrc="{{headerImage}}" width="1024" height="1024" priority placeholder/>
+  <ng-template #header *ngIf="headerImage()">
+    <img alt="Card Image" class="w-full h-full" ngSrc="{{headerImage()}}" width="1024" height="1024" priority placeholder/>
   </ng-template>
-  <ng-template #title *ngIf="titleText">{{ titleText }}</ng-template>
+  <ng-template #title *ngIf="titleText()">{{ titleText() }}</ng-template>
 
   <div class="h-20">
-    <p *ngIf="content">
-      {{content}}
+    <p *ngIf="content()">
+      {{content()}}
     </p>
   </div>
 
-  <ng-template #footer *ngIf="buttonLabel">
+  <ng-template #footer *ngIf="buttonLabel()">
     <div class="gap-6 mt-1">
-      <p-button [label]="buttonLabel" class="w-full" styleClass="w-full" (onClick)="navigateClicked()"/>
+      <p-button [label]="buttonLabel()" class="w-full" styleClass="w-full" (onClick)="navigateClicked()"/>
     </div>
   </ng-template>
 </p-card>
