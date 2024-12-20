@@ -12,10 +12,10 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <!--
-        https://github.com/spring-projects/spring-boot/wiki
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
+        https://github.com/spring-projects/spring-boot/wiki
         -->
-        <version>3.4.0</version>
+        <version>3.4.1</version>
         <relativePath />
     </parent>
 
@@ -29,6 +29,7 @@
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
+        https://github.com/codecentric/spring-boot-admin/
         -->
         <spring-boot-admin.version>3.4.1</spring-boot-admin.version>
 
