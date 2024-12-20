@@ -1,7 +1,11 @@
 <div class="flex bg-primary text-primary-contrast items-center justify-center shadow-md h-full">
 
   <div class="basis-1/4 flex-none text-left">
-    <app-navigation></app-navigation>
+    @defer () {
+      <app-navigation></app-navigation>
+    } @placeholder {
+      <p>&#9776;</p>
+    }
   </div>
 
   <div class="grow text-center">
@@ -9,7 +13,11 @@
   </div>
 
   <div class="basis-1/4 flex-none text-right">
-    <app-logout></app-logout>
+    @defer () {
+      <app-logout></app-logout>
+    } @placeholder {
+      <p>&#9755;</p>
+    }
   </div>
 
 </div>
