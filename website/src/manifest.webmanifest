@@ -7,7 +7,7 @@
   "display_override": ["standalone", "fullscreen", "minimal-ui"],
   "display": "standalone",
   "scope": "./",
-  "start_url": "https://michibaum.ch/",
+  "start_url": "./",
   "icons": [
     {
       "src": "assets/icons/icon-16x16.png",
