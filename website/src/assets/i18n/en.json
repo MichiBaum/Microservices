@@ -83,26 +83,32 @@
   },
   "home": {
     "about-me": {
+      "button": "Go to about me",
       "content": "Who is the developer of this platform? Learn more about me!",
       "title": "About me"
     },
     "chess": {
+      "button": "Go to chess",
       "content": "Chess is interesting. Statistics about chess player is even more interesting.",
       "title": "Chess"
     },
     "donate": {
+      "button": "Go to donations",
       "content": "Do you like the website? Think about donating me a coffee.",
       "title": "Donate"
     },
     "fitness": {
+      "button": "Go to fitness",
       "content": "Fitness and statistics together? Wooooowww!!",
       "title": "Fitness"
     },
     "login": {
+      "button": "Go to login",
       "content": "Wanna see more content? Login or Register!",
       "title": "Login"
     },
     "music": {
+      "button": "Go to music",
       "content": "Music speaks what words cannot, touching hearts beyond measure.",
       "title": "Music"
     },
@@ -170,6 +176,6 @@
     "later": "Later",
     "update": "Update",
     "update-available": "Update available!",
-    "update-available-message": "A new version is available. Do you want to update? It is recommended"
+    "update-available-message": "A new version is available!"
   }
 }

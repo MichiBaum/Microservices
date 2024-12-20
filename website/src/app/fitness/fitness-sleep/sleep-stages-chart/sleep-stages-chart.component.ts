@@ -1,25 +1,24 @@
-import {Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnChanges, SimpleChanges, input, viewChild, inject } from '@angular/core';
 import {SleepStage} from "../../../core/models/fitness/sleep.model";
 import * as d3 from "d3";
 
 @Component({
   selector: 'app-sleep-stages-chart',
-  standalone: true,
   imports: [],
   templateUrl: './sleep-stages-chart.component.html',
   styleUrl: './sleep-stages-chart.component.scss'
 })
 export class SleepStagesChartComponent implements OnChanges{
+  private elementRef = inject(ElementRef);
 
-  @Input() sleepStages: SleepStage[] | undefined;
-  @ViewChild('container') container : ElementRef | undefined;
+
+  readonly sleepStages = input<SleepStage[]>();
+  readonly container = viewChild<ElementRef>('container');
 
   private svg: any;
   private margin = 50;
   private width = 0;
   private height = 0;
-
-  constructor(private elementRef: ElementRef) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -31,7 +30,7 @@ export class SleepStagesChartComponent implements OnChanges{
 
   private createSvg(): void {
     // @ts-ignore
-    this.width = this.container.nativeElement.offsetWidth - (this.margin * 2);
+    this.width = this.container().nativeElement.offsetWidth - (this.margin * 2);
     this.height = this.width * 0.2
     d3.select(this.elementRef.nativeElement).select('.chart').selectAll('*').remove();
     this.svg = d3.select(this.elementRef.nativeElement).select('.chart')

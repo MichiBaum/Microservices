@@ -7,24 +7,10 @@ import {Permissions} from "./core/config/permissions";
 import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
 
 /**
- * The set of routes for the application including navigation paths, components, activation guards, and required permissions.
- * This configuration supports both eager and lazy loading of components.
- *
- * Paths and their corresponding components:
- * - Default: HomeComponent
- * - Home: HomeComponent
- * - Login: LoginComponent
- * - Register: RegisterComponent
- * - Microservices: MicroserviceOverviewComponent (lazy-loaded)
- * - Imprint: ImprintComponent (lazy-loaded)
- * - About Me: AboutMeComponent (lazy-loaded)
- * - Chess: ChessComponent (lazy-loaded)
- * - Chess Settings: ChessSettingsComponent (lazy-loaded)
- * - Donate: DonateComponent (lazy-loaded)
- * - Fitness: FitnessComponent (lazy-loaded)
- * - Fitness Settings: FitnessSettingsComponent (lazy-loaded)
- * - Music: MusicComponent (lazy-loaded)
- * - Music Settings: MusicSettingsComponent (lazy-loaded)
+ * Defines the application routes and their respective components, guards, and additional configuration.
+ * The routes are organized by their `path`, which determines the URL segment for navigation.
+ * Components are either directly loaded or lazy-loaded using dynamic imports, with optional guard conditions applied.
+ * Certain routes include nested child routes or provide additional metadata for permissions.
  */
 export const routes: Routes = [
   {
@@ -39,12 +25,12 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () => import("./login/login.component").then((c) => c.LoginComponent),
     canActivate: [],
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    loadComponent: () => import("./register/register.component").then((c) => c.RegisterComponent),
     canActivate: [],
   },
   {

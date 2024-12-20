@@ -1,7 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ChessEvent, ChessEventCategory, Gender, Person, WriteChessEvent} from "../../core/models/chess/chess.models";
+import {
+  ChessEvent,
+  ChessEventCategory,
+  Gender,
+  Person,
+  SearchChessEvent,
+  WriteChessEvent
+} from "../../core/models/chess/chess.models";
 import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 import {Fieldset} from "primeng/fieldset";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
@@ -13,11 +20,10 @@ import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
-import {PrimeTemplate} from "primeng/api";
+import {LazyLoad} from "../../core/models/lazy-load.model";
 
 @Component({
   selector: 'app-chess-update-event',
-  standalone: true,
   imports: [
     Fieldset,
     SelectChessEventComponent,
@@ -30,13 +36,14 @@ import {PrimeTemplate} from "primeng/api";
     FaIconComponent,
     NgIf,
     PickList,
-    PrimeTemplate,
     FormsModule
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
 })
 export class ChessUpdateEventComponent implements OnInit{
+  private readonly chessService = inject(ChessService);
+
 
   events: ChessEvent[] = [];
   selectedEvent: ChessEvent | undefined;
@@ -86,14 +93,8 @@ export class ChessUpdateEventComponent implements OnInit{
     ]),
   });
 
-  constructor(
-    private readonly chessService: ChessService
-  ) { }
 
   ngOnInit(): void {
-    this.chessService.events().subscribe(events => {
-      this.events = [...events];
-    })
     this.chessService.eventCategories().subscribe(categories => {
       this.categories = [...categories];
     })
@@ -151,11 +152,15 @@ export class ChessUpdateEventComponent implements OnInit{
     if(this.formGroup.invalid){
       return;
     }
+
+    const dateFrom = this.getDate(this.formGroup.controls['dateFrom'].value)
+    const dateTo = this.getDate(this.formGroup.controls['dateTo'].value)
+
     const event: WriteChessEvent = {
       title: this.formGroup.controls['title'].value,
       location: this.formGroup.controls['location'].value,
-      dateFrom: this.formGroup.controls['dateFrom'].value.toISOString().split('T')[0],
-      dateTo: this.formGroup.controls['dateTo'].value.toISOString().split('T')[0],
+      dateFrom: dateFrom,
+      dateTo: dateTo,
       url: this.formGroup.controls['url'].value,
       embedUrl: this.formGroup.controls['embedUrl'].value,
       categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
@@ -173,6 +178,16 @@ export class ChessUpdateEventComponent implements OnInit{
         this.events = [...newEvents]
       }
     })
+  }
+
+  getDate(date: Date): string | undefined {
+    // TODO this is a quickfix for timezones
+    let dateString: string | undefined = undefined;
+    if(date != undefined){
+      const offset = date.getTimezoneOffset()
+      dateString = new Date(date.getTime() - (offset*60*1000)).toISOString().split('T')[0]
+    }
+    return dateString;
   }
 
   clear() {
@@ -193,7 +208,14 @@ export class ChessUpdateEventComponent implements OnInit{
     return faVenusMars;
   }
 
-
+  lazyLoadEvents(lazyLoad: LazyLoad<SearchChessEvent>) {
+    this.chessService.searchEvents(lazyLoad.data).subscribe(newEvents => {
+      const filtered = newEvents.filter(event => this.events.every(oldEvent => oldEvent.id !== event.id))
+      if(filtered.length != 0){
+        this.events = [...this.events, ...filtered];
+      }
+    })
+  }
 
 
 

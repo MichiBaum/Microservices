@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {FloatLabelModule} from "primeng/floatlabel";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {PasswordModule} from "primeng/password";
-import {PrimeTemplate} from "primeng/api";
 import {AuthService} from "../core/services/auth.service";
 import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
@@ -17,7 +16,6 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-register',
-  standalone: true,
   imports: [
     Button,
     CardModule,
@@ -25,7 +23,6 @@ import {FormsModule} from "@angular/forms";
     InputTextModule,
     PaginatorModule,
     PasswordModule,
-    PrimeTemplate,
     TranslateModule,
     FocusTrapModule,
     FormsModule
@@ -34,17 +31,15 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit{
+  private readonly authService = inject(AuthService);
+  private readonly headerService = inject(HeaderService);
+  private readonly router = inject(RouterNavigationService);
+  private readonly userInfoService = inject(UserInfoService);
+
   username: string = "";
   password: string = "";
   passwordRepeat: string = "";
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly headerService: HeaderService,
-    private readonly router: RouterNavigationService,
-    private readonly userInfoService: UserInfoService
-  ) {
-  }
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.register.translationKey)

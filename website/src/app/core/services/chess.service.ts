@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
   Account,
@@ -6,6 +6,7 @@ import {
   ChessEventCategory, ChessEventCategoryWithEvents,
   ChessGame,
   Person,
+  SearchChessEvent,
   SearchPerson,
   WriteChessEvent, WriteChessEventCategory, WritePerson
 } from "../models/chess/chess.models";
@@ -16,9 +17,9 @@ import {UserInfoService} from "./user-info.service";
 
 @Injectable({providedIn: 'root'})
 export class ChessService {
-
-  constructor(private http: HttpClient, private httpErrorConfig: HttpErrorHandler, private userInfoService: UserInfoService) {
-  }
+  private http = inject(HttpClient);
+  private httpErrorConfig = inject(HttpErrorHandler);
+  private userInfoService = inject(UserInfoService);
 
   searchPersons(searchPerson: SearchPerson): Observable<Person[]> {
     return this.http.post<Person[]>(environment.chessService + '/persons/search', searchPerson)
@@ -32,6 +33,11 @@ export class ChessService {
 
   events(): Observable<ChessEvent[]> {
     return this.http.get<ChessEvent[]>(environment.chessService + '/events')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  searchEvents(search: SearchChessEvent): Observable<ChessEvent[]> {
+    return this.http.get<ChessEvent[]>(environment.chessService + '/events/search', { params: {...search} })
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 

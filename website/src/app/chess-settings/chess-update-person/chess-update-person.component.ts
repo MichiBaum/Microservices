@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";
@@ -19,7 +19,6 @@ import {FloatLabel} from "primeng/floatlabel";
 
 @Component({
   selector: 'app-chess-update-person',
-  standalone: true,
   imports: [
     DropdownModule,
     DividerModule,
@@ -40,6 +39,8 @@ import {FloatLabel} from "primeng/floatlabel";
   styleUrl: './chess-update-person.component.scss'
 })
 export class ChessUpdatePersonComponent implements OnInit{
+  private readonly chessService = inject(ChessService);
+
   protected readonly environment = environment;
 
   persons: Person[] = [];
@@ -86,9 +87,6 @@ export class ChessUpdatePersonComponent implements OnInit{
     ]),
   })
 
-  constructor(
-    private readonly chessService: ChessService
-  ) { }
 
   ngOnInit(): void {
     this.chessService.persons().subscribe(persons => this.persons = [...persons]);
@@ -130,12 +128,21 @@ export class ChessUpdatePersonComponent implements OnInit{
       return;
     }
 
+    // TODO this is a quickfix for timezones
+    let birthday: string | undefined = undefined;
+    if(this.formGroup.controls['birthday'].value != undefined){
+      const d = this.formGroup.controls['birthday'].value
+      const offset = d.getTimezoneOffset()
+      birthday = new Date(d.getTime() - (offset*60*1000)).toISOString().split('T')[0]
+    }
+
+    console.log(birthday)
     const person: WritePerson = {
       firstname: this.formGroup.controls['firstname'].value,
       lastname: this.formGroup.controls['lastname'].value,
       fideId: this.formGroup.controls['fideId'].value,
       federation: this.formGroup.controls['federation'].value,
-      birthday: this.formGroup.controls['birthday'].value?.toISOString().split('T')[0] ?? null,
+      birthday: birthday,
       gender: this.formGroup.controls['gender'].value,
     }
 

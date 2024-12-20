@@ -1,38 +1,35 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
-import {Button} from "primeng/button";
-import {CardModule} from "primeng/card";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {PermissionService} from "../core/services/permission.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {ScrollTopModule} from "primeng/scrolltop";
+import {HomeCardComponent} from "./home-card/home-card.component";
+import {Skeleton} from "primeng/skeleton";
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   imports: [
-    Button,
-    CardModule,
     NgIf,
     TranslateModule,
     ScrollTopModule,
-    NgOptimizedImage
+    HomeCardComponent,
+    Skeleton
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+  private readonly headerService = inject(HeaderService);
+  protected routerNavigationService = inject(RouterNavigationService);
+  private readonly permissionService = inject(PermissionService);
 
-  constructor(
-    private readonly headerService: HeaderService,
-    protected routerNavigationService: RouterNavigationService,
-    private readonly permissionService: PermissionService
-  ) {
+
+  ngOnInit(): void {
     this.headerService.changeTitle(Sides.home.translationKey)
   }
-
 
   canActivateChess() {
     return Sides.chess.canActivate(this.permissionService)

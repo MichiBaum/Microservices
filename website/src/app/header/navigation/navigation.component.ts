@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {MenubarModule} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
-import {LanguageConfig} from "../../core/config/language.config";
 import {SidebarModule} from "primeng/sidebar";
 import {Button, ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
@@ -32,11 +31,9 @@ import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
 import {Drawer} from "primeng/drawer";
 import {NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
-  standalone: true,
   imports: [
     MenubarModule,
     SidebarModule,
@@ -55,6 +52,11 @@ import {RouterLink} from "@angular/router";
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent implements OnInit{
+  private readonly routerNavigationService = inject(RouterNavigationService);
+  private readonly lightDarkModeService = inject(LightDarkModeService);
+  private readonly permissionService = inject(PermissionService);
+  private readonly authService = inject(AuthService);
+
   protected readonly buttonIcon = faBars;
 
   navItems: MenuItem[] = [];
@@ -66,23 +68,8 @@ export class NavigationComponent implements OnInit{
     }
   }
 
-  constructor(
-    private readonly translate: TranslateService,
-    private readonly languageConfig: LanguageConfig,
-    private readonly routerNavigationService: RouterNavigationService,
-    private readonly lightDarkModeService: LightDarkModeService,
-    private readonly permissionService: PermissionService,
-    private readonly authService: AuthService
-  ) {
-
-  }
-
   ngOnInit(): void {
     this.navItems = [...this.getNavItems()];
-
-    this.languageConfig.languageChanged.subscribe(() => {
-      this.navItems = [...this.getNavItems()];
-    });
 
     this.authService.successLoginEmitter.subscribe(() => {
       this.navItems = [...this.getNavItems()];
@@ -97,10 +84,10 @@ export class NavigationComponent implements OnInit{
   getNavItems = () =>
      [
       {
-        label: this.translate.instant('navigation.apps'),
+        label: 'navigation.apps',
         items: [
           {
-            label: this.translate.instant(Sides.login.translationKey),
+            label: Sides.login.translationKey,
             customIcon: faKey,
             visible: !this.permissionService.isAuthenticated(),
             command: () => {
@@ -109,7 +96,7 @@ export class NavigationComponent implements OnInit{
             }
           } as MenuItem,
           {
-            label: this.translate.instant(Sides.home.translationKey),
+            label: Sides.home.translationKey,
             customIcon: faHouse,
             visible: true,
             command: () => {
@@ -118,7 +105,7 @@ export class NavigationComponent implements OnInit{
             }
           } as MenuItem,
           {
-            label: this.translate.instant(Sides.fitness.translationKey),
+            label: Sides.fitness.translationKey,
             customIcon: faDumbbell,
             visible: this.permissionService.hasAnyOf([Permissions.FITNESS_SERVICE]),
             command: () => {
@@ -127,7 +114,7 @@ export class NavigationComponent implements OnInit{
             }
           } as MenuItem,
           {
-            label: this.translate.instant(Sides.music.translationKey),
+            label: Sides.music.translationKey,
             customIcon: faCompactDisc,
             visible: Sides.music.canActivate(this.permissionService),
             command: () => {
@@ -136,7 +123,7 @@ export class NavigationComponent implements OnInit{
             }
           } as MenuItem,
           {
-            label: this.translate.instant(Sides.chess.translationKey),
+            label: Sides.chess.translationKey,
             customIcon: faChess,
             visible: true,
             command: () => {
@@ -147,10 +134,10 @@ export class NavigationComponent implements OnInit{
         ]
       },
       {
-         label: this.translate.instant('navigation.developer-and-project'),
+         label: 'navigation.developer-and-project',
          items: [
           {
-            label: this.translate.instant(Sides.about_me.translationKey),
+            label: Sides.about_me.translationKey,
             customIcon: faUser,
             visible: Sides.about_me.canActivate(this.permissionService), // TODO
             command: () => {
@@ -159,7 +146,7 @@ export class NavigationComponent implements OnInit{
             }
           },
           {
-            label: this.translate.instant(Sides.donate.translationKey),
+            label: Sides.donate.translationKey,
             customIcon: faCoffee,
             visible: Sides.donate.canActivate(this.permissionService),
             command: () => {
@@ -168,7 +155,7 @@ export class NavigationComponent implements OnInit{
             }
           } as MenuItem,
           {
-            label: this.translate.instant(Sides.microservices.translationKey),
+            label: Sides.microservices.translationKey,
             customIcon: faMicrochip,
             visible: Sides.microservices.canActivate(this.permissionService),
             command: () => {
@@ -177,7 +164,7 @@ export class NavigationComponent implements OnInit{
             }
           } as MenuItem,
           {
-            label: this.translate.instant('navigation.github'),
+            label: 'navigation.github',
             customIcon: faGithub,
             visible: true,
             command: () => {
@@ -188,10 +175,10 @@ export class NavigationComponent implements OnInit{
          ]
        },
       {
-        label: this.translate.instant('navigation.else'),
+        label: 'navigation.else',
         items: [
           {
-            label: this.translate.instant('navigation.light-dark-mode'),
+            label: 'navigation.light-dark-mode',
             customIcon: faLightbulb,
             visible: true,
             command: () => {
@@ -200,7 +187,7 @@ export class NavigationComponent implements OnInit{
             }
           } as MenuItem,
           {
-            label: this.translate.instant(Sides.imprint.translationKey),
+            label: Sides.imprint.translationKey,
             customIcon: faStamp,
             visible: Sides.imprint.canActivate(this.permissionService),
             command: () => {

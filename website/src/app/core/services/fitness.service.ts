@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
@@ -11,9 +11,10 @@ import {Sleep} from "../models/fitness/sleep.model";
 
 @Injectable({providedIn: 'root'})
 export class FitnessService {
+  private http = inject(HttpClient);
+  private httpErrorConfig = inject(HttpErrorHandler);
+  private userInfoService = inject(UserInfoService);
 
-  constructor(private http: HttpClient, private httpErrorConfig: HttpErrorHandler, private userInfoService: UserInfoService) {
-  }
 
   getToken(): Observable<Token> {
     return this.http.get<Token>(environment.fitnessService + '/fitbit/token')

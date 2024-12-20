@@ -5,6 +5,9 @@ import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.EventCategory
 import com.michibaum.chess_service.domain.Person
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
@@ -74,4 +77,8 @@ class EventService(
 
     fun findByCategoryId(id: UUID): Set<Event> =
         eventRepository.findByCategoriesId(id)
+
+    fun findAllBy(specification: Specification<Event>, pageable: PageRequest): Page<Event> {
+        return eventRepository.findAll(specification, pageable)
+    }
 }

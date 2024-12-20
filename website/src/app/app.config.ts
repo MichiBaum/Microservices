@@ -1,9 +1,9 @@
-import {APP_INITIALIZER, ApplicationConfig, isDevMode} from '@angular/core';
+import { ApplicationConfig, isDevMode, inject, provideAppInitializer } from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
 import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
-import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import {InterpolatableTranslationObject, TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {provideServiceWorker} from '@angular/service-worker';
@@ -12,8 +12,6 @@ import {environment} from "../environments/environment";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {providePrimeNG} from "primeng/config";
 import {MyPreset} from "./mytheme";
-import {definePreset} from "@primeng/themes";
-import Lara from "@primeng/themes/lara";
 
 /**
  * Creates a new instance of TranslateHttpLoader with the specified HttpClient.
@@ -33,7 +31,7 @@ export function TranslateLoaderFactory(http: HttpClient): TranslateHttpLoader {
  * @param {TranslateService} translate - The translation service used to set the language.
  * @return {() => Promise<void>} A function that returns a promise, which resolves when the language has been set.
  */
-function appInitializerFactory(translate: TranslateService): () => Promise<void> {
+function appInitializerFactory(translate: TranslateService): () => Promise<InterpolatableTranslationObject | undefined> {
   return () => {
     const lang = localStorage.getItem('languageIso') ?? 'en';
     translate.setDefaultLang(lang);
@@ -56,7 +54,7 @@ const imageLoader = (config: ImageLoaderConfig) => {
  */
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes), // TODO preload strategy, but with linking routes? Possible? https://medium.com/@adrianfaciu/custom-preloading-strategy-for-angular-modules-b3b5c873681a
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimationsAsync(),
     providePrimeNG({
@@ -70,12 +68,10 @@ export const appConfig: ApplicationConfig = {
       }
     }
     ),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializerFactory,
-      deps: [TranslateService],
-      multi: true
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (appInitializerFactory)(inject(TranslateService));
+        return initializerFn();
+      }),
     {
       provide : HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

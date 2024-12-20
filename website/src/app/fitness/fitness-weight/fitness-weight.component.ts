@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Weight} from "../../core/models/fitness/weight.model";
 import {FitnessService} from "../../core/services/fitness.service";
 import {ChartModule} from "primeng/chart";
 
 @Component({
   selector: 'app-fitness-weight',
-  standalone: true,
   imports: [
     ChartModule
   ],
@@ -13,6 +12,8 @@ import {ChartModule} from "primeng/chart";
   styleUrl: './fitness-weight.component.scss'
 })
 export class FitnessWeightComponent implements OnInit {
+  private readonly fitnessService = inject(FitnessService);
+
   weightData: Weight[] = [];
 
   weightChartData: any;
@@ -21,9 +22,6 @@ export class FitnessWeightComponent implements OnInit {
   bmiChartData: any;
   bmiChartOptions: any;
 
-  constructor(
-    private readonly fitnessService: FitnessService
-  ) {}
 
   ngOnInit(): void {
     this.getWeightData()

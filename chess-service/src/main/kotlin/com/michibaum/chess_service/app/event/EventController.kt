@@ -30,6 +30,13 @@ class EventController(
         eventService.findAll()
             .map { eventConverter.toDto(it) }
 
+    @GetMapping("/api/events/search")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    fun searchEvents(@ModelAttribute param: SearchEventDto): List<EventDto> {
+        return eventService.findAllBy(param.getSpecification(), param.getPageable()).content
+            .map { eventConverter.toDto(it) }
+    }
+
     @GetMapping("/api/events/recent-upcoming")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAllRecentAndUpcomingEvents(): List<EventDto> {

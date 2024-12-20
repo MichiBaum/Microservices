@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {LanguageConfig} from "../core/config/language.config";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Language} from "../core/models/language.model";
@@ -8,7 +8,6 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-language-select',
-  standalone: true,
   imports: [
     DropdownModule,
     SelectButtonModule,
@@ -19,13 +18,12 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './language-select.component.scss'
 })
 export class LanguageSelectComponent implements OnInit{
+  private readonly languageConfig = inject(LanguageConfig);
+
 
   languages: Language[] | undefined;
   selectedLanguage: Language | undefined;
 
-  constructor(
-    private readonly languageConfig: LanguageConfig,
-  ) { }
 
   ngOnInit(): void {
     this.languages = this.languageConfig.languages;

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, OnInit, output, inject } from '@angular/core';
 import {InputTextModule} from "primeng/inputtext";
 import {PickListModule, PickListMoveToSourceEvent, PickListMoveToTargetEvent} from "primeng/picklist";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -10,7 +10,6 @@ import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess-player-search',
-  standalone: true,
   imports: [
     InputTextModule,
     PickListModule,
@@ -22,25 +21,19 @@ import {TranslateModule} from "@ngx-translate/core";
   templateUrl: './chess-player-search.component.html',
   styleUrl: './chess-player-search.component.scss'
 })
-export class ChessPlayerSearchComponent implements OnInit{
+export class ChessPlayerSearchComponent{
+  private readonly chessService = inject(ChessService);
+
 
   sourcePersons: Person[] = [];
   targetPersons: Person[] = [];
 
-  @Output()
-  accountsToAdd = new EventEmitter<Person>();
-  @Output()
-  accountsToRemove = new EventEmitter<Person>();
+  readonly accountsToAdd = output<Person>();
+  readonly accountsToRemove = output<Person>();
 
   lastname: string = "";
   firstname: string = "";
 
-  constructor(
-    private readonly chessService: ChessService
-  ) {}
-
-  ngOnInit() {
-  }
 
   search() {
     let searchPerson = {firstname: this.firstname, lastname: this.lastname} as SearchPerson

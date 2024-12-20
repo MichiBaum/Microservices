@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {FitnessService} from "../../core/services/fitness.service";
 import {Sleep} from "../../core/models/fitness/sleep.model";
 import {SleepStagesChartComponent} from "./sleep-stages-chart/sleep-stages-chart.component";
@@ -10,7 +10,6 @@ import {Select} from "primeng/select";
 
 @Component({
   selector: 'app-fitness-sleep',
-  standalone: true,
   imports: [
     SleepStagesChartComponent,
     DropdownModule,
@@ -24,17 +23,16 @@ import {Select} from "primeng/select";
   styleUrl: './fitness-sleep.component.scss'
 })
 export class FitnessSleepComponent implements OnInit {
+  private readonly fitnessService = inject(FitnessService);
+
 
   protected sleeps: Sleep[] = []
   protected selectedSleep: Sleep | undefined
 
-  constructor(private readonly fitnessService: FitnessService) {
-
-  }
 
   ngOnInit(): void {
     this.fitnessService.getSleep().subscribe(sleep => {
-      var sorted = this.fDates(sleep)
+      const sorted = this.fDates(sleep);
       this.sleeps = [...sorted]
     })
   }

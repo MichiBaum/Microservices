@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
 import {ChessService} from "../../core/services/chess.service";
@@ -13,14 +13,11 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
 import {Avatar} from "primeng/avatar";
-import {FooterRowOutlet} from "@angular/cdk/table";
 
 @Component({
   selector: 'app-chess-events',
-  standalone: true,
   imports: [
     CardModule,
     Button,
@@ -35,26 +32,23 @@ import {FooterRowOutlet} from "@angular/cdk/table";
     Tab,
     TabPanel,
     TabPanels,
-    FaIconComponent,
     Avatar,
-    FooterRowOutlet
   ],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.scss'
 })
 export class ChessEventComponent implements OnInit {
+  private _sanitizer = inject(DomSanitizer);
+  private readonly route = inject(ActivatedRoute);
+  private readonly chessService = inject(ChessService);
+  private readonly navigationService = inject(RouterNavigationService);
+
 
   embedUrl: SafeResourceUrl = "";
   event: ChessEvent | undefined;
 
   gamesTabDisabled: boolean = true;
 
-  constructor(
-    private _sanitizer: DomSanitizer,
-    private readonly route: ActivatedRoute,
-    private readonly chessService: ChessService,
-    private readonly navigationService: RouterNavigationService
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

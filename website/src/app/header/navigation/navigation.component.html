@@ -21,12 +21,12 @@
     [dt]="menuStyle"
   >
     <ng-template #submenuheader let-item>
-      <span class="text-primary font-bold">{{ item.label }}</span>
+      <span class="text-primary font-bold">{{ item.label | translate }}</span>
     </ng-template>
     <ng-template #item let-item>
       <a pRipple class="flex items-center p-menu-item-link" *ngIf="item.visible">
         <fa-icon [icon]="item.customIcon"></fa-icon>
-        <span class="ml-2">{{ item.label }}</span>
+        <span class="ml-2">{{ item.label | translate }}</span>
       </a>
     </ng-template>
   </p-menu>

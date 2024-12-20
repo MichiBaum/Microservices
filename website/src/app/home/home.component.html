@@ -1,93 +1,65 @@
 <div class="container mx-auto">
   <div class="grid grid-cols-1 4k:grid-cols-7 xlScreen:grid-cols-6 lScreen:grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
 
-      <p-card *ngIf="canLogin()" styleClass="h-full">
-        <ng-template #header>
-          <img alt="Login Image" class="w-full h-full" ngSrc="home_login.jpeg" width="1024" height="1024" priority placeholder/>
-        </ng-template>
-        <ng-template #title>{{"home.login.title" | translate}}</ng-template>
-        <p class="h-20">
-          {{"home.login.content" | translate}}
-        </p>
-        <ng-template #footer>
-          <div class="gap-6 mt-1">
-            <p-button label="Go to login" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.login()" />
-          </div>
-        </ng-template>
-      </p-card>
+    @defer{
+      <app-home-card
+        *ngIf="canLogin()"
+        [headerImage]="'home_login.jpeg'"
+        [titleText]="'home.login.title' | translate"
+        [content]="'home.login.content' | translate"
+        [buttonLabel]="'home.login.button' | translate"
+        (navigate)="routerNavigationService.login()"
+      ></app-home-card>
 
-      <p-card styleClass="h-full">
-        <ng-template #header>
-          <img alt="Chess Image" class="w-full h-full" ngSrc="home_chess.jpeg" width="1024" height="1024" priority placeholder />
-        </ng-template>
-        <ng-template #title>{{"home.chess.title" | translate}}</ng-template>
-        <p class="h-20">
-          {{"home.chess.content" | translate}}
-        </p>
-        <ng-template #footer>
-          <div class="gap-6 mt-1">
-            <p-button label="Go to chess" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.chess()" />
-          </div>
-        </ng-template>
-      </p-card>
+      <app-home-card
+        [headerImage]="'home_chess.jpeg'"
+        [titleText]="'home.chess.title' | translate"
+        [content]="'home.chess.content' | translate"
+        [buttonLabel]="'home.chess.button' | translate"
+        (navigate)="routerNavigationService.chess()"
+      ></app-home-card>
 
-      <p-card *ngIf="canActivateFitness()" styleClass="h-full">
-        <ng-template #header>
-          <img alt="Fitness Image" class="w-full h-full" ngSrc="home_fitness.jpeg" width="1024" height="1024" priority placeholder/>
-        </ng-template>
-        <ng-template #title>{{"home.fitness.title" | translate}}</ng-template>
-        <p class="h-20">
-          {{"home.fitness.content" | translate}}
-        </p>
-        <ng-template #footer>
-          <div class="gap-6 mt-1">
-            <p-button label="Go to fitness" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.fitness()" />
-          </div>
-        </ng-template>
-      </p-card>
+      <app-home-card
+        *ngIf="canActivateFitness()"
+        [headerImage]="'home_fitness.jpeg'"
+        [titleText]="'home.fitness.title' | translate"
+        [content]="'home.fitness.content' | translate"
+        [buttonLabel]="'home.fitness.button' | translate"
+        (navigate)="routerNavigationService.fitness()"
+      ></app-home-card>
 
-      <p-card *ngIf="canActivateMusic()" styleClass="h-full">
-        <ng-template #header>
-          <img alt="Music Image" class="w-full h-full" ngSrc="home_music.jpeg" width="1024" height="1024" priority placeholder/>
-        </ng-template>
-        <ng-template #title>{{"home.music.title" | translate}}</ng-template>
-        <p class="h-20">
-          {{"home.music.content" | translate}}
-        </p>
-        <ng-template #footer>
-          <div class="gap-6 mt-1">
-            <p-button label="Go to music" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.music()" />
-          </div>
-        </ng-template>
-      </p-card>
+      <app-home-card
+        *ngIf="canActivateMusic()"
+        [headerImage]="'home_music.jpeg'"
+        [titleText]="'home.music.title' | translate"
+        [content]="'home.music.content' | translate"
+        [buttonLabel]="'home.music.button' | translate"
+        (navigate)="routerNavigationService.music()"
+      ></app-home-card>
 
-      <p-card styleClass="h-full">
-        <ng-template #header>
-          <img alt="About me Image" class="w-full h-full" ngSrc="home_about-me.jpeg" width="1024" height="1024" priority placeholder/>
-        </ng-template>
-        <ng-template #title>{{"home.about-me.title" | translate}}</ng-template>
-        <p class="h-20">
-          {{"home.about-me.content" | translate}}
-        </p>
-        <ng-template #footer>
-          <div class="gap-6 mt-1">
-            <p-button label="Go to about me" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.about_me()" />
-          </div>
-        </ng-template>
-      </p-card>
+      <app-home-card
+        [headerImage]="'home_about-me.jpeg'"
+        [titleText]="'home.about-me.title' | translate"
+        [content]="'home.about-me.content' | translate"
+        [buttonLabel]="'home.about-me.button' | translate"
+        (navigate)="routerNavigationService.about_me()"
+      ></app-home-card>
 
-      <p-card styleClass="h-full">
-        <ng-template #header>
-          <img alt="Donate Image" class="w-full h-full" ngSrc="home_donate.jpeg" width="1024" height="1024" priority placeholder/>
-        </ng-template>
-        <ng-template #title>{{"home.donate.title" | translate}}</ng-template>
-        <p class="h-20">
-          {{"home.donate.content" | translate}}
-        </p>
-        <ng-template #footer>
-            <p-button label="Go to donate" class="w-full" styleClass="w-full" (onClick)="routerNavigationService.donate()" />
-        </ng-template>
-      </p-card>
+      <app-home-card
+        [headerImage]="'home_donate.jpeg'"
+        [titleText]="'home.donate.title' | translate"
+        [content]="'home.donate.content' | translate"
+        [buttonLabel]="'home.donate.button' | translate"
+        (navigate)="routerNavigationService.donate()"
+      ></app-home-card>
+    } @placeholder {
+      <!-- TODO -->
+      <p-skeleton styleClass="mb-2" />
+      <p-skeleton styleClass="mb-2" />
+      <p-skeleton styleClass="mb-2" />
+      <p-skeleton styleClass="mb-2" />
+      <p-skeleton styleClass="mb-2" />
+    }
 
   </div>
 </div>

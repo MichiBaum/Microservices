@@ -1,11 +1,10 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {Button} from "primeng/button";
 import {FitnessService} from "../../core/services/fitness.service";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 
 @Component({
   selector: 'app-fitness-login',
-  standalone: true,
   imports: [
     Button
   ],
@@ -13,8 +12,9 @@ import {RouterNavigationService} from "../../core/services/router-navigation.ser
   styleUrl: './fitness-login.component.scss'
 })
 export class FitnessLoginComponent {
+  private readonly fitnessService = inject(FitnessService);
+  private readonly router = inject(RouterNavigationService);
 
-  constructor(private readonly fitnessService: FitnessService, private readonly router: RouterNavigationService) { }
 
   getTokenUrl(){
     this.fitnessService.getToken().subscribe(token => this.router.openPopup(token.url.replace(/ /g, "")));

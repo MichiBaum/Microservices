@@ -1,13 +1,12 @@
 import {Router} from '@angular/router';
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouterNavigationService {
+  private router = inject(Router);
 
-  constructor(private router: Router) {
-  }
 
   home() {
     this.router.navigate(['/home']);

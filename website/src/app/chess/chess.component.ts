@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {SplitterModule} from "primeng/splitter";
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
@@ -10,14 +10,13 @@ import {ChessNavigationComponent} from "./chess-navigation/chess-navigation.comp
 import {
   ChessRecentUpcomingEventsComponent
 } from "./chess-recent-upcoming-events/chess-recent-upcoming-events.component";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {Button} from "primeng/button";
 import {Card} from "primeng/card";
 import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess',
-  standalone: true,
   imports: [
     SplitterModule,
     MenubarModule,
@@ -36,10 +35,7 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './chess.component.scss'
 })
 export class ChessComponent implements OnInit{
-
-  constructor(
-    private readonly headerService: HeaderService,
-  ) { }
+  private readonly headerService = inject(HeaderService);
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.chess.translationKey)

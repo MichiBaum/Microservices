@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {NavigationComponent} from "./navigation/navigation.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
@@ -11,7 +11,6 @@ import {MenubarModule} from "primeng/menubar";
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [
     NavigationComponent,
     TranslateModule,
@@ -24,16 +23,13 @@ import {MenubarModule} from "primeng/menubar";
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{
+  private readonly languageConfig = inject(LanguageConfig);
+  private readonly translate = inject(TranslateService);
+  private readonly headerService = inject(HeaderService);
+  private readonly titleService = inject(Title);
+
   title = "application.title"
 
-  constructor(
-    private readonly languageConfig: LanguageConfig,
-    private readonly translate: TranslateService,
-    private readonly headerService: HeaderService,
-    private readonly titleService: Title
-  ) {
-
-  }
 
   ngOnInit(): void {
     this.headerService.titleChangeEmitter.subscribe(value => {

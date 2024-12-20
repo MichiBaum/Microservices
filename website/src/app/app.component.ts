@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {LightDarkModeService} from "./core/services/light-dark-mode.service";
@@ -9,28 +9,22 @@ import {UserInfoService} from "./core/services/user-info.service";
 import {SwUpdate} from "@angular/service-worker";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PrimeNG} from "primeng/config";
-import {ScrollTop} from "primeng/scrolltop";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule, ScrollTop],
+  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [MessageService, ConfirmationService]
 })
 export class AppComponent implements OnInit {
-
-  constructor(
-    private readonly lightDarkModeService: LightDarkModeService,
-    private readonly primengConfig: PrimeNG,
-    private readonly translateService: TranslateService,
-    private readonly messageService: MessageService,
-    private readonly userInfoService: UserInfoService,
-    private readonly swUpdate: SwUpdate,
-    private readonly confirmationService: ConfirmationService
-  ) {
-  }
+  private readonly lightDarkModeService = inject(LightDarkModeService);
+  private readonly primengConfig = inject(PrimeNG);
+  private readonly translateService = inject(TranslateService);
+  private readonly messageService = inject(MessageService);
+  private readonly userInfoService = inject(UserInfoService);
+  private readonly swUpdate = inject(SwUpdate);
+  private readonly confirmationService = inject(ConfirmationService);
 
   ngOnInit(): void {
     this.translateService.onLangChange.subscribe(() => {
@@ -57,13 +51,12 @@ export class AppComponent implements OnInit {
       icon: 'pi pi-spin pi-cog',
       rejectButtonStyleClass:"p-button-text",
       acceptLabel: this.translateService.instant('sw-update.update'),
-      rejectLabel: this.translateService.instant('sw-update.later'),
+      rejectVisible: false,
+      closeOnEscape: false,
+      closable: false,
       accept: () => {
         swUpdate.activateUpdate().then(() => window.location.reload());
       },
-      reject: () => {
-
-      }
     })
   }
 

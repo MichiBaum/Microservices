@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {ChessEvent} from "../../core/models/chess/chess.models";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -10,7 +10,6 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 
 @Component({
   selector: 'app-chess-recent-upcoming-events',
-  standalone: true,
   imports: [
     FaIconComponent,
     PrimeTemplate,
@@ -23,12 +22,10 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
   styleUrl: './chess-recent-upcoming-events.component.scss'
 })
 export class ChessRecentUpcomingEventsComponent implements OnInit{
+  private readonly chessService = inject(ChessService);
 
   events: ChessEvent[] = []
 
-  constructor(
-    private readonly chessService: ChessService,
-  ) { }
 
   ngOnInit(): void {
     this.chessService.eventsRecentUpcoming().subscribe(events => {

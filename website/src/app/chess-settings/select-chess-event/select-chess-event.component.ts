@@ -1,17 +1,17 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TableModule} from "primeng/table";
-import {ChessEvent, ChessEventCategory} from "../../core/models/chess/chess.models";
+import { Component, OnInit, input, output, inject } from '@angular/core';
+import {TableLazyLoadEvent, TableModule} from "primeng/table";
+import {ChessEvent, ChessEventCategory, SearchChessEvent} from "../../core/models/chess/chess.models";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {NgForOf} from "@angular/common";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
-import {FilterService, SelectItem} from "primeng/api";
+import {FilterMetadata, FilterService, SelectItem} from "primeng/api";
+import {LazyLoad} from "../../core/models/lazy-load.model";
 
 @Component({
   selector: 'app-select-chess-event',
-  standalone: true,
   imports: [
     TableModule,
     InputTextModule,
@@ -24,21 +24,20 @@ import {FilterService, SelectItem} from "primeng/api";
   styleUrl: './select-chess-event.component.scss'
 })
 export class SelectChessEventComponent implements OnInit{
+  private readonly filterService = inject(FilterService);
 
-  @Input()
-  events: ChessEvent[] = [];
+  readonly events = input<ChessEvent[]>([]);
+  readonly selectedEventEmitter = output<ChessEvent>();
+  readonly lazyLoadEventEmitter = output<LazyLoad<SearchChessEvent>>();
 
-  @Output()
-  selectedEventEmitter: EventEmitter<ChessEvent | undefined> = new EventEmitter()
+  pageSize = 100 // TODO https://github.com/primefaces/primeng/issues/17106
+  virtualPageSize = this.pageSize/2
 
   selectedEvent: ChessEvent | undefined;
   matchModeOptions: SelectItem[] = [];
   eventCategoryFilterName = 'anyEventCategoryLike';
   eventUrlFilterName = 'eventUrlPresent';
 
-  constructor(
-    private readonly filterService: FilterService
-  ) { }
 
   ngOnInit(): void {
     this.filterService.register(this.eventCategoryFilterName, (value: any, filter:any): boolean => {
@@ -68,7 +67,8 @@ export class SelectChessEventComponent implements OnInit{
   }
 
   onSelectionChange() {
-    this.selectedEventEmitter.emit(this.selectedEvent)
+    if(this.selectedEvent !== undefined)
+      this.selectedEventEmitter.emit(this.selectedEvent)
   }
 
   getIcon(url: string) {
@@ -81,6 +81,31 @@ export class SelectChessEventComponent implements OnInit{
     if(url == undefined || url == "")
       return "color: red"
     return "color: green"
+  }
+
+  lazyLoad($event: TableLazyLoadEvent) {
+    console.log($event)
+
+    const last = $event.last // TODO maybe first + rows??? What happens when filter?
+    if(last == undefined){
+      return
+    }
+
+    const data: SearchChessEvent = {
+      title: ($event.filters?.['title'] as FilterMetadata)?.value ?? '',
+      category: ($event.filters?.['categories'] as FilterMetadata)?.value ?? '',
+      location: ($event.filters?.['location'] as FilterMetadata)?.value ?? '',
+      url: ($event.filters?.['url'] as FilterMetadata)?.value ?? '',
+      embedUrl: ($event.filters?.['url'] as FilterMetadata)?.value ?? '',
+      pageNumber: Math.round(last / this.pageSize),
+      pageSize: this.pageSize,
+    }
+
+    const lazyLoad: LazyLoad<SearchChessEvent> = {
+      data: data,
+      event: $event
+    }
+    this.lazyLoadEventEmitter.emit(lazyLoad)
   }
 
 }

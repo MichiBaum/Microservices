@@ -5,8 +5,11 @@ Allow: /index.html
 Allow: /home
 Allow: /login
 Allow: /register
-Allow: /chess
 Allow: /about-me
 Allow: /donate
 Allow: /imprint
+Allow: /chess
+Allow: /chess/news
+Allow: /chess/events
 
+Sitemap: https://michibaum.ch/sitemap.xml

@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {FitnessLoginComponent} from "./fitness-login/fitness-login.component";
 
 @Component({
   selector: 'app-fitness-settings',
-  standalone: true,
   imports: [
     FitnessLoginComponent
   ],
@@ -13,11 +12,8 @@ import {FitnessLoginComponent} from "./fitness-login/fitness-login.component";
   styleUrl: './fitness-settings.component.scss'
 })
 export class FitnessSettingsComponent implements OnInit{
+  private readonly headerService = inject(HeaderService);
 
-  constructor(
-    private readonly headerService: HeaderService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.fitness_settings.translationKey)

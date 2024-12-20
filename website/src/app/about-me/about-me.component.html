@@ -1,4 +1,4 @@
-<div class="container mx-auto 4k:max-w-screen-xlScreen">
+<div class="container mx-auto 4k:max-w-screen-lScreen xlScreen:max-w-screen-lScreen">
   <p-card header="{{'about-me.title' | translate}}" class="rounded-border">
     <ng-template #header>
       <img alt="About me AI image" ngSrc="about-me.jpeg" height="887" width="1792" priority placeholder/>
@@ -26,100 +26,15 @@
       </div>
     </div>
 
-    <div>
-      <p-accordion>
-        <p-accordion-panel value="0">
-          <p-accordion-header>{{ "about-me.experience.programming-languages-and-databases" | translate }}</p-accordion-header>
-          <p-accordion-content>
-            <p-table [value]="programmingLanguages" stripedRows>
-              <ng-template #header>
-                <tr>
-                  <th pSortableColumn="experience" style="width:20%">
-                    {{ "about-me.experience.experience" | translate }}
-                    <p-sortIcon field="experience" />
-                  </th>
-                  <th pSortableColumn="years" style="width:20%">
-                    {{ "about-me.experience.years" | translate }}
-                    <p-sortIcon field="years" />
-                  </th>
-                  <th pSortableColumn="rating" style="width:20%">
-                    {{ "about-me.experience.rating" | translate }}
-                    <p-sortIcon field="rating" />
-                  </th>
-                </tr>
-              </ng-template>
-              <ng-template #body let-element>
-                <tr>
-                  <td>{{ element.experience }}</td>
-                  <td>{{ element.years }}</td>
-                  <td><p-rating [(ngModel)]="element.rating" [readonly]="true" /></td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </p-accordion-content>
-        </p-accordion-panel>
-        <p-accordion-panel value="1">
-          <p-accordion-header>{{ "about-me.experience.platforms-and-tools" | translate }}</p-accordion-header>
-          <p-accordion-content>
-            <p-table [value]="platforms" stripedRows>
-              <ng-template #header>
-                <tr>
-                  <th pSortableColumn="experience" style="width:20%">
-                    {{ "about-me.experience.experience" | translate }}
-                    <p-sortIcon field="experience" />
-                  </th>
-                  <th pSortableColumn="years" style="width:20%">
-                    {{ "about-me.experience.years" | translate }}
-                    <p-sortIcon field="years" />
-                  </th>
-                  <th pSortableColumn="rating" style="width:20%">
-                    {{ "about-me.experience.rating" | translate }}
-                    <p-sortIcon field="rating" />
-                  </th>
-                </tr>
-              </ng-template>
-              <ng-template #body let-element>
-                <tr>
-                  <td>{{ element.experience }}</td>
-                  <td>{{ element.years }}</td>
-                  <td><p-rating [(ngModel)]="element.rating" [readonly]="true" /></td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </p-accordion-content>
-        </p-accordion-panel>
-        <p-accordion-panel value="2">
-          <p-accordion-header>{{ "about-me.experience.softskills" | translate }}</p-accordion-header>
-          <p-accordion-content>
-            <p-table [value]="softskills" stripedRows>
-              <ng-template #header>
-                <tr>
-                  <th pSortableColumn="experience" style="width:20%">
-                    {{ "about-me.experience.experience" | translate }}
-                    <p-sortIcon field="experience" />
-                  </th>
-                  <th pSortableColumn="years" style="width:20%">
-                    {{ "about-me.experience.years" | translate }}
-                    <p-sortIcon field="years" />
-                  </th>
-                  <th pSortableColumn="rating" style="width:20%">
-                    {{ "about-me.experience.rating" | translate }}
-                    <p-sortIcon field="rating" />
-                  </th>
-                </tr>
-              </ng-template>
-              <ng-template #body let-element>
-                <tr>
-                  <td>{{ element.experience }}</td>
-                  <td>{{ element.years }}</td>
-                  <td><p-rating [(ngModel)]="element.rating" [readonly]="true" /></td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </p-accordion-content>
-        </p-accordion-panel>
-      </p-accordion>
-    </div>
+    @defer {
+      <div>
+        <app-about-me-experience></app-about-me-experience>
+      </div>
+    } @placeholder {
+      <div>
+        <p-skeleton styleClass="mb-2" />
+      </div>
+    }
 
     <ng-template #footer>
       <div class="flex gap-6 mt-1">

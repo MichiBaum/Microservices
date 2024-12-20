@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessEventCategoryComponent} from "../select-chess-event-category/select-chess-event-category.component";
@@ -12,7 +12,6 @@ import {FloatLabel} from "primeng/floatlabel";
 
 @Component({
   selector: 'app-chess-update-event-category',
-  standalone: true,
   imports: [
     FieldsetModule,
     SelectChessEventCategoryComponent,
@@ -28,6 +27,7 @@ import {FloatLabel} from "primeng/floatlabel";
   styleUrl: './chess-update-event-category.component.scss'
 })
 export class ChessUpdateEventCategoryComponent implements OnInit{
+  private readonly chessService = inject(ChessService);
 
   categories: ChessEventCategory[] = [];
   selectedCategory: ChessEventCategory | undefined;
@@ -51,9 +51,6 @@ export class ChessUpdateEventCategoryComponent implements OnInit{
     ]),
   })
 
-  constructor(
-    private readonly chessService: ChessService,
-  ) { }
 
   ngOnInit(): void {
     this.chessService.eventCategories().subscribe(

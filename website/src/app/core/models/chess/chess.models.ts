@@ -1,3 +1,5 @@
+import {Pageable} from "../lazy-load.model";
+
 export interface Person {
   id: string
   firstname:string
@@ -70,6 +72,14 @@ export interface WriteChessEvent {
   embedUrl: string | undefined;
   categoryIds: string[];
   participantsIds: string[];
+}
+
+export interface SearchChessEvent extends Pageable {
+  title: string;
+  category: string;
+  location: string;
+  url: boolean;
+  embedUrl: boolean;
 }
 
 export interface ChessEventCategory{

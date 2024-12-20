@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
 import {ChessService} from "../../core/services/chess.service";
 import {Account, ChessEvent, Person} from "../../core/models/chess/chess.models";
@@ -16,7 +16,6 @@ import {SelectChessPersonComponent} from "../select-chess-person/select-chess-pe
 
 @Component({
   selector: 'app-chess-update-game',
-  standalone: true,
   imports: [
     FieldsetModule,
     MultiSelectModule,
@@ -35,6 +34,8 @@ import {SelectChessPersonComponent} from "../select-chess-person/select-chess-pe
   styleUrl: './chess-update-game.component.scss'
 })
 export class ChessUpdateGameComponent implements OnInit {
+  private readonly chessService = inject(ChessService);
+
 
   events: ChessEvent[] = [];
   selectedEvent: ChessEvent | undefined;
@@ -46,9 +47,6 @@ export class ChessUpdateGameComponent implements OnInit {
   selectedAccounts: Account[] = [];
   accountTableSearch: string = "";
 
-  constructor(
-    private readonly chessService: ChessService,
-  ) { }
 
   ngOnInit(): void {
     this.chessService.events().subscribe(events => {
