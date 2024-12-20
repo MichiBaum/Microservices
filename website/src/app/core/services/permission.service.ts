@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {AuthService} from "./auth.service";
 import {jwtDecode} from "jwt-decode";
 import {JwtPayload} from "../models/jwtPayload.model";
@@ -6,9 +6,8 @@ import {Permissions} from "../config/permissions";
 
 @Injectable({providedIn: 'root'})
 export class PermissionService {
+  private authService = inject(AuthService);
 
-  constructor(private authService: AuthService) {
-  }
 
   getJwt(): JwtPayload | undefined {
     let jwt = this.authService.getJwtTokenFromLocalStorage();

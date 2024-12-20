@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   faCalendarDays,
   faChartLine,
@@ -45,19 +45,18 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
   styleUrl: './chess-navigation.component.scss'
 })
 export class ChessNavigationComponent implements OnInit{
+  private readonly chessService = inject(ChessService);
+  private readonly languageConfig = inject(LanguageConfig);
+  private readonly translate = inject(TranslateService);
+  private readonly permissionService = inject(PermissionService);
+  private readonly eventIcon = inject(EventIconPipe);
+  private readonly eventIconColor = inject(EventIconColorPipe);
+
   protected readonly faChessQueen = faChessQueen;
 
   menuItems: MenuItem[] = [];
   events: ChessEvent[] = [];
 
-  constructor(
-    private readonly chessService: ChessService,
-    private readonly languageConfig: LanguageConfig,
-    private readonly translate: TranslateService,
-    private readonly permissionService: PermissionService,
-    private readonly eventIcon: EventIconPipe,
-    private readonly eventIconColor: EventIconColorPipe,
-  ) { }
 
   ngOnInit(): void {
     this.chessService.eventsRecentUpcoming().subscribe(events => { // TODO only get "recent" events +- 1 Month

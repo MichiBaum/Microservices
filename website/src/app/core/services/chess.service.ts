@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
   Account,
@@ -17,9 +17,9 @@ import {UserInfoService} from "./user-info.service";
 
 @Injectable({providedIn: 'root'})
 export class ChessService {
-
-  constructor(private http: HttpClient, private httpErrorConfig: HttpErrorHandler, private userInfoService: UserInfoService) {
-  }
+  private http = inject(HttpClient);
+  private httpErrorConfig = inject(HttpErrorHandler);
+  private userInfoService = inject(UserInfoService);
 
   searchPersons(searchPerson: SearchPerson): Observable<Person[]> {
     return this.http.post<Person[]>(environment.chessService + '/persons/search', searchPerson)

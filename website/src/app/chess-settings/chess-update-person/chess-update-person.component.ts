@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";
@@ -39,6 +39,8 @@ import {FloatLabel} from "primeng/floatlabel";
   styleUrl: './chess-update-person.component.scss'
 })
 export class ChessUpdatePersonComponent implements OnInit{
+  private readonly chessService = inject(ChessService);
+
   protected readonly environment = environment;
 
   persons: Person[] = [];
@@ -85,9 +87,6 @@ export class ChessUpdatePersonComponent implements OnInit{
     ]),
   })
 
-  constructor(
-    private readonly chessService: ChessService
-  ) { }
 
   ngOnInit(): void {
     this.chessService.persons().subscribe(persons => this.persons = [...persons]);

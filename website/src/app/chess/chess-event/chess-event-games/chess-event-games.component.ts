@@ -1,4 +1,4 @@
-import {Component, OnChanges, SimpleChanges, input, output} from '@angular/core';
+import { Component, OnChanges, SimpleChanges, input, output, inject } from '@angular/core';
 import {ChessEvent, ChessGame} from "../../../core/models/chess/chess.models";
 import {ChessService} from "../../../core/services/chess.service";
 
@@ -9,13 +9,11 @@ import {ChessService} from "../../../core/services/chess.service";
   styleUrl: './chess-event-games.component.scss'
 })
 export class ChessEventGamesComponent implements OnChanges {
+  private readonly chessService = inject(ChessService);
+
   readonly event = input<ChessEvent>();
   games: ChessGame[] | undefined;
   readonly haveContent = output<boolean>();
-
-  constructor(
-    private readonly chessService: ChessService,
-  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['event'] && changes['event'].currentValue) {

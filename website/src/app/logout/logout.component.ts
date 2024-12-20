@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {AuthService} from "../core/services/auth.service";
@@ -20,15 +20,12 @@ import {Ripple} from "primeng/ripple";
   styleUrl: './logout.component.scss'
 })
 export class LogoutComponent implements OnInit{
+  private readonly authService = inject(AuthService);
+  private readonly routerNavigation = inject(RouterNavigationService);
+
   protected readonly buttonIcon = faArrowRightFromBracket;
   visible = true
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly routerNavigation: RouterNavigationService
-  ) {
-
-  }
 
   ngOnInit(): void {
     this.visible = this.authService.isAuthenticated()

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {SplitterModule} from "primeng/splitter";
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
@@ -35,10 +35,7 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './chess.component.scss'
 })
 export class ChessComponent implements OnInit{
-
-  constructor(
-    private readonly headerService: HeaderService,
-  ) { }
+  private readonly headerService = inject(HeaderService);
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.chess.translationKey)

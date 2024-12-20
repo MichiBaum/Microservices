@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {MusicService} from "../../core/services/music.service";
@@ -12,9 +12,9 @@ import {MusicService} from "../../core/services/music.service";
   styleUrl: './music-login.component.scss'
 })
 export class MusicLoginComponent {
+  private readonly musicService = inject(MusicService);
+  private readonly router = inject(RouterNavigationService);
 
-  constructor(private readonly musicService: MusicService, private readonly router: RouterNavigationService) {
-  }
 
   getTokenUrl(){
     this.musicService.getToken().subscribe(token => this.router.openPopup(token.url.replace(/ /g, "")));

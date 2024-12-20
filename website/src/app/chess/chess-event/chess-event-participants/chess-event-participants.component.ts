@@ -1,4 +1,4 @@
-import {Component, OnChanges, SimpleChanges, input} from '@angular/core';
+import { Component, OnChanges, SimpleChanges, input, inject } from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {NgIf} from "@angular/common";
@@ -21,13 +21,12 @@ import {ChessEvent, Person} from "../../../core/models/chess/chess.models";
   styleUrl: './chess-event-participants.component.scss'
 })
 export class ChessEventParticipantsComponent implements OnChanges {
+  private readonly navigationService = inject(RouterNavigationService);
+  private readonly chessService = inject(ChessService);
+
   readonly event = input<ChessEvent>();
   participants: Person[] | undefined;
 
-  constructor(
-    private readonly navigationService: RouterNavigationService,
-    private readonly chessService: ChessService
-  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['event'] && changes['event'].currentValue){

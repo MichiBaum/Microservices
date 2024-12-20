@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {CardModule} from "primeng/card";
@@ -33,12 +33,8 @@ import {AboutMeExperienceComponent} from "./about-me-experience/about-me-experie
   styleUrl: './about-me.component.scss'
 })
 export class AboutMeComponent implements OnInit{
-
-  constructor(
-    private readonly headerService: HeaderService,
-    private readonly routerNavigationService: RouterNavigationService
-  ) {
-  }
+  private readonly headerService = inject(HeaderService);
+  private readonly routerNavigationService = inject(RouterNavigationService);
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.about_me.translationKey)

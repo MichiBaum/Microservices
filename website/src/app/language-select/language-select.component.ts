@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {LanguageConfig} from "../core/config/language.config";
 import {TranslateModule} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
@@ -18,13 +18,12 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './language-select.component.scss'
 })
 export class LanguageSelectComponent implements OnInit{
+  private readonly languageConfig = inject(LanguageConfig);
+
 
   languages: Language[] | undefined;
   selectedLanguage: Language | undefined;
 
-  constructor(
-    private readonly languageConfig: LanguageConfig,
-  ) { }
 
   ngOnInit(): void {
     this.languages = this.languageConfig.languages;

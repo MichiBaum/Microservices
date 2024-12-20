@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnChanges, SimpleChanges, input, viewChild} from '@angular/core';
+import { Component, ElementRef, OnChanges, SimpleChanges, input, viewChild, inject } from '@angular/core';
 import {SleepStage} from "../../../core/models/fitness/sleep.model";
 import * as d3 from "d3";
 
@@ -9,6 +9,8 @@ import * as d3 from "d3";
   styleUrl: './sleep-stages-chart.component.scss'
 })
 export class SleepStagesChartComponent implements OnChanges{
+  private elementRef = inject(ElementRef);
+
 
   readonly sleepStages = input<SleepStage[]>();
   readonly container = viewChild<ElementRef>('container');
@@ -17,8 +19,6 @@ export class SleepStagesChartComponent implements OnChanges{
   private margin = 50;
   private width = 0;
   private height = 0;
-
-  constructor(private elementRef: ElementRef) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {MusicLoginComponent} from "./music-login/music-login.component";
@@ -12,11 +12,7 @@ import {MusicLoginComponent} from "./music-login/music-login.component";
   styleUrl: './music-settings.component.scss'
 })
 export class MusicSettingsComponent implements OnInit{
-
-  constructor(
-    private readonly headerService: HeaderService,
-  ) {
-  }
+  private readonly headerService = inject(HeaderService);
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.music_settings.translationKey)

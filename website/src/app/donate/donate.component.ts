@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {Button} from "primeng/button";
@@ -18,12 +18,11 @@ import {NgOptimizedImage} from "@angular/common";
   templateUrl: './donate.component.html',
   styleUrl: './donate.component.scss'
 })
-export class DonateComponent {
+export class DonateComponent implements OnInit{
+  private readonly headerService = inject(HeaderService);
+  protected router = inject(RouterNavigationService);
 
-  constructor(
-    private readonly headerService: HeaderService,
-    protected router: RouterNavigationService
-  ) {
+  ngOnInit(): void {
     this.headerService.changeTitle(Sides.donate.translationKey)
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
 import {ChessService} from "../../core/services/chess.service";
 import {InputTextModule} from "primeng/inputtext";
@@ -29,19 +29,15 @@ import {NgIf} from "@angular/common";
   templateUrl: './chess-update-account.component.html',
   styleUrl: './chess-update-account.component.scss'
 })
-export class ChessUpdateAccountComponent implements OnInit{
+export class ChessUpdateAccountComponent{
+  private readonly chessService = inject(ChessService);
+  private readonly routerService = inject(RouterNavigationService);
+
   username: string = '';
   localSearch: boolean = true;
 
   importedAccounts: Account[] = []
 
-  constructor(
-    private readonly chessService: ChessService,
-    private readonly routerService: RouterNavigationService
-  ) { }
-
-  ngOnInit(): void {
-  }
 
   search(){
     this.chessService.accountsSearch(this.username, this.localSearch).subscribe(accounts => {

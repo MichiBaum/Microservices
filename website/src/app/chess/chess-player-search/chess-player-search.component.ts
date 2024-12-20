@@ -1,4 +1,4 @@
-import {Component, OnInit, output} from '@angular/core';
+import { Component, OnInit, output, inject } from '@angular/core';
 import {InputTextModule} from "primeng/inputtext";
 import {PickListModule, PickListMoveToSourceEvent, PickListMoveToTargetEvent} from "primeng/picklist";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -21,7 +21,9 @@ import {TranslateModule} from "@ngx-translate/core";
   templateUrl: './chess-player-search.component.html',
   styleUrl: './chess-player-search.component.scss'
 })
-export class ChessPlayerSearchComponent implements OnInit{
+export class ChessPlayerSearchComponent{
+  private readonly chessService = inject(ChessService);
+
 
   sourcePersons: Person[] = [];
   targetPersons: Person[] = [];
@@ -32,12 +34,6 @@ export class ChessPlayerSearchComponent implements OnInit{
   lastname: string = "";
   firstname: string = "";
 
-  constructor(
-    private readonly chessService: ChessService
-  ) {}
-
-  ngOnInit() {
-  }
 
   search() {
     let searchPerson = {firstname: this.firstname, lastname: this.lastname} as SearchPerson

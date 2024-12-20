@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
@@ -42,6 +42,8 @@ import {LazyLoad} from "../../core/models/lazy-load.model";
   styleUrl: './chess-update-event.component.scss'
 })
 export class ChessUpdateEventComponent implements OnInit{
+  private readonly chessService = inject(ChessService);
+
 
   events: ChessEvent[] = [];
   selectedEvent: ChessEvent | undefined;
@@ -91,9 +93,6 @@ export class ChessUpdateEventComponent implements OnInit{
     ]),
   });
 
-  constructor(
-    private readonly chessService: ChessService
-  ) { }
 
   ngOnInit(): void {
     this.chessService.eventCategories().subscribe(categories => {

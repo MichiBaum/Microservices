@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
 import {ChessService} from "../../core/services/chess.service";
@@ -38,18 +38,17 @@ import {Avatar} from "primeng/avatar";
   styleUrl: './chess-event.component.scss'
 })
 export class ChessEventComponent implements OnInit {
+  private _sanitizer = inject(DomSanitizer);
+  private readonly route = inject(ActivatedRoute);
+  private readonly chessService = inject(ChessService);
+  private readonly navigationService = inject(RouterNavigationService);
+
 
   embedUrl: SafeResourceUrl = "";
   event: ChessEvent | undefined;
 
   gamesTabDisabled: boolean = true;
 
-  constructor(
-    private _sanitizer: DomSanitizer,
-    private readonly route: ActivatedRoute,
-    private readonly chessService: ChessService,
-    private readonly navigationService: RouterNavigationService
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

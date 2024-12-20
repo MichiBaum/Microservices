@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
@@ -29,16 +29,13 @@ import {FocusTrapModule} from "primeng/focustrap";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
+  private readonly authService = inject(AuthService);
+  private readonly headerService = inject(HeaderService);
+  private readonly router = inject(RouterNavigationService);
 
   username: string = "";
   password: string = "";
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly headerService: HeaderService,
-    private readonly router: RouterNavigationService
-  ) {
-  }
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.login.translationKey)

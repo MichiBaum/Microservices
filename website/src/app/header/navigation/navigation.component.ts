@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {MenubarModule} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
-import {LanguageConfig} from "../../core/config/language.config";
 import {SidebarModule} from "primeng/sidebar";
 import {Button, ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
@@ -53,6 +52,11 @@ import {NgIf} from "@angular/common";
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent implements OnInit{
+  private readonly routerNavigationService = inject(RouterNavigationService);
+  private readonly lightDarkModeService = inject(LightDarkModeService);
+  private readonly permissionService = inject(PermissionService);
+  private readonly authService = inject(AuthService);
+
   protected readonly buttonIcon = faBars;
 
   navItems: MenuItem[] = [];
@@ -62,15 +66,6 @@ export class NavigationComponent implements OnInit{
     border:{
       color: "var(--p-drawer-background)"
     }
-  }
-
-  constructor(
-    private readonly routerNavigationService: RouterNavigationService,
-    private readonly lightDarkModeService: LightDarkModeService,
-    private readonly permissionService: PermissionService,
-    private readonly authService: AuthService
-  ) {
-
   }
 
   ngOnInit(): void {

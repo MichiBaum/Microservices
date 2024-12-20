@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {CardModule} from "primeng/card";
 import {NgForOf, NgIf} from "@angular/common";
@@ -27,12 +27,10 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
   styleUrl: './chess-events-list.component.scss'
 })
 export class ChessEventsListComponent implements OnInit {
+  private readonly chessService = inject(ChessService);
+
 
   categories: ChessEventCategoryWithEvents[] = []
-
-  constructor(
-    private readonly chessService: ChessService,
-  ) { }
 
   ngOnInit(): void {
     this.chessService.eventCategoriesWithEvents().subscribe(categories => {

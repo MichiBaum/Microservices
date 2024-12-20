@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
@@ -21,13 +21,13 @@ import {Skeleton} from "primeng/skeleton";
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+  private readonly headerService = inject(HeaderService);
+  protected routerNavigationService = inject(RouterNavigationService);
+  private readonly permissionService = inject(PermissionService);
 
-  constructor(
-    private readonly headerService: HeaderService,
-    protected routerNavigationService: RouterNavigationService,
-    private readonly permissionService: PermissionService
-  ) {
+
+  ngOnInit(): void {
     this.headerService.changeTitle(Sides.home.translationKey)
   }
 

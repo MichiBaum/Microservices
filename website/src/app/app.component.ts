@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {LightDarkModeService} from "./core/services/light-dark-mode.service";
@@ -18,17 +18,13 @@ import {PrimeNG} from "primeng/config";
   providers: [MessageService, ConfirmationService]
 })
 export class AppComponent implements OnInit {
-
-  constructor(
-    private readonly lightDarkModeService: LightDarkModeService,
-    private readonly primengConfig: PrimeNG,
-    private readonly translateService: TranslateService,
-    private readonly messageService: MessageService,
-    private readonly userInfoService: UserInfoService,
-    private readonly swUpdate: SwUpdate,
-    private readonly confirmationService: ConfirmationService
-  ) {
-  }
+  private readonly lightDarkModeService = inject(LightDarkModeService);
+  private readonly primengConfig = inject(PrimeNG);
+  private readonly translateService = inject(TranslateService);
+  private readonly messageService = inject(MessageService);
+  private readonly userInfoService = inject(UserInfoService);
+  private readonly swUpdate = inject(SwUpdate);
+  private readonly confirmationService = inject(ConfirmationService);
 
   ngOnInit(): void {
     this.translateService.onLangChange.subscribe(() => {

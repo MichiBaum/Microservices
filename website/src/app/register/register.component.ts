@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -31,17 +31,15 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit{
+  private readonly authService = inject(AuthService);
+  private readonly headerService = inject(HeaderService);
+  private readonly router = inject(RouterNavigationService);
+  private readonly userInfoService = inject(UserInfoService);
+
   username: string = "";
   password: string = "";
   passwordRepeat: string = "";
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly headerService: HeaderService,
-    private readonly router: RouterNavigationService,
-    private readonly userInfoService: UserInfoService
-  ) {
-  }
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.register.translationKey)
