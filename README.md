@@ -115,7 +115,7 @@ docker exec microservices-fitness-db-1 mysqldump -u root -pPASSWORD fitness | gz
 docker exec microservices-usermanagement-db-1 mysqldump -u root -pPASSWORD usermanagement | gzip -c > /data/db-backup/usermanagement_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
 docker exec microservices-authentication-db-1 mysqldump -u root -pPASSWORD authentication | gzip -c > /data/db-backup/authentication_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
 
-# Add to crontab
+# Add to crontab (escape % with \%)
 crontab -e
 
 # List cronjobs
