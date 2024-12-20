@@ -90,9 +90,9 @@ export class SelectChessEventComponent implements OnInit{
   }
 
   lazyLoad($event: TableLazyLoadEvent) {
-    console.log("First " + $event.first + " Last " + $event.last)
+    console.log($event)
 
-    const last = $event.last
+    const last = $event.last // TODO maybe first + rows??? What happens when filter?
     if(last == undefined){
       return
     }
