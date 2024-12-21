@@ -1,7 +1,7 @@
 <p-button
   pButton pRipple
   (click)="logout()"
-  *ngIf="visible"
+  *ngIf="visible()"
   aria-label="Logout Button"
 >
   <fa-icon [icon]="buttonIcon"></fa-icon>

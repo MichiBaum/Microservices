@@ -23,11 +23,6 @@ export class HomeCardComponent {
 
   readonly navigate = output<void>();
 
-  constructor(
+  constructor() {}
 
-  ) {}
-
-  navigateClicked() {
-    this.navigate.emit();
-  }
 }

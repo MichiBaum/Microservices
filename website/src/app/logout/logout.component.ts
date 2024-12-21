@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, inject, signal, OnDestroy} from '@angular/core';
 import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {AuthService} from "../core/services/auth.service";
@@ -6,6 +6,7 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
 import {NgIf} from "@angular/common";
 import {Button, ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-logout',
@@ -19,22 +20,23 @@ import {Ripple} from "primeng/ripple";
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss'
 })
-export class LogoutComponent implements OnInit{
+export class LogoutComponent implements OnDestroy{
   private readonly authService = inject(AuthService);
   private readonly routerNavigation = inject(RouterNavigationService);
 
   protected readonly buttonIcon = faArrowRightFromBracket;
-  visible = true
+  visible = signal(this.authService.isAuthenticated())
 
+  private successLoginSubscription: Subscription = this.authService.successLoginEmitter.subscribe(() => {
+    this.visible.set(true)
+  });
+  private logoutSubscription: Subscription = this.authService.logoutEmitter.subscribe(() => {
+    this.visible.set(false)
+  });
 
-  ngOnInit(): void {
-    this.visible = this.authService.isAuthenticated()
-    this.authService.successLoginEmitter.subscribe(() => {
-      this.visible = true
-    })
-    this.authService.logoutEmitter.subscribe(() => {
-      this.visible = false
-    })
+  ngOnDestroy(): void {
+    this.successLoginSubscription.unsubscribe()
+    this.logoutSubscription.unsubscribe()
   }
 
   logout() {

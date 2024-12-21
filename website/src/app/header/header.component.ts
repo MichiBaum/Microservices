@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, OnDestroy, signal} from '@angular/core';
 import {NavigationComponent} from "./navigation/navigation.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
@@ -8,6 +8,7 @@ import {HeaderService} from "../core/services/header.service";
 import {Title} from "@angular/platform-browser";
 import {LogoutComponent} from "../logout/logout.component";
 import {MenubarModule} from "primeng/menubar";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -22,28 +23,35 @@ import {MenubarModule} from "primeng/menubar";
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnDestroy{
   private readonly languageConfig = inject(LanguageConfig);
   private readonly translate = inject(TranslateService);
   private readonly headerService = inject(HeaderService);
   private readonly titleService = inject(Title);
 
-  title = "application.title"
+  title = signal<string>("application.title")
 
+  titleChangeSubscription: Subscription =this.headerService.titleChangeEmitter.subscribe(value => {
+    this.changeTitle(value)
+  });
+  languageChangeSubscription: Subscription = this.languageConfig.languageChanged.subscribe(() => {
+    this.changeTitle(this.title())
+  });
 
-  ngOnInit(): void {
-    this.headerService.titleChangeEmitter.subscribe(value => {
-      this.changeTitle(value)
-    })
-    this.languageConfig.languageChanged.subscribe(() => {
-      this.changeTitle(this.title)
-    })
+  ngOnDestroy(): void {
+    this.titleChangeSubscription?.unsubscribe();
+    this.languageChangeSubscription?.unsubscribe();
   }
 
-  changeTitle(title: string){
-    this.title = title
+  /**
+   * Updates the title of the application by setting a new title value and updating the browser's title.
+   *
+   * @param {string} title - The new title to set.
+   * @return {void} This method does not return a value.
+   */
+  changeTitle(title: string): void {
+    this.title.set(title)
     this.titleService.setTitle(this.translate.instant(title))
   }
-
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal, computed, OnDestroy} from '@angular/core';
 import {MenubarModule} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
 import {TranslateModule} from "@ngx-translate/core";
@@ -31,6 +31,7 @@ import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
 import {Drawer} from "primeng/drawer";
 import {NgIf} from "@angular/common";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-navigation',
@@ -51,7 +52,7 @@ import {NgIf} from "@angular/common";
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })
-export class NavigationComponent implements OnInit{
+export class NavigationComponent implements OnInit, OnDestroy{
   private readonly routerNavigationService = inject(RouterNavigationService);
   private readonly lightDarkModeService = inject(LightDarkModeService);
   private readonly permissionService = inject(PermissionService);
@@ -59,8 +60,15 @@ export class NavigationComponent implements OnInit{
 
   protected readonly buttonIcon = faBars;
 
-  navItems: MenuItem[] = [];
-  sidebarVisible: boolean = false;
+  navItems = signal<MenuItem[]>([]);
+  sidebarVisible = signal(false);
+
+  private successLoginSubscription: Subscription = this.authService.successLoginEmitter.subscribe(() => {
+    this.navItems.set(this.getNavItems())
+  });
+  private logoutSubscription: Subscription = this.authService.logoutEmitter.subscribe(() => {
+    this.navItems.set(this.getNavItems())
+  });
 
   menuStyle = {
     border:{
@@ -69,16 +77,12 @@ export class NavigationComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.navItems = [...this.getNavItems()];
+    this.navItems.set(this.getNavItems())
+  }
 
-    this.authService.successLoginEmitter.subscribe(() => {
-      this.navItems = [...this.getNavItems()];
-    });
-
-    this.authService.logoutEmitter.subscribe(() => {
-      this.navItems = [...this.getNavItems()];
-    })
-
+  ngOnDestroy(): void {
+    this.successLoginSubscription.unsubscribe();
+    this.logoutSubscription.unsubscribe();
   }
 
   getNavItems = () =>
@@ -91,7 +95,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faKey,
             visible: !this.permissionService.isAuthenticated(),
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.login();
             }
           } as MenuItem,
@@ -100,7 +104,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faHouse,
             visible: true,
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.home();
             }
           } as MenuItem,
@@ -109,7 +113,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faDumbbell,
             visible: this.permissionService.hasAnyOf([Permissions.FITNESS_SERVICE]),
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.fitness();
             }
           } as MenuItem,
@@ -118,7 +122,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faCompactDisc,
             visible: Sides.music.canActivate(this.permissionService),
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.music();
             }
           } as MenuItem,
@@ -127,7 +131,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faChess,
             visible: true,
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.chess();
             },
           } as MenuItem
@@ -141,7 +145,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faUser,
             visible: Sides.about_me.canActivate(this.permissionService), // TODO
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.about_me();
             }
           },
@@ -150,7 +154,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faCoffee,
             visible: Sides.donate.canActivate(this.permissionService),
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.donate();
             }
           } as MenuItem,
@@ -159,7 +163,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faMicrochip,
             visible: Sides.microservices.canActivate(this.permissionService),
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.microservices();
             }
           } as MenuItem,
@@ -168,7 +172,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faGithub,
             visible: true,
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.github();
             }
           } as MenuItem
@@ -182,7 +186,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faLightbulb,
             visible: true,
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.lightDarkModeService.changeMode(document);
             }
           } as MenuItem,
@@ -191,7 +195,7 @@ export class NavigationComponent implements OnInit{
             customIcon: faStamp,
             visible: Sides.imprint.canActivate(this.permissionService),
             command: () => {
-              this.sidebarVisible = false;
+              this.sidebarVisible.set(false)
               this.routerNavigationService.imprint();
             }
           } as MenuItem,

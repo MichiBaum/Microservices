@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
+import {HeaderService} from "../core/services/header.service";
+import {Sides} from "../core/config/sides";
 
 @Component({
   selector: 'app-microservice-overview',
@@ -6,10 +8,10 @@ import {Component} from '@angular/core';
   templateUrl: './microservice-overview.component.html',
   styleUrl: './microservice-overview.component.scss'
 })
-export class MicroserviceOverviewComponent {
+export class MicroserviceOverviewComponent implements OnInit{
+  private readonly headerService = inject(HeaderService);
 
-  constructor(
-  ) {
+  ngOnInit(): void {
+    this.headerService.changeTitle(Sides.microservices.translationKey)
   }
-
 }

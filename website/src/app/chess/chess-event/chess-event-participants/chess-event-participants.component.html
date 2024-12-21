@@ -1,8 +1,8 @@
-<p-card *ngIf="participants && participants.length != 0">
+<p-card *ngIf="participants().length != 0">
   <ng-template #header></ng-template>
   <ng-template #title>{{'chess.event.participants' | translate}}</ng-template>
 
-  <p-table stripedRows *ngIf="participants && participants.length != 0" [value]="participants">
+  <p-table stripedRows *ngIf="participants().length != 0" [value]="participants()">
     <ng-template #header>
       <tr>
         <th>{{'chess.event.participant.firstname' | translate}}</th>

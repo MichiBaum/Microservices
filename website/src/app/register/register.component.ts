@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal} from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -36,9 +36,9 @@ export class RegisterComponent implements OnInit{
   private readonly router = inject(RouterNavigationService);
   private readonly userInfoService = inject(UserInfoService);
 
-  username: string = "";
-  password: string = "";
-  passwordRepeat: string = "";
+  username = signal("");
+  password = signal("");
+  passwordRepeat = signal("");
 
 
   ngOnInit(): void {
@@ -51,5 +51,12 @@ export class RegisterComponent implements OnInit{
 
   register() {
     this.userInfoService.info('Not implemented', 'This functionality is not implemented yet')
+    return;
+
+    // TODO
+    if(this.username() == '' || this.password() == '' || this.passwordRepeat() == '')
+      return;
+    if(this.password() !== this.passwordRepeat())
+      return;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal} from '@angular/core';
 import {LanguageConfig} from "../core/config/language.config";
 import {TranslateModule} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
@@ -20,13 +20,11 @@ import {FormsModule} from "@angular/forms";
 export class LanguageSelectComponent implements OnInit{
   private readonly languageConfig = inject(LanguageConfig);
 
-
-  languages: Language[] | undefined;
+  languages = signal<Language[]>(this.languageConfig.languages);
   selectedLanguage: Language | undefined;
 
 
   ngOnInit(): void {
-    this.languages = this.languageConfig.languages;
     this.selectedLanguage = this.languageConfig.current
   }
 

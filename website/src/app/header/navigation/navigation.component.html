@@ -1,7 +1,8 @@
 <p-button
   pButton pRipple
   aria-label="Toggle Sidebar"
-  (click)="sidebarVisible = !sidebarVisible"
+  [ariaLabel]="'Toggle Sidebar'"
+  (click)="sidebarVisible.set(!sidebarVisible())"
 >
   <fa-icon [icon]="buttonIcon"></fa-icon>
 </p-button>
@@ -17,7 +18,7 @@
   </ng-template>
 
   <p-menu
-    [model]="navItems"
+    [model]="navItems()"
     [dt]="menuStyle"
   >
     <ng-template #submenuheader let-item>

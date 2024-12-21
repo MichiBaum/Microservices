@@ -2,7 +2,7 @@
   <p-accordion-panel value="0">
     <p-accordion-header>{{ "about-me.experience.programming-languages-and-databases" | translate }}</p-accordion-header>
     <p-accordion-content>
-      <p-table [value]="programmingLanguages" stripedRows>
+      <p-table [value]="programmingLanguages()" stripedRows>
         <ng-template #header>
           <tr>
             <th pSortableColumn="experience" style="width:20%">
@@ -34,7 +34,7 @@
   <p-accordion-panel value="1">
     <p-accordion-header>{{ "about-me.experience.platforms-and-tools" | translate }}</p-accordion-header>
     <p-accordion-content>
-      <p-table [value]="platforms" stripedRows>
+      <p-table [value]="platforms()" stripedRows>
         <ng-template #header>
           <tr>
             <th pSortableColumn="experience" style="width:20%">
@@ -66,7 +66,7 @@
   <p-accordion-panel value="2">
     <p-accordion-header>{{ "about-me.experience.softskills" | translate }}</p-accordion-header>
     <p-accordion-content>
-      <p-table [value]="softskills" stripedRows>
+      <p-table [value]="softskills()" stripedRows>
         <ng-template #header>
           <tr>
             <th pSortableColumn="experience" style="width:20%">
