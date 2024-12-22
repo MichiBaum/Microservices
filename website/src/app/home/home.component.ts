@@ -7,7 +7,7 @@ import {PermissionService} from "../core/services/permission.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {ScrollTopModule} from "primeng/scrolltop";
 import {HomeCardComponent} from "./home-card/home-card.component";
-import {Skeleton} from "primeng/skeleton";
+import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-placeholder.component";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +16,7 @@ import {Skeleton} from "primeng/skeleton";
     TranslateModule,
     ScrollTopModule,
     HomeCardComponent,
-    Skeleton
+    DeferPlaceholderComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

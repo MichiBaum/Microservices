@@ -1,7 +1,11 @@
 <div class="grid grid-cols-12 gap-4 grid-cols-12 gap-6">
   <div class="col-span-12">
     <p-fieldset legend="Profile" [toggleable]="true">
-      <app-fitness-profile></app-fitness-profile>
+      @defer {
+        <app-fitness-profile></app-fitness-profile>
+      } @placeholder {
+        <app-defer-placeholder></app-defer-placeholder>
+      }
     </p-fieldset>
   </div>
   <div class="col-span-12">
@@ -16,12 +20,20 @@
   </div>
   <div class="{{screenSize}}">
     <p-fieldset legend="Weight" [toggleable]="true">
-      <app-fitness-weight></app-fitness-weight>
+      @defer {
+        <app-fitness-weight></app-fitness-weight>
+      } @placeholder {
+        <app-defer-placeholder height="20rem"></app-defer-placeholder>
+      }
     </p-fieldset>
   </div>
   <div class="{{screenSize}}">
     <p-fieldset legend="Sleep" [toggleable]="true">
-      <app-fitness-sleep></app-fitness-sleep>
+      @defer {
+        <app-fitness-sleep></app-fitness-sleep>
+      } @placeholder {
+        <app-defer-placeholder></app-defer-placeholder>
+      }
     </p-fieldset>
   </div>
   <div class="{{screenSize}}">
