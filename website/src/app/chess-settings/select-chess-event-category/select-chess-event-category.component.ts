@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {Component, input, output, signal} from '@angular/core';
 import {ChessEventCategory} from "../../core/models/chess/chess.models";
 import {FormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
@@ -22,13 +22,12 @@ import {InputIcon} from "primeng/inputicon";
 })
 export class SelectChessEventCategoryComponent {
   readonly categories = input<ChessEventCategory[]>([]);
-  readonly selectedCategoryEmitter = output<ChessEventCategory>();
+  readonly selectedCategoryEmitter = output<ChessEventCategory | undefined>();
 
-  selectedCategory: ChessEventCategory | undefined;
+  selectedCategory = signal<ChessEventCategory | undefined>(undefined);
   tableSearch: string = "";
 
   onSelectionChange() {
-    if (this.selectedCategory !== undefined)
-      this.selectedCategoryEmitter.emit(this.selectedCategory)
+    this.selectedCategoryEmitter.emit(this.selectedCategory())
   }
 }

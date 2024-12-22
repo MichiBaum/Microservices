@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal, computed} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
 import {ChessService} from "../../core/services/chess.service";
 import {Account, ChessEvent, Person} from "../../core/models/chess/chess.models";
@@ -13,6 +13,7 @@ import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
+import {rxResource} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-chess-update-game',
@@ -33,50 +34,35 @@ import {SelectChessPersonComponent} from "../select-chess-person/select-chess-pe
   templateUrl: './chess-update-game.component.html',
   styleUrl: './chess-update-game.component.scss'
 })
-export class ChessUpdateGameComponent implements OnInit {
+export class ChessUpdateGameComponent {
   private readonly chessService = inject(ChessService);
 
+  events = rxResource({
+    loader: () => this.chessService.events()
+  })
+  selectedEvent = signal<ChessEvent | undefined>(undefined)
 
-  events: ChessEvent[] = [];
-  selectedEvent: ChessEvent | undefined;
+  persons = computed(() => this.selectedEvent()?.participants ?? [])
+  selectedPersons = signal<Person[]>([]);
 
-  persons: Person[] = [];
-  selectedPersons: Person[] = [];
+  accounts = computed(() => this.selectedPersons().flatMap(value => value.accounts))
+  selectedAccounts = signal<Account[]>([]);
 
-  accounts: Account[] = [];
-  selectedAccounts: Account[] = [];
   accountTableSearch: string = "";
-
-
-  ngOnInit(): void {
-    this.chessService.events().subscribe(events => {
-      this.events = [...events]
-    })
-  }
-
-  onSelectedAccountsChange() {
-
-  }
 
   clear(table: Table) {
     table.clear();
   }
 
   onEventSelect(event: ChessEvent | undefined) {
-    if(event == undefined){
-      this.selectedEvent = undefined;
-      this.persons = [...[]]
-      this.selectedPersons = [...[]]
-      return
-    }
-    this.selectedEvent = {...event}
-    this.persons = [...event.participants]
-    this.selectedPersons = [...[]]
+    this.selectedEvent.set(event)
   }
 
   onPersonsSelect(persons: Person[]) {
-    this.selectedPersons = [...persons]
-    this.accounts = [...persons.flatMap(value => value.accounts)]
-    this.selectedAccounts = [...[]]
+    this.selectedPersons.set(persons)
+  }
+
+  onSelectedAccountsChange() {
+
   }
 }

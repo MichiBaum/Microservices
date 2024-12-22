@@ -15,7 +15,7 @@
         <p-button pButton label="Search" (click)="search()" />
       </p-inputgroup>
 
-      <p-table [value]="importedAccounts">
+      <p-table [value]="importedAccounts()">
         <ng-template #header>
           <tr>
             <th>Username</th>

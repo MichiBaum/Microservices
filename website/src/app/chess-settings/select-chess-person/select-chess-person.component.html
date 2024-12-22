@@ -74,7 +74,7 @@
       <td>{{ person.fideId }}</td>
       <td>{{ person.federation }}</td>
       <td>{{ person.birthday }}</td>
-      <td><fa-icon [icon]="getGenderIcon(person)"></fa-icon></td>
+      <td><fa-icon [icon]="person | genderIcon"></fa-icon></td>
     </tr>
   </ng-template>
 </p-table>

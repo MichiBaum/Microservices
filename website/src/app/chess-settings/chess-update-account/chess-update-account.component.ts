@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
 import {ChessService} from "../../core/services/chess.service";
 import {InputTextModule} from "primeng/inputtext";
@@ -33,15 +33,14 @@ export class ChessUpdateAccountComponent{
   private readonly chessService = inject(ChessService);
   private readonly routerService = inject(RouterNavigationService);
 
-  username: string = '';
-  localSearch: boolean = true;
+  username = signal("");
+  localSearch = signal(true);
 
-  importedAccounts: Account[] = []
-
+  importedAccounts = signal<Account[]>([]);
 
   search(){
-    this.chessService.accountsSearch(this.username, this.localSearch).subscribe(accounts => {
-      this.importedAccounts = [...accounts]
+    this.chessService.accountsSearch(this.username(), this.localSearch()).subscribe(accounts => {
+      this.importedAccounts.set(accounts)
     })
   }
 
@@ -61,7 +60,7 @@ export class ChessUpdateAccountComponent{
   }
 
   delete(id: string) {
-
+    // TODO
   }
 
 }

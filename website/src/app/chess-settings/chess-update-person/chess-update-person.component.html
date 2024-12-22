@@ -41,7 +41,7 @@
           </p-floatlabel>
 
           <p-floatlabel variant="in" class="w-full">
-            <p-select id="gender" formControlName="gender" [options]="genders" styleClass="w-full" variant="filled" />
+            <p-select id="gender" formControlName="gender" [options]="genders()" styleClass="w-full" variant="filled" />
             <label for="gender">Gender</label>
           </p-floatlabel>
 
@@ -57,7 +57,7 @@
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-      <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedPerson" />
+      <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="selectedPersonS() == undefined" />
     </p-fieldset>
 
     <p-fieldset legend="Upload Fide Rating List"> <!-- other place to upload fide ratings-->
