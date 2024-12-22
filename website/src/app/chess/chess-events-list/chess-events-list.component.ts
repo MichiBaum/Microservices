@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, computed} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {CardModule} from "primeng/card";
 import {NgForOf, NgIf} from "@angular/common";
@@ -9,6 +9,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {ScrollTopModule} from "primeng/scrolltop";
 import {EventIconPipe} from "../../core/pipes/event-icon.pipe";
 import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
+import {rxResource} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-chess-events-list',
@@ -26,21 +27,22 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
   templateUrl: './chess-events-list.component.html',
   styleUrl: './chess-events-list.component.scss'
 })
-export class ChessEventsListComponent implements OnInit {
+export class ChessEventsListComponent {
   private readonly chessService = inject(ChessService);
 
 
-  categories: ChessEventCategoryWithEvents[] = []
-
-  ngOnInit(): void {
-    this.chessService.eventCategoriesWithEvents().subscribe(categories => {
-      categories.forEach(category => {
-        if (category.events) {
-          category.events = this.chessService.sortEvents(category.events)
-        }
-      });
-      this.categories = [...categories];
+  categories = rxResource({
+    loader: () => this.chessService.eventCategoriesWithEvents()
+  })
+  categoriesSorted = computed(() => {
+    const categories = this.categories.value()
+    if(categories == undefined) return []
+    return categories.map(category => {
+      if (category.events) {
+        category.events = this.chessService.sortEvents(category.events)
+      }
+      return category
     })
-  }
+  })
 
 }

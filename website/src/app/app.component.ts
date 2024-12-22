@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, OnDestroy} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {LightDarkModeService} from "./core/services/light-dark-mode.service";
@@ -9,6 +9,7 @@ import {UserInfoService} from "./core/services/user-info.service";
 import {SwUpdate} from "@angular/service-worker";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PrimeNG} from "primeng/config";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ import {PrimeNG} from "primeng/config";
   styleUrl: './app.component.scss',
   providers: [MessageService, ConfirmationService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   private readonly lightDarkModeService = inject(LightDarkModeService);
   private readonly primengConfig = inject(PrimeNG);
   private readonly translateService = inject(TranslateService);
@@ -26,14 +27,13 @@ export class AppComponent implements OnInit {
   private readonly swUpdate = inject(SwUpdate);
   private readonly confirmationService = inject(ConfirmationService);
 
+  private languageChangeSubscription: Subscription = this.translateService.onLangChange.subscribe(() => {
+    this.translateService.get('primeng').subscribe(res => this.primengConfig.setTranslation(res));
+  });
+  private messageSubscription: Subscription = this.userInfoService.messageEmitter.subscribe(message => this.messageService.add(message));
+
   ngOnInit(): void {
-    this.translateService.onLangChange.subscribe(() => {
-      this.translateService.get('primeng').subscribe(res => this.primengConfig.setTranslation(res));
-    });
-
     this.lightDarkModeService.init(document)
-
-    this.userInfoService.messageEmitter.subscribe(message => this.messageService.add(message))
 
     if(this.swUpdate.isEnabled){
       this.swUpdate.checkForUpdate().then((updateAvailable) => {
@@ -42,6 +42,11 @@ export class AppComponent implements OnInit {
         }
       })
     }
+  }
+
+  ngOnDestroy(): void {
+    this.languageChangeSubscription.unsubscribe()
+    this.messageSubscription.unsubscribe()
   }
 
   updateConfirmDialog(swUpdate: SwUpdate){

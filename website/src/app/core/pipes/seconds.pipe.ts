@@ -13,7 +13,6 @@ import {Pipe, PipeTransform} from "@angular/core";
  * @Pipe
  */
 @Pipe({
-  standalone: true,
   name: 'seconds',
 })
 export class SecondsPipe implements PipeTransform {

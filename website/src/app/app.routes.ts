@@ -69,12 +69,6 @@ export const routes: Routes = [
         canActivate: []
       },
       {
-        path: "player-analysis",
-        loadComponent: () => import("./chess/chess-player-analysis/chess-player-analysis.component").then((c) => c.ChessPlayerAnalysisComponent),
-        canActivate: [isAuthenticatedGuard, isPermittedGuard],
-        data: {"permissions": [Permissions.CHESS_SERVICE]},
-      },
-      {
         path: "settings",
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
         data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},

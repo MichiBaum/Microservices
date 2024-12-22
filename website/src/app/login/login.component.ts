@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
   private readonly router = inject(RouterNavigationService);
 
-  username: string = "";
-  password: string = "";
+  protected username = signal("")
+  protected password = signal("")
 
 
   ngOnInit(): void {
@@ -42,9 +42,9 @@ export class LoginComponent implements OnInit{
   }
 
   login(){
-    if(this.username == '' || this.password == '')
+    if(this.username() == '' || this.password() == '')
       return;
-    this.authService.login(this.username ?? '', this.password ?? '')
+    this.authService.login(this.username(), this.password())
   }
 
   register() {

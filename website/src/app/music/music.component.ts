@@ -11,7 +11,6 @@ import {Sides} from '../core/config/sides';
 export class MusicComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
 
-
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.music.translationKey)
   }

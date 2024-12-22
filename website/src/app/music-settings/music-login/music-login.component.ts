@@ -15,7 +15,6 @@ export class MusicLoginComponent {
   private readonly musicService = inject(MusicService);
   private readonly router = inject(RouterNavigationService);
 
-
   getTokenUrl(){
     this.musicService.getToken().subscribe(token => this.router.openPopup(token.url.replace(/ /g, "")));
   }

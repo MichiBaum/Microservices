@@ -1,5 +1,5 @@
 <p-selectButton
-  [options]="languages"
+  [options]="languages()"
   [(ngModel)]="selectedLanguage"
   [multiple]="false"
   (onChange)="selectLanguage()"

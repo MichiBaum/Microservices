@@ -16,7 +16,6 @@ import {Sides} from "../core/config/sides";
 export class ImprintComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
 
-
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.imprint.translationKey)
   }

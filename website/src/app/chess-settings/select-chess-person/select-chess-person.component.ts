@@ -1,10 +1,10 @@
-import {Component, input, output} from '@angular/core';
-import {Gender, Person} from "../../core/models/chess/chess.models";
+import {Component, input, output, signal} from '@angular/core';
+import {Person} from "../../core/models/chess/chess.models";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {TableModule} from "primeng/table";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
+import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 
 @Component({
   selector: 'app-select-chess-person',
@@ -12,31 +12,28 @@ import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
     InputTextModule,
     PaginatorModule,
     TableModule,
-    FaIconComponent
+    FaIconComponent,
+    EventIconPipe
   ],
   templateUrl: './select-chess-person.component.html',
   styleUrl: './select-chess-person.component.scss'
 })
 export class SelectChessPersonComponent {
   readonly persons = input<Person[]>([]);
-
   readonly selectedPersonsEmitter = output<Person[]>();
 
-  selectedPersons: Person[] = [];
+  selectedPersons = signal<Person[]>([]);
 
-  constructor() {
-  }
 
   onSelectionChange() {
-      this.selectedPersonsEmitter.emit(this.selectedPersons)
-  }
-
-  getGenderIcon(person: Person) {
-    if(person.gender == Gender.MALE)
-      return faMars
-    if (person.gender == Gender.FEMALE)
-      return faVenus
-    return faVenusMars;
+    // TODO solution if input single, multiple. Doesnt work yet because table is always a step behind
+    //  if(this.selectedPersons().length > 1) {
+    //    const lastAdded = this.selectedPersons().pop()
+    //    if(lastAdded){
+    //      this.selectedPersons.set([lastAdded])
+    //    }
+    //  }
+    this.selectedPersonsEmitter.emit(this.selectedPersons())
   }
 
 }

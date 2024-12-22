@@ -1,4 +1,4 @@
-import { Component, OnInit, input, output, inject } from '@angular/core';
+import {Component, OnInit, input, output, inject, signal} from '@angular/core';
 import {TableLazyLoadEvent, TableModule} from "primeng/table";
 import {ChessEvent, ChessEventCategory, SearchChessEvent} from "../../core/models/chess/chess.models";
 import {InputTextModule} from "primeng/inputtext";
@@ -27,13 +27,14 @@ export class SelectChessEventComponent implements OnInit{
   private readonly filterService = inject(FilterService);
 
   readonly events = input<ChessEvent[]>([]);
-  readonly selectedEventEmitter = output<ChessEvent>();
+  readonly selectedEventEmitter = output<ChessEvent | undefined>();
   readonly lazyLoadEventEmitter = output<LazyLoad<SearchChessEvent>>();
 
   pageSize = 100 // TODO https://github.com/primefaces/primeng/issues/17106
   virtualPageSize = this.pageSize/2
 
-  selectedEvent: ChessEvent | undefined;
+  selectedEvent = signal<ChessEvent | undefined>(undefined);
+
   matchModeOptions: SelectItem[] = [];
   eventCategoryFilterName = 'anyEventCategoryLike';
   eventUrlFilterName = 'eventUrlPresent';
@@ -67,8 +68,7 @@ export class SelectChessEventComponent implements OnInit{
   }
 
   onSelectionChange() {
-    if(this.selectedEvent !== undefined)
-      this.selectedEventEmitter.emit(this.selectedEvent)
+    this.selectedEventEmitter.emit(this.selectedEvent())
   }
 
   getIcon(url: string) {

@@ -5,12 +5,12 @@
       <p-tab value="0">
         {{'chess.event.details' | translate}}
       </p-tab>
-      <p-tab value="1" [disabled]="event?.embedUrl == undefined || event?.embedUrl == ''">
+      <p-tab value="1" [disabled]="embedUrl() == undefined">
         <p-avatar image="https://www.chess.com/bundles/web/favicons/favicon.5d6cb047.svg" shape="circle" />
 
         {{'chess.event.chess-com' | translate}}
       </p-tab>
-      <p-tab value="2" [disabled]="gamesTabDisabled">
+      <p-tab value="2" [disabled]="gamesTabDisabled()">
         {{'chess.event.games' | translate}}
       </p-tab>
     </p-tablist>
@@ -21,24 +21,24 @@
 
           <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
-            <div *ngIf="event" class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
-              <p-card header="{{ event.title }}" subheader="{{getCategories(event)}}" styleClass="h-full">
-                <p *ngIf="event?.location"><strong>{{'chess.event.location' | translate}}: </strong>{{ event.location }}</p>
-                <p *ngIf="event?.dateFrom"><strong>{{'chess.event.date-from' | translate}}: </strong>{{ event.dateFrom }}</p>
-                <p *ngIf="event?.dateTo"><strong>{{'chess.event.date-to' | translate}}: </strong>{{ event.dateTo }}</p>
+            <div *ngIf="event.value()" class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
+              <p-card [header]="event.value()?.title" [subheader]="categories()" styleClass="h-full">
+                <p *ngIf="event.value()?.location"><strong>{{'chess.event.location' | translate}}: </strong>{{ event.value()?.location }}</p>
+                <p *ngIf="event.value()?.dateFrom"><strong>{{'chess.event.date-from' | translate}}: </strong>{{ event.value()?.dateFrom }}</p>
+                <p *ngIf="event.value()?.dateTo"><strong>{{'chess.event.date-to' | translate}}: </strong>{{ event.value()?.dateTo }}</p>
               </p-card>
             </div>
 
             <app-chess-event-participants
               class="4k:col-span-3 xlScreen:col-span-2 lScreen:col-span-2 desktop:col-span-2 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1"
-              *ngIf="event"
-              [event]="event"
+              *ngIf="event.value()"
+              [event]="event.value()"
             ></app-chess-event-participants>
           </div>
 
 
           <ng-template #footer>
-            <div *ngIf="event?.url" >
+            <div *ngIf="event.value()?.url && event.value()?.url !== ''" >
               <p-button [label]="'chess.event.open-official-website' | translate" class="w-full" styleClass="w-full" (onClick)="openEvent()" />
             </div>
           </ng-template>
@@ -47,12 +47,12 @@
       </p-tabpanel>
       <p-tabpanel value="1">
 
-        <iframe style="border:0;" [src]="embedUrl" scrolling="no"></iframe>
+        <iframe style="border:0;" [src]="embedUrl()" scrolling="no"></iframe>
 
       </p-tabpanel>
       <p-tabpanel value="2">
 
-        <app-chess-event-games *ngIf="event" [event]="event" (haveContent)="changeGamesTabVisibility($event)"></app-chess-event-games>
+        <app-chess-event-games *ngIf="event.value()" [event]="event.value()" (haveContent)="gamesTabDisabled.set(!$event)"></app-chess-event-games>
 
       </p-tabpanel>
     </p-tabpanels>

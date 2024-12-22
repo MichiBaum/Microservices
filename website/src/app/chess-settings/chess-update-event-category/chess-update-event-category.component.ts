@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal, computed, effect} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessEventCategoryComponent} from "../select-chess-event-category/select-chess-event-category.component";
@@ -9,6 +9,7 @@ import {InputGroupModule} from "primeng/inputgroup";
 import {InputTextModule} from "primeng/inputtext";
 import {Button} from "primeng/button";
 import {FloatLabel} from "primeng/floatlabel";
+import {rxResource} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-chess-update-event-category',
@@ -26,11 +27,13 @@ import {FloatLabel} from "primeng/floatlabel";
   templateUrl: './chess-update-event-category.component.html',
   styleUrl: './chess-update-event-category.component.scss'
 })
-export class ChessUpdateEventCategoryComponent implements OnInit{
+export class ChessUpdateEventCategoryComponent {
   private readonly chessService = inject(ChessService);
 
-  categories: ChessEventCategory[] = [];
-  selectedCategory: ChessEventCategory | undefined;
+  categories = rxResource({
+    loader: () => this.chessService.eventCategories(),
+  })
+  selectedCategory = signal<ChessEventCategory | undefined>(undefined)
 
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({
@@ -51,23 +54,16 @@ export class ChessUpdateEventCategoryComponent implements OnInit{
     ]),
   })
 
-
-  ngOnInit(): void {
-    this.chessService.eventCategories().subscribe(
-      eventCategories => this.categories = [...eventCategories]
-    )
-  }
-
   onCategorySelect(category: ChessEventCategory | undefined) {
-    this.selectedCategory = category;
-    this.patchForm()
+    this.selectedCategory.set(category);
+    this.patchForm(category)
   }
 
-  private patchForm() {
+  private patchForm(selectedCategory: ChessEventCategory | undefined) {
     this.formGroup?.patchValue({
-      id: this.selectedCategory?.id ?? '',
-      title: this.selectedCategory?.title ?? '',
-      description: this.selectedCategory?.description ?? '',
+      id: selectedCategory?.id ?? '',
+      title: selectedCategory?.title ?? '',
+      description: selectedCategory?.description ?? '',
     })
   }
 
@@ -82,22 +78,16 @@ export class ChessUpdateEventCategoryComponent implements OnInit{
     }
 
     const id = this.formGroup.controls['id'].value ?? ""
-    this.chessService.saveCategory(id, category).subscribe(newCategory => {
+    this.chessService.saveCategory(id, category).subscribe(_ => {
       this.clear()
-      let isNewCategory = !this.categories.some(old => old.id === newCategory.id);
-      if (isNewCategory){
-        this.categories = [...this.categories, newCategory]
-      } else {
-        const newCategories = this.categories.map(old => old.id === newCategory.id ? newCategory : old);
-        this.categories = [...newCategories]
-      }
+      this.categories.reload()
     })
 
   }
 
   clear() {
     this.formGroup.reset();
-    this.selectedCategory = undefined;
+    this.selectedCategory.set(undefined);
   }
 
   confirmDelete() {

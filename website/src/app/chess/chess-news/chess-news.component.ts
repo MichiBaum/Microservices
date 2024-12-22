@@ -9,10 +9,6 @@ import {Message} from "primeng/message";
   templateUrl: './chess-news.component.html',
   styleUrl: './chess-news.component.scss'
 })
-export class ChessNewsComponent implements OnInit {
-
-  ngOnInit(): void {
-  }
-
+export class ChessNewsComponent {
 
 }

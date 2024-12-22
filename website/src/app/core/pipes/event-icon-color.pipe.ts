@@ -2,7 +2,6 @@ import {Pipe, PipeTransform} from "@angular/core";
 import {ChessEvent} from "../models/chess/chess.models";
 
 @Pipe({
-  standalone: true,
   name: 'eventIconColor',
 })
 export class EventIconColorPipe implements PipeTransform {
