@@ -1,0 +1,21 @@
+.defer-background {
+  -webkit-animation: defer-background 1s linear infinite alternate both;
+  animation: defer-background 1s linear infinite alternate both;
+}
+
+@-webkit-keyframes defer-background {
+  0% {
+    background: #bdbdbd;
+  }
+  100% {
+    background: #383838;
+  }
+}
+@keyframes defer-background {
+  0% {
+    background: #bdbdbd;
+  }
+  100% {
+    background: #383838;
+  }
+}
