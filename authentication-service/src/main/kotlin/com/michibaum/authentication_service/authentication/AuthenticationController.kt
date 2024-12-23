@@ -47,7 +47,6 @@ class AuthenticationController (
         return ResponseEntity.ok()
             .headers {
                 it.set(HttpHeaders.SET_COOKIE, cookie.toString())
-                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://michibaum.ch")
                 it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
             }
             .body(responseBody)
@@ -86,7 +85,6 @@ class AuthenticationController (
         return ResponseEntity.ok()
             .headers {
                 it.set(HttpHeaders.SET_COOKIE, cookie.toString())
-                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://michibaum.ch")
                 it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
             }
             .build()
