@@ -35,9 +35,14 @@ export class ChessEventsListComponent {
     loader: () => this.chessService.eventCategoriesWithEvents()
   })
   categoriesSorted = computed(() => {
-    const categories = this.categories.value()
-    if(categories == undefined) return []
-    return categories.map(category => {
+    const _categories = this.categories.value()
+    if(_categories == undefined) return []
+    return _categories.sort((a, b) => a.title.localeCompare(b.title))
+  })
+  categoriesAndEventsSorted = computed(() => {
+    const _categoriesSorted = this.categoriesSorted()
+    if(_categoriesSorted == undefined) return []
+    return _categoriesSorted.map(category => {
       if (category.events) {
         category.events = this.chessService.sortEvents(category.events)
       }
