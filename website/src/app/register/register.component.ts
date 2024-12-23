@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -10,9 +10,12 @@ import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {Sides} from "../core/config/sides";
 import {UserInfoService} from "../core/services/user-info.service";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FocusTrapModule} from "primeng/focustrap";
-import {FormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Register, RegisterState} from "../core/models/authentication.model";
+import {CustomErrorMatching} from "../core/config/http-error-handler.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-register',
@@ -25,7 +28,8 @@ import {FormsModule} from "@angular/forms";
     PasswordModule,
     TranslateModule,
     FocusTrapModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -35,10 +39,34 @@ export class RegisterComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
   private readonly router = inject(RouterNavigationService);
   private readonly userInfoService = inject(UserInfoService);
+  private readonly translate = inject(TranslateService);
 
-  username = signal("");
-  password = signal("");
-  passwordRepeat = signal("");
+  registerForm: FormGroup = new FormGroup({
+    username: new FormControl<string | null>({
+      value: '',
+      disabled: false
+    }, [
+      Validators.required,
+    ]),
+    email: new FormControl<string>({
+      value: '',
+      disabled: false
+    }, [
+      Validators.required,
+    ]),
+    password: new FormControl<string>({
+      value: '',
+      disabled: false
+    }, [
+      Validators.required,
+    ]),
+    passwordRepeat: new FormControl<string>({
+      value: '',
+      disabled: false
+    }, [
+      Validators.required,
+    ])
+  });
 
 
   ngOnInit(): void {
@@ -50,13 +78,41 @@ export class RegisterComponent implements OnInit{
   }
 
   register() {
-    this.userInfoService.info('Not implemented', 'This functionality is not implemented yet')
-    return;
+    if(!this.registerForm.valid)
+      return;
+    let password = this.registerForm.controls['password'].value ?? "";
+    let passwordRepeat = this.registerForm.controls['passwordRepeat'].value ?? "";
+    if(password == "" || passwordRepeat == "")
+      return;
+    if(password != passwordRepeat) {
+      this.registerForm.controls['password'].setErrors({})
+      this.registerForm.controls['passwordRepeat'].setErrors({})
+      return;
+    }
 
-    // TODO
-    if(this.username() == '' || this.password() == '' || this.passwordRepeat() == '')
-      return;
-    if(this.password() !== this.passwordRepeat())
-      return;
+    const registerUser: Register = {
+      username: this.registerForm.controls['username'].value ?? "",
+      email: this.registerForm.controls['email'].value ?? "",
+      password: this.registerForm.controls['password'].value ?? ""
+    }
+
+    const customErrorMatching: CustomErrorMatching =  {
+      matcher: (error: HttpErrorResponse) => error.status == 409,
+      summary: this.translate.instant("register.error.summary"),
+      details: this.translate.instant("register.error.details")
+    }
+    this.authService.register(registerUser, customErrorMatching)
+      .subscribe(value => {
+
+      const state = RegisterState[value.state]
+      // @ts-ignore
+      if(state == RegisterState.SUCCESS){
+        this.userInfoService.info(this.translate.instant("register.success.summary"), this.translate.instant("register.success.details"), 10000)
+        this.router.login()
+        return;
+      }
+    })
+
+
   }
 }

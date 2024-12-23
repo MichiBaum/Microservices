@@ -30,10 +30,11 @@ export class UserInfoService {
    * @param {string} summary - A brief summary of the informational message.
    * @param {string} details - A detailed description of the informational message.
    *
+   * @param durationMs
    * @return {void}
    */
-  info(summary: string, details: string): void {
-    this._messageEmitter.next({severity: "info", summary: summary, detail: details})
+  info(summary: string, details: string, durationMs: number = 5000): void {
+    this._messageEmitter.next({severity: "info", summary: summary, detail: details, life: durationMs})
   }
 
   /**
@@ -41,10 +42,11 @@ export class UserInfoService {
    *
    * @param {string} summary - A brief summary of the error.
    * @param {string} details - A detailed description of the error.
+   * @param durationMs
    * @return {void}
    */
-  error(summary: string, details: string): void {
-    this._messageEmitter.next({severity: "error", summary: summary, detail: details})
+  error(summary: string, details: string, durationMs: number = 5000): void {
+    this._messageEmitter.next({severity: "error", summary: summary, detail: details, life: durationMs})
   }
 
 }

@@ -166,9 +166,18 @@
     "name": "Michael Baumberger"
   },
   "register": {
+    "email": "E-mail",
+    "error": {
+      "details": "The username or email may already be taken.",
+      "summary": "Registration error"
+    },
     "login": "Login",
     "password": "Password",
     "register": "Register",
+    "success": {
+      "details": "You can log in now.",
+      "summary": "Registration successful"
+    },
     "title": "Register",
     "username": "Username"
   },

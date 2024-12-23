@@ -21,6 +21,6 @@ class User (
     val permissions: Set<Permission>,
 
     @Id
-    @UuidGenerator
-    val id: UUID,
+    @GeneratedValue(strategy = GenerationType.UUID)
+    val id: UUID? = null,
 )

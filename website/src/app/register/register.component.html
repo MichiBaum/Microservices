@@ -2,24 +2,30 @@
 
   <p-card pFocusTrap class="max-w-xl mt-4">
     <div class="flex flex-col items-center justify-center gap-6">
-      <p-floatlabel class="w-full" variant="in">
-        <input class="w-full" id="username" type="text" pInputText [(ngModel)]="username" />
-        <label for="username">{{ "register.username" | translate }}</label>
-      </p-floatlabel>
-      <p-floatlabel class="w-full" variant="in">
-        <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" styleClass="w-full"/>
-        <label for="password">{{ "register.password" | translate }}</label>
-      </p-floatlabel>
-      <p-floatlabel class="w-full" variant="in">
-        <p-password id="passwordRepeat" [feedback]="false" [toggleMask]="true" [(ngModel)]="passwordRepeat" styleClass="w-full"/>
-        <label for="passwordRepeat">{{ "register.password" | translate }}</label>
-      </p-floatlabel>
+      <form [formGroup]="registerForm" class="*:mb-4">
+        <p-floatlabel class="w-full" variant="in">
+          <input class="w-full" id="username" type="text" formControlName="username" pInputText />
+          <label for="username">{{ "register.username" | translate }}</label>
+        </p-floatlabel>
+        <p-floatlabel class="w-full" variant="in">
+          <input class="w-full" id="email" type="text" formControlName="email" pInputText />
+          <label for="email">{{ "register.email" | translate }}</label>
+        </p-floatlabel>
+        <p-floatlabel class="w-full" variant="in">
+          <p-password id="password" [feedback]="false" [toggleMask]="true" formControlName="password" styleClass="w-full"/>
+          <label for="password">{{ "register.password" | translate }}</label>
+        </p-floatlabel>
+        <p-floatlabel class="w-full" variant="in">
+          <p-password id="passwordRepeat" [feedback]="false" [toggleMask]="true" formControlName="passwordRepeat" styleClass="w-full"/>
+          <label for="passwordRepeat">{{ "register.password" | translate }}</label>
+        </p-floatlabel>
+      </form>
     </div>
 
     <ng-template #footer>
       <div class="flex gap-6 mt-1">
         <p-button label='{{ "register.login" | translate }}' class="w-full" styleClass="w-full" (onClick)="login()"></p-button>
-        <p-button label='{{ "register.register" | translate }}' class="w-full" styleClass="w-full" (onClick)="register()"></p-button>
+        <p-button label='{{ "register.register" | translate }}' class="w-full" styleClass="w-full" [disabled]="!registerForm.valid" (onClick)="register()"></p-button>
       </div>
     </ng-template>
   </p-card>

@@ -1,18 +1,18 @@
 import { Injectable, inject } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Authentication, AuthenticationResponse} from "../models/authentication.model";
+import {Authentication, AuthenticationResponse, Register, RegisterResponse} from "../models/authentication.model";
 import {environment} from "../../../environments/environment";
 import {RouterNavigationService} from "./router-navigation.service";
-import {catchError, Subject} from "rxjs";
-import {HttpErrorHandler} from "../config/http-error-handler.service";
+import {catchError, Observable, Subject} from "rxjs";
+import {CustomErrorMatching, HttpErrorHandler} from "../config/http-error-handler.service";
 import {UserInfoService} from "./user-info.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  private http = inject(HttpClient);
-  private router = inject(RouterNavigationService);
-  private httpErrorConfig = inject(HttpErrorHandler);
-  private userInfoService = inject(UserInfoService);
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(RouterNavigationService);
+  private readonly httpErrorConfig = inject(HttpErrorHandler);
+  private readonly userInfoService = inject(UserInfoService);
 
   successLoginEmitter = new Subject<void>();
   logoutEmitter = new Subject<void>()
@@ -28,6 +28,11 @@ export class AuthService {
           this.router.home()
         }
       })
+  }
+
+  register(registerUser: Register, customErrorMatching: CustomErrorMatching | undefined): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(environment.authenticationService + '/register', registerUser)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService, customErrorMatching)))
   }
 
   logout(){
@@ -56,4 +61,5 @@ export class AuthService {
   navigate() {
     this.router.home()
   }
+
 }

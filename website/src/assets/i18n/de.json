@@ -166,9 +166,18 @@
     "name": "Michael Baumberger"
   },
   "register": {
+    "email": "E-Mail",
+    "error": {
+      "details": "Möglicherweise ist der Benutzername oder die E-Mail bereits vergeben.",
+      "summary": "Registrierung fehlgeschlagen"
+    },
     "login": "Anmelden",
     "password": "Passwort",
     "register": "Registrieren",
+    "success": {
+      "details": "Sie können sich nun anmelden.",
+      "summary": "Registrierung erfolgreich"
+    },
     "title": "Registrieren",
     "username": "Benutzername"
   },
