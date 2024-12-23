@@ -1,12 +1,6 @@
 package com.michibaum.usermanagement_service
 
-import com.michibaum.usermanagement_library.CreateUserDto
-import com.michibaum.usermanagement_library.LoginDto
-import com.michibaum.usermanagement_library.UserDetailsDto
-import com.michibaum.usermanagement_library.UserManagementEndpoints
-import io.netty.handler.codec.http.HttpResponseStatus.CONFLICT
-import io.netty.handler.codec.http.HttpResponseStatus.CREATED
-import org.springframework.http.HttpStatusCode
+import com.michibaum.usermanagement_library.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -16,9 +10,13 @@ class UsermanagementController (
 ) : UserManagementEndpoints {
 
     override fun checkUserDetails(loginDto: LoginDto): UserDetailsDto? {
+        val errors = LoginDtoValidator.validate(loginDto)
+        if(errors.isNotEmpty())
+            return null
+
         val user = userService.findByUsername(loginDto.username) ?: return null
         val matching = userService.checkPassword(loginDto.password, user.password)
-        if (!matching) return null // TODO Throw error
+        if (!matching) return null
 
         return UserDetailsDto(
             id = user.id.toString(),
@@ -28,9 +26,13 @@ class UsermanagementController (
     }
 
     override fun create(createUserDto: CreateUserDto): UserDetailsDto? {
+        val errors = CreateUserDtoValidator.validate(createUserDto)
+        if(errors.isNotEmpty())
+            return null
+
         val alreadyExists = userService.anyExists(createUserDto.username, createUserDto.email)
         if (alreadyExists)
-            return null // TODO Throw error
+            return null
 
         val user = userService.createDefaultUser(createUserDto)
         val dto = UserDetailsDto(

@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit{
   private readonly translate = inject(TranslateService);
 
   registerForm: FormGroup = new FormGroup({
-    username: new FormControl<string | null>({
+    username: new FormControl<string>({
       value: '',
       disabled: false
     }, [
@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit{
       disabled: false
     }, [
       Validators.required,
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     ]),
     password: new FormControl<string>({
       value: '',
