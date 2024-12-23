@@ -1,4 +1,4 @@
-<p-menubar [model]="menuItems">
+<p-menubar [model]="menuItems()">
   <ng-template #start>
     <fa-icon [icon]="faChessQueen" size="2x" [routerLink]="'/chess/'" class="cursor-pointer"></fa-icon>
     <p-divider layout="vertical" />
@@ -21,7 +21,7 @@
             <p class="text-xs">{{ category.title }}</p>
           </ng-container>
         </ng-container>
-        <p>{{ item.label }}</p>
+        <p>{{ item.label | translate }}</p>
         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
       </div>
 

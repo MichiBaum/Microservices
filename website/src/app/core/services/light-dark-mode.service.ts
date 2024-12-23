@@ -26,13 +26,13 @@ export class LightDarkModeService {
       return;
     }
 
-    const darkModeEnabled = element.classList.contains('p-dark');
+    const darkModeEnabled = element.classList.contains('dark');
     if (darkModeEnabled) {
       this.saveMode(LightDarkMode.light)
-      element.classList.remove('p-dark');
+      element.classList.remove('dark');
     } else {
       this.saveMode(LightDarkMode.dark)
-      element.classList.add('p-dark');
+      element.classList.add('dark');
     }
   }
 
@@ -44,18 +44,18 @@ export class LightDarkModeService {
 
 
     if(lightDarkMode == LightDarkMode.light){
-      const darkModeEnabled = element.classList.contains('p-dark');
+      const darkModeEnabled = element.classList.contains('dark');
       if (darkModeEnabled) {
         this.saveMode(LightDarkMode.light)
-        element.classList.remove('p-dark');
+        element.classList.remove('dark');
       }
       return;
     }
     if(lightDarkMode == LightDarkMode.dark){
-      const darkModeEnabled = element.classList.contains('p-dark');
+      const darkModeEnabled = element.classList.contains('dark');
       if (!darkModeEnabled) {
         this.saveMode(LightDarkMode.dark)
-        element.classList.add('p-dark');
+        element.classList.add('dark');
       }
       return;
     }

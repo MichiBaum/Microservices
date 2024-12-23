@@ -12,7 +12,7 @@
 
   <ng-template #footer *ngIf="buttonLabel()">
     <div class="gap-6 mt-1">
-      <p-button [label]="buttonLabel()" class="w-full" styleClass="w-full" (onClick)="navigateClicked()"/>
+      <p-button [label]="buttonLabel()" class="w-full" styleClass="w-full" (onClick)="navigate.emit()"/>
     </div>
   </ng-template>
 </p-card>

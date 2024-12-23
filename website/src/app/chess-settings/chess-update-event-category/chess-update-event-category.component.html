@@ -2,7 +2,7 @@
   <div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Category Select">
-      <app-select-chess-event-category [categories]="categories" (selectedCategoryEmitter)="onCategorySelect($event)"></app-select-chess-event-category>
+      <app-select-chess-event-category [categories]="categories.value() ?? []" (selectedCategoryEmitter)="onCategorySelect($event)"></app-select-chess-event-category>
     </p-fieldset>
 
     <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
@@ -31,7 +31,7 @@
       <p-fieldset legend="Action">
         <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
         <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-        <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedCategory" />
+        <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="selectedCategory() == undefined" />
       </p-fieldset>
     </div>
   </div>

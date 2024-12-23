@@ -1,6 +1,5 @@
 import { ApplicationConfig, isDevMode, inject, provideAppInitializer } from '@angular/core';
 import {provideRouter} from '@angular/router';
-
 import {routes} from './app.routes';
 import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {InterpolatableTranslationObject, TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -63,7 +62,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: MyPreset,
         options: {
-          darkModeSelector: '.p-dark'
+          darkModeSelector: '.dark'
         }
       }
     }

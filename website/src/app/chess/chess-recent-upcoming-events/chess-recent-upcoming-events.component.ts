@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, computed} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {ChessEvent} from "../../core/models/chess/chess.models";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -7,6 +7,7 @@ import {Timeline} from "primeng/timeline";
 import {RouterLink} from "@angular/router";
 import {EventIconPipe} from "../../core/pipes/event-icon.pipe";
 import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
+import {rxResource} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-chess-recent-upcoming-events',
@@ -21,17 +22,16 @@ import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
   templateUrl: './chess-recent-upcoming-events.component.html',
   styleUrl: './chess-recent-upcoming-events.component.scss'
 })
-export class ChessRecentUpcomingEventsComponent implements OnInit{
+export class ChessRecentUpcomingEventsComponent {
   private readonly chessService = inject(ChessService);
 
-  events: ChessEvent[] = []
-
-
-  ngOnInit(): void {
-    this.chessService.eventsRecentUpcoming().subscribe(events => {
-      const sorted = this.chessService.sortEvents(events)
-      this.events = [...sorted];
-    })
-  }
+  events = rxResource({
+    loader: () => this.chessService.eventsRecentUpcoming()
+  })
+  eventsSorted = computed(() => {
+    const events = this.events.value()
+    if(events == undefined) return []
+    return this.chessService.sortEvents(events)
+  })
 
 }

@@ -2,21 +2,21 @@
   <div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Select Event" [toggleable]="true">
-      <app-select-chess-event [events]="events" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
+      <app-select-chess-event [events]="events.value() ?? []" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
 
-    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons.length !== 0">
-      <app-select-chess-person [persons]="persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
+    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons().length !== 0">
+      <app-select-chess-person [persons]="persons()" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
     </p-fieldset>
 
-    <p-fieldset [toggleable]="true" *ngIf="selectedPersons.length == 2">
+    <p-fieldset [toggleable]="true" *ngIf="selectedPersons().length == 2">
       <ng-template #header>
         Select Accounts
       </ng-template>
 
       <p-table
         #table
-        [value]="accounts"
+        [value]="accounts()"
         [(selection)]="selectedAccounts"
         selectionMode="multiple"
         [paginator]="true"

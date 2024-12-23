@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Language} from '../models/language.model';
 import {Subject} from "rxjs";
+import {PrimeNG} from "primeng/config";
 
 export const languages: Language[] = [
   {
@@ -21,20 +22,18 @@ export const defaultLanguage: Language = {
 
 @Injectable({ providedIn: 'root' })
 export class LanguageConfig {
-  translate = inject(TranslateService);
+  private readonly translate = inject(TranslateService);
 
 
   localStorageKey = 'languageIso';
-  languages: Language[];
+  languages: Language[] = languages;
   current: Language | undefined;
-  defaultLanguage: Language;
+  defaultLanguage: Language = defaultLanguage;
 
   languageChanged = new Subject<Language>;
 
 
   constructor() {
-    this.languages = languages;
-    this.defaultLanguage = defaultLanguage;
     this.setInitLanguage();
   }
 
@@ -59,7 +58,7 @@ export class LanguageConfig {
       return;
     }
 
-    this.setLanguage(this.languages[0]);
+    this.setLanguage(this.defaultLanguage);
   }
 
   private getBrowserLanguage = (): Language => {

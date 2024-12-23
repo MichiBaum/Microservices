@@ -25,8 +25,10 @@ class JwsValidator(
         val dto = try {
              authenticationClient.publicKey()
         } catch (ex: FeignException.Unauthorized){
-            logger.info(ex.message, ex)
-            logger.error("JwsValidator could not reload public key: ${ex.message}")
+            logger.error("JwsValidator could not reload public key: ${ex.message}", ex)
+            return
+        } catch (ex: FeignException.ServiceUnavailable) {
+            logger.error("JwsValidator could not reach authentication server: ${ex.message}")
             return
         }
         val pubkey: PublicKey = KeyFactory.getInstance(dto.algorithm).generatePublic(X509EncodedKeySpec(dto.key))

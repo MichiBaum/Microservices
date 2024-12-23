@@ -72,9 +72,11 @@
               ]
             },
             "bundle-report": {
+              "sourceMap": true,
               "optimization": true,
               "outputHashing": "none",
-              "namedChunks": true
+              "namedChunks": true,
+              "aot": true
             }
           },
           "defaultConfiguration": "production"

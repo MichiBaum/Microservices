@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, computed, signal, Signal, WritableSignal, resource, OnDestroy} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
 import {ChessService} from "../../core/services/chess.service";
@@ -9,12 +9,12 @@ import {TranslateModule} from "@ngx-translate/core";
 import {TableModule} from "primeng/table";
 import {NgIf} from "@angular/common";
 import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-event-participants.component";
-import {ChessEvent} from "../../core/models/chess/chess.models";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
-import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
 import {Avatar} from "primeng/avatar";
+import {rxResource} from "@angular/core/rxjs-interop";
+import {EMPTY, Observable} from "rxjs";
 
 @Component({
   selector: 'app-chess-events',
@@ -37,48 +37,52 @@ import {Avatar} from "primeng/avatar";
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.scss'
 })
-export class ChessEventComponent implements OnInit {
+export class ChessEventComponent implements OnDestroy {
   private _sanitizer = inject(DomSanitizer);
   private readonly route = inject(ActivatedRoute);
   private readonly chessService = inject(ChessService);
   private readonly navigationService = inject(RouterNavigationService);
 
 
-  embedUrl: SafeResourceUrl = "";
-  event: ChessEvent | undefined;
+  eventId: WritableSignal<string | undefined> = signal("")
+  event = rxResource({
+    request: () => ({id: this.eventId()}),
+    loader: (param) => {
+      if(param.request.id == undefined)
+        return EMPTY
+      return this.chessService.event(param.request.id)
+    }
+  })
+  embedUrl: Signal<SafeResourceUrl | undefined> = computed(() => {
+    const event = this.event.value();
+    if(event === undefined)
+      return undefined
+    if(event.embedUrl == undefined || event.embedUrl === "")
+      return undefined
+    return this._sanitizer.bypassSecurityTrustResourceUrl(event.embedUrl)
+  })
+  categories: Signal<string> = computed(() => {
+    const event = this.event.value();
+    if(event == undefined)
+      return ""
+    return event.categories.map(value => value.title).join(", ")
+  })
 
-  gamesTabDisabled: boolean = true;
+  gamesTabDisabled = signal(true)
 
+  routeParamsSubscription = this.route.params.subscribe(params => {
+    const id = params['id'];
+    this.eventId.set(id)
+  });
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      if(id !== null) {
-        this.chessService.event(id).subscribe(ev => {
-          this.event = ev
-          this.setIframeUrl(this.event)
-        })
-      }
-    });
-  }
-
-  setIframeUrl(event: ChessEvent): void {
-    if(event.embedUrl === undefined) return
-    this.embedUrl = this._sanitizer.bypassSecurityTrustResourceUrl(event.embedUrl);
+  ngOnDestroy() {
+    this.routeParamsSubscription.unsubscribe()
   }
 
   openEvent() {
-    if(this.event && this.event.url)
-      this.navigationService.open(this.event.url)
+    let event = this.event.value();
+    if(event && event?.url && event?.url !== "")
+      this.navigationService.open(event.url)
   }
 
-  getCategories(event: ChessEvent) {
-    return event.categories.map(value => value.title).join(", ")
-  }
-
-  changeGamesTabVisibility(hasContent: boolean){
-    this.gamesTabDisabled = !hasContent;
-  }
-
-  protected readonly faCircleInfo = faCircleInfo;
 }

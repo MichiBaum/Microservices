@@ -1,15 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   ChessEvent,
   ChessEventCategory,
-  Gender,
   Person,
   SearchChessEvent,
   WriteChessEvent
 } from "../../core/models/chess/chess.models";
-import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 import {Fieldset} from "primeng/fieldset";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
 import {FloatLabel} from "primeng/floatlabel";
@@ -21,6 +19,8 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
 import {LazyLoad} from "../../core/models/lazy-load.model";
+import {rxResource} from "@angular/core/rxjs-interop";
+import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -36,7 +36,8 @@ import {LazyLoad} from "../../core/models/lazy-load.model";
     FaIconComponent,
     NgIf,
     PickList,
-    FormsModule
+    FormsModule,
+    EventIconPipe
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
@@ -45,10 +46,12 @@ export class ChessUpdateEventComponent implements OnInit{
   private readonly chessService = inject(ChessService);
 
 
-  events: ChessEvent[] = [];
-  selectedEvent: ChessEvent | undefined;
+  events = signal<ChessEvent[]>([])
+  selectedEvent = signal<ChessEvent | undefined>(undefined)
 
-  categories: ChessEventCategory[] = [];
+  categories = rxResource({
+    loader: () => this.chessService.eventCategories(),
+  })
 
   allPersons: Person[] = [];
   personsToSelect: Person[] = [];
@@ -95,9 +98,6 @@ export class ChessUpdateEventComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.chessService.eventCategories().subscribe(categories => {
-      this.categories = [...categories];
-    })
     this.chessService.persons().subscribe(persons => {
       this.allPersons = [...persons];
       this.resetParticipantsSelect()
@@ -105,7 +105,7 @@ export class ChessUpdateEventComponent implements OnInit{
   }
 
   onEventSelect(event: ChessEvent | undefined){
-    this.selectedEvent = event;
+    this.selectedEvent.set(event);
     this.resetParticipantsSelect()
     this.patchForm()
   }
@@ -114,8 +114,9 @@ export class ChessUpdateEventComponent implements OnInit{
     this.personsToSelect = [...[]]
     this.participants = [...[]]
     this.resetSourceTargetFilter()
-    if(this.selectedEvent){
-      const eventParticipants = this.selectedEvent.participants as Person[];
+    let selectedEvent = this.selectedEvent();
+    if(selectedEvent){
+      const eventParticipants = selectedEvent.participants as Person[];
       this.participants = [...eventParticipants];
       const notParticipating = this.allPersons.filter(person => !eventParticipants?.some(participant => participant.id == person.id))
       this.personsToSelect = [...notParticipating]
@@ -126,24 +127,31 @@ export class ChessUpdateEventComponent implements OnInit{
   }
 
   patchForm(){
+    const selectedEvent = this.selectedEvent();
+
+    if(selectedEvent == undefined){
+      this.clear()
+      return;
+    }
+
     let dateFrom;
-    if(this.selectedEvent?.dateFrom){
-      dateFrom = new Date(this.selectedEvent?.dateFrom)
+    if(selectedEvent.dateFrom){
+      dateFrom = new Date(selectedEvent.dateFrom)
     }
     let dateTo;
-    if(this.selectedEvent?.dateTo){
-      dateTo = new Date(this.selectedEvent?.dateTo)
+    if(selectedEvent.dateTo){
+      dateTo = new Date(selectedEvent.dateTo)
     }
 
     this.formGroup?.patchValue({
-      id: this.selectedEvent?.id ?? '',
-      title: this.selectedEvent?.title ?? '',
-      location: this.selectedEvent?.location ?? '',
+      id: selectedEvent.id ?? '',
+      title: selectedEvent.title ?? '',
+      location: selectedEvent.location ?? '',
       dateFrom: dateFrom ?? null,
       dateTo: dateTo ?? null,
-      url: this.selectedEvent?.url ?? '',
-      embedUrl: this.selectedEvent?.embedUrl ?? '',
-      categories: this.selectedEvent?.categories ?? [],
+      url: selectedEvent.url ?? '',
+      embedUrl: selectedEvent.embedUrl ?? '',
+      categories: selectedEvent.categories ?? [],
     });
     this.resetParticipantsSelect()
   }
@@ -170,12 +178,12 @@ export class ChessUpdateEventComponent implements OnInit{
     const id = this.formGroup.controls['id'].value ?? ""
     this.chessService.saveEvent(id, event).subscribe(newEvent => {
       this.clear()
-      let isNewEvent = !this.events.some(old => old.id === newEvent.id);
+      let isNewEvent = !this.events().some(old => old.id === newEvent.id);
       if (isNewEvent){
-        this.events = [...this.events, newEvent]
+        this.events.update(value => [...value, newEvent])
       } else {
-        const newEvents = this.events.map(old => old.id === newEvent.id ? newEvent : old);
-        this.events = [...newEvents]
+        const newEvents = this.events().map(old => old.id === newEvent.id ? newEvent : old);
+        this.events.set(newEvents)
       }
     })
   }
@@ -192,7 +200,7 @@ export class ChessUpdateEventComponent implements OnInit{
 
   clear() {
     this.formGroup.reset();
-    this.selectedEvent = undefined;
+    this.selectedEvent.set(undefined);
     this.resetParticipantsSelect();
   }
 
@@ -200,19 +208,11 @@ export class ChessUpdateEventComponent implements OnInit{
 
   }
 
-  getGenderIcon(person: Person) {
-    if(person.gender == Gender.MALE)
-      return faMars
-    if (person.gender == Gender.FEMALE)
-      return faVenus
-    return faVenusMars;
-  }
-
   lazyLoadEvents(lazyLoad: LazyLoad<SearchChessEvent>) {
     this.chessService.searchEvents(lazyLoad.data).subscribe(newEvents => {
-      const filtered = newEvents.filter(event => this.events.every(oldEvent => oldEvent.id !== event.id))
+      const filtered = newEvents.filter(event => this.events().every(oldEvent => oldEvent.id !== event.id))
       if(filtered.length != 0){
-        this.events = [...this.events, ...filtered];
+        this.events.update(value => [...value, ...filtered])
       }
     })
   }

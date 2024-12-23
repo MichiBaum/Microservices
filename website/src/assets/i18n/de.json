@@ -136,7 +136,7 @@
   "login": {
     "login": "Anmelden",
     "password": "Passwort",
-    "register": "Registrieren",
+    "register": "Zum Registrieren",
     "title": "Anmelden",
     "username": "Benutzername"
   },
@@ -166,9 +166,18 @@
     "name": "Michael Baumberger"
   },
   "register": {
-    "login": "Anmelden",
+    "email": "E-Mail",
+    "error": {
+      "details": "Möglicherweise ist der Benutzername oder die E-Mail bereits vergeben.",
+      "summary": "Registrierung fehlgeschlagen"
+    },
+    "login": "Zum Anmelden",
     "password": "Passwort",
     "register": "Registrieren",
+    "success": {
+      "details": "Sie können sich nun anmelden.",
+      "summary": "Registrierung erfolgreich"
+    },
     "title": "Registrieren",
     "username": "Benutzername"
   },

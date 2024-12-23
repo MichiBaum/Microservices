@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, signal} from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";
@@ -44,8 +44,8 @@ export class ChessUpdatePersonComponent implements OnInit{
   protected readonly environment = environment;
 
   persons: Person[] = [];
-  selectedPerson: Person | undefined;
-  genders: any[] = [Gender.MALE, Gender.FEMALE];
+  selectedPersonS = signal<Person | undefined>(undefined);
+  genders = signal<Gender[]>([Gender.MALE, Gender.FEMALE]);
 
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({
@@ -94,28 +94,29 @@ export class ChessUpdatePersonComponent implements OnInit{
 
   selectedPersonsChange(persons: Person[]) {
     if(persons.length == 0 || persons.length > 1){
-      this.selectedPerson = undefined;
+      this.selectedPersonS.set(undefined);
       this.resetForm();
       return;
     }
-    this.selectedPerson = persons[0];
+    this.selectedPersonS.set(persons[0]);
     this.patchForm();
   }
 
   private patchForm() {
+    const selectedPerson = this.selectedPersonS();
     let birthday;
-    if(this.selectedPerson?.birthday){
-      birthday = new Date(this.selectedPerson?.birthday)
+    if(selectedPerson?.birthday){
+      birthday = new Date(selectedPerson?.birthday)
     }
 
     this.formGroup?.patchValue({
-      id: this.selectedPerson?.id ?? '',
-      firstname: this.selectedPerson?.firstname ?? '',
-      lastname: this.selectedPerson?.lastname ?? '',
-      fideId: this.selectedPerson?.fideId ?? '',
-      federation: this.selectedPerson?.federation ?? '',
+      id: selectedPerson?.id ?? '',
+      firstname: selectedPerson?.firstname ?? '',
+      lastname: selectedPerson?.lastname ?? '',
+      fideId: selectedPerson?.fideId ?? '',
+      federation: selectedPerson?.federation ?? '',
       birthday: birthday ?? null,
-      gender: this.selectedPerson?.gender ?? null,
+      gender: selectedPerson?.gender ?? null,
     })
   }
 
@@ -162,7 +163,7 @@ export class ChessUpdatePersonComponent implements OnInit{
 
   clear() {
     this.formGroup.reset();
-    this.selectedPerson = undefined;
+    this.selectedPersonS.set(undefined);
   }
 
   confirmDelete() {

@@ -1,4 +1,4 @@
-<p-timeline [value]="events">
+<p-timeline [value]="eventsSorted()">
   <ng-template pTemplate="marker" let-event>
     <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
   </ng-template>
