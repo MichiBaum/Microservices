@@ -40,11 +40,16 @@ class AuthenticationController (
             .maxAge(Duration.ofHours(8))
             .domain("michibaum.ch")
             .secure(true)
+            .sameSite("Lax")
             .build()
 
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
         return ResponseEntity.ok()
-            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .headers {
+                it.set(HttpHeaders.SET_COOKIE, cookie.toString())
+                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://michibaum.ch")
+                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
+            }
             .body(responseBody)
     }
 
@@ -79,7 +84,11 @@ class AuthenticationController (
             .secure(true)
             .build()
         return ResponseEntity.ok()
-            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .headers {
+                it.set(HttpHeaders.SET_COOKIE, cookie.toString())
+                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://michibaum.ch")
+                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
+            }
             .build()
     }
 
