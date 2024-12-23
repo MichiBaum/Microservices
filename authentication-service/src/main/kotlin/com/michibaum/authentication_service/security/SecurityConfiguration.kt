@@ -29,7 +29,8 @@ class SecurityConfiguration {
                     .pathMatchers(
                         "/api/authenticate",
                         "/api/getAuthDetails",
-                        "/api/logout"
+                        "/api/logout",
+                        "/api/register"
                     ).permitAll()
                     .pathMatchers(
                         "/actuator",
