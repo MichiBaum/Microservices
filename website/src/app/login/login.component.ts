@@ -1,5 +1,5 @@
 import {Component, OnInit, inject, signal} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
@@ -33,18 +33,36 @@ export class LoginComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
   private readonly router = inject(RouterNavigationService);
 
-  protected username = signal("")
-  protected password = signal("")
-
+  loginForm: FormGroup = new FormGroup({
+    username: new FormControl<string>({
+      value: '',
+      disabled: false
+    }, [
+      Validators.required,
+    ]),
+    password: new FormControl<string>({
+      value: '',
+      disabled: false
+    }, [
+      Validators.required,
+    ])
+  })
 
   ngOnInit(): void {
     this.headerService.changeTitle(Sides.login.translationKey)
   }
 
   login(){
-    if(this.username() == '' || this.password() == '')
+    if(!this.loginForm.valid)
       return;
-    this.authService.login(this.username(), this.password())
+
+    const username = this.loginForm.controls['username'].value ?? "";
+    const password = this.loginForm.controls['password'].value ?? "";
+
+    if(username == "" || password == "")
+      return;
+
+    this.authService.login(username, password)
   }
 
   register() {

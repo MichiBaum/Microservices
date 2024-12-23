@@ -1,8 +1,7 @@
 <div class="flex justify-center items-center">
 
-  <p-card pFocusTrap class="max-w-xl mt-4">
-    <div class="flex flex-col items-center justify-center gap-6">
-      <form [formGroup]="registerForm" class="*:mb-4">
+  <p-card pFocusTrap class="max-w-xl mt-4 w-full">
+      <form [formGroup]="registerForm" class="*:mb-6">
         <p-floatlabel class="w-full" variant="in">
           <input class="w-full" id="username" type="text" formControlName="username" pInputText />
           <label for="username">{{ "register.username" | translate }}</label>
@@ -20,7 +19,6 @@
           <label for="passwordRepeat">{{ "register.password" | translate }}</label>
         </p-floatlabel>
       </form>
-    </div>
 
     <ng-template #footer>
       <div class="flex gap-6 mt-1">

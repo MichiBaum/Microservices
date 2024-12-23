@@ -1,21 +1,21 @@
 <div class="flex justify-center items-center">
 
-  <p-card pFocusTrap class="max-w-xl mt-4">
-    <div class="flex flex-col items-center justify-center gap-6">
+  <p-card pFocusTrap class="max-w-xl mt-4 w-full">
+    <form [formGroup]="loginForm" class="*:mb-6">
         <p-floatlabel class="w-full" variant="in">
-          <input id="username" class="w-full" type="text" pInputText [(ngModel)]="username"/>
+          <input id="username" formControlName="username" class="w-full" type="text" pInputText />
           <label for="username">{{ "login.username" | translate }}</label>
         </p-floatlabel>
         <p-floatlabel class="w-full" variant="in">
-          <p-password id="password" [feedback]="false" [toggleMask]="true" [(ngModel)]="password" styleClass="w-full"/>
+          <p-password id="password" formControlName="password" [feedback]="false" [toggleMask]="true" styleClass="w-full"/>
           <label for="password">{{ "login.password" | translate }}</label>
         </p-floatlabel>
-    </div>
+    </form>
 
     <ng-template #footer>
       <div class="flex gap-6 mt-1">
-        <p-button label='{{ "login.login" | translate }}' class="w-full" styleClass="w-full" (onClick)="login()"></p-button>
         <p-button label='{{ "login.register" | translate }}' class="w-full" styleClass="w-full" (onClick)="register()"></p-button>
+        <p-button label='{{ "login.login" | translate }}' class="w-full" [disabled]="!loginForm.valid" styleClass="w-full" (onClick)="login()"></p-button>
       </div>
     </ng-template>
   </p-card>

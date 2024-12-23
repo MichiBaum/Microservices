@@ -136,7 +136,7 @@
   "login": {
     "login": "Login",
     "password": "Password",
-    "register": "Register",
+    "register": "Go to register",
     "title": "Login",
     "username": "Username"
   },
@@ -171,7 +171,7 @@
       "details": "The username or email may already be taken.",
       "summary": "Registration error"
     },
-    "login": "Login",
+    "login": "Go to login",
     "password": "Password",
     "register": "Register",
     "success": {
