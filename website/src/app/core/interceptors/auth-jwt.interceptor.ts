@@ -9,7 +9,7 @@ import {AuthService} from "../services/auth.service";
  * if a JWT token is present.
  */
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class AuthJwtInterceptor implements HttpInterceptor {
   private authService = inject(AuthService);
 
   /**

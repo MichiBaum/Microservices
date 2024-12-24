@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {provideHttpClientTesting} from '@angular/common/http/testing';
 import {TranslateModule} from '@ngx-translate/core';
 import {LoginComponent} from './login.component';
 import {of} from 'rxjs';
@@ -22,10 +22,10 @@ describe('LoginComponent', () => {
             imports: [
                 ReactiveFormsModule,
                 FormsModule,
-                HttpClientTestingModule,
                 TranslateModule.forRoot()
             ],
             providers: [
+                provideHttpClientTesting(),
                 AuthService,
                 HeaderService,
                 RouterNavigationService
@@ -50,26 +50,34 @@ describe('LoginComponent', () => {
     it('should not call authService.login if username or password is empty', () => {
         const loginSpy = spyOn(authService, 'login');
 
-        component.username = '';
-        component.password = '';
+        component.loginForm.patchValue({
+          username: '',
+          password: ''
+        })
         component.login();
         expect(loginSpy).not.toHaveBeenCalled();
 
-        component.username = 'user';
-        component.password = '';
+        component.loginForm.patchValue({
+          username: 'user',
+          password: ''
+        })
         component.login();
         expect(loginSpy).not.toHaveBeenCalled();
 
-        component.username = '';
-        component.password = 'pass';
+        component.loginForm.patchValue({
+          username: '',
+          password: 'pass'
+        })
         component.login();
         expect(loginSpy).not.toHaveBeenCalled();
     });
 
     it('should call authService.login if username and password are not empty', () => {
         const loginSpy = spyOn(authService, 'login');
-        component.username = 'user';
-        component.password = 'pass';
+        component.loginForm.patchValue({
+          username: 'user',
+          password: 'pass'
+        })
         component.login();
         expect(loginSpy).toHaveBeenCalledWith('user', 'pass');
     });

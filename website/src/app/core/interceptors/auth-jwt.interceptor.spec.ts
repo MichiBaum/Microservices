@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
-import {AuthInterceptor} from './auth.interceptor';
+import {AuthJwtInterceptor} from './auth-jwt.interceptor';
 import {AuthService} from "../services/auth.service";
 
 describe('AuthInterceptor', () => {
@@ -13,9 +13,9 @@ describe('AuthInterceptor', () => {
         const authServiceSpy = jasmine.createSpyObj('AuthService', ['jwtIsPresent', 'getJwtTokenFromLocalStorage']);
 
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
             providers: [
-                {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+                provideHttpClientTesting(),
+                {provide: HTTP_INTERCEPTORS, useClass: AuthJwtInterceptor, multi: true},
                 {provide: AuthService, useValue: authServiceSpy}
             ]
         });
