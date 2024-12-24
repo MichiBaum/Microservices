@@ -190,6 +190,22 @@ export const routes: Routes = [
                 },
             },
             {
+                path: "persons/search",
+                loadComponent: () => import("./chess/chess-person-search/chess-person-search.component").then((c) => c.ChessPersonSearchComponent),
+                title: titleResolver,
+                data: {
+                    "tabTitle": (translate: TranslateService) => translate.get("chess.person.tab-title"),
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.person.title"),
+                    "metaDescription": (translate: TranslateService) => translate.get("chess.person.meta-description")
+                },
+                canActivate: []
+            },
+            {
+                path: "persons/:id",
+                loadComponent: () => import("./chess/chess-person/chess-person.component").then((c) => c.ChessPersonComponent),
+                canActivate: []
+            },
+            {
                 path: "settings",
                 canActivate: [isAuthenticatedGuard, isPermittedGuard],
                 data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
