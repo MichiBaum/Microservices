@@ -26,8 +26,7 @@ import java.util.*
 class PersonController(
     private val personService: PersonService,
     private val personConverter: PersonConverter,
-    private val fideApiService: FideApiService,
-    private val eventService: EventService,
+    private val fideApiService: FideApiService
 ) {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
@@ -36,6 +35,22 @@ class PersonController(
         val personDtos = personService.getAll()
             .map { person -> personConverter.convert(person) }
         return ResponseEntity.ok(personDtos)
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @GetMapping(value = ["/api/persons/{id}"])
+    fun person(@PathVariable id: String): ResponseEntity<PersonDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val person = personService.find(uuid)?:
+                return ResponseEntity.notFound().build()
+            val personDto = personConverter.convert(person)
+            ResponseEntity.ok(personDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
