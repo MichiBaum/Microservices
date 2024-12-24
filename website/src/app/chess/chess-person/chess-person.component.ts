@@ -3,10 +3,15 @@ import {ActivatedRoute} from "@angular/router";
 import {ChessService} from "../../core/services/chess.service";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EMPTY} from "rxjs";
+import {TableModule} from "primeng/table";
+import {Button} from "primeng/button";
 
 @Component({
   selector: 'app-chess-person',
-  imports: [],
+  imports: [
+    TableModule,
+    Button
+  ],
   templateUrl: './chess-person.component.html',
   styleUrl: './chess-person.component.scss'
 })
