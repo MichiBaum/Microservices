@@ -140,6 +140,7 @@
         },
         "player": {
             "firstname": "Nombre",
+            "gender": "Género",
             "lastname": "Apellido",
             "search-person": "Buscar Persona"
         },
@@ -168,6 +169,10 @@
         "title": "Configuración de Fitness"
     },
     "general": {
+        "firstname": "Nombre",
+        "lastname": "Apellido",
+        "search": "Buscar",
+        "searching": "Buscando",
         "sort": "Ordenar",
         "filter": "Filtrar"
     },

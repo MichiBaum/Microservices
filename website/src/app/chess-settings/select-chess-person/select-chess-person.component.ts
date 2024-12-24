@@ -5,7 +5,7 @@ import {PaginatorModule} from "primeng/paginator";
 import {TableModule} from "primeng/table";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
-
+import {TranslatePipe} from "@ngx-translate/core";
 
 export type SelectionMode = 'single' | 'multiple';
 
@@ -16,7 +16,8 @@ export type SelectionMode = 'single' | 'multiple';
     PaginatorModule,
     TableModule,
     FaIconComponent,
-    EventIconPipe
+    EventIconPipe,
+    TranslatePipe
 ],
   templateUrl: './select-chess-person.component.html',
   styleUrl: './select-chess-person.component.css'

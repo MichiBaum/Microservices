@@ -140,6 +140,7 @@
         },
         "player": {
             "firstname": "Vorname",
+            "gender": "Geschlecht",
             "lastname": "Nachname",
             "search-person": "Person suchen"
         },
@@ -168,6 +169,10 @@
         "title": "Fitness Einstellungen"
     },
     "general": {
+        "firstname": "Vorname",
+        "lastname": "Nachname",
+        "search": "Suche",
+        "searching": "Suchen",
         "sort": "Sortieren",
         "filter": "Filter"
     },
