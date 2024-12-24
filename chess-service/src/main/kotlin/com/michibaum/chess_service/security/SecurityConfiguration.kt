@@ -33,7 +33,8 @@ class SecurityConfiguration {
                         "/api/events/*/participants",
                         "/api/events/*/games",
                         "/api/event-categories",
-                        "/api/event-categories/with-events"
+                        "/api/event-categories/with-events",
+                        "/api/persons/*"
                     ).permitAll()
                     .pathMatchers(
                         "/actuator",
