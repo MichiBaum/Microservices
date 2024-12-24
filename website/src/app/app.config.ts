@@ -4,7 +4,7 @@ import {routes} from './app.routes';
 import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {InterpolatableTranslationObject, TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+import {AuthJwtInterceptor} from "./core/interceptors/auth-jwt.interceptor";
 import {provideServiceWorker} from '@angular/service-worker';
 import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
 import {environment} from "../environments/environment";
@@ -73,7 +73,7 @@ export const appConfig: ApplicationConfig = {
       }),
     {
       provide : HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: AuthJwtInterceptor,
       multi   : true,
     },
     TranslateModule.forRoot({
