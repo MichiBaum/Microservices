@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="s"
+                 name="Microservices Docs"
+                 start-page="Overview.md">
+
+    <toc-element topic="Overview.md"/>
+    <toc-element topic="Github.md">
+        <toc-element topic="Actions.md"/>
+    </toc-element>
+    <toc-element topic="Server.md">
+        <toc-element topic="New-Deployment.md"/>
+    </toc-element>
+    <toc-element topic="Database.md"/>
+    <toc-element topic="Services.md">
+        <toc-element topic="Website-Service.md"/>
+        <toc-element topic="Usermanagement-Service.md"/>
+        <toc-element topic="Registry-Service.md"/>
+        <toc-element topic="Music-Service.md"/>
+        <toc-element topic="Gateway-Service.md"/>
+        <toc-element topic="Fitness-Service.md"/>
+        <toc-element topic="Chess-Service.md"/>
+        <toc-element topic="Authentication-Service.md"/>
+        <toc-element topic="Admin-Service.md"/>
+    </toc-element>
+    <toc-element topic="Decisions.md">
+        <toc-element topic="2024-12-24_Documentation.md"/>
+    </toc-element>
+</instance-profile>
