@@ -30,7 +30,6 @@ spring:
           '[/**]':
             allowed-origin-patterns:
               - "https://michibaum.ch"
-              - "https://*.michibaum.ch"
             allowed-headers:
               - "*"
             allowed-methods:

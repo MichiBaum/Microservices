@@ -26,7 +26,9 @@
       </div>
 
       <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-      <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+      <ng-container *ngIf="item.items">
+        <fa-icon [icon]="faAngleDown"></fa-icon>
+      </ng-container>
     </a>
   </ng-template>
 </p-menubar>
