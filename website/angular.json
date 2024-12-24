@@ -36,8 +36,7 @@
               "src/sitemap.xml"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/primeicons/primeicons.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },

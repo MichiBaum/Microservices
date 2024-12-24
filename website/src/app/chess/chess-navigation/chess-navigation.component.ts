@@ -1,13 +1,5 @@
-import {Component, OnInit, inject, computed} from '@angular/core';
-import {
-  faCalendarDays,
-  faChartLine,
-  faChessQueen,
-  faGears,
-  faHouse,
-  faNewspaper,
-  faPerson
-} from "@fortawesome/free-solid-svg-icons";
+import {Component, inject, computed} from '@angular/core';
+import {faAngleDown, faCalendarDays, faChessQueen, faGears, faHouse, faNewspaper} from "@fortawesome/free-solid-svg-icons";
 import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -17,8 +9,7 @@ import {Ripple} from "primeng/ripple";
 import {Tag} from "primeng/tag";
 import {RouterLink} from "@angular/router";
 import {ChessService} from "../../core/services/chess.service";
-import {LanguageConfig} from "../../core/config/language.config";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {TranslatePipe} from "@ngx-translate/core";
 import {PermissionService} from "../../core/services/permission.service";
 import {MenuItem} from "primeng/api";
 import {Permissions} from "../../core/config/permissions";
@@ -53,6 +44,7 @@ export class ChessNavigationComponent {
   private readonly eventIconColor = inject(EventIconColorPipe);
 
   protected readonly faChessQueen = faChessQueen;
+  protected readonly faAngleDown = faAngleDown;
 
 
   events = rxResource({
