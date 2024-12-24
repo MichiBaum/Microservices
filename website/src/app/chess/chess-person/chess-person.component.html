@@ -1,1 +1,47 @@
-Id: {{person.value()?.id}}
+<div class="grid grid-cols-8">
+  <div class="col-span-1 bg-opacity-50 bg-white">
+    <h1 class="text-xl">{{person.value()?.firstname}} {{person.value()?.lastname}}</h1>
+
+    <table>
+      <tr class="*:p-2">
+        <td>Birthday</td>
+        <td>{{person.value()?.birthday}}</td>
+      </tr>
+      <tr class="*:p-2">
+        <td>Gender</td>
+        <td>{{person.value()?.gender}}</td>
+      </tr>
+      <tr class="*:p-2">
+        <td>Federation</td>
+        <td>{{person.value()?.federation}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-span-7">
+    <h1 class="text-xl">Participations</h1>
+
+    <p-table [value]="[{event: 'Event1'},{event: 'Event2'},{event: 'Event3'},{event: 'Event4'}]">
+      <ng-template #header>
+        <tr>
+          <th>Event</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Participants</th>
+          <th>Winner</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-event let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="event" [pSelectableRowIndex]="rowIndex">
+          <td>{{ event.event }}</td>
+          <td>2021-01-01</td>
+          <td>Genf</td>
+          <td>8</td>
+          <td>Magnus</td>
+          <td><p-button>Go to Event</p-button></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
