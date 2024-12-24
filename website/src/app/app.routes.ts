@@ -80,6 +80,11 @@ export const routes: Routes = [
             canActivate: []
         },
       {
+        path: "persons/:id",
+        loadComponent: () => import("./chess/chess-person/chess-person.component").then((c) => c.ChessPersonComponent),
+        canActivate: []
+      },
+      {
         path: "settings",
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
         data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
