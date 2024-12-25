@@ -2,7 +2,7 @@
 
 
 ## Updates
-To update database's table, columns or anything [liquibase](Liquibase.md) is used.
+To update database's table, columns or anything [Flyway](Flyway.md) is used.
 
 
 ## Backup

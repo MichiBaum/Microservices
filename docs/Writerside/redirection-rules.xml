@@ -6,8 +6,5 @@
         <accepts>page.html</accepts>
     </rule>
     -->
-    <rule id="6e5c2ff8">
-        <description>Created after removal of "About Services" from Microservices Docs</description>
-        <accepts>starter-topic.html</accepts>
-    </rule>
+
 </rules>

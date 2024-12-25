@@ -4,6 +4,7 @@ Requirements:
 - Java 23 installed
 - Npm installed (lts is best)
 - [Update hosts file](#update-hosts-file)
+- Local dev database
 
 
 
@@ -30,3 +31,21 @@ In ``C:\Windows\System32\drivers\etc`` find file *hosts* and add those lines:
 
 ### Linux
 In Linux the file is located under ``/etc/hosts``.
+
+## Local dev db
+Create a local dev db with:
+```Bash
+docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:3306 -d mariadb:10.11
+```
+
+After that create the databases in the container.
+
+```Bash
+create schema `authentication-db`;
+create schema `chess-db`;
+create schema `fitness-db`;
+create schema `music-db`;
+create schema `usermanagement-db`;
+```
+
+The tables are created trough [flyway](Flyway.md).
