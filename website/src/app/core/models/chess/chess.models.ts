@@ -4,7 +4,6 @@ export interface Person {
   id: string
   firstname:string
   lastname:string
-  fideId?:string
   federation?:string
   birthday?:string
   gender: Gender
@@ -14,7 +13,6 @@ export interface Person {
 export interface WritePerson {
   firstname:string
   lastname:string
-  fideId?:string
   federation?:string
   birthday?:string
   gender: Gender
@@ -40,7 +38,7 @@ export interface Account {
 export enum ChessPlatform{
   CHESSCOM="CHESSCOM",
   LICHESS="LICHESS",
-  OVER_THE_BOARD="OVER_THE_BOARD"
+  FIDE="FIDE"
 }
 
 export enum ChessGameType{

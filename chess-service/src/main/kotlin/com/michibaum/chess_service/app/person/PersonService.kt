@@ -17,7 +17,6 @@ class PersonService(
         val newPerson = Person(
             firstname = person.firstname,
             lastname = person.lastname,
-            fideId = person.fideId,
             accounts = person.accounts + account,
             id = person.id,
             federation = person.federation,
@@ -31,7 +30,6 @@ class PersonService(
         val newPerson = Person(
             firstname = person.firstname,
             lastname = person.lastname,
-            fideId = person.fideId,
             accounts = person.accounts + accounts,
             id = person.id,
             federation = person.federation,
@@ -76,7 +74,6 @@ class PersonService(
         val newPerson = Person(
             firstname = personDto.firstname,
             lastname = personDto.lastname,
-            fideId = personDto.fideId,
             federation = personDto.federation,
             birthday = personDto.birthday?.let { LocalDate.parse(it) },
             gender = personDto.gender,
@@ -90,7 +87,6 @@ class PersonService(
         val newPerson = Person(
             firstname = personDto.firstname,
             lastname = personDto.lastname,
-            fideId = personDto.fideId,
             federation = personDto.federation,
             birthday = personDto.birthday?.let { LocalDate.parse(it) },
             gender = personDto.gender,

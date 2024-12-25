@@ -13,7 +13,6 @@ class PersonConverter(
         return Person(
             firstname = person.firstname,
             lastname = person.lastname,
-            fideId = person.fideId,
             accounts = emptySet(),
             federation = person.federation,
             birthday = person.birthday?.let { LocalDate.parse(it) },
@@ -26,7 +25,6 @@ class PersonConverter(
             id = person.idOrThrow(),
             firstname = person.firstname,
             lastname = person.lastname,
-            fideId = person.fideId,
             federation = person.federation,
             birthday = person.birthday?.toString(),
             gender = person.gender,

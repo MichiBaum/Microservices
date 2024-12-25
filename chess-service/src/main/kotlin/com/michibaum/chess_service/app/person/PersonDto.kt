@@ -13,7 +13,6 @@ data class WritePersonDto(
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Lastname must contain only alphabetic characters")
     val lastname: String,
-    val fideId: String? = null,
     val federation: String? = null,
     @Pattern(regexp = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])\$")
     val birthday: String? = null,
@@ -24,7 +23,6 @@ data class PersonDto(
     val id: UUID,
     val firstname: String,
     val lastname: String,
-    val fideId: String?,
     val federation: String? = null,
     val birthday: String? = null,
     val gender: Gender,

@@ -17,7 +17,6 @@ class FidePersonDto(
         return Person(
             firstname = firstname,
             lastname = lastname,
-            fideId = fideId,
             federation = federation,
             birthday = birthDay,
             gender = gender,

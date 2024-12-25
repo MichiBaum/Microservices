@@ -26,7 +26,7 @@ class ApiService(
         return when (account.platform) {
             ChessPlatform.CHESSCOM -> chesscomApiService.getStats(account)
             ChessPlatform.LICHESS -> lichessApiService.getStats(account)
-            ChessPlatform.OVER_THE_BOARD -> TODO()
+            ChessPlatform.FIDE -> TODO()
         }
 
     }
@@ -35,7 +35,7 @@ class ApiService(
         val result = when(account.platform) {
             ChessPlatform.CHESSCOM -> chesscomApiService.getGames(account)
             ChessPlatform.LICHESS -> lichessApiService.getGames(account)
-            ChessPlatform.OVER_THE_BOARD -> TODO()
+            ChessPlatform.FIDE -> TODO()
         }
 
         if(result is Success){
