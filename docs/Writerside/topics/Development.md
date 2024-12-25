@@ -3,7 +3,7 @@
 Requirements:
 - Java 23 installed
 - Npm installed (lts is best)
-- [Update hosts file]()
+- [Update hosts file](#update-hosts-file)
 
 
 
