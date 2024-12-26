@@ -113,7 +113,6 @@ export class ChessUpdateEventComponent implements OnInit{
   private resetParticipantsSelect(){
     this.personsToSelect = [...[]]
     this.participants = [...[]]
-    this.resetSourceTargetFilter()
     let selectedEvent = this.selectedEvent();
     if(selectedEvent){
       const eventParticipants = selectedEvent.participants as Person[];
@@ -215,66 +214,6 @@ export class ChessUpdateEventComponent implements OnInit{
         this.events.update(value => [...value, ...filtered])
       }
     })
-  }
-
-
-
-
-
-
-
-
-  // TODO sourceHeader and targetHeader are temporary because f PrimeNGs Filters are f broken
-  sourceSearchText: string = "";
-  targetSearchText: string = "";
-  beforeSourceSearchPersons: Person[] = [];
-  beforeTargetSearchPersons: Person[] = [];
-
-  onSourceSearch() {
-    if(this.sourceSearchText === ""){
-      if(this.beforeSourceSearchPersons.length == 0){
-        return;
-      }
-      this.personsToSelect = [...this.beforeSourceSearchPersons]
-      return;
-    }
-
-    if(this.beforeSourceSearchPersons.length == 0){
-      this.beforeSourceSearchPersons = [...this.personsToSelect]
-    }
-
-    const filtered = this.personsToSelect.filter(person =>
-      person.firstname.toLowerCase().includes(this.sourceSearchText.toLowerCase()) ||
-      person.lastname.toLowerCase().includes(this.sourceSearchText.toLowerCase())
-    )
-    this.personsToSelect = [...filtered]
-  }
-
-  onTargetSearch() {
-    if(this.targetSearchText === ""){
-      if(this.beforeTargetSearchPersons.length == 0){
-        return;
-      }
-      this.participants = [...this.beforeTargetSearchPersons]
-      return;
-    }
-
-    if(this.beforeTargetSearchPersons.length == 0){
-      this.beforeTargetSearchPersons = [...this.participants]
-    }
-
-    const filtered = this.participants.filter(person =>
-      person.firstname.toLowerCase().includes(this.targetSearchText.toLowerCase()) ||
-      person.lastname.toLowerCase().includes(this.targetSearchText.toLowerCase())
-    )
-    this.participants = [...filtered]
-  }
-
-  resetSourceTargetFilter(){
-    this.sourceSearchText = "";
-    this.targetSearchText = "";
-    this.beforeSourceSearchPersons = [...[]];
-    this.beforeTargetSearchPersons = [...[]];
   }
 
 }
