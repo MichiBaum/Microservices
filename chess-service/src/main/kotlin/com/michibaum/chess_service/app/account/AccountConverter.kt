@@ -11,7 +11,7 @@ class AccountConverter {
             id = account.idOrThrow(),
             username = account.username,
             platform = account.platform,
-            url = account.url,
+            url = "", // TODO create url
         )
     }
 

@@ -16,7 +16,7 @@ SELECT
 FROM
     person p
 WHERE
-    p.platform_id IS NOT NULL AND p.platform_id != '' AND           -- Check that platform_id is not null and not empty
+    p.fide_id IS NOT NULL AND p.fide_id != '' AND           -- Check that fide_id is not null and not empty
     NOT EXISTS (                                                    -- Check if the user has already a Fide account
         SELECT 1
         FROM account a
