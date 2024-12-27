@@ -5,10 +5,12 @@ import com.michibaum.authentication_library.PublicKeyDto
 import com.michibaum.authentication_library.security.ReactiveDelegateAuthenticationManager
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
 import com.michibaum.authentication_library.security.basic.BasicAuthenticationManager
+import com.michibaum.authentication_library.security.basic.BasicExchangeMatcher
 import com.michibaum.authentication_library.security.basic.CredentialsValidator
 import com.michibaum.authentication_library.security.basic.netty.BasicAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
+import com.michibaum.authentication_library.security.jwt.JwtExchangeMatcher
 import com.michibaum.authentication_library.security.jwt.netty.JwtAuthenticationConverter
 import com.michibaum.authentication_service.authentication.AuthenticationService
 import org.springframework.context.annotation.Bean
@@ -74,6 +76,7 @@ class SecurityBeansConfiguration {
         jwtAuthenticationConverter: JwtAuthenticationConverter
     ) =
         AuthenticationWebFilter(authenticationManager).apply {
+            setRequiresAuthenticationMatcher(JwtExchangeMatcher())
             setServerAuthenticationConverter(jwtAuthenticationConverter)
         }
 
@@ -83,6 +86,7 @@ class SecurityBeansConfiguration {
         basicAuthenticationConverter: BasicAuthenticationConverter
     ) =
         AuthenticationWebFilter(authenticationManager).apply {
+            setRequiresAuthenticationMatcher(BasicExchangeMatcher())
             setServerAuthenticationConverter(basicAuthenticationConverter)
         }
 

@@ -12,6 +12,7 @@ data class EventDto(
     val embedUrl: String? = null,
     val dateFrom: String? = null,
     val dateTo: String? = null,
+    val internalComment: String = "",
     val categories: List<EventCategoryDto> = mutableListOf(),
     val participants: List<PersonDto> = mutableListOf(),
 )

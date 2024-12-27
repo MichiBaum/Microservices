@@ -27,6 +27,9 @@ class Event(
     @Temporal(TemporalType.DATE)
     val dateTo: LocalDate,
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    val internalComment: String,
+
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
     @JoinTable(name = "EVENT_CATEGORY_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "category_id")])
     val categories: Set<EventCategory> = setOf(),

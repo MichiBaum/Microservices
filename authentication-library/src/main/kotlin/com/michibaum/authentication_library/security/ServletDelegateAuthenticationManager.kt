@@ -2,6 +2,7 @@ package com.michibaum.authentication_library.security
 
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 
 class ServletDelegateAuthenticationManager(private val authenticationManagers: List<SpecificAuthenticationManager>): AuthenticationManager {
     override fun authenticate(authentication: Authentication?): Authentication {
@@ -9,9 +10,11 @@ class ServletDelegateAuthenticationManager(private val authenticationManagers: L
             throw Exception("Empty authentication")
         }
 
-        for(auth in authenticationManagers){
-            if(auth.supports(authentication.javaClass)){
-                return auth.authenticate(authentication).block() ?: throw Exception("Empty authentication")
+        for(authManager in authenticationManagers){
+            if(authManager.supports(authentication.javaClass)){
+                val auth =  authManager.authenticate(authentication) ?: throw Exception("Empty authentication")
+                SecurityContextHolder.getContext().authentication = auth
+                return auth
             }
         }
 

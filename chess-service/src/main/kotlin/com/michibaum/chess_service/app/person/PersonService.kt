@@ -55,17 +55,17 @@ class PersonService(
         return personRepository.findAll()
     }
 
-    fun createAndUpdate(persons: List<FidePersonDto>): List<Person> {
-        return persons.map {
-            val foundPerson = personRepository.findByFideId(it.fideId)
-            if (foundPerson != null) {
-                val updatedPerson = it.toPerson(id = foundPerson.idOrThrow(), birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
-                personRepository.save(updatedPerson)
-            } else {
-                personRepository.save(it.toPerson())
-            }
-        }.toList()
-    }
+//    fun createAndUpdate(persons: List<FidePersonDto>): List<Person> {
+//        return persons.map {
+//            val foundPerson = personRepository.findByFideId(it.fideId)
+//            if (foundPerson != null) {
+//                val updatedPerson = it.toPerson(id = foundPerson.idOrThrow(), birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
+//                personRepository.save(updatedPerson)
+//            } else {
+//                personRepository.save(it.toPerson())
+//            }
+//        }.toList()
+//    }
 
     fun find(uuid: UUID): Person? =
         personRepository.findById(uuid).getOrNull()

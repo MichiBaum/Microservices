@@ -55,7 +55,7 @@ export class ChessUpdateAccountComponent{
   }
 
   showImportGameButton(account: Account) {
-    let isOverTheBoard = account.platform === ChessPlatform.OVER_THE_BOARD;
+    let isOverTheBoard = account.platform === ChessPlatform.FIDE;
     return !isOverTheBoard
   }
 

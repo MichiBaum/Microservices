@@ -1,13 +1,17 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.authentication_library.anyOf
+import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.chess_service.app.eventcategory.EventCategoryService
 import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.EventCategory
 import com.michibaum.chess_service.domain.Person
+import com.michibaum.permission_library.Permissions
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.domain.Specification
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
@@ -33,6 +37,12 @@ class EventService(
         val categories = getCategories(dto.categoryIds)
         val participants = getPersons(dto.participantsIds)
 
+        val authentication = SecurityContextHolder.getContext().authentication
+        val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
+            dto.internalComment
+        else
+            ""
+
         val event = Event(
             title = dto.title,
             location = dto.location,
@@ -40,6 +50,7 @@ class EventService(
             embedUrl = dto.embedUrl,
             dateFrom = LocalDate.parse(dto.dateFrom),
             dateTo = LocalDate.parse(dto.dateTo),
+            internalComment = internalComment,
             categories = categories,
             participants = participants
         )
@@ -50,6 +61,12 @@ class EventService(
         val categories = getCategories(dto.categoryIds)
         val participants = getPersons(dto.participantsIds)
 
+        val authentication = SecurityContextHolder.getContext().authentication
+        val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
+            dto.internalComment
+        else
+            event.internalComment
+
         val newEvent = Event(
             title = dto.title,
             location = dto.location,
@@ -57,6 +74,7 @@ class EventService(
             embedUrl = dto.embedUrl,
             dateFrom = LocalDate.parse(dto.dateFrom),
             dateTo = LocalDate.parse(dto.dateTo),
+            internalComment = internalComment,
             categories = categories,
             participants = participants,
             id = event.id

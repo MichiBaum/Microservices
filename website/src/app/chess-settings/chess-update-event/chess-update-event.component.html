@@ -43,6 +43,10 @@
             <input class="w-full" pInputText id="embedUrl" formControlName="embedUrl" autocomplete="off" />
             <label for="embedUrl">Embed Url</label>
           </p-floatlabel>
+          <p-floatlabel variant="in" class="mb-2">
+            <textarea pTextarea id="internalComment" rows="5" formControlName="internalComment" class="w-full"></textarea>
+            <label for="internalComment">Internal Comment</label>
+          </p-floatlabel>
 
           <p-floatlabel variant="in" class="w-full">
             <p-multiSelect id="category" [options]="categories.value()" optionLabel="title" formControlName="categories" styleClass="w-full"/>

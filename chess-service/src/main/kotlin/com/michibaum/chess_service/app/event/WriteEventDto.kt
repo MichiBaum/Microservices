@@ -21,6 +21,8 @@ class WriteEventDto(
 
     val embedUrl: String? = null,
 
+    val internalComment: String = "",
+
     val categoryIds: List<String> = mutableListOf(),
 
     val participantsIds: List<String> = mutableListOf()

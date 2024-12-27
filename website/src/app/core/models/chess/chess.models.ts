@@ -57,6 +57,7 @@ export interface ChessEvent {
   embedUrl: string | undefined;
   dateFrom: string | undefined;
   dateTo: string | undefined;
+  internalComment: string;
   categories: ChessEventCategory[];
   participants: Person[];
 }
@@ -68,6 +69,7 @@ export interface WriteChessEvent {
   dateTo: string | undefined;
   url: string | undefined;
   embedUrl: string | undefined;
+  internalComment: string;
   categoryIds: string[];
   participantsIds: string[];
 }

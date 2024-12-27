@@ -27,3 +27,4 @@ alter table account drop column url;
 alter table person drop column fide_id;
 alter table event add platform enum ('CHESSCOM', 'LICHESS', 'FIDE') NOT NULL DEFAULT 'FIDE';
 alter table event MODIFY platform ENUM('CHESSCOM', 'LICHESS', 'FIDE') NOT NULL;
+alter table event add internal_comment TEXT default '' not null;

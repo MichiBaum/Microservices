@@ -16,11 +16,12 @@ import {MultiSelect} from "primeng/multiselect";
 import {Button} from "primeng/button";
 import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
 import {LazyLoad} from "../../core/models/lazy-load.model";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
+import {Textarea} from "primeng/textarea";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -37,7 +38,9 @@ import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
     NgIf,
     PickList,
     FormsModule,
-    EventIconPipe
+    EventIconPipe,
+    Textarea,
+    NgClass
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
@@ -88,6 +91,7 @@ export class ChessUpdateEventComponent implements OnInit{
     ]),
     url: new FormControl<string | null>(null),
     embedUrl: new FormControl<string | null>(null),
+    internalComment: new FormControl<string>(''),
     categories: new FormControl<ChessEventCategory[]>({
       value: [],
       disabled: false
@@ -149,6 +153,7 @@ export class ChessUpdateEventComponent implements OnInit{
       dateFrom: dateFrom ?? null,
       dateTo: dateTo ?? null,
       url: selectedEvent.url ?? '',
+      internalComment: selectedEvent.internalComment ?? '',
       embedUrl: selectedEvent.embedUrl ?? '',
       categories: selectedEvent.categories ?? [],
     });
@@ -170,6 +175,7 @@ export class ChessUpdateEventComponent implements OnInit{
       dateTo: dateTo,
       url: this.formGroup.controls['url'].value,
       embedUrl: this.formGroup.controls['embedUrl'].value,
+      internalComment: this.formGroup.controls['internalComment'].value,
       categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
       participantsIds: this.participants.map(value => value.id)
     };
