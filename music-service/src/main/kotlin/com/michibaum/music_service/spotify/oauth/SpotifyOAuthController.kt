@@ -6,8 +6,7 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.reactive.function.BodyInserters
-import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.client.RestClient
 import reactor.core.publisher.Mono
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -19,13 +18,13 @@ class SpotifyOAuthController(
     private val spotifyOAuthProperties: SpotifyOAuthProperties
 ) { // https://developer.spotify.com/documentation/web-api/tutorials/code-flow
 
-    private final val client: WebClient
+    private final val client: RestClient
 
     init {
         val clientAndSecret = spotifyOAuthProperties.clientId + ":" + spotifyOAuthProperties.clientSecret
         val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
 
-        client = WebClient.builder()
+        client = RestClient.builder()
             .baseUrl("https://accounts.spotify.com")
             .defaultHeaders {
                 it.set("Authorization", "Basic $authBasic")
@@ -76,9 +75,8 @@ class SpotifyOAuthController(
                     .with("redirect_uri", "https://music.michibaum.ch/api/spotify/auth")
             )
             .retrieve()
-            .onStatus({ t -> t.is4xxClientError }, { Mono.error(Exception()) })
-            .bodyToMono(SpotifyOAuthCredentialsDto::class.java)
-            .block()
+            .onStatus({ t -> t.is4xxClientError }, { _, _ -> })
+            .body(SpotifyOAuthCredentialsDto::class.java)
 
         if(response == null){
             throw Exception("Spotify OAuth exchange for access token returned null")

@@ -1,38 +1,42 @@
 package com.michibaum.usermanagement_service.security
 
+import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod.POST
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity.AuthorizeExchangeSpec
+import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter
 
 
 @Configuration
-@EnableWebFluxSecurity
-@EnableReactiveMethodSecurity
+@EnableWebSecurity
+@EnableMethodSecurity
 class SecurityConfiguration {
 
     @Bean
     fun securityFilterChain(
-        http: ServerHttpSecurity,
-        jwtAuthenticationWebFilter: AuthenticationWebFilter,
-        basicAuthenticationWebFilter: AuthenticationWebFilter,
-    ): SecurityWebFilterChain {
+        http: HttpSecurity,
+        authenticationFilter: ServletAuthenticationFilter
+    ): SecurityFilterChain {
         return http
-            .authorizeExchange { exchanges: AuthorizeExchangeSpec ->
-                exchanges
-                    .pathMatchers(POST,"/api/checkUserDetails", "/api/users").permitAll()
-                    .pathMatchers("/actuator", "/actuator/**").hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                    .anyExchange().authenticated()
+            .authorizeHttpRequests {
+                it
+                    .requestMatchers(POST,"/api/checkUserDetails", "/api/users").permitAll()
+                    .requestMatchers("/actuator", "/actuator/**").hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
+                    .anyRequest().authenticated()
             }
-            .addFilterAt(basicAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-            .addFilterAt(jwtAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+            .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }
             .formLogin { formLoginSpec -> formLoginSpec.disable() }
             .csrf { csrfSpec -> csrfSpec.disable() }

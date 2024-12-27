@@ -9,20 +9,16 @@ import com.michibaum.fitness_service.fitbit.oauth.FitbitOAuthCredentials
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.client.WebClient
-import reactor.core.publisher.Mono
+import org.springframework.web.client.RestClient
+import org.springframework.web.client.body
 
 @Component
 class FitbitApiImpl: FitbitApi {
 
-    val client = WebClient.builder()
+    val client = RestClient.builder()
     .baseUrl("https://api.fitbit.com")
     .defaultHeaders {
         it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-    }
-    .codecs { configurer ->
-        configurer.defaultCodecs()
-            .maxInMemorySize(10000000)
     }
     .build()
 
@@ -33,14 +29,11 @@ class FitbitApiImpl: FitbitApi {
                 it.setBearerAuth(credentials.accessToken)
             }
             .retrieve()
-            .onStatus({ t -> t.value() == 400 }, { Mono.error(Exception()) }) // TODO The request had bad syntax or was inherently impossible to be satisfied.
-            .onStatus({ t -> t.value() == 401 }, { Mono.error(Exception()) }) // TODO The request requires user authentication. Use FitbitOAuth to refresh token
-            .onStatus({ t -> t.value() == 403 }, { Mono.error(Exception()) }) // TODO Forbidden
-            .onStatus({ t -> t.value() == 429 }, { Mono.error(Exception()) }) // TODO Returned if the application has reached the rate limit for a specific user. The rate limit will be reset at the top of the hour.
-            .bodyToMono(ProfileDto::class.java)
-            // TODO .onError
-            .block()
-
+            .onStatus({ t -> t.value() == 400 }, { _, _ ->  }) // TODO The request had bad syntax or was inherently impossible to be satisfied.
+            .onStatus({ t -> t.value() == 401 }, { _, _ ->  }) // TODO The request requires user authentication. Use FitbitOAuth to refresh token
+            .onStatus({ t -> t.value() == 403 }, { _, _ ->  }) // TODO Forbidden
+            .onStatus({ t -> t.value() == 429 }, { _, _ ->  }) // TODO Returned if the application has reached the rate limit for a specific user. The rate limit will be reset at the top of the hour.
+            .body<ProfileDto>()
     }
 
 
@@ -53,13 +46,11 @@ class FitbitApiImpl: FitbitApi {
                 it.setBearerAuth(credentials.accessToken)
             }
             .retrieve()
-            .onStatus({ t -> t.value() == 400 }, { Mono.error(Exception()) }) // TODO The request had bad syntax or was inherently impossible to be satisfied.
-            .onStatus({ t -> t.value() == 401 }, { Mono.error(Exception()) }) // TODO The request requires user authentication. Use FitbitOAuth to refresh token
-            .onStatus({ t -> t.value() == 403 }, { Mono.error(Exception()) }) // TODO Forbidden
-            .onStatus({ t -> t.value() == 429 }, { Mono.error(Exception()) }) // TODO Returned if the application has reached the rate limit for a specific user. The rate limit will be reset at the top of the hour.
-            .bodyToMono(WeightLogDto::class.java)
-            // TODO .onError
-            .block()
+            .onStatus({ t -> t.value() == 400 }, { _, _ ->  }) // TODO The request had bad syntax or was inherently impossible to be satisfied.
+            .onStatus({ t -> t.value() == 401 }, { _, _ ->  }) // TODO The request requires user authentication. Use FitbitOAuth to refresh token
+            .onStatus({ t -> t.value() == 403 }, { _, _ ->  }) // TODO Forbidden
+            .onStatus({ t -> t.value() == 429 }, { _, _ ->  }) // TODO Returned if the application has reached the rate limit for a specific user. The rate limit will be reset at the top of the hour.
+            .body<WeightLogDto>()
             ?.weight ?: emptyList()
     }
 
@@ -72,13 +63,11 @@ class FitbitApiImpl: FitbitApi {
                 it.setBearerAuth(credentials.accessToken)
             }
             .retrieve()
-            .onStatus({ t -> t.value() == 400 }, { Mono.error(Exception()) }) // TODO The request had bad syntax or was inherently impossible to be satisfied.
-            .onStatus({ t -> t.value() == 401 }, { Mono.error(Exception()) }) // TODO The request requires user authentication. Use FitbitOAuth to refresh token
-            .onStatus({ t -> t.value() == 403 }, { Mono.error(Exception()) }) // TODO Forbidden
-            .onStatus({ t -> t.value() == 429 }, { Mono.error(Exception()) }) // TODO Returned if the application has reached the rate limit for a specific user. The rate limit will be reset at the top of the hour.
-            .bodyToMono(SleepLogDto::class.java)
-            // TODO .onError
-            .block()
+            .onStatus({ t -> t.value() == 400 }, { _, _ ->  }) // TODO The request had bad syntax or was inherently impossible to be satisfied.
+            .onStatus({ t -> t.value() == 401 }, { _, _ ->  }) // TODO The request requires user authentication. Use FitbitOAuth to refresh token
+            .onStatus({ t -> t.value() == 403 }, { _, _ ->  }) // TODO Forbidden
+            .onStatus({ t -> t.value() == 429 }, { _, _ ->  }) // TODO Returned if the application has reached the rate limit for a specific user. The rate limit will be reset at the top of the hour.
+            .body<SleepLogDto>()
             ?.sleep ?: emptyList()
     }
 }
