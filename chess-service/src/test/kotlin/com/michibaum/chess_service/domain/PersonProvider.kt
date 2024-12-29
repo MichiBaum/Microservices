@@ -9,7 +9,6 @@ class PersonProvider {
             return Person(
                 firstname = "Michi",
                 lastname = "Baum",
-                fideId = null,
                 accounts = accounts,
                 federation = "SUI",
                 birthday = LocalDate.of(2001, 3, 31),

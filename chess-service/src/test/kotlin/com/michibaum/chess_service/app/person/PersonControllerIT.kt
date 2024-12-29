@@ -40,13 +40,11 @@ class PersonControllerIT {
         val requestPersonDto = WritePersonDto(
             firstname = "John",
             lastname = "Doe",
-            fideId = "121212",
             gender = Gender.MALE,
         )
         val convertedPerson = Person(
             firstname = requestPersonDto.firstname,
             lastname = requestPersonDto.lastname,
-            fideId = requestPersonDto.fideId,
             gender = Gender.MALE,
             accounts = emptySet(),
             federation = null,
@@ -56,7 +54,6 @@ class PersonControllerIT {
             id = UUID.randomUUID(),
             firstname = convertedPerson.firstname,
             lastname = convertedPerson.lastname,
-            fideId = convertedPerson.fideId,
             accounts = emptySet(),
             federation = null,
             birthday = null,
@@ -66,7 +63,6 @@ class PersonControllerIT {
             id = savedPerson.idOrThrow(),
             firstname = savedPerson.firstname,
             lastname = savedPerson.lastname,
-            fideId = savedPerson.fideId,
             federation = savedPerson.federation,
             birthday = savedPerson.birthday.toString(),
             gender = savedPerson.gender,

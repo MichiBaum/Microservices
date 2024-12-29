@@ -11,7 +11,6 @@ class AccountProvider {
                 name = "Michi",
                 platformId = "TGsdisd3",
                 username = username,
-                url = "https://chess-is-best.com/Michi1",
                 platform = ChessPlatform.CHESSCOM,
                 person = person,
                 createdAt = LocalDate.ofInstant(Instant.ofEpochSecond(1595005065053), ZoneId.systemDefault()),
