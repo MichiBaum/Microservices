@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.client.RestClient
-import reactor.core.publisher.Mono
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -65,15 +64,12 @@ class SpotifyOAuthController(
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String) {
         val oAuthData = spotifyOAuthService.findByState(state) ?: throw Exception("No oAuthData found by state $state")
 
+        val data = SpotifyOAuthDto(code, "authorization_code", "https://music.michibaum.ch/api/spotify/auth")
         val response = client
             .post()
             .uri("/api/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .body(
-                BodyInserters.fromFormData("code", code)
-                    .with("grant_type", "authorization_code")
-                    .with("redirect_uri", "https://music.michibaum.ch/api/spotify/auth")
-            )
+            .body(data)// TODO needs testing
             .retrieve()
             .onStatus({ t -> t.is4xxClientError }, { _, _ -> })
             .body(SpotifyOAuthCredentialsDto::class.java)

@@ -38,7 +38,8 @@ export interface Account {
 export enum ChessPlatform{
   CHESSCOM="CHESSCOM",
   LICHESS="LICHESS",
-  FIDE="FIDE"
+  FIDE="FIDE",
+  FREESTYLE="FREESTYLE"
 }
 
 export enum ChessGameType{

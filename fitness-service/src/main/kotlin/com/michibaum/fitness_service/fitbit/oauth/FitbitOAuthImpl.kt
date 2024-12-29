@@ -30,14 +30,12 @@ class FitbitOAuthImpl(
                 it.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
             }
             .build()
+        val body = FitbitRefreshBodyDto("refresh_token", credentials.refreshToken)
         val response = client
             .post()
             .uri("/oauth2/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .body(
-                BodyInserters.fromFormData("grant_type", "refresh_token")
-                    .with("refresh_token", credentials.refreshToken)
-            )
+            .body(body) // TODO needs testing if this works
             .retrieve()
             .onStatus({ t -> t.is4xxClientError }, { _, _ -> }) // TODO https://dev.fitbit.com/build/reference/web-api/troubleshooting-guide/error-messages/#authorization-errors
             .body(FitbitOAuthCredentialsDto::class.java)

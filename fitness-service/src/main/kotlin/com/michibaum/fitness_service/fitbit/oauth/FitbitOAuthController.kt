@@ -64,17 +64,12 @@ class FitbitOAuthController(
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String){
         val oAuthData = fitbitOAuthService.findByState(state) ?: throw Exception("No oAuthData found by state $state")
 
+        val body = FitbitTokenBodyDto(fitbitOAuthProperties.clientId, "authorization_code", code, oAuthData.codeVerifier, "https://fitness.michibaum.ch/api/fitbit/auth")
         val response = client
             .post()
             .uri("/oauth2/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .body(
-                BodyInserters.fromFormData("client_id", fitbitOAuthProperties.clientId)
-                    .with("grant_type", "authorization_code")
-                    .with("code", code)
-                    .with("code_verifier", oAuthData.codeVerifier)
-                    .with("redirect_uri", "https://fitness.michibaum.ch/api/fitbit/auth")
-            )
+            .body(body) // TODO needs testing if correct deserialized
             .retrieve()
             .onStatus({ t -> t.is4xxClientError }, { _, _ -> }) // TODO https://dev.fitbit.com/build/reference/web-api/troubleshooting-guide/error-messages/#authorization-errors
             .body(FitbitOAuthCredentialsDto::class.java)
