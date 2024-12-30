@@ -3,6 +3,7 @@ package com.michibaum.chess_service.apis.lichess
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension
+import com.michibaum.chess_service.TestcontainersConfiguration
 import com.michibaum.chess_service.apis.Exception
 import com.michibaum.chess_service.apis.IApiService
 import com.michibaum.chess_service.apis.Success
@@ -21,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest(properties = [
 "chess-apis.properties.lichess.base-url=http://localhost:8098"
 ])
+@TestcontainersConfiguration
 class IApiServiceImplIT{
     @Autowired
     lateinit var lichessApiService: IApiService

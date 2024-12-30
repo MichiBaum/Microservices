@@ -3,6 +3,7 @@ package com.michibaum.chess_service.app.person
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
+import com.michibaum.chess_service.TestcontainersConfiguration
 import com.michibaum.chess_service.domain.Gender
 import com.michibaum.chess_service.domain.Person
 import org.junit.jupiter.api.Test
@@ -17,6 +18,7 @@ import java.util.*
 
 @AutoConfigureWebTestClient
 @SpringBootTest
+@TestcontainersConfiguration
 class PersonControllerIT {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.michibaum.chess_service
+package com.michibaum.music_service
 
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource

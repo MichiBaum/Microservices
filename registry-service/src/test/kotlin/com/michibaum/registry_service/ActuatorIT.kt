@@ -1,4 +1,4 @@
-package com.michibaum.chess_service
+package com.michibaum.registry_service
 
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -15,7 +15,6 @@ import java.util.*
     "spring.boot.admin.client.username=someUsername",
     "spring.boot.admin.client.password=somePasswööörd"
 ])
-@TestcontainersConfiguration
 class ActuatorIT {
 
     @Autowired
