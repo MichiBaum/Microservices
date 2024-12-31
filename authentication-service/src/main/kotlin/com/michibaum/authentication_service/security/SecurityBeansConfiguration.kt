@@ -1,6 +1,7 @@
 package com.michibaum.authentication_service.security
 
 import com.michibaum.authentication_library.AuthenticationClient
+import com.michibaum.authentication_library.PublicKeyDto
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.authentication_library.security.ServletDelegateAuthenticationManager
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
@@ -10,9 +11,9 @@ import com.michibaum.authentication_library.security.basic.servlet.BasicAuthenti
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
 import com.michibaum.authentication_library.security.jwt.servlet.JwtAuthenticationConverter
+import com.michibaum.authentication_service.authentication.AuthenticationService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Lazy
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.web.authentication.AuthenticationConverter
 
@@ -25,8 +26,14 @@ class SecurityBeansConfiguration {
 
 
     @Bean
-    fun jwsValidator(@Lazy authenticationClient: AuthenticationClient): JwsValidator =
-        JwsValidator(authenticationClient)
+    fun jwsValidator(authenticationService: AuthenticationService): JwsValidator {
+        val authenticationClient = object: AuthenticationClient{
+            override fun publicKey(): PublicKeyDto {
+                return authenticationService.publicKey
+            }
+        }
+        return JwsValidator(authenticationClient)
+    }
 
     @Bean
     fun credentialsValidator(adminServiceCredentials: AdminServiceCredentials): CredentialsValidator =
