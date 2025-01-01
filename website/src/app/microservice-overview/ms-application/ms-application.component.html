@@ -1,0 +1,11 @@
+<p-card styleClass="h-full">
+  <ng-template #title>
+    {{application()?.name}}
+    <fa-icon [icon]="application()?.status | msStatusIcon" [style]="application()?.status | msStatusStyle"></fa-icon>
+  </ng-template>
+
+  <ng-container *ngFor="let instance of application()?.instances">
+    {{instance.id}}
+    <fa-icon [icon]="instance.statusInfo.status | msStatusIcon" [style]="instance.statusInfo.status | msStatusStyle"></fa-icon>
+  </ng-container>
+</p-card>

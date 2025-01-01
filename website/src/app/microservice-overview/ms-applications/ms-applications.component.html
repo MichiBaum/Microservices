@@ -1,0 +1,12 @@
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 4k:grid-cols-6 xlScreen:grid-cols-5 lScreen:grid-cols-4 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
+
+
+    <ng-container *ngIf="applications.value() as applications2">
+      <ng-container *ngFor="let application of applications2">
+        <app-ms-application [application]="application"></app-ms-application>
+      </ng-container>
+    </ng-container>
+
+  </div>
+</div>

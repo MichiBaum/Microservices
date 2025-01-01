@@ -52,12 +52,6 @@ class AuthenticationGatewayFilterFactory(
             if(authHeader?.startsWith("Bearer ") == true)
             return authHeader.substring("Bearer ".length)
         }
-
-        val authCookie = serverWebExchange.request.cookies["jwt"]
-        val cookieExists = authCookie?.size == 1
-        if(cookieExists){
-            return authCookie?.get(0)?.value
-        }
         return null
     }
 

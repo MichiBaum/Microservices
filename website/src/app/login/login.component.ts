@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit{
     if(username == "" || password == "")
       return;
 
+    this.authService.logout();
     this.authService.login(username, password)
   }
 
