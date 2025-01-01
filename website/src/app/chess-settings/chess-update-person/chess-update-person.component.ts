@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";

@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, computed, signal, Signal, WritableSignal, resource, OnDestroy} from '@angular/core';
+import {Component, computed, inject, OnDestroy, Signal, signal, WritableSignal} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
 import {ChessService} from "../../core/services/chess.service";
@@ -14,7 +14,7 @@ import {DividerModule} from "primeng/divider";
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
 import {Avatar} from "primeng/avatar";
 import {rxResource} from "@angular/core/rxjs-interop";
-import {EMPTY, Observable} from "rxjs";
+import {EMPTY} from "rxjs";
 
 @Component({
   selector: 'app-chess-events',

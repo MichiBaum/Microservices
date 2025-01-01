@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
 import {ChessService} from "../../core/services/chess.service";
 import {InputTextModule} from "primeng/inputtext";

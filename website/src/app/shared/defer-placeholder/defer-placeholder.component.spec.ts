@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DeferPlaceholderComponent } from './defer-placeholder.component';
+import {DeferPlaceholderComponent} from './defer-placeholder.component';
 
 describe('DeferPlaceholderComponent', () => {
   let component: DeferPlaceholderComponent;

@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {IconDefinition} from "@fortawesome/angular-fontawesome";
 import {faCircleCheck, faCircleExclamation, faCircleQuestion, faCircleXmark} from "@fortawesome/free-solid-svg-icons";
 import {Status} from "../../core/models/admin/admin.model";

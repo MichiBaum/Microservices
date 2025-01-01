@@ -1,4 +1,4 @@
-import {Component, Input, signal} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from "primeng/accordion";
 import {TranslatePipe} from "@ngx-translate/core";
 import {TableModule} from "primeng/table";

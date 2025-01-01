@@ -1,6 +1,5 @@
 package com.michibaum.chess_service.app.person
 
-import com.michibaum.chess_service.apis.dtos.FidePersonDto
 import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Service

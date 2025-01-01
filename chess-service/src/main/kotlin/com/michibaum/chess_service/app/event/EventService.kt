@@ -1,7 +1,6 @@
 package com.michibaum.chess_service.app.event
 
 import com.michibaum.authentication_library.anyOf
-import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.chess_service.app.eventcategory.EventCategoryService
 import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.Event

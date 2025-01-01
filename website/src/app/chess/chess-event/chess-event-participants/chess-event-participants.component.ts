@@ -1,12 +1,11 @@
-import {Component, OnChanges, SimpleChanges, input, inject, computed} from '@angular/core';
+import {Component, computed, inject, input} from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {NgIf} from "@angular/common";
 import {TableModule} from "primeng/table";
 import {RouterNavigationService} from "../../../core/services/router-navigation.service";
-import {ChessService} from "../../../core/services/chess.service";
 import {TranslateModule} from "@ngx-translate/core";
-import {ChessEvent, Person} from "../../../core/models/chess/chess.models";
+import {ChessEvent} from "../../../core/models/chess/chess.models";
 
 @Component({
   selector: 'app-chess-event-participants',

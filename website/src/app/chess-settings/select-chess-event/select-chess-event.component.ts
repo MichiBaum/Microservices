@@ -1,4 +1,4 @@
-import {Component, OnInit, input, output, inject, signal} from '@angular/core';
+import {Component, inject, input, OnInit, output, signal} from '@angular/core';
 import {TableLazyLoadEvent, TableModule} from "primeng/table";
 import {ChessEvent, ChessEventCategory, SearchChessEvent} from "../../core/models/chess/chess.models";
 import {InputTextModule} from "primeng/inputtext";

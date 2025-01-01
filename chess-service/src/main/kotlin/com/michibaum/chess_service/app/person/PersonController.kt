@@ -1,16 +1,12 @@
 package com.michibaum.chess_service.app.person
 
 import com.michibaum.chess_service.apis.fide.FideApiService
-import com.michibaum.chess_service.app.FileImportResult
 import com.michibaum.chess_service.app.event.EventService
-import com.michibaum.chess_service.domain.Person
 import jakarta.validation.Valid
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.core.io.buffer.DataBufferUtils
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.http.codec.multipart.FilePart
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional

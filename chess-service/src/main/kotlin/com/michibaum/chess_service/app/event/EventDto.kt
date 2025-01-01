@@ -2,7 +2,7 @@ package com.michibaum.chess_service.app.event
 
 import com.michibaum.chess_service.app.eventcategory.EventCategoryDto
 import com.michibaum.chess_service.app.person.PersonDto
-import java.util.UUID
+import java.util.*
 
 data class EventDto(
     val id: UUID,

@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Language} from '../models/language.model';
 import {Subject} from "rxjs";
-import {PrimeNG} from "primeng/config";
 
 export const languages: Language[] = [
   {

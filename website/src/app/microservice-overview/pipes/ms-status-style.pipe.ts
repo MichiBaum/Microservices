@@ -1,6 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {Status} from "../../core/models/admin/admin.model";
-import {faCircleCheck, faCircleExclamation, faCircleQuestion, faCircleXmark} from "@fortawesome/free-solid-svg-icons";
 
 @Pipe({
   name: 'msStatusStyle'

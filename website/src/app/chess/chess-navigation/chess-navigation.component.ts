@@ -1,5 +1,12 @@
-import {Component, inject, computed} from '@angular/core';
-import {faAngleDown, faCalendarDays, faChessQueen, faGears, faHouse, faNewspaper} from "@fortawesome/free-solid-svg-icons";
+import {Component, computed, inject} from '@angular/core';
+import {
+  faAngleDown,
+  faCalendarDays,
+  faChessQueen,
+  faGears,
+  faHouse,
+  faNewspaper
+} from "@fortawesome/free-solid-svg-icons";
 import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -14,7 +21,7 @@ import {PermissionService} from "../../core/services/permission.service";
 import {MenuItem} from "primeng/api";
 import {Permissions} from "../../core/config/permissions";
 import {ChessEvent} from "../../core/models/chess/chess.models";
-import { EventIconPipe } from 'src/app/core/pipes/event-icon.pipe';
+import {EventIconPipe} from 'src/app/core/pipes/event-icon.pipe';
 import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 import {rxResource} from "@angular/core/rxjs-interop";
 

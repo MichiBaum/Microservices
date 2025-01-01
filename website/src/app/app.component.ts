@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, OnDestroy} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {LightDarkModeService} from "./core/services/light-dark-mode.service";
