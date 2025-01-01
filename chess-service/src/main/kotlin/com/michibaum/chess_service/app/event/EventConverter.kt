@@ -1,12 +1,10 @@
 package com.michibaum.chess_service.app.event
 
 import com.michibaum.authentication_library.anyOf
-import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.chess_service.app.eventcategory.EventCategoryConverter
 import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.permission_library.Permissions
-import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 

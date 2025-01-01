@@ -16,7 +16,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.reactive.server.WebTestClient
 import java.util.*
 
-@AutoConfigureWebTestClient
+@AutoConfigureWebTestClient // TODO change to mockMvc
 @SpringBootTest
 @TestcontainersConfiguration
 class PersonControllerIT {

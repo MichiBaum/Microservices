@@ -1,6 +1,5 @@
 package com.michibaum.chess_service.app.event
 
-import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.chess_service.app.game.GameConverter
 import com.michibaum.chess_service.app.game.GameDto
 import com.michibaum.chess_service.app.game.GameService
@@ -9,7 +8,6 @@ import com.michibaum.chess_service.app.person.PersonDto
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional

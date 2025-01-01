@@ -7,5 +7,17 @@
   <ng-container *ngFor="let instance of application()?.instances">
     {{instance.id}}
     <fa-icon [icon]="instance.statusInfo.status | msStatusIcon" [style]="instance.statusInfo.status | msStatusStyle"></fa-icon>
+    <p-accordion [value]="0">
+      <ng-container *ngFor="let detail of instance.statusInfo.details | keyvalue; let i = index">
+        <p-accordion-panel [value]="i">
+          <p-accordion-header>{{ detail.key }} <fa-icon [icon]="detail.value?.status | msStatusIcon" [style]="detail.value?.status | msStatusStyle"></fa-icon></p-accordion-header>
+          <p-accordion-content>
+            <ng-container *ngFor="let detail2 of detail.value?.details ?? {} | keyvalue">
+              <p class="m-0">{{detail2.key}}: {{detail2.value}}</p>
+            </ng-container>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </ng-container>
+    </p-accordion>
   </ng-container>
 </p-card>
