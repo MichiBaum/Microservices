@@ -5,8 +5,7 @@ import com.michibaum.fitness_service.fitbit.FitbitOAuth
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.BodyInserters
-import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.client.RestClient
 import reactor.core.publisher.Mono
 import java.time.Instant
 import java.util.*
@@ -23,7 +22,7 @@ class FitbitOAuthImpl(
         val clientAndSecret = fitbitOAuthProperties.clientId + ":" + fitbitOAuthProperties.clientSecret
         val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
 
-        val client = WebClient.builder()
+        val client = RestClient.builder()
             .baseUrl("https://api.fitbit.com")
             .defaultHeaders {
                 it.set("Authorization", "Basic $authBasic")
@@ -31,18 +30,15 @@ class FitbitOAuthImpl(
                 it.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
             }
             .build()
+        val body = FitbitRefreshBodyDto("refresh_token", credentials.refreshToken)
         val response = client
             .post()
             .uri("/oauth2/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .body(
-                BodyInserters.fromFormData("grant_type", "refresh_token")
-                    .with("refresh_token", credentials.refreshToken)
-            )
+            .body(body) // TODO needs testing if this works
             .retrieve()
-            .onStatus({ t -> t.is4xxClientError }, { Mono.error(Exception()) }) // TODO https://dev.fitbit.com/build/reference/web-api/troubleshooting-guide/error-messages/#authorization-errors
-            .bodyToMono(FitbitOAuthCredentialsDto::class.java)
-            .block()
+            .onStatus({ t -> t.is4xxClientError }, { _, _ -> }) // TODO https://dev.fitbit.com/build/reference/web-api/troubleshooting-guide/error-messages/#authorization-errors
+            .body(FitbitOAuthCredentialsDto::class.java)
 
         if(response == null){
             throw Exception("Fitbit OAuth refresh access token returned null")

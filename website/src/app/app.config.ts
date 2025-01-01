@@ -70,7 +70,7 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
         const initializerFn = (appInitializerFactory)(inject(TranslateService));
         return initializerFn();
-      }),
+    }),
     {
       provide : HTTP_INTERCEPTORS,
       useClass: AuthJwtInterceptor,

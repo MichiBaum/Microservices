@@ -27,6 +27,7 @@ class ApiService(
             ChessPlatform.CHESSCOM -> chesscomApiService.getStats(account)
             ChessPlatform.LICHESS -> lichessApiService.getStats(account)
             ChessPlatform.FIDE -> TODO()
+            ChessPlatform.FREESTYLE -> TODO()
         }
 
     }
@@ -36,6 +37,7 @@ class ApiService(
             ChessPlatform.CHESSCOM -> chesscomApiService.getGames(account)
             ChessPlatform.LICHESS -> lichessApiService.getGames(account)
             ChessPlatform.FIDE -> TODO()
+            ChessPlatform.FREESTYLE -> TODO()
         }
 
         if(result is Success){

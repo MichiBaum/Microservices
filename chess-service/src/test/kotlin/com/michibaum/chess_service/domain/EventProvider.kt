@@ -14,7 +14,8 @@ class EventProvider {
                 embedUrl = "https://www.chess.com/events/embed/2024-fide-chess-world-championship",
                 dateFrom = LocalDate.of(2024, 11, 25),
                 dateTo = LocalDate.of(2024, 12, 13),
-                participants = participants
+                participants = participants,
+                internalComment = ""
             )
 
     }

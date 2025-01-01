@@ -1,7 +1,7 @@
 -- Modify User and account table that user infos drop into separate account
 alter table account modify platform enum ('CHESSCOM', 'LICHESS', 'OVER_THE_BOARD', 'FIDE') not null;
 UPDATE account a SET a.platform = 'FIDE' WHERE a.platform = 'OVER_THE_BOARD';
-alter table account modify platform enum ('CHESSCOM', 'LICHESS', 'FIDE') not null;
+alter table account modify platform enum ('CHESSCOM', 'LICHESS', 'FIDE', 'FREESTYLE') not null;
 
 INSERT INTO account (id, created_at, person_id, name, platform_id, url, username, platform)
 SELECT
@@ -26,5 +26,5 @@ WHERE
 alter table account drop column url;
 alter table person drop column fide_id;
 alter table event add platform enum ('CHESSCOM', 'LICHESS', 'FIDE') NOT NULL DEFAULT 'FIDE';
-alter table event MODIFY platform ENUM('CHESSCOM', 'LICHESS', 'FIDE') NOT NULL;
+alter table event MODIFY platform ENUM('CHESSCOM', 'LICHESS', 'FIDE', 'FREESTYLE') NOT NULL;
 alter table event add internal_comment TEXT default '' not null;

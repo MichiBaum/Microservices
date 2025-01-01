@@ -35,21 +35,8 @@ class AuthenticationController (
 
         val jws = authenticationService.generateJWS(userDetailsDto)!!
 
-        val cookie = ResponseCookie.from("jwt", jws)
-            .httpOnly(true)
-            .maxAge(Duration.ofHours(8))
-            .domain("michibaum.ch")
-            .secure(true)
-            .sameSite("Lax")
-            .build()
-
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
-        return ResponseEntity.ok()
-            .headers {
-                it.set(HttpHeaders.SET_COOKIE, cookie.toString())
-                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
-            }
-            .body(responseBody)
+        return ResponseEntity.ok().body(responseBody)
     }
 
     @PostMapping(value = ["/api/register"])
@@ -71,23 +58,6 @@ class AuthenticationController (
         }
         val responseBody = RegisterResponse(RegisterState.ERROR, registerDto.username, registerDto.email)
         return ResponseEntity.status(HttpStatus.CONFLICT).body(responseBody)
-    }
-
-    @PostMapping(value = ["/api/logout"])
-    fun logout(): ResponseEntity<Any> {
-        val cookie = ResponseCookie.from("jwt")
-            .maxAge(0)
-            .httpOnly(true)
-            .maxAge(Duration.ofHours(8))
-            .domain("michibaum.ch")
-            .secure(true)
-            .build()
-        return ResponseEntity.ok()
-            .headers {
-                it.set(HttpHeaders.SET_COOKIE, cookie.toString())
-                it.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
-            }
-            .build()
     }
 
     override fun publicKey(): PublicKeyDto {

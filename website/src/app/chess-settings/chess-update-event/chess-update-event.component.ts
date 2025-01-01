@@ -16,7 +16,7 @@ import {MultiSelect} from "primeng/multiselect";
 import {Button} from "primeng/button";
 import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgClass, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
 import {LazyLoad} from "../../core/models/lazy-load.model";
 import {rxResource} from "@angular/core/rxjs-interop";
@@ -39,8 +39,7 @@ import {Textarea} from "primeng/textarea";
     PickList,
     FormsModule,
     EventIconPipe,
-    Textarea,
-    NgClass
+    Textarea
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'

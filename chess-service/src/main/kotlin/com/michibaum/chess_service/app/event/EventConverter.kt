@@ -32,7 +32,7 @@ class EventConverter(
     }
 
     private fun getInternalComment(comment: String): String {
-        val authentication = ReactiveSecurityContextHolder.getContext().map { it.authentication }.block()
+        val authentication = SecurityContextHolder.getContext().authentication
         return if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN)) comment else ""
     }
 

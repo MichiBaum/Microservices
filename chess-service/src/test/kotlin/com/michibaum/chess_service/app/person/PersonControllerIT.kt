@@ -3,6 +3,7 @@ package com.michibaum.chess_service.app.person
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
+import com.michibaum.chess_service.TestcontainersConfiguration
 import com.michibaum.chess_service.domain.Gender
 import com.michibaum.chess_service.domain.Person
 import org.junit.jupiter.api.Test
@@ -17,6 +18,7 @@ import java.util.*
 
 @AutoConfigureWebTestClient
 @SpringBootTest
+@TestcontainersConfiguration
 class PersonControllerIT {
 
     @Autowired
@@ -40,13 +42,11 @@ class PersonControllerIT {
         val requestPersonDto = WritePersonDto(
             firstname = "John",
             lastname = "Doe",
-            fideId = "121212",
             gender = Gender.MALE,
         )
         val convertedPerson = Person(
             firstname = requestPersonDto.firstname,
             lastname = requestPersonDto.lastname,
-            fideId = requestPersonDto.fideId,
             gender = Gender.MALE,
             accounts = emptySet(),
             federation = null,
@@ -56,7 +56,6 @@ class PersonControllerIT {
             id = UUID.randomUUID(),
             firstname = convertedPerson.firstname,
             lastname = convertedPerson.lastname,
-            fideId = convertedPerson.fideId,
             accounts = emptySet(),
             federation = null,
             birthday = null,
@@ -66,7 +65,6 @@ class PersonControllerIT {
             id = savedPerson.idOrThrow(),
             firstname = savedPerson.firstname,
             lastname = savedPerson.lastname,
-            fideId = savedPerson.fideId,
             federation = savedPerson.federation,
             birthday = savedPerson.birthday.toString(),
             gender = savedPerson.gender,

@@ -37,9 +37,6 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('Authentication');
-    this.http.post(environment.authenticationService + '/logout', {})
-      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)))
-      .subscribe();
     this.logoutEmitter.next();
     this.router.home()
   }

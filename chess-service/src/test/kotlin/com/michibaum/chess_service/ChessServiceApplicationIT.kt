@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 
 @SpringBootTest
+@TestcontainersConfiguration
 class ChessServiceApplicationIT {
 
     @Autowired
