@@ -21,11 +21,11 @@
 
           <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
-            <div *ngIf="event.value()" class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
-              <p-card [header]="event.value()?.title" [subheader]="categories()" styleClass="h-full">
-                <p *ngIf="event.value()?.location"><strong>{{'chess.event.location' | translate}}: </strong>{{ event.value()?.location }}</p>
-                <p *ngIf="event.value()?.dateFrom"><strong>{{'chess.event.date-from' | translate}}: </strong>{{ event.value()?.dateFrom }}</p>
-                <p *ngIf="event.value()?.dateTo"><strong>{{'chess.event.date-to' | translate}}: </strong>{{ event.value()?.dateTo }}</p>
+            <div *ngIf="event.value() as _event" class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
+              <p-card [header]="_event.title" [subheader]="categories()" styleClass="h-full">
+                <p *ngIf="_event.location"><strong>{{'chess.event.location' | translate}}: </strong>{{ _event.location }}</p>
+                <p *ngIf="_event.dateFrom"><strong>{{'chess.event.date-from' | translate}}: </strong>{{ _event.dateFrom }}</p>
+                <p *ngIf="_event.dateTo"><strong>{{'chess.event.date-to' | translate}}: </strong>{{ _event.dateTo }}</p>
               </p-card>
             </div>
 

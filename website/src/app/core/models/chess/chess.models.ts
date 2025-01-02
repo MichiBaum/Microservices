@@ -59,6 +59,7 @@ export interface ChessEvent {
   dateFrom: string | undefined;
   dateTo: string | undefined;
   internalComment: string;
+  platform: ChessPlatform;
   categories: ChessEventCategory[];
 }
 

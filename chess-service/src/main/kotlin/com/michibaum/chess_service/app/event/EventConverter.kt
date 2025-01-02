@@ -23,6 +23,7 @@ class EventConverter(
             dateFrom = event.dateFrom.toString(),
             dateTo = event.dateTo.toString(),
             internalComment = getInternalComment(event.internalComment),
+            platform = event.platform,
             categories = event.categories.map { eventCategoryConverter.toDto(it) },
         )
     }

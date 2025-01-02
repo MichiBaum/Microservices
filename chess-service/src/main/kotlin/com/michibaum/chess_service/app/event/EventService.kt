@@ -50,6 +50,7 @@ class EventService(
             dateFrom = LocalDate.parse(dto.dateFrom),
             dateTo = LocalDate.parse(dto.dateTo),
             internalComment = internalComment,
+            platform = dto.platform,
             categories = categories,
             participants = participants
         )
@@ -74,6 +75,7 @@ class EventService(
             dateFrom = LocalDate.parse(dto.dateFrom),
             dateTo = LocalDate.parse(dto.dateTo),
             internalComment = internalComment,
+            platform = dto.platform,
             categories = categories,
             participants = participants,
             id = event.id

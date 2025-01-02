@@ -25,16 +25,16 @@
       "size": "Anz."
     },
     "event": {
+      "account": "Account",
       "birthday": "Geburtstag",
       "chess-com": "Chess.com",
       "date-from": "Von",
       "date-to": "Bis",
       "details": "Details",
       "federation": "Verband",
-      "fide": "Fide",
-      "fide-website": "Fide Webseite",
       "games": "Partien",
       "location": "Standort",
+      "open-account": "Account öffnen",
       "open-official-website": "Offizielle Webseite öffnen",
       "participant": {
         "firstname": "Vorname",

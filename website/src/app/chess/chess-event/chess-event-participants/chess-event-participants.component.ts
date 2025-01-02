@@ -5,7 +5,7 @@ import {NgIf} from "@angular/common";
 import {TableModule} from "primeng/table";
 import {RouterNavigationService} from "../../../core/services/router-navigation.service";
 import {TranslateModule} from "@ngx-translate/core";
-import {ChessEvent} from "../../../core/models/chess/chess.models";
+import {Account, ChessEvent, ChessPlatform, Person} from "../../../core/models/chess/chess.models";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from "rxjs";
 import {ChessService} from "../../../core/services/chess.service";
@@ -39,8 +39,15 @@ export class ChessEventParticipantsComponent {
   constructor(private readonly chessService: ChessService) {
   }
 
-  openFide(fideId: string) {
-    this.navigationService.open("https://ratings.fide.com/profile/" + fideId)
+  openAccount(account: Account) {
+    this.navigationService.open(account.url)
   }
 
+  personsPlatformAccount(participant: Person) {
+    const eventPlatform = this.event()?.platform
+    if(eventPlatform == undefined)
+      return undefined
+    const accounts = participant.accounts.filter(value => value.platform == eventPlatform)
+    return accounts[0]
+  }
 }

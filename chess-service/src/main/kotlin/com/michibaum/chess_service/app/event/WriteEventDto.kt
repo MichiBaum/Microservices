@@ -1,6 +1,8 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.chess_service.domain.ChessPlatform
 import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 
 class WriteEventDto(
@@ -22,6 +24,9 @@ class WriteEventDto(
     val embedUrl: String? = null,
 
     val internalComment: String = "",
+
+    @NotNull
+    val platform: ChessPlatform,
 
     val categoryIds: List<String> = mutableListOf(),
 
