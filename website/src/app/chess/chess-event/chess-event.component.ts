@@ -48,9 +48,10 @@ export class ChessEventComponent implements OnDestroy {
   event = rxResource({
     request: () => ({id: this.eventId()}),
     loader: (param) => {
-      if(param.request.id == undefined)
+      let id = param.request.id;
+      if(id == undefined)
         return EMPTY
-      return this.chessService.event(param.request.id)
+      return this.chessService.event(id)
     }
   })
   embedUrl: Signal<SafeResourceUrl | undefined> = computed(() => {

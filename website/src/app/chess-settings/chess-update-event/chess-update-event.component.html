@@ -58,8 +58,8 @@
 
       <p-fieldset legend="Event Players" styleClass="h-full">
         <p-pickList
-          [source]="personsToSelect"
-          [target]="participants"
+          [source]="personsToSelectS()"
+          [target]="participantsS()"
           [dragdrop]="true"
           [responsive]="true"
           filterBy="firstname,lastname,fideId"

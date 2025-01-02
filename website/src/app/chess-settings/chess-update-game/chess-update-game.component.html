@@ -5,8 +5,8 @@
       <app-select-chess-event [events]="events.value() ?? []" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
 
-    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons().length !== 0">
-      <app-select-chess-person [persons]="persons()" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
+    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons.value()?.length !== 0 && persons.value() as _persons">
+      <app-select-chess-person [persons]="_persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
     </p-fieldset>
 
     <p-fieldset [toggleable]="true" *ngIf="selectedPersons().length == 2">

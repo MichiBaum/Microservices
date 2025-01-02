@@ -60,7 +60,6 @@ export interface ChessEvent {
   dateTo: string | undefined;
   internalComment: string;
   categories: ChessEventCategory[];
-  participants: Person[];
 }
 
 export interface WriteChessEvent {

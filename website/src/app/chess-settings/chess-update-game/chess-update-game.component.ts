@@ -14,6 +14,7 @@ import {CardModule} from "primeng/card";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
 import {rxResource} from "@angular/core/rxjs-interop";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-chess-update-game',
@@ -42,7 +43,15 @@ export class ChessUpdateGameComponent {
   })
   selectedEvent = signal<ChessEvent | undefined>(undefined)
 
-  persons = computed(() => this.selectedEvent()?.participants ?? [])
+  persons = rxResource({
+    request: () => ({eventId: this.selectedEvent()?.id}),
+    loader: (params) => {
+      const eventId = params.request.eventId
+      if(eventId == undefined)
+        return of([])
+      return this.chessService.eventParticipants(eventId)
+    }
+  })
   selectedPersons = signal<Person[]>([]);
 
   accounts = computed(() => this.selectedPersons().flatMap(value => value.accounts))

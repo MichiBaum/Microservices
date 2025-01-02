@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class EventConverter(
-    private val personConverter: PersonConverter,
     private val eventCategoryConverter: EventCategoryConverter
 ) {
 
@@ -25,7 +24,6 @@ class EventConverter(
             dateTo = event.dateTo.toString(),
             internalComment = getInternalComment(event.internalComment),
             categories = event.categories.map { eventCategoryConverter.toDto(it) },
-            participants = event.participants.map { personConverter.convert(it) }
         )
     }
 

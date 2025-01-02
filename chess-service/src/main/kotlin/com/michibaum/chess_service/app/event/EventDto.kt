@@ -14,5 +14,4 @@ data class EventDto(
     val dateTo: String? = null,
     val internalComment: String = "",
     val categories: List<EventCategoryDto> = mutableListOf(),
-    val participants: List<PersonDto> = mutableListOf(),
 )

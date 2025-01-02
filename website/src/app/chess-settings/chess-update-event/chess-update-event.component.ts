@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
@@ -22,6 +22,7 @@ import {LazyLoad} from "../../core/models/lazy-load.model";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 import {Textarea} from "primeng/textarea";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -50,14 +51,28 @@ export class ChessUpdateEventComponent implements OnInit{
 
   events = signal<ChessEvent[]>([])
   selectedEvent = signal<ChessEvent | undefined>(undefined)
+  selectedParticipants = rxResource({
+    request: () => ({eventId: this.selectedEvent()?.id}),
+    loader: (params) => {
+      const eventId = params.request.eventId
+      if (eventId == undefined)
+        return of([])
+      return this.chessService.eventParticipants(eventId)
+    }
+  })
 
   categories = rxResource({
     loader: () => this.chessService.eventCategories(),
   })
 
-  allPersons: Person[] = [];
-  personsToSelect: Person[] = [];
-  participants: Person[] = [];
+  allPersonsS = signal<Person[]>([])
+  participantsS = computed(() => {
+    return this.selectedParticipants.value() ?? []
+  })
+  personsToSelectS = computed(() => {
+    const eventParticipants = this.selectedParticipants.value() ?? [];
+    return this.allPersonsS().filter(person => !eventParticipants?.some(participant => participant.id == person.id))
+  })
 
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({
@@ -102,31 +117,15 @@ export class ChessUpdateEventComponent implements OnInit{
 
   ngOnInit(): void {
     this.chessService.persons().subscribe(persons => {
-      this.allPersons = [...persons];
-      this.resetParticipantsSelect()
+      this.allPersonsS.set(persons)
     })
   }
 
   onEventSelect(event: ChessEvent | undefined){
     this.selectedEvent.set(event);
-    this.resetParticipantsSelect()
     this.patchForm()
   }
 
-  private resetParticipantsSelect(){
-    this.personsToSelect = [...[]]
-    this.participants = [...[]]
-    let selectedEvent = this.selectedEvent();
-    if(selectedEvent){
-      const eventParticipants = selectedEvent.participants as Person[];
-      this.participants = [...eventParticipants];
-      const notParticipating = this.allPersons.filter(person => !eventParticipants?.some(participant => participant.id == person.id))
-      this.personsToSelect = [...notParticipating]
-    } else {
-      this.personsToSelect = [...this.allPersons]
-      this.participants = [...[]]
-    }
-  }
 
   patchForm(){
     const selectedEvent = this.selectedEvent();
@@ -156,7 +155,6 @@ export class ChessUpdateEventComponent implements OnInit{
       embedUrl: selectedEvent.embedUrl ?? '',
       categories: selectedEvent.categories ?? [],
     });
-    this.resetParticipantsSelect()
   }
 
   save() {
@@ -176,7 +174,7 @@ export class ChessUpdateEventComponent implements OnInit{
       embedUrl: this.formGroup.controls['embedUrl'].value,
       internalComment: this.formGroup.controls['internalComment'].value,
       categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
-      participantsIds: this.participants.map(value => value.id)
+      participantsIds: this.participantsS().map(value => value.id)
     };
 
     const id = this.formGroup.controls['id'].value ?? ""
@@ -205,7 +203,6 @@ export class ChessUpdateEventComponent implements OnInit{
   clear() {
     this.formGroup.reset();
     this.selectedEvent.set(undefined);
-    this.resetParticipantsSelect();
   }
 
   confirmDelete() {

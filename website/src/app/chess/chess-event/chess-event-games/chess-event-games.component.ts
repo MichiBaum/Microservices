@@ -15,12 +15,12 @@ export class ChessEventGamesComponent {
 
   readonly event = input<ChessEvent>();
   games = rxResource({
-    request: () => ({event: this.event()}),
+    request: () => ({eventId: this.event()?.id}),
     loader: (params) => {
-      let event = this.event();
-      if(event == undefined || event.id == undefined)
+      let eventId = params.request.eventId;
+      if(eventId == undefined)
         return of([])
-      return this.chessService.eventGames(event.id)
+      return this.chessService.eventGames(eventId)
     }
   })
   computedHaveContent = computed(() => {
