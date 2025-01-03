@@ -56,6 +56,12 @@
       "player-analysis": "Player Analysis",
       "settings": "Einstellungen"
     },
+    "platform": {
+      "CHESSCOM": "Chess.com",
+      "FIDE": "Fide",
+      "FREESTYLE": "Freestyle",
+      "LICHESS": "Lichess"
+    },
     "player": {
       "firstname": "Vorname",
       "lastname": "Nachname",

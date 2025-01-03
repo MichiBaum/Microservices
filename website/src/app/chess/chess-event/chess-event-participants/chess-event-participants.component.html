@@ -1,25 +1,12 @@
 <p-card *ngIf="participants.value()?.length !== 0 && participants.value() as _participants">
-  <ng-template #header></ng-template>
   <ng-template #title>{{'chess.event.participants' | translate}}</ng-template>
 
-  <p-table stripedRows [value]="_participants">
-    <ng-template #header>
-      <tr>
-        <th>{{'chess.event.participant.firstname' | translate}}</th>
-        <th>{{'chess.event.participant.lastname' | translate}}</th>
-        <th>{{'chess.event.federation' | translate}}</th>
-        <th>{{'chess.event.birthday' | translate}}</th>
-        <th>{{'chess.event.account' | translate}}</th>
-      </tr>
-    </ng-template>
-    <ng-template #body let-participant>
-      <tr>
-        <td>{{ participant.firstname }}</td>
-        <td>{{ participant.lastname }}</td>
-        <td>{{ participant.federation }}</td>
-        <td>{{ participant.birthday }}</td>
-        <td><p-button *ngIf="personsPlatformAccount(participant) as account" label="{{'chess.event.open-account' | translate}}" (onClick)="openAccount(account)" /></td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <div class="grid grid-cols-1 4k:grid-cols-5 xlScreen:grid-cols-4 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
+    <app-chess-player-card
+      *ngFor="let participant of _participants"
+      [player]="participant"
+      [accounts]="personsPlatformAccount(participant)"
+    ></app-chess-player-card>
+  </div>
+
 </p-card>
