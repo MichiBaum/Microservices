@@ -45,10 +45,7 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
                 filterChain.doFilter(request, response)
                 return
             }
-            val session = request.getSession(false)
-            if (session != null) {
-                request.changeSessionId()
-            }
+
             successfulAuthentication(request, response, filterChain, authenticationResult)
         } catch (ex: AuthenticationException) {
             unsuccessfulAuthentication(request, response, ex)
