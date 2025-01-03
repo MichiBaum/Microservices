@@ -24,7 +24,6 @@ class DiscordAppender(private val discordClient: DiscordClient, private val disc
         val message = DiscordLogMessage(logEvent).discordMessage
         try {
             discordClient.sendMessage(discordLoggingProperties.channelId, message)
-                .block()
         } catch (_: Exception) { }
     }
 
