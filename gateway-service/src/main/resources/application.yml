@@ -62,6 +62,8 @@ spring:
           include-description: true
     openfeign:
       lazy-attributes-resolution: true
+      httpclient:
+        disable-ssl-validation: true
 
   main:
     allow-bean-definition-overriding: true
