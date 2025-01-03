@@ -262,32 +262,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.10.1</version>
-                <configuration>
-                    <outputDirectory>${basedir}/javadoc/src/main/resources</outputDirectory>
-                    <level>private</level>
-                    <detectLinks>true</detectLinks>
-                    <detectJavaApiLink>true</detectJavaApiLink>
-                    <quiet>true</quiet>
-                    <name>Microservices</name>
-                    <charset>UTF-8</charset>
-                    <author>true</author>
-                    <show>private</show>
-                    <windowtitle>Microservices Javadoc</windowtitle>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>aggregate</id>
-                        <goals>
-                            <goal>aggregate</goal>
-                        </goals>
-                        <phase>site</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <extensions>true</extensions>
@@ -316,30 +290,6 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <goals>
-                            <goal>compile</goal> <!-- You can skip the <goals> element if you enable extensions for the plugin -->
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <goals>
-                            <goal>test-compile</goal> <!-- You can skip the <goals> element if you enable extensions for the plugin -->
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
 		</plugins>
