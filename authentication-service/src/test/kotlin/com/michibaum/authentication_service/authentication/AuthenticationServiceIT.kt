@@ -2,6 +2,7 @@ package com.michibaum.authentication_service.authentication
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.michibaum.authentication_service.TestcontainersConfiguration
 import com.michibaum.usermanagement_library.UserDetailsDto
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -13,6 +14,7 @@ import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 
 @SpringBootTest
+@TestcontainersConfiguration
 class AuthenticationServiceIT {
 
     @Autowired

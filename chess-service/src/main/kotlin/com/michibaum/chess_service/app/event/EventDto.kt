@@ -2,7 +2,8 @@ package com.michibaum.chess_service.app.event
 
 import com.michibaum.chess_service.app.eventcategory.EventCategoryDto
 import com.michibaum.chess_service.app.person.PersonDto
-import java.util.UUID
+import com.michibaum.chess_service.domain.ChessPlatform
+import java.util.*
 
 data class EventDto(
     val id: UUID,
@@ -12,6 +13,7 @@ data class EventDto(
     val embedUrl: String? = null,
     val dateFrom: String? = null,
     val dateTo: String? = null,
+    val internalComment: String = "",
+    val platform: ChessPlatform,
     val categories: List<EventCategoryDto> = mutableListOf(),
-    val participants: List<PersonDto> = mutableListOf(),
 )

@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Authentication, AuthenticationResponse, Register, RegisterResponse} from "../models/authentication.model";
 import {environment} from "../../../environments/environment";
@@ -37,9 +37,6 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('Authentication');
-    this.http.post(environment.authenticationService + '/logout', {})
-      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)))
-      .subscribe();
     this.logoutEmitter.next();
     this.router.home()
   }

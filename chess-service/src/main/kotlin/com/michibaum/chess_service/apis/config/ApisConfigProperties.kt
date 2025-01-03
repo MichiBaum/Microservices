@@ -2,7 +2,7 @@ package com.michibaum.chess_service.apis.config
 
 import com.michibaum.chess_service.domain.ChessPlatform
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.client.RestClient
 
 /**
  * Configuration properties for API clients.
@@ -27,13 +27,9 @@ data class ApisConfigProperties(
      * This instance is built with a base URL and a custom User-Agent header.
      * Additionally, it configures the maximum in-memory size for codecs to 10MB.
      */
-    val webClient: WebClient = WebClient.builder()
+    val webClient: RestClient = RestClient.builder()
         .baseUrl(baseUrl)
         .defaultHeader("User-Agent", "chess-statistic-application/0.1; +http://www.michibaum.ch")
-        .codecs { configurer ->
-            configurer.defaultCodecs()
-            .maxInMemorySize(10000000)
-        }
         .build()
 
 }
@@ -42,7 +38,7 @@ data class ApisConfigProperties(
 data class ChessConfigProperties(
     var properties: Map<ChessPlatform, ApisConfigProperties> = emptyMap()
 ) {
-    fun getWebClient(apis: ChessPlatform): WebClient {
+    fun getWebClient(apis: ChessPlatform): RestClient {
         return properties[apis]?.webClient ?: throw NoSuchElementException("No WebClient configured for $apis")
     }
 }

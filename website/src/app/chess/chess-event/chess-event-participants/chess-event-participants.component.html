@@ -1,25 +1,26 @@
-<p-card *ngIf="participants().length != 0">
-  <ng-template #header></ng-template>
+<p-card *ngIf="participants.value()?.length !== 0">
   <ng-template #title>{{'chess.event.participants' | translate}}</ng-template>
+  <ng-template #subtitle>
+    <p-fieldset [toggleable]="true" [collapsed]="true">
+      <ng-template #header>
+        <p class="text-sm">{{'general.sort' | translate}}</p>
+      </ng-template>
+      <div class="flex flex-wrap gap-4">
+        <div *ngFor="let sortOption of sortOptions" class="field-checkbox cursor-pointer">
+          <p-radioButton [inputId]="sortOption.value" name="category" [value]="sortOption.value" [(ngModel)]="selectedSort" size="small"></p-radioButton>
+          <label [for]="sortOption.value" class="ml-2 cursor-pointer">{{ sortOption.name | translate }}</label>
+        </div>
+      </div>
+    </p-fieldset>
 
-  <p-table stripedRows *ngIf="participants().length != 0" [value]="participants()">
-    <ng-template #header>
-      <tr>
-        <th>{{'chess.event.participant.firstname' | translate}}</th>
-        <th>{{'chess.event.participant.lastname' | translate}}</th>
-        <th>{{'chess.event.federation' | translate}}</th>
-        <th>{{'chess.event.birthday' | translate}}</th>
-        <th>{{'chess.event.fide' | translate}}</th>
-      </tr>
-    </ng-template>
-    <ng-template #body let-participant>
-      <tr>
-        <td>{{ participant.firstname }}</td>
-        <td>{{ participant.lastname }}</td>
-        <td>{{ participant.federation }}</td>
-        <td>{{ participant.birthday }}</td>
-        <td><p-button *ngIf="participant.fideId" label="{{'chess.event.fide-website' | translate}}" (onClick)="openFide(participant.fideId)" /></td>
-      </tr>
-    </ng-template>
-  </p-table>
+  </ng-template>
+
+  <div class="grid grid-cols-1 4k:grid-cols-5 xlScreen:grid-cols-4 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
+    <app-chess-player-card
+      *ngFor="let participant of sortedParticipants()"
+      [player]="participant"
+      [accounts]="personsPlatformAccount(participant)"
+    ></app-chess-player-card>
+  </div>
+
 </p-card>

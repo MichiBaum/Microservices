@@ -2,7 +2,6 @@ package com.michibaum.usermanagement_service
 
 import jakarta.persistence.*
 import jakarta.persistence.FetchType.EAGER
-import org.hibernate.annotations.UuidGenerator
 import java.util.*
 
 @Entity

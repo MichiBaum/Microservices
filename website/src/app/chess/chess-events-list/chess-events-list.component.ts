@@ -1,9 +1,8 @@
-import {Component, OnInit, inject, computed} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {CardModule} from "primeng/card";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
-import {ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models";
 import {TimelineModule} from "primeng/timeline";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {ScrollTopModule} from "primeng/scrolltop";

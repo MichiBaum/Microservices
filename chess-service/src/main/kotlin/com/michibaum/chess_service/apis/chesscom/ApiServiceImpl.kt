@@ -29,8 +29,7 @@ class ApiServiceImpl(
                 .uri("/pub/player/{0}", username)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(ChesscomAccountDto::class.java) // TODO onError
-                .block()
+                .body(ChesscomAccountDto::class.java) // TODO onError
         } catch (throwable: Throwable){
             return Exception("Exception chesscom findUser with username=$username", throwable)
         }
@@ -48,8 +47,7 @@ class ApiServiceImpl(
                 .uri("/pub/player/{0}/stats", account.username)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(ChesscomStatsDto::class.java) // TODO onError
-                .block()
+                .body(ChesscomStatsDto::class.java) // TODO onError
         } catch (throwable: Throwable){
             return Exception("Exception chesscom getStats with username=${account.username}", throwable)
         }
@@ -82,9 +80,8 @@ class ApiServiceImpl(
                         .uri("/pub/player/{0}/games/{1}/{2}", account.username, currentYear, currentMonth)
                         .accept(MediaType.APPLICATION_JSON)
                         .retrieve()
-                        .bodyToMono(Gamesresult::class.java)
-                        .mapNotNull { it.games }
-                        .block()
+                        .body(Gamesresult::class.java)
+                        ?.games
                 } catch (throwable: Throwable){
                     return Exception("Exception chesscom getGames with username=${account.username} and year=$currentYear and month=$currentMonth", throwable)
                 }
@@ -109,8 +106,7 @@ class ApiServiceImpl(
                 .uri("/pub/leaderboards")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(ChesscomLeaderboards::class.java) // TODO onError
-                .block()
+                .body(ChesscomLeaderboards::class.java) // TODO onError
         } catch (throwable: Throwable){
             return Exception("Exception chesscom findTopAccounts", throwable)
         }

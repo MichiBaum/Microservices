@@ -25,22 +25,29 @@
       "size": "Anz."
     },
     "event": {
+      "account": "Account",
       "birthday": "Geburtstag",
       "chess-com": "Chess.com",
       "date-from": "Von",
       "date-to": "Bis",
       "details": "Details",
       "federation": "Verband",
-      "fide": "Fide",
-      "fide-website": "Fide Webseite",
       "games": "Partien",
       "location": "Standort",
+      "open-account": "Account öffnen",
       "open-official-website": "Offizielle Webseite öffnen",
+      "organizer": "Veranstalter",
       "participant": {
         "firstname": "Vorname",
         "lastname": "Nachname"
       },
       "participants": "Teilnehmer",
+      "sort": {
+        "birthday": "Geburtstag",
+        "federation": "Verband",
+        "firstname": "Vorname",
+        "lastname": "Nachname"
+      },
       "title": "Titel"
     },
     "home": {
@@ -55,6 +62,12 @@
       "person": "Person",
       "player-analysis": "Player Analysis",
       "settings": "Einstellungen"
+    },
+    "platform": {
+      "CHESSCOM": "Chess.com",
+      "FIDE": "Fide",
+      "FREESTYLE": "Freestyle",
+      "LICHESS": "Lichess"
     },
     "player": {
       "firstname": "Vorname",
@@ -80,6 +93,9 @@
   },
   "fitness-settings": {
     "title": "Fitness Einstellungen"
+  },
+  "general": {
+    "sort": "Sortieren"
   },
   "home": {
     "about-me": {

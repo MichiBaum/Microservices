@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, SimpleChanges, input, viewChild, inject } from '@angular/core';
+import {Component, ElementRef, inject, input, OnChanges, SimpleChanges, viewChild} from '@angular/core';
 import {SleepStage} from "../../../core/models/fitness/sleep.model";
 import * as d3 from "d3";
 

@@ -8,6 +8,7 @@ import com.michibaum.chess_service.apis.dtos.StatsDto
 import com.michibaum.chess_service.apis.dtos.TopAccountDto
 import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.ChessPlatform
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 
@@ -28,8 +29,7 @@ class ApiServiceImpl(
                 }
                 .accept(MediaType.APPLICATION_NDJSON)
                 .retrieve()
-                .bodyToMono(LichessAccountDto::class.java)
-                .block()
+                .body(LichessAccountDto::class.java)
         } catch (throwable: Throwable) {
             return Exception("Exception lichess findUser with username=${username}", throwable)
         }
@@ -47,8 +47,7 @@ class ApiServiceImpl(
                 .uri("/api/user/{0}/perf/{1}", account.username, perf)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(LichessStatsDto::class.java)
-                .block()
+                .body(LichessStatsDto::class.java)
         }
 
         val bullet = try {
@@ -82,13 +81,13 @@ class ApiServiceImpl(
     override fun getGames(account: Account): ApiResult<List<GameDto>> {
         val result = try {
             val url = "/api/games/user/{0}?perfType=bullet,blitz,rapid&pgnInJson=true&tags=true&clocks=true"
+            val typeRef: ParameterizedTypeReference<List<LichessGameDto>> =
+                object : ParameterizedTypeReference<List<LichessGameDto>>() {}
             client.get()
                 .uri(url, account.username)
                 .accept(MediaType.APPLICATION_NDJSON)
                 .retrieve()
-                .bodyToFlux(LichessGameDto::class.java)
-                .collectList()
-                .block()
+                .body(typeRef)
         } catch (throwable: Throwable) {
             return Exception("Exception lichess getGames with username=${account.username}", throwable)
         }
@@ -106,8 +105,7 @@ class ApiServiceImpl(
                 .uri("/api/player")
                 .accept(MediaType.APPLICATION_NDJSON)
                 .retrieve()
-                .bodyToMono(LichessLeaderboards::class.java)
-                .block()
+                .body(LichessLeaderboards::class.java)
         } catch (throwable: Throwable) {
             return Exception("Exception lichess findTopAccounts", throwable)
         }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {SplitterModule} from "primeng/splitter";
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";

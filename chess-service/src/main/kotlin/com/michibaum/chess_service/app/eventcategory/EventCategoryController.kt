@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.eventcategory
 
+import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.chess_service.app.event.EventConverter
 import com.michibaum.chess_service.app.event.EventService
 import jakarta.validation.Valid

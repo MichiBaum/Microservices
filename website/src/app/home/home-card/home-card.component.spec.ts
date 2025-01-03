@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HomeCardComponent } from './home-card.component';
+import {HomeCardComponent} from './home-card.component';
 
 describe('HomeCardComponent', () => {
   let component: HomeCardComponent;

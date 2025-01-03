@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.apis
 
+import com.michibaum.chess_service.TestcontainersConfiguration
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Disabled
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest
     "chess-apis.properties.lichess.base-url=https://lichess.org",
     "chess-apis.properties.chesscom.base-url=https://api.chess.com"
 ])
+@TestcontainersConfiguration
 class ApiServiceIT{
 
     @Autowired

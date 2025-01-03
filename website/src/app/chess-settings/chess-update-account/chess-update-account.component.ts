@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
 import {ChessService} from "../../core/services/chess.service";
 import {InputTextModule} from "primeng/inputtext";
@@ -55,7 +55,7 @@ export class ChessUpdateAccountComponent{
   }
 
   showImportGameButton(account: Account) {
-    let isOverTheBoard = account.platform === ChessPlatform.OVER_THE_BOARD;
+    let isOverTheBoard = account.platform === ChessPlatform.FIDE;
     return !isOverTheBoard
   }
 

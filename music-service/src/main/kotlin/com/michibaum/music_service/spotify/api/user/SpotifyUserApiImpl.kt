@@ -7,7 +7,6 @@ import com.michibaum.music_service.spotify.api.user.dtos.SpotifyUserDto
 import com.michibaum.music_service.spotify.api.user.dtos.TimeRange
 import com.michibaum.music_service.spotify.oauth.SpotifyOAuthCredentials
 import org.springframework.stereotype.Component
-import reactor.core.publisher.Mono
 
 @Component
 class SpotifyUserApiImpl: AbstractSpotifyApiClient(), SpotifyUserApi {
@@ -20,11 +19,10 @@ class SpotifyUserApiImpl: AbstractSpotifyApiClient(), SpotifyUserApi {
                 it.setBearerAuth(credentials.accessToken)
             }
             .retrieve()
-            .onStatus({ t -> t.value() == 401 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 403 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 429 }, { Mono.error(Exception()) })
-            .bodyToMono(SpotifyMeDto::class.java)
-            .block()
+            .onStatus({ t -> t.value() == 401 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 403 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 429 }, { _, _ -> })
+            .body(SpotifyMeDto::class.java)
     }
 
     override fun myTopTracks(timeRange: TimeRange, credentials: SpotifyOAuthCredentials): SpotifyTopItemsDto? {
@@ -35,11 +33,10 @@ class SpotifyUserApiImpl: AbstractSpotifyApiClient(), SpotifyUserApi {
                 it.setBearerAuth(credentials.accessToken)
             }
             .retrieve()
-            .onStatus({ t -> t.value() == 401 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 403 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 429 }, { Mono.error(Exception()) })
-            .bodyToMono(SpotifyTopItemsDto::class.java)
-            .block()
+            .onStatus({ t -> t.value() == 401 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 403 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 429 }, { _, _ -> })
+            .body(SpotifyTopItemsDto::class.java)
     }
 
     override fun myTopArtists(timeRange: TimeRange, credentials: SpotifyOAuthCredentials): SpotifyTopItemsDto? {
@@ -50,11 +47,10 @@ class SpotifyUserApiImpl: AbstractSpotifyApiClient(), SpotifyUserApi {
                 it.setBearerAuth(credentials.accessToken)
             }
             .retrieve()
-            .onStatus({ t -> t.value() == 401 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 403 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 429 }, { Mono.error(Exception()) })
-            .bodyToMono(SpotifyTopItemsDto::class.java)
-            .block()
+            .onStatus({ t -> t.value() == 401 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 403 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 429 }, { _, _ -> })
+            .body(SpotifyTopItemsDto::class.java)
     }
 
     override fun profileFor(userId: String, credentials: SpotifyOAuthCredentials): SpotifyUserDto? {
@@ -64,10 +60,9 @@ class SpotifyUserApiImpl: AbstractSpotifyApiClient(), SpotifyUserApi {
                 it.setBearerAuth(credentials.accessToken)
             }
             .retrieve()
-            .onStatus({ t -> t.value() == 401 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 403 }, { Mono.error(Exception()) })
-            .onStatus({ t -> t.value() == 429 }, { Mono.error(Exception()) })
-            .bodyToMono(SpotifyUserDto::class.java)
-            .block()
+            .onStatus({ t -> t.value() == 401 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 403 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 429 }, { _, _ -> })
+            .body(SpotifyUserDto::class.java)
     }
 }

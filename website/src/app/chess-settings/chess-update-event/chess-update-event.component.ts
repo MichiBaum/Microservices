@@ -1,11 +1,10 @@
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   ChessEvent,
-  ChessEventCategory,
+  ChessEventCategory, ChessPlatform,
   Person,
-  SearchChessEvent,
   WriteChessEvent
 } from "../../core/models/chess/chess.models";
 import {Fieldset} from "primeng/fieldset";
@@ -18,9 +17,11 @@ import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
-import {LazyLoad} from "../../core/models/lazy-load.model";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
+import {Textarea} from "primeng/textarea";
+import {of} from "rxjs";
+import {Select} from "primeng/select";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -37,7 +38,9 @@ import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
     NgIf,
     PickList,
     FormsModule,
-    EventIconPipe
+    EventIconPipe,
+    Textarea,
+    Select
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
@@ -48,14 +51,35 @@ export class ChessUpdateEventComponent implements OnInit{
 
   events = signal<ChessEvent[]>([])
   selectedEvent = signal<ChessEvent | undefined>(undefined)
+  selectedParticipants = rxResource({
+    request: () => ({eventId: this.selectedEvent()?.id}),
+    loader: (params) => {
+      const eventId = params.request.eventId
+      if (eventId == undefined)
+        return of([])
+      return this.chessService.eventParticipants(eventId)
+    }
+  })
 
   categories = rxResource({
     loader: () => this.chessService.eventCategories(),
   })
 
-  allPersons: Person[] = [];
-  personsToSelect: Person[] = [];
-  participants: Person[] = [];
+  allPersonsS = signal<Person[]>([])
+  participantsS = computed(() => {
+    return this.selectedParticipants.value() ?? []
+  })
+  personsToSelectS = computed(() => {
+    const eventParticipants = this.selectedParticipants.value() ?? [];
+    return this.allPersonsS().filter(person => !eventParticipants?.some(participant => participant.id == person.id))
+  })
+
+  platforms = [
+    ChessPlatform.FIDE,
+    ChessPlatform.CHESSCOM,
+    ChessPlatform.FREESTYLE,
+    ChessPlatform.LICHESS
+  ]
 
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({
@@ -88,6 +112,16 @@ export class ChessUpdateEventComponent implements OnInit{
     ]),
     url: new FormControl<string | null>(null),
     embedUrl: new FormControl<string | null>(null),
+    internalComment: new FormControl<string>(''),
+    platform: new FormControl<ChessPlatform | null>(
+      {
+        value: null,
+        disabled: false
+      }, [
+        Validators.required,
+        Validators.nullValidator
+      ]
+    ),
     categories: new FormControl<ChessEventCategory[]>({
       value: [],
       disabled: false
@@ -99,32 +133,22 @@ export class ChessUpdateEventComponent implements OnInit{
 
   ngOnInit(): void {
     this.chessService.persons().subscribe(persons => {
-      this.allPersons = [...persons];
-      this.resetParticipantsSelect()
+      this.allPersonsS.set(persons)
+    })
+    this.loadEvents()
+  }
+
+  loadEvents() {
+    this.chessService.events().subscribe(events => {
+      this.events.set(events)
     })
   }
 
   onEventSelect(event: ChessEvent | undefined){
     this.selectedEvent.set(event);
-    this.resetParticipantsSelect()
     this.patchForm()
   }
 
-  private resetParticipantsSelect(){
-    this.personsToSelect = [...[]]
-    this.participants = [...[]]
-    this.resetSourceTargetFilter()
-    let selectedEvent = this.selectedEvent();
-    if(selectedEvent){
-      const eventParticipants = selectedEvent.participants as Person[];
-      this.participants = [...eventParticipants];
-      const notParticipating = this.allPersons.filter(person => !eventParticipants?.some(participant => participant.id == person.id))
-      this.personsToSelect = [...notParticipating]
-    } else {
-      this.personsToSelect = [...this.allPersons]
-      this.participants = [...[]]
-    }
-  }
 
   patchForm(){
     const selectedEvent = this.selectedEvent();
@@ -150,10 +174,11 @@ export class ChessUpdateEventComponent implements OnInit{
       dateFrom: dateFrom ?? null,
       dateTo: dateTo ?? null,
       url: selectedEvent.url ?? '',
+      internalComment: selectedEvent.internalComment ?? '',
+      platform: selectedEvent.platform ?? null,
       embedUrl: selectedEvent.embedUrl ?? '',
       categories: selectedEvent.categories ?? [],
     });
-    this.resetParticipantsSelect()
   }
 
   save() {
@@ -171,20 +196,16 @@ export class ChessUpdateEventComponent implements OnInit{
       dateTo: dateTo,
       url: this.formGroup.controls['url'].value,
       embedUrl: this.formGroup.controls['embedUrl'].value,
+      internalComment: this.formGroup.controls['internalComment'].value,
+      platform: this.formGroup.controls['platform'].value,
       categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
-      participantsIds: this.participants.map(value => value.id)
+      participantsIds: this.participantsS().map(value => value.id)
     };
 
     const id = this.formGroup.controls['id'].value ?? ""
     this.chessService.saveEvent(id, event).subscribe(newEvent => {
       this.clear()
-      let isNewEvent = !this.events().some(old => old.id === newEvent.id);
-      if (isNewEvent){
-        this.events.update(value => [...value, newEvent])
-      } else {
-        const newEvents = this.events().map(old => old.id === newEvent.id ? newEvent : old);
-        this.events.set(newEvents)
-      }
+      this.loadEvents()
     })
   }
 
@@ -201,80 +222,10 @@ export class ChessUpdateEventComponent implements OnInit{
   clear() {
     this.formGroup.reset();
     this.selectedEvent.set(undefined);
-    this.resetParticipantsSelect();
   }
 
   confirmDelete() {
 
-  }
-
-  lazyLoadEvents(lazyLoad: LazyLoad<SearchChessEvent>) {
-    this.chessService.searchEvents(lazyLoad.data).subscribe(newEvents => {
-      const filtered = newEvents.filter(event => this.events().every(oldEvent => oldEvent.id !== event.id))
-      if(filtered.length != 0){
-        this.events.update(value => [...value, ...filtered])
-      }
-    })
-  }
-
-
-
-
-
-
-
-
-  // TODO sourceHeader and targetHeader are temporary because f PrimeNGs Filters are f broken
-  sourceSearchText: string = "";
-  targetSearchText: string = "";
-  beforeSourceSearchPersons: Person[] = [];
-  beforeTargetSearchPersons: Person[] = [];
-
-  onSourceSearch() {
-    if(this.sourceSearchText === ""){
-      if(this.beforeSourceSearchPersons.length == 0){
-        return;
-      }
-      this.personsToSelect = [...this.beforeSourceSearchPersons]
-      return;
-    }
-
-    if(this.beforeSourceSearchPersons.length == 0){
-      this.beforeSourceSearchPersons = [...this.personsToSelect]
-    }
-
-    const filtered = this.personsToSelect.filter(person =>
-      person.firstname.toLowerCase().includes(this.sourceSearchText.toLowerCase()) ||
-      person.lastname.toLowerCase().includes(this.sourceSearchText.toLowerCase())
-    )
-    this.personsToSelect = [...filtered]
-  }
-
-  onTargetSearch() {
-    if(this.targetSearchText === ""){
-      if(this.beforeTargetSearchPersons.length == 0){
-        return;
-      }
-      this.participants = [...this.beforeTargetSearchPersons]
-      return;
-    }
-
-    if(this.beforeTargetSearchPersons.length == 0){
-      this.beforeTargetSearchPersons = [...this.participants]
-    }
-
-    const filtered = this.participants.filter(person =>
-      person.firstname.toLowerCase().includes(this.targetSearchText.toLowerCase()) ||
-      person.lastname.toLowerCase().includes(this.targetSearchText.toLowerCase())
-    )
-    this.participants = [...filtered]
-  }
-
-  resetSourceTargetFilter(){
-    this.sourceSearchText = "";
-    this.targetSearchText = "";
-    this.beforeSourceSearchPersons = [...[]];
-    this.beforeTargetSearchPersons = [...[]];
   }
 
 }

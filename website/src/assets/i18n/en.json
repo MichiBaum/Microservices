@@ -25,22 +25,29 @@
       "size": "Size"
     },
     "event": {
+      "account": "Account",
       "birthday": "Birthday",
       "chess-com": "Chess.com",
       "date-from": "From",
       "date-to": "Until",
       "details": "Details",
       "federation": "Federation",
-      "fide": "Fide",
-      "fide-website": "Fide Website",
       "games": "Games",
       "location": "Location",
+      "open-account": "Open account",
       "open-official-website": "Open official website",
+      "organizer": "Organizer",
       "participant": {
         "firstname": "Firstname",
         "lastname": "Lastname"
       },
       "participants": "Participants",
+      "sort": {
+        "birthday": "Birthday",
+        "federation": "Federation",
+        "firstname": "Firstname",
+        "lastname": "Lastname"
+      },
       "title": "Title"
     },
     "home": {
@@ -55,6 +62,12 @@
       "person": "Person",
       "player-analysis": "Player Analysis",
       "settings": "Settings"
+    },
+    "platform": {
+      "CHESSCOM": "Chess.com",
+      "FIDE": "Fide",
+      "FREESTYLE": "Freestyle",
+      "LICHESS": "Lichess"
     },
     "player": {
       "firstname": "Firstname",
@@ -80,6 +93,9 @@
   },
   "fitness-settings": {
     "title": "Fitness Settings"
+  },
+  "general": {
+    "sort": "Sort"
   },
   "home": {
     "about-me": {

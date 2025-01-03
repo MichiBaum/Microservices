@@ -1,19 +1,20 @@
 package com.michibaum.music_service.security
 
 import com.michibaum.authentication_library.AuthenticationClient
-import com.michibaum.authentication_library.security.ReactiveDelegateAuthenticationManager
+import com.michibaum.authentication_library.security.ServletAuthenticationFilter
+import com.michibaum.authentication_library.security.ServletDelegateAuthenticationManager
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
 import com.michibaum.authentication_library.security.basic.BasicAuthenticationManager
 import com.michibaum.authentication_library.security.basic.CredentialsValidator
-import com.michibaum.authentication_library.security.basic.netty.BasicAuthenticationConverter
+import com.michibaum.authentication_library.security.basic.servlet.BasicAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
-import com.michibaum.authentication_library.security.jwt.netty.JwtAuthenticationConverter
+import com.michibaum.authentication_library.security.jwt.servlet.JwtAuthenticationConverter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
-import org.springframework.security.authentication.ReactiveAuthenticationManager
-import org.springframework.security.web.server.authentication.AuthenticationWebFilter
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.web.authentication.AuthenticationConverter
 
 @Configuration
 class SecurityBeansConfiguration {
@@ -46,37 +47,22 @@ class SecurityBeansConfiguration {
         BasicAuthenticationManager(credentialsValidator)
 
     @Bean
-    fun authenticationManager(specificAuthenticationManagers: List<SpecificAuthenticationManager>): ReactiveAuthenticationManager =
-        ReactiveDelegateAuthenticationManager(specificAuthenticationManagers)
+    fun authenticationManager(specificAuthenticationManagers: List<SpecificAuthenticationManager>): AuthenticationManager =
+        ServletDelegateAuthenticationManager(specificAuthenticationManagers)
 
 
 
     @Bean
-    fun jwtAuthenticationConverter(): JwtAuthenticationConverter =
+    fun jwtAuthenticationConverter(): AuthenticationConverter =
         JwtAuthenticationConverter()
 
     @Bean
-    fun basicAuthenticationConverter(): BasicAuthenticationConverter =
+    fun basicAuthenticationConverter(): AuthenticationConverter =
         BasicAuthenticationConverter()
 
 
 
     @Bean
-    fun jwtAuthenticationWebFilter(
-        authenticationManager: ReactiveAuthenticationManager,
-        jwtAuthenticationConverter: JwtAuthenticationConverter
-    ) =
-        AuthenticationWebFilter(authenticationManager).apply {
-            setServerAuthenticationConverter(jwtAuthenticationConverter)
-        }
-
-    @Bean
-    fun basicAuthenticationWebFilter(
-        authenticationManager: ReactiveAuthenticationManager,
-        basicAuthenticationConverter: BasicAuthenticationConverter
-    ) =
-        AuthenticationWebFilter(authenticationManager).apply {
-            setServerAuthenticationConverter(basicAuthenticationConverter)
-        }
-
+    fun authenticationFilter(authenticationManager: AuthenticationManager, authenticationConverters: List<AuthenticationConverter>) =
+        ServletAuthenticationFilter(authenticationManager, authenticationConverters)
 }

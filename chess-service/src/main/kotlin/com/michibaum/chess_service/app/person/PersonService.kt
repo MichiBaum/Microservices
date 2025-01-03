@@ -1,6 +1,5 @@
 package com.michibaum.chess_service.app.person
 
-import com.michibaum.chess_service.apis.dtos.FidePersonDto
 import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.Person
 import org.springframework.stereotype.Service
@@ -17,7 +16,6 @@ class PersonService(
         val newPerson = Person(
             firstname = person.firstname,
             lastname = person.lastname,
-            fideId = person.fideId,
             accounts = person.accounts + account,
             id = person.id,
             federation = person.federation,
@@ -31,7 +29,6 @@ class PersonService(
         val newPerson = Person(
             firstname = person.firstname,
             lastname = person.lastname,
-            fideId = person.fideId,
             accounts = person.accounts + accounts,
             id = person.id,
             federation = person.federation,
@@ -57,17 +54,17 @@ class PersonService(
         return personRepository.findAll()
     }
 
-    fun createAndUpdate(persons: List<FidePersonDto>): List<Person> {
-        return persons.map {
-            val foundPerson = personRepository.findByFideId(it.fideId)
-            if (foundPerson != null) {
-                val updatedPerson = it.toPerson(id = foundPerson.idOrThrow(), birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
-                personRepository.save(updatedPerson)
-            } else {
-                personRepository.save(it.toPerson())
-            }
-        }.toList()
-    }
+//    fun createAndUpdate(persons: List<FidePersonDto>): List<Person> {
+//        return persons.map {
+//            val foundPerson = personRepository.findByFideId(it.fideId)
+//            if (foundPerson != null) {
+//                val updatedPerson = it.toPerson(id = foundPerson.idOrThrow(), birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
+//                personRepository.save(updatedPerson)
+//            } else {
+//                personRepository.save(it.toPerson())
+//            }
+//        }.toList()
+//    }
 
     fun find(uuid: UUID): Person? =
         personRepository.findById(uuid).getOrNull()
@@ -76,7 +73,6 @@ class PersonService(
         val newPerson = Person(
             firstname = personDto.firstname,
             lastname = personDto.lastname,
-            fideId = personDto.fideId,
             federation = personDto.federation,
             birthday = personDto.birthday?.let { LocalDate.parse(it) },
             gender = personDto.gender,
@@ -90,7 +86,6 @@ class PersonService(
         val newPerson = Person(
             firstname = personDto.firstname,
             lastname = personDto.lastname,
-            fideId = personDto.fideId,
             federation = personDto.federation,
             birthday = personDto.birthday?.let { LocalDate.parse(it) },
             gender = personDto.gender,

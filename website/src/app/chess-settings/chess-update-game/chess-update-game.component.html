@@ -5,8 +5,8 @@
       <app-select-chess-event [events]="events.value() ?? []" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
 
-    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons().length !== 0">
-      <app-select-chess-person [persons]="persons()" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
+    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons.value()?.length !== 0 && persons.value() as _persons">
+      <app-select-chess-person [persons]="_persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
     </p-fieldset>
 
     <p-fieldset [toggleable]="true" *ngIf="selectedPersons().length == 2">
@@ -35,16 +35,12 @@
         </ng-template>
         <ng-template #header>
           <tr>
-            <th style="width: 4rem"></th>
             <th>Username</th>
             <th>Platform</th>
           </tr>
         </ng-template>
         <ng-template #body let-account let-rowIndex="rowIndex">
           <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
-            <td>
-              <p-tableCheckbox [value]="account" disabled="true"/>
-            </td>
             <td>{{ account.username }}</td>
             <td>{{ account.platform }}</td>
           </tr>

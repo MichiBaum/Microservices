@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, OnDestroy, signal} from '@angular/core';
+import {Component, inject, OnDestroy, signal} from '@angular/core';
 import {NavigationComponent} from "./navigation/navigation.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";

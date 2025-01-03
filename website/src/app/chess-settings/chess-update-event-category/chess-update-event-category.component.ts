@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal, computed, effect} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {ChessService} from "../../core/services/chess.service";
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessEventCategoryComponent} from "../select-chess-event-category/select-chess-event-category.component";

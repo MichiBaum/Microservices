@@ -1,4 +1,4 @@
-import { ApplicationConfig, isDevMode, inject, provideAppInitializer } from '@angular/core';
+import {ApplicationConfig, inject, isDevMode, provideAppInitializer} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
@@ -70,7 +70,7 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
         const initializerFn = (appInitializerFactory)(inject(TranslateService));
         return initializerFn();
-      }),
+    }),
     {
       provide : HTTP_INTERCEPTORS,
       useClass: AuthJwtInterceptor,

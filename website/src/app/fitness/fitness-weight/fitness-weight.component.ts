@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Weight} from "../../core/models/fitness/weight.model";
 import {FitnessService} from "../../core/services/fitness.service";
 import {ChartModule} from "primeng/chart";

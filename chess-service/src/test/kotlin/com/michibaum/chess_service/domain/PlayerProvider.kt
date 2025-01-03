@@ -1,7 +1,6 @@
 package com.michibaum.chess_service.domain
 
 import com.michibaum.chess_service.apis.dtos.PieceColor
-import java.util.*
 
 class PlayerProvider {
 

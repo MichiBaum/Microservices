@@ -37,11 +37,9 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
     ) {
         try {
 
-            val authenticationResult: Authentication? = converters.map { converter: AuthenticationConverter -> converter.convert(request) }
-                .filterNotNull()
-                .map { authentication -> authenticationManager.authenticate(authentication) }
-                .filterNotNull()
-                .firstOrNull()
+            val authenticationResult: Authentication? =
+                converters.mapNotNull { converter: AuthenticationConverter -> converter.convert(request) }
+                    .firstNotNullOfOrNull { authentication -> authenticationManager.authenticate(authentication) }
 
             if (authenticationResult == null) {
                 filterChain.doFilter(request, response)

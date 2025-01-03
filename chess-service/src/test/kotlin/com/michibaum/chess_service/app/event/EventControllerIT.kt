@@ -1,26 +1,27 @@
 package com.michibaum.chess_service.app.event
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.michibaum.chess_service.TestcontainersConfiguration
 import com.michibaum.chess_service.app.person.PersonRepository
 import com.michibaum.chess_service.domain.EventProvider
 import com.michibaum.chess_service.domain.PersonProvider
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.util.*
 
-@AutoConfigureWebTestClient
+@AutoConfigureMockMvc
 @SpringBootTest
+@TestcontainersConfiguration
 class EventControllerIT {
 
     @Autowired
-    lateinit var webTestClient: WebTestClient
-
-    @Autowired
-    lateinit var objectMapper: ObjectMapper
+    lateinit var mockMvc: MockMvc
 
     @Autowired
     lateinit var eventRepository: EventRepository
@@ -36,14 +37,15 @@ class EventControllerIT {
         val savedEvent = eventRepository.save(event)
 
         // WHEN
-        webTestClient.get()
-            .uri("/api/events")
+        mockMvc.perform(
+            get("/api/events")
             .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectAll(
-                {it.expectStatus().isOk},
-                {it.expectBody()}
-            )
+        ).andExpectAll(
+            status().isOk,
+            jsonPath("$.[0].id").exists(),
+            jsonPath("$.[0].title").exists(),
+        )
+
 
         // THEN
 
@@ -57,14 +59,14 @@ class EventControllerIT {
         val savedEvent = eventRepository.save(event)
 
         // WHEN
-        webTestClient.get()
-            .uri("/api/events/${savedEvent.id}")
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectAll(
-                {it.expectStatus().isOk},
-                {it.expectBody()}
-            )
+        mockMvc.perform(
+            get("/api/events/${savedEvent.id}")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isOk,
+            jsonPath("$.id").exists(),
+            jsonPath("$.title").exists(),
+        )
 
         // THEN
 
@@ -82,13 +84,12 @@ class EventControllerIT {
         } while (savedEvent.id == uuid)
 
         // WHEN
-        webTestClient.get()
-            .uri("/api/events/${uuid}")
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectAll(
-                {it.expectStatus().isNotFound},
-            )
+        mockMvc.perform(
+            get("/api/events/${uuid}")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isNotFound
+        )
 
         // THEN
 
@@ -103,16 +104,14 @@ class EventControllerIT {
         val uuid = "abc"
 
         // WHEN
-        webTestClient.get()
-            .uri("/api/events/${uuid}")
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectAll(
-                {it.expectStatus().isBadRequest},
-            )
+        mockMvc.perform(
+            get("/api/events/${uuid}")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isBadRequest
+        )
 
         // THEN
-
 
     }
 
@@ -125,14 +124,15 @@ class EventControllerIT {
         val savedEvent = eventRepository.save(event)
 
         // WHEN
-        webTestClient.get()
-            .uri("/api/events/${savedEvent.id}/participants")
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectAll(
-                {it.expectStatus().isOk},
-                {it.expectBody()}
-            )
+        mockMvc.perform(
+            get("/api/events/${savedEvent.id}/participants")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isOk,
+            jsonPath("$.[0].id").exists(),
+            jsonPath("$.[0].firstname").exists(),
+            jsonPath("$.[0].lastname").exists(),
+        )
 
         // THEN
 
@@ -152,13 +152,12 @@ class EventControllerIT {
         } while (savedEvent.id == uuid)
 
         // WHEN
-        webTestClient.get()
-            .uri("/api/events/${uuid}/participants")
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectAll(
-                {it.expectStatus().isNotFound}
-            )
+        mockMvc.perform(
+            get("/api/events/${uuid}/participants")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isNotFound
+        )
 
         // THEN
 
@@ -175,13 +174,12 @@ class EventControllerIT {
         val uuid = "abc"
 
         // WHEN
-        webTestClient.get()
-            .uri("/api/events/${uuid}/participants")
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectAll(
-                {it.expectStatus().isBadRequest}
-            )
+        mockMvc.perform(
+            get("/api/events/${uuid}/participants")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isBadRequest
+        )
 
         // THEN
 

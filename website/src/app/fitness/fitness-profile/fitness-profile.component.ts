@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FitnessService} from "../../core/services/fitness.service";
 import {Profile} from "../../core/models/fitness/profile.model";
 import {NgIf} from "@angular/common";

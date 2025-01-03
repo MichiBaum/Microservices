@@ -4,7 +4,6 @@ export interface Person {
   id: string
   firstname:string
   lastname:string
-  fideId?:string
   federation?:string
   birthday?:string
   gender: Gender
@@ -14,7 +13,6 @@ export interface Person {
 export interface WritePerson {
   firstname:string
   lastname:string
-  fideId?:string
   federation?:string
   birthday?:string
   gender: Gender
@@ -40,7 +38,8 @@ export interface Account {
 export enum ChessPlatform{
   CHESSCOM="CHESSCOM",
   LICHESS="LICHESS",
-  OVER_THE_BOARD="OVER_THE_BOARD"
+  FIDE="FIDE",
+  FREESTYLE="FREESTYLE"
 }
 
 export enum ChessGameType{
@@ -59,8 +58,9 @@ export interface ChessEvent {
   embedUrl: string | undefined;
   dateFrom: string | undefined;
   dateTo: string | undefined;
+  internalComment: string;
+  platform: ChessPlatform;
   categories: ChessEventCategory[];
-  participants: Person[];
 }
 
 export interface WriteChessEvent {
@@ -70,6 +70,8 @@ export interface WriteChessEvent {
   dateTo: string | undefined;
   url: string | undefined;
   embedUrl: string | undefined;
+  internalComment: string;
+  platform: ChessPlatform;
   categoryIds: string[];
   participantsIds: string[];
 }
