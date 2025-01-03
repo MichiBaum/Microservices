@@ -1,6 +1,5 @@
 package com.michibaum.discord.config
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.discord.api.DiscordClient
 import com.michibaum.discord.api.DiscordClientImpl
 import org.springframework.boot.autoconfigure.AutoConfiguration
@@ -21,30 +20,15 @@ import org.springframework.context.annotation.Bean
 class DiscordAutoConfiguration {
 
     /**
-     * Provides an `ObjectMapper` bean for JSON processing.
-     *
-     * This method returns a singleton instance of `ObjectMapper` which is used for JSON serialization and
-     * deserialization throughout the application. The bean is only provided if an `ObjectMapper` bean
-     * is not already present in the application context.
-     *
-     * @return An instance of `ObjectMapper`.
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    fun objectMapper() = ObjectMapper()
-
-    /**
      * Creates a `DiscordClient` bean if one is not already present in the application context.
      *
      * @param properties Configuration properties for the Discord integration.
-     * @param objectMapper The ObjectMapper instance for JSON processing.
      * @return An instance of `DiscordClient`.
      */
     @Bean
-    @ConditionalOnBean(value = [ObjectMapper::class])
     @ConditionalOnMissingBean
-    fun discordClient(properties: DiscordProperties, objectMapper: ObjectMapper): DiscordClient {
-        return DiscordClientImpl(properties, objectMapper)
+    fun discordClient(properties: DiscordProperties): DiscordClient {
+        return DiscordClientImpl(properties)
     }
 
 }

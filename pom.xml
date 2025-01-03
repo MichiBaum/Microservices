@@ -34,15 +34,17 @@
         <spring-boot-admin.version>3.4.1</spring-boot-admin.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <java.version>21</java.version>
 
         <!--
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
         <kotlin.version>2.1.0</kotlin.version>
+        <kotlin.compiler.languageVersion>2.1</kotlin.compiler.languageVersion>
+        <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 
         <!--
         https://mockk.io/
@@ -255,13 +257,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.1.1</version> <!-- TODO check if version 3.1.1 works else revert to 3.0.1 -->
-                <configuration>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <extensions>true</extensions>
@@ -290,6 +285,11 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.1.1</version> <!-- TODO check if version 3.1.1 works else revert to 3.0.1 -->
             </plugin>
 
 		</plugins>

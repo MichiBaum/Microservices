@@ -1,6 +1,5 @@
 package com.michibaum.discord.api
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.discord.api.dtos.*
 import com.michibaum.discord.config.DiscordProperties
 import org.springframework.core.ParameterizedTypeReference
@@ -16,11 +15,9 @@ import org.springframework.web.client.bodyWithType
  * specific to the Discord API v10.
  *
  * @property properties Configuration properties containing the bot token and guild ID.
- * @property objectMapper ObjectMapper instance for JSON serialization and deserialization.
  */
 open class DiscordClientImpl(
-    private val properties: DiscordProperties,
-    private val objectMapper: ObjectMapper
+    private val properties: DiscordProperties
 ): DiscordClient {
 
     /**
