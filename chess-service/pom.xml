@@ -159,7 +159,7 @@
                         <version>3.4.4</version>
                         <configuration>
                             <from>
-                                <image>eclipse-temurin:23-jre-alpine</image>
+                                <image>eclipse-temurin:21-jre-alpine</image>
                                 <auth>
                                     <!--suppress UnresolvedMavenProperty -->
                                     <username>${dockerHub.username}</username>
