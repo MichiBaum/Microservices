@@ -24,7 +24,10 @@ class CustomDiscordNotifier(private val discordClient: DiscordClient, private va
 
     protected fun createContent(event: InstanceEvent, instance: Instance?): String {
         return """
-            
+            Instance: ${event.instance.value}
+            Version: ${event.version}
+            Timestamp: ${event.timestamp}
+            State: ${event.type}
         """.trimIndent()
     }
 
