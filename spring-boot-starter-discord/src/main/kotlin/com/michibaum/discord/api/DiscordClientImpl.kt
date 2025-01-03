@@ -3,9 +3,9 @@ package com.michibaum.discord.api
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.michibaum.discord.api.dtos.*
 import com.michibaum.discord.config.DiscordProperties
-import reactor.core.publisher.Flux
-import reactor.netty.ByteBufFlux
-import reactor.netty.http.client.HttpClient
+import org.springframework.core.ParameterizedTypeReference
+import org.springframework.web.client.RestClient
+import org.springframework.web.client.bodyWithType
 
 /**
  * Implementation of the Discord client for making API calls to Discord services.
@@ -44,86 +44,88 @@ open class DiscordClientImpl(
     val authToken = "Bot ${properties.botToken}"
 
     /**
-     * A configured HTTP client for interacting with the Discord API.
+     * A pre-configured REST client used to interact with the Discord API.
      *
-     * This client is set up with a base URL and common headers needed for authentication and
-     * content type specification. The headers include:
-     * - Authorization: required for API access
-     * - Content-Type: set to application/json for JSON data exchange
-     * - User-Agent: identifies the client as a Discord bot
+     * This client is responsible for making HTTP requests to various Discord API endpoints
+     * and includes default settings such as the base URL, authorization token, and headers required
+     * for communication with the Discord servers.
      *
-     * The client is primarily used for making HTTP requests such as GET and POST to various
-     * Discord API endpoints to manage guilds, channels, and other resources.
+     * The `httpClient` is primarily utilized by the `DiscordClientImpl` class to perform operations
+     * including retrieving guild information, fetching channel details, creating new channels, and
+     * sending messages.
+     *
+     * Default headers added to each request include:
+     * - `Authorization`: Contains the bot token for authentication.
+     * - `Content-Type`: Specifies the `application/json` format for requests and responses.
+     * - `User-Agent`: Identifies the client, including its version and source.
      */
-    val httpClient = HttpClient.create()
-        .baseUrl(url)
-        .headers { headers ->
-            headers.add("Authorization", authToken)
-            headers.add("Content-Type", "application/json")
-            headers.add("User-Agent", "DiscordBot (https://github.com/MichiBaum/Microservices)")
-        }
+    private val httpClient: RestClient = RestClient.builder()
+            .baseUrl(url)
+            .defaultHeaders { headers ->
+                headers.add("Authorization", authToken)
+                headers.add("Content-Type", "application/json")
+                headers.add("User-Agent", "DiscordBot (https://github.com/MichiBaum/Microservices)")
+            }.build()
+
 
     /**
-     * Retrieves the guild information for the configured guild from the Discord API.
+     * Retrieves detailed information about the guild associated with the Discord client.
      *
-     * This method makes an HTTP GET request to the /guilds/{guildId} endpoint of the Discord API.
-     * The response content is aggregated into a single string and then deserialized into a `GetGuildeDto` object
-     * using the configured ObjectMapper.
+     * This method makes an HTTP GET request to the Discord API's `/guilds/{guildId}` endpoint,
+     * where `{guildId}` is replaced with the guild ID configured in the client properties.
+     * The response is deserialized into a `GetGuildeDto` object, which contains information
+     * such as the guild's ID, name, description, features, and other attributes.
      *
-     * @return a `Mono<GetGuildeDto>` representing the guild information.
+     * @return A `GetGuildeDto` object containing information about the guild. The result is non-null
+     * but may require additional checks if the guild information cannot be successfully retrieved.
      */
     override fun getGuild() = httpClient.get()
         .uri("/guilds/${properties.guildId}")
-        .responseContent()
-        .aggregate()
-        .asString()
-        .map { x -> objectMapper.readValue(x, GetGuildeDto::class.java) }
+        .retrieve()
+        .body(GetGuildeDto::class.java)!! // TODO maybe nullable
 
     /**
-     * Retrieves the list of channels for the configured guild from the Discord API.
+     * Retrieves a list of channels for the configured guild from the Discord API.
      *
-     * This method makes an HTTP GET request to the /guilds/{guildId}/channels endpoint of the Discord API.
-     * The response content is aggregated into a single string and then deserialized into a list of `GetChannelDto` objects
-     * using the configured ObjectMapper.
+     * This method performs an HTTP GET request to the /guilds/{guildId}/channels endpoint, where {guildId}
+     * is replaced with the guildId value from the Discord client properties.
      *
-     * @return a `Mono<List<GetChannelDto>>` representing the list of channels in the guild.
+     * The request result is deserialized into a list of `GetChannelDto` objects, each representing
+     * detailed information about a channel within the guild.
+     *
+     * @return A list of `GetChannelDto` objects representing the channels of the guild.
+     *         The result is non-null but may be empty if the guild has no channels.
      */
     override fun getChannels() = httpClient.get()
         .uri("/guilds/${properties.guildId}/channels")
-        .responseContent()
-        .aggregate()
-        .asString()
-        .map<List<GetChannelDto>> { x -> objectMapper.readValue(x, objectMapper.typeFactory.constructCollectionType(List::class.java, GetChannelDto::class.java)) }
+        .retrieve()
+        .body(object:ParameterizedTypeReference<List<GetChannelDto>>(){})!! // TODO maybe nullable
 
     /**
-     * Creates a new Discord channel within the specified guild.
+     * Creates a new Discord channel in the configured guild by making a POST request to the Discord API.
      *
-     * @param channelDto The details of the channel to be created, encapsulated in a `CreateChannelDto` object.
+     * @param channelDto The data transfer object containing the details required to create a new channel,
+     * including properties such as the channel name, type, and optional parent category ID.
      */
     override fun createChannel(channelDto: CreateChannelDto) = httpClient.post()
         .uri("/guilds/${properties.guildId}/channels")
-        .send(ByteBufFlux.fromString(Flux.just(objectMapper.writeValueAsString(channelDto))))
-        .responseContent()
-        .aggregate()
-        .asString()
-        .map { x -> objectMapper.readValue(x, GetChannelDto::class.java)}
+        .bodyWithType(channelDto)
+        .retrieve()
+        .body(GetChannelDto::class.java)!! // TODO maybe nullable
 
-    // Create Message
     /**
      * Sends a message to a specified Discord channel.
      *
-     * @param channelId the ID of the channel where the message will be sent.
-     * @param messageDto the details of the message to be sent, encapsulated in a `CreateMessageDto` object.
-     * @return a `Mono<GetMessageDto>` representing the sent message's details.
+     * @param channelId The unique identifier of the Discord channel where the message will be sent.
+     * @param messageDto A data transfer object containing the content of the message to be sent.
+     * @return A `GetMessageDto` object containing details of the sent message, including its ID and content.
      */
     override fun sendMessage(channelId: String, messageDto: CreateMessageDto) = httpClient.post()
         .uri("/channels/$channelId/messages")
-        .send(ByteBufFlux.fromString(Flux.just(objectMapper.writeValueAsString(messageDto))))
-        .responseContent()
-        .aggregate()
-        .asString()
-        .map { x -> objectMapper.readValue(x, GetMessageDto::class.java) }
-    
+        .bodyWithType(messageDto)
+        .retrieve()
+        .body(GetMessageDto::class.java)!! // TODO maybe nullable
+
 
     // Get Channel
     // https://discord.com/developers/docs/resources/channel#get-channel

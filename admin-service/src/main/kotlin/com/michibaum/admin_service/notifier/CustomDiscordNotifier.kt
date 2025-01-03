@@ -15,16 +15,19 @@ class CustomDiscordNotifier(private val discordClient: DiscordClient, private va
             return Mono.empty()
         }
 
-        return Mono.fromRunnable<Void> {
+        return Mono.fromRunnable {
             val createMessageDto = CreateMessageDto(createContent(event, instance))
-            discordClient.sendMessage(adminDiscordProperties.channelId, createMessageDto).block()
+            discordClient.sendMessage(adminDiscordProperties.channelId, createMessageDto)
         }
 
     }
 
     protected fun createContent(event: InstanceEvent, instance: Instance?): String {
         return """
-            
+            Instance: ${event.instance.value}
+            Version: ${event.version}
+            Timestamp: ${event.timestamp}
+            State: ${event.type}
         """.trimIndent()
     }
 
