@@ -1,8 +1,8 @@
-import {Component, OnChanges, SimpleChanges, input, output, inject, computed} from '@angular/core';
-import {ChessEvent, ChessGame} from "../../../core/models/chess/chess.models";
+import {Component, computed, inject, input, output} from '@angular/core';
+import {ChessEvent} from "../../../core/models/chess/chess.models";
 import {ChessService} from "../../../core/services/chess.service";
 import {rxResource} from "@angular/core/rxjs-interop";
-import { of } from 'rxjs';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-chess-event-games',
@@ -15,12 +15,12 @@ export class ChessEventGamesComponent {
 
   readonly event = input<ChessEvent>();
   games = rxResource({
-    request: () => ({event: this.event()}),
+    request: () => ({eventId: this.event()?.id}),
     loader: (params) => {
-      let event = this.event();
-      if(event == undefined || event.id == undefined)
+      let eventId = params.request.eventId;
+      if(eventId == undefined)
         return of([])
-      return this.chessService.eventGames(event.id)
+      return this.chessService.eventGames(eventId)
     }
   })
   computedHaveContent = computed(() => {

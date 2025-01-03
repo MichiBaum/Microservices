@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {DropdownModule} from "primeng/dropdown";
 import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";
@@ -64,11 +64,6 @@ export class ChessUpdatePersonComponent implements OnInit{
     }, [
       Validators.required,
     ]),
-    fideId: new FormControl<string>({
-      value: '',
-      disabled: false
-    }, [
-    ]),
     federation: new FormControl<string>({
       value: '',
       disabled: false
@@ -113,7 +108,6 @@ export class ChessUpdatePersonComponent implements OnInit{
       id: selectedPerson?.id ?? '',
       firstname: selectedPerson?.firstname ?? '',
       lastname: selectedPerson?.lastname ?? '',
-      fideId: selectedPerson?.fideId ?? '',
       federation: selectedPerson?.federation ?? '',
       birthday: birthday ?? null,
       gender: selectedPerson?.gender ?? null,
@@ -141,7 +135,6 @@ export class ChessUpdatePersonComponent implements OnInit{
     const person: WritePerson = {
       firstname: this.formGroup.controls['firstname'].value,
       lastname: this.formGroup.controls['lastname'].value,
-      fideId: this.formGroup.controls['fideId'].value,
       federation: this.formGroup.controls['federation'].value,
       birthday: birthday,
       gender: this.formGroup.controls['gender'].value,

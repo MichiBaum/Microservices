@@ -1,6 +1,7 @@
 package com.michibaum.websiteservice
 
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -17,81 +18,34 @@ import java.util.*
 class ActuatorIT {
 
     @Autowired
-    lateinit var webClient: MockMvc
+    lateinit var mockMvc: MockMvc
 
-    @Test
-    fun `actuator without authentication returns 401`(){
+    @ParameterizedTest
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    fun `actuator endpoints return 401`(endpoint: String){
         // GIVEN
 
         // WHEN
-        webClient.perform(get("/actuator"))
-            .andExpect(status().isUnauthorized())
+        mockMvc.perform(get(endpoint))
+            .andExpect(status().isUnauthorized)
 
         // THEN
 
     }
 
-    @Test
-    fun `actuator health without authentication returns 401`(){
-        // GIVEN
-
-        // WHEN
-        webClient.perform(get("/actuator/health"))
-            .andExpect(status().isUnauthorized())
-
-        // THEN
-
-    }
-
-    @Test
-    fun `actuator info without authentication returns 401`(){
-        // GIVEN
-
-        // WHEN
-        webClient.perform(get("/actuator/info"))
-            .andExpect(status().isUnauthorized())
-
-        // THEN
-
-    }
-
-    @Test
-    fun `actuator with authentication returns 200`(){
+    @ParameterizedTest
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    fun `actuator endpoints with basic authentication return 200`(endpoint: String){
         // GIVEN
         val basicAuth = "someUsername:somePasswööörd"
         val basicAuthEncoded = Base64.getEncoder().encodeToString(basicAuth.toByteArray())
 
         // WHEN
-        webClient.perform(get("/actuator").header("Authorization", "Basic $basicAuthEncoded"))
-            .andExpect(status().isOk()) // TODO returns 302 redirect to / because of success authentication
-
-        // THEN
-
-    }
-
-    @Test
-    fun `actuator health with authentication returns 200`(){
-        // GIVEN
-        val basicAuth = "someUsername:somePasswööörd"
-        val basicAuthEncoded = Base64.getEncoder().encodeToString(basicAuth.toByteArray())
-
-        // WHEN
-        webClient.perform(get("/actuator/health").header("Authorization", "Basic $basicAuthEncoded"))
-            .andExpect(status().isOk()) // TODO returns 302 redirect to / because of success authentication
-
-        // THEN
-
-    }
-
-    @Test
-    fun `actuator info with authentication returns 200`(){
-        // GIVEN
-        val basicAuth = "someUsername:somePasswööörd"
-        val basicAuthEncoded = Base64.getEncoder().encodeToString(basicAuth.toByteArray())
-
-        // WHEN
-        webClient.perform(get("/actuator/info").header("Authorization", "Basic $basicAuthEncoded"))
-            .andExpect(status().isOk()) // TODO returns 302 redirect to / because of success authentication
+        mockMvc.perform(
+            get(endpoint)
+                .header("Authorization", "Basic $basicAuthEncoded")
+        )
+            .andExpect(status().isOk)
 
         // THEN
 

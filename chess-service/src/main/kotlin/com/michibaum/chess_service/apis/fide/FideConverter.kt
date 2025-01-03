@@ -15,7 +15,7 @@ class FideConverter {
             url = "https://ratings.fide.com/profile/" + fidePlayer.fideid,
             username = fidePlayer.name,
             name = fidePlayer.name,
-            platform = ChessPlatform.OVER_THE_BOARD
+            platform = ChessPlatform.FIDE
         )
     }
 

@@ -1,7 +1,7 @@
 package com.michibaum.chess_service.app.account
 
 import com.michibaum.chess_service.domain.ChessPlatform
-import java.util.UUID
+import java.util.*
 
 data class AccountDto(
     val id: UUID,

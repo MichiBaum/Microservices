@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, computed, signal, Signal, WritableSignal, resource, OnDestroy} from '@angular/core';
+import {Component, computed, inject, OnDestroy, Signal, signal, WritableSignal} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
 import {ChessService} from "../../core/services/chess.service";
@@ -14,7 +14,7 @@ import {DividerModule} from "primeng/divider";
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
 import {Avatar} from "primeng/avatar";
 import {rxResource} from "@angular/core/rxjs-interop";
-import {EMPTY, Observable} from "rxjs";
+import {EMPTY} from "rxjs";
 
 @Component({
   selector: 'app-chess-events',
@@ -48,9 +48,10 @@ export class ChessEventComponent implements OnDestroy {
   event = rxResource({
     request: () => ({id: this.eventId()}),
     loader: (param) => {
-      if(param.request.id == undefined)
+      let id = param.request.id;
+      if(id == undefined)
         return EMPTY
-      return this.chessService.event(param.request.id)
+      return this.chessService.event(id)
     }
   })
   embedUrl: Signal<SafeResourceUrl | undefined> = computed(() => {

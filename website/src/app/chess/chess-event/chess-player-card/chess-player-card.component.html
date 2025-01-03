@@ -1,0 +1,19 @@
+<p-card styleClass="h-full">
+
+  <ng-template #title>
+    {{player()?.firstname}} {{player()?.lastname}}
+    <ng-container *ngIf="player()?.gender as gender">
+      <fa-icon [icon]="gender | genderIcon" class="text-slate-500"></fa-icon>
+    </ng-container>
+  </ng-template>
+
+  <p *ngIf="player()?.federation as federation"><strong>{{'chess.event.federation' | translate}}: </strong>{{ federation }}</p>
+  <p *ngIf="player()?.birthday as birthday"><strong>{{'chess.event.birthday' | translate}}: </strong>{{ birthday }}</p>
+
+  <ng-template #footer *ngIf="accounts() as _accounts">
+    <div class="flex gap-4 mt-1" *ngIf="_accounts.length > 0">
+      <p-button *ngFor="let account of _accounts" label="{{'chess.platform.'+account.platform | translate}}" (onClick)="openAccount(account)" class="w-full" styleClass="w-full"/>
+    </div>
+  </ng-template>
+
+</p-card>

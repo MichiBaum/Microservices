@@ -17,6 +17,7 @@
     <toc-element topic="Database.md">
         <toc-element topic="Flyway.md"/>
     </toc-element>
+    <toc-element topic="Authentication.md"/>
     <toc-element topic="Services.md">
         <toc-element topic="Website-Service.md"/>
         <toc-element topic="Usermanagement-Service.md"/>
@@ -40,6 +41,7 @@
     </toc-element>
     <toc-element topic="Maven.md"/>
     <toc-element topic="Decisions.md">
+        <toc-element topic="2024-12-30-testcontainers.md"/>
         <toc-element topic="2024-12-24_Documentation.md"/>
     </toc-element>
 </instance-profile>

@@ -15,10 +15,8 @@ class Account(
     @Column(nullable = false)
     val username: String,
 
-    @Column(nullable = false)
-    val url: String,
-
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     val platform: ChessPlatform,
 
     @Column(nullable = true)

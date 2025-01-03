@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit{
     if(username == "" || password == "")
       return;
 
+    this.authService.logout();
     this.authService.login(username, password)
   }
 

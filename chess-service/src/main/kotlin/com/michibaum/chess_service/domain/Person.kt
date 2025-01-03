@@ -14,9 +14,6 @@ class Person(
     val lastname: String,
 
     @Column(nullable = true)
-    val fideId: String?,
-
-    @Column(nullable = true)
     val federation: String?,
 
     @Column(nullable = true)

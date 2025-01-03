@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.eventcategory
 
+import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.chess_service.app.event.EventConverter
 import com.michibaum.chess_service.app.event.EventService
 import jakarta.validation.Valid
@@ -29,7 +30,7 @@ class EventCategoryController(
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping("/api/event-categories/with-events")
-    fun getEventCategoriesWithEvents(): ResponseEntity<List<EventCategoryWithEventDto>> {
+    fun getEventCategoriesWithEvents(principal: JwtAuthentication): ResponseEntity<List<EventCategoryWithEventDto>> {
         val dtos = service.getAll().map { category ->
             val eventDtos = eventService.findByCategoryId(category.idOrThrow()).map { event -> eventConverter.toDto(event) }
             converter.toDto(category, eventDtos)

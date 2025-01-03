@@ -2,7 +2,7 @@
   <div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Event Select" [toggleable]="true">
-      <app-select-chess-event [events]="events()" (selectedEventEmitter)="onEventSelect($event)" (lazyLoadEventEmitter)="lazyLoadEvents($event)"></app-select-chess-event>
+      <app-select-chess-event [events]="events()" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
 
     <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
@@ -44,6 +44,16 @@
             <label for="embedUrl">Embed Url</label>
           </p-floatlabel>
 
+          <p-floatlabel variant="in" class="mb-2">
+            <textarea pTextarea id="internalComment" rows="5" formControlName="internalComment" class="w-full"></textarea>
+            <label for="internalComment">Internal Comment</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <p-select id="platform" formControlName="platform" [options]="platforms" styleClass="w-full" variant="filled" />
+            <label for="platform">Platform</label>
+          </p-floatlabel>
+
           <p-floatlabel variant="in" class="w-full">
             <p-multiSelect id="category" [options]="categories.value()" optionLabel="title" formControlName="categories" styleClass="w-full"/>
             <label for="category">Categories</label>
@@ -54,8 +64,8 @@
 
       <p-fieldset legend="Event Players" styleClass="h-full">
         <p-pickList
-          [source]="personsToSelect"
-          [target]="participants"
+          [source]="personsToSelectS()"
+          [target]="participantsS()"
           [dragdrop]="true"
           [responsive]="true"
           filterBy="firstname,lastname,fideId"
@@ -69,7 +79,7 @@
           <ng-template let-person #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
               <div class="flex-1 flex flex-col">
-                <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="person | genderIcon"></fa-icon></span>
+                <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon *ngIf="person?.gender as gender" [icon]="gender | genderIcon"></fa-icon></span>
                 <div class="contents gap-2" *ngIf="person.fideId || person.birthday">
                   <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
                   <span *ngIf="person.birthday">Birthday: {{ person.birthday }}</span>

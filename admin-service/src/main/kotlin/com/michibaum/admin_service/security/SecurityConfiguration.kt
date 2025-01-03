@@ -23,11 +23,8 @@ class SecurityConfiguration {
     ): SecurityFilterChain {
         return http
             .authorizeHttpRequests {
-                it.requestMatchers(
-                    "/actuator",
-                    "/actuator/**"
-                ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                .anyRequest().authenticated()
+                it.anyRequest()
+                    .hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
             }
             .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }

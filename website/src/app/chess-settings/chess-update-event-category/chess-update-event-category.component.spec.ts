@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChessUpdateEventCategoryComponent } from './chess-update-event-category.component';
+import {ChessUpdateEventCategoryComponent} from './chess-update-event-category.component';
 
 describe('ChessUpdateEventCategoryComponent', () => {
   let component: ChessUpdateEventCategoryComponent;

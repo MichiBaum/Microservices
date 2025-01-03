@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Button} from "primeng/button";
 import {FitnessService} from "../../core/services/fitness.service";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";

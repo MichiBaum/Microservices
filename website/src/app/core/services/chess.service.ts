@@ -1,14 +1,17 @@
-import { Injectable, inject } from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
   Account,
   ChessEvent,
-  ChessEventCategory, ChessEventCategoryWithEvents,
+  ChessEventCategory,
+  ChessEventCategoryWithEvents,
   ChessGame,
   Person,
   SearchChessEvent,
   SearchPerson,
-  WriteChessEvent, WriteChessEventCategory, WritePerson
+  WriteChessEvent,
+  WriteChessEventCategory,
+  WritePerson
 } from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";

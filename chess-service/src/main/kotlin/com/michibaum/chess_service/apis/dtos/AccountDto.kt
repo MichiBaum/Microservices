@@ -15,6 +15,6 @@ class AccountDto(
     val createdAt: LocalDate? = null
 ) {
     fun toAccount(id: UUID? = null, games: Set<Game> = emptySet()): Account {
-        return Account(id = id, platformId = this.id, username = username, platform = platform, url = url, name = name, person = null, createdAt = createdAt, games = games)
+        return Account(id = id, platformId = this.id, username = username, platform = platform, name = name, person = null, createdAt = createdAt, games = games)
     }
 }

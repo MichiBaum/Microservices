@@ -1,8 +1,6 @@
 import {Routes} from '@angular/router';
-import {LoginComponent} from "./login/login.component";
 import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
-import {RegisterComponent} from "./register/register.component";
 import {Permissions} from "./core/config/permissions";
 import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
 

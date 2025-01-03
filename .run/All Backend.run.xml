@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All Backend" type="CompoundRunConfigurationType">
+    <toRun name="Dev Admin-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Authentication-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Chess-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Fitness-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Gateway-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Music-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Registry-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Usermanagement-Service" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

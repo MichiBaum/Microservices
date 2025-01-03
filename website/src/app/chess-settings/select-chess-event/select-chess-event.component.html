@@ -5,20 +5,14 @@
   selectionMode="single"
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
-  [scrollable]="true"
-  scrollHeight="400px"
-  [rows]="pageSize"
-  [virtualScroll]="true"
-  [virtualScrollItemSize]="virtualPageSize"
-  [lazy]="true"
-  (onLazyLoad)="lazyLoad($event)"
+  [paginator]="true"
+  [rows]="10"
 >
   <ng-template #header>
     <tr>
       <th>Title</th>
       <th>Category</th>
       <th>Location</th>
-      <th>Nr. of Participants</th>
       <th>From</th>
       <th>To</th>
       <th>Url</th>
@@ -58,7 +52,6 @@
       </th>
       <th></th>
       <th></th>
-      <th></th>
       <th>
         <p-columnFilter
           type="boolean"
@@ -87,7 +80,6 @@
         </ng-container>
       </td>
       <td>{{ event.location }}</td>
-      <td>{{ event.participants.length }}</td>
       <td>{{ event.dateFrom }}</td>
       <td>{{ event.dateTo }}</td>
       <td><fa-icon [icon]="getIcon(event.url)" [style]="getColor(event.url)"></fa-icon></td>
