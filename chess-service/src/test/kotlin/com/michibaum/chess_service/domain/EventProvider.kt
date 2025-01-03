@@ -15,7 +15,8 @@ class EventProvider {
                 dateFrom = LocalDate.of(2024, 11, 25),
                 dateTo = LocalDate.of(2024, 12, 13),
                 participants = participants,
-                internalComment = ""
+                internalComment = "",
+                platform = ChessPlatform.FIDE
             )
 
     }
