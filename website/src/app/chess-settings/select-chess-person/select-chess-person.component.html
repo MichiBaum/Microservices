@@ -10,7 +10,6 @@
 >
   <ng-template #header>
     <tr>
-      <th style="width: 4rem"></th>
       <th>Firstname</th>
       <th>Lastname</th>
       <th>Fide Id</th>
@@ -19,7 +18,6 @@
       <th>Gender</th>
     </tr>
     <tr>
-      <th></th>
       <th>
         <p-columnFilter
           type="text"
@@ -66,15 +64,12 @@
   </ng-template>
   <ng-template #body let-person let-rowIndex="rowIndex">
     <tr [pSelectableRow]="person" [pSelectableRowIndex]="rowIndex">
-      <td>
-        <p-tableCheckbox [value]="person" disabled="true"/>
-      </td>
       <td>{{ person.firstname }}</td>
       <td>{{ person.lastname }}</td>
       <td>{{ person.fideId }}</td>
       <td>{{ person.federation }}</td>
       <td>{{ person.birthday }}</td>
-      <td><fa-icon [icon]="person | genderIcon"></fa-icon></td>
+      <td><fa-icon *ngIf="person?.gender as gender" [icon]="gender | genderIcon"></fa-icon></td>
     </tr>
   </ng-template>
 </p-table>

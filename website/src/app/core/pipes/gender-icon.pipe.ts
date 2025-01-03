@@ -8,10 +8,10 @@ import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 })
 export class EventIconPipe implements PipeTransform {
 
-  transform(person: Person): IconDefinition {
-    if(person.gender == Gender.MALE)
+  transform(gender: Gender): IconDefinition {
+    if(gender == Gender.MALE)
       return faMars
-    if (person.gender == Gender.FEMALE)
+    if (gender == Gender.FEMALE)
       return faVenus
     return faVenusMars;
   }

@@ -1,9 +1,23 @@
-<p-card *ngIf="participants.value()?.length !== 0 && participants.value() as _participants">
+<p-card *ngIf="participants.value()?.length !== 0">
   <ng-template #title>{{'chess.event.participants' | translate}}</ng-template>
+  <ng-template #subtitle>
+    <p-fieldset [toggleable]="true" [collapsed]="true">
+      <ng-template #header>
+        <p class="text-sm">{{'chess.event.sort' | translate}}</p>
+      </ng-template>
+      <div class="flex flex-wrap gap-4">
+        <div *ngFor="let sortOption of sortOptions" class="field-checkbox cursor-pointer">
+          <p-radioButton [inputId]="sortOption.value" name="category" [value]="sortOption.value" [(ngModel)]="selectedSort" size="small"></p-radioButton>
+          <label [for]="sortOption.value" class="ml-2 cursor-pointer">{{ sortOption.name }}</label>
+        </div>
+      </div>
+    </p-fieldset>
+
+  </ng-template>
 
   <div class="grid grid-cols-1 4k:grid-cols-5 xlScreen:grid-cols-4 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
     <app-chess-player-card
-      *ngFor="let participant of _participants"
+      *ngFor="let participant of sortedParticipants()"
       [player]="participant"
       [accounts]="personsPlatformAccount(participant)"
     ></app-chess-player-card>

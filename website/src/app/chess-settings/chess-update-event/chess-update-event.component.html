@@ -79,7 +79,7 @@
           <ng-template let-person #item>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
               <div class="flex-1 flex flex-col">
-                <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon [icon]="person | genderIcon"></fa-icon></span>
+                <span class="font-bold">{{ person.firstname }} {{person.lastname}} <fa-icon *ngIf="person?.gender as gender" [icon]="gender | genderIcon"></fa-icon></span>
                 <div class="contents gap-2" *ngIf="person.fideId || person.birthday">
                   <span *ngIf="person.fideId">Fide ID: {{ person.fideId }}</span>
                   <span *ngIf="person.birthday">Birthday: {{ person.birthday }}</span>

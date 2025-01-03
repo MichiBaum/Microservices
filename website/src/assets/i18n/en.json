@@ -36,11 +36,13 @@
       "location": "Location",
       "open-account": "Open account",
       "open-official-website": "Open official website",
+      "organizer": "Organizer",
       "participant": {
         "firstname": "Firstname",
         "lastname": "Lastname"
       },
       "participants": "Participants",
+      "sort": "Sort",
       "title": "Title"
     },
     "home": {

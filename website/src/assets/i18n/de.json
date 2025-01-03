@@ -36,11 +36,13 @@
       "location": "Standort",
       "open-account": "Account öffnen",
       "open-official-website": "Offizielle Webseite öffnen",
+      "organizer": "Veranstalter",
       "participant": {
         "firstname": "Vorname",
         "lastname": "Nachname"
       },
       "participants": "Teilnehmer",
+      "sort": "Sortieren",
       "title": "Titel"
     },
     "home": {

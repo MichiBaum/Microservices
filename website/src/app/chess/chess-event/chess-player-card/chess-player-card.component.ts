@@ -5,6 +5,8 @@ import {Account, Person} from "../../../core/models/chess/chess.models";
 import {TranslatePipe} from "@ngx-translate/core";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterNavigationService} from "../../../core/services/router-navigation.service";
+import {EventIconPipe} from "../../../core/pipes/gender-icon.pipe";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 @Component({
   selector: 'app-chess-player-card',
@@ -13,7 +15,9 @@ import {RouterNavigationService} from "../../../core/services/router-navigation.
     Button,
     TranslatePipe,
     NgIf,
-    NgForOf
+    NgForOf,
+    EventIconPipe,
+    FaIconComponent
   ],
   templateUrl: './chess-player-card.component.html',
   styleUrl: './chess-player-card.component.scss'

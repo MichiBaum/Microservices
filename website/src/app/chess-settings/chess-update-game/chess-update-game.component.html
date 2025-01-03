@@ -35,16 +35,12 @@
         </ng-template>
         <ng-template #header>
           <tr>
-            <th style="width: 4rem"></th>
             <th>Username</th>
             <th>Platform</th>
           </tr>
         </ng-template>
         <ng-template #body let-account let-rowIndex="rowIndex">
           <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
-            <td>
-              <p-tableCheckbox [value]="account" disabled="true"/>
-            </td>
             <td>{{ account.username }}</td>
             <td>{{ account.platform }}</td>
           </tr>
