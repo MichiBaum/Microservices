@@ -30,7 +30,7 @@ class EventCategoryController(
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping("/api/event-categories/with-events")
-    fun getEventCategoriesWithEvents(principal: JwtAuthentication): ResponseEntity<List<EventCategoryWithEventDto>> {
+    fun getEventCategoriesWithEvents(): ResponseEntity<List<EventCategoryWithEventDto>> {
         val dtos = service.getAll().map { category ->
             val eventDtos = eventService.findByCategoryId(category.idOrThrow()).map { event -> eventConverter.toDto(event) }
             converter.toDto(category, eventDtos)

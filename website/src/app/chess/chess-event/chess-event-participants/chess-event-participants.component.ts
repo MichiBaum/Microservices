@@ -49,10 +49,10 @@ export class ChessEventParticipantsComponent {
   })
 
   sortOptions: SortBy[] = [
-    {name: 'Firstname', value: SortByValue.firstname},
-    {name: 'Lastname', value: SortByValue.lastname},
-    {name: 'Federation', value: SortByValue.federation},
-    {name: 'Birthday', value: SortByValue.birthday}
+    {name: 'chess.event.sort.firstname', value: SortByValue.firstname},
+    {name: 'chess.event.sort.lastname', value: SortByValue.lastname},
+    {name: 'chess.event.sort.federation', value: SortByValue.federation},
+    {name: 'chess.event.sort.birthday', value: SortByValue.birthday}
   ];
   selectedSort = signal<SortByValue>(SortByValue.lastname);
 

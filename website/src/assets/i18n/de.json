@@ -42,7 +42,12 @@
         "lastname": "Nachname"
       },
       "participants": "Teilnehmer",
-      "sort": "Sortieren",
+      "sort": {
+        "birthday": "Geburtstag",
+        "federation": "Verband",
+        "firstname": "Vorname",
+        "lastname": "Nachname"
+      },
       "title": "Titel"
     },
     "home": {
@@ -88,6 +93,9 @@
   },
   "fitness-settings": {
     "title": "Fitness Einstellungen"
+  },
+  "general": {
+    "sort": "Sortieren"
   },
   "home": {
     "about-me": {

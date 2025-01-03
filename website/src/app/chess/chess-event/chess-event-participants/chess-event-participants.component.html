@@ -3,12 +3,12 @@
   <ng-template #subtitle>
     <p-fieldset [toggleable]="true" [collapsed]="true">
       <ng-template #header>
-        <p class="text-sm">{{'chess.event.sort' | translate}}</p>
+        <p class="text-sm">{{'general.sort' | translate}}</p>
       </ng-template>
       <div class="flex flex-wrap gap-4">
         <div *ngFor="let sortOption of sortOptions" class="field-checkbox cursor-pointer">
           <p-radioButton [inputId]="sortOption.value" name="category" [value]="sortOption.value" [(ngModel)]="selectedSort" size="small"></p-radioButton>
-          <label [for]="sortOption.value" class="ml-2 cursor-pointer">{{ sortOption.name }}</label>
+          <label [for]="sortOption.value" class="ml-2 cursor-pointer">{{ sortOption.name | translate }}</label>
         </div>
       </div>
     </p-fieldset>
