@@ -3,9 +3,8 @@ import {ChessService} from "../../core/services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   ChessEvent,
-  ChessEventCategory,
+  ChessEventCategory, ChessPlatform,
   Person,
-  SearchChessEvent,
   WriteChessEvent
 } from "../../core/models/chess/chess.models";
 import {Fieldset} from "primeng/fieldset";
@@ -18,11 +17,11 @@ import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgIf} from "@angular/common";
 import {PickList} from "primeng/picklist";
-import {LazyLoad} from "../../core/models/lazy-load.model";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 import {Textarea} from "primeng/textarea";
 import {of} from "rxjs";
+import {Select} from "primeng/select";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -40,7 +39,8 @@ import {of} from "rxjs";
     PickList,
     FormsModule,
     EventIconPipe,
-    Textarea
+    Textarea,
+    Select
   ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.scss'
@@ -74,6 +74,13 @@ export class ChessUpdateEventComponent implements OnInit{
     return this.allPersonsS().filter(person => !eventParticipants?.some(participant => participant.id == person.id))
   })
 
+  platforms = [
+    ChessPlatform.FIDE,
+    ChessPlatform.CHESSCOM,
+    ChessPlatform.FREESTYLE,
+    ChessPlatform.LICHESS
+  ]
+
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({
       value: '',
@@ -106,6 +113,15 @@ export class ChessUpdateEventComponent implements OnInit{
     url: new FormControl<string | null>(null),
     embedUrl: new FormControl<string | null>(null),
     internalComment: new FormControl<string>(''),
+    platform: new FormControl<ChessPlatform | null>(
+      {
+        value: null,
+        disabled: false
+      }, [
+        Validators.required,
+        Validators.nullValidator
+      ]
+    ),
     categories: new FormControl<ChessEventCategory[]>({
       value: [],
       disabled: false
@@ -118,6 +134,13 @@ export class ChessUpdateEventComponent implements OnInit{
   ngOnInit(): void {
     this.chessService.persons().subscribe(persons => {
       this.allPersonsS.set(persons)
+    })
+    this.loadEvents()
+  }
+
+  loadEvents() {
+    this.chessService.events().subscribe(events => {
+      this.events.set(events)
     })
   }
 
@@ -152,6 +175,7 @@ export class ChessUpdateEventComponent implements OnInit{
       dateTo: dateTo ?? null,
       url: selectedEvent.url ?? '',
       internalComment: selectedEvent.internalComment ?? '',
+      platform: selectedEvent.platform ?? null,
       embedUrl: selectedEvent.embedUrl ?? '',
       categories: selectedEvent.categories ?? [],
     });
@@ -173,6 +197,7 @@ export class ChessUpdateEventComponent implements OnInit{
       url: this.formGroup.controls['url'].value,
       embedUrl: this.formGroup.controls['embedUrl'].value,
       internalComment: this.formGroup.controls['internalComment'].value,
+      platform: this.formGroup.controls['platform'].value,
       categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
       participantsIds: this.participantsS().map(value => value.id)
     };
@@ -180,13 +205,7 @@ export class ChessUpdateEventComponent implements OnInit{
     const id = this.formGroup.controls['id'].value ?? ""
     this.chessService.saveEvent(id, event).subscribe(newEvent => {
       this.clear()
-      let isNewEvent = !this.events().some(old => old.id === newEvent.id);
-      if (isNewEvent){
-        this.events.update(value => [...value, newEvent])
-      } else {
-        const newEvents = this.events().map(old => old.id === newEvent.id ? newEvent : old);
-        this.events.set(newEvents)
-      }
+      this.loadEvents()
     })
   }
 
@@ -207,15 +226,6 @@ export class ChessUpdateEventComponent implements OnInit{
 
   confirmDelete() {
 
-  }
-
-  lazyLoadEvents(lazyLoad: LazyLoad<SearchChessEvent>) {
-    this.chessService.searchEvents(lazyLoad.data).subscribe(newEvents => {
-      const filtered = newEvents.filter(event => this.events().every(oldEvent => oldEvent.id !== event.id))
-      if(filtered.length != 0){
-        this.events.update(value => [...value, ...filtered])
-      }
-    })
   }
 
 }

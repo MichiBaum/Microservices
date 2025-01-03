@@ -71,6 +71,7 @@ export interface WriteChessEvent {
   url: string | undefined;
   embedUrl: string | undefined;
   internalComment: string;
+  platform: ChessPlatform;
   categoryIds: string[];
   participantsIds: string[];
 }
