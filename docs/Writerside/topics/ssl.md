@@ -7,7 +7,7 @@ This SSL certificate is created with letsencrypt and certbot.
 Because of wildcard certificate you need to verify ownership of the Domain. This is done with adding a TXT record to the DNS entry.
 
 ```Bash
-certbot certonly --manual --preferred-challenges=dns --email michael_baumberger@gmx.ch --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d michibaum.ch -d *.michibaum.ch -d michibaum.com -d *.michibaum.com -d michibaum.eu -d *.michibaum.eu
+certbot certonly --manual --preferred-challenges=dns --email security@michibaum.ch --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d michibaum.ch -d *.michibaum.ch -d michibaum.com -d *.michibaum.com -d michibaum.eu -d *.michibaum.eu
 ```
 
 ## Result
