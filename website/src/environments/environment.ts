@@ -1,8 +1,8 @@
 export const environment = {
-  fe_images: 'https://michibaum.ch/assets/images/',
-  authenticationService: 'https://authentication.michibaum.ch/api',
-  chessService: 'https://chess.michibaum.ch/api',
-  adminService: 'https://admin.michibaum.ch',
-  fitnessService: 'https://fitness.michibaum.ch/api',
-  musicService: 'https://music.michibaum.ch/api'
+  fe_images: (domain: string) => `https://${domain}/assets/images/`,
+  authenticationService: (domain: string) => `https://authentication.${domain}/api`,
+  chessService: (domain: string) => `https://chess.${domain}/api`,
+  adminService: (domain: string) => `https://admin.${domain}`,
+  fitnessService: (domain: string) => `https://fitness.${domain}/api`,
+  musicService: (domain: string) => `https://music.${domain}/api`
 };

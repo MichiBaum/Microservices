@@ -45,6 +45,9 @@ export class LanguageConfig {
   }
 
   private setInitLanguage = (): void => {
+    let availableLangs = this.languages.map((language) => language.isoCode);
+    this.translate.addLangs(availableLangs)
+
     let language = this.fromLocalStorage();
     if (language) {
       this.setLanguage(language);
