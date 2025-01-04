@@ -4,7 +4,6 @@ import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
 import {FileUploadModule} from "primeng/fileupload";
-import {environment} from "../../../environments/environment";
 import {Gender, Person, WritePerson} from "../../core/models/chess/chess.models";
 import {ChessService} from "../../core/services/chess.service";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
@@ -16,6 +15,7 @@ import {Button} from "primeng/button";
 import {DatePicker} from "primeng/datepicker";
 import {Select} from "primeng/select";
 import {FloatLabel} from "primeng/floatlabel";
+import {EnvironmentConfig} from "../../core/config/environment.config";
 
 @Component({
   selector: 'app-chess-update-person',
@@ -39,9 +39,10 @@ import {FloatLabel} from "primeng/floatlabel";
   styleUrl: './chess-update-person.component.scss'
 })
 export class ChessUpdatePersonComponent implements OnInit{
+  private readonly environment = inject(EnvironmentConfig);
   private readonly chessService = inject(ChessService);
 
-  protected readonly environment = environment;
+  protected readonly chessBaseUrl = this.environment.chessService();
 
   persons: Person[] = [];
   selectedPersonS = signal<Person | undefined>(undefined);

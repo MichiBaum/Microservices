@@ -29,7 +29,9 @@ spring:
         cors-configurations:
           '[/**]':
             allowed-origin-patterns:
-              - "https://michibaum.ch"
+              - https://michibaum.ch
+              - https://michibaum.com
+              - https://michibaum.eu
             allowed-headers:
               - "*"
             allowed-methods:

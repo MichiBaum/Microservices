@@ -51,7 +51,9 @@ export class HeaderComponent implements OnDestroy{
    */
   changeTitle(title: string): void {
     this.title.set(title)
-    this.titleService.setTitle(this.translate.instant(title))
+    this.translate.get(title).subscribe(
+      (value: string) => this.titleService.setTitle(value)
+    )
   }
 
 }

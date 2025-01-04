@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, input, signal} from '@angular/core';
+import {Component, computed, inject, input, signal} from '@angular/core';
 import {CardModule} from "primeng/card";
 import {NgForOf, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
@@ -7,7 +7,6 @@ import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from "rxjs";
 import {ChessService} from "../../../core/services/chess.service";
 import {ChessPlayerCardComponent} from "../chess-player-card/chess-player-card.component";
-import {SelectButton} from "primeng/selectbutton";
 import {FormsModule} from "@angular/forms";
 import {RadioButton} from "primeng/radiobutton";
 import {Fieldset} from "primeng/fieldset";
@@ -20,7 +19,6 @@ import {Fieldset} from "primeng/fieldset";
     TranslateModule,
     NgForOf,
     ChessPlayerCardComponent,
-    SelectButton,
     FormsModule,
     RadioButton,
     Fieldset
