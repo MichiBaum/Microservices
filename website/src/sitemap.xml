@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- michibaum.ch domain-->
   <url>
     <loc>https://michibaum.ch/</loc>
   </url>
@@ -30,5 +31,71 @@
   </url>
   <url>
     <loc>https://michibaum.ch/chess/events</loc>
+  </url>
+
+  <!-- michibaum.com domain-->
+  <url>
+    <loc>https://michibaum.com/</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/home</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/login</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/register</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/about-me</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/donate</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/imprint</loc>
+  </url>
+
+  <url>
+    <loc>https://michibaum.com/chess</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/chess/news</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.com/chess/events</loc>
+  </url>
+
+  <!-- michibaum.eu domain-->
+  <url>
+    <loc>https://michibaum.eu/</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/home</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/login</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/register</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/about-me</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/donate</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/imprint</loc>
+  </url>
+
+  <url>
+    <loc>https://michibaum.eu/chess</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/chess/news</loc>
+  </url>
+  <url>
+    <loc>https://michibaum.eu/chess/events</loc>
   </url>
 </urlset>

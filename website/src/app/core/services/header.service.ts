@@ -30,7 +30,7 @@ export class HeaderService{
    * @param {string} title - The new title to be set.
    * @return {void}
    */
-  changeTitle(title: string){
+  changeTitle(title: string): void {
     this._titleChangeEmitter.next(title)
   }
 

@@ -13,3 +13,5 @@ Allow: /chess/news
 Allow: /chess/events
 
 Sitemap: https://michibaum.ch/sitemap.xml
+Sitemap: https://michibaum.com/sitemap.xml
+Sitemap: https://michibaum.eu/sitemap.xml

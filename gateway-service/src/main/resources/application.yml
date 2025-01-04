@@ -21,41 +21,41 @@ spring:
         - id: admin
           uri: lb://admin-service
           predicates:
-            - Host=admin.michibaum.ch
+            - Host=admin.michibaum.*
           filters:
             - Authentication
         - id: registry
           uri: lb://registry-service
           predicates:
-            - Host=registry.michibaum.ch
+            - Host=registry.michibaum.*
           filters:
             - Authentication
         - id: authentication
           uri: lb://authentication-service
           predicates:
-            - Host=authentication.michibaum.ch
+            - Host=authentication.michibaum.*
         - id: usermanagement
           uri: lb://usermanagement-service
           predicates:
-            - Host=usermanagement.michibaum.ch
+            - Host=usermanagement.michibaum.*
           filters:
             - Authentication
         - id: chess
           uri: lb://chess-service
           predicates:
-            - Host=chess.michibaum.ch
+            - Host=chess.michibaum.*
         - id: fitness
           uri: lb://fitness-service
           predicates:
-            - Host=fitness.michibaum.ch
+            - Host=fitness.michibaum.*
         - id: music
           uri: lb://music-service
           predicates:
-            - Host=music.michibaum.ch
+            - Host=music.michibaum.*
         - id: website
           uri: lb://website-service
           predicates:
-            - Host=michibaum.ch
+            - Host=michibaum.*
     discovery:
       client:
         health-indicator:
