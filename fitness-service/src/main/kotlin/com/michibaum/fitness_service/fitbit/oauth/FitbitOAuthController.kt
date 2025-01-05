@@ -1,5 +1,6 @@
 package com.michibaum.fitness_service.fitbit.oauth
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -59,6 +60,7 @@ class FitbitOAuthController(
 
     }
 
+    @PublicEndpoint
     @GetMapping("/api/fitbit/auth")
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String){
         val oAuthData = fitbitOAuthService.findByState(state) ?: throw Exception("No oAuthData found by state $state")

@@ -1,5 +1,6 @@
 package com.michibaum.music_service.spotify.oauth
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -60,6 +61,7 @@ class SpotifyOAuthController(
         )
     }
 
+    @PublicEndpoint
     @GetMapping("/api/spotify/auth")
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String) {
         val oAuthData = spotifyOAuthService.findByState(state) ?: throw Exception("No oAuthData found by state $state")

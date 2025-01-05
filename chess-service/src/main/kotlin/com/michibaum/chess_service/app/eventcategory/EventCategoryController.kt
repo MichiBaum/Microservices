@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.eventcategory
 
-import com.michibaum.authentication_library.security.jwt.JwtAuthentication
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.chess_service.app.event.EventConverter
 import com.michibaum.chess_service.app.event.EventService
 import jakarta.validation.Valid
@@ -20,6 +20,7 @@ class EventCategoryController(
     private val eventConverter: EventConverter
 ) {
 
+    @PublicEndpoint
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping("/api/event-categories")
     fun getEventCategories(): ResponseEntity<List<EventCategoryDto>> {
@@ -28,6 +29,7 @@ class EventCategoryController(
         return ResponseEntity.ok().body(categoryDtos)
     }
 
+    @PublicEndpoint
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping("/api/event-categories/with-events")
     fun getEventCategoriesWithEvents(): ResponseEntity<List<EventCategoryWithEventDto>> {

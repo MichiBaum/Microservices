@@ -17,7 +17,7 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      routes:
+      routes: # TODO permission to Authentication
         - id: admin
           uri: lb://admin-service
           predicates:

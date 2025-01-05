@@ -1,6 +1,8 @@
 package com.michibaum.websiteservice.security
 
 import com.michibaum.authentication_library.AuthenticationClient
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
+import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.authentication_library.security.ServletDelegateAuthenticationManager
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
@@ -19,6 +21,10 @@ import org.springframework.security.web.authentication.AuthenticationConverter
 
 @Configuration
 class SecurityBeansConfiguration {
+
+    @Bean
+    fun publicEndpointResolver(): PublicEndpointResolver =
+        PublicEndpointResolver(PublicEndpoint::class.java, "com.michibaum.websiteservice")
 
     @Bean
     fun adminServiceCredentials(): AdminServiceCredentials =
