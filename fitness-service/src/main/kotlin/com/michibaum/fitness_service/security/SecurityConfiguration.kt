@@ -1,5 +1,6 @@
 package com.michibaum.fitness_service.security
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
@@ -20,14 +21,14 @@ class SecurityConfiguration {
     @Bean
     fun securityFilterChain(
         http: HttpSecurity,
-        authenticationFilter: ServletAuthenticationFilter
+        authenticationFilter: ServletAuthenticationFilter,
+        publicEndpointResolver: PublicEndpointResolver
     ): SecurityFilterChain {
+        val publicEndpoints = publicEndpointResolver.run()
         return http
-            .authorizeHttpRequests {
-                it
-                    .requestMatchers(
-                        "/api/fitbit/auth",
-                    ).permitAll()
+            .authorizeHttpRequests { authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()
                     .requestMatchers(
                         "/actuator",
                         "/actuator/**"

@@ -1,7 +1,5 @@
 package com.michibaum.chess_service.app.person
 
-import com.michibaum.chess_service.apis.fide.FideApiService
-import com.michibaum.chess_service.app.event.EventService
 import jakarta.validation.Valid
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.core.io.buffer.DataBufferUtils
@@ -21,9 +19,9 @@ import java.util.*
 @RestController
 class PersonController(
     private val personService: PersonService,
-    private val personConverter: PersonConverter,
-    private val fideApiService: FideApiService,
-    private val eventService: EventService,
+    private val personConverter: PersonConverter
+//    private val fideApiService: FideApiService,
+//    private val eventService: EventService,
 ) {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)

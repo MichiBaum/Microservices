@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.chess_service.app.game.GameConverter
 import com.michibaum.chess_service.app.game.GameDto
 import com.michibaum.chess_service.app.game.GameService
@@ -24,6 +25,7 @@ class EventController(
     private val gameConverter: GameConverter
 ) {
 
+    @PublicEndpoint
     @GetMapping("/api/events")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAllEvents(): List<EventDto> =
@@ -46,6 +48,7 @@ class EventController(
             .map { eventConverter.toDto(it) }
     }
 
+    @PublicEndpoint
     @GetMapping("/api/events/{id}")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEvent(@PathVariable id: String): ResponseEntity<EventDto>{
@@ -62,6 +65,7 @@ class EventController(
         }
     }
 
+    @PublicEndpoint
     @GetMapping("/api/events/{id}/participants")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEventParticipants(@PathVariable id: String): ResponseEntity<List<PersonDto>> {
@@ -79,6 +83,7 @@ class EventController(
         }
     }
 
+    @PublicEndpoint
     @GetMapping("/api/events/{id}/games")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEventGames(@PathVariable id: String): ResponseEntity<List<GameDto>> {
