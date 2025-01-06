@@ -124,3 +124,25 @@ management:
       enabled: true
     ssl:
       enabled: true
+
+robots-txt:
+  crawlers:
+    -
+      user-agent: "*"
+      allowed:
+        - "/"
+        - "/*"
+  sitemaps:
+    - "/sitemap.xml"
+sitemap-xml:
+  locations:
+    - "/"
+    - "/home"
+    - "/login"
+    - "/register"
+    - "/about-me"
+    - "/donate"
+    - "/imprint"
+    - "/chess"
+    - "/chess/news"
+    - "/chess/events"
