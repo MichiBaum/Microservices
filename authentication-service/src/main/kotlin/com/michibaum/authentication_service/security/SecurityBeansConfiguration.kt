@@ -14,20 +14,18 @@ import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
 import com.michibaum.authentication_library.security.jwt.servlet.JwtAuthenticationConverter
 import com.michibaum.authentication_service.authentication.AuthenticationService
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.web.authentication.AuthenticationConverter
 
 @Configuration
+@EnableConfigurationProperties(value = [AdminServiceCredentials::class])
 class SecurityBeansConfiguration {
     @Bean
     fun publicEndpointResolver(): PublicEndpointResolver =
         PublicEndpointResolver(PublicEndpoint::class.java, "com.michibaum.authentication_service")
-
-    @Bean
-    fun adminServiceCredentials(): AdminServiceCredentials =
-        AdminServiceCredentials()
 
 
 
