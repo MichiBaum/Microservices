@@ -42,7 +42,7 @@ class EventController(
     @GetMapping("/api/events/recent-upcoming")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAllRecentAndUpcomingEvents(): List<EventDto> {
-        val recent = LocalDate.now().minusMonths(2)
+        val recent = LocalDate.now().minusMonths(1)
         val upcoming = LocalDate.now().plusMonths(2)
         return eventService.findRecentAndUpcoming(recent, upcoming)
             .map { eventConverter.toDto(it) }

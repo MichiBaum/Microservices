@@ -35,7 +35,7 @@ class SecurityConfiguration {
                         "/actuator",
                         "/actuator/**"
                     ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                    .anyRequest().authenticated()
+                    .anyRequest().hasAnyAuthority(Permissions.AUTHENTICATION_SERVICE.name)
             }
             .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }

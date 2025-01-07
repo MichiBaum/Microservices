@@ -32,7 +32,7 @@ class SecurityConfiguration {
                     .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()
                     .requestMatchers(POST,"/api/checkUserDetails", "/api/users").permitAll()
                     .requestMatchers("/actuator", "/actuator/**").hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                    .anyRequest().authenticated()
+                    .anyRequest().hasAnyAuthority(Permissions.USERMANAGEMENT_SERVICE.name)
             }
             .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }

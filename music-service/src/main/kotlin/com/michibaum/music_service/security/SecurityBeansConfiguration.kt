@@ -12,6 +12,7 @@ import com.michibaum.authentication_library.security.basic.servlet.BasicAuthenti
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
 import com.michibaum.authentication_library.security.jwt.servlet.JwtAuthenticationConverter
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
@@ -19,15 +20,12 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.web.authentication.AuthenticationConverter
 
 @Configuration
+@EnableConfigurationProperties(value = [AdminServiceCredentials::class])
 class SecurityBeansConfiguration {
 
     @Bean
     fun publicEndpointResolver(): PublicEndpointResolver =
         PublicEndpointResolver(PublicEndpoint::class.java, "com.michibaum.music_service")
-
-    @Bean
-    fun adminServiceCredentials(): AdminServiceCredentials =
-        AdminServiceCredentials()
 
 
 
