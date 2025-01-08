@@ -55,17 +55,5 @@
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="selectedPersonS() == undefined" />
     </p-fieldset>
 
-    <p-fieldset legend="Upload Fide Rating List"> <!-- other place to upload fide ratings-->
-      <p-fileupload
-        mode="basic"
-        chooseLabel="Choose File"
-        chooseIcon="pi pi-upload"
-        name="file"
-        url="{{chessBaseUrl}}/fide/ratings"
-        accept=".xml"
-        maxFileSize="1000000000"
-      ></p-fileupload>
-    </p-fieldset>
-
   </div>
 </div>

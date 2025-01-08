@@ -39,10 +39,7 @@ import {EnvironmentConfig} from "../../core/config/environment.config";
   styleUrl: './chess-update-person.component.scss'
 })
 export class ChessUpdatePersonComponent implements OnInit{
-  private readonly environment = inject(EnvironmentConfig);
   private readonly chessService = inject(ChessService);
-
-  protected readonly chessBaseUrl = this.environment.chessService();
 
   persons: Person[] = [];
   selectedPersonS = signal<Person | undefined>(undefined);

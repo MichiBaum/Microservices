@@ -17,27 +17,15 @@ class FideApiServiceImpl(
         return filtered.map(fideConverter::convertToAccount)
     }
 
-    override fun getPersons(inputStream: InputStream): List<FidePersonDto> {
-        val imports = fideImporter.import(inputStream)
-        val filtered = filterPersons(imports)
-        return filtered.map(fideConverter::convertToPerson)
-    }
-
     private fun filterAccounts(fidePlayer: List<FidePlayer>): List<FidePlayer> = fidePlayer.asSequence()
-            .filter { it.rating > 2000 }
+            .filter { it.rating > 2300 }
+            .filter {
+                val grandmaster = it.title == "g" || it.title == "wg"
+                val internationalMaster = it.title == "m" || it.title == "wm"
+                grandmaster || internationalMaster
+            }
             .filter { it.fideid.isNotBlank() }
             .filter { it.name.isNotBlank() }
-            .toList()
-
-    private fun filterPersons(fidePlayer: List<FidePlayer>): List<FidePlayer> =
-        fidePlayer.asSequence()
-            .filter { it.rating > 2000 }
-            .filter { it.fideid.isNotBlank() }
-            .filter { it.name.isNotBlank() }
-            .filter { it.country.isNotBlank() }
-            .filter { it.sex.isNotBlank() }
-            .filter { it.name.contains(", ") } // split into firstname and lastname
-            .filter { it.sex == "F" || it.sex == "M" }
             .toList()
 
 }

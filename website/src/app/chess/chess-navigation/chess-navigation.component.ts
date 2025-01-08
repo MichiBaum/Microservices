@@ -124,6 +124,10 @@ export class ChessNavigationComponent {
           {
             label: "Update Games",
             routerLink: "/chess/settings/games"
+          },
+          {
+            label: "Fide import",
+            routerLink: "/chess/settings/fide-import"
           }
         ]
       },
