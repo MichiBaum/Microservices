@@ -1,0 +1,13 @@
+<p-fieldset legend="Upload Fide Rating List"> <!-- other place to upload fide ratings-->
+  <p-fileupload
+    #fu
+    mode="basic"
+    chooseLabel="Choose File"
+    chooseIcon="pi pi-upload"
+    name="file"
+    url="{{chessBaseUrl}}/fide/ratings"
+    accept=".xml"
+    maxFileSize="1000000000"
+  ></p-fileupload>
+  <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
+</p-fieldset>

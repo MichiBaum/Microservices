@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {PermissionService} from './permission.service';
-import {AuthService} from './auth.service';
+import {AuthService} from '../api-services/auth.service';
 import {Permissions} from '../config/permissions'
 
 describe('PermissionService', () => {

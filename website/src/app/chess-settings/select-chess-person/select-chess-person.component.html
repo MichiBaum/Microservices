@@ -12,7 +12,6 @@
     <tr>
       <th>Firstname</th>
       <th>Lastname</th>
-      <th>Fide Id</th>
       <th>Federation</th>
       <th>Birthday</th>
       <th>Gender</th>
@@ -41,16 +40,6 @@
       <th>
         <p-columnFilter
           type="text"
-          field="fideId"
-          placeholder="Search by Fide Id"
-          ariaLabel="Filter Fide Id"
-          matchMode="contains"
-          [showMenu]="false"
-        />
-      </th>
-      <th>
-        <p-columnFilter
-          type="text"
           field="federation"
           placeholder="Search by federation"
           ariaLabel="Filter Federation"
@@ -66,7 +55,6 @@
     <tr [pSelectableRow]="person" [pSelectableRowIndex]="rowIndex">
       <td>{{ person.firstname }}</td>
       <td>{{ person.lastname }}</td>
-      <td>{{ person.fideId }}</td>
       <td>{{ person.federation }}</td>
       <td>{{ person.birthday }}</td>
       <td><fa-icon *ngIf="person?.gender as gender" [icon]="gender | genderIcon"></fa-icon></td>

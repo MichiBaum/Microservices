@@ -15,7 +15,7 @@ import {
 } from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
-import {UserInfoService} from "./user-info.service";
+import {UserInfoService} from "../services/user-info.service";
 import {EnvironmentConfig} from "../config/environment.config";
 
 @Injectable({providedIn: 'root'})

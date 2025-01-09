@@ -15,7 +15,7 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {Ripple} from "primeng/ripple";
 import {Tag} from "primeng/tag";
 import {RouterLink} from "@angular/router";
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {TranslatePipe} from "@ngx-translate/core";
 import {PermissionService} from "../../core/services/permission.service";
 import {MenuItem} from "primeng/api";
@@ -124,6 +124,10 @@ export class ChessNavigationComponent {
           {
             label: "Update Games",
             routerLink: "/chess/settings/games"
+          },
+          {
+            label: "Fide import",
+            routerLink: "/chess/settings/fide-import"
           }
         ]
       },

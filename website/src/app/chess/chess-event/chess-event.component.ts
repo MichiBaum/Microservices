@@ -1,7 +1,7 @@
-import {Component, computed, inject, OnDestroy, Signal, signal, WritableSignal} from '@angular/core';
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {Component, computed, inject, OnDestroy, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {DomSanitizer, Meta, SafeResourceUrl, Title} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {CardModule} from "primeng/card";
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
@@ -15,6 +15,7 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
 import {Avatar} from "primeng/avatar";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EMPTY} from "rxjs";
+import {MetaService} from "../../core/services/meta.service";
 
 @Component({
   selector: 'app-chess-events',
@@ -42,7 +43,6 @@ export class ChessEventComponent implements OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly chessService = inject(ChessService);
   private readonly navigationService = inject(RouterNavigationService);
-
 
   eventId: WritableSignal<string | undefined> = signal("")
   event = rxResource({

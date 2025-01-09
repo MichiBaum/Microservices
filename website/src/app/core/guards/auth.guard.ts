@@ -1,6 +1,6 @@
 import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from '@angular/router';
 import {inject} from "@angular/core";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../api-services/auth.service";
 import {PermissionService} from "../services/permission.service";
 
 /**

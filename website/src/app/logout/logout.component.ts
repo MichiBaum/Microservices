@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, signal} from '@angular/core';
 import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {AuthService} from "../core/services/auth.service";
+import {AuthService} from "../core/api-services/auth.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {NgIf} from "@angular/common";
 import {Button, ButtonDirective} from "primeng/button";

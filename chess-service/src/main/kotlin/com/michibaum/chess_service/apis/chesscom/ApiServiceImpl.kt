@@ -8,8 +8,10 @@ import com.michibaum.chess_service.apis.dtos.StatsDto
 import com.michibaum.chess_service.apis.dtos.TopAccountDto
 import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.ChessPlatform
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
 import java.time.LocalDate
 import java.time.Year
 import java.time.format.DateTimeFormatter
@@ -25,13 +27,15 @@ class ApiServiceImpl(
 
     override fun findUser(username: String): ApiResult<AccountDto> {
         val result = try {
-             client.get()
+            client.get()
                 .uri("/pub/player/{0}", username)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(ChesscomAccountDto::class.java) // TODO onError
+        } catch (ex: HttpClientErrorException.NotFound){
+            return Error("Could not find user on chess.com with username=$username")
         } catch (throwable: Throwable){
-            return Exception("Exception chesscom findUser with username=$username", throwable)
+            return Exception("Exception chess.com findUser with username=$username", throwable)
         }
 
         if(result == null)

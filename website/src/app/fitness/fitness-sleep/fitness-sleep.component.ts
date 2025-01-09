@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FitnessService} from "../../core/services/fitness.service";
+import {FitnessService} from "../../core/api-services/fitness.service";
 import {Sleep} from "../../core/models/fitness/sleep.model";
 import {SleepStagesChartComponent} from "./sleep-stages-chart/sleep-stages-chart.component";
 import {DropdownModule} from "primeng/dropdown";

@@ -11,6 +11,7 @@ import com.michibaum.chess_service.domain.ChessPlatform
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
 
 @Service("lichessApiService")
 class ApiServiceImpl(
@@ -30,6 +31,8 @@ class ApiServiceImpl(
                 .accept(MediaType.APPLICATION_NDJSON)
                 .retrieve()
                 .body(LichessAccountDto::class.java)
+        } catch (ex: HttpClientErrorException.NotFound){
+            return Error("Could not find user on lichess with username=$username")
         } catch (throwable: Throwable) {
             return Exception("Exception lichess findUser with username=${username}", throwable)
         }

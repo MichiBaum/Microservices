@@ -29,7 +29,7 @@ class AccountController(
     fun getAccount(@PathVariable id: String): ResponseEntity<AccountDto> {
         return try {
             val uuid = UUID.fromString(id)
-            val account = accountService.findById(uuid) ?: return ResponseEntity.notFound().build()
+            val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()
             val dto = accountConverter.convert(account)
             ResponseEntity.ok(dto)
         } catch (ex: IllegalArgumentException) {
@@ -38,7 +38,5 @@ class AccountController(
             ResponseEntity.internalServerError().build()
         }
     }
-
-
 
 }

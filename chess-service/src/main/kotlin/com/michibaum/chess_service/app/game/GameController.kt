@@ -22,7 +22,7 @@ class GameController(
     fun loadGamesFor(@PathVariable id: String): ResponseEntity<Nothing>{
         return try {
             val uuid = UUID.fromString(id)
-            accountService.findById(uuid)?.let {
+            accountService.findByAccountId(uuid)?.let {
                 gameService.loadGamesFor(it)
             }
             ResponseEntity.ok().build()
@@ -38,7 +38,7 @@ class GameController(
     fun getGamesFor(@PathVariable id: String): ResponseEntity<Set<GameDto>>{
         return try {
             val uuid = UUID.fromString(id)
-            val games = accountService.findById(uuid)?.games ?: emptySet()
+            val games = accountService.findByAccountId(uuid)?.games ?: emptySet()
             val dtos = games.map(gameConverter::convert).toSet()
             ResponseEntity.ok(dtos)
         } catch (ex: IllegalArgumentException) {

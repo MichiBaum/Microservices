@@ -27,7 +27,7 @@ class AccountServiceIT {
         val savedAccount = accountRepository.save(account)
 
         // WHEN
-        val result = accountService.findById(savedAccount.idOrThrow())
+        val result = accountService.findByAccountId(savedAccount.idOrThrow())
         println(accountRepository.count())
 
         // THEN
@@ -40,7 +40,7 @@ class AccountServiceIT {
         val id = UUID.randomUUID()
 
         // WHEN
-        val result = accountService.findById(id)
+        val result = accountService.findByAccountId(id)
         println(accountRepository.count())
 
         // THEN

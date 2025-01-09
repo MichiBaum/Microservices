@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Weight} from "../../core/models/fitness/weight.model";
-import {FitnessService} from "../../core/services/fitness.service";
+import {FitnessService} from "../../core/api-services/fitness.service";
 import {ChartModule} from "primeng/chart";
 
 @Component({

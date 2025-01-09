@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FitnessService} from "../../core/services/fitness.service";
+import {FitnessService} from "../../core/api-services/fitness.service";
 import {Profile} from "../../core/models/fitness/profile.model";
 import {NgIf} from "@angular/common";
 

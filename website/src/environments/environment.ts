@@ -1,4 +1,5 @@
 export const environment = {
+  base_url: (domain: string) => `https://${domain}`,
   fe_images: (domain: string) => `https://${domain}/assets/images/`,
   authenticationService: (domain: string) => `https://authentication.${domain}/api`,
   chessService: (domain: string) => `https://chess.${domain}/api`,

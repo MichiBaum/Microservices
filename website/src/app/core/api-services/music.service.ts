@@ -1,7 +1,7 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
-import {UserInfoService} from "./user-info.service";
+import {UserInfoService} from "../services/user-info.service";
 import {Token} from "../models/music/token.model";
 import {catchError} from "rxjs";
 import {EnvironmentConfig} from "../config/environment.config";

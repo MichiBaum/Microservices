@@ -25,7 +25,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import {Sides} from "../../core/config/sides";
 import {PermissionService} from "../../core/services/permission.service";
-import {AuthService} from "../../core/services/auth.service";
+import {AuthService} from "../../core/api-services/auth.service";
 import {ImageModule} from "primeng/image";
 import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
