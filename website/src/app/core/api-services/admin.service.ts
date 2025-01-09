@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable} from "rxjs";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
-import {UserInfoService} from "./user-info.service";
+import {UserInfoService} from "../services/user-info.service";
 import {Application} from "../models/admin/admin.model";
 import {EnvironmentConfig} from "../config/environment.config";
 

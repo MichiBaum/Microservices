@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {PermissionService} from "../core/services/permission.service";
-import {AuthService} from "../core/services/auth.service";
+import {AuthService} from "../core/api-services/auth.service";
 import {Sides} from "../core/config/sides";
 import {TranslateModule} from "@ngx-translate/core";
 

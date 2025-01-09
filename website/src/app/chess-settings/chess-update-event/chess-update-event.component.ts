@@ -1,5 +1,5 @@
 import {Component, computed, inject, linkedSignal, OnInit, signal} from '@angular/core';
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   ChessEvent,

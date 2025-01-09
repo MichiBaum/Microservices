@@ -4,7 +4,7 @@ import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
 import {FloatLabelModule} from "primeng/floatlabel";
-import {AuthService} from "../core/services/auth.service";
+import {AuthService} from "../core/api-services/auth.service";
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
 import {CardModule} from "primeng/card";

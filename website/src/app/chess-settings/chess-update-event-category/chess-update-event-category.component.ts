@@ -1,5 +1,5 @@
 import {Component, inject, signal} from '@angular/core';
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessEventCategoryComponent} from "../select-chess-event-category/select-chess-event-category.component";
 import {ChessEventCategory, WriteChessEventCategory} from "../../core/models/chess/chess.models";

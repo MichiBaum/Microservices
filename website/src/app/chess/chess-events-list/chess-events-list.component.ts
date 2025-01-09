@@ -1,5 +1,5 @@
 import {Component, computed, inject} from '@angular/core';
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {CardModule} from "primeng/card";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";

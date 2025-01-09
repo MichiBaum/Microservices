@@ -4,7 +4,7 @@ import {provideHttpClientTesting} from '@angular/common/http/testing';
 import {TranslateModule} from '@ngx-translate/core';
 import {LoginComponent} from './login.component';
 import {of} from 'rxjs';
-import {AuthService} from "../core/services/auth.service";
+import {AuthService} from "../core/api-services/auth.service";
 import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {Sides} from "../core/config/sides";

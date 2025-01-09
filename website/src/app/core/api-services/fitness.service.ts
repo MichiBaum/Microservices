@@ -5,7 +5,7 @@ import {Token} from "../models/fitness/token.model";
 import {Weight} from "../models/fitness/weight.model";
 import {Profile} from "../models/fitness/profile.model";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
-import {UserInfoService} from "./user-info.service";
+import {UserInfoService} from "../services/user-info.service";
 import {Sleep} from "../models/fitness/sleep.model";
 import {EnvironmentConfig} from "../config/environment.config";
 

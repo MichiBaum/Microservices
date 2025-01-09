@@ -1,10 +1,10 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Authentication, AuthenticationResponse, Register, RegisterResponse} from "../models/authentication.model";
-import {RouterNavigationService} from "./router-navigation.service";
+import {RouterNavigationService} from "../services/router-navigation.service";
 import {catchError, Observable, Subject} from "rxjs";
 import {CustomErrorMatching, HttpErrorHandler} from "../config/http-error-handler.service";
-import {UserInfoService} from "./user-info.service";
+import {UserInfoService} from "../services/user-info.service";
 import {EnvironmentConfig} from "../config/environment.config";
 
 @Injectable({providedIn: 'root'})

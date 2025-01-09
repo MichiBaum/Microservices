@@ -1,5 +1,5 @@
 import {Component, computed, inject} from '@angular/core';
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {PrimeTemplate} from "primeng/api";
 import {Timeline} from "primeng/timeline";
