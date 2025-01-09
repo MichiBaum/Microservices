@@ -6,6 +6,8 @@ import {catchError, Observable, Subject} from "rxjs";
 import {CustomErrorMatching, HttpErrorHandler} from "../config/http-error-handler.service";
 import {UserInfoService} from "../services/user-info.service";
 import {EnvironmentConfig} from "../config/environment.config";
+import {JwtPayload} from "../models/jwtPayload.model";
+import {jwtDecode} from "jwt-decode";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -34,6 +36,22 @@ export class AuthService {
   register(registerUser: Register, customErrorMatching: CustomErrorMatching | undefined): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(this.environment.authenticationService() + '/register', registerUser)
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService, customErrorMatching)))
+  }
+
+  isTokenExpired(jwtString: string){
+    const jwt = jwtDecode<JwtPayload>(jwtString);
+    return jwt.exp * 1000 < Date.now();
+
+  }
+
+  logoutIfTokenExpired(){
+    let jwtTokenFromLocalStorage = this.getJwtTokenFromLocalStorage();
+    if(jwtTokenFromLocalStorage == null){
+      return;
+    }
+    if(this.isTokenExpired(jwtTokenFromLocalStorage)){
+      this.logout();
+    }
   }
 
   logout(){

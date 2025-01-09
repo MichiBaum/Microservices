@@ -11,6 +11,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PrimeNG} from "primeng/config";
 import {Subscription} from "rxjs";
 import {MetaService} from "./core/services/meta.service";
+import {AuthService} from "./core/api-services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly userInfoService = inject(UserInfoService);
   private readonly swUpdate = inject(SwUpdate);
   private readonly confirmationService = inject(ConfirmationService);
+  private readonly authService = inject(AuthService);
 
   private languageChangeSubscription: Subscription = this.translateService.onLangChange.subscribe(() => {
     this.translateService.get('primeng').subscribe(res => this.primengConfig.setTranslation(res));
@@ -34,6 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private messageSubscription: Subscription = this.userInfoService.messageEmitter.subscribe(message => this.messageService.add(message));
 
   ngOnInit(): void {
+    this.authService.logoutIfTokenExpired()
     this.lightDarkModeService.init(document)
 
     if(this.swUpdate.isEnabled){
