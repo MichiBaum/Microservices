@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.util.*
 
 @Entity
+@Table(name="account")
 class Account(
     @Column(nullable = false)
     val platformId: String,
@@ -26,10 +27,6 @@ class Account(
     @ManyToOne(targetEntity = Person::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinColumn(name="person_id", nullable=true)
     val person: Person?,
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], targetEntity = Game::class)
-    @JoinTable(name = "ACCOUNT_GAME_MAPPING", joinColumns = [JoinColumn(name = "account_id")], inverseJoinColumns = [JoinColumn(name = "game_id")])
-    val games: Set<Game>,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

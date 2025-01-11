@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.util.*
 
 @Entity
-@EntityListeners
+@Table(name="person")
 class Person(
     @Column(nullable = false)
     val firstname: String,

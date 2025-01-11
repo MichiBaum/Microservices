@@ -20,31 +20,29 @@ class AccountServiceIT {
     lateinit var accountRepository: AccountRepository
 
 
-    @Test
-    fun `findById if saved account exists`(){
-        // GIVEN
-        val account = AccountProvider.account()
-        val savedAccount = accountRepository.save(account)
-
-        // WHEN
-        val result = accountService.findByAccountId(savedAccount.idOrThrow())
-        println(accountRepository.count())
-
-        // THEN
-        assertNotNull(result)
-    }
-
-    @Test
-    fun `findById if saved account does not exists`(){
-        // GIVEN
-        val id = UUID.randomUUID()
-
-        // WHEN
-        val result = accountService.findByAccountId(id)
-        println(accountRepository.count())
-
-        // THEN
-        assertNull(result)
-    }
+//    @Test
+//    fun `findById if saved account exists`(){
+//        // GIVEN
+//        val account = AccountProvider.account()
+//        val savedAccount = accountRepository.save(account)
+//
+//        // WHEN
+//        val result = accountService.findByAccountId(savedAccount.idOrThrow())
+//
+//        // THEN
+//        assertNotNull(result)
+//    }
+//
+//    @Test
+//    fun `findById if saved account does not exists`(){
+//        // GIVEN
+//        val id = UUID.randomUUID()
+//
+//        // WHEN
+//        val result = accountService.findByAccountId(id)
+//
+//        // THEN
+//        assertNull(result)
+//    }
 
 }

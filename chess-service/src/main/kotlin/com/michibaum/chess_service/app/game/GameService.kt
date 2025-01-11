@@ -7,6 +7,7 @@ import com.michibaum.chess_service.domain.Account
 import com.michibaum.chess_service.domain.Event
 import com.michibaum.chess_service.domain.Game
 import com.michibaum.chess_service.domain.Player
+import com.michibaum.chess_service.get
 import org.springframework.stereotype.Service
 
 @Service
@@ -51,16 +52,16 @@ class GameService(
             platformId = gameDto.id,
             pgn = gameDto.pgn,
             gameType = gameDto.gameType,
-            accounts = accounts,
             players = mutableSetOf()
         )
 
-        val players = gameDto.players.map {
+
+        val players = gameDto.players.map { // TODO mapping
             Player(
-                platformId = it.id,
                 username = it.username,
                 rating = it.rating,
                 pieceColor = it.pieceColor,
+                account = accounts[0],
                 game = game
             )
         }.toSet()

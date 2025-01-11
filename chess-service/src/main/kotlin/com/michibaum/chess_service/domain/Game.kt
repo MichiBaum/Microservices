@@ -4,6 +4,7 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
+@Table(name="game")
 class Game(
     @Enumerated(EnumType.STRING)
     val chessPlatform: ChessPlatform,
@@ -20,10 +21,6 @@ class Game(
 
     @Enumerated(EnumType.STRING)
     val gameType: GameType,
-
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Account::class)
-    @JoinTable(name = "ACCOUNT_GAME_MAPPING", joinColumns = [JoinColumn(name = "game_id")], inverseJoinColumns = [JoinColumn(name = "account_id")])
-    val accounts: Set<Account>,
 
     @OneToMany(mappedBy="game", fetch = FetchType.EAGER, targetEntity = Player::class, cascade = [CascadeType.ALL])
     val players: Set<Player>,

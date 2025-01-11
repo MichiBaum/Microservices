@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.util.*
 
 @Entity
+@Table(name="event")
 class Event(
 
     @Column(nullable = false)

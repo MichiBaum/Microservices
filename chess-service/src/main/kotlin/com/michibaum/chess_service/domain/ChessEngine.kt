@@ -4,17 +4,16 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name="event_category")
-class EventCategory(
+@Table(name = "chess_engine")
+data class ChessEngine(
+
     @Column(nullable = false)
     val name: String,
 
     @Column(nullable = false)
-    val description: String,
+    val version: String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID? = null
-){
-    fun idOrThrow(): UUID = id ?: throw IdNullException()
-}
+    val id: UUID? = null,
+)

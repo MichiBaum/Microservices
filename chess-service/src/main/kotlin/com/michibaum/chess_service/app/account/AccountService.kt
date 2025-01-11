@@ -96,7 +96,6 @@ class AccountService(
             platform = it.platform,
             createdAt = it.createdAt,
             person = it.person,
-            games = it.games,
             id = it.id
         )
     }
