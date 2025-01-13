@@ -5,7 +5,7 @@ import {
   ChessEvent,
   ChessEventCategory,
   ChessEventCategoryWithEvents,
-  ChessGame,
+  ChessGame, ChessOpening,
   Person,
   SearchChessEvent,
   SearchPerson, WriteChessEngine,
@@ -144,6 +144,11 @@ export class ChessService {
 
   updateEngine(id: string, engine: WriteChessEngine): Observable<WriteChessEngine> {
     return this.http.post<WriteChessEngine>(this.environment.chessService() + `/engines/${id}`, engine)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  openings(): Observable<ChessOpening[]> {
+    return this.http.get<ChessOpening[]>(this.environment.chessService() + '/openings')
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 }

@@ -126,12 +126,16 @@ export class ChessNavigationComponent {
             routerLink: "/chess/settings/games"
           },
           {
-            label: "Fide import",
-            routerLink: "/chess/settings/fide-import"
-          },
-          {
             label: "Update Engine",
             routerLink: "/chess/settings/engines"
+          },
+          {
+            label: "Update Openings",
+            routerLink: "/chess/settings/openings"
+          },
+          {
+            label: "Fide import",
+            routerLink: "/chess/settings/fide-import"
           }
         ]
       },

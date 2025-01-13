@@ -12,7 +12,6 @@ class OpeningConverter {
         OpeningResponseDto(
             id = opening.id?.toString() ?: "",
             name = opening.name,
-            lastMoveId = opening.lastMove.id?.toString() ?: ""
         )
 
     fun buildMoveHierarchy(move: OpeningMove): OpeningMoveDto {

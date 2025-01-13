@@ -120,3 +120,8 @@ export interface WriteChessEngine {
   name: string;
   version: string;
 }
+
+export interface ChessOpening{
+  id: string;
+  name: string;
+}
