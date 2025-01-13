@@ -109,3 +109,14 @@ export interface ChessGame {
   pgn: string;
   gameType: ChessGameType;
 }
+
+export interface ChessEngine {
+  id: string;
+  name: string;
+  version: string;
+}
+
+export interface WriteChessEngine {
+  name: string;
+  version: string;
+}

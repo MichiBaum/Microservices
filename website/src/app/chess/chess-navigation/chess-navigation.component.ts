@@ -128,6 +128,10 @@ export class ChessNavigationComponent {
           {
             label: "Fide import",
             routerLink: "/chess/settings/fide-import"
+          },
+          {
+            label: "Update Engine",
+            routerLink: "/chess/settings/engines"
           }
         ]
       },

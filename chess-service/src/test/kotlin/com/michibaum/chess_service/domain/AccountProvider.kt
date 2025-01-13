@@ -10,7 +10,6 @@ class AccountProvider {
                 platform = ChessPlatform.CHESSCOM,
                 person = person,
                 createdAt = null,
-                games = emptySet()
             )
         }
     }

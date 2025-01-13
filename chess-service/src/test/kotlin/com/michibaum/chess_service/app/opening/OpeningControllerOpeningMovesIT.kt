@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import java.util.UUID
 
 @AutoConfigureMockMvc
 @SpringBootTest
 @TestcontainersConfiguration
-class OpeningControllerIT {
+class OpeningControllerOpeningMovesIT {
 
     @Autowired
     lateinit var mockMvc: MockMvc
@@ -25,7 +25,6 @@ class OpeningControllerIT {
     lateinit var openingRepository: OpeningRepository
 
     @Test
-    @WithMockUser(username = "testuser", roles = ["CHESS_SERVICE_ADMIN"])
     fun `should return move hierarchy for a valid opening`() {
         val rootMove = OpeningMove(move = "e4", parent = null)
         val move1 = OpeningMove(move = "e5", parent = rootMove)
@@ -44,7 +43,6 @@ class OpeningControllerIT {
     }
 
     @Test
-    @WithMockUser(username = "testuser", roles = ["CHESS_SERVICE_ADMIN"])
     fun `should return one move hierarchy for a valid opening`() {
         val move = OpeningMove(move = "e4", parent = null)
         val opening = Opening(name = "Kings pawn opening", lastMove = move)
@@ -54,6 +52,12 @@ class OpeningControllerIT {
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.move").value(move.move))
+    }
+
+    @Test
+    fun `should return 404 for an invalid opening`() {
+        mockMvc.perform(get("/api/openings/${UUID.randomUUID()}/moves"))
+            .andExpect(status().isNotFound)
     }
 
 }

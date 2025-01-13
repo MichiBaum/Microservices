@@ -129,7 +129,6 @@ export class ChessUpdatePersonComponent implements OnInit{
       birthday = new Date(d.getTime() - (offset*60*1000)).toISOString().split('T')[0]
     }
 
-    console.log(birthday)
     const person: WritePerson = {
       firstname: this.formGroup.controls['firstname'].value,
       lastname: this.formGroup.controls['lastname'].value,

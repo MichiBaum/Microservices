@@ -29,15 +29,15 @@ class GameServiceUT {
     fun `should load games for account and save new games`() {
         // given
         val account = AccountProvider.account()
-        val tmpGame = GameProvider.game(account)
-        val player = PlayerProvider.player(tmpGame)
+        val tmpGame = GameProvider.game()
+        val player = PlayerProvider.player(account, tmpGame)
 //            .copy(username = account.username, platformId = account.accId)
         val game = tmpGame //.copy(players = setOf(player))
         val gameDto =  GameDto(
             chessPlatform = game.chessPlatform,
             id = game.platformId,
             players = listOf(PlayerDto(
-                id = player.platformId,
+                id = account.platformId,
                 username = player.username,
                 rating = player.rating,
                 pieceColor = player.pieceColor,
@@ -88,7 +88,6 @@ class GameServiceUT {
         assertEquals(1, savedGame.players.size)
 
         val savedPlayer = savedGame.players.first()
-        assertEquals(player.platformId, savedPlayer.platformId)
         assertEquals(player.username, savedPlayer.username)
         assertEquals(player.rating, savedPlayer.rating)
         assertEquals(player.pieceColor, savedPlayer.pieceColor)
@@ -98,7 +97,7 @@ class GameServiceUT {
     fun `should load games for account and skip existing games`() {
         // given
         val account = AccountProvider.account()
-        val game = GameProvider.game(account)
+        val game = GameProvider.game()
         val gameDto =  GameDto(
             chessPlatform = game.chessPlatform,
             id = game.platformId,

@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.opening
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
@@ -9,6 +10,14 @@ class OpeningController(
     private val openingService: OpeningService,
     private val openingConverter: OpeningConverter
 ) {
+
+    @PublicEndpoint
+    @GetMapping("/api/openings")
+    fun getAllOpenings(): ResponseEntity<List<OpeningResponseDto>> {
+        val openings = openingService.getAll()
+        val dtos = openings.map { opening -> openingConverter.toDto(opening) }
+        return ResponseEntity.ok(dtos)
+    }
 
     @PostMapping("/api/openings")
     fun createOpening(@RequestBody dto: OpeningDto): ResponseEntity<OpeningResponseDto> {
@@ -24,15 +33,20 @@ class OpeningController(
         return ResponseEntity.ok(response)
     }
 
+    @PublicEndpoint
     @GetMapping("/api/openings/{id}/moves")
-    fun getAllMovesForOpening(@PathVariable id: UUID): ResponseEntity<OpeningMoveDto> {
-        // Fetch the opening and its lastMove
-        val opening = openingService.getOpeningById(id)
+    fun getAllMovesForOpening(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val opening = openingService.getOpeningById(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val moveHierarchy = openingConverter.buildMoveHierarchy(opening.lastMove)
+            return ResponseEntity.ok(moveHierarchy)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
 
-        // Convert to a hierarchical DTO using the `lastMove`
-        val moveHierarchy = openingConverter.buildMoveHierarchy(opening.lastMove)
-
-        // Return the hierarchical DTO as the response
-        return ResponseEntity.ok(moveHierarchy)
     }
 }

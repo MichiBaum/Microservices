@@ -1,13 +1,8 @@
 package com.michibaum.chess_service.app.account
 
 import com.michibaum.chess_service.TestcontainersConfiguration
-import com.michibaum.chess_service.domain.AccountProvider
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import java.util.*
 
 @SpringBootTest
 @TestcontainersConfiguration

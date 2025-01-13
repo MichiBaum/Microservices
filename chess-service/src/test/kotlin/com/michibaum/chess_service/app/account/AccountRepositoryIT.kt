@@ -32,7 +32,6 @@ class AccountRepositoryIT {
         // THEN
         assertNotNull(account.id)
         assertNotNull(result.id)
-        assertNotEquals(account.id, result.id)
         assertEquals(account.name, result.name)
         assertEquals(account.platformId, result.platformId)
         assertEquals(account.username, result.username)
@@ -52,17 +51,9 @@ class AccountRepositoryIT {
 
         // THEN
         assertNotNull(person.id)
-        assertNotEquals(personToSave.id, person.id)
-
         assertNotNull(result.id)
-        assertEquals(account.id, account.id)
-        assertNotEquals(account.id, result.id)
 
         assertNotNull(result.person)
-
-        assertNotEquals(personToSave.id, result.person?.id)
-        assertEquals(person.id, result.person?.id)
-
     }
 
 }

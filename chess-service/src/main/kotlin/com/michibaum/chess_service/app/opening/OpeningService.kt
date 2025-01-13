@@ -4,6 +4,7 @@ import com.michibaum.chess_service.domain.Opening
 import com.michibaum.chess_service.domain.OpeningMove
 import org.springframework.stereotype.Service
 import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class OpeningService(
@@ -11,9 +12,8 @@ class OpeningService(
     private val openingMoveRepository: OpeningMoveRepository
 ) {
 
-    fun getOpeningById(openingId: UUID): Opening {
-        return openingRepository.findById(openingId)
-            .orElseThrow { IllegalArgumentException("Opening not found with id: $openingId") }
+    fun getOpeningById(openingId: UUID): Opening? {
+        return openingRepository.findById(openingId).getOrNull()
     }
 
     fun createOpening(dto: OpeningDto): Opening {
@@ -42,5 +42,9 @@ class OpeningService(
         )
 
         return openingRepository.save(updatedOpening)
+    }
+
+    fun getAll(): List<Opening> {
+        return openingRepository.findAll()
     }
 }

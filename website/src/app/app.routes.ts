@@ -106,6 +106,12 @@ export const routes: Routes = [
             loadComponent: () => import("./chess-settings/fide-import/fide-import.component").then((c) => c.FideImportComponent),
             canActivate: [isAuthenticatedGuard, isPermittedGuard],
             data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
+            path:"engines",
+            loadComponent: () => import("./chess-settings/chess-update-engine/chess-update-engine.component").then((c) => c.ChessUpdateEngineComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
           }
         ]
       }

@@ -1,14 +1,14 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
-  Account,
+  Account, ChessEngine,
   ChessEvent,
   ChessEventCategory,
   ChessEventCategoryWithEvents,
   ChessGame,
   Person,
   SearchChessEvent,
-  SearchPerson,
+  SearchPerson, WriteChessEngine,
   WriteChessEvent,
   WriteChessEventCategory,
   WritePerson
@@ -132,4 +132,18 @@ export class ChessService {
     });
   }
 
+  engines(): Observable<ChessEngine[]> {
+    return this.http.get<ChessEngine[]>(this.environment.chessService() + '/engines')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  createEngine(engine: WriteChessEngine): Observable<WriteChessEngine> {
+    return this.http.put<WriteChessEngine>(this.environment.chessService() + '/engines', engine)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  updateEngine(id: string, engine: WriteChessEngine): Observable<WriteChessEngine> {
+    return this.http.post<WriteChessEngine>(this.environment.chessService() + `/engines/${id}`, engine)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
 }
