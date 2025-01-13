@@ -3,7 +3,6 @@ import {SelectChessEngineComponent} from "../select-chess-engine/select-chess-en
 import {rxResource} from "@angular/core/rxjs-interop";
 import {ChessService} from "../../core/api-services/chess.service";
 import {ChessEngine, WriteChessEngine} from "../../core/models/chess/chess.models";
-import {JsonPipe} from "@angular/common";
 import {Fieldset} from "primeng/fieldset";
 import {FloatLabel} from "primeng/floatlabel";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -12,16 +11,15 @@ import {Button} from "primeng/button";
 
 @Component({
   selector: 'app-chess-update-engine',
-  imports: [
-    SelectChessEngineComponent,
-    JsonPipe,
-    Fieldset,
-    FloatLabel,
-    FormsModule,
-    InputText,
-    ReactiveFormsModule,
-    Button
-  ],
+    imports: [
+        SelectChessEngineComponent,
+        Fieldset,
+        FloatLabel,
+        FormsModule,
+        InputText,
+        ReactiveFormsModule,
+        Button
+    ],
   templateUrl: './chess-update-engine.component.html',
   styleUrl: './chess-update-engine.component.scss'
 })

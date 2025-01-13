@@ -1,17 +1,20 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
-  Account, ChessEngine,
-  ChessEvent,
-  ChessEventCategory,
-  ChessEventCategoryWithEvents,
-  ChessGame, ChessOpening,
-  Person,
-  SearchChessEvent,
-  SearchPerson, WriteChessEngine,
-  WriteChessEvent,
-  WriteChessEventCategory,
-  WritePerson
+    Account,
+    ChessEngine,
+    ChessEvent,
+    ChessEventCategory,
+    ChessEventCategoryWithEvents,
+    ChessGame,
+    ChessOpening,
+    Person,
+    SearchChessEvent,
+    SearchPerson,
+    WriteChessEngine,
+    WriteChessEvent,
+    WriteChessEventCategory,
+    WritePerson
 } from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
 import {HttpErrorHandler} from "../config/http-error-handler.service";

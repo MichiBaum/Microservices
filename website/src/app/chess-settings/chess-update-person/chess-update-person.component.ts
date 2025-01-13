@@ -15,7 +15,6 @@ import {Button} from "primeng/button";
 import {DatePicker} from "primeng/datepicker";
 import {Select} from "primeng/select";
 import {FloatLabel} from "primeng/floatlabel";
-import {EnvironmentConfig} from "../../core/config/environment.config";
 
 @Component({
   selector: 'app-chess-update-person',

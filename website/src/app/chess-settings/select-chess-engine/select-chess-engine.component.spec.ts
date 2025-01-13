@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SelectChessEngineComponent } from './select-chess-engine.component';
+import {SelectChessEngineComponent} from './select-chess-engine.component';
 
 describe('SelectChessEngineComponent', () => {
   let component: SelectChessEngineComponent;

@@ -1,11 +1,11 @@
 import {Component, computed, inject} from '@angular/core';
 import {
-  faAngleDown,
-  faCalendarDays,
-  faChessQueen,
-  faGears,
-  faHouse,
-  faNewspaper
+    faAngleDown,
+    faCalendarDays,
+    faChessQueen,
+    faGears,
+    faHouse,
+    faNewspaper
 } from "@fortawesome/free-solid-svg-icons";
 import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";

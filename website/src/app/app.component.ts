@@ -10,7 +10,6 @@ import {SwUpdate} from "@angular/service-worker";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PrimeNG} from "primeng/config";
 import {Subscription} from "rxjs";
-import {MetaService} from "./core/services/meta.service";
 import {AuthService} from "./core/api-services/auth.service";
 
 @Component({

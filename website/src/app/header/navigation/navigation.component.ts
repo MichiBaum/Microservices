@@ -9,17 +9,17 @@ import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
 import {Ripple} from "primeng/ripple";
 import {
-  faBars,
-  faChess,
-  faCoffee,
-  faCompactDisc,
-  faDumbbell,
-  faHouse,
-  faKey,
-  faLightbulb,
-  faMicrochip,
-  faStamp,
-  faUser
+    faBars,
+    faChess,
+    faCoffee,
+    faCompactDisc,
+    faDumbbell,
+    faHouse,
+    faKey,
+    faLightbulb,
+    faMicrochip,
+    faStamp,
+    faUser
 } from "@fortawesome/free-solid-svg-icons";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";

@@ -8,7 +8,7 @@ import {TagModule} from "primeng/tag";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {ChessNavigationComponent} from "./chess-navigation/chess-navigation.component";
 import {
-  ChessRecentUpcomingEventsComponent
+    ChessRecentUpcomingEventsComponent
 } from "./chess-recent-upcoming-events/chess-recent-upcoming-events.component";
 import {NgIf} from "@angular/common";
 import {Button} from "primeng/button";

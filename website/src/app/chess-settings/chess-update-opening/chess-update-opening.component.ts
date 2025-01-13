@@ -4,7 +4,6 @@ import {Fieldset} from "primeng/fieldset";
 import {FloatLabel} from "primeng/floatlabel";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {InputText} from "primeng/inputtext";
-import {SelectChessEngineComponent} from "../select-chess-engine/select-chess-engine.component";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {ChessService} from "../../core/api-services/chess.service";
 import {SelectChessOpeningComponent} from "../select-chess-opening/select-chess-opening.component";
@@ -12,16 +11,15 @@ import {ChessOpening} from "../../core/models/chess/chess.models";
 
 @Component({
   selector: 'app-chess-update-opening',
-  imports: [
-    Button,
-    Fieldset,
-    FloatLabel,
-    FormsModule,
-    InputText,
-    ReactiveFormsModule,
-    SelectChessEngineComponent,
-    SelectChessOpeningComponent
-  ],
+    imports: [
+        Button,
+        Fieldset,
+        FloatLabel,
+        FormsModule,
+        InputText,
+        ReactiveFormsModule,
+        SelectChessOpeningComponent
+    ],
   templateUrl: './chess-update-opening.component.html',
   styleUrl: './chess-update-opening.component.scss'
 })
