@@ -3,7 +3,7 @@
 
     <p-fieldset>
       <ng-template #header>
-        Engines
+          <strong>Engines</strong>
       </ng-template>
 
       <app-select-chess-engine [engines]="engines.value() ?? []" (selectedEngine)="setSelectedEngine($event)"></app-select-chess-engine>

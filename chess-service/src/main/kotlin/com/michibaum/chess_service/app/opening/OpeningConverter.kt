@@ -1,7 +1,6 @@
 package com.michibaum.chess_service.app.opening
 
 import com.michibaum.chess_service.domain.Opening
-import com.michibaum.chess_service.domain.OpeningMove
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -14,42 +13,64 @@ class OpeningConverter {
             name = opening.name,
         )
 
-    fun buildMoveHierarchy(move: OpeningMove): OpeningMoveDto {
-        // Traverse up to find the root move
-        var currentMove: OpeningMove? = move
-        val moves = mutableListOf<OpeningMove>()
+    fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>): OpeningMoveDto? {
+        // Group evaluations by move ID
+        val evaluationsByMoveId: Map<UUID, List<EvaluationDto>> = moves
+            .filter { it.getEngineId() != null && it.getDepth() != null && it.getEvaluation() != null }
+            .groupBy(
+            keySelector = { it.getMoveId() },
+            valueTransform = { move ->
+                EvaluationDto(
+                    engineId = move.getEngineId()!!.toString(),
+                    depth = move.getDepth()!!,
+                    evaluation = move.getEvaluation()!!
+                )
+            }
+        )
 
-        // Collect all moves in a list starting from the input move to the root
-        while (currentMove != null) {
-            moves.add(currentMove)
-            currentMove = currentMove.parent
-        }
+        // Map to collect child relationships (parentId -> list of child projections)
+        val childrenMap = mutableMapOf<UUID, MutableList<OpeningMoveDto>>()
 
-        // Reverse the list to start from the root move
-        val reversedMoves = moves.reversed()
+        // Build a DTO for each move and prepare the children relationship map
+        val moveDtoMap = mutableMapOf<UUID, OpeningMoveDto>() // Map of moveId to DTO
 
-        // Build hierarchical OpeningMoveDto objects
-        var rootDto: OpeningMoveDto? = null
-        var currentDto: OpeningMoveDto? = null
+        val moveDtos = moves.map { move ->
+            val moveId = move.getMoveId()
 
-        for (openingMove in reversedMoves) {
-            val newDto = OpeningMoveDto(
-                id = openingMove.id?.toString() ?: UUID.randomUUID().toString(),
-                move = openingMove.move,
-                nextMoves = listOf()
-            )
-
-            if (rootDto == null) {
-                rootDto = newDto // Set the root move DTO to the first move
-            } else {
-                currentDto!!.nextMoves = listOf(newDto) // Add the new move to the current hierarchical chain
+            // Reuse an existing DTO if it already exists
+            val dto = moveDtoMap.getOrPut(moveId) {
+                OpeningMoveDto(
+                    id = moveId.toString(),
+                    move = move.getMove(),
+                    nextMoves = listOf(),
+                    evaluations = evaluationsByMoveId[moveId] ?: listOf()
+                )
             }
 
-            currentDto = newDto // Update the current DTO to the new one
+            move.getParentId()?.let { parentId ->
+                val childList = childrenMap.getOrPut(parentId) { mutableListOf() }
+                if (!childList.contains(dto)) { // Prevent duplicates in children
+                    childList.add(dto)
+                }
+            }
+
+            dto
         }
 
-        // Return the root DTO, representing the full hierarchy
-        return rootDto!!
+        // Assign children to the respective parent DTOs
+        moveDtos.forEach { dto ->
+            val dtoIdAsUuid = UUID.fromString(dto.id)
+            dto.nextMoves = childrenMap[dtoIdAsUuid] ?: listOf()
+        }
+
+        // Find the root of the tree (a move with no parentId)
+        val rootMoveProjection = moves.find { it.getParentId() == null }
+        return if (rootMoveProjection != null) {
+            val rootId = rootMoveProjection.getMoveId()
+            moveDtos.find { UUID.fromString(it.id) == rootId }
+        } else {
+            null // Return null if no root is found
+        }
     }
 
 }

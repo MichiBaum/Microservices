@@ -47,4 +47,9 @@ class OpeningService(
     fun getAll(): List<Opening> {
         return openingRepository.findAll()
     }
+
+    fun findMoveHierarchy(lastMove: OpeningMove): List<MoveHierarchyProjection> {
+        return openingMoveRepository.findMoveHierarchy(lastMove.id!!)
+    }
+
 }

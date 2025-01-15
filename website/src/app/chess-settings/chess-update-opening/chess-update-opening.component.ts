@@ -8,6 +8,7 @@ import {rxResource} from "@angular/core/rxjs-interop";
 import {ChessService} from "../../core/api-services/chess.service";
 import {SelectChessOpeningComponent} from "../select-chess-opening/select-chess-opening.component";
 import {ChessOpening} from "../../core/models/chess/chess.models";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-chess-update-opening',
@@ -30,6 +31,15 @@ export class ChessUpdateOpeningComponent {
       loader: () => this.chessService.openings()
     });
     selectedOpening = signal<ChessOpening | undefined>(undefined);
+    openingMoves = rxResource({
+        request: () => ({openingId: this.selectedOpening()?.id}),
+        loader: (params) => {
+            const openingId = params.request.openingId
+            if (openingId == undefined)
+                return of(undefined)
+            return this.chessService.openingMoves(openingId)
+        }
+    })
 
     formGroup: FormGroup = new FormGroup({
       id: new FormControl<string | null>({

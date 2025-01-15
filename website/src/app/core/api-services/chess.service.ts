@@ -7,7 +7,7 @@ import {
     ChessEventCategory,
     ChessEventCategoryWithEvents,
     ChessGame,
-    ChessOpening,
+    ChessOpening, ChessOpeningMove,
     Person,
     SearchChessEvent,
     SearchPerson,
@@ -154,4 +154,10 @@ export class ChessService {
     return this.http.get<ChessOpening[]>(this.environment.chessService() + '/openings')
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
+
+  openingMoves(id: string): Observable<ChessOpeningMove> {
+      return this.http.get<ChessOpeningMove>(this.environment.chessService() + `/openings/${id}/moves`)
+          .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
 }

@@ -3,14 +3,14 @@
 
     <p-fieldset>
       <ng-template #header>
-        Engines
+        <strong>Openings</strong>
       </ng-template>
 
       <app-select-chess-opening [openings]="openings.value() ?? []" (selectedOpening)="setSelectedOpening($event)"></app-select-chess-opening>
 
     </p-fieldset>
 
-    <p-fieldset legend="Engine Form">
+    <p-fieldset legend="Openings Form">
       <form [formGroup]="formGroup">
 
         <p-floatlabel variant="in" class="mb-2">

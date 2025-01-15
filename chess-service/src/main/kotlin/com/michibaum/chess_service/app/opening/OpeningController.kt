@@ -35,12 +35,13 @@ class OpeningController(
 
     @PublicEndpoint
     @GetMapping("/api/openings/{id}/moves")
-    fun getAllMovesForOpening(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
+    fun getAllMovesForOpening2(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
         return try {
             val uuid = UUID.fromString(id)
             val opening = openingService.getOpeningById(uuid) ?:
-                return ResponseEntity.notFound().build()
-            val moveHierarchy = openingConverter.buildMoveHierarchy(opening.lastMove)
+            return ResponseEntity.notFound().build()
+            val moves = openingService.findMoveHierarchy(opening.lastMove)
+            val moveHierarchy = openingConverter.buildMoveHierarchy(moves)
             return ResponseEntity.ok(moveHierarchy)
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()

@@ -19,7 +19,7 @@ class OpeningMoveEvaluation(
     val depth: Int,
 
     @Column(nullable = false)
-    val evaluation: Float,
+    val evaluation: String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -10,10 +10,10 @@ class OpeningMove(
     @Column(nullable = false)
     val move: String,
 
-    @ManyToOne(targetEntity = OpeningMove::class, fetch = FetchType.EAGER, optional = true, cascade = [CascadeType.ALL])
+    @ManyToOne(targetEntity = OpeningMove::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.ALL])
     val parent: OpeningMove? = null,
 
-    @OneToMany(mappedBy = "openingMove", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "openingMove", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     val moveEvaluations: Set<OpeningMoveEvaluation> = emptySet(),
 
     @Id
