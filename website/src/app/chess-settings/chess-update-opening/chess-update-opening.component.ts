@@ -9,6 +9,7 @@ import {ChessService} from "../../core/api-services/chess.service";
 import {SelectChessOpeningComponent} from "../select-chess-opening/select-chess-opening.component";
 import {ChessOpening} from "../../core/models/chess/chess.models";
 import {of} from "rxjs";
+import {ChessMoveTreeComponent} from "../../chess/chess-move-tree/chess-move-tree.component";
 
 @Component({
   selector: 'app-chess-update-opening',
@@ -19,7 +20,8 @@ import {of} from "rxjs";
         FormsModule,
         InputText,
         ReactiveFormsModule,
-        SelectChessOpeningComponent
+        SelectChessOpeningComponent,
+        ChessMoveTreeComponent
     ],
   templateUrl: './chess-update-opening.component.html',
   styleUrl: './chess-update-opening.component.scss'

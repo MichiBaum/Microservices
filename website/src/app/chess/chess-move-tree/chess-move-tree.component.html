@@ -1,0 +1,21 @@
+<p-organization-chart [value]="moveTree()">
+    <ng-template let-node pTemplate="default">
+        <div class="flex flex-col items-center">
+            <div class="font-bold">{{ node.label }}</div>
+            <div
+                *ngIf="node.data.openingName && node.data.openingName !== '' && node.data.openingName as openingName"
+                class="text-sm"
+            >{{ openingName }}</div>
+            <fa-icon [pTooltip]="tooltipContent" [tooltipOptions]="tooltipOptions" *ngIf="node.data.evaluations.length != 0" [icon]="faCircleInfo"></fa-icon>
+            <ng-template #tooltipContent>
+                <div class="block">
+                    <span class="text-sm block" *ngFor="let eval of node.data.evaluations">{{ eval.engineName }}({{eval.engineVersion}}) evaluated {{eval.evaluation}} at depth {{ eval.depth }}</span>
+                </div>
+            </ng-template>
+            <div *hasPermissions="[Permissions.CHESS_SERVICE_ADMIN]" class="flex gap-2 mt-2">
+                <p-button label="Add Move" />
+                <p-button label="Add Eval" />
+            </div>
+        </div>
+    </ng-template>
+</p-organization-chart>

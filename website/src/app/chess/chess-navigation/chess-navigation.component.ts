@@ -100,6 +100,10 @@ export class ChessNavigationComponent {
         customIcon: faCalendarDays,
         items: menuEvents,
       },
+        {
+            label: 'Openings',
+            routerLink: '/chess/openings'
+        },
       {
         label: 'chess.navigation.settings',
         customIcon: faGears,

@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.opening
 
+import com.michibaum.chess_service.domain.ChessEngine
 import com.michibaum.chess_service.domain.Opening
 import org.springframework.stereotype.Component
 import java.util.*
@@ -13,15 +14,18 @@ class OpeningConverter {
             name = opening.name,
         )
 
-    fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>): OpeningMoveDto? {
+    fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveDto? {
         // Group evaluations by move ID
         val evaluationsByMoveId: Map<UUID, List<EvaluationDto>> = moves
             .filter { it.getEngineId() != null && it.getDepth() != null && it.getEvaluation() != null }
             .groupBy(
             keySelector = { it.getMoveId() },
             valueTransform = { move ->
+                val chessEngine = engines.find { engine -> engine.id == move.getEngineId() }
                 EvaluationDto(
                     engineId = move.getEngineId()!!.toString(),
+                    engineName = chessEngine?.name ?: "",
+                    engineVersion = chessEngine?.version ?: "",
                     depth = move.getDepth()!!,
                     evaluation = move.getEvaluation()!!
                 )
@@ -42,6 +46,8 @@ class OpeningConverter {
                 OpeningMoveDto(
                     id = moveId.toString(),
                     move = move.getMove(),
+                    openingName = move.getOpeningName(),
+                    openingId = move.getOpeningId()?.toString(),
                     nextMoves = listOf(),
                     evaluations = evaluationsByMoveId[moveId] ?: listOf()
                 )
@@ -63,14 +69,18 @@ class OpeningConverter {
             dto.nextMoves = childrenMap[dtoIdAsUuid] ?: listOf()
         }
 
-        // Find the root of the tree (a move with no parentId)
-        val rootMoveProjection = moves.find { it.getParentId() == null }
-        return if (rootMoveProjection != null) {
-            val rootId = rootMoveProjection.getMoveId()
-            moveDtos.find { UUID.fromString(it.id) == rootId }
-        } else {
-            null // Return null if no root is found
+        if(firstMoveId != null) {
+            return moveDtos.find { UUID.fromString(it.id) == firstMoveId }
         }
+
+        // Find the root of the tree
+        val rootMoveProjection = moves.find { it.getParentId() == null }
+        if (rootMoveProjection != null) {
+            val rootId = rootMoveProjection.getMoveId()
+            return moveDtos.find { UUID.fromString(it.id) == rootId }
+        }
+
+        throw NoSuchElementException("No root found (with: $firstMoveId) for moves: $moves")
     }
 
 }

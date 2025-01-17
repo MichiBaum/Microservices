@@ -128,6 +128,8 @@ export interface ChessOpening{
 
 export interface ChessEvaluation{
     engineId: string;
+    engineName: string;
+    engineVersion: string;
     depth: number;
     evaluation: string;
 }
@@ -135,6 +137,8 @@ export interface ChessEvaluation{
 export interface ChessOpeningMove{
     id: string;
     move: string;
+    openingName: string;
+    openingId: string;
     nextMoves: ChessOpeningMove[];
     evaluations: ChessEvaluation[]
 }

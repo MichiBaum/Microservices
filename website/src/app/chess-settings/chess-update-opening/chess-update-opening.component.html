@@ -31,5 +31,9 @@
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
     </p-fieldset>
 
+    <p-fieldset legend="Openings Form">
+        <app-chess-move-tree [move]="openingMoves.value()"></app-chess-move-tree>
+    </p-fieldset>
+
   </div>
 </div>

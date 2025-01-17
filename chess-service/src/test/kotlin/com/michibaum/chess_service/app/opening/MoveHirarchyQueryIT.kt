@@ -26,7 +26,7 @@ class MoveHirarchyQueryIT {
         val saved = openingMoveRepository.save(move3)
 
         // WHEN
-        val result = openingMoveRepository.findMoveHierarchy(saved.id!!)
+        val result = openingMoveRepository.findMoveHirarchyBefore(saved.id!!)
 
         // THEN
         assertEquals(4, result.size)

@@ -9,4 +9,6 @@ interface MoveHierarchyProjection {
     fun getEngineId(): UUID?
     fun getDepth(): Int?
     fun getEvaluation(): String?
+    fun getOpeningName(): String?
+    fun getOpeningId(): UUID?
 }

@@ -66,6 +66,19 @@ export const routes: Routes = [
         loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
         canActivate: []
       },
+        {
+            path: "openings",
+            loadComponent: () => import("./chess/chess-openings/chess-openings.component").then((c) => c.ChessOpeningsComponent),
+            canActivate: [],
+            children: [
+                {
+                    path: ":id",
+                    loadComponent: () => import("./chess/chess-openings/chess-opening/chess-opening.component").then((c) => c.ChessOpeningComponent),
+                    canActivate: []
+                }
+            ]
+        },
+
       {
         path: "settings",
         canActivate: [isAuthenticatedGuard, isPermittedGuard],

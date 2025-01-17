@@ -7,37 +7,59 @@ import org.springframework.data.repository.query.Param
 import java.util.UUID
 
 interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
-    fun findAllByParent(parent: OpeningMove?): List<OpeningMove>
+    fun findAllByParentId(parent: UUID?): List<OpeningMove>
 
     @Query(value = """
         WITH RECURSIVE move_hierarchy AS (
             SELECT id, move, parent_id
-            FROM
-                opening_move
-            WHERE
-                id = :startingId
+            FROM opening_move
+            WHERE id = :startingId
             
             UNION ALL
             
-            SELECT om.id, om.move, om.parent_id
-            FROM
-                opening_move om
-            INNER JOIN move_hierarchy mh
-                ON om.id = mh.parent_id
+            SELECT move.id, move.move, move.parent_id
+            FROM opening_move move
+            INNER JOIN move_hierarchy hierarchy ON move.id = hierarchy.parent_id
         )
         SELECT
-            mh.id AS moveId,
-            mh.move AS move,
-            mh.parent_id AS parentId,
-            ome.engine_id AS engineId,
-            ome.depth AS depth,
-            ome.evaluation AS evaluation
-        FROM
-            move_hierarchy mh
-        LEFT JOIN
-            opening_move_evaluation ome
-        ON
-            mh.id = ome.opening_move_id
+            hierarchy.id AS moveId,
+            hierarchy.move AS move,
+            hierarchy.parent_id AS parentId,
+            evaluation.engine_id AS engineId,
+            evaluation.depth AS depth,
+            evaluation.evaluation AS evaluation,
+            opening.name AS openingName,
+            opening.id AS openingId
+        FROM move_hierarchy hierarchy
+        LEFT JOIN opening_move_evaluation evaluation ON hierarchy.id = evaluation.opening_move_id
+        LEFT JOIN opening ON hierarchy.id = opening.last_move_id
         """, nativeQuery = true)
-    fun findMoveHierarchy(@Param("startingId") startingId: UUID): List<MoveHierarchyProjection>
+    fun findMoveHirarchyBefore(@Param("startingId") startingId: UUID): List<MoveHierarchyProjection>
+
+    @Query(value = """
+        WITH RECURSIVE move_hierarchy AS (
+            SELECT id, move, parent_id
+            FROM opening_move
+            WHERE id = :startingId
+    
+            UNION ALL
+    
+            SELECT move.id, move.move, move.parent_id
+            FROM opening_move move
+            INNER JOIN move_hierarchy hierarchy ON move.parent_id = hierarchy.id
+        )
+        SELECT
+            hierarchy.id AS moveId,
+            hierarchy.move AS move,
+            hierarchy.parent_id AS parentId,
+            evaluation.engine_id AS engineId,
+            evaluation.depth AS depth,
+            evaluation.evaluation AS evaluation,
+            opening.name AS openingName,
+            opening.id AS openingId
+        FROM move_hierarchy hierarchy
+        LEFT JOIN opening_move_evaluation evaluation ON hierarchy.id = evaluation.opening_move_id
+        LEFT JOIN opening ON hierarchy.id = opening.last_move_id;
+    """, nativeQuery = true)
+    fun findMoveChildren(@Param("startingId") startingId: UUID?): List<MoveHierarchyProjection>
 }

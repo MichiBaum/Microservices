@@ -49,7 +49,23 @@ class OpeningService(
     }
 
     fun findMoveHierarchy(lastMove: OpeningMove): List<MoveHierarchyProjection> {
-        return openingMoveRepository.findMoveHierarchy(lastMove.id!!)
+        return openingMoveRepository.findMoveHirarchyBefore(lastMove.id!!)
+    }
+
+    fun findMoveChildren(move: OpeningMove): List<MoveHierarchyProjection> {
+        return openingMoveRepository.findMoveChildren(move.id!!)
+    }
+
+    fun findMoveBy(uuid: UUID): OpeningMove? {
+        return openingMoveRepository.findById(uuid).getOrNull()
+    }
+
+    fun findMoveByParent(id: UUID?): List<OpeningMove> {
+        return openingMoveRepository.findAllByParentId(id)
+    }
+
+    fun openingsByMoves(moves: List<OpeningMove>): List<Opening> {
+        return openingRepository.findByLastMoveIn(moves)
     }
 
 }
