@@ -142,3 +142,9 @@ export interface ChessOpeningMove{
     nextMoves: ChessOpeningMove[];
     evaluations: ChessEvaluation[]
 }
+
+export interface WriteOpeningMove{
+    id: string;
+    move: string;
+    parentMoveId: string;
+}

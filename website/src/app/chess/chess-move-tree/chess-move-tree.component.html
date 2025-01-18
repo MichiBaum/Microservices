@@ -1,4 +1,4 @@
-<p-organization-chart [value]="moveTree()">
+<p-organization-chart [value]="moveTree()" [collapsible]="true">
     <ng-template let-node pTemplate="default">
         <div class="flex flex-col items-center">
             <div class="font-bold">{{ node.label }}</div>
@@ -13,9 +13,13 @@
                 </div>
             </ng-template>
             <div *hasPermissions="[Permissions.CHESS_SERVICE_ADMIN]" class="flex gap-2 mt-2">
-                <p-button label="Add Move" />
+                <p-button label="Add Move" (click)="showMoveDialog(node)"/>
                 <p-button label="Add Eval" />
+                <p-button label="Add Opening" (click)="showOpeningDialog(node)"/>
             </div>
         </div>
     </ng-template>
 </p-organization-chart>
+
+<app-chess-opening-move-form-dialog ([visible])="moveDialogVisible()"></app-chess-opening-move-form-dialog>
+<app-chess-opening-form-dialog ([visible])="openingDialogVisible()"></app-chess-opening-form-dialog>

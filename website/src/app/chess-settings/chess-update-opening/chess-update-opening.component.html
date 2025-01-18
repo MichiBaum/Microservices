@@ -10,28 +10,11 @@
 
     </p-fieldset>
 
-    <p-fieldset legend="Openings Form">
-      <form [formGroup]="formGroup">
-
-        <p-floatlabel variant="in" class="mb-2">
-          <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
-          <label for="id">ID</label>
-        </p-floatlabel>
-
-        <p-floatlabel variant="in" class="mb-2">
-          <input class="w-full" pInputText id="name" formControlName="name" autocomplete="off" />
-          <label for="name">Name</label>
-        </p-floatlabel>
-
-      </form>
+    <p-fieldset legend="Opening Form">
+        <app-chess-opening-form [opening]="selectedOpening()" (onClear)="clear()" (onSave)="save()"></app-chess-opening-form>
     </p-fieldset>
 
-    <p-fieldset legend="Action">
-      <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
-      <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-    </p-fieldset>
-
-    <p-fieldset legend="Openings Form">
+    <p-fieldset legend="Openings Tree">
         <app-chess-move-tree [move]="openingMoves.value()"></app-chess-move-tree>
     </p-fieldset>
 

@@ -10,6 +10,7 @@ import {SelectChessOpeningComponent} from "../select-chess-opening/select-chess-
 import {ChessOpening} from "../../core/models/chess/chess.models";
 import {of} from "rxjs";
 import {ChessMoveTreeComponent} from "../../chess/chess-move-tree/chess-move-tree.component";
+import {ChessOpeningFormComponent} from "../../chess/chess-opening-form/chess-opening-form.component";
 
 @Component({
   selector: 'app-chess-update-opening',
@@ -21,7 +22,8 @@ import {ChessMoveTreeComponent} from "../../chess/chess-move-tree/chess-move-tre
         InputText,
         ReactiveFormsModule,
         SelectChessOpeningComponent,
-        ChessMoveTreeComponent
+        ChessMoveTreeComponent,
+        ChessOpeningFormComponent
     ],
   templateUrl: './chess-update-opening.component.html',
   styleUrl: './chess-update-opening.component.scss'

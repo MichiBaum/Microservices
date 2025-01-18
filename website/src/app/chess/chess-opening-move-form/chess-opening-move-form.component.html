@@ -1,0 +1,16 @@
+<form [formGroup]="formGroup">
+
+    <p-floatlabel variant="in" class="mb-2">
+        <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+        <label for="id">ID</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in" class="mb-2">
+        <input class="w-full" pInputText id="move" formControlName="move" autocomplete="off" />
+        <label for="move">Move</label>
+    </p-floatlabel>
+
+</form>
+
+<p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+<p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
