@@ -122,8 +122,9 @@ export interface WriteChessEngine {
 }
 
 export interface ChessOpening{
-  id: string;
-  name: string;
+    id: string;
+    name: string;
+    moveId: string;
 }
 
 export interface ChessEvaluation{

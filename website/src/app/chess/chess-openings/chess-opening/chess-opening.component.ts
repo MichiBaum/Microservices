@@ -38,4 +38,7 @@ export class ChessOpeningComponent implements OnDestroy{
         this.routeParamsSubscription.unsubscribe()
     }
 
+    reloadData() {
+        this.openingMove.reload()
+    }
 }

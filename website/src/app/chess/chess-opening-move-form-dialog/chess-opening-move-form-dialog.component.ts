@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {Component, input, linkedSignal, output} from '@angular/core';
 import {ChessOpeningMoveFormComponent} from "../chess-opening-move-form/chess-opening-move-form.component";
 import {Dialog} from "primeng/dialog";
 import {WriteOpeningMove} from "../../core/models/chess/chess.models";
@@ -14,12 +14,18 @@ import {WriteOpeningMove} from "../../core/models/chess/chess.models";
 })
 export class ChessOpeningMoveFormDialogComponent {
     visible = input<boolean>(false);
-    visibleChange = output<boolean>({alias: '[visible]'});
+    _visible = linkedSignal(() => this.visible())
     openingMove = input<WriteOpeningMove | undefined>(undefined);
+    visibleChange = output<boolean>();
+    saved = output<WriteOpeningMove>();
 
-    protected readonly close = close;
-
-    onHide() {
+    hide() {
+        this._visible.set(false);
         this.visibleChange.emit(false);
+    }
+
+    savedChange(move: WriteOpeningMove) {
+        this.hide()
+        this.saved.emit(move);
     }
 }

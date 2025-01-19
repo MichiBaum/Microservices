@@ -13,7 +13,7 @@ import {
     SearchPerson,
     WriteChessEngine,
     WriteChessEvent,
-    WriteChessEventCategory,
+    WriteChessEventCategory, WriteOpeningMove,
     WritePerson
 } from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
@@ -170,4 +170,11 @@ export class ChessService {
           .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
+  openingMove(move: WriteOpeningMove): Observable<WriteOpeningMove> {
+    return this.http.post<WriteOpeningMove>(this.environment.chessService() + '/openings/moves', move)
+  }
+
+    opening(opening: ChessOpening): Observable<ChessOpening> {
+        return this.http.post<ChessOpening>(this.environment.chessService() + '/openings', opening)
+    }
 }

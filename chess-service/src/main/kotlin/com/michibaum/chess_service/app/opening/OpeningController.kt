@@ -3,6 +3,9 @@ package com.michibaum.chess_service.app.opening
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.chess_service.app.chessengine.ChessEngineService
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
 
@@ -31,6 +34,7 @@ class OpeningController(
     }
 
     @PostMapping("/api/openings")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun createOpening(@RequestBody dto: OpeningDto): ResponseEntity<OpeningResponseDto> {
         val opening = openingService.createOpening(dto)
         val response = openingConverter.toDto(opening)
@@ -38,10 +42,28 @@ class OpeningController(
     }
 
     @PostMapping("/api/openings/{id}")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun updateOpening(@PathVariable id: UUID, @RequestBody dto: OpeningDto): ResponseEntity<OpeningResponseDto> {
         val opening = openingService.updateOpening(id, dto)
         val response = openingConverter.toDto(opening)
         return ResponseEntity.ok(response)
+    }
+
+    @PostMapping("/api/openings/moves")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    fun createMove(@RequestBody dto: WriteOpeningMoveDto): ResponseEntity<SimpleOpeningMoveDto> {
+        return try {
+            val uuid = UUID.fromString(dto.parentMoveId)
+            val parentMove = openingService.findMoveBy(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val created = openingService.createMove(dto, parentMove)
+            val newDto = openingConverter.convert(created)
+            return ResponseEntity.ok(newDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
     }
 
     @PublicEndpoint

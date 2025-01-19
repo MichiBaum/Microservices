@@ -1,13 +1,10 @@
 import {Component, inject, signal} from '@angular/core';
-import {Button} from "primeng/button";
 import {Fieldset} from "primeng/fieldset";
-import {FloatLabel} from "primeng/floatlabel";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {InputText} from "primeng/inputtext";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {ChessService} from "../../core/api-services/chess.service";
 import {SelectChessOpeningComponent} from "../select-chess-opening/select-chess-opening.component";
-import {ChessOpening} from "../../core/models/chess/chess.models";
+import {ChessOpening, WriteOpeningMove} from "../../core/models/chess/chess.models";
 import {of} from "rxjs";
 import {ChessMoveTreeComponent} from "../../chess/chess-move-tree/chess-move-tree.component";
 import {ChessOpeningFormComponent} from "../../chess/chess-opening-form/chess-opening-form.component";
@@ -15,11 +12,8 @@ import {ChessOpeningFormComponent} from "../../chess/chess-opening-form/chess-op
 @Component({
   selector: 'app-chess-update-opening',
     imports: [
-        Button,
         Fieldset,
-        FloatLabel,
         FormsModule,
-        InputText,
         ReactiveFormsModule,
         SelectChessOpeningComponent,
         ChessMoveTreeComponent,
@@ -71,7 +65,7 @@ export class ChessUpdateOpeningComponent {
     }
 
     save() {
-	// 	TODO
+
     }
 
     clear() {

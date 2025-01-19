@@ -2,6 +2,7 @@ package com.michibaum.chess_service.app.opening
 
 import com.michibaum.chess_service.domain.ChessEngine
 import com.michibaum.chess_service.domain.Opening
+import com.michibaum.chess_service.domain.OpeningMove
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -12,6 +13,7 @@ class OpeningConverter {
         OpeningResponseDto(
             id = opening.id?.toString() ?: "",
             name = opening.name,
+            moveId = opening.lastMove.id?.toString() ?: ""
         )
 
     fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveDto? {
@@ -81,6 +83,14 @@ class OpeningConverter {
         }
 
         throw NoSuchElementException("No root found (with: $firstMoveId) for moves: $moves")
+    }
+
+    fun convert(move: OpeningMove): SimpleOpeningMoveDto {
+        return SimpleOpeningMoveDto(
+            id = move.id?.toString() ?: "",
+            move = move.move,
+            parentMoveId = move.parent?.id?.toString() ?: ""
+        )
     }
 
 }

@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {Component, input, linkedSignal, output} from '@angular/core';
 import {Dialog} from "primeng/dialog";
 import {ChessOpeningFormComponent} from "../chess-opening-form/chess-opening-form.component";
 import {ChessOpening} from "../../core/models/chess/chess.models";
@@ -15,10 +15,18 @@ import {ChessOpening} from "../../core/models/chess/chess.models";
 export class ChessOpeningFormDialogComponent {
 
     visible = input<boolean>(false);
-    visibleChange = output<boolean>({alias: '[visible]'});
+    _visible = linkedSignal(() => this.visible())
     opening = input<ChessOpening | undefined>(undefined);
+    visibleChange = output<boolean>();
+    saved = output<ChessOpening>();
 
     onHide() {
         this.visibleChange.emit(false);
     }
+
+    savedChange(opening: ChessOpening) {
+        this.onHide();
+        this.saved.emit(opening);
+    }
+
 }

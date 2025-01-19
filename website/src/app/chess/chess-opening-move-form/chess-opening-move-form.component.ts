@@ -1,9 +1,10 @@
-import {Component, input, OnChanges, output, SimpleChanges} from '@angular/core';
+import {Component, inject, input, OnChanges, output, SimpleChanges} from '@angular/core';
 import {WriteOpeningMove} from "../../core/models/chess/chess.models";
 import {FloatLabel} from "primeng/floatlabel";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {InputText} from "primeng/inputtext";
 import {Button} from "primeng/button";
+import {ChessService} from "../../core/api-services/chess.service";
 
 @Component({
     selector: 'app-chess-opening-move-form',
@@ -18,9 +19,11 @@ import {Button} from "primeng/button";
     styleUrl: './chess-opening-move-form.component.scss'
 })
 export class ChessOpeningMoveFormComponent implements OnChanges {
+    chessService = inject(ChessService)
+
     openingMove = input<WriteOpeningMove | undefined>()
 
-    onSave = output<WriteOpeningMove>()
+    saved = output<WriteOpeningMove>()
     onClear = output<void>()
 
     formGroup: FormGroup = new FormGroup({
@@ -52,7 +55,15 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
 
 
     save() {
-        //this.onSave.emit()
+        const newMove: WriteOpeningMove = {
+            id: this.formGroup.controls['id'].value ?? '',
+            move: this.formGroup.controls['move'].value ?? '',
+            parentMoveId: this.openingMove()?.parentMoveId ?? '',
+        }
+        this.chessService.openingMove(newMove).subscribe( savedMove => {
+            this.saved.emit(savedMove)
+            this.clear()
+        })
     }
 
     clear() {

@@ -11,7 +11,7 @@
     </p-fieldset>
 
     <p-fieldset legend="Opening Form">
-        <app-chess-opening-form [opening]="selectedOpening()" (onClear)="clear()" (onSave)="save()"></app-chess-opening-form>
+        <app-chess-opening-form [opening]="selectedOpening()" (onClear)="clear()" (saved)="save()"></app-chess-opening-form>
     </p-fieldset>
 
     <p-fieldset legend="Openings Tree">

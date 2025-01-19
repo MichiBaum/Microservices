@@ -17,8 +17,8 @@ class OpeningService(
     }
 
     fun createOpening(dto: OpeningDto): Opening {
-        val lastMove: OpeningMove = openingMoveRepository.findById(dto.lastMoveId)
-            .orElseThrow { IllegalArgumentException("Invalid lastMoveId: ${dto.lastMoveId}") }
+        val lastMove: OpeningMove = openingMoveRepository.findById(dto.moveId)
+            .orElseThrow { IllegalArgumentException("Invalid lastMoveId: ${dto.moveId}") }
 
         val opening = Opening(
             name = dto.name,
@@ -32,8 +32,8 @@ class OpeningService(
         val opening = openingRepository.findById(id)
             .orElseThrow { IllegalArgumentException("Opening not found with id: $id") }
 
-        val lastMove: OpeningMove = openingMoveRepository.findById(dto.lastMoveId)
-            .orElseThrow { IllegalArgumentException("Invalid lastMoveId: ${dto.lastMoveId}") }
+        val lastMove: OpeningMove = openingMoveRepository.findById(dto.moveId)
+            .orElseThrow { IllegalArgumentException("Invalid lastMoveId: ${dto.moveId}") }
 
         // Update fields
         val updatedOpening = opening.copy(
@@ -66,6 +66,14 @@ class OpeningService(
 
     fun openingsByMoves(moves: List<OpeningMove>): List<Opening> {
         return openingRepository.findByLastMoveIn(moves)
+    }
+
+    fun createMove(dto: WriteOpeningMoveDto, parentMove: OpeningMove): OpeningMove {
+        val newMove = OpeningMove(
+            move = dto.move,
+            parent = parentMove
+        )
+        return openingMoveRepository.save(newMove)
     }
 
 }
