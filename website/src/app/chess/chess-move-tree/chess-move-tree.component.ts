@@ -1,22 +1,18 @@
-import {Component, computed, input, output, signal} from '@angular/core';
+import {Component, computed, inject, input, output, signal} from '@angular/core';
 import {OrganizationChart} from "primeng/organizationchart";
 import {ChessOpening, ChessOpeningMove, WriteOpeningMove} from "../../core/models/chess/chess.models";
 import {MenuItem, PrimeTemplate, TreeNode} from "primeng/api";
-import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Tooltip} from "primeng/tooltip";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
-import {Button} from "primeng/button";
-import {HasPermissionsDirective} from "../../core/directives/has-permissions.directive";
-import {Permissions} from "../../core/config/permissions";
 import {
     ChessOpeningMoveFormDialogComponent
 } from "../chess-opening-move-form-dialog/chess-opening-move-form-dialog.component";
 import {ChessOpeningFormDialogComponent} from "../chess-opening-form-dialog/chess-opening-form-dialog.component";
-import {ButtonGroup} from "primeng/buttongroup";
-import {Dock} from "primeng/dock";
 import {Menubar} from "primeng/menubar";
-import {Toolbar} from "primeng/toolbar";
+import {PermissionService} from "../../core/services/permission.service";
+import {Permissions} from "../../core/config/permissions";
 
 @Component({
   selector: 'app-chess-move-tree',
@@ -27,22 +23,16 @@ import {Toolbar} from "primeng/toolbar";
         NgForOf,
         Tooltip,
         FaIconComponent,
-        Button,
-        HasPermissionsDirective,
         ChessOpeningMoveFormDialogComponent,
         ChessOpeningFormDialogComponent,
-        ButtonGroup,
-        Dock,
-        NgStyle,
         Menubar,
-        Toolbar,
     ],
   templateUrl: './chess-move-tree.component.html',
   styleUrl: './chess-move-tree.component.scss'
 })
 export class ChessMoveTreeComponent {
+    private readonly permissionService = inject(PermissionService);
     protected readonly faCircleInfo = faCircleInfo;
-    protected readonly Permissions = Permissions;
 
     move = input<ChessOpeningMove>()
     moveTree = computed<TreeNode[]>(() => {
@@ -53,7 +43,7 @@ export class ChessMoveTreeComponent {
         const buildTree = (move: ChessOpeningMove, layer: number): TreeNode => ({
             label: move.move,
             key: move.id,
-            expanded: layer < 6,
+            expanded: layer < 5,
             data: move,
             children: move.nextMoves.map((nextMove) => buildTree(nextMove, layer + 1))
         });
@@ -92,20 +82,38 @@ export class ChessMoveTreeComponent {
     }
 
     selectedMove = signal<TreeNode | undefined>(undefined);
-    items: MenuItem[] = [
-        {
-            label: 'Add Opening', command: () => {
-                const selectedMove = this.selectedMove()
-                if(selectedMove == undefined) return
-                this.openNewOpeningDialog(selectedMove)
+    items = computed<MenuItem[]>(() => {
+        const selectedMove = this.selectedMove()
+        const hasAdminPermission = this.permissionService.hasAnyOf([Permissions.CHESS_SERVICE_ADMIN])
+        return [
+            {
+                label: 'Inspect Opening',
+                visible: selectedMove != undefined,
+            },
+            {
+                label: 'Select as Root',
+                visible: selectedMove != undefined,
+                routerLink: '/chess/openings/' + selectedMove?.data.openingId,
+            },
+            {
+                label: 'Add Opening',
+                visible: selectedMove != undefined && hasAdminPermission,
+                command: () => {
+                    const selectedMove = this.selectedMove()
+                    if(selectedMove == undefined) return
+                    this.openNewOpeningDialog(selectedMove)
+                }
+            },
+            {
+                label: 'Add Move',
+                visible: selectedMove != undefined && hasAdminPermission,
+                command: () => {
+                    const selectedMove = this.selectedMove()
+                    if(selectedMove == undefined) return
+                    this.openNewMoveDialog(selectedMove)
+                }
             }
-        },
-        {
-            label: 'Add Move', command: () => {
-                const selectedMove = this.selectedMove()
-                if(selectedMove == undefined) return
-                this.openNewMoveDialog(selectedMove)
-            }
-        }
-    ];
+        ];
+    });
+
 }
