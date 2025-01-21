@@ -68,13 +68,13 @@ class OpeningController(
 
     @PublicEndpoint
     @GetMapping("/api/moves/{id}/children")
-    fun getAllChildren(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
+    fun getAllChildren(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
         return try {
             val uuid = UUID.fromString(id)
             val move = openingService.findMoveBy(uuid) ?:
                 return ResponseEntity.notFound().build()
             val engines = engineService.getAllChessEngines()
-            val moves = openingService.findMoveChildren(move)
+            val moves = openingService.findMoveChildren(move, maxDepth)
             val moveHierarchy = openingConverter.buildMoveHierarchy(moves, engines, move.id)
             return ResponseEntity.ok(moveHierarchy)
         } catch (ex: IllegalArgumentException) {
@@ -104,14 +104,14 @@ class OpeningController(
 
     @PublicEndpoint
     @GetMapping("/api/openings/{id}/children")
-    fun getAllChildrenFromOpening(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
+    fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
         return try {
             val uuid = UUID.fromString(id)
             val opening = openingService.getOpeningById(uuid) ?:
                 return ResponseEntity.notFound().build()
             val engines = engineService.getAllChessEngines()
             val lastMove = opening.lastMove
-            val moves = openingService.findMoveChildren(lastMove)
+            val moves = openingService.findMoveChildren(lastMove, maxDepth)
             val moveHierarchy = openingConverter.buildMoveHierarchy(moves, engines, lastMove.id)
             return ResponseEntity.ok(moveHierarchy)
         } catch (ex: IllegalArgumentException) {

@@ -1,4 +1,4 @@
-import {Component, computed, input, output} from '@angular/core';
+import {Component, computed, Input, input, output} from '@angular/core';
 import {
     OrganizationChart,
     OrganizationChartNodeSelectEvent,
@@ -28,6 +28,7 @@ export class ChessMoveTreeComponent {
     protected readonly faCircleInfo = faCircleInfo;
 
     showEvaluation = input<boolean>(false);
+    treeDepth = input.required<number>();
     move = input<ChessOpeningMove>()
     moveTree = computed<TreeNode[]>(() => {
         const data = this.move();
@@ -36,7 +37,7 @@ export class ChessMoveTreeComponent {
         const buildTree = (move: ChessOpeningMove, layer: number): TreeNode => ({
             label: move.move,
             key: move.id,
-            expanded: layer < 5,
+            expanded: layer < this.treeDepth(),
             data: move,
             children: move.nextMoves.map((nextMove) => buildTree(nextMove, layer + 1))
         });

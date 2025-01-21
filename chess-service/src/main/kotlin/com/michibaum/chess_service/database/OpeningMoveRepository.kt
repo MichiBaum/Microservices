@@ -37,15 +37,16 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
 
     @Query(value = """
         WITH RECURSIVE move_hierarchy AS (
-            SELECT id, move, parent_id
+            SELECT id, move, parent_id, 0 AS depth
             FROM opening_move
             WHERE id = :startingId
     
             UNION ALL
     
-            SELECT move.id, move.move, move.parent_id
+            SELECT move.id, move.move, move.parent_id, hierarchy.depth + 1
             FROM opening_move move
             INNER JOIN move_hierarchy hierarchy ON move.parent_id = hierarchy.id
+            WHERE hierarchy.depth + 1 <= :maxDepth
         )
         SELECT
             hierarchy.id AS moveId,
@@ -60,5 +61,5 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
         LEFT JOIN opening_move_evaluation evaluation ON hierarchy.id = evaluation.opening_move_id
         LEFT JOIN opening ON hierarchy.id = opening.last_move_id;
     """, nativeQuery = true)
-    fun findMoveChildren(@Param("startingId") startingId: UUID?): List<MoveHierarchyProjection>
+    fun findMoveChildren(@Param("startingId") startingId: UUID?, @Param("maxDepth") maxDepth: Int): List<MoveHierarchyProjection>
 }

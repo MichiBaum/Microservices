@@ -27,13 +27,14 @@ export class ChessOpeningComponent implements OnDestroy{
         this.openingId.set(id)
     });
 
+    moveTreeDepth = signal(6)
     openingMove = rxResource({
         request: () => ({openingId: this.openingId()}),
         loader: (params) => {
             let openingId = params.request.openingId;
             if (openingId == undefined)
                 return of(undefined)
-            return this.chessService.openingChildrenMoves(this.openingId())
+            return this.chessService.openingChildrenMoves(this.openingId(), this.moveTreeDepth())
         }
     })
 

@@ -165,8 +165,8 @@ export class ChessService {
           .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
-  openingChildrenMoves(id: string): Observable<ChessOpeningMove> {
-      return this.http.get<ChessOpeningMove>(this.environment.chessService() + `/openings/${id}/children`)
+  openingChildrenMoves(id: string, maxDepth: number): Observable<ChessOpeningMove> {
+      return this.http.get<ChessOpeningMove>(this.environment.chessService() + `/openings/${id}/children?maxDepth=${maxDepth}`)
           .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 

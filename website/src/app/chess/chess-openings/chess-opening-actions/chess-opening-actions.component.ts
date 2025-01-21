@@ -26,6 +26,7 @@ export class ChessOpeningActionsComponent {
     items = computed<MenuItem[]>(() => {
         const selectedMove = this.selectedMove()
         const hasAdminPermission = this.permissionService.hasAnyOf([Permissions.CHESS_SERVICE_ADMIN])
+        const hasOpening = selectedMove?.openingId != undefined
         return [
             {
                 label: 'To Start',
@@ -33,11 +34,11 @@ export class ChessOpeningActionsComponent {
             },
             {
                 label: 'Inspect Opening',
-                visible: selectedMove != undefined,
+                visible: selectedMove != undefined && hasOpening,
             },
             {
                 label: 'Select as Root',
-                visible: selectedMove != undefined,
+                visible: selectedMove != undefined && hasOpening,
                 routerLink: '/chess/openings/' + selectedMove?.openingId,
             },
             {
