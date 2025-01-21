@@ -1,6 +1,5 @@
-package com.michibaum.chess_service.app.chessengine
+package com.michibaum.chess_service.database
 
-import com.michibaum.chess_service.domain.ChessEngine
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 

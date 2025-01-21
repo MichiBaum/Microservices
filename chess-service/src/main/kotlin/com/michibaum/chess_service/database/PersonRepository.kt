@@ -1,6 +1,5 @@
-package com.michibaum.chess_service.app.person
+package com.michibaum.chess_service.database
 
-import com.michibaum.chess_service.domain.Person
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

@@ -2,11 +2,7 @@ package com.michibaum.chess_service.app.game
 
 import com.michibaum.chess_service.apis.ApiService
 import com.michibaum.chess_service.apis.dtos.GameDto
-import com.michibaum.chess_service.app.account.AccountRepository
-import com.michibaum.chess_service.domain.Account
-import com.michibaum.chess_service.domain.Event
-import com.michibaum.chess_service.domain.Game
-import com.michibaum.chess_service.domain.Player
+import com.michibaum.chess_service.database.*
 import com.michibaum.chess_service.get
 import org.springframework.stereotype.Service
 

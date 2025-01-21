@@ -1,14 +1,14 @@
 package com.michibaum.chess_service.app.chessengine
 
 import com.michibaum.chess_service.TestcontainersConfiguration
-import com.michibaum.chess_service.domain.ChessEngine
+import com.michibaum.chess_service.database.ChessEngine
+import com.michibaum.chess_service.database.ChessEngineRepository
 import org.hamcrest.Matchers.containsInAnyOrder
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get

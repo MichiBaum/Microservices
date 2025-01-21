@@ -3,9 +3,10 @@ package com.michibaum.chess_service.app.game
 import com.michibaum.chess_service.apis.ApiService
 import com.michibaum.chess_service.apis.dtos.GameDto
 import com.michibaum.chess_service.apis.dtos.PlayerDto
-import com.michibaum.chess_service.app.account.AccountRepository
+import com.michibaum.chess_service.database.AccountRepository
 import com.michibaum.chess_service.domain.AccountProvider
-import com.michibaum.chess_service.domain.Game
+import com.michibaum.chess_service.database.Game
+import com.michibaum.chess_service.database.GameRepository
 import com.michibaum.chess_service.domain.GameProvider
 import com.michibaum.chess_service.domain.PlayerProvider
 import io.mockk.every

@@ -1,8 +1,9 @@
 package com.michibaum.chess_service.app.opening
 
-import com.michibaum.chess_service.domain.ChessEngine
-import com.michibaum.chess_service.domain.Opening
-import com.michibaum.chess_service.domain.OpeningMove
+import com.michibaum.chess_service.database.ChessEngine
+import com.michibaum.chess_service.database.MoveHierarchyProjection
+import com.michibaum.chess_service.database.Opening
+import com.michibaum.chess_service.database.OpeningMove
 import org.springframework.stereotype.Component
 import java.util.*
 

@@ -1,7 +1,8 @@
 package com.michibaum.chess_service.app.person
 
-import com.michibaum.chess_service.domain.Account
-import com.michibaum.chess_service.domain.Person
+import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.Person
+import com.michibaum.chess_service.database.PersonRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
@@ -66,7 +67,7 @@ class PersonService(
         return personRepository.save(newPerson)
     }
 
-    fun create(personDto: WritePersonDto): Person{
+    fun create(personDto: WritePersonDto): Person {
         val newPerson = Person(
             firstname = personDto.firstname,
             lastname = personDto.lastname,

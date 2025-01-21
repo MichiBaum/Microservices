@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.account
 
 import com.michibaum.chess_service.TestcontainersConfiguration
+import com.michibaum.chess_service.database.AccountRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 

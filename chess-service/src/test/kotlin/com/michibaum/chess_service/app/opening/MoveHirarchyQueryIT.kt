@@ -1,7 +1,8 @@
 package com.michibaum.chess_service.app.opening
 
 import com.michibaum.chess_service.TestcontainersConfiguration
-import com.michibaum.chess_service.domain.OpeningMove
+import com.michibaum.chess_service.database.OpeningMove
+import com.michibaum.chess_service.database.OpeningMoveRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

@@ -1,6 +1,5 @@
-package com.michibaum.chess_service.app.opening
+package com.michibaum.chess_service.database
 
-import com.michibaum.chess_service.domain.OpeningMove
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param

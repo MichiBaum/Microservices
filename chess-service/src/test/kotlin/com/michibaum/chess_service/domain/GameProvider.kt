@@ -1,5 +1,10 @@
 package com.michibaum.chess_service.domain
 
+import com.michibaum.chess_service.database.ChessPlatform
+import com.michibaum.chess_service.database.Game
+import com.michibaum.chess_service.database.GameType
+import com.michibaum.chess_service.database.Player
+
 class GameProvider {
 
     companion object {

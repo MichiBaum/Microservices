@@ -1,8 +1,9 @@
 package com.michibaum.chess_service.app.opening
 
 import com.michibaum.chess_service.TestcontainersConfiguration
-import com.michibaum.chess_service.domain.Opening
-import com.michibaum.chess_service.domain.OpeningMove
+import com.michibaum.chess_service.database.Opening
+import com.michibaum.chess_service.database.OpeningMove
+import com.michibaum.chess_service.database.OpeningRepository
 import org.hamcrest.Matchers.containsInAnyOrder
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,4 +1,4 @@
-package com.michibaum.chess_service.domain
+package com.michibaum.chess_service.database
 
 import com.michibaum.chess_service.apis.dtos.PieceColor
 import jakarta.persistence.*

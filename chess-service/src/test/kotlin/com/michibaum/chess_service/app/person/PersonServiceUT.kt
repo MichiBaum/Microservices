@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.person
 
+import com.michibaum.chess_service.database.PersonRepository
 import com.michibaum.chess_service.domain.AccountProvider
 import com.michibaum.chess_service.domain.PersonProvider
 import io.mockk.every

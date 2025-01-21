@@ -1,8 +1,7 @@
 package com.michibaum.chess_service.apis.dtos
 
-import com.michibaum.chess_service.domain.Account
-import com.michibaum.chess_service.domain.ChessPlatform
-import com.michibaum.chess_service.domain.Game
+import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.ChessPlatform
 import java.time.LocalDate
 import java.util.*
 

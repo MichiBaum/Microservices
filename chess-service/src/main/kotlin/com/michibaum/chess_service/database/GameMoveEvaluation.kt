@@ -1,25 +1,25 @@
-package com.michibaum.chess_service.domain
+package com.michibaum.chess_service.database
 
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name = "opening_move_evaluation")
-class OpeningMoveEvaluation(
+@Table(name = "game_move_evaluation")
+class GameMoveEvaluation(
 
     @ManyToOne(targetEntity = ChessEngine::class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "engine_id", nullable = false)
     val engine: ChessEngine,
 
-    @ManyToOne(targetEntity = OpeningMove::class, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "opening_move_id", nullable = false)
-    val openingMove: OpeningMove,
+    @ManyToOne(targetEntity = GameMove::class, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "game_move_id", nullable = false)
+    val gameMove: GameMove,
 
     @Column(nullable = false)
     val depth: Int,
 
     @Column(nullable = false)
-    val evaluation: String,
+    val evaluation: Float,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

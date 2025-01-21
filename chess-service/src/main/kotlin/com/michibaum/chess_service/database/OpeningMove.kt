@@ -1,4 +1,4 @@
-package com.michibaum.chess_service.domain
+package com.michibaum.chess_service.database
 
 import jakarta.persistence.*
 import java.util.*

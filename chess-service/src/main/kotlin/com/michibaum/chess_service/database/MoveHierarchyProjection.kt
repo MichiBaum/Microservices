@@ -1,4 +1,4 @@
-package com.michibaum.chess_service.app.opening
+package com.michibaum.chess_service.database
 
 import java.util.*
 

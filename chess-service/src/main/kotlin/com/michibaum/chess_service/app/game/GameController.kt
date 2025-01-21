@@ -1,7 +1,7 @@
 package com.michibaum.chess_service.app.game
 
 import com.michibaum.chess_service.app.account.AccountService
-import com.michibaum.chess_service.domain.Game
+import com.michibaum.chess_service.database.Game
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation

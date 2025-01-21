@@ -1,7 +1,6 @@
 package com.michibaum.chess_service.app.opening
 
-import com.michibaum.chess_service.domain.Opening
-import com.michibaum.chess_service.domain.OpeningMove
+import com.michibaum.chess_service.database.*
 import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.jvm.optionals.getOrNull

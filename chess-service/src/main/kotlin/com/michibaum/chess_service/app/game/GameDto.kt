@@ -1,7 +1,7 @@
 package com.michibaum.chess_service.app.game
 
-import com.michibaum.chess_service.domain.ChessPlatform
-import com.michibaum.chess_service.domain.GameType
+import com.michibaum.chess_service.database.ChessPlatform
+import com.michibaum.chess_service.database.GameType
 import java.util.*
 
 data class GameDto(

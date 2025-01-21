@@ -1,6 +1,5 @@
-package com.michibaum.chess_service.app.event
+package com.michibaum.chess_service.database
 
-import com.michibaum.chess_service.domain.Event
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import java.time.LocalDate

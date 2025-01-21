@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.account
 
-import com.michibaum.chess_service.domain.Account
+import com.michibaum.chess_service.database.Account
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation

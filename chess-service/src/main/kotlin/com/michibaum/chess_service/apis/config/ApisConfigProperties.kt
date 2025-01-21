@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.apis.config
 
-import com.michibaum.chess_service.domain.ChessPlatform
+import com.michibaum.chess_service.database.ChessPlatform
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.web.client.RestClient
 

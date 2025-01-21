@@ -1,7 +1,7 @@
 package com.michibaum.chess_service.app.account
 
-import com.michibaum.chess_service.domain.Account
-import com.michibaum.chess_service.domain.ChessPlatform
+import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.ChessPlatform
 import org.springframework.stereotype.Component
 
 @Component
