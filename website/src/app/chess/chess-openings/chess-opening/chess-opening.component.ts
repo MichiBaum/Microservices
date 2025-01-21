@@ -4,11 +4,14 @@ import {rxResource} from "@angular/core/rxjs-interop";
 import {ChessService} from "../../../core/api-services/chess.service";
 import {of} from "rxjs";
 import {ChessMoveTreeComponent} from "../../chess-move-tree/chess-move-tree.component";
+import {ChessOpeningActionsComponent} from "../chess-opening-actions/chess-opening-actions.component";
+import {ChessOpeningMove} from "../../../core/models/chess/chess.models";
 
 @Component({
   selector: 'app-chess-opening',
     imports: [
-        ChessMoveTreeComponent
+        ChessMoveTreeComponent,
+        ChessOpeningActionsComponent
     ],
   templateUrl: './chess-opening.component.html',
   styleUrl: './chess-opening.component.scss'
@@ -40,5 +43,11 @@ export class ChessOpeningComponent implements OnDestroy{
 
     reloadData() {
         this.openingMove.reload()
+        this.selectedMove.set(undefined)
+    }
+
+    selectedMove = signal<ChessOpeningMove | undefined>(undefined)
+    moveSelected(move: ChessOpeningMove | undefined) {
+        this.selectedMove.set(move)
     }
 }
