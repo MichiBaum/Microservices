@@ -4,7 +4,8 @@
         [collapsible]="true"
         [preserveSpace]="false"
         [selectionMode]="'single'"
-        (selectionChange)="onSelectionChange($event)"
+        (onNodeSelect)="onNodeSelect($event)"
+        (onNodeUnselect)="onNodeUnselect($event)"
     >
         <ng-template let-move pTemplate="default">
             <div class="flex flex-col items-center" >

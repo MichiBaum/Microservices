@@ -1,5 +1,9 @@
-import {Component, computed, input, output, signal} from '@angular/core';
-import {OrganizationChart} from "primeng/organizationchart";
+import {Component, computed, input, output} from '@angular/core';
+import {
+    OrganizationChart,
+    OrganizationChartNodeSelectEvent,
+    OrganizationChartNodeUnSelectEvent
+} from "primeng/organizationchart";
 import {ChessOpeningMove} from "../../core/models/chess/chess.models";
 import {PrimeTemplate, TreeNode} from "primeng/api";
 import {NgForOf, NgIf} from "@angular/common";
@@ -29,7 +33,6 @@ export class ChessMoveTreeComponent {
         const data = this.move();
         if (!data) return [];
 
-        // Recursive function to transform ChessOpeningMove to TreeNode
         const buildTree = (move: ChessOpeningMove, layer: number): TreeNode => ({
             label: move.move,
             key: move.id,
@@ -38,11 +41,14 @@ export class ChessMoveTreeComponent {
             children: move.nextMoves.map((nextMove) => buildTree(nextMove, layer + 1))
         });
 
-        return [buildTree(data, 0)]; // Start the recursion with the root data
+        return [buildTree(data, 0)];
     })
 
     selectedMove = output<ChessOpeningMove | undefined>();
-    onSelectionChange(node: TreeNode) {
-        this.selectedMove.emit(node.data);
+    onNodeSelect(event: OrganizationChartNodeSelectEvent) {
+        this.selectedMove.emit(event.node.data)
+    }
+    onNodeUnselect(event: OrganizationChartNodeUnSelectEvent) {
+        this.selectedMove.emit(undefined)
     }
 }

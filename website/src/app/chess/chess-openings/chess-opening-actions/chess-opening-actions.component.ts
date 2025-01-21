@@ -28,6 +28,10 @@ export class ChessOpeningActionsComponent {
         const hasAdminPermission = this.permissionService.hasAnyOf([Permissions.CHESS_SERVICE_ADMIN])
         return [
             {
+                label: 'To Start',
+                routerLink: '/chess/openings/'
+            },
+            {
                 label: 'Inspect Opening',
                 visible: selectedMove != undefined,
             },

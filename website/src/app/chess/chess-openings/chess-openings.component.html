@@ -3,7 +3,6 @@
 
         <p-card *ngFor="let opening of startOpenings.value()">
             <ng-template #title>{{opening.name}}</ng-template>
-            Some text
 
             <ng-template #footer>
                 <p-button label="Show" [routerLink]="['/chess/openings', opening.id]" />
@@ -11,7 +10,7 @@
         </p-card>
 
     </div>
+
+    <router-outlet #routerOutlet="outlet"></router-outlet>
+
 </div>
-
-
-<router-outlet #routerOutlet="outlet"></router-outlet>
