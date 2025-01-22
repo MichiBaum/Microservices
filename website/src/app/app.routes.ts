@@ -67,18 +67,18 @@ export const routes: Routes = [
         canActivate: []
       },
         {
-            path: "openings",
-            loadComponent: () => import("./chess/chess-openings/chess-openings.component").then((c) => c.ChessOpeningsComponent),
-            canActivate: [],
-            children: [
-                {
-                    path: ":id",
-                    loadComponent: () => import("./chess/chess-openings/chess-opening/chess-opening.component").then((c) => c.ChessOpeningComponent),
-                    canActivate: []
+            path: "openings/:id",
+            loadComponent: async () => {
+                if (window.innerWidth > 1000) {
+                    const c = await import("./chess/chess-openings/chess-opening/chess-opening.component");
+                    return c.ChessOpeningComponent;
+                } else {
+                    const c = await import("./chess/chess-openings/chess-opening-mobile/chess-opening-mobile.component");
+                    return c.ChessOpeningMobileComponent;
                 }
-            ]
+            },
+            canActivate: []
         },
-
       {
         path: "settings",
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
