@@ -10,6 +10,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {Tooltip} from "primeng/tooltip";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
+import {SelectedMove} from "./selected-move.model";
 
 @Component({
   selector: 'app-chess-move-tree',
@@ -29,9 +30,9 @@ export class ChessMoveTreeComponent {
 
     showEvaluation = input<boolean>(false);
     treeDepth = input.required<number>();
-    move = input<ChessOpeningMove>()
+    rootMove = input<ChessOpeningMove>()
     moveTree = computed<TreeNode[]>(() => {
-        const data = this.move();
+        const data = this.rootMove();
         if (!data) return [];
 
         const buildTree = (move: ChessOpeningMove, layer: number): TreeNode => ({
@@ -45,9 +46,20 @@ export class ChessMoveTreeComponent {
         return [buildTree(data, 0)];
     })
 
-    selectedMove = output<ChessOpeningMove | undefined>();
+    selectedMove = output<SelectedMove | undefined>();
     onNodeSelect(event: OrganizationChartNodeSelectEvent) {
-        this.selectedMove.emit(event.node.data)
+        const move = event.node.data as ChessOpeningMove;
+        const parent = event.node.parent?.data as ChessOpeningMove | undefined;
+
+        const selectedMove: SelectedMove = {
+            id: move.id,
+            move: move.move,
+            parentId: parent?.id ?? '',
+            openingId: move.openingId ?? '',
+            openingName: move.openingName ?? '',
+        }
+
+        this.selectedMove.emit(selectedMove)
     }
     onNodeUnselect(event: OrganizationChartNodeUnSelectEvent) {
         this.selectedMove.emit(undefined)

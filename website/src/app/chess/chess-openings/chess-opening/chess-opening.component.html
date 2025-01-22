@@ -1,3 +1,3 @@
 <app-chess-opening-actions [selectedMove]="selectedMove()" (reloadData)="reloadData()"></app-chess-opening-actions>
 
-<app-chess-move-tree [move]="openingMove.value()" [showEvaluation]="true" (selectedMove)="moveSelected($event)" [treeDepth]="moveTreeDepth()"></app-chess-move-tree>
+<app-chess-move-tree [rootMove]="openingMove.value()" [showEvaluation]="true" (selectedMove)="moveSelected($event)" [treeDepth]="moveTreeDepth()"></app-chess-move-tree>

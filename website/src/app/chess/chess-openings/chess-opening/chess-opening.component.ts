@@ -5,7 +5,7 @@ import {ChessService} from "../../../core/api-services/chess.service";
 import {of} from "rxjs";
 import {ChessMoveTreeComponent} from "../../chess-move-tree/chess-move-tree.component";
 import {ChessOpeningActionsComponent} from "../chess-opening-actions/chess-opening-actions.component";
-import {ChessOpeningMove} from "../../../core/models/chess/chess.models";
+import {SelectedMove} from "../../chess-move-tree/selected-move.model";
 
 @Component({
   selector: 'app-chess-opening',
@@ -47,8 +47,8 @@ export class ChessOpeningComponent implements OnDestroy{
         this.selectedMove.set(undefined)
     }
 
-    selectedMove = signal<ChessOpeningMove | undefined>(undefined)
-    moveSelected(move: ChessOpeningMove | undefined) {
+    selectedMove = signal<SelectedMove | undefined>(undefined)
+    moveSelected(move: SelectedMove | undefined) {
         this.selectedMove.set(move)
     }
 }

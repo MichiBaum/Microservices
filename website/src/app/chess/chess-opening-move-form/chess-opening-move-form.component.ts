@@ -53,7 +53,6 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
         }
     }
 
-
     save() {
         const newMove: WriteOpeningMove = {
             id: this.formGroup.controls['id'].value ?? '',
@@ -69,5 +68,14 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
     clear() {
         this.formGroup.reset();
         this.onClear.emit()
+    }
+
+    delete() {
+
+    }
+
+    canDelete() {
+        let move = this.openingMove();
+        return move != undefined && move.id != undefined && move.id != '';
     }
 }

@@ -1,28 +1,14 @@
-import {Component, inject} from '@angular/core';
-import {RouterLink, RouterOutlet} from "@angular/router";
-import {rxResource} from "@angular/core/rxjs-interop";
-import {ChessService} from "../../core/api-services/chess.service";
-import {NgForOf} from "@angular/common";
-import {Button} from "primeng/button";
-import {Card} from "primeng/card";
+import {Component} from '@angular/core';
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-chess-openings',
     imports: [
-        RouterOutlet,
-        NgForOf,
-        Button,
-        Card,
-        RouterLink
+        RouterOutlet
     ],
   templateUrl: './chess-openings.component.html',
   styleUrl: './chess-openings.component.scss'
 })
 export class ChessOpeningsComponent {
-    private readonly chessService = inject(ChessService);
-
-    startOpenings = rxResource({
-        loader: () =>  this.chessService.startingOpenings()
-    })
 
 }

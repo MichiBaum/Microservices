@@ -170,9 +170,12 @@ export class ChessService {
           .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
-  openingMove(move: WriteOpeningMove): Observable<WriteOpeningMove> {
-    return this.http.post<WriteOpeningMove>(this.environment.chessService() + '/openings/moves', move)
-  }
+    openingMove(move: WriteOpeningMove): Observable<WriteOpeningMove> {
+        let endPoint = "/openings/moves"
+        if(move.id !== undefined && move.id !== '')
+            endPoint = endPoint + "/" + move.id
+        return this.http.post<WriteOpeningMove>(this.environment.chessService() + endPoint, move)
+    }
 
     opening(opening: ChessOpening): Observable<ChessOpening> {
         return this.http.post<ChessOpening>(this.environment.chessService() + '/openings', opening)

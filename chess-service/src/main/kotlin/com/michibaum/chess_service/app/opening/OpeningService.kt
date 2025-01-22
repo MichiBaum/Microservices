@@ -75,4 +75,14 @@ class OpeningService(
         return openingMoveRepository.save(newMove)
     }
 
+    fun updateMove(dto: WriteOpeningMoveDto, move: OpeningMove): OpeningMove {
+        val newMove = OpeningMove(
+            id = move.id,
+            move = dto.move,
+            parent = move.parent,
+            moveEvaluations = move.moveEvaluations
+        )
+        return openingMoveRepository.save(newMove)
+    }
+
 }

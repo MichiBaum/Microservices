@@ -1,14 +1,1 @@
-<div class="grid grid-cols-1 4k:grid-cols-7 xlScreen:grid-cols-6 lScreen:grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
-
-    <p-card *ngFor="let opening of startOpenings.value()">
-        <ng-template #title>{{opening.name}}</ng-template>
-
-        <ng-template #footer>
-            <p-button label="Show" [routerLink]="['/chess/openings', opening.id]" />
-        </ng-template>
-    </p-card>
-
-</div>
-
 <router-outlet #routerOutlet="outlet"></router-outlet>
-

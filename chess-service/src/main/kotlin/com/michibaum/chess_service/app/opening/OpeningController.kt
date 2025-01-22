@@ -66,6 +66,28 @@ class OpeningController(
         }
     }
 
+    @PostMapping("/api/openings/moves/{id}")
+    fun updateMove(@RequestBody dto: WriteOpeningMoveDto): ResponseEntity<SimpleOpeningMoveDto> {
+        return try {
+            val uuid = UUID.fromString(dto.id)
+            val move = openingService.findMoveBy(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val updated = openingService.updateMove(dto, move)
+            val newDto = openingConverter.convert(updated)
+            return ResponseEntity.ok(newDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @DeleteMapping("/api/openings/moves/{id}")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    fun deleteMove(@PathVariable id: UUID): ResponseEntity<Nothing> {
+        TODO("Implement deleting move")
+    }
+
     @PublicEndpoint
     @GetMapping("/api/moves/{id}/children")
     fun getAllChildren(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {

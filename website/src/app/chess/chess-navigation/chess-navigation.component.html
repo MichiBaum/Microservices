@@ -16,17 +16,15 @@
       </ng-container>
 
       <div class="text-left">
-        <ng-container *ngIf="item.eventCategories && item.eventCategories.length > 0">
-          <ng-container *ngFor="let category of item.eventCategories">
-            <p class="text-xs">{{ category.title }}</p>
-          </ng-container>
+        <ng-container *ngIf="item.subText && item.subText != '' && item.subText.length > 0 && item.subText as _subText">
+            <p class="text-xs">{{ _subText }}</p>
         </ng-container>
         <p>{{ item.label | translate }}</p>
         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
       </div>
 
       <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-      <ng-container *ngIf="item.items">
+      <ng-container *ngIf="item.items && item.items.length > 0">
         <fa-icon [icon]="faAngleDown"></fa-icon>
       </ng-container>
     </a>
