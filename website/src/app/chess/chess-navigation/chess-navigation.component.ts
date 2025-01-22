@@ -1,7 +1,7 @@
 import {Component, computed, inject} from '@angular/core';
 import {
     faAngleDown,
-    faCalendarDays,
+    faCalendarDays, faChess, faChessKing,
     faChessQueen,
     faGears,
     faHouse,
@@ -33,7 +33,6 @@ import {rxResource} from "@angular/core/rxjs-interop";
     Divider,
     FaIconComponent,
     Menubar,
-    NgForOf,
     NgIf,
     Ripple,
     Tag,
@@ -50,7 +49,7 @@ export class ChessNavigationComponent {
   private readonly eventIcon = inject(EventIconPipe);
   private readonly eventIconColor = inject(EventIconColorPipe);
 
-  protected readonly faChessQueen = faChessQueen;
+    protected readonly faChessKing = faChessKing;
   protected readonly faAngleDown = faAngleDown;
 
 
@@ -94,6 +93,7 @@ export class ChessNavigationComponent {
       },
         {
             label: 'chess.navigation.openings',
+            customIcon: faChess,
             items: [
                 {
                     label: 'chess.navigation.start-openings',
@@ -169,4 +169,5 @@ export class ChessNavigationComponent {
           } as MenuItem
       ))
     }
+
 }

@@ -1,0 +1,8 @@
+<p-timeline [value]="startOpenings.value()">
+    <ng-template #content let-opening>
+        <a routerLink="/chess/openings/{{opening.id}}">
+            {{opening.name}}
+            <fa-icon [icon]="faArrowUpRightFromSquare"></fa-icon>
+        </a>
+    </ng-template>
+</p-timeline>

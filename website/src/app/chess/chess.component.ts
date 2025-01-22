@@ -14,23 +14,25 @@ import {NgIf} from "@angular/common";
 import {Button} from "primeng/button";
 import {Card} from "primeng/card";
 import {TranslateModule} from "@ngx-translate/core";
+import {ChessStartOpeningsListComponent} from "./chess-start-openings-list/chess-start-openings-list.component";
 
 @Component({
   selector: 'app-chess',
-  imports: [
-    SplitterModule,
-    MenubarModule,
-    BadgeModule,
-    TagModule,
-    RouterOutlet,
-    ChessNavigationComponent,
-    ChessRecentUpcomingEventsComponent,
-    NgIf,
-    Button,
-    Card,
-    TranslateModule,
-    RouterLink
-  ],
+    imports: [
+        SplitterModule,
+        MenubarModule,
+        BadgeModule,
+        TagModule,
+        RouterOutlet,
+        ChessNavigationComponent,
+        ChessRecentUpcomingEventsComponent,
+        NgIf,
+        Button,
+        Card,
+        TranslateModule,
+        RouterLink,
+        ChessStartOpeningsListComponent
+    ],
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'
 })
