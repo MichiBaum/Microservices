@@ -180,4 +180,12 @@ export class ChessService {
     opening(opening: ChessOpening): Observable<ChessOpening> {
         return this.http.post<ChessOpening>(this.environment.chessService() + '/openings', opening)
     }
+
+    deleteOpening(id: string): Observable<void> {
+      return this.http.delete<void>(this.environment.chessService() + '/openings/' + id)
+    }
+
+    deleteOpeningMove(id: string): Observable<void> {
+      return this.http.delete<void>(this.environment.chessService() + '/openings/moves/' + id)
+    }
 }

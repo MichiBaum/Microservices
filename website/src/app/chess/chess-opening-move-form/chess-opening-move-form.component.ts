@@ -24,6 +24,7 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
     openingMove = input<WriteOpeningMove | undefined>()
 
     saved = output<WriteOpeningMove>()
+    deleted = output<void>()
     onClear = output<void>()
 
     formGroup: FormGroup = new FormGroup({
@@ -71,7 +72,13 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
     }
 
     delete() {
-
+        const move = this.openingMove();
+        if(move == undefined || move.id == undefined || move.id == '')
+            return;
+        this.chessService.deleteOpeningMove(move.id).subscribe( _ => {
+            this.deleted.emit()
+            this.clear()
+        })
     }
 
     canDelete() {

@@ -1,6 +1,6 @@
 <p-menubar [model]="items()">
 </p-menubar>
 
-<app-chess-opening-move-form-dialog [(visible)]="moveDialogVisible" [openingMove]="moveInput()" (saved)="reload()"></app-chess-opening-move-form-dialog>
-<app-chess-opening-form-dialog [(visible)]="openingDialogVisible" [opening]="openingInput()" (saved)="reload()"></app-chess-opening-form-dialog>
+<app-chess-opening-move-form-dialog [(visible)]="moveDialogVisible" [openingMove]="moveInput()" (saved)="reload()" (deleted)="reload()"></app-chess-opening-move-form-dialog>
+<app-chess-opening-form-dialog [(visible)]="openingDialogVisible" [opening]="openingInput()" (saved)="reload()" (deleted)="reload()"></app-chess-opening-form-dialog>
 <app-chess-opening-move-evaluation-form-dialog [(visible)]="evaluationDialogVisible" [openingMove]="evaluationInput()" (saved)="reload()"></app-chess-opening-move-evaluation-form-dialog>

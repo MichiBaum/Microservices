@@ -5,7 +5,7 @@ import java.util.*
 
 @Entity
 @Table(name = "opening_move")
-class OpeningMove(
+data class OpeningMove(
 
     @Column(nullable = false)
     val move: String,
@@ -15,6 +15,9 @@ class OpeningMove(
 
     @OneToMany(mappedBy = "openingMove", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     val moveEvaluations: Set<OpeningMoveEvaluation> = emptySet(),
+
+    @Column(nullable = false)
+    val deleted: Boolean = false,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

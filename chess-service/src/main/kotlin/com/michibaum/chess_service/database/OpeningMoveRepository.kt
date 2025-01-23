@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param
 import java.util.UUID
 
 interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
-    fun findAllByParentId(parent: UUID?): List<OpeningMove>
+    fun findAllByParentIdAndDeletedFalse(parent: UUID?): List<OpeningMove>
 
     @Query(value = """
         WITH RECURSIVE move_hierarchy AS (
@@ -39,14 +39,14 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
         WITH RECURSIVE move_hierarchy AS (
             SELECT id, move, parent_id, 0 AS depth
             FROM opening_move
-            WHERE id = :startingId
+            WHERE id = :startingId AND deleted = false
     
             UNION ALL
     
             SELECT move.id, move.move, move.parent_id, hierarchy.depth + 1
             FROM opening_move move
             INNER JOIN move_hierarchy hierarchy ON move.parent_id = hierarchy.id
-            WHERE hierarchy.depth + 1 <= :maxDepth
+            WHERE hierarchy.depth + 1 <= :maxDepth AND move.deleted = false
         )
         SELECT
             hierarchy.id AS moveId,
@@ -59,7 +59,7 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
             opening.id AS openingId
         FROM move_hierarchy hierarchy
         LEFT JOIN opening_move_evaluation evaluation ON hierarchy.id = evaluation.opening_move_id
-        LEFT JOIN opening ON hierarchy.id = opening.last_move_id;
+        LEFT JOIN opening ON hierarchy.id = opening.last_move_id AND opening.deleted = false
     """, nativeQuery = true)
     fun findMoveChildren(@Param("startingId") startingId: UUID?, @Param("maxDepth") maxDepth: Int): List<MoveHierarchyProjection>
 }

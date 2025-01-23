@@ -31,11 +31,11 @@ export class ChessOpeningActionsComponent {
     items = computed<MenuItem[]>(() => {
         const selectedMove = this.selectedMove()
         const hasAdminPermission = this.permissionService.hasAnyOf([Permissions.CHESS_SERVICE_ADMIN])
-        const hasOpening = selectedMove?.openingId != undefined
+        const hasOpening = selectedMove?.openingId != undefined && selectedMove?.openingId != ''
         return [
             {
                 label: 'Inspect Opening',
-                visible: selectedMove != undefined && hasOpening,
+                visible: false // TODO in development selectedMove != undefined && hasOpening,
             },
             {
                 label: 'Select as Root',

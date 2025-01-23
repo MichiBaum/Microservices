@@ -12,5 +12,6 @@
 
 </form>
 
-<p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
-<p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+<p-button type="button" severity="danger" variant="outlined" class="mr-12" label="Delete" (click)="delete()" [disabled]="!canDelete()"></p-button>
+<p-button type="button" variant="outlined" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+<p-button type="button" severity="success" variant="outlined" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>

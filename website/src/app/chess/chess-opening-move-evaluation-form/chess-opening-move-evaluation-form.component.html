@@ -1,1 +1,31 @@
-TODO
+<form [formGroup]="formGroup">
+
+    <p-select
+        formControlName="selectedEngine"
+        [options]="availableEngines()"
+        placeholder="Select as Engine"
+        class="w-full"
+    >
+        <ng-template #selectedItem let-engine>
+            <div class="flex items-center gap-2" *ngIf="engine">
+                <div>{{ engine.name }} {{ engine.version }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-engine #item>
+            <div class="flex items-center gap-2">
+                <div>{{ engine.name }} {{engine.version}}</div>
+            </div>
+        </ng-template>
+    </p-select>
+
+    <p-floatlabel variant="in" class="mb-2">
+        <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+        <label for="id">ID</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in" class="mb-2">
+        <input class="w-full" pInputText id="name" formControlName="name" autocomplete="off" />
+        <label for="name">Name</label>
+    </p-floatlabel>
+
+</form>

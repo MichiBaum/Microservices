@@ -19,6 +19,7 @@ export class ChessOpeningFormDialogComponent {
     opening = input<ChessOpening | undefined>(undefined);
     visibleChange = output<boolean>();
     saved = output<ChessOpening>();
+    deleted = output<void>();
 
     onHide() {
         this.visibleChange.emit(false);
@@ -27,6 +28,11 @@ export class ChessOpeningFormDialogComponent {
     savedChange(opening: ChessOpening) {
         this.onHide();
         this.saved.emit(opening);
+    }
+
+    deletedChange() {
+        this.onHide();
+        this.deleted.emit();
     }
 
 }

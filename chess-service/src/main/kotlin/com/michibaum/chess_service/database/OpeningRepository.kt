@@ -4,5 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
 interface OpeningRepository : JpaRepository<Opening, UUID>{
-    fun findByLastMoveIn(moves: List<OpeningMove>): List<Opening>
+    fun findByDeletedFalseAndLastMoveIn(moves: List<OpeningMove>): List<Opening>
+    fun findAllByDeletedFalse(): List<Opening>
 }

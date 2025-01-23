@@ -1,3 +1,3 @@
 <p-dialog header="Opening" [modal]="true" [(visible)]="_visible" (onHide)="onHide()">
-    <app-chess-opening-form [opening]="opening()" (saved)="savedChange($event)"></app-chess-opening-form>
+    <app-chess-opening-form [opening]="opening()" (saved)="savedChange($event)" (deleted)="deletedChange()"></app-chess-opening-form>
 </p-dialog>

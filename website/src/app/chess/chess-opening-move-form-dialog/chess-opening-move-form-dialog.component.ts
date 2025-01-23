@@ -18,6 +18,7 @@ export class ChessOpeningMoveFormDialogComponent {
     openingMove = input<WriteOpeningMove | undefined>(undefined);
     visibleChange = output<boolean>();
     saved = output<WriteOpeningMove>();
+    deleted = output<void>();
 
     hide() {
         this._visible.set(false);
@@ -27,5 +28,10 @@ export class ChessOpeningMoveFormDialogComponent {
     savedChange(move: WriteOpeningMove) {
         this.hide()
         this.saved.emit(move);
+    }
+
+    deletedChange() {
+        this.hide()
+        this.deleted.emit();
     }
 }

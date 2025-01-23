@@ -82,10 +82,38 @@ class OpeningController(
         }
     }
 
+    @DeleteMapping("/api/openings/{id}")
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    fun deleteOpening(@PathVariable id: String): ResponseEntity<OpeningResponseDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val opening = openingService.getOpeningById(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val updated = openingService.deleteOpening(opening)
+            val dto = openingConverter.toDto(updated)
+            return ResponseEntity.ok(dto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
     @DeleteMapping("/api/openings/moves/{id}")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun deleteMove(@PathVariable id: UUID): ResponseEntity<Nothing> {
-        TODO("Implement deleting move")
+    fun deleteMove(@PathVariable id: String): ResponseEntity<SimpleOpeningMoveDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val move = openingService.findMoveBy(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val updated = openingService.deleteMove(move)
+            val newDto = openingConverter.convert(updated)
+            return ResponseEntity.ok(newDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
     }
 
     @PublicEndpoint
