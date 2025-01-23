@@ -1,3 +1,13 @@
 <p-dialog header="Evaluations" [modal]="true" [(visible)]="_visible" (onHide)="hide()">
-    <app-chess-opening-move-evaluation-form [availableEngines]="availableEngines.value() ?? []"></app-chess-opening-move-evaluation-form>
+
+    <ng-container *ngFor="let evaluation of evaluations.value() ?? []">
+        <p-card>
+            <app-chess-opening-move-evaluation-form [availableEngines]="availableEngines.value() ?? []"></app-chess-opening-move-evaluation-form>
+        </p-card>
+    </ng-container>
+
+    <p-card>
+        <app-chess-opening-move-evaluation-form [availableEngines]="availableEngines.value() ?? []"></app-chess-opening-move-evaluation-form>
+    </p-card>
+
 </p-dialog>

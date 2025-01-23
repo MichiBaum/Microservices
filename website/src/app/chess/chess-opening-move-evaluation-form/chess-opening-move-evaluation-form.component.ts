@@ -1,10 +1,11 @@
-import {Component, input} from '@angular/core';
+import {Component, input, signal} from '@angular/core';
 import {FloatLabel} from "primeng/floatlabel";
-import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {InputText} from "primeng/inputtext";
 import {ChessEngine} from "../../core/models/chess/chess.models";
 import {Select} from "primeng/select";
 import {NgIf} from "@angular/common";
+import {Button} from "primeng/button";
 
 @Component({
   selector: 'app-chess-opening-move-evaluation-form',
@@ -14,7 +15,8 @@ import {NgIf} from "@angular/common";
         InputText,
         ReactiveFormsModule,
         Select,
-        NgIf
+        NgIf,
+        Button
     ],
   templateUrl: './chess-opening-move-evaluation-form.component.html',
   styleUrl: './chess-opening-move-evaluation-form.component.scss'
@@ -22,6 +24,41 @@ import {NgIf} from "@angular/common";
 export class ChessOpeningMoveEvaluationFormComponent {
 
     availableEngines = input.required<ChessEngine[]>()
-    formGroup: FormGroup = new FormGroup({});
+    selectedEngine = signal<ChessEngine | undefined>(undefined);
 
+    formGroup: FormGroup = new FormGroup({
+        id: new FormControl<string | null>({
+            value: '',
+            disabled: true
+        }),
+        depth: new FormControl<string>({
+            value: '',
+            disabled: false
+        }, [
+            Validators.required,
+        ]),
+        evaluation: new FormControl<string>({
+            value: '',
+            disabled: false
+        }, [
+            Validators.required,
+        ])
+    });
+
+
+    delete() {
+
+    }
+
+    clear() {
+
+    }
+
+    save() {
+
+    }
+
+    canDelete() {
+        return false;
+    }
 }
