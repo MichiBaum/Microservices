@@ -1,11 +1,12 @@
-import {Component, computed, inject, linkedSignal, OnInit, signal} from '@angular/core';
+import {Component, inject, linkedSignal, OnInit, signal} from '@angular/core';
 import {ChessService} from "../../core/api-services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
-  ChessEvent,
-  ChessEventCategory, ChessPlatform,
-  Person,
-  WriteChessEvent
+    ChessEvent,
+    ChessEventCategory,
+    ChessPlatform,
+    Person,
+    WriteChessEvent
 } from "../../core/models/chess/chess.models";
 import {Fieldset} from "primeng/fieldset";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";

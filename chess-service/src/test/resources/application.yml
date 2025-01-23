@@ -18,8 +18,15 @@ spring:
           include-description: true
     openfeign:
       lazy-attributes-resolution: true
+      httpclient:
+        disable-ssl-validation: true
   main:
     allow-bean-definition-overriding: true
+  boot:
+    admin:
+      client:
+        username: admin_username
+        password: admin_password
 
 eureka:
   instance:

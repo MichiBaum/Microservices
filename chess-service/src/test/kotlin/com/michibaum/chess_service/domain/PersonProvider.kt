@@ -1,5 +1,8 @@
 package com.michibaum.chess_service.domain
 
+import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.Gender
+import com.michibaum.chess_service.database.Person
 import java.time.LocalDate
 
 class PersonProvider {

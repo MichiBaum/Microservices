@@ -6,8 +6,8 @@ import com.michibaum.chess_service.apis.dtos.AccountDto
 import com.michibaum.chess_service.apis.dtos.GameDto
 import com.michibaum.chess_service.apis.dtos.StatsDto
 import com.michibaum.chess_service.apis.dtos.TopAccountDto
-import com.michibaum.chess_service.domain.Account
-import com.michibaum.chess_service.domain.ChessPlatform
+import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.ChessPlatform
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service

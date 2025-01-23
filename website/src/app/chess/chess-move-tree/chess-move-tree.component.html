@@ -1,0 +1,27 @@
+<div class="overflow-x-auto">
+    <p-organization-chart
+        [value]="moveTree()"
+        [collapsible]="true"
+        [preserveSpace]="false"
+        [selectionMode]="'single'"
+        (onNodeSelect)="onNodeSelect($event)"
+        (onNodeUnselect)="onNodeUnselect($event)"
+    >
+        <ng-template let-move pTemplate="default">
+            <div class="flex flex-col items-center" >
+                <div class="font-bold">{{ move.label }}</div>
+                <div
+                    *ngIf="move.data.openingName && move.data.openingName !== '' && move.data.openingName as openingName"
+                    class="text-sm"
+                >{{ openingName }}</div>
+                <fa-icon [pTooltip]="tooltipContent" *ngIf="move.data.evaluations.length != 0" [icon]="faCircleInfo"></fa-icon>
+                <ng-template #tooltipContent>
+                    <div class="block">
+                        <span class="text-sm block" *ngFor="let eval of move.data.evaluations">{{ eval.engineName }}({{eval.engineVersion}}) evaluated {{eval.evaluation}} at depth {{ eval.depth }}</span>
+                    </div>
+                </ng-template>
+            </div>
+        </ng-template>
+    </p-organization-chart>
+</div>
+

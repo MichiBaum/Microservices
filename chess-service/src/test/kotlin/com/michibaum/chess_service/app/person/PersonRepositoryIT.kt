@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.person
 
 import com.michibaum.chess_service.TestcontainersConfiguration
+import com.michibaum.chess_service.database.PersonRepository
 import com.michibaum.chess_service.domain.PersonProvider
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull

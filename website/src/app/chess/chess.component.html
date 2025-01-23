@@ -1,8 +1,10 @@
-<div class="mb-4 mr-4 ml-4">
+<div class="container mx-auto">
   <app-chess-navigation></app-chess-navigation>
 </div>
 
+<div class="container mx-auto mt-4">
 <router-outlet #routerOutlet="outlet"></router-outlet>
+</div>
 
 
 <div class="container mx-auto" *ngIf="!routerOutlet.isActivated">
@@ -10,9 +12,6 @@
 
 
     <p-card styleClass="h-full">
-      <ng-template #header>
-
-      </ng-template>
       <ng-template #title>{{"chess.home.recent-upcoming" | translate}}</ng-template>
 
       <app-chess-recent-upcoming-events></app-chess-recent-upcoming-events>
@@ -24,6 +23,12 @@
       </ng-template>
     </p-card>
 
+      <p-card styleClass="h-full">
+          <ng-template #title>{{"chess.home.start-openings" | translate}}</ng-template>
+
+          <app-chess-start-openings-list></app-chess-start-openings-list>
+
+      </p-card>
 
   </div>
 </div>

@@ -1,0 +1,21 @@
+<p-table
+  stripedRows
+  [value]="openings()"
+  [(selection)]="tableSelectedOpening"
+  selectionMode="single"
+  (onRowSelect)="onSelectionChange()"
+  (onRowUnselect)="onSelectionChange()"
+  [paginator]="true"
+  [rows]="10"
+>
+  <ng-template #header>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-opening let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="opening" [pSelectableRowIndex]="rowIndex">
+      <td>{{ opening.name }}</td>
+    </tr>
+  </ng-template>
+</p-table>

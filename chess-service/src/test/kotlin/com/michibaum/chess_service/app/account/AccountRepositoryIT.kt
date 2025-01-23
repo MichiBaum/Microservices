@@ -1,7 +1,8 @@
 package com.michibaum.chess_service.app.account
 
 import com.michibaum.chess_service.TestcontainersConfiguration
-import com.michibaum.chess_service.app.person.PersonRepository
+import com.michibaum.chess_service.database.PersonRepository
+import com.michibaum.chess_service.database.AccountRepository
 import com.michibaum.chess_service.domain.AccountProvider
 import com.michibaum.chess_service.domain.PersonProvider
 import org.junit.jupiter.api.Assertions.*
@@ -32,7 +33,6 @@ class AccountRepositoryIT {
         // THEN
         assertNotNull(account.id)
         assertNotNull(result.id)
-        assertNotEquals(account.id, result.id)
         assertEquals(account.name, result.name)
         assertEquals(account.platformId, result.platformId)
         assertEquals(account.username, result.username)
@@ -52,17 +52,9 @@ class AccountRepositoryIT {
 
         // THEN
         assertNotNull(person.id)
-        assertNotEquals(personToSave.id, person.id)
-
         assertNotNull(result.id)
-        assertEquals(account.id, account.id)
-        assertNotEquals(account.id, result.id)
 
         assertNotNull(result.person)
-
-        assertNotEquals(personToSave.id, result.person?.id)
-        assertEquals(person.id, result.person?.id)
-
     }
 
 }

@@ -1,11 +1,11 @@
 import {Component, computed, inject} from '@angular/core';
 import {
-  faAngleDown,
-  faCalendarDays,
-  faChessQueen,
-  faGears,
-  faHouse,
-  faNewspaper
+    faAngleDown,
+    faCalendarDays, faChess, faChessKing,
+    faChessQueen,
+    faGears,
+    faHouse,
+    faNewspaper
 } from "@fortawesome/free-solid-svg-icons";
 import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
@@ -20,7 +20,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {PermissionService} from "../../core/services/permission.service";
 import {MenuItem} from "primeng/api";
 import {Permissions} from "../../core/config/permissions";
-import {ChessEvent} from "../../core/models/chess/chess.models";
+import {ChessEvent, ChessOpening} from "../../core/models/chess/chess.models";
 import {EventIconPipe} from 'src/app/core/pipes/event-icon.pipe';
 import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 import {rxResource} from "@angular/core/rxjs-interop";
@@ -33,7 +33,6 @@ import {rxResource} from "@angular/core/rxjs-interop";
     Divider,
     FaIconComponent,
     Menubar,
-    NgForOf,
     NgIf,
     Ripple,
     Tag,
@@ -50,13 +49,16 @@ export class ChessNavigationComponent {
   private readonly eventIcon = inject(EventIconPipe);
   private readonly eventIconColor = inject(EventIconColorPipe);
 
-  protected readonly faChessQueen = faChessQueen;
+    protected readonly faChessKing = faChessKing;
   protected readonly faAngleDown = faAngleDown;
 
 
   events = rxResource({
     loader: () => this.chessService.eventsRecentUpcoming()
   })
+    startOpenings = rxResource({
+        loader: () =>  this.chessService.startingOpenings()
+    })
   sortedEvents = computed(() => {
     const events = this.events.value()
     if(events == undefined)
@@ -65,26 +67,15 @@ export class ChessNavigationComponent {
   })
   menuItems = computed(() => {
     const sorted = this.sortedEvents()
-    return this.createMenu(sorted)
+      const openings = this.startOpenings.value() ?? []
+    return this.createMenu(sorted, openings)
   })
 
-  private createMenu(events: ChessEvent[]) {
-    const menuEvents = events.map(event => (
-        {
-          label: event.title,
-          eventCategories: event.categories,
-          routerLink: '/chess/events/' + event.id,
-          tag: this.eventIcon.transform(event),
-          tagColor: this.eventIconColor.transform(event),
-        } as MenuItem
-      )
-    );
-    menuEvents.push({
-      label: 'chess.navigation.all-events',
-      routerLink: '/chess/events/'
-    } as MenuItem)
+  private createMenu(events: ChessEvent[], openings: ChessOpening[]) {
+      const menuEvents = this.createMenuEvents(events);
+      const menuOpenings = this.createMenuOpenings(openings);
 
-    return [
+      return [
       {
         label: 'chess.navigation.home',
         customIcon: faHouse,
@@ -100,6 +91,16 @@ export class ChessNavigationComponent {
         customIcon: faCalendarDays,
         items: menuEvents,
       },
+        {
+            label: 'chess.navigation.openings',
+            customIcon: faChess,
+            items: [
+                {
+                    label: 'chess.navigation.start-openings',
+                    items: menuOpenings,
+                }
+            ]
+        },
       {
         label: 'chess.navigation.settings',
         customIcon: faGears,
@@ -126,6 +127,14 @@ export class ChessNavigationComponent {
             routerLink: "/chess/settings/games"
           },
           {
+            label: "Update Engine",
+            routerLink: "/chess/settings/engines"
+          },
+          {
+            label: "Update Openings",
+            routerLink: "/chess/settings/openings"
+          },
+          {
             label: "Fide import",
             routerLink: "/chess/settings/fide-import"
           }
@@ -133,5 +142,32 @@ export class ChessNavigationComponent {
       },
     ] as MenuItem[];
   }
+
+    private createMenuEvents(events: ChessEvent[]) {
+        const menuEvents = events.map(event => (
+                {
+                    label: event.title,
+                    subText: event.categories.map(category => category.title).join(', '),
+                    routerLink: '/chess/events/' + event.id,
+                    tag: this.eventIcon.transform(event),
+                    tagColor: this.eventIconColor.transform(event),
+                } as MenuItem
+            )
+        );
+        menuEvents.push({
+            label: 'chess.navigation.all-events',
+            routerLink: '/chess/events/'
+        } as MenuItem)
+        return menuEvents;
+    }
+
+    private createMenuOpenings(openings: ChessOpening[]){
+      return openings.map(opening => (
+          {
+            label: opening.name,
+            routerLink: '/chess/openings/' + opening.id,
+          } as MenuItem
+      ))
+    }
 
 }

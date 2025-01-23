@@ -1,7 +1,8 @@
 package com.michibaum.chess_service.app.person
 
-import com.michibaum.chess_service.domain.Account
-import com.michibaum.chess_service.domain.Person
+import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.Person
+import com.michibaum.chess_service.database.PersonRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
@@ -38,10 +39,6 @@ class PersonService(
         return personRepository.save(newPerson)
     }
 
-    fun savePerson(person: Person): Person {
-        return personRepository.save(person)
-    }
-
     fun findByIfNotEmpty(firstname: String, lastname: String): Set<Person> =
         when{
             firstname.isBlank() && lastname.isBlank() -> emptySet()
@@ -53,18 +50,6 @@ class PersonService(
     fun getAll(): List<Person> {
         return personRepository.findAll()
     }
-
-//    fun createAndUpdate(persons: List<FidePersonDto>): List<Person> {
-//        return persons.map {
-//            val foundPerson = personRepository.findByFideId(it.fideId)
-//            if (foundPerson != null) {
-//                val updatedPerson = it.toPerson(id = foundPerson.idOrThrow(), birthDay = foundPerson.birthday, accounts = foundPerson.accounts)
-//                personRepository.save(updatedPerson)
-//            } else {
-//                personRepository.save(it.toPerson())
-//            }
-//        }.toList()
-//    }
 
     fun find(uuid: UUID): Person? =
         personRepository.findById(uuid).getOrNull()
@@ -82,7 +67,7 @@ class PersonService(
         return personRepository.save(newPerson)
     }
 
-    fun create(personDto: WritePersonDto): Person{
+    fun create(personDto: WritePersonDto): Person {
         val newPerson = Person(
             firstname = personDto.firstname,
             lastname = personDto.lastname,

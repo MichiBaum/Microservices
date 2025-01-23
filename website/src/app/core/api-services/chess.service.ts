@@ -1,17 +1,20 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
-  Account,
-  ChessEvent,
-  ChessEventCategory,
-  ChessEventCategoryWithEvents,
-  ChessGame,
-  Person,
-  SearchChessEvent,
-  SearchPerson,
-  WriteChessEvent,
-  WriteChessEventCategory,
-  WritePerson
+    Account,
+    ChessEngine,
+    ChessEvent,
+    ChessEventCategory,
+    ChessEventCategoryWithEvents,
+    ChessGame,
+    ChessOpening, ChessOpeningMove,
+    Person,
+    SearchChessEvent,
+    SearchPerson,
+    WriteChessEngine,
+    WriteChessEvent,
+    WriteChessEventCategory, WriteOpeningMove,
+    WritePerson
 } from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
@@ -132,4 +135,57 @@ export class ChessService {
     });
   }
 
+  engines(): Observable<ChessEngine[]> {
+    return this.http.get<ChessEngine[]>(this.environment.chessService() + '/engines')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  createEngine(engine: WriteChessEngine): Observable<WriteChessEngine> {
+    return this.http.put<WriteChessEngine>(this.environment.chessService() + '/engines', engine)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  updateEngine(id: string, engine: WriteChessEngine): Observable<WriteChessEngine> {
+    return this.http.post<WriteChessEngine>(this.environment.chessService() + `/engines/${id}`, engine)
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  openings(): Observable<ChessOpening[]> {
+    return this.http.get<ChessOpening[]>(this.environment.chessService() + '/openings')
+      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+    startingOpenings(): Observable<ChessOpening[]> {
+        return this.http.get<ChessOpening[]>(this.environment.chessService() + '/openings/starting')
+            .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+    }
+
+  openingMoves(id: string): Observable<ChessOpeningMove> {
+      return this.http.get<ChessOpeningMove>(this.environment.chessService() + `/openings/${id}/moves`)
+          .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+  openingChildrenMoves(id: string, maxDepth: number): Observable<ChessOpeningMove> {
+      return this.http.get<ChessOpeningMove>(this.environment.chessService() + `/openings/${id}/children?maxDepth=${maxDepth}`)
+          .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+  }
+
+    openingMove(move: WriteOpeningMove): Observable<WriteOpeningMove> {
+        let endPoint = "/openings/moves"
+        if(move.id !== undefined && move.id !== '')
+            endPoint = endPoint + "/" + move.id
+        return this.http.post<WriteOpeningMove>(this.environment.chessService() + endPoint, move)
+    }
+
+    opening(opening: ChessOpening): Observable<ChessOpening> {
+        return this.http.post<ChessOpening>(this.environment.chessService() + '/openings', opening)
+    }
+
+    deleteOpening(id: string): Observable<void> {
+      return this.http.delete<void>(this.environment.chessService() + '/openings/' + id)
+    }
+
+    deleteOpeningMove(id: string): Observable<void> {
+      return this.http.delete<void>(this.environment.chessService() + '/openings/moves/' + id)
+    }
 }

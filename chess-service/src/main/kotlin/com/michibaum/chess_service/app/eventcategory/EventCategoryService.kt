@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.eventcategory
 
-import com.michibaum.chess_service.domain.EventCategory
+import com.michibaum.chess_service.database.EventCategory
+import com.michibaum.chess_service.database.EventCategoryRepository
 import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.jvm.optionals.getOrNull

@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.game
 
-import com.michibaum.chess_service.domain.Game
+import com.michibaum.chess_service.database.Game
 import org.springframework.stereotype.Component
 
 @Component

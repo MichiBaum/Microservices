@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.event
 
-import com.michibaum.chess_service.domain.Event
+import com.michibaum.chess_service.database.Event
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Predicate
@@ -19,7 +19,7 @@ data class SearchEventDto(
 ){
     fun getSpecification(): Specification<Event> =
         Specification {
-            root: Root<Event>, query: CriteriaQuery<*>?, builder: CriteriaBuilder ->
+                root: Root<Event>, query: CriteriaQuery<*>?, builder: CriteriaBuilder ->
                 builder.and(*getPredicates(root, builder).toTypedArray())
         }
 

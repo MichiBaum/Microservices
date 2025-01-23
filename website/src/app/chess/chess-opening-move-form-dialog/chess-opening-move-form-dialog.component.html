@@ -1,0 +1,3 @@
+<p-dialog header="Move" [modal]="true" [(visible)]="_visible" (onHide)="hide()">
+    <app-chess-opening-move-form [openingMove]="openingMove()" (saved)="savedChange($event)" (deleted)="deletedChange()"></app-chess-opening-move-form>
+</p-dialog>

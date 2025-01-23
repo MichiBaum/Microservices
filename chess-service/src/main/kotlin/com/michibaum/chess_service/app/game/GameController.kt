@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.game
 
 import com.michibaum.chess_service.app.account.AccountService
+import com.michibaum.chess_service.database.Game
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
@@ -38,7 +39,7 @@ class GameController(
     fun getGamesFor(@PathVariable id: String): ResponseEntity<Set<GameDto>>{
         return try {
             val uuid = UUID.fromString(id)
-            val games = accountService.findByAccountId(uuid)?.games ?: emptySet()
+            val games = emptySet<Game>() // TODO get all player for user and therefore all games
             val dtos = games.map(gameConverter::convert).toSet()
             ResponseEntity.ok(dtos)
         } catch (ex: IllegalArgumentException) {

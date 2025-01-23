@@ -1,0 +1,98 @@
+package com.michibaum.chess_service.app.opening
+
+import com.michibaum.chess_service.database.*
+import org.springframework.stereotype.Service
+import java.util.*
+import kotlin.jvm.optionals.getOrNull
+
+@Service
+class OpeningService(
+    private val openingRepository: OpeningRepository,
+    private val openingMoveRepository: OpeningMoveRepository
+) {
+
+    fun getOpeningById(openingId: UUID): Opening? {
+        return openingRepository.findById(openingId).getOrNull()
+    }
+
+    fun createOpening(dto: OpeningDto): Opening {
+        val lastMove: OpeningMove = openingMoveRepository.findById(dto.moveId)
+            .orElseThrow { IllegalArgumentException("Invalid lastMoveId: ${dto.moveId}") }
+
+        val opening = Opening(
+            name = dto.name,
+            lastMove = lastMove
+        )
+
+        return openingRepository.save(opening)
+    }
+
+    fun updateOpening(id: UUID, dto: OpeningDto): Opening {
+        val opening = openingRepository.findById(id)
+            .orElseThrow { IllegalArgumentException("Opening not found with id: $id") }
+
+        val lastMove: OpeningMove = openingMoveRepository.findById(dto.moveId)
+            .orElseThrow { IllegalArgumentException("Invalid lastMoveId: ${dto.moveId}") }
+
+        // Update fields
+        val updatedOpening = opening.copy(
+            name = dto.name,
+            lastMove = lastMove
+        )
+
+        return openingRepository.save(updatedOpening)
+    }
+
+    fun getAll(): List<Opening> {
+        return openingRepository.findAllByDeletedFalse()
+    }
+
+    fun findMoveHierarchy(lastMove: OpeningMove): List<MoveHierarchyProjection> {
+        return openingMoveRepository.findMoveHirarchyBefore(lastMove.id!!)
+    }
+
+    fun findMoveChildren(move: OpeningMove, maxDepth: Int): List<MoveHierarchyProjection> {
+        return openingMoveRepository.findMoveChildren(move.id!!, maxDepth)
+    }
+
+    fun findMoveBy(uuid: UUID): OpeningMove? {
+        return openingMoveRepository.findById(uuid).getOrNull()
+    }
+
+    fun findMoveByParent(id: UUID?): List<OpeningMove> {
+        return openingMoveRepository.findAllByParentIdAndDeletedFalse(id)
+    }
+
+    fun openingsByMoves(moves: List<OpeningMove>): List<Opening> {
+        return openingRepository.findByDeletedFalseAndLastMoveIn(moves)
+    }
+
+    fun createMove(dto: WriteOpeningMoveDto, parentMove: OpeningMove): OpeningMove {
+        val newMove = OpeningMove(
+            move = dto.move,
+            parent = parentMove
+        )
+        return openingMoveRepository.save(newMove)
+    }
+
+    fun updateMove(dto: WriteOpeningMoveDto, move: OpeningMove): OpeningMove {
+        val newMove = OpeningMove(
+            id = move.id,
+            move = dto.move,
+            parent = move.parent,
+            moveEvaluations = move.moveEvaluations
+        )
+        return openingMoveRepository.save(newMove)
+    }
+
+    fun deleteOpening(opening: Opening): Opening {
+        val toSave = opening.copy( deleted = true )
+        return openingRepository.save(toSave)
+    }
+
+    fun deleteMove(move: OpeningMove): OpeningMove {
+        val toSave = move.copy( deleted = true )
+        return openingMoveRepository.save(toSave)
+    }
+
+}

@@ -15,7 +15,6 @@ import {Button} from "primeng/button";
 import {DatePicker} from "primeng/datepicker";
 import {Select} from "primeng/select";
 import {FloatLabel} from "primeng/floatlabel";
-import {EnvironmentConfig} from "../../core/config/environment.config";
 
 @Component({
   selector: 'app-chess-update-person',
@@ -129,7 +128,6 @@ export class ChessUpdatePersonComponent implements OnInit{
       birthday = new Date(d.getTime() - (offset*60*1000)).toISOString().split('T')[0]
     }
 
-    console.log(birthday)
     const person: WritePerson = {
       firstname: this.formGroup.controls['firstname'].value,
       lastname: this.formGroup.controls['lastname'].value,

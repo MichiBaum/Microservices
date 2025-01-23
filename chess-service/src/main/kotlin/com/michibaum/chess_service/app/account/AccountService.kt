@@ -6,8 +6,9 @@ import com.michibaum.chess_service.apis.Loggable
 import com.michibaum.chess_service.apis.Success
 import com.michibaum.chess_service.apis.dtos.AccountDto
 import com.michibaum.chess_service.doIfIsInstance
-import com.michibaum.chess_service.domain.Account
-import com.michibaum.chess_service.domain.ChessPlatform
+import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.AccountRepository
+import com.michibaum.chess_service.database.ChessPlatform
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
@@ -96,7 +97,6 @@ class AccountService(
             platform = it.platform,
             createdAt = it.createdAt,
             person = it.person,
-            games = it.games,
             id = it.id
         )
     }
