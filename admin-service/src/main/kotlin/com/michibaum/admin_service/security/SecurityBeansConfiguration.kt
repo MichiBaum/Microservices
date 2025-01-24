@@ -1,6 +1,8 @@
 package com.michibaum.admin_service.security
 
 import com.michibaum.authentication_library.AuthenticationClient
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
+import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.authentication_library.security.ServletDelegateAuthenticationManager
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
@@ -10,6 +12,7 @@ import com.michibaum.authentication_library.security.basic.servlet.BasicAuthenti
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
 import com.michibaum.authentication_library.security.jwt.servlet.JwtAuthenticationConverter
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
@@ -17,11 +20,12 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.web.authentication.AuthenticationConverter
 
 @Configuration
+@EnableConfigurationProperties(value = [AdminServiceCredentials::class])
 class SecurityBeansConfiguration {
 
     @Bean
-    fun adminServiceCredentials(): AdminServiceCredentials =
-        AdminServiceCredentials()
+    fun publicEndpointResolver(): PublicEndpointResolver =
+        PublicEndpointResolver(PublicEndpoint::class.java, "com.michibaum.admin_service")
 
 
 

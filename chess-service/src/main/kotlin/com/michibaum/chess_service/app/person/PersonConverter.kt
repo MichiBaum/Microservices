@@ -1,7 +1,7 @@
 package com.michibaum.chess_service.app.person
 
 import com.michibaum.chess_service.app.account.AccountConverter
-import com.michibaum.chess_service.domain.Person
+import com.michibaum.chess_service.database.Person
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 

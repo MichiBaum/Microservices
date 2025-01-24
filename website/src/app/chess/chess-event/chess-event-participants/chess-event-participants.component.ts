@@ -5,7 +5,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {Account, ChessEvent, Person} from "../../../core/models/chess/chess.models";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from "rxjs";
-import {ChessService} from "../../../core/services/chess.service";
+import {ChessService} from "../../../core/api-services/chess.service";
 import {ChessPlayerCardComponent} from "../chess-player-card/chess-player-card.component";
 import {FormsModule} from "@angular/forms";
 import {RadioButton} from "primeng/radiobutton";

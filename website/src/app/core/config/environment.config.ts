@@ -11,6 +11,10 @@ export class EnvironmentConfig {
     this.hostname = this.document.location.hostname;
   }
 
+  baseUrl(): string {
+    return environment.base_url(this.hostname);
+  }
+
   fe_images(): string {
     return environment.fe_images(this.hostname);
   }

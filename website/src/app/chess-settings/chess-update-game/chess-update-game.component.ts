@@ -1,6 +1,6 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {Account, ChessEvent, Person} from "../../core/models/chess/chess.models";
 import {MultiSelectModule} from "primeng/multiselect";
 import {FormsModule} from "@angular/forms";

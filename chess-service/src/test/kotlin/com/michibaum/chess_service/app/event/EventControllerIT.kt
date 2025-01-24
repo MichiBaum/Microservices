@@ -1,7 +1,8 @@
 package com.michibaum.chess_service.app.event
 
 import com.michibaum.chess_service.TestcontainersConfiguration
-import com.michibaum.chess_service.app.person.PersonRepository
+import com.michibaum.chess_service.database.PersonRepository
+import com.michibaum.chess_service.database.EventRepository
 import com.michibaum.chess_service.domain.EventProvider
 import com.michibaum.chess_service.domain.PersonProvider
 import org.junit.jupiter.api.Test

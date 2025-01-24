@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {AuthJwtInterceptor} from './auth-jwt.interceptor';
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../api-services/auth.service";
 
 describe('AuthInterceptor', () => {
     let httpMock: HttpTestingController;

@@ -1,7 +1,7 @@
 package com.michibaum.chess_service.app.eventcategory
 
 import com.michibaum.chess_service.app.event.EventDto
-import com.michibaum.chess_service.domain.EventCategory
+import com.michibaum.chess_service.database.EventCategory
 import org.springframework.stereotype.Component
 
 @Component

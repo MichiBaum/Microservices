@@ -9,23 +9,23 @@ import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
 import {Ripple} from "primeng/ripple";
 import {
-  faBars,
-  faChess,
-  faCoffee,
-  faCompactDisc,
-  faDumbbell,
-  faHouse,
-  faKey,
-  faLightbulb,
-  faMicrochip,
-  faStamp,
-  faUser
+    faBars,
+    faChess,
+    faCoffee,
+    faCompactDisc,
+    faDumbbell,
+    faHouse,
+    faKey,
+    faLightbulb,
+    faMicrochip,
+    faStamp,
+    faUser
 } from "@fortawesome/free-solid-svg-icons";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import {Sides} from "../../core/config/sides";
 import {PermissionService} from "../../core/services/permission.service";
-import {AuthService} from "../../core/services/auth.service";
+import {AuthService} from "../../core/api-services/auth.service";
 import {ImageModule} from "primeng/image";
 import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";

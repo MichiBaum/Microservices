@@ -1,8 +1,8 @@
 package com.michibaum.chess_service.apis.chesscom
 
 import com.michibaum.chess_service.apis.dtos.*
-import com.michibaum.chess_service.domain.ChessPlatform
-import com.michibaum.chess_service.domain.GameType
+import com.michibaum.chess_service.database.ChessPlatform
+import com.michibaum.chess_service.database.GameType
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.time.LocalDate

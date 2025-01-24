@@ -2,6 +2,7 @@ package com.michibaum.authentication_service.authentication
 
 import com.michibaum.authentication_library.AuthenticationEndpoints
 import com.michibaum.authentication_library.PublicKeyDto
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.usermanagement_library.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
@@ -20,6 +21,7 @@ class AuthenticationController (
     @Lazy
     lateinit var usermanagementClient: UsermanagementClient
 
+    @PublicEndpoint
     @PostMapping(value = ["/api/authenticate"])
     fun authenticate(@RequestBody authenticationDto: AuthenticationDto): ResponseEntity<AuthenticationResponse> {
         val loginDto = LoginDto(authenticationDto.username, authenticationDto.password)
@@ -36,6 +38,7 @@ class AuthenticationController (
         return ResponseEntity.ok().body(responseBody)
     }
 
+    @PublicEndpoint
     @PostMapping(value = ["/api/register"])
     fun register(@RequestBody registerDto: RegisterDto): ResponseEntity<RegisterResponse> {
         val createUserDto = CreateUserDto(registerDto.username, registerDto.email, registerDto.password)

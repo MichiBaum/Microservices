@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.event
 
-import com.michibaum.chess_service.domain.ChessPlatform
+import com.michibaum.chess_service.database.ChessPlatform
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern

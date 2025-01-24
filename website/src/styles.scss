@@ -3,3 +3,7 @@
 @use "tailwindcss/base";
 @use "tailwindcss/components";
 @use "tailwindcss/utilities";
+
+:root {
+    --p-tooltip-max-width: 40rem !important;
+}

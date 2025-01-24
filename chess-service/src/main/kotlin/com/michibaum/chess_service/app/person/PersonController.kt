@@ -1,7 +1,5 @@
 package com.michibaum.chess_service.app.person
 
-import com.michibaum.chess_service.apis.fide.FideApiService
-import com.michibaum.chess_service.app.event.EventService
 import jakarta.validation.Valid
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.core.io.buffer.DataBufferUtils
@@ -21,9 +19,7 @@ import java.util.*
 @RestController
 class PersonController(
     private val personService: PersonService,
-    private val personConverter: PersonConverter,
-    private val fideApiService: FideApiService,
-    private val eventService: EventService,
+    private val personConverter: PersonConverter
 ) {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
@@ -75,38 +71,5 @@ class PersonController(
 
         return ResponseEntity(persons, HttpStatus.OK)
     }
-
-//    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-//    @PostMapping(value = ["/api/fide/ratings"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
-//    fun fideImport(@RequestPart("file") filePartMono: Mono<FilePart>): Mono<ResponseEntity<FileImportResult>> {
-//        val processFileContent: (InputStream) -> List<Person> = { stream ->
-//            fideApiService.getPersons(stream).let {
-//                personService.createAndUpdate(it)
-//            }
-//        }
-//        return filePartMono.flatMap { filePart ->
-//            processFilePart(filePart.content(), processFileContent)
-//        }.map { processedContent ->
-//            val importResult = FileImportResult("", true)
-//            ResponseEntity(importResult, HttpStatus.OK)
-//        }.doOnError { error ->
-//            println("Error occurred: ${error.message}")
-//        }.onErrorResume {
-//            val importResult = FileImportResult("", false)
-//            Mono.just(ResponseEntity(importResult, HttpStatus.INTERNAL_SERVER_ERROR))
-//        }
-//    }
-
-    private fun <T> processFilePart(content: Flux<DataBuffer>, processFileContent: (InputStream) -> T): Mono<T> {
-        return DataBufferUtils.join(content).map { dataBuffer ->
-            val byteArray = ByteArray(dataBuffer.readableByteCount()).apply {
-                dataBuffer.read(this)
-            }
-            DataBufferUtils.release(dataBuffer) // Release the buffer after use
-            val inputStream = ByteArrayInputStream(byteArray)
-            processFileContent(inputStream)
-        }
-    }
-
 
 }

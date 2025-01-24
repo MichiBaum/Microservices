@@ -3,9 +3,10 @@ package com.michibaum.chess_service.app.game
 import com.michibaum.chess_service.apis.ApiService
 import com.michibaum.chess_service.apis.dtos.GameDto
 import com.michibaum.chess_service.apis.dtos.PlayerDto
-import com.michibaum.chess_service.app.account.AccountRepository
+import com.michibaum.chess_service.database.AccountRepository
 import com.michibaum.chess_service.domain.AccountProvider
-import com.michibaum.chess_service.domain.Game
+import com.michibaum.chess_service.database.Game
+import com.michibaum.chess_service.database.GameRepository
 import com.michibaum.chess_service.domain.GameProvider
 import com.michibaum.chess_service.domain.PlayerProvider
 import io.mockk.every
@@ -29,15 +30,15 @@ class GameServiceUT {
     fun `should load games for account and save new games`() {
         // given
         val account = AccountProvider.account()
-        val tmpGame = GameProvider.game(account)
-        val player = PlayerProvider.player(tmpGame)
+        val tmpGame = GameProvider.game()
+        val player = PlayerProvider.player(account, tmpGame)
 //            .copy(username = account.username, platformId = account.accId)
         val game = tmpGame //.copy(players = setOf(player))
         val gameDto =  GameDto(
             chessPlatform = game.chessPlatform,
             id = game.platformId,
             players = listOf(PlayerDto(
-                id = player.platformId,
+                id = account.platformId,
                 username = player.username,
                 rating = player.rating,
                 pieceColor = player.pieceColor,
@@ -88,7 +89,6 @@ class GameServiceUT {
         assertEquals(1, savedGame.players.size)
 
         val savedPlayer = savedGame.players.first()
-        assertEquals(player.platformId, savedPlayer.platformId)
         assertEquals(player.username, savedPlayer.username)
         assertEquals(player.rating, savedPlayer.rating)
         assertEquals(player.pieceColor, savedPlayer.pieceColor)
@@ -98,7 +98,7 @@ class GameServiceUT {
     fun `should load games for account and skip existing games`() {
         // given
         val account = AccountProvider.account()
-        val game = GameProvider.game(account)
+        val game = GameProvider.game()
         val gameDto =  GameDto(
             chessPlatform = game.chessPlatform,
             id = game.platformId,

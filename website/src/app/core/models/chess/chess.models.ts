@@ -109,3 +109,43 @@ export interface ChessGame {
   pgn: string;
   gameType: ChessGameType;
 }
+
+export interface ChessEngine {
+  id: string;
+  name: string;
+  version: string;
+}
+
+export interface WriteChessEngine {
+  name: string;
+  version: string;
+}
+
+export interface ChessOpening{
+    id: string;
+    name: string;
+    moveId: string;
+}
+
+export interface ChessEvaluation{
+    engineId: string;
+    engineName: string;
+    engineVersion: string;
+    depth: number;
+    evaluation: string;
+}
+
+export interface ChessOpeningMove{
+    id: string;
+    move: string;
+    openingName: string;
+    openingId: string;
+    nextMoves: ChessOpeningMove[];
+    evaluations: ChessEvaluation[]
+}
+
+export interface WriteOpeningMove{
+    id: string;
+    move: string;
+    parentMoveId: string;
+}

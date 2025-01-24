@@ -1,11 +1,12 @@
-import {Component, computed, inject, OnInit, signal} from '@angular/core';
-import {ChessService} from "../../core/services/chess.service";
+import {Component, inject, linkedSignal, OnInit, signal} from '@angular/core';
+import {ChessService} from "../../core/api-services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
-  ChessEvent,
-  ChessEventCategory, ChessPlatform,
-  Person,
-  WriteChessEvent
+    ChessEvent,
+    ChessEventCategory,
+    ChessPlatform,
+    Person,
+    WriteChessEvent
 } from "../../core/models/chess/chess.models";
 import {Fieldset} from "primeng/fieldset";
 import {SelectChessEventComponent} from "../select-chess-event/select-chess-event.component";
@@ -66,10 +67,10 @@ export class ChessUpdateEventComponent implements OnInit{
   })
 
   allPersonsS = signal<Person[]>([])
-  participantsS = computed(() => {
+  participantsS = linkedSignal(() => {
     return this.selectedParticipants.value() ?? []
   })
-  personsToSelectS = computed(() => {
+  personsToSelectS = linkedSignal(() => {
     const eventParticipants = this.selectedParticipants.value() ?? [];
     return this.allPersonsS().filter(person => !eventParticipants?.some(participant => participant.id == person.id))
   })

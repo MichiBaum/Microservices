@@ -1,6 +1,6 @@
 import {Component, inject, signal} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
 import {Button, ButtonDirective} from "primeng/button";

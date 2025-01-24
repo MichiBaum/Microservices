@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {AdminService} from "../../core/services/admin.service";
+import {AdminService} from "../../core/api-services/admin.service";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {MsApplicationComponent} from "../ms-application/ms-application.component";
 

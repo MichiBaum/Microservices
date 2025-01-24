@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {Gender, Person} from "../models/chess/chess.models";
+import {Gender} from "../models/chess/chess.models";
 import {IconDefinition} from "@fortawesome/angular-fontawesome";
 import {faMars, faVenus, faVenusMars} from "@fortawesome/free-solid-svg-icons";
 

@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.0.0-TEST-9</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
@@ -50,7 +50,7 @@
         https://mockk.io/
         https://mvnrepository.com/artifact/io.mockk/mockk-jvm
         -->
-        <mockk.version>1.13.13</mockk.version>
+        <mockk.version>1.13.16</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
@@ -289,7 +289,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>3.1.1</version> <!-- TODO check if version 3.1.1 works else revert to 3.0.1 -->
+                <version>3.1.1</version>
             </plugin>
 
 		</plugins>

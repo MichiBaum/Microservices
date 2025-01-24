@@ -66,6 +66,19 @@ export const routes: Routes = [
         loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
         canActivate: []
       },
+        {
+            path: "openings/:id",
+            loadComponent: async () => {
+                if (window.innerWidth > 1000) {
+                    const c = await import("./chess/chess-openings/chess-opening/chess-opening.component");
+                    return c.ChessOpeningComponent;
+                } else {
+                    const c = await import("./chess/chess-openings/chess-opening-mobile/chess-opening-mobile.component");
+                    return c.ChessOpeningMobileComponent;
+                }
+            },
+            canActivate: []
+        },
       {
         path: "settings",
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
@@ -98,6 +111,24 @@ export const routes: Routes = [
           {
             path:"games",
             loadComponent: () => import("./chess-settings/chess-update-game/chess-update-game.component").then((c) => c.ChessUpdateGameComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
+            path:"fide-import",
+            loadComponent: () => import("./chess-settings/fide-import/fide-import.component").then((c) => c.FideImportComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
+            path:"engines",
+            loadComponent: () => import("./chess-settings/chess-update-engine/chess-update-engine.component").then((c) => c.ChessUpdateEngineComponent),
+            canActivate: [isAuthenticatedGuard, isPermittedGuard],
+            data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
+          },
+          {
+            path:"openings",
+            loadComponent: () => import("./chess-settings/chess-update-opening/chess-update-opening.component").then((c) => c.ChessUpdateOpeningComponent),
             canActivate: [isAuthenticatedGuard, isPermittedGuard],
             data: {"permissions": [Permissions.CHESS_SERVICE_ADMIN]},
           }

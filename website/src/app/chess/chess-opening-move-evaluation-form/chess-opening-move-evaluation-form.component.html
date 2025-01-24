@@ -1,0 +1,40 @@
+<p-select
+    [options]="availableEngines()"
+    [(ngModel)]="selectedEngine"
+    placeholder="Select as Engine"
+    class="w-full"
+>
+    <ng-template #selectedItem let-engine>
+        <div class="flex items-center gap-2" *ngIf="engine">
+            <div>{{ engine.name }} {{ engine.version }}</div>
+        </div>
+    </ng-template>
+    <ng-template let-engine #item>
+        <div class="flex items-center gap-2">
+            <div>{{ engine.name }} {{engine.version}}</div>
+        </div>
+    </ng-template>
+</p-select>
+
+<form [formGroup]="formGroup">
+
+    <p-floatlabel variant="in" class="mb-2">
+        <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+        <label for="id">ID</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in" class="mb-2">
+        <input class="w-full" pInputText id="depth" formControlName="depth" autocomplete="off" />
+        <label for="depth">Depth</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in" class="mb-2">
+        <input class="w-full" pInputText id="evaluation" formControlName="evaluation" autocomplete="off" />
+        <label for="evaluation">Evaluation</label>
+    </p-floatlabel>
+
+</form>
+
+<p-button type="button" severity="danger" variant="outlined" class="mr-12" label="Delete" (click)="delete()" [disabled]="!canDelete()"></p-button>
+<p-button type="button" variant="outlined" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+<p-button type="button" severity="success" variant="outlined" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>

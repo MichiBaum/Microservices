@@ -1,5 +1,6 @@
 package com.michibaum.websiteservice.security
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
@@ -20,15 +21,19 @@ class SecurityConfiguration {
     @Bean
     fun securityFilterChain(
         http: HttpSecurity,
-        authenticationFilter: ServletAuthenticationFilter
+        authenticationFilter: ServletAuthenticationFilter,
+        publicEndpointResolver: PublicEndpointResolver
     ): SecurityFilterChain {
+        val publicEndpoints = publicEndpointResolver.run()
         return http
-            .authorizeHttpRequests {
-                it.requestMatchers(
-                    "/actuator",
-                    "/actuator/**"
-                ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                .anyRequest().permitAll()
+            .authorizeHttpRequests { authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()
+                    .requestMatchers(
+                        "/actuator",
+                        "/actuator/**"
+                    ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
+                    .anyRequest().permitAll()
             }
             .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }

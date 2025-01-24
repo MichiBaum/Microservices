@@ -2,8 +2,8 @@ package com.michibaum.chess_service.apis.fide
 
 import com.michibaum.chess_service.apis.dtos.AccountDto
 import com.michibaum.chess_service.apis.dtos.FidePersonDto
-import com.michibaum.chess_service.domain.ChessPlatform
-import com.michibaum.chess_service.domain.Gender
+import com.michibaum.chess_service.database.ChessPlatform
+import com.michibaum.chess_service.database.Gender
 import org.springframework.stereotype.Component
 
 @Component

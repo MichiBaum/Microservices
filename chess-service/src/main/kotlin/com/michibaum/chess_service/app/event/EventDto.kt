@@ -1,8 +1,7 @@
 package com.michibaum.chess_service.app.event
 
 import com.michibaum.chess_service.app.eventcategory.EventCategoryDto
-import com.michibaum.chess_service.app.person.PersonDto
-import com.michibaum.chess_service.domain.ChessPlatform
+import com.michibaum.chess_service.database.ChessPlatform
 import java.util.*
 
 data class EventDto(

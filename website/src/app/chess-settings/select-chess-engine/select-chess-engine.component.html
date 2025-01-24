@@ -1,0 +1,23 @@
+<p-table
+  stripedRows
+  [value]="engines()"
+  [(selection)]="tableSelectedEngine"
+  selectionMode="single"
+  (onRowSelect)="onSelectionChange()"
+  (onRowUnselect)="onSelectionChange()"
+  [paginator]="true"
+  [rows]="10"
+>
+  <ng-template #header>
+    <tr>
+      <th>Name</th>
+      <th>Version</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-engine let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="engine" [pSelectableRowIndex]="rowIndex">
+      <td>{{ engine.name }}</td>
+      <td>{{ engine.version }}</td>
+    </tr>
+  </ng-template>
+</p-table>

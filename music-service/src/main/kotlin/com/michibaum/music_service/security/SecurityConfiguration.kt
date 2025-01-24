@@ -1,5 +1,6 @@
 package com.michibaum.music_service.security
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
@@ -20,19 +21,19 @@ class SecurityConfiguration {
     @Bean
     fun securityFilterChain(
         http: HttpSecurity,
-        authenticationFilter: ServletAuthenticationFilter
+        authenticationFilter: ServletAuthenticationFilter,
+        publicEndpointResolver: PublicEndpointResolver
     ): SecurityFilterChain {
+        val publicEndpoints = publicEndpointResolver.run()
         return http
-            .authorizeHttpRequests {
-                it
-                    .requestMatchers(
-                        "/api/spotify/auth",
-                    ).permitAll()
+            .authorizeHttpRequests { authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()
                     .requestMatchers(
                         "/actuator",
                         "/actuator/**"
                     ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                    .anyRequest().authenticated()
+                    .anyRequest().hasAnyAuthority(Permissions.MUSIC_SERVICE.name)
             }
             .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }

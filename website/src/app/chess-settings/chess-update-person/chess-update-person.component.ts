@@ -5,7 +5,7 @@ import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
 import {FileUploadModule} from "primeng/fileupload";
 import {Gender, Person, WritePerson} from "../../core/models/chess/chess.models";
-import {ChessService} from "../../core/services/chess.service";
+import {ChessService} from "../../core/api-services/chess.service";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {InputGroupModule} from "primeng/inputgroup";
 import {InputTextModule} from "primeng/inputtext";
@@ -15,7 +15,6 @@ import {Button} from "primeng/button";
 import {DatePicker} from "primeng/datepicker";
 import {Select} from "primeng/select";
 import {FloatLabel} from "primeng/floatlabel";
-import {EnvironmentConfig} from "../../core/config/environment.config";
 
 @Component({
   selector: 'app-chess-update-person',
@@ -39,10 +38,7 @@ import {EnvironmentConfig} from "../../core/config/environment.config";
   styleUrl: './chess-update-person.component.scss'
 })
 export class ChessUpdatePersonComponent implements OnInit{
-  private readonly environment = inject(EnvironmentConfig);
   private readonly chessService = inject(ChessService);
-
-  protected readonly chessBaseUrl = this.environment.chessService();
 
   persons: Person[] = [];
   selectedPersonS = signal<Person | undefined>(undefined);
@@ -132,7 +128,6 @@ export class ChessUpdatePersonComponent implements OnInit{
       birthday = new Date(d.getTime() - (offset*60*1000)).toISOString().split('T')[0]
     }
 
-    console.log(birthday)
     const person: WritePerson = {
       firstname: this.formGroup.controls['firstname'].value,
       lastname: this.formGroup.controls['lastname'].value,

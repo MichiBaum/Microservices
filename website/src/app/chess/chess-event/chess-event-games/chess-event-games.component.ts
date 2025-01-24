@@ -1,6 +1,6 @@
 import {Component, computed, inject, input, output} from '@angular/core';
 import {ChessEvent} from "../../../core/models/chess/chess.models";
-import {ChessService} from "../../../core/services/chess.service";
+import {ChessService} from "../../../core/api-services/chess.service";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from 'rxjs';
 

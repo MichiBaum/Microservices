@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.account
 
-import com.michibaum.chess_service.domain.Account
+import com.michibaum.chess_service.database.Account
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
@@ -29,7 +29,7 @@ class AccountController(
     fun getAccount(@PathVariable id: String): ResponseEntity<AccountDto> {
         return try {
             val uuid = UUID.fromString(id)
-            val account = accountService.findById(uuid) ?: return ResponseEntity.notFound().build()
+            val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()
             val dto = accountConverter.convert(account)
             ResponseEntity.ok(dto)
         } catch (ex: IllegalArgumentException) {
@@ -38,7 +38,5 @@ class AccountController(
             ResponseEntity.internalServerError().build()
         }
     }
-
-
 
 }

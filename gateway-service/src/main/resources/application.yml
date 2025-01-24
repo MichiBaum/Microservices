@@ -17,7 +17,7 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      routes:
+      routes: # TODO permission to Authentication
         - id: admin
           uri: lb://admin-service
           predicates:
@@ -124,3 +124,30 @@ management:
       enabled: true
     ssl:
       enabled: true
+
+robots-txt:
+  crawlers:
+    -
+      user-agent: "*"
+      allowed:
+        - "/"
+        - "/*"
+  sitemaps:
+    - "/sitemap.xml"
+sitemap-xml:
+  locations:
+    - "/"
+    - "/home"
+    - "/login"
+    - "/register"
+    - "/about-me"
+    - "/donate"
+    - "/imprint"
+    - "/chess"
+    - "/chess/news"
+    - "/chess/events"
+  data-locations:
+    - static-part: "/chess/events/{replace}"
+      data-location: CHESS_EVENTS
+    - static-part: "/chess/openings/{replace}"
+      data-location: CHESS_OPENINGS
