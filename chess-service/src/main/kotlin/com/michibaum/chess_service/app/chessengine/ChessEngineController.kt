@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.chessengine
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -10,6 +11,7 @@ class ChessEngineController(
     private val chessEngineConverter: ChessEngineConverter
 ) {
 
+    @PublicEndpoint
     @GetMapping("/api/engines")
     fun getAllChessEngines(): ResponseEntity<List<ChessEngineResponseDto>> {
         val chessEngines = chessEngineService.getAllChessEngines()
