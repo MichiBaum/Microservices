@@ -146,3 +146,8 @@ sitemap-xml:
     - "/chess"
     - "/chess/news"
     - "/chess/events"
+  data-locations:
+    - static-part: "/chess/events/{replace}"
+      data-location: CHESS_EVENTS
+    - static-part: "/chess/openings/{replace}"
+      data-location: CHESS_OPENINGS
