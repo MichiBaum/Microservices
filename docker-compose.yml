@@ -6,6 +6,8 @@ services:
     env_file:
       - .env
     restart: always
+    depends_on:
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -29,6 +31,8 @@ services:
     depends_on:
       registry-service:
         condition: service_healthy
+      zipkin:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -51,6 +55,8 @@ services:
     restart: always
     depends_on:
       registry-service:
+        condition: service_healthy
+      zipkin:
         condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
@@ -105,6 +111,8 @@ services:
         condition: service_healthy
       usermanagement-db:
         condition: service_healthy
+      zipkin:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${USERMANAGEMENT_DB_USERNAME}
@@ -156,6 +164,8 @@ services:
     depends_on:
       registry-service:
         condition: service_healthy
+      zipkin:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -181,6 +191,8 @@ services:
     depends_on:
       registry-service:
         condition: service_healthy
+      zipkin:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -205,6 +217,8 @@ services:
       registry-service:
         condition: service_healthy
       chess-db:
+        condition: service_healthy
+      zipkin:
         condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
@@ -260,6 +274,8 @@ services:
         condition: service_healthy
       fitness-db:
         condition: service_healthy
+      zipkin:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${FITNESS_DB_USERNAME}
@@ -313,6 +329,8 @@ services:
         condition: service_healthy
       music-db:
         condition: service_healthy
+      zipkin:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${MUSIC_DB_USERNAME}
@@ -354,6 +372,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
+
+  zipkin:
+    image: openzipkin/zipkin:3.4
+    restart: always
+    expose:
+      - "9411"
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
