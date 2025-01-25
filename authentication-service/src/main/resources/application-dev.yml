@@ -6,6 +6,11 @@ eureka:
     service-url:
       defaultZone: http://admin_username:admin_password@localhost:8761/eureka
 
+management:
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
 spring:
   datasource:
     username: root
