@@ -50,6 +50,14 @@ eureka:
       enabled: true
 
 management:
+  zipkin:
+    tracing:
+      export:
+        enabled: true
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
   endpoints:
     access:
       default: unrestricted
