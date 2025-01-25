@@ -5,6 +5,8 @@ services:
     env_file:
       - .env
     restart: always
+    depends_on:
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -20,6 +22,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -35,6 +38,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${AUTHENTICATION_DB_USERNAME}
@@ -73,6 +77,7 @@ services:
     depends_on:
       - registry-service
       - usermanagement-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${USERMANAGEMENT_DB_USERNAME}
@@ -110,6 +115,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -127,6 +133,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -143,6 +150,7 @@ services:
     depends_on:
       - registry-service
       - chess-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${CHESS_DB_USERNAME}
@@ -182,6 +190,7 @@ services:
     depends_on:
       - registry-service
       - fitness-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${FITNESS_DB_USERNAME}
@@ -220,6 +229,7 @@ services:
     depends_on:
       - registry-service
       - music-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${MUSIC_DB_USERNAME}
@@ -249,6 +259,12 @@ services:
       - /data/music-db:/var/lib/mysql
     networks:
       - microservice-network
+
+  zipkin:
+    image: openzipkin/zipkin:3.4
+    restart: always
+    expose:
+      - "9411"
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76

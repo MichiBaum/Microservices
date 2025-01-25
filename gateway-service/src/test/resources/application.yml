@@ -41,6 +41,8 @@ eureka:
       enable: true
 
 management:
+  tracing:
+    enabled: false
   endpoints:
     access:
       default: unrestricted
