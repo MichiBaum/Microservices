@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.person
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import jakarta.validation.Valid
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.core.io.buffer.DataBufferUtils
@@ -22,6 +23,7 @@ class PersonController(
     private val personConverter: PersonConverter
 ) {
 
+    @PublicEndpoint
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping(value = ["/api/persons"])
     fun persons(): ResponseEntity<List<PersonDto>> {
@@ -30,6 +32,7 @@ class PersonController(
         return ResponseEntity.ok(personDtos)
     }
 
+    @PublicEndpoint
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping(value = ["/api/persons/{id}"])
     fun person(@PathVariable id: String): ResponseEntity<PersonDto> {
