@@ -1,10 +1,10 @@
 import {Component, inject, OnDestroy, signal, WritableSignal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ChessService} from "../../core/services/chess.service";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EMPTY} from "rxjs";
 import {TableModule} from "primeng/table";
 import {Button} from "primeng/button";
+import {ChessService} from "../../core/api-services/chess.service";
 
 @Component({
   selector: 'app-chess-person',
