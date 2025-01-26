@@ -39,6 +39,11 @@ export class ChessService {
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
+    person(id: string): Observable<Person> {
+        return this.http.get<Person>(this.environment.chessService() + '/persons/' + id)
+            .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
+    }
+
   events(): Observable<ChessEvent[]> {
     return this.http.get<ChessEvent[]>(this.environment.chessService() + '/events')
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
