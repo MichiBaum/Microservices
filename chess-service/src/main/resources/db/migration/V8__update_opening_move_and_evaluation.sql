@@ -1,0 +1,1 @@
+ALTER TABLE opening_move ADD COLUMN fen VARCHAR(255) NOT NULL;
