@@ -54,6 +54,7 @@ export class ChessMoveTreeComponent {
         const selectedMove: SelectedMove = {
             id: move.id,
             move: move.move,
+            fen: move.fen,
             parentId: parent?.id ?? '',
             openingId: move.openingId ?? '',
             openingName: move.openingName ?? '',
