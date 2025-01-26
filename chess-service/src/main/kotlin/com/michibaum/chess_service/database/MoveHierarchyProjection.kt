@@ -5,6 +5,7 @@ import java.util.*
 interface MoveHierarchyProjection {
     fun getMoveId(): UUID
     fun getMove(): String
+    fun getFen(): String
     fun getParentId(): UUID?
     fun getEngineId(): UUID?
     fun getDepth(): Int?

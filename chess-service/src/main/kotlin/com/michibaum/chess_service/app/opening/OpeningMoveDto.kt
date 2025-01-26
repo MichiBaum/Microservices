@@ -3,12 +3,14 @@ package com.michibaum.chess_service.app.opening
 data class SimpleOpeningMoveDto(
     val id: String,
     val move: String,
+    val fen: String,
     val parentMoveId: String
 )
 
 data class OpeningMoveDto(
     val id: String,
     val move: String,
+    val fen: String,
     var nextMoves: List<OpeningMoveDto>,
     var evaluations: List<EvaluationDto> = listOf(),
     val openingName: String?,
