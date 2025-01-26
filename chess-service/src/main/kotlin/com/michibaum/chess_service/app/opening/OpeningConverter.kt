@@ -54,6 +54,7 @@ class OpeningConverter {
                 OpeningMoveDto(
                     id = moveId.toString(),
                     move = move.getMove(),
+                    fen = move.getFen(),
                     openingName = move.getOpeningName(),
                     openingId = move.getOpeningId()?.toString(),
                     nextMoves = listOf(),
@@ -95,6 +96,7 @@ class OpeningConverter {
         return SimpleOpeningMoveDto(
             id = move.id?.toString() ?: "",
             move = move.move,
+            fen = move.fen,
             parentMoveId = move.parent?.id?.toString() ?: ""
         )
     }

@@ -145,6 +145,7 @@ export interface ChessEvaluation{
 export interface ChessOpeningMove{
     id: string;
     move: string;
+    fen: string;
     openingName: string;
     openingId: string;
     nextMoves: ChessOpeningMove[];
@@ -154,5 +155,6 @@ export interface ChessOpeningMove{
 export interface WriteOpeningMove{
     id: string;
     move: string;
+    fen: string;
     parentMoveId: string;
 }
