@@ -10,6 +10,9 @@ data class OpeningMove(
     @Column(nullable = false)
     val move: String,
 
+    @Column(nullable = false)
+    val fen: String = "",
+
     @ManyToOne(targetEntity = OpeningMove::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.ALL])
     val parent: OpeningMove? = null,
 

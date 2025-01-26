@@ -87,6 +87,7 @@ export class ChessOpeningActionsComponent {
         const newMove: WriteOpeningMove = {
             id: '',
             move: '',
+            fen: '',
             parentMoveId: move.id,
         }
         this.moveInput.set(newMove)
@@ -96,6 +97,7 @@ export class ChessOpeningActionsComponent {
         const newMove: WriteOpeningMove = {
             id: move.id,
             move: move.move,
+            fen: move.fen,
             parentMoveId: move.parentId,
         }
         this.moveInput.set(newMove)
