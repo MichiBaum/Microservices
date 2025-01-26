@@ -13,7 +13,10 @@ class SitemapXmlController(
     @GetMapping("/sitemap.xml", produces = ["text/xml"])
     fun sitemapXml(@RequestHeader("Host") host: String?): ResponseEntity<String> {
         if (host == null)
-            return ResponseEntity.internalServerError().build()
+            return ResponseEntity
+                .badRequest()
+                .body("The 'Host' header is missing. Please include it in the request.")
+
 
         val sitemap = sitemapXmlService.generateWith(host)
         return ResponseEntity.ok(sitemap)
