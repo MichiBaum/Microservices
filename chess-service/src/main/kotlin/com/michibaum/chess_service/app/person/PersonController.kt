@@ -31,6 +31,7 @@ class PersonController(
         return ResponseEntity.ok(personDtos)
     }
 
+    @PublicEndpoint
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping(value = ["/api/persons/{id}"])
     fun person(@PathVariable id: String): ResponseEntity<PersonDto> {
