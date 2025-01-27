@@ -369,12 +369,12 @@ services:
     depends_on:
       - zipkin-storage
     environment:
-      - STORAGE_TYPE=mysql
-      - MYSQL_HOST=zipkin-storage
-      - MYSQL_USER=zipkin
-      - MYSQL_PASS=zipkin
-      - EUREKA_SERVICE_URL=http://username:password@registry-service:8761/eureka
-      - EUREKA_HOSTNAME=zipkin
+      STORAGE_TYPE: mysql
+      MYSQL_HOST: zipkin-storage
+      MYSQL_USER: ${ZIPKIN_DB_USERNAME}
+      MYSQL_PASS: ${ZIPKIN_DB_PASSWORD}
+      EUREKA_SERVICE_URL: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
+      EUREKA_HOSTNAME: zipkin
     expose:
       - "9411"
     networks:
@@ -388,10 +388,10 @@ services:
     user: root
     entrypoint: /usr/sbin/crond -f
     environment:
-      - STORAGE_TYPE=mysql
-      - MYSQL_HOST=zipkin-storage
-      - MYSQL_USER=zipkin
-      - MYSQL_PASS=zipkin
+      STORAGE_TYPE: mysql
+      MYSQL_HOST: zipkin-storage
+      MYSQL_USER: ${ZIPKIN_DB_USERNAME}
+      MYSQL_PASS: ${ZIPKIN_DB_PASSWORD}
     networks:
       - microservice-network
 
