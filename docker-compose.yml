@@ -353,11 +353,47 @@ services:
       timeout: 5s
       retries: 3
 
-  zipkin:
-    image: openzipkin/zipkin:3.4
+  zipkin-storage:
+    image: ghcr.io/openzipkin/zipkin-mysql:3.4
     restart: always
     expose:
+      - "3306"
+    volumes:
+      - /data/zipkin-storage:/var/lib/mysql
+    networks:
+      - microservice-network
+
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin:3.4
+    restart: always
+    depends_on:
+      - zipkin-storage
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=zipkin-storage
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      - EUREKA_SERVICE_URL=http://username:password@registry-service:8761/eureka
+      - EUREKA_HOSTNAME=zipkin
+    expose:
       - "9411"
+    networks:
+      - microservice-network
+
+  zipkin-dependencies:
+    image: ghcr.io/openzipkin/zipkin-dependencies
+    restart: always
+    depends_on:
+      - zipkin-storage
+    user: root
+    entrypoint: /usr/sbin/crond -f
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=zipkin-storage
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+    networks:
+      - microservice-network
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
