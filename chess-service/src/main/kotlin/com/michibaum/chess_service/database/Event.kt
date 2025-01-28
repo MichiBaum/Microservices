@@ -35,6 +35,10 @@ class Event(
     @Column(nullable = false)
     val platform: ChessPlatform,
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    val gameType: GameType,
+
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
     @JoinTable(name = "EVENT_CATEGORY_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "category_id")])
     val categories: Set<EventCategory> = setOf(),
