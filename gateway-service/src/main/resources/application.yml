@@ -19,10 +19,10 @@ spring:
     gateway:
       mvc:
         routes:
-#          - id: admin
-#            uri: lb://admin-service
-#            predicates:
-#              - Host=admin.michibaum.*
+          - id: admin
+            uri: lb://admin-service
+            predicates:
+              - Host=admin.michibaum.*
 #          - id: registry
 #            uri: lb://registry-service
 #            predicates:
