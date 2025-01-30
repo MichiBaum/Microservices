@@ -16,13 +16,15 @@ class SitemapXmlService(
     fun generateWith(host: String): String {
         // Sitemap size limits: All formats limit a single sitemap to 50MB (uncompressed) or 50,000 URLs.
         val baseUrl = "https://$host"
-        val xmlWriter = StringWriter().buffered()
+        val xmlBuilder = StringBuilder()
 
-        xmlWriter.appendLine("""<?xml version="1.0" encoding="UTF-8"?>""")
-        xmlWriter.appendLine("""<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">""")
+        // Start building the XML
+        xmlBuilder.appendLine("""<?xml version="1.0" encoding="UTF-8"?>""")
+        xmlBuilder.appendLine("""<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">""")
 
+        // Static locations
         sitemapXmlProperties.locations.forEach {
-            xmlWriter.appendLine("""
+            xmlBuilder.appendLine("""
                <url>
                    <loc>$baseUrl$it</loc>
                </url>
@@ -42,15 +44,16 @@ class SitemapXmlService(
             }, executor)
         }.map { it.join() } // Wait for all tasks to complete and collect results
 
-        // Append the generated results to the XML writer
+        // Append the generated results to the XML builder
         dataLocationResults.flatten().forEach { urlEntry ->
-            xmlWriter.appendLine(urlEntry.trimIndent())
+            xmlBuilder.appendLine(urlEntry.trimIndent())
         }
 
         // Close the XML
-        xmlWriter.appendLine("</urlset>")
+        xmlBuilder.appendLine("</urlset>")
         executor.close() // Manually shut down the virtual thread executor
 
-        return xmlWriter.toString()
+        return xmlBuilder.toString()
     }
+
 }

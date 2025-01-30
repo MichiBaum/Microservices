@@ -16,41 +16,6 @@ spring:
   application:
     name: gateway-service
   cloud:
-    gateway:
-      mvc:
-        routes:
-          - id: admin
-            uri: lb://admin-service
-            predicates:
-              - Host=admin.michibaum.*
-#          - id: registry
-#            uri: lb://registry-service
-#            predicates:
-#              - Host=registry.michibaum.*
-          - id: authentication
-            uri: lb://authentication-service
-            predicates:
-              - Host=authentication.michibaum.*
-          - id: usermanagement
-            uri: lb://usermanagement-service
-            predicates:
-              - Host=usermanagement.michibaum.*
-          - id: chess
-            uri: lb://chess-service
-            predicates:
-              - Host=chess.michibaum.*
-          - id: fitness
-            uri: lb://fitness-service
-            predicates:
-              - Host=fitness.michibaum.*
-          - id: music
-            uri: lb://music-service
-            predicates:
-              - Host=music.michibaum.*
-          - id: website
-            uri: lb://website-service
-            predicates:
-              - Host=michibaum.*
     discovery:
       client:
         health-indicator:

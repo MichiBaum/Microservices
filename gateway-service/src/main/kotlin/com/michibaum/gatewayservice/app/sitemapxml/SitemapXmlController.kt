@@ -1,25 +1,26 @@
 package com.michibaum.gatewayservice.app.sitemapxml
 
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.stereotype.Component
+import org.springframework.web.servlet.function.HandlerFunction
+import org.springframework.web.servlet.function.ServerResponse
 
-@RestController
+@Component
 class SitemapXmlController(
     private val sitemapXmlService: SitemapXmlService
 ) {
 
-    @GetMapping("/sitemap.xml", produces = ["text/xml"])
-    fun sitemapXml(@RequestHeader("Host") host: String?): ResponseEntity<String> {
-        if (host == null)
-            return ResponseEntity
-                .badRequest()
-                .body("The 'Host' header is missing. Please include it in the request.")
+    fun sitemapXml(): HandlerFunction<ServerResponse> {
+        return HandlerFunction { request ->
+            val host = request.headers().firstHeader("Host")
+                ?: return@HandlerFunction ServerResponse.badRequest().body("The 'Host' header is missing. Please include it in the request.")
 
+            val content = sitemapXmlService.generateWith(host)
 
-        val sitemap = sitemapXmlService.generateWith(host)
-        return ResponseEntity.ok(sitemap)
+            ServerResponse.ok()
+                .header("Content-Type", "text/xml")
+                .body(content)
+        }
+
     }
 
 }
