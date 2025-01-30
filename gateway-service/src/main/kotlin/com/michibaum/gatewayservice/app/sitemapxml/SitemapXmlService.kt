@@ -1,7 +1,7 @@
 package com.michibaum.gatewayservice.app.sitemapxml
 
+import jakarta.annotation.PreDestroy
 import org.springframework.stereotype.Service
-import java.io.StringWriter
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executors
 
@@ -11,7 +11,7 @@ class SitemapXmlService(
     private val dataLocationsFetcher: DataLocationsFetcher
 ) {
 
-    private val executor = Executors.newVirtualThreadPerTaskExecutor()
+    private val executor = Executors.newVirtualThreadPerTaskExecutor() // TODO use kotlin coroutines?? Safer? More Verbose?
 
     fun generateWith(host: String): String {
         // Sitemap size limits: All formats limit a single sitemap to 50MB (uncompressed) or 50,000 URLs.
@@ -51,9 +51,14 @@ class SitemapXmlService(
 
         // Close the XML
         xmlBuilder.appendLine("</urlset>")
-        executor.close() // Manually shut down the virtual thread executor
 
         return xmlBuilder.toString()
     }
+
+    @PreDestroy
+    fun cleanUp() {
+        executor.close() // Ensure cleanup is handled when the service is destroyed
+    }
+
 
 }
