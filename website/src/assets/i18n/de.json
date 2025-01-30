@@ -9,11 +9,32 @@
             "softskills": "Soziale Kompetenzen",
             "years": "Jahre"
         },
-        "s1": "Hallo! Ich bin ein Softwareentwickler aus der Schweiz. Meine Reise in die IT-Welt begann mit einer Ausbildung bei Würth ITensis von 2017 bis 2021, wo ich meine Fähigkeiten verfeinerte und bis 2024 weiterarbeitete. Während dieser Zeit entwickelte ich eine tiefe Leidenschaft für das Programmieren, der ich in meiner Freizeit weiterhin nachgehe.",
-        "s2": "Ich mag insbesondere Java und das Spring Framework ☕🌱, das ich in meiner beruflichen Arbeit ausgiebig verwende. Bei der Arbeit an persönlichen Backend-Projekten verwende ich am liebsten Kotlin, da mir die Nullsicherheit und der funktionale Stil gefallen 💡.",
-        "s3": "Auf der Frontend-Seite habe ich mit Technologien wie HTML, CSS, JSP, JavaScript, Knockout.js und Angular 🎨 gearbeitet. Aber meine Interessen enden hier nicht! Ich interessiere mich auch leidenschaftlich für Softwarearchitektur 🏛️, IT-Sicherheit 🔒 und Teammanagement 👥 – im Grunde begeistert mich alles, was mit der IT-Welt zu tun hat 🚀.",
-        "s4": "Wenn ich nicht gerade programmiere, lese ich wahrscheinlich die neuesten technischen Entwicklungen oder mache Brainstorming für neue Projekte. Ich bin immer bestrebt, zu wachsen, zu lernen und neue Herausforderungen anzunehmen.",
-        "title": "Über mich"
+        "introduction": {
+            "s1": "Hallo! Mein Name ist Michael Baumberger. Ich bin ein leidenschaftlicher Softwareentwickler aus der Schweiz mit einem starken Hintergrund in Webentwicklung und Backend-Engineering. Meine Reise in die Welt der IT begann mit einer Ausbildung bei Würth ITensis von 2017 bis 2021, wo ich praktische Erfahrung im Erstellen, Warten und Optimieren von Softwarelösungen sammelte. Nach Abschluss meiner Ausbildung arbeitete ich dort bis 2024 weiter, verfeinerte meine Fähigkeiten weiter und arbeitete an verschiedenen Projekten."
+        },
+        "passion": {
+            "title": "Meine Leidenschaft für Entwicklung",
+            "s1": "Programmieren ist nicht nur mein Job, sondern meine Leidenschaft. Ich erkunde ständig neue Technologien, verbessere meine Fähigkeiten und arbeite an Nebenprojekten. Im Laufe der Jahre habe ich eine tiefe Wertschätzung für clean Code, gut strukturierte Architekturen und sichere Anwendungen entwickelt.",
+            "s2": "Im Backend arbeite ich hauptsächlich mit Java, Kotlin und dem Spring Framework, das ich in professionellen Umgebungen ausgiebig verwendet habe. Für meine persönlichen Projekte bevorzuge ich Kotlin, da mir seine prägnante Syntax, Nullsicherheit und funktionalen Programmierfunktionen gefallen. Ich habe auch Erfahrung mit Spring Boot, Spring Cloud und Microservice-Architekturen und stelle sicher, dass Anwendungen skalierbar und einfach zu warten sind.",
+            "s3": "Im Frontend habe ich mit einer Vielzahl von Technologien gearbeitet, darunter Angular, HTML, CSS, JSP, JavaScript und Knockout.js. Mein derzeitiges Frontend-Framework der Wahl ist Angular, oft kombiniert mit PrimeNG für eine moderne Benutzeroberfläche. Während ich mich mehr auf die Backend-Entwicklung konzentriere, versuche ich immer, eine nahtlose Verbindung zwischen Frontend und Backend herzustellen, um ein großartiges Benutzererlebnis zu gewährleisten."
+        },
+        "beyond-coding": {
+            "title": "Über das Codieren hinaus",
+            "s1": "Obwohl das Programmieren meine größte Leidenschaft ist, interessiere ich mich auch sehr für Softwarearchitektur, IT-Sicherheit und Teammanagement. Das Entwerfen robuster und skalierbarer Systeme begeistert mich ebenso wie die Implementierung von Best Practices zur Sicherheit, um Anwendungen vor Schwachstellen zu schützen. Darüber hinaus lerne ich gerne etwas über effektive Teamzusammenarbeit und wie man eine produktive und motivierende Entwicklungsumgebung schafft.",
+            "s2": "Ich erweitere mein Wissen ständig, indem ich Bücher über Softwareentwicklung, Architektur und Sicherheit lese. Mittlerweile besitze ich etwa 30 technische Bücher, die Themen von Designmustern über Clean-Code-Prinzipien bis hin zu verteilten Systemen abdecken. Es macht mir wirklich Spaß, über die neuesten Technologietrends auf dem Laufenden zu bleiben."
+        },
+        "customer-project": {
+            "title": "Sie benötigen eine Website oder Webanwendung?",
+            "s1": "Sie haben eine Idee für eine Website oder Webanwendung, wissen aber nicht, wo Sie anfangen sollen? Oder vielleicht braucht Ihr bestehendes Projekt Verbesserungen, eine bessere Leistung oder ein neues Design? Ich kann Ihnen helfen!",
+            "s2": "Mit meiner Erfahrung in der Backend- und Frontend-Entwicklung erstelle ich moderne, sichere und skalierbare Anwendungen, die auf Ihre Bedürfnisse zugeschnitten sind. Ob es sich um eine Business-Website, eine benutzerdefinierte Web-App oder ein internes Tool handelt, ich konzentriere mich auf saubere Architektur, Wartbarkeit und Leistung.",
+            "s3": "Ich arbeite hauptsächlich mit Java, Kotlin und Spring Boot für die Backend-Entwicklung und Angular für Frontend-Anwendungen. Aber ich wähle immer die besten Technologien für den Job aus und stelle sicher, dass Ihr Projekt mit Blick auf Skalierbarkeit, Sicherheit und langfristige Wartbarkeit erstellt wird.",
+            "s4": "Wenn Sie interessiert sind, nehmen Sie gerne Kontakt mit mir auf und lassen Sie uns besprechen, wie ich Ihre Idee zum Leben erwecken kann!"
+        },
+        "lets-contact": {
+            "title": "Lass uns vernetzen!",
+            "s1": "Wenn Sie an einer Zusammenarbeit interessiert sind oder einfach nur über Softwareentwicklung, Architektur oder Sicherheit chatten möchten, können Sie sich gerne an mich wenden! Ich bin immer offen für neue Herausforderungen, Kooperationen und interessante Diskussionen."
+        },
+        "title": "Über mich - Michael Baumberger"
     },
     "application": {
         "title": "Microservices"
