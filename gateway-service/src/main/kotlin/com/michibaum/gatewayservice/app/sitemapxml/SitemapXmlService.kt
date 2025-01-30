@@ -34,13 +34,15 @@ class SitemapXmlService(
         // Process dynamic data locations asynchronously using virtual threads
         val dataLocationResults = sitemapXmlProperties.dataLocations.map { location ->
             CompletableFuture.supplyAsync({
-                val data = dataLocationsFetcher.fetch(location.dataLocation) // Fetch the data
+                val data = dataLocationsFetcher.fetch(location.dataLocation) // Use the updated DataLocationsFetcher
                 data.map { id ->
-                    """  <url>
-                        <loc>${baseUrl + location.staticPart.replace("{replace}", id)}</loc>
-                      </url>
+                    """
+                        <url>
+                            <loc>${baseUrl + location.staticPart.replace("{replace}", id)}</loc>
+                        </url>
                     """
                 }
+
             }, executor)
         }.map { it.join() } // Wait for all tasks to complete and collect results
 
