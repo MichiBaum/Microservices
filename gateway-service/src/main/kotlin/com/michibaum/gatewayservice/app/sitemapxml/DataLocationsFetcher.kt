@@ -1,8 +1,7 @@
 package com.michibaum.gatewayservice.app.sitemapxml
 
-import org.springframework.cloud.openfeign.FeignClient
+import com.michibaum.gatewayservice.config.feign.ChessClient
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.GetMapping
 
 @Component
 class DataLocationsFetcher(
@@ -17,14 +16,3 @@ class DataLocationsFetcher(
     }
 
 }
-
-@FeignClient(value = "chess-service")
-interface ChessClient{
-    @GetMapping(value = ["/api/events"])
-    fun events(): List<EventDto>
-    @GetMapping(value = ["/api/openings"])
-    fun openings(): List<OpeningDto>
-}
-
-data class EventDto(val id: String)
-data class OpeningDto(val id: String)
