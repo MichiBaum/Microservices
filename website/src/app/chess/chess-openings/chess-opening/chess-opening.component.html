@@ -1,3 +1,22 @@
-<app-chess-opening-actions [selectedMove]="selectedMove()" (reloadData)="reloadData()"></app-chess-opening-actions>
+<app-chess-opening-actions [selectedMove]="selectedMove()" (reloadData)="reloadData()">
+    <p-inputnumber
+        ending
+        [(ngModel)]="moveTreeDepth"
+        [showButtons]="true"
+        buttonLayout="horizontal"
+        inputId="horizontal"
+        spinnerMode="horizontal"
+        [step]="1"
+        [min]="1"
+        [prefix]="'chess.opening.tree-depth' | translate"
+    >
+        <ng-template #incrementbuttonicon>
+            <fa-icon [icon]="faPlus"></fa-icon>
+        </ng-template>
+        <ng-template #decrementbuttonicon>
+            <fa-icon [icon]="faMinus"></fa-icon>
+        </ng-template>
+    </p-inputnumber>
+</app-chess-opening-actions>
 
 <app-chess-move-tree [rootMove]="openingMove.value()" [showEvaluation]="true" (selectedMove)="moveSelected($event)" [treeDepth]="moveTreeDepth()"></app-chess-move-tree>
