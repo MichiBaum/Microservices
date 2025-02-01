@@ -1,5 +1,4 @@
-<div class="container mx-auto">
-  <div class="grid grid-cols-1 gap-4">
+<div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Person Select">
       <app-select-chess-person [persons]="persons" (selectedPersonsEmitter)="selectedPersonsChange($event)"></app-select-chess-person>
@@ -55,5 +54,4 @@
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="selectedPersonS() == undefined" />
     </p-fieldset>
 
-  </div>
 </div>

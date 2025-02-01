@@ -1,5 +1,4 @@
-<div class="container mx-auto">
-  <div class="grid grid-cols-1 gap-4">
+<div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Event Select" [toggleable]="true">
       <app-select-chess-event [events]="events()" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
@@ -96,5 +95,5 @@
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
       <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent" />
     </p-fieldset>
-  </div>
+
 </div>
