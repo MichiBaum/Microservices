@@ -26,23 +26,6 @@ spring:
         username: ${ADMIN_SERVICE_USERNAME}
         password: ${ADMIN_SERVICE_PASSWORD}
   cloud:
-    gateway:
-      globalcors:
-        add-to-simple-url-handler-mapping: true
-        cors-configurations:
-          '[/**]':
-            allowed-origin-patterns:
-              - https://michibaum.ch
-              - https://michibaum.com
-              - https://michibaum.eu
-            allowed-headers:
-              - "*"
-            allowed-methods:
-              - GET
-              - POST
-              - DELETE
-              - PUT
-              - OPTIONS
     discovery:
       client:
         simple:
@@ -65,3 +48,9 @@ eureka:
     non-secure-port-enabled: false
     secure-port-enabled: true
     secure-port: 443
+
+cors:
+  allowed-origin-patterns:
+    - https://michibaum.ch
+    - https://michibaum.com
+    - https://michibaum.eu
