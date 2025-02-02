@@ -12,3 +12,9 @@ spring:
       client:
         username: admin_username
         password: admin_password
+
+cors:
+  allowed-origin-patterns:
+    - http://michibaum.ch:4200
+    - http://michibaum.com:4200
+    - http://michibaum.eu:4200
