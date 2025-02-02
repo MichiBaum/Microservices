@@ -1,4 +1,11 @@
 <p-menubar [model]="items()">
+
+    <ng-template #end>
+        <div class="flex items-center gap-2">
+            <ng-content select="[ending]"></ng-content>
+        </div>
+    </ng-template>
+
 </p-menubar>
 
 <app-chess-opening-move-form-dialog [(visible)]="moveDialogVisible" [openingMove]="moveInput()" (saved)="reload()" (deleted)="reload()"></app-chess-opening-move-form-dialog>

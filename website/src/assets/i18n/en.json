@@ -1,5 +1,17 @@
 {
     "about-me": {
+        "beyond-coding": {
+            "s1": "While coding is my main passion, I’m also deeply interested in software architecture, IT security, and team management. Designing robust and scalable systems excites me just as much as implementing security best practices to protect applications from vulnerabilities. Additionally, I enjoy learning about effective team collaboration and how to create a productive and motivating development environment.",
+            "s2": "I continuously expand my knowledge by reading books on software development, architecture, and security. At this point, I own around 30 technical books, covering topics from design patterns to clean code principles and distributed systems. Staying up-to-date with the latest trends in technology is something I truly enjoy.",
+            "title": "Beyond Coding"
+        },
+        "customer-project": {
+            "s1": "Do you have an idea for a website or web application but don’t know where to start? Or maybe your existing project needs improvements, better performance, or a fresh design? I can help!",
+            "s2": "With my experience in backend and frontend development, I create modern, secure, and scalable applications tailored to your needs. Whether it’s a business website, a custom web app, or an internal tool, I focus on clean architecture, maintainability, and performance.",
+            "s3": "I primarily work with Java, Kotlin and Spring Boot for backend development and Angular for frontend applications. But I always choose the best technologies for the job, ensuring your project is built with scalability, security, and long-term maintainability in mind.",
+            "s4": "If you’re interested, feel free to get in touch, and let’s discuss how I can bring your idea to life!",
+            "title": "Need a Website or Web Application?"
+        },
         "experience": {
             "experience": "Experience",
             "intro": "Here you see a List of my experiences.",
@@ -9,11 +21,21 @@
             "softskills": "Softskills",
             "years": "Years"
         },
-        "s1": "Hello! I'm a software developer from Switzerland. My journey in the world of IT began with an apprenticeship at Würth ITensis from 2017 to 2021, where I honed my skills and continued working until 2024. During this time, I developed a deep passion for programming, which I continue to pursue in my free time.",
-        "s2": "I’m particularly fond of Java and the Spring Framework ☕🌱, which I used extensively in my professional work. When working on personal backend projects, I prefer to use Kotlin, as I like the null safety and functional style 💡.",
-        "s3": "On the frontend side, I've worked with technologies like HTML, CSS, JSP, JavaScript, Knockout.js, and Angular 🎨. But my interests don’t stop there! I'm also passionate about software architecture 🏛️, IT security 🔒, and team management 👥—essentially, anything related to the IT world excites me 🚀.",
-        "s4": "When I’m not coding, I’m likely reading up on the latest developments in tech or brainstorming new projects. I’m always eager to grow, learn, and take on new challenges.",
-        "title": "About me"
+        "introduction": {
+            "s1": "Hello! My Name is Michael Baumberger. I’m a passionate software developer from Switzerland with a strong background in web development and backend engineering. My journey in the world of IT started with an apprenticeship at Würth ITensis from 2017 to 2021, where I gained hands-on experience in building, maintaining, and optimizing software solutions. After completing my apprenticeship, I continued working there until 2024, further refining my skills and working on various projects."
+        },
+        "lets-contact": {
+            "s1": "If you’re interested in working together or just want to chat about software development, architecture, or security, feel free to reach out! I’m always open to new challenges, collaborations, and interesting discussions.",
+            "title": "Let’s Connect!"
+        },
+        "passion": {
+            "s1": "Programming isn’t just my job — it’s what I love doing. I’m constantly exploring new technologies, improving my skills, and working on side projects. Over the years, I’ve developed a deep appreciation for clean code, well-structured architectures, and secure applications.",
+            "s2": "On the backend, I primarily work with Java, Kotlin and the Spring Framework, which I have used extensively in professional settings. For my personal projects, I prefer Kotlin, as I enjoy its concise syntax, null safety, and functional programming capabilities. I also have experience working with Spring Boot, Spring Cloud, and microservice architectures, ensuring that applications are scalable and easy to maintain.",
+            "s3": "On the frontend, I have worked with a variety of technologies, including Angular, HTML, CSS, JSP, JavaScript, and Knockout.js. My current frontend framework of choice is Angular, often combined with PrimeNG for a modern UI. While I focus more on backend development, I always aim to create a seamless connection between frontend and backend, ensuring a great user experience.",
+            "title": "My Passion for Development"
+        },
+        "title": "About me",
+        "title-with-name": "About me - Michael Baumberger"
     },
     "application": {
         "title": "Microservices"
@@ -65,6 +87,9 @@
             "player-analysis": "Player Analysis",
             "settings": "Settings",
             "start-openings": "Start Openings"
+        },
+        "opening": {
+            "tree-depth": "Tree depth: "
         },
         "platform": {
             "CHESSCOM": "Chess.com",

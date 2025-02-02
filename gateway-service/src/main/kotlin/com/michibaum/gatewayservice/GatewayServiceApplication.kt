@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableScheduling
-@EnableFeignClients(basePackages = ["com.michibaum.authentication_library", "com.michibaum.gatewayservice"])
+@EnableFeignClients(basePackages = ["com.michibaum.gatewayservice.config.feign"])
 class GatewayServiceApplication
 
 fun main(args: Array<String>) {

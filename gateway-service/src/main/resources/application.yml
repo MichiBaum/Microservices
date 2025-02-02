@@ -4,8 +4,8 @@ server:
     url-charset: UTF-8
   compression:
     enabled: true
-    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
-    min-response-size: 2048
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml
+    min-response-size: 1024
 
 spring:
   threads:
@@ -16,46 +16,6 @@ spring:
   application:
     name: gateway-service
   cloud:
-    gateway:
-      routes: # TODO permission to Authentication
-        - id: admin
-          uri: lb://admin-service
-          predicates:
-            - Host=admin.michibaum.*
-          filters:
-            - Authentication
-        - id: registry
-          uri: lb://registry-service
-          predicates:
-            - Host=registry.michibaum.*
-          filters:
-            - Authentication
-        - id: authentication
-          uri: lb://authentication-service
-          predicates:
-            - Host=authentication.michibaum.*
-        - id: usermanagement
-          uri: lb://usermanagement-service
-          predicates:
-            - Host=usermanagement.michibaum.*
-          filters:
-            - Authentication
-        - id: chess
-          uri: lb://chess-service
-          predicates:
-            - Host=chess.michibaum.*
-        - id: fitness
-          uri: lb://fitness-service
-          predicates:
-            - Host=fitness.michibaum.*
-        - id: music
-          uri: lb://music-service
-          predicates:
-            - Host=music.michibaum.*
-        - id: website
-          uri: lb://website-service
-          predicates:
-            - Host=michibaum.*
     discovery:
       client:
         health-indicator:
@@ -64,17 +24,8 @@ spring:
       lazy-attributes-resolution: true
       httpclient:
         disable-ssl-validation: true
-
   main:
     allow-bean-definition-overriding: true
-    web-application-type: reactive
-  boot:
-    admin:
-      client:
-        enabled: true
-#        TODO ?
-        username: admin
-        password: admin
 
 eureka:
   instance:
@@ -85,6 +36,8 @@ eureka:
     register-with-eureka: true
     refresh:
       enable: true
+    restclient:
+      enabled: true
 
 management:
   endpoints:

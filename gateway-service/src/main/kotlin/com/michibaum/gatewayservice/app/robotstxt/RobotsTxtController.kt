@@ -1,17 +1,22 @@
 package com.michibaum.gatewayservice.app.robotstxt
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.stereotype.Component
+import org.springframework.web.servlet.function.HandlerFunction
+import org.springframework.web.servlet.function.ServerResponse
 
-@RestController
+@Component
 class RobotsTxtController(
     private val robotsTxtService: RobotsTxtService
 ) {
 
-    @GetMapping("/robots.txt", produces = ["text/plain"])
-    fun robotsTxt(@RequestHeader("Host") host: String?): String {
-        return robotsTxtService.generateWith(host)
+    fun robotsTxt(): HandlerFunction<ServerResponse> {
+        return HandlerFunction { request ->
+            val host = request.headers().firstHeader("Host")
+            val content = robotsTxtService.generateWith(host)
+            ServerResponse.ok()
+                .header("Content-Type", "text/plain")
+                .body(content)
+        }
     }
 
 }
