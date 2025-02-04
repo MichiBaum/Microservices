@@ -1,12 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {HeaderService} from "../core/services/header.service";
 import {Sides} from "../core/config/sides";
-import {MusicLoginComponent} from "./music-login/music-login.component";
+import {MusicSpotifyLoginComponent} from "./music-spotify-login/music-spotify-login.component";
 
 @Component({
   selector: 'app-music-settings',
   imports: [
-    MusicLoginComponent
+    MusicSpotifyLoginComponent
   ],
   templateUrl: './music-settings.component.html',
   styleUrl: './music-settings.component.scss'
