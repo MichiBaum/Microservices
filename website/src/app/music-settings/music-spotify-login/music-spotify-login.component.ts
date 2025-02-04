@@ -4,14 +4,14 @@ import {RouterNavigationService} from "../../core/services/router-navigation.ser
 import {MusicService} from "../../core/api-services/music.service";
 
 @Component({
-  selector: 'app-music-login',
+  selector: 'app-music-spotify-login',
   imports: [
     Button
   ],
-  templateUrl: './music-login.component.html',
-  styleUrl: './music-login.component.scss'
+  templateUrl: './music-spotify-login.component.html',
+  styleUrl: './music-spotify-login.component.scss'
 })
-export class MusicLoginComponent {
+export class MusicSpotifyLoginComponent {
   private readonly musicService = inject(MusicService);
   private readonly router = inject(RouterNavigationService);
 
