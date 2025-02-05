@@ -30,10 +30,10 @@ export class MusicNavigationComponent {
                 routerLink: '/music/home'
             },
             {
-                label: this.translate.instant('music.navigation.settings.spotify-login'),
+                label: this.translate.instant('music.navigation.spotify'),
                 icon: 'pi pi-newspaper',
                 visible: spotifyAuthenticated,
-                routerLink: '/music/settings/spotify-login'
+                routerLink: '/music/spotify'
             }
         ] as MenuItem[]
     }
