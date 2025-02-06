@@ -33,11 +33,12 @@ spring:
         title: Admin Server
         enable-toasts: true
       monitor:
-        status-interval: 3s
-        status-lifetime: 3s
-        info-interval: 20s
-        info-lifetime: 20s
+        info-interval: 2m
+        info-lifetime: 2m
+        status-interval: 20s
+        status-lifetime: 20s
         default-retries: 3
+        default-timeout: 20s
   application:
     name: admin-service
   cloud:
