@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.function.RouterFunction
 import org.springframework.web.servlet.function.ServerResponse
+import java.net.URI
 
 @Configuration
 class RouterConfiguration {
@@ -26,6 +27,7 @@ class RouterConfiguration {
 
             // Specific services (Higher priority)
             .route(host("admin.michibaum.*"), lb("admin-service").apply(http()))
+            .route(host("zipkin.michibaum.*"), http("http://localhost:9411"))
             .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
             .route(host("authentication.michibaum.*"), lb("authentication-service").apply(http()))
             .route(host("usermanagement.michibaum.*"), lb("usermanagement-service").apply(http()))

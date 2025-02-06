@@ -6,16 +6,6 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-management:
-  zipkin:
-    tracing:
-      export:
-        enabled: false
-  tracing:
-    enabled: false
-    sampling:
-      probability: 1.0
-
 spring:
   datasource:
     username: root
@@ -33,3 +23,14 @@ spring:
       client:
         username: admin_username
         password: admin_password
+
+management:
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+      export:
+        enabled: true
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
