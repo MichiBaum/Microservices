@@ -354,10 +354,10 @@ services:
       retries: 3
 
   zipkin-storage:
-    image: ghcr.io/openzipkin/zipkin-mysql:3.4
+    image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.4
     restart: always
     expose:
-      - "3306"
+      - "9200"
     volumes:
       - /data/zipkin-storage:/var/lib/mysql
     networks:
@@ -369,12 +369,8 @@ services:
     depends_on:
       - zipkin-storage
     environment:
-      STORAGE_TYPE: mysql
-      MYSQL_HOST: zipkin-storage
-      MYSQL_USER: ${ZIPKIN_DB_USERNAME}
-      MYSQL_PASS: ${ZIPKIN_DB_PASSWORD}
-      EUREKA_SERVICE_URL: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
-      EUREKA_HOSTNAME: zipkin
+      STORAGE_TYPE: elasticsearch
+      ES_HOSTS: zipkin-storage:9200
     expose:
       - "9411"
     networks:
@@ -388,10 +384,8 @@ services:
     user: root
     entrypoint: /usr/sbin/crond -f
     environment:
-      STORAGE_TYPE: mysql
-      MYSQL_HOST: zipkin-storage
-      MYSQL_USER: ${ZIPKIN_DB_USERNAME}
-      MYSQL_PASS: ${ZIPKIN_DB_PASSWORD}
+      STORAGE_TYPE: elasticsearch
+      ES_HOSTS: zipkin-storage:9200
     networks:
       - microservice-network
 

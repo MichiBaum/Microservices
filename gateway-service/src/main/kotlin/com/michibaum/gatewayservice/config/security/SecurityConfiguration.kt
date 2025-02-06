@@ -1,4 +1,4 @@
-package com.michibaum.chess_service.security
+package com.michibaum.gatewayservice.config.security
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
@@ -33,15 +33,15 @@ class SecurityConfiguration {
                         "/actuator",
                         "/actuator/**"
                     ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                    .anyRequest().hasAnyAuthority(Permissions.CHESS_SERVICE.name)
+                    .anyRequest().permitAll()
             }
             .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }
             .formLogin { formLoginSpec -> formLoginSpec.disable() }
             .csrf { csrfSpec -> csrfSpec.disable() }
             .logout { logoutSpec -> logoutSpec.disable() }
-            .anonymous { anonymousSpec -> anonymousSpec.disable() }
-            .sessionManagement { sessionManagementSpec -> sessionManagementSpec.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .sessionManagement { sessionManagementSpec -> sessionManagementSpec.sessionCreationPolicy(
+                SessionCreationPolicy.STATELESS) }
             .build()
     }
 
