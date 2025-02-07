@@ -5,7 +5,7 @@
         <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
                 <Pattern>
-                    %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%throwable
+                    %d{yyyy-MM-dd HH:mm:ss} [%X{traceId}] [%thread] %-5level %logger{36} - %msg%n%throwable
                 </Pattern>
             </encoder>
         </appender>
@@ -20,7 +20,7 @@
         <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
                 <Pattern>
-                    %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%throwable
+                    %d{yyyy-MM-dd HH:mm:ss} [%X{traceId}] [%thread] %-5level %logger{36} - %msg%n%throwable
                 </Pattern>
             </encoder>
         </appender>
