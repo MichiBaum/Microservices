@@ -49,6 +49,7 @@ eureka:
 
 management:
   zipkin:
+    service-url: http://zipkin:9411
     tracing:
       endpoint: http://zipkin:9411/api/v2/spans
       export:
