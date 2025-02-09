@@ -49,8 +49,8 @@ class RouterConfiguration {
             // Specific services (Higher priority)
             .route(host("admin.michibaum.*"), lb("admin-service").apply(http()))
             // TODO add authentication
-            .route(host("zipkin.michibaum.*"), http(zipkinProperties.serviceUrl))
-//            .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
+            //  .route(host("zipkin.michibaum.*"), http(zipkinProperties.serviceUrl))
+            //  .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
             .route(host("authentication.michibaum.*"), lb("authentication-service").apply(http()))
             .route(host("usermanagement.michibaum.*"), lb("usermanagement-service").apply(http()))
             .route(host("chess.michibaum.*"), lb("chess-service").apply(http()))

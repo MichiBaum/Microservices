@@ -1,5 +1,10 @@
 package com.michibaum.chess_service.app.opening
 
+import com.michibaum.chess_service.database.ChessEngine
+import com.michibaum.chess_service.database.MoveHierarchyProjection
+import com.michibaum.chess_service.database.Opening
+import com.michibaum.chess_service.database.OpeningMove
+import io.micrometer.observation.annotation.Observed
 import com.michibaum.chess_service.database.*
 import org.springframework.stereotype.Component
 import java.util.*
@@ -13,7 +18,7 @@ class OpeningConverter {
             name = opening.name,
             moveId = opening.lastMove.id?.toString() ?: ""
         )
-    
+
     fun toDto(opening: PopularOpening) =
         PopularOpeningResponseDto(
             id = opening.opening.id?.toString() ?: "",
@@ -22,6 +27,7 @@ class OpeningConverter {
             ranking = opening.ranking
         )
 
+    @Observed
     fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveDto? {
         // Group evaluations by move ID
         val evaluationsByMoveId: Map<UUID, List<EvaluationDto>> = moves
