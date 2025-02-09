@@ -4,6 +4,7 @@ import com.michibaum.chess_service.database.ChessEngine
 import com.michibaum.chess_service.database.MoveHierarchyProjection
 import com.michibaum.chess_service.database.Opening
 import com.michibaum.chess_service.database.OpeningMove
+import io.micrometer.observation.annotation.Observed
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -17,6 +18,7 @@ class OpeningConverter {
             moveId = opening.lastMove.id?.toString() ?: ""
         )
 
+    @Observed
     fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveDto? {
         // Group evaluations by move ID
         val evaluationsByMoveId: Map<UUID, List<EvaluationDto>> = moves
