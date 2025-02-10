@@ -26,10 +26,18 @@ class OpeningController(
 
     @PublicEndpoint
     @GetMapping("/api/openings/starting")
-    fun getAllStartingMoves(): ResponseEntity<List<OpeningResponseDto>> {
+    fun getAllStartingOpenings(): ResponseEntity<List<OpeningResponseDto>> {
         val moves = openingService.findMoveByParent(null)
         val openings = openingService.openingsByMoves(moves)
         val dtos = openings.map { opening -> openingConverter.toDto(opening) }
+        return ResponseEntity.ok(dtos)
+    }
+
+    @PublicEndpoint
+    @GetMapping("/api/openings/popular")
+    fun getAllPopularOpenings(): ResponseEntity<List<OpeningResponseDto>> {
+        val popularOpenings = openingService.getPopularOpenings()
+        val dtos = popularOpenings.map { it.opening }.map { opening -> openingConverter.toDto(opening) }
         return ResponseEntity.ok(dtos)
     }
 
