@@ -8,8 +8,13 @@ import kotlin.jvm.optionals.getOrNull
 @Service
 class OpeningService(
     private val openingRepository: OpeningRepository,
-    private val openingMoveRepository: OpeningMoveRepository
+    private val openingMoveRepository: OpeningMoveRepository,
+    private val popularOpeningRepository: PopularOpeningRepository
 ) {
+
+    fun getPopularOpenings(): List<PopularOpening> {
+        return popularOpeningRepository.findAllByOrderByRankingAsc()
+    }
 
     fun getOpeningById(openingId: UUID): Opening? {
         return openingRepository.findById(openingId).getOrNull()
