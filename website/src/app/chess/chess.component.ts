@@ -15,6 +15,7 @@ import {Button} from "primeng/button";
 import {Card} from "primeng/card";
 import {TranslateModule} from "@ngx-translate/core";
 import {ChessStartOpeningsListComponent} from "./chess-start-openings-list/chess-start-openings-list.component";
+import {ChessPopularOpeningsListComponent} from "./chess-popular-openings-list/chess-popular-openings-list.component";
 
 @Component({
   selector: 'app-chess',
@@ -31,7 +32,8 @@ import {ChessStartOpeningsListComponent} from "./chess-start-openings-list/chess
         Card,
         TranslateModule,
         RouterLink,
-        ChessStartOpeningsListComponent
+        ChessStartOpeningsListComponent,
+        ChessPopularOpeningsListComponent
     ],
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'

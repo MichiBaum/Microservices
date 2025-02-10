@@ -73,6 +73,7 @@
             "title": "Title"
         },
         "home": {
+            "popular-openings": "Popular Openings",
             "recent-upcoming": "Recent, running and upcoming Events",
             "start-openings": "Start Openings",
             "to-all-events": "To all events"
