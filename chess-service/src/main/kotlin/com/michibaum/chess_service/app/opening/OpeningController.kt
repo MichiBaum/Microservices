@@ -35,9 +35,9 @@ class OpeningController(
 
     @PublicEndpoint
     @GetMapping("/api/openings/popular")
-    fun getAllPopularOpenings(): ResponseEntity<List<OpeningResponseDto>> {
+    fun getAllPopularOpenings(): ResponseEntity<List<PopularOpeningResponseDto>> {
         val popularOpenings = openingService.getPopularOpenings()
-        val dtos = popularOpenings.map { it.opening }.map { opening -> openingConverter.toDto(opening) }
+        val dtos = popularOpenings.map { opening -> openingConverter.toDto(opening) }
         return ResponseEntity.ok(dtos)
     }
 
