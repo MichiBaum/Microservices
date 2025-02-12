@@ -10,16 +10,25 @@ import org.springframework.context.annotation.Configuration
 class ObservationConfiguration {
 
     @Bean
-    fun noActuatorSpanPredicate(): SpanExportingPredicate {
+    fun spanExportingPredicate(): SpanExportingPredicate {
         return SpanExportingPredicate { span: FinishedSpan ->
-            !span.tags["uri"].orEmpty().startsWith("/actuator")
-        }
-    }
+            val statusCode = span.tags["http.status_code"]?.toIntOrNull()
+            val isClientOrServerErrorCode = statusCode != null && statusCode >= 400
+            val hasErrorTag = !span.tags["error"].isNullOrEmpty()
+            val hasExceptionTag = !span.tags["exception"].isNullOrEmpty()
+            val hasError = span.error != null
+            val isError = isClientOrServerErrorCode || hasErrorTag || hasExceptionTag || hasError
 
-    @Bean
-    fun noEurekaSpanPredicate(): SpanExportingPredicate {
-        return SpanExportingPredicate { span: FinishedSpan ->
-            !span.tags["uri"].orEmpty().startsWith("/eureka")
+            // If this is an error span, export it
+            if (isError) {
+                return@SpanExportingPredicate true
+            }
+
+            // Is Actuator or Eureka
+            val isActuatorUri = span.tags["uri"].orEmpty().startsWith("/actuator")
+            val isEurekaUri = span.tags["uri"].orEmpty().startsWith("/eureka")
+            val containsEurekaUrl = span.tags["http.url"].orEmpty().contains("/eureka")
+            !(isActuatorUri || isEurekaUri || containsEurekaUrl)
         }
     }
 
