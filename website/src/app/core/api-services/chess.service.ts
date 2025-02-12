@@ -9,6 +9,7 @@ import {
     ChessGame,
     ChessOpening, ChessOpeningMove,
     Person,
+    PopularChessOpening,
     SearchChessEvent,
     SearchPerson,
     WriteChessEngine,
@@ -160,8 +161,8 @@ export class ChessService {
             .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
     }
 
-    popularOpenings(): Observable<ChessOpening[]> {
-        return this.http.get<ChessOpening[]>(this.environment.chessService() + '/openings/popular')
+    popularOpenings(): Observable<PopularChessOpening[]> {
+        return this.http.get<PopularChessOpening[]>(this.environment.chessService() + '/openings/popular')
             .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
     }
 

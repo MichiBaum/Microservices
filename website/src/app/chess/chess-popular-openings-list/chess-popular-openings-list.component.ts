@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {ChessOpeningsListComponent} from "../chess-openings-list/chess-openings-list.component";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {ChessService} from "../../core/api-services/chess.service";
@@ -16,6 +16,13 @@ export class ChessPopularOpeningsListComponent {
 
     openings = rxResource({
         loader: () =>  this.chessService.popularOpenings()
+    })
+
+    sortedOpenings = computed(() => {
+        const openings = this.openings.value()
+        if (openings == undefined)
+            return []
+        return openings.sort((a, b) => a.ranking - b.ranking)
     })
 
 }
