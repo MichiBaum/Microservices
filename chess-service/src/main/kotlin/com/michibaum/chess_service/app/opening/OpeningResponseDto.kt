@@ -6,3 +6,10 @@ data class OpeningResponseDto(
     val name: String,
     val moveId: String
 )
+
+data class PopularOpeningResponseDto (
+    val id: String,
+    val name: String,
+    val moveId: String,
+    val ranking: Int
+)
