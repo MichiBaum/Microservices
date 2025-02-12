@@ -1,9 +1,6 @@
 package com.michibaum.chess_service.app.opening
 
-import com.michibaum.chess_service.database.ChessEngine
-import com.michibaum.chess_service.database.MoveHierarchyProjection
-import com.michibaum.chess_service.database.Opening
-import com.michibaum.chess_service.database.OpeningMove
+import com.michibaum.chess_service.database.*
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -15,6 +12,14 @@ class OpeningConverter {
             id = opening.id?.toString() ?: "",
             name = opening.name,
             moveId = opening.lastMove.id?.toString() ?: ""
+        )
+    
+    fun toDto(opening: PopularOpening) =
+        PopularOpeningResponseDto(
+            id = opening.id?.toString() ?: "",
+            name = opening.opening.name,
+            moveId = opening.opening.lastMove.id?.toString() ?: "",
+            ranking = opening.ranking
         )
 
     fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveDto? {

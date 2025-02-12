@@ -127,6 +127,13 @@ export interface ChessOpening{
     moveId: string;
 }
 
+export interface PopularChessOpening{
+    id: string;
+    name: string;
+    moveId: string;
+    ranking: number;
+}
+
 export interface ChessEvaluation{
     engineId: string;
     engineName: string;
