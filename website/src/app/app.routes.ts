@@ -3,6 +3,8 @@ import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
 import {Permissions} from "./core/config/permissions";
 import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
+import {ChessEventRouteResolver} from "./core/route-resolver/chess-event.route-resolver";
+
 
 /**
  * Defines the application routes and their respective components, guards, and additional configuration.
@@ -15,6 +17,7 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
     canActivate: [],
+    providers: [],
   },
   {
     path: 'home',
@@ -64,7 +67,10 @@ export const routes: Routes = [
       {
         path: "events/:id",
         loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
-        canActivate: []
+        canActivate: [],
+        resolve: {
+          event: ChessEventRouteResolver
+        }
       },
         {
             path: "openings/:id",
