@@ -1,7 +1,6 @@
 import {Component, computed, inject, OnDestroy, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
-import {ChessService} from "../../core/api-services/chess.service";
 import {CardModule} from "primeng/card";
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
@@ -13,11 +12,9 @@ import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.co
 import {DividerModule} from "primeng/divider";
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
 import {Avatar} from "primeng/avatar";
-import {rxResource} from "@angular/core/rxjs-interop";
-import {EMPTY} from "rxjs";
 import {ChessEvent} from "../../core/models/chess/chess.models";
-import {rxResource, toObservable} from "@angular/core/rxjs-interop";
-import {EMPTY, Subscription} from "rxjs";
+import {toObservable} from "@angular/core/rxjs-interop";
+import {Subscription} from "rxjs";
 import {MetaDataHolder, MetaService} from "../../core/services/meta.service";
 
 @Component({
