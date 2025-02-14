@@ -4,6 +4,7 @@ import {Sides} from "./core/config/sides";
 import {Permissions} from "./core/config/permissions";
 import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
 import {ChessEventRouteResolver} from "./core/route-resolver/chess-event.route-resolver";
+import {titleResolver} from "./core/services/title-resolver";
 
 
 /**
@@ -17,7 +18,7 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
     canActivate: [],
-    providers: [],
+    title: titleResolver
   },
   {
     path: 'home',
@@ -70,7 +71,8 @@ export const routes: Routes = [
         canActivate: [],
         resolve: {
           event: ChessEventRouteResolver
-        }
+        },
+        title: titleResolver
       },
         {
             path: "openings/:id",
