@@ -33,7 +33,7 @@ class SecurityConfiguration {
                         "/actuator",
                         "/actuator/**"
                     ).hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
-                    .anyRequest().permitAll() // TODO can we give user used for /actuator permission REGISTRY_SERVICE and use ".hasAnyAuthority(Permissions.REGISTRY_SERVICE.name)"?
+                    .anyRequest().hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
             }
             .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic { httpBasicSpec -> httpBasicSpec.disable() }

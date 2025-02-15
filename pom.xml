@@ -42,7 +42,7 @@
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.1.0</kotlin.version>
+        <kotlin.version>2.1.10</kotlin.version>
         <kotlin.compiler.languageVersion>2.1</kotlin.compiler.languageVersion>
         <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 
