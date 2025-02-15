@@ -20,13 +20,14 @@ class RouterConfiguration {
         sitemapXmlController: SitemapXmlController
     ): RouterFunction<ServerResponse> {
         return route()
-            // Special files (Highest priority, must come first)
+            // Special routes (Highest priority, must come first)
             .GET("/robots.txt", robotsTxtController.robotsTxt())
             .GET("/sitemap.xml", sitemapXmlController.sitemapXml())
 
             // Specific services (Higher priority)
             .route(host("admin.michibaum.*"), lb("admin-service").apply(http()))
-            .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
+            // TODO Authentication
+            //  .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
             .route(host("authentication.michibaum.*"), lb("authentication-service").apply(http()))
             .route(host("usermanagement.michibaum.*"), lb("usermanagement-service").apply(http()))
             .route(host("chess.michibaum.*"), lb("chess-service").apply(http()))
