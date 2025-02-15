@@ -1,6 +1,5 @@
-package com.michibaum.authentication_library.security.basic.servlet
+package com.michibaum.authentication_library.security.basic
 
-import com.michibaum.authentication_library.security.basic.BasicAuthentication
 import com.michibaum.permission_library.Permissions
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
