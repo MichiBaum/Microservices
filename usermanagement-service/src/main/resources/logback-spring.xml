@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>
-                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%throwable
-            </Pattern>
-        </encoder>
-    </appender>
+    <springProfile name="dev">
+        <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>
+                    %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%throwable
+                </Pattern>
+            </encoder>
+        </appender>
 
-    <appender name="Discord" class="com.michibaum.discord.logging.DiscordAppenderDelegator"/>
+        <root level="INFO">
+            <appender-ref ref="Console" />
+        </root>
 
-    <!-- LOG everything at INFO level -->
-    <root level="info">
-        <appender-ref ref="Console" />
-    </root>
+        <logger name="com.michibaum" level="INFO">
+            <appender-ref ref="Console" />
+        </logger>
 
-    <logger name="com.michibaum" level="INFO">
-        <appender-ref ref="Console" />
-        <appender-ref ref="Discord" />
-    </logger>
+        <logger name="org.springframework" level="ERROR">
+            <appender-ref ref="Console" />
+        </logger>
 
-    <logger name="org.springframework" level="ERROR">
-        <appender-ref ref="Console" />
-        <appender-ref ref="Discord" />
-    </logger>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="Discord" class="com.michibaum.discord.logging.DiscordAppenderDelegator"/>
+
+        <!-- TODO check before flooding discord -->
+        <!--        <root level="info">-->
+        <!--            <appender-ref ref="Discord" />-->
+        <!--        </root>-->
+
+        <logger name="com.michibaum" level="WARN">
+            <appender-ref ref="Discord" />
+        </logger>
+
+        <logger name="org.springframework" level="WARN">
+            <appender-ref ref="Discord" />
+        </logger>
+    </springProfile>
 
 </configuration>
