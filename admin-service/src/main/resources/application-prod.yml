@@ -16,7 +16,7 @@ spring:
         username: ${ADMIN_SERVICE_USERNAME}
         password: ${ADMIN_SERVICE_PASSWORD}
       ui:
-        public-url: https://admin.michibaum.ch
+        public-url: https://admin.michibaum.ch:443
       instance-auth:
         default-user-name: ${ADMIN_SERVICE_USERNAME}
         default-password: ${ADMIN_SERVICE_PASSWORD}

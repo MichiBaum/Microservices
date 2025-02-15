@@ -6,8 +6,7 @@ import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.usermanagement_library.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -34,8 +33,16 @@ class AuthenticationController (
 
         val jws = authenticationService.generateJWS(userDetailsDto)!!
 
+        // TODO Gateway logs following: 11:57:50.198 [tomcat-handler-94] WARN  o.a.h.c.h.p.ResponseProcessCookies - ex-0000000060 Cookie rejected [Authentication="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoZW50aWNhdGlvbi1zZXJ2aWNlIiwic3ViIjoiU29tZVVzZXJ...", domain:michibaum.ch, path:/, expiry:null] Illegal 'domain' attribute "michibaum.ch". Domain of origin: "192.168.0.48"
+        val cookie: HttpCookie = ResponseCookie.from("Authentication", jws)
+            .domain(".michibaum.ch")
+            .path("/")
+            .build()
+
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
-        return ResponseEntity.ok().body(responseBody)
+        return ResponseEntity.ok()
+            .headers { headers -> headers.add(HttpHeaders.SET_COOKIE, cookie.toString()) }
+            .body(responseBody)
     }
 
     @PublicEndpoint

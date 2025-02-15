@@ -52,5 +52,8 @@ eureka:
 cors:
   allowed-origin-patterns:
     - https://michibaum.ch
+    - https://*.michibaum.ch
     - https://michibaum.com
+    - https://*.michibaum.com
     - https://michibaum.eu
+    - https://*.michibaum.eu

@@ -15,6 +15,9 @@ spring:
 
 cors:
   allowed-origin-patterns:
-    - http://michibaum.ch:4200
-    - http://michibaum.com:4200
-    - http://michibaum.eu:4200
+    - http://michibaum.ch:[80,4200]
+    - http://*.michibaum.ch:[80,4200]
+    - http://michibaum.com:[80,4200]
+    - http://*.michibaum.com:[80,4200]
+    - http://michibaum.eu:[80,4200]
+    - http://*.michibaum.eu:[80,4200]
