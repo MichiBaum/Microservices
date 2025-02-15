@@ -9,10 +9,10 @@ import com.michibaum.authentication_library.security.ServletDelegateAuthenticati
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
 import com.michibaum.authentication_library.security.basic.BasicAuthenticationManager
 import com.michibaum.authentication_library.security.basic.CredentialsValidator
-import com.michibaum.authentication_library.security.basic.servlet.BasicAuthenticationConverter
+import com.michibaum.authentication_library.security.basic.BasicAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
-import com.michibaum.authentication_library.security.jwt.servlet.JwtAuthenticationConverter
+import com.michibaum.authentication_library.security.jwt.JwtAuthenticationConverter
 import com.michibaum.authentication_service.authentication.AuthenticationService
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean

@@ -1,7 +1,6 @@
-package com.michibaum.authentication_library.security.jwt.servlet
+package com.michibaum.authentication_library.security.jwt
 
 import com.michibaum.authentication_library.JwsWrapper
-import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.Authentication
@@ -22,9 +21,16 @@ class JwtAuthenticationConverter: AuthenticationConverter {
 
     fun getToken(request: HttpServletRequest): String? {
         val header = request.getHeader(HttpHeaders.AUTHORIZATION)
-        if(header != null && header.startsWith("Bearer ")) {
+        if (header != null && header.startsWith("Bearer ")) {
             return header.substring("Bearer ".length)
         }
+
+        request.cookies?.forEach { cookie ->
+            if (cookie.name == "Authentication") {
+                return cookie.value
+            }
+        }
+
         return null
     }
 

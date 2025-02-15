@@ -43,7 +43,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://registry-service:8761/eureka
+      defaultZone: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
   instance:
     non-secure-port-enabled: false
     secure-port-enabled: true
@@ -52,5 +52,8 @@ eureka:
 cors:
   allowed-origin-patterns:
     - https://michibaum.ch
+    - https://*.michibaum.ch
     - https://michibaum.com
+    - https://*.michibaum.com
     - https://michibaum.eu
+    - https://*.michibaum.eu

@@ -8,7 +8,7 @@ spring:
         username: admin_username
         password: admin_password
       ui:
-          public-url: http://localhost:8082
+        public-url: http://admin.michibaum.ch:80
       notify:
         custom-discord:
           enabled: false
@@ -20,4 +20,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka

@@ -3,7 +3,6 @@ package com.michibaum.gatewayservice.config
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Profile
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
@@ -16,7 +15,7 @@ class CorsConfiguration(
 
     override fun addCorsMappings(registry: org.springframework.web.servlet.config.annotation.CorsRegistry) {
         registry.addMapping("/**")
-            .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+            .allowedMethods("*")
             .allowedOriginPatterns(*corsProperties.allowedOriginPatterns.toTypedArray())
             .allowedHeaders("*")
             .allowCredentials(true)

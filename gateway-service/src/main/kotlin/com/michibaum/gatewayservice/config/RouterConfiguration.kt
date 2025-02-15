@@ -20,7 +20,7 @@ class RouterConfiguration {
         sitemapXmlController: SitemapXmlController
     ): RouterFunction<ServerResponse> {
         return route()
-            // Special files (Highest priority, must come first)
+            // Special routes (Highest priority, must come first)
             .GET("/robots.txt", robotsTxtController.robotsTxt())
             .GET("/sitemap.xml", sitemapXmlController.sitemapXml())
 
