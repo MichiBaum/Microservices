@@ -1,4 +1,4 @@
-package com.michibaum.music_service.security
+package com.michibaum.music_service.config.security
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
