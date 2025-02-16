@@ -5,7 +5,7 @@ import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyMeDto
 import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyTopItemsDto
 import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyUserDto
 import com.michibaum.music_service.apis.spotify.api.user.dtos.TimeRange
-import com.michibaum.music_service.apis.spotify.oauth.SpotifyOAuthCredentials
+import com.michibaum.music_service.database.SpotifyOAuthCredentials
 import org.springframework.stereotype.Component
 
 @Component
