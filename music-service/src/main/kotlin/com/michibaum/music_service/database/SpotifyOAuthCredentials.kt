@@ -1,4 +1,4 @@
-package com.michibaum.music_service.apis.spotify.oauth
+package com.michibaum.music_service.database
 
 import jakarta.persistence.*
 import java.time.Instant
