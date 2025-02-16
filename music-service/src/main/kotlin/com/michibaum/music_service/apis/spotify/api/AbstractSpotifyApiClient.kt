@@ -1,4 +1,4 @@
-package com.michibaum.music_service.spotify.api
+package com.michibaum.music_service.apis.spotify.api
 
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType

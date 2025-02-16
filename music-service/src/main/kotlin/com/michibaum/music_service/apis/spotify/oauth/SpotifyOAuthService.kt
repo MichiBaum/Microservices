@@ -1,4 +1,4 @@
-package com.michibaum.music_service.spotify.oauth
+package com.michibaum.music_service.apis.spotify.oauth
 
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import org.springframework.stereotype.Service
