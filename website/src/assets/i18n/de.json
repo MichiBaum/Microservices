@@ -219,6 +219,10 @@
         "title": "Microservices"
     },
     "music": {
+        "navigation": {
+            "home": "Startseite",
+            "spotify": "Spotify"
+        },
         "title": "Musik"
     },
     "music-settings": {
