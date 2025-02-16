@@ -1,4 +1,4 @@
-package com.michibaum.music_service.spotify.api.user.dtos
+package com.michibaum.music_service.apis.spotify.api.user.dtos
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
