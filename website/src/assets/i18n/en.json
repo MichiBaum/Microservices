@@ -220,6 +220,10 @@
         "title": "Microservices"
     },
     "music": {
+        "navigation": {
+            "home": "Home",
+            "spotify": "Spotify"
+        },
         "title": "Music"
     },
     "music-settings": {
