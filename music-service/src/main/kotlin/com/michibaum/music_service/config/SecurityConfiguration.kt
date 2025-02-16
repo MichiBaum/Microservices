@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:music-service/src/main/kotlin/com/michibaum/music_service/config/SecurityConfiguration.kt
 package com.michibaum.music_service.config
+========
+package com.michibaum.music_service.config.security
+>>>>>>>> 1dd9192c (Improve music module with new settings page and navigation link):music-service/src/main/kotlin/com/michibaum/music_service/config/security/SecurityConfiguration.kt
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
