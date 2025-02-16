@@ -13,9 +13,9 @@ export class MusicService{
   private httpErrorConfig = inject(HttpErrorHandler);
   private userInfoService = inject(UserInfoService);
 
-
   getToken(): Observable<Token> {
     return this.http.get<Token>(this.environment.musicService() + '/spotify/token')
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
+
 }
