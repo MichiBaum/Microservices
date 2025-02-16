@@ -1,14 +1,14 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, signal} from '@angular/core';
 import {Menubar} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {TranslatePipe} from "@ngx-translate/core";
 import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgClass, NgIf} from "@angular/common";
 import {Ripple} from "primeng/ripple";
 import {Tag} from "primeng/tag";
-import {faAngleDown, faChessKing, faHouse, faMusic} from "@fortawesome/free-solid-svg-icons";
+import {faAngleDown, faGears, faHouse, faMusic} from "@fortawesome/free-solid-svg-icons";
 import {RouterLink} from "@angular/router";
 import {faSpotify} from "@fortawesome/free-brands-svg-icons";
 
@@ -52,6 +52,11 @@ export class MusicNavigationComponent {
                 customIcon: faSpotify,
                 visible: spotifyAuthenticated,
                 routerLink: '/music/spotify'
+            },
+            {
+                label: 'chess.navigation.settings',
+                customIcon: faGears,
+                routerLink: '/music/settings'
             }
         ] as MenuItem[]
     }
