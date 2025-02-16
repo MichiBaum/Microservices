@@ -1,18 +1,37 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {Menubar} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {Badge} from "primeng/badge";
+import {Divider} from "primeng/divider";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {NgClass, NgIf} from "@angular/common";
+import {Ripple} from "primeng/ripple";
+import {Tag} from "primeng/tag";
+import {faAngleDown, faChessKing, faHouse, faMusic} from "@fortawesome/free-solid-svg-icons";
+import {RouterLink} from "@angular/router";
+import {faSpotify} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-music-navigation',
     imports: [
-        Menubar
+        Menubar,
+        Badge,
+        Divider,
+        FaIconComponent,
+        NgIf,
+        Ripple,
+        Tag,
+        TranslatePipe,
+        RouterLink,
+        NgClass
     ],
   templateUrl: './music-navigation.component.html',
   styleUrl: './music-navigation.component.scss'
 })
 export class MusicNavigationComponent {
-    private readonly translate = inject(TranslateService);
+    protected readonly faAngleDown = faAngleDown;
+    protected readonly faMusic = faMusic;
 
     spotifyAuthenticated = signal(true) // TODO
 
@@ -24,14 +43,13 @@ export class MusicNavigationComponent {
     createMenuItems(spotifyAuthenticated: boolean): MenuItem[]{
         return [
             {
-                label: this.translate.instant('music.navigation.home'),
-                icon: 'pi pi-home',
-                visible: true,
-                routerLink: '/music/home'
+                label: 'music.navigation.home',
+                customIcon: faHouse,
+                routerLink: '/music'
             },
             {
-                label: this.translate.instant('music.navigation.spotify'),
-                icon: 'pi pi-newspaper',
+                label: 'music.navigation.spotify',
+                customIcon: faSpotify,
                 visible: spotifyAuthenticated,
                 routerLink: '/music/spotify'
             }
