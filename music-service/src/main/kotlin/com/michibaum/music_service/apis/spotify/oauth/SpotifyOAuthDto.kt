@@ -1,4 +1,4 @@
-package com.michibaum.music_service.spotify.oauth
+package com.michibaum.music_service.apis.spotify.oauth
 
 data class SpotifyOAuthDto(
     val code: String,

@@ -1,4 +1,4 @@
-package com.michibaum.music_service.spotify.oauth
+package com.michibaum.music_service.apis.spotify.oauth
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
@@ -66,7 +66,11 @@ class SpotifyOAuthController(
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String) {
         val oAuthData = spotifyOAuthService.findByState(state) ?: throw Exception("No oAuthData found by state $state")
 
-        val data = SpotifyOAuthDto(code, "authorization_code", "https://music.michibaum.ch/api/spotify/auth")
+        val data = SpotifyOAuthDto(
+            code,
+            "authorization_code",
+            "https://music.michibaum.ch/api/spotify/auth"
+        )
         val response = client
             .post()
             .uri("/api/token")

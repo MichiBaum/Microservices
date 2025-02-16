@@ -1,11 +1,11 @@
-package com.michibaum.music_service.spotify.api.user
+package com.michibaum.music_service.apis.spotify.api.user
 
-import com.michibaum.music_service.spotify.api.AbstractSpotifyApiClient
-import com.michibaum.music_service.spotify.api.user.dtos.SpotifyMeDto
-import com.michibaum.music_service.spotify.api.user.dtos.SpotifyTopItemsDto
-import com.michibaum.music_service.spotify.api.user.dtos.SpotifyUserDto
-import com.michibaum.music_service.spotify.api.user.dtos.TimeRange
-import com.michibaum.music_service.spotify.oauth.SpotifyOAuthCredentials
+import com.michibaum.music_service.apis.spotify.api.AbstractSpotifyApiClient
+import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyMeDto
+import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyTopItemsDto
+import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyUserDto
+import com.michibaum.music_service.apis.spotify.api.user.dtos.TimeRange
+import com.michibaum.music_service.apis.spotify.oauth.SpotifyOAuthCredentials
 import org.springframework.stereotype.Component
 
 @Component
