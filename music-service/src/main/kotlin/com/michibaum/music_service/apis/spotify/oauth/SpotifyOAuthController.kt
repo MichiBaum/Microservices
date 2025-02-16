@@ -94,7 +94,7 @@ class SpotifyOAuthController(
 
         val credentials = spotifyOAuthService.save(response, oAuthData)
 
-        // TODO return something
+        // TODO redirect to (host)/music
     }
 
 }
