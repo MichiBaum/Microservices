@@ -1,4 +1,4 @@
-package com.michibaum.music_service.apis.spotify.oauth
+package com.michibaum.music_service.database
 
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
