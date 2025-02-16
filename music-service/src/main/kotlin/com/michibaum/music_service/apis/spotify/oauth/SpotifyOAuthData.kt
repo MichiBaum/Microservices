@@ -1,9 +1,6 @@
 package com.michibaum.music_service.apis.spotify.oauth
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import org.hibernate.annotations.UuidGenerator
+import jakarta.persistence.*
 import java.util.*
 
 @Entity
@@ -15,6 +12,6 @@ class SpotifyOAuthData(
     val userId: String,
 
     @Id
-    @UuidGenerator
-    val id: UUID = UUID.randomUUID(),
+    @GeneratedValue(strategy = GenerationType.UUID)
+    val id: UUID? = null,
 )
