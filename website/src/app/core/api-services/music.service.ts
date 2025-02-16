@@ -11,4 +11,5 @@ export class MusicService{
   getToken() {
     return this.http.get<Token>(this.environment.musicService() + '/spotify/token')
   }
+
 }
