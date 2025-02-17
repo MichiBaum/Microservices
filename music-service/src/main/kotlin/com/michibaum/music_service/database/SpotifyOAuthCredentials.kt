@@ -5,6 +5,7 @@ import java.time.Instant
 import java.util.*
 
 @Entity
+@Table(name="spotifyoauth_credentials")
 class SpotifyOAuthCredentials(
 
     @Lob
