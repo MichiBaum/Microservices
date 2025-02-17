@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class SpotifyApiImpl(
-    private val spotifyUserApi: SpotifyUserApi
+    private val spotifyUserApi: SpotifyUserApi,
 ): SpotifyApi {
 
     override fun myProfile(credentials: SpotifyOAuthCredentials): SpotifyMeDto? {

@@ -5,11 +5,16 @@ import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyMeDto
 import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyTopItemsDto
 import com.michibaum.music_service.apis.spotify.api.user.dtos.SpotifyUserDto
 import com.michibaum.music_service.apis.spotify.api.user.dtos.TimeRange
+import com.michibaum.music_service.config.properties.ApisProperties
 import com.michibaum.music_service.database.SpotifyOAuthCredentials
 import org.springframework.stereotype.Component
+import org.springframework.web.client.RestClient
 
 @Component
-class SpotifyUserApiImpl: AbstractSpotifyApiClient(), SpotifyUserApi {
+class SpotifyUserApiImpl(
+    restClientBuilder: RestClient.Builder,
+    apisProperties: ApisProperties
+): AbstractSpotifyApiClient(restClientBuilder, apisProperties), SpotifyUserApi {
 
     override fun myProfile(credentials: SpotifyOAuthCredentials): SpotifyMeDto? {
         // https://developer.spotify.com/documentation/web-api/reference/get-current-users-profile
