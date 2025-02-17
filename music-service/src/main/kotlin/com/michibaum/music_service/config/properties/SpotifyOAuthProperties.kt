@@ -1,4 +1,4 @@
-package com.michibaum.music_service.apis.spotify.oauth
+package com.michibaum.music_service.config.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
