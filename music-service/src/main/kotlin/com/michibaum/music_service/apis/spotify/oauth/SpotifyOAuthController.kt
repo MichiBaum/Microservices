@@ -2,6 +2,7 @@ package com.michibaum.music_service.apis.spotify.oauth
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
+import com.michibaum.music_service.config.properties.SpotifyOAuthProperties
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.transaction.annotation.Isolation
