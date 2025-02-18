@@ -43,6 +43,9 @@ eureka:
       enabled: true
 
 management:
+  observations:
+    annotations:
+      enabled: true
   endpoints:
     access:
       default: unrestricted
