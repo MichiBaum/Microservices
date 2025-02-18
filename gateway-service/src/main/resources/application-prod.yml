@@ -3,11 +3,6 @@ server:
   ssl:
     enabled: true
     bundle: server
-#    TODO HTTP/2 behaves slightly differently from HTTP/1.1 in terms of how headers and paths are normalized and passed through. For example:
-#    - HTTP/2 employs multiplexing and avoids redundant headers like `Host`, which might behave differently with Spring Gateway.
-#    - Your predicates like `host("admin.michibaum.*")` or others may not match properly under HTTP/2.
-  http2:
-    enabled: false
 
 spring:
   ssl:
