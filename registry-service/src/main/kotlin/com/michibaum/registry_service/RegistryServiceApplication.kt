@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableEurekaServer
 @EnableDiscoveryClient
 @EnableScheduling
-@EnableFeignClients(basePackages = ["com.michibaum.authentication_library"])
 class RegistryServiceApplication
 
 fun main(args: Array<String>) {

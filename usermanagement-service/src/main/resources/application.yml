@@ -10,6 +10,10 @@ server:
 #  http2:
 #    enabled: true
 
+public-endpoints:
+  package-names:
+    - com.michibaum.usermanagement_service
+
 spring:
   threads:
     virtual:

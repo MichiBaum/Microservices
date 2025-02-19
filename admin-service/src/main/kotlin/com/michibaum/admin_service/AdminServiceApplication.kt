@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableAdminServer
 @EnableDiscoveryClient
 @EnableScheduling
-@EnableFeignClients(basePackages = ["com.michibaum.authentication_library"])
 class AdminServiceApplication
 
 fun main(args: Array<String>) {
