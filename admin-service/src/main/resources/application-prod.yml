@@ -12,7 +12,7 @@ spring:
         channel-id: ${DISCORD_ADMIN_SERVICE_LOG_CHANNEL}
   boot:
     admin:
-      client:
+      service:
         username: ${ADMIN_SERVICE_USERNAME}
         password: ${ADMIN_SERVICE_PASSWORD}
       ui:

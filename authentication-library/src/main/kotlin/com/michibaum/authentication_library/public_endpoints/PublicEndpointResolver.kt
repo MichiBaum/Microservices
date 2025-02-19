@@ -112,7 +112,8 @@ class PublicEndpointResolver(
         logger.debug("Searching for all RestController in packages: ${packageName.joinToString(", ")}")
         val scanner = ClassPathScanningCandidateComponentProvider(false)
         scanner.addIncludeFilter(AnnotationTypeFilter(RestController::class.java))
-        val beanDefinitions = packageName.map { scanner.findCandidateComponents(it) }
+        val beanDefinitions = packageName
+            .map { scanner.findCandidateComponents(it) }
             .flatten()
             .filterNotNull()
 

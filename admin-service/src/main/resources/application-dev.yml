@@ -4,7 +4,7 @@ server:
 spring:
   boot:
     admin:
-      client:
+      service:
         username: admin_username
         password: admin_password
       ui:

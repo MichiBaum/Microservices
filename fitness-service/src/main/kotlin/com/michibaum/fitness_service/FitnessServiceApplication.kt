@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableScheduling
-@EnableFeignClients(basePackages = ["com.michibaum.authentication_library"])
 class FitnessServiceApplication
 
 fun main(args: Array<String>) {

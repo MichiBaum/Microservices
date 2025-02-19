@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableDiscoveryClient
 @EnableScheduling
 @EnableConfigurationProperties
-@EnableFeignClients(basePackages = ["com.michibaum.authentication_library"])
 class ChessServiceApplication
 
 fun main(args: Array<String>) {
