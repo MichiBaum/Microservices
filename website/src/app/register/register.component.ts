@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Button} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -6,9 +6,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {PasswordModule} from "primeng/password";
 import {AuthService} from "../core/api-services/auth.service";
-import {HeaderService} from "../core/services/header.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
-import {Sides} from "../core/config/sides";
 import {UserInfoService} from "../core/services/user-info.service";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {FocusTrapModule} from "primeng/focustrap";
@@ -34,9 +32,8 @@ import {HttpErrorResponse} from "@angular/common/http";
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent {
   private readonly authService = inject(AuthService);
-  private readonly headerService = inject(HeaderService);
   private readonly router = inject(RouterNavigationService);
   private readonly userInfoService = inject(UserInfoService);
   private readonly translate = inject(TranslateService);
@@ -69,10 +66,6 @@ export class RegisterComponent implements OnInit{
     ])
   });
 
-
-  ngOnInit(): void {
-    this.headerService.changeTitle(Sides.register.translationKey)
-  }
 
   login() {
     this.router.login()

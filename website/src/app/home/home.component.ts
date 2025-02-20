@@ -1,5 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {HeaderService} from "../core/services/header.service";
+import {Component, inject} from '@angular/core';
 import {Sides} from "../core/config/sides";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {NgIf} from "@angular/common";
@@ -21,15 +20,10 @@ import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-place
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit{
-  private readonly headerService = inject(HeaderService);
+export class HomeComponent {
   protected routerNavigationService = inject(RouterNavigationService);
   private readonly permissionService = inject(PermissionService);
 
-
-  ngOnInit(): void {
-    this.headerService.changeTitle(Sides.home.translationKey)
-  }
 
   canActivateChess() {
     return Sides.chess.canActivate(this.permissionService)

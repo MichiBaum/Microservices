@@ -1,5 +1,4 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {HeaderService} from "../core/services/header.service";
 import {CardModule} from "primeng/card";
 import {TimelineModule} from "primeng/timeline";
 import {Button} from "primeng/button";
@@ -33,14 +32,12 @@ import {MetaDataHolder, MetaService} from "../core/services/meta.service";
   styleUrl: './about-me.component.scss'
 })
 export class AboutMeComponent implements OnInit, OnDestroy{
-  private readonly headerService = inject(HeaderService);
   private readonly metaService = inject(MetaService);
   private readonly routerNavigationService = inject(RouterNavigationService);
 
   private oldMeta: MetaDataHolder = this.metaService.defaultHolder;
 
     ngOnInit(): void {
-        this.headerService.changeTitle("about-me.title-with-name")
         const meta: MetaDataHolder = {
             description: "Michael Baumberger - Software developer from Switzerland specializing in Java, Kotlin, Spring Boot, and Angular. I create modern, scalable, and secure web applications. Contact me for custom software solutions!",
             keywords: ["Michael Baumberger", "Software Developer", "Web Developer", "Java", "Kotlin", "Spring Boot", "Angular", "Web Applications", "IT Security", "Software Architecture", "Backend Development", "Frontend Development", "Custom Software Solutions"],
