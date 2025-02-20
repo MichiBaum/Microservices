@@ -1,5 +1,6 @@
 package com.michibaum.gatewayservice.app.robotstxt
 
+import com.michibaum.gatewayservice.config.getHostHeader
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.function.HandlerFunction
 import org.springframework.web.servlet.function.ServerResponse
@@ -11,7 +12,7 @@ class RobotsTxtController(
 
     fun robotsTxt(): HandlerFunction<ServerResponse> {
         return HandlerFunction { request ->
-            val host = request.headers().firstHeader("Host")
+            val host = request.getHostHeader()
             val content = robotsTxtService.generateWith(host)
             ServerResponse.ok()
                 .header("Content-Type", "text/plain")
