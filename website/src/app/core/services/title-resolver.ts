@@ -1,15 +1,20 @@
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
 import {inject} from "@angular/core";
-import {Title} from "@angular/platform-browser";
 import {HeaderService} from "./header.service";
+import {TranslateService} from "@ngx-translate/core";
 
 export const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-    const title = inject(Title)
-    const header = inject(HeaderService)
+    const headerService = inject(HeaderService)
+    const translate = inject(TranslateService);
 
     // TODO
     // route.data Data Like event in route events/:id
     console.log(route)
+    const tabTitleFun = route.data['tabTitle']
+    const tabTitle = tabTitleFun(translate).toPromise()
 
-    return ""
+    const headerTitleFun = route.data['headerTitle']
+    headerTitleFun(headerService)
+
+    return tabTitle
 };
