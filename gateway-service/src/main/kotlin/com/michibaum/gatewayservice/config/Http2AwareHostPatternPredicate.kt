@@ -6,6 +6,7 @@ import org.springframework.http.server.PathContainer
 import org.springframework.util.Assert
 import org.springframework.web.servlet.function.RequestPredicate
 import org.springframework.web.servlet.function.ServerRequest
+import org.springframework.web.servlet.function.ServerResponse
 import org.springframework.web.util.pattern.PathPattern
 import org.springframework.web.util.pattern.PathPatternParser
 import java.util.function.Function
@@ -18,7 +19,7 @@ import java.util.function.Function
 class Http2AwareHostPatternPredicate(private val pattern: PathPattern): RequestPredicate {
 
     override fun test(request: ServerRequest): Boolean {
-        val host = getHostHeader(request)
+        val host = request.getHostHeader() ?: throw MissingHostHeaderException("Missing 'Host' or ':authority' header")
 
         val pathContainer = PathContainer.parsePath(host, PathContainer.Options.MESSAGE_ROUTE)
         val info = pattern.matchAndExtract(pathContainer)
@@ -31,21 +32,19 @@ class Http2AwareHostPatternPredicate(private val pattern: PathPattern): RequestP
 
     }
 
-    private fun getHostHeader(request: ServerRequest): String {
-        val host = request.headers().header(HttpHeaders.HOST).firstOrNull()
-        if(host != null) // Host header prio over :authority header
-            return host
+}
 
-        val authority = request.headers()
-            .header(":authority")
-            .firstOrNull()
+fun ServerRequest.getHostHeader(): String? {
+    val host = this.headers().header(HttpHeaders.HOST).firstOrNull()
+    if(host != null) // Host header prio over :authority header
+        return host
 
-        if (authority != null)
-            return authority
+    val authority = this.headers().header(":authority").firstOrNull()
 
-        throw MissingHostHeaderException("Both Host and :authority headers are missing.")
-    }
+    if (authority != null)
+        return authority
 
+    return null
 }
 
 class MissingHostHeaderException(message: String) : RuntimeException(message)
