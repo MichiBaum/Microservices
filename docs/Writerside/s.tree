@@ -11,6 +11,7 @@
         <toc-element topic="Actions.md"/>
     </toc-element>
     <toc-element topic="Server.md">
+        <toc-element topic="Java-Tuning.md"/>
         <toc-element topic="New-Deployment.md"/>
         <toc-element topic="ssl.md"/>
     </toc-element>

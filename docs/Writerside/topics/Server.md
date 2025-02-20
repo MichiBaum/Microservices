@@ -6,6 +6,11 @@ Server is running Ubuntu and structured the following way:
 - [Running](#running)
 - [Backup](#backup)
 
+## Resources
+Current Server (Ubuntu) has the following resources:
+- 12GB Memory
+- 8 Core
+- ~ 250GB Disk
 
 ## Paths
 The [git Project](https://github.com/MichiBaum/Microservices) is checked out under ``/git/Microservices``.  
