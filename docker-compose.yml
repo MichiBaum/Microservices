@@ -7,6 +7,7 @@ services:
     restart: always
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "8761"
     networks:
@@ -21,6 +22,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "80"
     networks:
@@ -38,6 +40,7 @@ services:
       DATABASE_USERNAME: ${AUTHENTICATION_DB_USERNAME}
       DATABASE_PASSWORD: ${AUTHENTICATION_DB_PASSWORD}
       DATABASE: ${AUTHENTICATION_DB}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "80"
     networks:
@@ -75,6 +78,7 @@ services:
       DATABASE_USERNAME: ${USERMANAGEMENT_DB_USERNAME}
       DATABASE_PASSWORD: ${USERMANAGEMENT_DB_PASSWORD}
       DATABASE: ${USERMANAGEMENT_DB}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "80"
     networks:
@@ -108,6 +112,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     ports:
       - "443:443"
     volumes:
@@ -124,6 +129,7 @@ services:
       - registry-service
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "80"
     networks:
@@ -142,6 +148,7 @@ services:
       DATABASE_USERNAME: ${CHESS_DB_USERNAME}
       DATABASE_PASSWORD: ${CHESS_DB_PASSWORD}
       DATABASE: ${CHESS_DB}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "80"
     networks:
@@ -157,6 +164,7 @@ services:
       MARIADB_PASSWORD: ${CHESS_DB_PASSWORD}
       MARIADB_ROOT_PASSWORD: ${CHESS_DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${CHESS_DB}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "3306"
     ports:
@@ -179,6 +187,7 @@ services:
       DATABASE_USERNAME: ${FITNESS_DB_USERNAME}
       DATABASE_PASSWORD: ${FITNESS_DB_PASSWORD}
       DATABASE: ${FITNESS_DB}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "80"
     networks:
@@ -216,6 +225,7 @@ services:
       DATABASE_USERNAME: ${MUSIC_DB_USERNAME}
       DATABASE_PASSWORD: ${MUSIC_DB_PASSWORD}
       DATABASE: ${MUSIC_DB}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     expose:
       - "80"
     networks:
