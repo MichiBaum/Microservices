@@ -134,6 +134,7 @@
         </dependency>
 
         <dependency>
+            <!-- Version 3.4.2 has vulnerabilities CVE-2024-25710 and CVE-2024-26308 in org.apache.commons:commons-compress but not relevant as it is a test dependency -->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-testcontainers</artifactId>
             <scope>test</scope>
