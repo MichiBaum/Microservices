@@ -7,10 +7,11 @@ export const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot, 
     const headerService = inject(HeaderService)
     const translate = inject(TranslateService);
 
-    const tabTitleFun = route.data['tabTitle']
+    let data = route.data;
+    const tabTitleFun = data['tabTitle']
     const tabTitle = tabTitleFun(translate).toPromise()
 
-    const headerTitleFun = route.data['headerTitle']
+    const headerTitleFun = data['headerTitle']
     headerTitleFun(headerService)
 
     return tabTitle

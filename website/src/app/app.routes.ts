@@ -3,10 +3,10 @@ import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
 import {Permissions} from "./core/config/permissions";
 import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
-import {ChessEventRouteResolver} from "./core/route-resolver/chess-event.route-resolver";
 import {titleResolver} from "./core/services/title-resolver";
 import {HeaderService} from "./core/services/header.service";
 import {TranslateService} from "@ngx-translate/core";
+import {chessEventRouteResolver} from "./core/route-resolver/chess-event.route-resolver";
 
 
 /**
@@ -128,9 +128,13 @@ export const routes: Routes = [
                 path: "events/:id",
                 loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
                 resolve: {
-                    event: ChessEventRouteResolver
+                    event: chessEventRouteResolver
                 },
-                title: titleResolver
+                title: titleResolver,
+                data: {
+                    "tabTitle": (translate: TranslateService) => translate.get("chess.event.tab-title"), // TODO how the f can i use the resolved event? The resolve: {event} is undefined because they are run parallel
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.event.title"), // TODO how the f can i use the resolved event? The resolve: {event} is undefined because they are run parallel
+                },
             },
             {
                 path: "openings/:id",
