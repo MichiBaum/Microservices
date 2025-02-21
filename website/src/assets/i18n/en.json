@@ -114,6 +114,7 @@
         "s2": "💡 If you’ve enjoyed the website or found it helpful, consider supporting my work 🤝. Your sponsorship helps cover the costs and allows me to dedicate even more time to building and refining the site 🛠️.",
         "s3": "🌟 And if you’re looking for a reliable server yourself, I recommend Hosttech. Use my promo code 31886957 to get started with their services 🚀.",
         "s4": "🙏 Thank you for your support and for being part of this journey! 🌈",
+        "tab-title": "Donate - MichiBaum",
         "title": "Donate"
     },
     "fitness": {
@@ -156,6 +157,7 @@
             "content": "Music speaks what words cannot, touching hearts beyond measure.",
             "title": "Music"
         },
+        "tab-title": "Home - MichiBaum",
         "title": "Home"
     },
     "imprint": {
@@ -169,6 +171,7 @@
         "disclaimer-of-liability-for-links-title": "Disclaimer of liability for links",
         "disclaimer-of-liability-title": "Disclaimer of liability",
         "email-title": "E-mail:",
+        "tab-title": "Imprint - MichiBaum",
         "title": "Imprint",
         "translation-description": "This application/website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors.",
         "translation-title": "Translation"
@@ -181,10 +184,12 @@
         "login": "Login",
         "password": "Password",
         "register": "Go to register",
+        "tab-title": "Login - MichiBaum",
         "title": "Login",
         "username": "Username"
     },
     "microservices": {
+        "tab-title": "Microservices - MichiBaum",
         "title": "Microservices"
     },
     "music": {
@@ -222,6 +227,7 @@
             "details": "You can log in now.",
             "summary": "Registration successful"
         },
+        "tab-title": "Register - MichiBaum",
         "title": "Register",
         "username": "Username"
     },
