@@ -1,7 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {SplitterModule} from "primeng/splitter";
-import {HeaderService} from "../core/services/header.service";
-import {Sides} from "../core/config/sides";
 import {MenubarModule} from "primeng/menubar";
 import {BadgeModule} from "primeng/badge";
 import {TagModule} from "primeng/tag";
@@ -36,11 +34,6 @@ import {ChessStartOpeningsListComponent} from "./chess-start-openings-list/chess
   templateUrl: './chess.component.html',
   styleUrl: './chess.component.scss'
 })
-export class ChessComponent implements OnInit{
-  private readonly headerService = inject(HeaderService);
-
-  ngOnInit(): void {
-    this.headerService.changeTitle(Sides.chess.translationKey)
-  }
+export class ChessComponent {
 
 }
