@@ -22,7 +22,7 @@ export const routes: Routes = [
         canActivate: [],
         title: titleResolver,
         data: {
-            "tabTitle": (translate: TranslateService) => translate.get("home.title"),
+            "tabTitle": (translate: TranslateService) => translate.get("home.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("home.title")
         }
     },
@@ -32,7 +32,7 @@ export const routes: Routes = [
         canActivate: [],
         title: titleResolver,
         data: {
-            "tabTitle": (translate: TranslateService) => translate.get("home.title"),
+            "tabTitle": (translate: TranslateService) => translate.get("home.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("home.title")
         }
     },
@@ -42,7 +42,7 @@ export const routes: Routes = [
         canActivate: [],
         title: titleResolver,
         data: {
-            "tabTitle": (translate: TranslateService) => translate.get("login.title"),
+            "tabTitle": (translate: TranslateService) => translate.get("login.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("login.title")
         }
     },
@@ -52,7 +52,7 @@ export const routes: Routes = [
         canActivate: [],
         title: titleResolver,
         data: {
-            "tabTitle": (translate: TranslateService) => translate.get("register.title"),
+            "tabTitle": (translate: TranslateService) => translate.get("register.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("register.title")
         }
     },
@@ -62,7 +62,7 @@ export const routes: Routes = [
         canActivate: [],
         title: titleResolver,
         data: {
-            "tabTitle": (translate: TranslateService) => translate.get("imprint.title"),
+            "tabTitle": (translate: TranslateService) => translate.get("imprint.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("imprint.title")
         }
     },
@@ -82,7 +82,7 @@ export const routes: Routes = [
         canActivate: [],
         title: titleResolver,
         data: {
-            "tabTitle": (translate: TranslateService) => translate.get("donate.title"),
+            "tabTitle": (translate: TranslateService) => translate.get("donate.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("donate.title")
         }
     },
@@ -92,7 +92,7 @@ export const routes: Routes = [
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
         title: titleResolver,
         data: {
-            "tabTitle": (translate: TranslateService) => translate.get("microservices.title"),
+            "tabTitle": (translate: TranslateService) => translate.get("microservices.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("microservices.title"),
             "permissions": [Permissions.ADMIN_SERVICE]
         }
