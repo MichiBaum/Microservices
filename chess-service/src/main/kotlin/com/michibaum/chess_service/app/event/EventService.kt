@@ -2,11 +2,7 @@ package com.michibaum.chess_service.app.event
 
 import com.michibaum.authentication_library.anyOf
 import com.michibaum.chess_service.app.eventcategory.EventCategoryService
-import com.michibaum.chess_service.database.PersonRepository
-import com.michibaum.chess_service.database.Event
-import com.michibaum.chess_service.database.EventCategory
-import com.michibaum.chess_service.database.EventRepository
-import com.michibaum.chess_service.database.Person
+import com.michibaum.chess_service.database.*
 import com.michibaum.permission_library.Permissions
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -53,7 +49,8 @@ class EventService(
             internalComment = internalComment,
             platform = dto.platform,
             categories = categories,
-            participants = participants
+            participants = participants,
+            gameType = GameType.BLITZ
         )
         return eventRepository.save(event)
     }
@@ -79,6 +76,7 @@ class EventService(
             platform = dto.platform,
             categories = categories,
             participants = participants,
+            gameType = GameType.BLITZ,
             id = event.id
         )
 
