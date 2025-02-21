@@ -70,7 +70,8 @@
                 "firstname": "Firstname",
                 "lastname": "Lastname"
             },
-            "title": "Title"
+            "tab-title": "Chess Events - MichiBaum",
+            "title": "Chess Events"
         },
         "home": {
             "recent-upcoming": "Recent, running and upcoming Events",
@@ -88,6 +89,10 @@
             "settings": "Settings",
             "start-openings": "Start Openings"
         },
+        "news": {
+            "tab-title": "Chess News - MichiBaum",
+            "title": "Chess News"
+        },
         "opening": {
             "tree-depth": "Tree depth: "
         },
@@ -102,6 +107,7 @@
             "lastname": "Lastname",
             "search-person": "Search Person"
         },
+        "tab-title": "Chess - MichiBaum",
         "title": "Chess"
     },
     "chess-settings": {

@@ -100,21 +100,33 @@ export const routes: Routes = [
     {
         path: "chess",
         loadComponent: () => import("./chess/chess.component").then((c) => c.ChessComponent),
+        title: titleResolver,
+        data: {
+            "tabTitle": (translate: TranslateService) => translate.get("chess.tab-title"),
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.title"),
+        },
         children: [
             {
                 path: "news",
                 loadComponent: () => import("./chess/chess-news/chess-news.component").then((c) => c.ChessNewsComponent),
-                canActivate: []
+                title: titleResolver,
+                data: {
+                    "tabTitle": (translate: TranslateService) => translate.get("chess.news.tab-title"),
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.news.title"),
+                },
             },
             {
                 path: "events",
                 loadComponent: () => import("./chess/chess-events-list/chess-events-list.component").then((c) => c.ChessEventsListComponent),
-                canActivate: []
+                title: titleResolver,
+                data: {
+                    "tabTitle": (translate: TranslateService) => translate.get("chess.event.tab-title"),
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.event.title"),
+                },
             },
             {
                 path: "events/:id",
                 loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
-                canActivate: [],
                 resolve: {
                     event: ChessEventRouteResolver
                 },
@@ -131,7 +143,6 @@ export const routes: Routes = [
                         return c.ChessOpeningMobileComponent;
                     }
                 },
-                canActivate: []
             },
             {
                 path: "settings",

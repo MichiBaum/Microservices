@@ -69,7 +69,8 @@
                 "firstname": "Vorname",
                 "lastname": "Nachname"
             },
-            "title": "Titel"
+            "tab-title": "Schach Veranstaltungen - MichiBaum",
+            "title": "Schach Veranstaltungen"
         },
         "home": {
             "recent-upcoming": "Vergangene, laufende und zukünftige Veranstaltungen",
@@ -87,6 +88,10 @@
             "settings": "Einstellungen",
             "start-openings": "Start Eröffnungen"
         },
+        "news": {
+            "tab-title": "Schach Neuigkeiten - MichiBaum",
+            "title": "Schach Neuigkeiten"
+        },
         "opening": {
             "tree-depth": "Baumtiefe: "
         },
@@ -101,6 +106,7 @@
             "lastname": "Nachname",
             "search-person": "Person suchen"
         },
+        "tab-title": "Schach - MichiBaum",
         "title": "Schach"
     },
     "chess-settings": {

@@ -7,9 +7,6 @@ export const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot, 
     const headerService = inject(HeaderService)
     const translate = inject(TranslateService);
 
-    // TODO
-    // route.data Data Like event in route events/:id
-    console.log(route)
     const tabTitleFun = route.data['tabTitle']
     const tabTitle = tabTitleFun(translate).toPromise()
 
