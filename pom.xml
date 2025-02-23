@@ -160,6 +160,8 @@
         <module>permission-library</module>
         <module>usermanagement-library</module>
         <module>authentication-library</module>
+        <module>spring-boot-starter-authentication</module>
+        <module>spring-boot-starter-discord</module>
         <module>gateway-service</module>
         <module>admin-service</module>
         <module>registry-service</module>
@@ -167,10 +169,8 @@
         <module>usermanagement-service</module>
         <module>website-service</module>
         <module>chess-service</module>
-        <module>spring-boot-starter-discord</module>
         <module>fitness-service</module>
         <module>music-service</module>
-        <module>spring-boot-starter-authentication</module>
     </modules>
 
     <profiles>

@@ -33,7 +33,9 @@
     <toc-element topic="Libraries.md">
         <toc-element topic="Usermanagement-library.md"/>
         <toc-element topic="permission-library.md"/>
-        <toc-element topic="authentication-library.md"/>
+        <toc-element topic="authentication-library.md">
+            <toc-element topic="spring-boot-starter-authentication.md"/>
+        </toc-element>
         <toc-element topic="spring-boot-starter-discord.md"/>
     </toc-element>
     <toc-element topic="Website.md"/>
