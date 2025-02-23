@@ -19,12 +19,6 @@ data class Track (
     @Temporal(TemporalType.DATE)
     val releaseDate: LocalDate?,
 
-    /**
-     * The International Standard Recording Code is an international standard code for uniquely identifying sound
-     * recordings and music video recordings.
-     *
-     * https://community.metabrainz.org/t/same-recordings-with-multiple-isrc/473370/6
-     */
     @ElementCollection(targetClass = String::class, fetch = FetchType.EAGER)
     @CollectionTable(name = "isrc", joinColumns = [JoinColumn(name = "track_id")])
     @Column(name = "isrc", nullable = false)
