@@ -11,6 +11,10 @@ server:
 #  http2:
 #    enabled: true
 
+public-endpoints:
+  package-names:
+    - com.michibaum.registry_service
+
 spring:
   threads:
     virtual:

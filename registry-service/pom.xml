@@ -85,7 +85,7 @@
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
-            <artifactId>authentication-library</artifactId>
+            <artifactId>spring-boot-starter-authentication</artifactId>
             <version>1.0.0</version>
         </dependency>
 

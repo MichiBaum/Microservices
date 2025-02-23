@@ -9,6 +9,9 @@ eureka:
 spring:
   boot:
     admin:
+      service:
+        username: admin_username
+        password: admin_password
       client:
         username: admin_username
         password: admin_password

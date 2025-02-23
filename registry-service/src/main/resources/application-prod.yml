@@ -1,6 +1,9 @@
 spring:
   boot:
     admin:
+      service:
+        username: ${ADMIN_SERVICE_USERNAME}
+        password: ${ADMIN_SERVICE_PASSWORD}
       client:
         username: ${ADMIN_SERVICE_USERNAME}
         password: ${ADMIN_SERVICE_PASSWORD}
