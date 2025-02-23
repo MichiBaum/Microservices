@@ -11,7 +11,15 @@ CREATE TABLE artist_musixmatch (
     musixmatch_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_musixmatch_id_musixmatch UNIQUE (musixmatch_id)
+    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id)
+);
+
+CREATE TABLE artist_spotify (
+    id UUID NOT NULL PRIMARY KEY,
+    spotify_id VARCHAR(255) NOT NULL,
+    created DATETIME(6) NOT NULL,
+    updated DATETIME(6) NOT NULL,
+    CONSTRAINT uk_spotify_id UNIQUE (spotify_id)
 );
 
 CREATE TABLE album (
@@ -24,7 +32,15 @@ CREATE TABLE album_musixmatch (
     musixmatch_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_musixmatch_id_musixmatch UNIQUE (musixmatch_id)
+    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id)
+);
+
+CREATE TABLE album_spotify (
+    id UUID NOT NULL PRIMARY KEY,
+    spotify_id VARCHAR(255) NOT NULL,
+    created DATETIME(6) NOT NULL,
+    updated DATETIME(6) NOT NULL,
+    CONSTRAINT uk_spotify_id UNIQUE (spotify_id)
 );
 
 CREATE TABLE track (
@@ -45,7 +61,15 @@ CREATE TABLE track_musixmatch (
     musixmatch_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_musixmatch_id_musixmatch UNIQUE (musixmatch_id)
+    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id)
+);
+
+CREATE TABLE track_spotify (
+    id UUID NOT NULL PRIMARY KEY,
+    spotify_id VARCHAR(255) NOT NULL,
+    created DATETIME(6) NOT NULL,
+    updated DATETIME(6) NOT NULL,
+    CONSTRAINT uk_spotify_id UNIQUE (spotify_id)
 );
 
 CREATE TABLE track_artist_mapping (
