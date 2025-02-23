@@ -1,6 +1,7 @@
 CREATE TABLE artist (
     id UUID NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    isni VARCHAR(16),
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL
 );
@@ -31,9 +32,12 @@ CREATE TABLE track (
     name VARCHAR(255) NOT NULL,
     release_date DATE,
     isrc VARCHAR(255) NOT NULL,
-    ean VARCHAR(255),
-    upc VARCHAR(255),
     CONSTRAINT uk_track_isrc UNIQUE (isrc)
+);
+
+CREATE TABLE isrc (
+    track_id UUID NOT NULL,
+    isrc VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE track_musixmatch (
