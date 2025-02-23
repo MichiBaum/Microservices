@@ -1,13 +1,15 @@
 package com.michibaum.music_service.apis.musixmatch
 
 import com.michibaum.music_service.apis.musixmatch.dtos.*
+import com.michibaum.music_service.config.properties.ApisProperties
 import com.michibaum.music_service.config.properties.MusixmatchProperties
 import org.springframework.stereotype.Component
 
 @Component
 class MusixmatchApiImpl(
-    val musixmatchProperties: MusixmatchProperties
-): MusixmatchApi, AbstractMusixmatchApiClient() { // https://docs.musixmatch.com/lyrics-api/introduction
+    private val musixmatchProperties: MusixmatchProperties,
+    apisProperties: ApisProperties
+): MusixmatchApi, AbstractMusixmatchApiClient(apisProperties) { // https://docs.musixmatch.com/lyrics-api/introduction
 
     fun getTrackByIsrc(isrc: String){
         client.get()

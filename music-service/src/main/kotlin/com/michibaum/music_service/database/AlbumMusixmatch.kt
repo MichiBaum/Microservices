@@ -4,25 +4,24 @@ import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
-import java.time.LocalDateTime
 import java.util.*
 
 @Entity
-@Table(name="artist")
-data class Artist(
+@Table(name="album_musixmatch")
+data class AlbumMusixmatch(
 
-    @Column(nullable = false)
-    val name: String,
+    @Column(nullable = false, unique = true)
+    val musixmatchId: String,
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
-    val created: LocalDateTime? = null,
+    val created: Instant? = null,
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated", nullable = false)
-    val updated: LocalDateTime? = null,
+    val updated: Instant? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
