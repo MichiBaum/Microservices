@@ -20,22 +20,15 @@ data class Track (
     val releaseDate: LocalDate?,
 
     /**
-     * International Standard Recording Code
+     * The International Standard Recording Code is an international standard code for uniquely identifying sound
+     * recordings and music video recordings.
+     *
+     * https://community.metabrainz.org/t/same-recordings-with-multiple-isrc/473370/6
      */
-    @Column(nullable = false, unique = true)
-    val isrc: String,
-
-    /**
-     * International Article Number
-     */
-    @Column(nullable = true)
-    val ean: String?,
-
-    /**
-     * Universal Product Code
-     */
-    @Column(nullable = true)
-    val upc: String?,
+    @ElementCollection(targetClass = String::class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "isrc", joinColumns = [JoinColumn(name = "track_id")])
+    @Column(name = "isrc", nullable = false)
+    val isrc: Set<String> = setOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
