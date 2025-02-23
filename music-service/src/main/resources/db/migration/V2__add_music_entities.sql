@@ -8,18 +8,22 @@ CREATE TABLE artist (
 
 CREATE TABLE artist_musixmatch (
     id UUID NOT NULL PRIMARY KEY,
+    artist_id UUID NOT NULL,
     musixmatch_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id)
+    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id),
+    FOREIGN KEY (artist_id) REFERENCES artist(id)
 );
 
 CREATE TABLE artist_spotify (
     id UUID NOT NULL PRIMARY KEY,
+    artist_id UUID NOT NULL,
     spotify_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_spotify_id UNIQUE (spotify_id)
+    CONSTRAINT uk_spotify_id UNIQUE (spotify_id),
+    FOREIGN KEY (artist_id) REFERENCES artist(id)
 );
 
 CREATE TABLE album (
@@ -29,18 +33,22 @@ CREATE TABLE album (
 
 CREATE TABLE album_musixmatch (
     id UUID NOT NULL PRIMARY KEY,
+    album_id UUID NOT NULL,
     musixmatch_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id)
+    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id),
+    FOREIGN KEY (album_id) REFERENCES album(id)
 );
 
 CREATE TABLE album_spotify (
     id UUID NOT NULL PRIMARY KEY,
+    album_id UUID NOT NULL,
     spotify_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_spotify_id UNIQUE (spotify_id)
+    CONSTRAINT uk_spotify_id UNIQUE (spotify_id),
+    FOREIGN KEY (album_id) REFERENCES album(id)
 );
 
 CREATE TABLE track (
@@ -58,18 +66,22 @@ CREATE TABLE isrc (
 
 CREATE TABLE track_musixmatch (
     id UUID NOT NULL PRIMARY KEY,
+    track_id UUID NOT NULL,
     musixmatch_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id)
+    CONSTRAINT uk_musixmatch_id UNIQUE (musixmatch_id),
+    FOREIGN KEY (track_id) REFERENCES track(id)
 );
 
 CREATE TABLE track_spotify (
     id UUID NOT NULL PRIMARY KEY,
+    track_id UUID NOT NULL,
     spotify_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_spotify_id UNIQUE (spotify_id)
+    CONSTRAINT uk_spotify_id UNIQUE (spotify_id),
+    FOREIGN KEY (track_id) REFERENCES track(id)
 );
 
 CREATE TABLE track_artist_mapping (

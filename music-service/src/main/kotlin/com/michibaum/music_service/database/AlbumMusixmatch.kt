@@ -10,6 +10,10 @@ import java.util.*
 @Table(name="album_musixmatch")
 data class AlbumMusixmatch(
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="album_id", nullable=false)
+    val album: Album,
+
     @Column(nullable = false, unique = true)
     val musixmatchId: String,
 
