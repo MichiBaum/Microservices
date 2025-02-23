@@ -17,16 +17,25 @@ data class Track (
 
     @Column(nullable = true)
     @Temporal(TemporalType.DATE)
-    val releaseDate: LocalDate,
+    val releaseDate: LocalDate?,
 
+    /**
+     * International Standard Recording Code
+     */
     @Column(nullable = false, unique = true)
-    val isrc: String, // International Standard Recording Code
+    val isrc: String,
 
+    /**
+     * International Article Number
+     */
     @Column(nullable = true)
-    val ean: String, // International Article Number
+    val ean: String?,
 
+    /**
+     * Universal Product Code
+     */
     @Column(nullable = true)
-    val upc: String, // Universal Product Code
+    val upc: String?,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

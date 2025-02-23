@@ -7,6 +7,8 @@ spotify:
     client-secret: ${SPOTIFY_CLIENT_SECRET:}
 musixmatch:
   api-key: ${MUSIXMATCH_API_KEY:}
+apis:
+  user-agent: MichiBaum/1.0.0 (Development)
 
 eureka:
   client:
