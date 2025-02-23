@@ -42,6 +42,17 @@ class MusixmatchApiImpl(
             .body(AlbumResponse::class.java)
     }
 
+    fun getAlbumTracks(id: String){
+        client.get()
+            .uri("/album.tracks.get")
+            .attributes {
+                it["album_id"] = id
+                it["apikey"] = musixmatchProperties.apiKey
+            }
+            .retrieve()
+            .body(AlbumResponse::class.java)
+    }
+
     fun getTopTracks(country: String, chartType: ChartType){ // https://docs.musixmatch.com/lyrics-api/charts/chart-tracks-get
         client.get()
             .uri("/chart.tracks.get")
@@ -63,6 +74,17 @@ class MusixmatchApiImpl(
             }
             .retrieve()
             .body(TopArtistsResponse::class.java)
+    }
+
+    fun searchArtist(artistName: String){
+        client.get()
+            .uri("/artist.search")
+            .attributes {
+                it["q_artist"] = artistName
+                it["apikey"] = musixmatchProperties.apiKey
+            }
+            .retrieve()
+            .body(SearchArtistResponse::class.java)
     }
 
 }
