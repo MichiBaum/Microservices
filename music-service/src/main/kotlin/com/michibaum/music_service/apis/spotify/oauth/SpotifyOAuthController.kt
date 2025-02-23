@@ -2,6 +2,7 @@ package com.michibaum.music_service.apis.spotify.oauth
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
+import com.michibaum.music_service.config.properties.ApisProperties
 import com.michibaum.music_service.config.properties.SpotifyOAuthProperties
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -19,7 +20,8 @@ import java.util.*
 @RestController
 class SpotifyOAuthController(
     private val spotifyOAuthService: SpotifyOAuthService,
-    private val spotifyOAuthProperties: SpotifyOAuthProperties
+    private val spotifyOAuthProperties: SpotifyOAuthProperties,
+    private val apisProperties: ApisProperties
 ) { // https://developer.spotify.com/documentation/web-api/tutorials/code-flow
 
     private final val client: RestClient
@@ -31,9 +33,10 @@ class SpotifyOAuthController(
         client = RestClient.builder()
             .baseUrl("https://accounts.spotify.com")
             .defaultHeaders {
-                it.set("Authorization", "Basic $authBasic")
+                it.set(HttpHeaders.AUTHORIZATION, "Basic $authBasic")
                 it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 it.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                it.set(HttpHeaders.USER_AGENT, apisProperties.userAgent)
             }
             .build()
     }
