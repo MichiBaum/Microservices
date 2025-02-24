@@ -37,6 +37,7 @@ There are these microservices:
 
 And these libraries:
 - [Authentication Library](./authentication-library/README.md)
+- [Spring Boot Starter Authentication](./spring-boot-starter-authentication/README.md)
 - [Permission Library](./permission-library/README.md)
 - [Usermanagement Library](./usermanagement-library/README.md)
 - [Spring Boot Starter Discord](./spring-boot-starter-discord/README.md)
@@ -46,9 +47,9 @@ And these databases:
 - Usermanagement DB
 - Chess DB
 - Fitness DB
+- Music DB
 
-
-All docs can be found [/docs/Writerside/topics](/docs/Writerside/topics/Overview.md)
+All docs can be found [/docs/Writerside/topics](./docs/Writerside/topics/Overview.md)
 
 
 ## License
