@@ -13,32 +13,14 @@
         <root level="INFO">
             <appender-ref ref="Console" />
         </root>
-
-        <logger name="com.michibaum" level="INFO">
-            <appender-ref ref="Console" />
-        </logger>
-
-        <logger name="org.springframework" level="ERROR">
-            <appender-ref ref="Console" />
-        </logger>
-
     </springProfile>
 
     <springProfile name="prod">
         <appender name="Discord" class="com.michibaum.discord.logging.DiscordAppenderDelegator"/>
 
-        <!-- TODO check before flooding discord -->
-        <!--        <root level="info">-->
-        <!--            <appender-ref ref="Discord" />-->
-        <!--        </root>-->
-
-        <logger name="com.michibaum" level="WARN">
+        <root level="WARN">
             <appender-ref ref="Discord" />
-        </logger>
-
-        <logger name="org.springframework" level="WARN">
-            <appender-ref ref="Discord" />
-        </logger>
+        </root>
     </springProfile>
 
 </configuration>
