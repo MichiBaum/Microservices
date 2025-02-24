@@ -11,6 +11,7 @@ import com.michibaum.chess_service.database.ChessPlatform
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException
+import org.springframework.web.client.RestClient
 import java.time.LocalDate
 import java.time.Year
 import java.time.format.DateTimeFormatter
@@ -19,10 +20,11 @@ import java.time.format.DateTimeFormatter
 @Service(value = "chesscomApiService")
 class ApiServiceImpl(
     chessConfigProperties: ChessConfigProperties,
+    restClientBuilder: RestClient.Builder,
     private val converter: Converter
 ): IApiService {
 
-    val client = chessConfigProperties.getWebClient(ChessPlatform.CHESSCOM)
+    val client = chessConfigProperties.createRestClient(restClientBuilder, ChessPlatform.CHESSCOM)
 
     override fun findUser(username: String): ApiResult<AccountDto> {
         val result = try {
