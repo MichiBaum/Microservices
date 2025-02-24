@@ -5,9 +5,9 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestClient
 
-abstract class AbstractMusixmatchApiClient(private val apisProperties: ApisProperties) {
+abstract class AbstractMusixmatchApiClient(restClientBuilder: RestClient.Builder, apisProperties: ApisProperties) {
 
-    val client = RestClient.builder()
+    val client = restClientBuilder
         .baseUrl("https://api.musixmatch.com/ws/1.1")
         .defaultHeaders {
             it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
