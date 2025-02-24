@@ -21,7 +21,8 @@ import java.util.*
 class SpotifyOAuthController(
     private val spotifyOAuthService: SpotifyOAuthService,
     private val spotifyOAuthProperties: SpotifyOAuthProperties,
-    private val apisProperties: ApisProperties
+    apisProperties: ApisProperties,
+    restClientBuilder: RestClient.Builder
 ) { // https://developer.spotify.com/documentation/web-api/tutorials/code-flow
 
     private final val client: RestClient
@@ -30,7 +31,7 @@ class SpotifyOAuthController(
         val clientAndSecret = spotifyOAuthProperties.clientId + ":" + spotifyOAuthProperties.clientSecret
         val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
 
-        client = RestClient.builder()
+        client = restClientBuilder
             .baseUrl("https://accounts.spotify.com")
             .defaultHeaders {
                 it.set(HttpHeaders.AUTHORIZATION, "Basic $authBasic")
