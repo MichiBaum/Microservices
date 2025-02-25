@@ -2,6 +2,7 @@ services:
 
   registry-service:
     image: 70131370/registry-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
@@ -15,11 +16,13 @@ services:
 
   admin-service:
     image: 70131370/admin-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
+      registry-service:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -30,11 +33,13 @@ services:
 
   authentication-service:
     image: 70131370/authentication-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
+      registry-service:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${AUTHENTICATION_DB_USERNAME}
@@ -64,15 +69,24 @@ services:
       - /data/authentication-db:/var/lib/mysql
     networks:
       - microservice-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   usermanagement-service:
     image: 70131370/usermanagement-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
-      - usermanagement-db
+      registry-service:
+        condition: service_healthy
+      usermanagement-db:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${USERMANAGEMENT_DB_USERNAME}
@@ -102,14 +116,22 @@ services:
       - /data/usermanagement-db:/var/lib/mysql
     networks:
       - microservice-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   gateway-service:
     image: 70131370/gateway-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
+      registry-service:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -122,11 +144,13 @@ services:
 
   website-service:
     image: 70131370/website-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
+      registry-service:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -137,12 +161,15 @@ services:
 
   chess-service:
     image: 70131370/chess-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
-      - chess-db
+      registry-service:
+        condition: service_healthy
+      chess-db:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${CHESS_DB_USERNAME}
@@ -173,15 +200,24 @@ services:
       - /data/chess-db:/var/lib/mysql
     networks:
       - microservice-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   fitness-service:
     image: 70131370/fitness-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
-      - fitness-db
+      registry-service:
+        condition: service_healthy
+      fitness-db:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${FITNESS_DB_USERNAME}
@@ -211,15 +247,24 @@ services:
       - /data/fitness-db:/var/lib/mysql
     networks:
       - microservice-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   music-service:
     image: 70131370/music-service
+    pull_policy: always
     env_file:
       - .env
     restart: always
     depends_on:
-      - registry-service
-      - music-db
+      registry-service:
+        condition: service_healthy
+      music-db:
+        condition: service_healthy
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${MUSIC_DB_USERNAME}
@@ -249,6 +294,12 @@ services:
       - /data/music-db:/var/lib/mysql
     networks:
       - microservice-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
