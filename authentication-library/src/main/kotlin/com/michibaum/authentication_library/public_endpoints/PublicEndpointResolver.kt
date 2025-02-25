@@ -7,7 +7,9 @@ import org.springframework.core.type.filter.AnnotationTypeFilter
 import org.springframework.web.bind.annotation.*
 import java.lang.reflect.Method
 
-
+/**
+ * https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html
+ */
 class PublicEndpointResolver(
     private val publicAnnotation: Class<out Annotation>,
     private vararg val packageName: String
