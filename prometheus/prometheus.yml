@@ -1,0 +1,64 @@
+# https://prometheus.io/docs/prometheus/latest/configuration/configuration
+global:
+  scrape_interval: 15s
+
+http_config:
+  basic_auth:
+    [ username_file: <string> ]
+    [ password_file: <secret> ]
+
+scrape_configs:
+  - job_name: admin-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'admin-service' ]
+        labels:
+          application: 'Admin Service'
+  - job_name: gateway-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'gateway-service' ]
+        labels:
+          application: 'Gateway Service'
+  - job_name: registry-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'registry-service' ]
+        labels:
+          application: 'Registry Service'
+  - job_name: authentication-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'authentication-service' ]
+        labels:
+          application: 'Authentication Service'
+  - job_name: usermanagement-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'usermanagement-service' ]
+        labels:
+          application: 'Usermanagement Service'
+  - job_name: website-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'website-service' ]
+        labels:
+          application: 'Website Service'
+  - job_name: chess-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'chess-service' ]
+        labels:
+          application: 'Chess Service'
+  - job_name: fitness-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'fitness-service' ]
+        labels:
+          application: 'Fitness Service'
+  - job_name: music-service
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'music-service' ]
+        labels:
+          application: 'Music Service'
