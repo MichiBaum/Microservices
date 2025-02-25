@@ -355,6 +355,31 @@ services:
       timeout: 5s
       retries: 3
 
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    expose:
+      - "9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - /data/prometheus:/prometheus
+    networks:
+      - microservice-network
+
+  grafana:
+    image: grafana/grafana
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - "3000"
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+    networks:
+      - microservice-network
+
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
 # https://github.com/matomo-org/docker
