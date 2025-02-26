@@ -160,6 +160,11 @@ export const routes: Routes = [
                         return c.ChessOpeningMobileComponent;
                     }
                 },
+                title: titleResolver,
+                data: {
+                    "tabTitle": (translate: TranslateService) => translate.get("chess.openings.tab-title"),
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.openings.title"),
+                },
             },
             {
                 path: "settings",

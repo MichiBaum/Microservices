@@ -100,6 +100,10 @@
         "opening": {
             "tree-depth": "Tree depth: "
         },
+        "openings": {
+            "tab-title": "Openings - MichiBaum",
+            "title": "Openings"
+        },
         "platform": {
             "CHESSCOM": "Chess.com",
             "FIDE": "Fide",

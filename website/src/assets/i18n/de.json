@@ -99,6 +99,10 @@
         "opening": {
             "tree-depth": "Baumtiefe: "
         },
+        "openings": {
+            "tab-title": "Eröffnungen - MichiBaum",
+            "title": "Eröffnungen"
+        },
         "platform": {
             "CHESSCOM": "Chess.com",
             "FIDE": "Fide",
