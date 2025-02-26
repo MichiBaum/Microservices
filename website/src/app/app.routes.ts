@@ -3,7 +3,7 @@ import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
 import {Permissions} from "./core/config/permissions";
 import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
-import {titleResolver} from "./core/services/title-resolver";
+import {titleResolver} from "./core/route-resolver/title-resolver";
 import {HeaderService} from "./core/services/header.service";
 import {TranslateService} from "@ngx-translate/core";
 import {chessEventRouteResolver} from "./core/route-resolver/chess-event.route-resolver";
@@ -100,12 +100,17 @@ export const routes: Routes = [
     {
         path: "chess",
         loadComponent: () => import("./chess/chess.component").then((c) => c.ChessComponent),
-        title: titleResolver,
-        data: {
-            "tabTitle": (translate: TranslateService) => translate.get("chess.tab-title"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.title"),
-        },
         children: [
+            {
+                path: "",
+                pathMatch: "full",
+                loadComponent: () => import("./chess/chess-home/chess-home.component").then((c) => c.ChessHomeComponent),
+                title: titleResolver,
+                data: {
+                    "tabTitle": (translate: TranslateService) => translate.get("chess.tab-title"),
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.title"),
+                },
+            },
             {
                 path: "news",
                 loadComponent: () => import("./chess/chess-news/chess-news.component").then((c) => c.ChessNewsComponent),

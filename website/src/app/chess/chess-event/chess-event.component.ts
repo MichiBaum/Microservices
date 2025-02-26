@@ -10,7 +10,7 @@ import {NgIf} from "@angular/common";
 import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-event-participants.component";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
-import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
+import {TabsModule} from "primeng/tabs";
 import {Avatar} from "primeng/avatar";
 import {ChessEvent} from "../../core/models/chess/chess.models";
 import {toObservable} from "@angular/core/rxjs-interop";
@@ -28,11 +28,7 @@ import {MetaDataHolder, MetaService} from "../../core/services/meta.service";
     ChessEventParticipantsComponent,
     ChessEventGamesComponent,
     DividerModule,
-    Tabs,
-    TabList,
-    Tab,
-    TabPanel,
-    TabPanels,
+    TabsModule,
     Avatar,
   ],
   templateUrl: './chess-event.component.html',
