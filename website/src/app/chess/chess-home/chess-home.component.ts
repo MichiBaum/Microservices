@@ -7,6 +7,7 @@ import {
 import {ChessStartOpeningsListComponent} from "../chess-start-openings-list/chess-start-openings-list.component";
 import {TranslatePipe} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
+import {ChessPopularOpeningsListComponent} from "../chess-popular-openings-list/chess-popular-openings-list.component";
 
 @Component({
   selector: 'app-chess-home',
@@ -16,7 +17,8 @@ import {RouterLink} from "@angular/router";
         ChessRecentUpcomingEventsComponent,
         ChessStartOpeningsListComponent,
         TranslatePipe,
-        RouterLink
+        RouterLink,
+        ChessPopularOpeningsListComponent
     ],
   templateUrl: './chess-home.component.html',
   styleUrl: './chess-home.component.scss'
