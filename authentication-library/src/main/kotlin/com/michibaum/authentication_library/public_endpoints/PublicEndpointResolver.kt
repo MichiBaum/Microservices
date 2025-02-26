@@ -16,6 +16,15 @@ class PublicEndpointResolver(
 ) { // TODO take into account that @RestController can have @RequestMapping
 
     private val logger: Logger = LoggerFactory.getLogger(PublicEndpointResolver::class.java)
+    private val staticPublicEndpoints: ArrayList<PublicEndpointDetails> = ArrayList()
+
+    fun addStaticPublicEndpoint(endpoint: PublicEndpointDetails){
+        staticPublicEndpoints.add(endpoint)
+    }
+
+    fun addStaticPublicEndpoints(endpoints: List<PublicEndpointDetails>){
+        staticPublicEndpoints.addAll(endpoints)
+    }
 
     fun run(): List<PublicEndpointDetails> {
         val mappings = getAllRestController()
@@ -23,11 +32,13 @@ class PublicEndpointResolver(
             .map { getMappingValue(it) }
             .flatten()
 
-        logger.info("Found ${mappings.size} public endpoints")
-        for (mapping in mappings) {
-            logger.info("Mapping: ${mapping.httpMethod} '${mapping.rawPath}' converted to antPath: '${mapping.antPath}'")
+        val endpoints = staticPublicEndpoints + mappings
+
+        logger.info("Found ${endpoints.size} public endpoints")
+        for (endpoint in endpoints) {
+            logger.info("Mapping: ${endpoint.httpMethod} '${endpoint.rawPath}' converted to antPath: '${endpoint.antPath}'")
         }
-        return mappings
+        return endpoints
     }
 
 

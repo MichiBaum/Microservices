@@ -12,6 +12,8 @@ class PublicEndpointAutoConfiguration {
 
     @Bean
     fun publicEndpointResolver(publicEndpointProperties: PublicEndpointProperties): PublicEndpointResolver =
-        PublicEndpointResolver(PublicEndpoint::class.java, *publicEndpointProperties.packageNames.toTypedArray())
+        PublicEndpointResolver(PublicEndpoint::class.java, *publicEndpointProperties.packageNames.toTypedArray()).apply {
+            addStaticPublicEndpoints(publicEndpointProperties.endpoints)
+        }
 
 }
