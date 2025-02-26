@@ -13,6 +13,9 @@ server:
 public-endpoints:
   package-names:
     - com.michibaum.admin_service
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
 
 spring:
   threads:
