@@ -4,7 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {LanguageConfig} from "../core/config/language.config";
-import {HeaderService} from "../core/services/header.service";
+import {HeaderService, TranslationHolder} from "../core/services/header.service";
 import {LogoutComponent} from "../logout/logout.component";
 import {MenubarModule} from "primeng/menubar";
 import {Subscription} from "rxjs";
@@ -26,9 +26,9 @@ export class HeaderComponent implements OnDestroy{
   private readonly languageConfig = inject(LanguageConfig);
   private readonly headerService = inject(HeaderService);
 
-  title = signal<string>("application.title")
+  title = signal<TranslationHolder>({key: "application.title", params: undefined})
 
-  titleChangeSubscription: Subscription =this.headerService.titleChangeEmitter.subscribe(value => {
+  titleChangeSubscription: Subscription = this.headerService.titleChangeEmitter.subscribe(value => {
     this.changeTitle(value)
   });
   languageChangeSubscription: Subscription = this.languageConfig.languageChanged.subscribe(() => {
@@ -46,7 +46,7 @@ export class HeaderComponent implements OnDestroy{
    * @param {string} title - The new title to set.
    * @return {void} This method does not return a value.
    */
-  changeTitle(title: string): void {
+  changeTitle(title: TranslationHolder): void {
     this.title.set(title)
   }
 

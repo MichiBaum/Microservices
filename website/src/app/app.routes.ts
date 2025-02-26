@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import {ActivatedRouteSnapshot, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
 import {Permissions} from "./core/config/permissions";
@@ -125,21 +125,29 @@ export const routes: Routes = [
                 loadComponent: () => import("./chess/chess-events-list/chess-events-list.component").then((c) => c.ChessEventsListComponent),
                 title: titleResolver,
                 data: {
-                    "tabTitle": (translate: TranslateService) => translate.get("chess.event.tab-title"),
-                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.event.title"),
+                    "tabTitle": (translate: TranslateService) => translate.get("chess.events.tab-title"),
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.events.title"),
                 },
             },
             {
                 path: "events/:id",
-                loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
                 resolve: {
                     event: chessEventRouteResolver
                 },
-                title: titleResolver,
-                data: {
-                    "tabTitle": (translate: TranslateService) => translate.get("chess.event.tab-title"), // TODO how the f can i use the resolved event? The resolve: {event} is undefined because they are run parallel
-                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.event.title"), // TODO how the f can i use the resolved event? The resolve: {event} is undefined because they are run parallel
-                },
+                children: [
+                    {
+                        path: "",
+                        pathMatch: "full",
+                        loadComponent: () => import("./chess/chess-event/chess-event.component").then((c) => c.ChessEventComponent),
+                        title: titleResolver,
+                        data: {
+                            "tabTitle": (translate: TranslateService, route: ActivatedRouteSnapshot) =>
+                                translate.get("chess.event.tab-title", {title: route?.parent?.data?.['event']?.title}),
+                            "headerTitle": (headerService: HeaderService, route: ActivatedRouteSnapshot) =>
+                                headerService.changeTitle("chess.event.title", {title: route?.parent?.data?.['event']?.title}),
+                        },
+                    }
+                ]
             },
             {
                 path: "openings/:id",

@@ -69,7 +69,11 @@
                 "firstname": "Vorname",
                 "lastname": "Nachname"
             },
-            "tab-title": "Schach Veranstaltungen - MichiBaum",
+            "tab-title": "{{title}} - MichiBaum",
+            "title": "{{title}}"
+        },
+        "events": {
+            "tab-title": "Schach Veranstaltungen",
             "title": "Schach Veranstaltungen"
         },
         "home": {

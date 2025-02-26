@@ -49,9 +49,9 @@ export class ChessEventComponent implements OnInit, OnDestroy {
 
   embedUrl: Signal<SafeResourceUrl | undefined> = computed(() => {
     const event = this.event();
-    if(event === undefined)
+    if(event == undefined)
       return undefined
-    if(event.embedUrl == undefined || event.embedUrl === "")
+    if(event.embedUrl == undefined || event.embedUrl == "")
       return undefined
     return this._sanitizer.bypassSecurityTrustResourceUrl(event.embedUrl)
   })

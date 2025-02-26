@@ -9,7 +9,7 @@
   </div>
 
   <div class="grow text-center">
-    <h1 class="font-bold text-2xl">{{ title() | translate}}</h1>
+    <h1 class="font-bold text-2xl">{{ title().key | translate: title().params}}</h1>
   </div>
 
   <div class="basis-1/4 flex-none text-right">

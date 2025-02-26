@@ -9,10 +9,10 @@ export const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot, 
 
     let data = route.data;
     const tabTitleFun = data['tabTitle']
-    const tabTitle = tabTitleFun(translate).toPromise()
+    const tabTitle = tabTitleFun(translate, route).toPromise()
 
     const headerTitleFun = data['headerTitle']
-    headerTitleFun(headerService)
+    headerTitleFun(headerService, route)
 
     return tabTitle
 };
