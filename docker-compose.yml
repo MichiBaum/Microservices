@@ -13,6 +13,12 @@ services:
       - "8761"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost:8761/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   admin-service:
     image: 70131370/admin-service
@@ -30,6 +36,12 @@ services:
       - "80"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   authentication-service:
     image: 70131370/authentication-service
@@ -50,6 +62,12 @@ services:
       - "80"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   authentication-db:
     image: mariadb:10.11
@@ -97,6 +115,12 @@ services:
       - "80"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   usermanagement-db:
     image: mariadb:10.11
@@ -141,6 +165,12 @@ services:
       - /data/ssl:/data/ssl
     networks:
       - microservice-network
+#    healthcheck:
+#      test: "wget -T5 -qO- https://localhost/actuator/health/readiness | grep UP || exit 1" TODO 283BAA1DD17F0000:error:0A000086:SSL routines:tls_post_process_server_certificate:certificate verify failed:ssl/statem/statem_clnt.c:2103: ssl_client: SSL_connect wget: error getting response: Connection reset by peer
+#      start_period: 5s
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
 
   website-service:
     image: 70131370/website-service
@@ -158,6 +188,12 @@ services:
       - "80"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   chess-service:
     image: 70131370/chess-service
@@ -180,6 +216,12 @@ services:
       - "80"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   chess-db:
     image: mariadb:10.11
@@ -228,6 +270,12 @@ services:
       - "80"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   fitness-db:
     image: mariadb:10.11
@@ -275,6 +323,12 @@ services:
       - "80"
     networks:
       - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   music-db:
     image: mariadb:10.11
