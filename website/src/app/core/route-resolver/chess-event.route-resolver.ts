@@ -1,20 +1,22 @@
-import {ActivatedRouteSnapshot, MaybeAsync, RedirectCommand, Resolve, RouterStateSnapshot} from "@angular/router";
-import {ChessEvent} from "../models/chess/chess.models";
+import {
+    ActivatedRouteSnapshot,
+    ResolveFn, Router,
+    RouterStateSnapshot
+} from "@angular/router";
 import {ChessService} from "../api-services/chess.service";
-import {EMPTY} from "rxjs";
-import {Injectable} from "@angular/core";
+import {catchError, EMPTY, map} from "rxjs";
+import {inject} from "@angular/core";
 
-@Injectable({ providedIn: 'root' })
-export class ChessEventRouteResolver implements Resolve<ChessEvent>{
+export const chessEventRouteResolver: ResolveFn<any> = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+) => {
+    const chessService = inject(ChessService);
+    const router = inject(Router);
 
-    constructor(private readonly chessService:ChessService) {
-    }
-
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<RedirectCommand | ChessEvent> {
-        let id = route.paramMap.get('id');
-        if(id == undefined)
-            return EMPTY
-        return this.chessService.event(id)
-    }
-
-}
+    let id = route.paramMap.get('id');
+    if(id == undefined)
+        return EMPTY
+    return chessService.event(id)
+        .pipe(catchError(err => router.navigate(['/chess/events'])))
+};

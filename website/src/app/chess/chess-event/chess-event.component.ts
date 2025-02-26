@@ -1,7 +1,6 @@
 import {Component, computed, inject, OnDestroy, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
-import {ChessService} from "../../core/api-services/chess.service";
 import {CardModule} from "primeng/card";
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
@@ -11,11 +10,12 @@ import {NgIf} from "@angular/common";
 import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-event-participants.component";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
-import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
+import {TabsModule} from "primeng/tabs";
 import {Avatar} from "primeng/avatar";
-import {rxResource} from "@angular/core/rxjs-interop";
-import {EMPTY} from "rxjs";
 import {ChessEvent} from "../../core/models/chess/chess.models";
+import {toObservable} from "@angular/core/rxjs-interop";
+import {Subscription} from "rxjs";
+import {MetaDataHolder, MetaService} from "../../core/services/meta.service";
 
 @Component({
   selector: 'app-chess-events',
@@ -28,11 +28,7 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
     ChessEventParticipantsComponent,
     ChessEventGamesComponent,
     DividerModule,
-    Tabs,
-    TabList,
-    Tab,
-    TabPanel,
-    TabPanels,
+    TabsModule,
     Avatar,
   ],
   templateUrl: './chess-event.component.html',
@@ -42,13 +38,20 @@ export class ChessEventComponent implements OnInit, OnDestroy {
   private _sanitizer = inject(DomSanitizer);
   private readonly route = inject(ActivatedRoute);
   private readonly navigationService = inject(RouterNavigationService);
+  private readonly metaService = inject(MetaService);
+
+  private oldMeta: MetaDataHolder = this.metaService.defaultHolder;
 
   event: WritableSignal<ChessEvent | undefined> = signal(undefined)
+
+    eventObservable$ = toObservable(this.event);
+    eventSubscription: Subscription | undefined = undefined
+
   embedUrl: Signal<SafeResourceUrl | undefined> = computed(() => {
     const event = this.event();
-    if(event === undefined)
+    if(event == undefined)
       return undefined
-    if(event.embedUrl == undefined || event.embedUrl === "")
+    if(event.embedUrl == undefined || event.embedUrl == "")
       return undefined
     return this._sanitizer.bypassSecurityTrustResourceUrl(event.embedUrl)
   })
@@ -65,10 +68,23 @@ export class ChessEventComponent implements OnInit, OnDestroy {
       this.route.data.subscribe(({ event }) => {
           this.event.set(event)
       })
+
+      this.oldMeta = {
+          description: this.metaService.getDescription(),
+          keywords: this.metaService.getKeywords(),
+      }
+      this.eventSubscription = this.eventObservable$.subscribe(event => {
+          if(event !== undefined){
+              let categories = event.categories.map(value => value.title);
+              this.metaService.updateDescription(`Chess event ${event.title} (${categories.join(',')}) is taking place from ${event.dateFrom} to ${event.dateTo} in ${event.location}.`)
+              this.metaService.setKeyWords(["Chess Event", "Chess", "Event", `${event.title}`, ...categories, `${event.dateFrom}`, `${event.dateTo}`, `${event.location}`])
+          }
+      })
   }
 
   ngOnDestroy() {
-
+    this.eventSubscription?.unsubscribe()
+    this.metaService.setNewAndGetOld(this.oldMeta)
   }
 
   openEvent() {

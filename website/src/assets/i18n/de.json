@@ -69,7 +69,12 @@
                 "firstname": "Vorname",
                 "lastname": "Nachname"
             },
-            "title": "Titel"
+            "tab-title": "{{title}} - MichiBaum",
+            "title": "{{title}}"
+        },
+        "events": {
+            "tab-title": "Schach Veranstaltungen",
+            "title": "Schach Veranstaltungen"
         },
         "home": {
             "recent-upcoming": "Vergangene, laufende und zukünftige Veranstaltungen",
@@ -87,8 +92,16 @@
             "settings": "Einstellungen",
             "start-openings": "Start Eröffnungen"
         },
+        "news": {
+            "tab-title": "Schach Neuigkeiten - MichiBaum",
+            "title": "Schach Neuigkeiten"
+        },
         "opening": {
             "tree-depth": "Baumtiefe: "
+        },
+        "openings": {
+            "tab-title": "Eröffnungen - MichiBaum",
+            "title": "Eröffnungen"
         },
         "platform": {
             "CHESSCOM": "Chess.com",
@@ -101,6 +114,7 @@
             "lastname": "Nachname",
             "search-person": "Person suchen"
         },
+        "tab-title": "Schach - MichiBaum",
         "title": "Schach"
     },
     "chess-settings": {
@@ -113,6 +127,7 @@
         "s2": "💡 Wenn dir die Website gefallen hat oder sie dir hilfreich war, kannst du meine Arbeit gerne unterstützen 🤝. Deine Unterstützung hilft, die Kosten zu decken und ermöglicht es mir, noch mehr Zeit in den Aufbau und die Weiterentwicklung der Seite zu investieren 🛠️.",
         "s3": "🌟 Wenn du selbst einen zuverlässigen Server suchst, empfehle ich Hosttech. Verwende meinen Promo-Code 31886957, um mit deren Dienstleistungen zu starten 🚀.",
         "s4": "🙏 Vielen Dank für deine Unterstützung und dafür, dass du Teil dieser Reise bist! 🌈",
+        "tab-title": "Spenden - MichiBaum",
         "title": "Spenden"
     },
     "fitness": {
@@ -155,6 +170,7 @@
             "content": "Musik spricht, was Worte nicht können, berührt Herzen grenzenlos.",
             "title": "Musik"
         },
+        "tab-title": "Startseite - MichiBaum",
         "title": "Startseite"
     },
     "imprint": {
@@ -168,6 +184,7 @@
         "disclaimer-of-liability-for-links-title": "Haftungsausschluss für Links",
         "disclaimer-of-liability-title": "Haftungsausschluss",
         "email-title": "E-Mail:",
+        "tab-title": "Impressum - MichiBaum",
         "title": "Impressum",
         "translation-description": "Diese Applikation/Webseite wurde auf Deutsch geschrieben. Alle anderen Sprachen, welche zur Verfügung stehen wurden nicht von Menschen übersetzt und können deswegen Übersetzungsfehler beinhalten.",
         "translation-title": "Übersetzung"
@@ -180,10 +197,12 @@
         "login": "Anmelden",
         "password": "Passwort",
         "register": "Zum Registrieren",
+        "tab-title": "Anmelden - MichiBaum",
         "title": "Anmelden",
         "username": "Benutzername"
     },
     "microservices": {
+        "tab-title": "Microservices - MichiBaum",
         "title": "Microservices"
     },
     "music": {
@@ -221,6 +240,7 @@
             "details": "Sie können sich nun anmelden.",
             "summary": "Registrierung erfolgreich"
         },
+        "tab-title": "Registrieren - MichiBaum",
         "title": "Registrieren",
         "username": "Benutzername"
     },
