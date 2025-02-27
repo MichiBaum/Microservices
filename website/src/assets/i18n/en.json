@@ -28,6 +28,7 @@
             "s1": "If you’re interested in working together or just want to chat about software development, architecture, or security, feel free to reach out! I’m always open to new challenges, collaborations, and interesting discussions.",
             "title": "Let’s Connect!"
         },
+        "meta-description": "Get to know Michael Baumberger, a committed software developer with a background in web development and backend engineering. Discover his journey, achievements, and passion for building robust and secure applications.",
         "passion": {
             "s1": "Programming isn’t just my job — it’s what I love doing. I’m constantly exploring new technologies, improving my skills, and working on side projects. Over the years, I’ve developed a deep appreciation for clean code, well-structured architectures, and secure applications.",
             "s2": "On the backend, I primarily work with Java, Kotlin and the Spring Framework, which I have used extensively in professional settings. For my personal projects, I prefer Kotlin, as I enjoy its concise syntax, null safety, and functional programming capabilities. I also have experience working with Spring Boot, Spring Cloud, and microservice architectures, ensuring that applications are scalable and easy to maintain.",
@@ -56,6 +57,7 @@
             "federation": "Federation",
             "games": "Games",
             "location": "Location",
+            "meta-description": "Dive into the exciting details of {{title}} running from {{from}} until {{to}} in {{location}}, a chess event showcasing top-tier matches and competitions. Check out schedules, participants, and highlights for a truly captivating experience.",
             "open-account": "Open account",
             "open-official-website": "Open official website",
             "organizer": "Organizer",
@@ -74,6 +76,7 @@
             "title": "{{title}}"
         },
         "events": {
+            "meta-description": "Explore upcoming chess tournaments, club meetups, and exhibitions open to fans of every level. Connect with fellow enthusiasts, learn new strategies, and immerse yourself in competitive play.",
             "tab-title": "Chess Events",
             "title": "Chess Events"
         },
@@ -82,6 +85,7 @@
             "start-openings": "Start Openings",
             "to-all-events": "To all events"
         },
+        "meta-description": "Immerse yourself in the strategic world of chess and hone your skills against diverse opponents. Explore tournaments, fascinating openings, tactics, and the history behind this timeless game.",
         "navigation": {
             "all-events": "All Events",
             "events": "Events",
@@ -94,6 +98,7 @@
             "start-openings": "Start Openings"
         },
         "news": {
+            "meta-description": "Stay informed with the latest chess news, from major tournaments to remarkable player accomplishments. Get quick highlights and in-depth coverage of events happening worldwide.",
             "tab-title": "Chess News - MichiBaum",
             "title": "Chess News"
         },
@@ -101,6 +106,7 @@
             "tree-depth": "Tree depth: "
         },
         "openings": {
+            "meta-description": "Uncover a wide range of chess openings, each with unique strengths and strategies. Enhance your gameplay by mastering new tactics and expanding your opening repertoire.",
             "tab-title": "Openings - MichiBaum",
             "title": "Openings"
         },
@@ -124,6 +130,7 @@
     "donate": {
         "buy-me-a-coffee": "Buy me a coffee",
         "hosttech": "Go to Hosttech",
+        "meta-description": "Help me continue providing valuable content by supporting my efforts. Every contribution makes a difference, driving growth and improving user experiences.",
         "s1": "👋 Hello! I’m passionate about creating this website 🌐 and am committed to delivering high-quality content 📚 and a seamless experience. To keep everything running smoothly, I spend around 30 hours each week 🕒 working on improvements, features, and maintenance. Additionally, maintaining the server costs about 70 CHF per month 💰.",
         "s2": "💡 If you’ve enjoyed the website or found it helpful, consider supporting my work 🤝. Your sponsorship helps cover the costs and allows me to dedicate even more time to building and refining the site 🛠️.",
         "s3": "🌟 And if you’re looking for a reliable server yourself, I recommend Hosttech. Use my promo code 31886957 to get started with their services 🚀.",
@@ -166,6 +173,7 @@
             "content": "Wanna see more content? Login or Register!",
             "title": "Login"
         },
+        "meta-description": "Explore our website’s main page for the latest updates and features. Dive into a variety of content ranging from personal projects to community insights.",
         "music": {
             "button": "Go to music",
             "content": "Music speaks what words cannot, touching hearts beyond measure.",
@@ -185,6 +193,7 @@
         "disclaimer-of-liability-for-links-title": "Disclaimer of liability for links",
         "disclaimer-of-liability-title": "Disclaimer of liability",
         "email-title": "E-mail:",
+        "meta-description": "Find essential legal details and contact information for this website here. Learn how we protect your data and uphold relevant regulations.",
         "tab-title": "Imprint - MichiBaum",
         "title": "Imprint",
         "translation-description": "This application/website was written in German. All other languages that are available have not been translated by humans and may therefore contain translation errors.",
@@ -196,6 +205,7 @@
     },
     "login": {
         "login": "Login",
+        "meta-description": "Access your account securely and manage your personal settings with ease. Enjoy a straightforward sign-in process designed for seamless navigation.",
         "password": "Password",
         "register": "Go to register",
         "tab-title": "Login - MichiBaum",
@@ -203,6 +213,7 @@
         "username": "Username"
     },
     "microservices": {
+        "meta-description": "Discover our modular approach to building flexible, scalable applications using microservices. Learn how individual services communicate seamlessly while maintaining robust performance.",
         "tab-title": "Microservices - MichiBaum",
         "title": "Microservices"
     },
@@ -235,6 +246,7 @@
             "summary": "Registration error"
         },
         "login": "Go to login",
+        "meta-description": "Create a new account to unlock enhanced features and join our growing community. Registration is quick, intuitive, and completely free.",
         "password": "Password",
         "register": "Register",
         "success": {

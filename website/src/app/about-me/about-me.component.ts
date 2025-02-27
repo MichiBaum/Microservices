@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CardModule} from "primeng/card";
 import {TimelineModule} from "primeng/timeline";
 import {Button} from "primeng/button";
@@ -11,7 +11,6 @@ import {FormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
 import {Skeleton} from "primeng/skeleton";
 import {AboutMeExperienceComponent} from "./about-me-experience/about-me-experience.component";
-import {MetaDataHolder, MetaService} from "../core/services/meta.service";
 
 @Component({
   selector: 'app-about-me',
@@ -31,23 +30,8 @@ import {MetaDataHolder, MetaService} from "../core/services/meta.service";
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss'
 })
-export class AboutMeComponent implements OnInit, OnDestroy{
-  private readonly metaService = inject(MetaService);
+export class AboutMeComponent {
   private readonly routerNavigationService = inject(RouterNavigationService);
-
-  private oldMeta: MetaDataHolder = this.metaService.defaultHolder;
-
-    ngOnInit(): void {
-        const meta: MetaDataHolder = {
-            description: "Michael Baumberger - Software developer from Switzerland specializing in Java, Kotlin, Spring Boot, and Angular. I create modern, scalable, and secure web applications. Contact me for custom software solutions!",
-            keywords: ["Michael Baumberger", "Software Developer", "Web Developer", "Java", "Kotlin", "Spring Boot", "Angular", "Web Applications", "IT Security", "Software Architecture", "Backend Development", "Frontend Development", "Custom Software Solutions"],
-        }
-        this.oldMeta = this.metaService.setNewAndGetOld(meta)
-    }
-
-    ngOnDestroy(): void {
-        this.metaService.setNewAndGetOld(this.oldMeta)
-    }
 
   /**
    * Navigates to the LinkedIn page using the router navigation service.
