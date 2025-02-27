@@ -7,6 +7,7 @@ import {RouterLink} from "@angular/router";
 import {EventIconPipe} from "../../core/pipes/event-icon.pipe";
 import {EventIconColorPipe} from "../../core/pipes/event-icon-color.pipe";
 import {rxResource} from "@angular/core/rxjs-interop";
+import {ChessEvent} from "../../core/models/chess/chess.models";
 
 @Component({
   selector: 'app-chess-recent-upcoming-events',
@@ -33,4 +34,7 @@ export class ChessRecentUpcomingEventsComponent {
     return this.chessService.sortEvents(events)
   })
 
+    joinEventCategories(event: ChessEvent): string {
+        return event.categories.map(category => category.title).join(', ');
+    }
 }
