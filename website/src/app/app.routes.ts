@@ -7,6 +7,7 @@ import {titleResolver} from "./core/route-resolver/title-resolver";
 import {HeaderService} from "./core/services/header.service";
 import {TranslateService} from "@ngx-translate/core";
 import {chessEventRouteResolver} from "./core/route-resolver/chess-event.route-resolver";
+import {ChessEvent} from "./core/models/chess/chess.models";
 
 
 /**
@@ -23,7 +24,8 @@ export const routes: Routes = [
         title: titleResolver,
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("home.tab-title"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("home.title")
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("home.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("home.meta-description")
         }
     },
     {
@@ -33,7 +35,8 @@ export const routes: Routes = [
         title: titleResolver,
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("home.tab-title"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("home.title")
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("home.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("home.meta-description")
         }
     },
     {
@@ -43,7 +46,8 @@ export const routes: Routes = [
         title: titleResolver,
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("login.tab-title"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("login.title")
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("login.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("login.meta-description")
         }
     },
     {
@@ -53,7 +57,8 @@ export const routes: Routes = [
         title: titleResolver,
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("register.tab-title"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("register.title")
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("register.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("register.meta-description")
         }
     },
     {
@@ -63,7 +68,8 @@ export const routes: Routes = [
         title: titleResolver,
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("imprint.tab-title"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("imprint.title")
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("imprint.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("imprint.meta-description")
         }
     },
     {
@@ -73,7 +79,8 @@ export const routes: Routes = [
         title: titleResolver,
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("about-me.title-with-name"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("about-me.title-with-name")
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("about-me.title-with-name"),
+            "metaDescription": (translate: TranslateService) => translate.get("about-me.meta-description")
         }
     },
     {
@@ -83,7 +90,8 @@ export const routes: Routes = [
         title: titleResolver,
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("donate.tab-title"),
-            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("donate.title")
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("donate.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("donate.meta-description")
         }
     },
     {
@@ -94,6 +102,7 @@ export const routes: Routes = [
         data: {
             "tabTitle": (translate: TranslateService) => translate.get("microservices.tab-title"),
             "headerTitle": (headerService: HeaderService) => headerService.changeTitle("microservices.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("microservices.meta-description"),
             "permissions": [Permissions.ADMIN_SERVICE]
         }
     },
@@ -109,6 +118,7 @@ export const routes: Routes = [
                 data: {
                     "tabTitle": (translate: TranslateService) => translate.get("chess.tab-title"),
                     "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.title"),
+                    "metaDescription": (translate: TranslateService) => translate.get("chess.meta-description")
                 },
             },
             {
@@ -118,6 +128,7 @@ export const routes: Routes = [
                 data: {
                     "tabTitle": (translate: TranslateService) => translate.get("chess.news.tab-title"),
                     "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.news.title"),
+                    "metaDescription": (translate: TranslateService) => translate.get("chess.news.meta-description")
                 },
             },
             {
@@ -127,6 +138,7 @@ export const routes: Routes = [
                 data: {
                     "tabTitle": (translate: TranslateService) => translate.get("chess.events.tab-title"),
                     "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.events.title"),
+                    "metaDescription": (translate: TranslateService) => translate.get("chess.events.meta-description")
                 },
             },
             {
@@ -145,6 +157,17 @@ export const routes: Routes = [
                                 translate.get("chess.event.tab-title", {title: route?.parent?.data?.['event']?.title}),
                             "headerTitle": (headerService: HeaderService, route: ActivatedRouteSnapshot) =>
                                 headerService.changeTitle("chess.event.title", {title: route?.parent?.data?.['event']?.title}),
+                            "metaDescription": (translate: TranslateService, route: ActivatedRouteSnapshot) => {
+                                const event = route?.parent?.data?.['event'] as ChessEvent | undefined;
+                                return translate.get(
+                                    "chess.event.meta-description",
+                                    {
+                                        title: event?.title,
+                                        from: event?.dateFrom,
+                                        to: event?.dateTo,
+                                        location: event?.location
+                                    })
+                            }
                         },
                     }
                 ]
@@ -164,6 +187,7 @@ export const routes: Routes = [
                 data: {
                     "tabTitle": (translate: TranslateService) => translate.get("chess.openings.tab-title"),
                     "headerTitle": (headerService: HeaderService) => headerService.changeTitle("chess.openings.title"),
+                    "metaDescription": (translate: TranslateService) => translate.get("chess.openings.meta-description")
                 },
             },
             {
