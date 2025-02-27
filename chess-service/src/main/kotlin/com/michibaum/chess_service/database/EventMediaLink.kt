@@ -11,7 +11,11 @@ data class EventMediaLink (
     val name: String,
 
     @Column(nullable = false)
-    val url: String?,
+    val url: String,
+
+    @ManyToOne(targetEntity = Event::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @JoinColumn(name="event_id", nullable=true)
+    val event: Event,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
