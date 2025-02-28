@@ -49,6 +49,8 @@ spring:
 
 eureka:
   instance:
+    metadata-map:
+      prometheus.path: /actuator/prometheus
     prefer-ip-address: true
   client:
     enabled: true

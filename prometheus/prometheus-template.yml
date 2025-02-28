@@ -1,0 +1,29 @@
+# https://prometheus.io/docs/prometheus/latest/configuration/configuration
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'eureka'
+    eureka_sd_configs:
+      - server: ${EUREKA_URL}
+    basic_auth:
+      username: ${EUREKA_USERNAME}
+      password: ${EUREKA_PASSWORD}
+    relabel_configs:
+      - source_labels: [ __meta_eureka_app_name ]
+        target_label: application
+        action: replace
+      - source_labels: [ __meta_eureka_app_instance_id ]
+        target_label: instance
+        action: replace
+      # Example 1: Matches "host.docker.internal:<ANY_SERVICE_NAME>:<PORT>"
+      #            Then rewrite the address to "host.docker.internal:<PORT>"
+      - source_labels: [__meta_eureka_app_instance_id]
+        regex: '^host\.docker\.internal:([^:]+):(\d+)$'
+        replacement: 'host.docker.internal:$2'
+        target_label: __address__
+        action: replace
+      - source_labels: [ __meta_eureka_app_instance_metadata_prometheus_path ]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
