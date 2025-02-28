@@ -1,9 +1,9 @@
 package com.michibaum.authentication_library.security
 
+import com.michibaum.authentication_library.Security
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.context.SecurityContextHolder
 
 class ServletDelegateAuthenticationManager(private val authenticationManagers: List<SpecificAuthenticationManager>): AuthenticationManager {
     override fun authenticate(authentication: Authentication?): Authentication {
@@ -25,7 +25,7 @@ class ServletDelegateAuthenticationManager(private val authenticationManagers: L
             throw BadCredentialsException("More than one, or none authentication was authenticated.")
         }
 
-        SecurityContextHolder.getContext().authentication = authenticated[0]
+        Security.authentication = authenticated[0]
         return authenticated[0]
     }
 }

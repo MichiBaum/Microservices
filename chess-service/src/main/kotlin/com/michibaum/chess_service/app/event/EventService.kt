@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.event
 
+import com.michibaum.authentication_library.Security
 import com.michibaum.authentication_library.anyOf
 import com.michibaum.chess_service.app.eventcategory.EventCategoryService
 import com.michibaum.chess_service.database.PersonRepository
@@ -11,7 +12,6 @@ import com.michibaum.permission_library.Permissions
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.domain.Specification
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
@@ -37,7 +37,7 @@ class EventService(
         val categories = getCategories(dto.categoryIds)
         val participants = getPersons(dto.participantsIds)
 
-        val authentication = SecurityContextHolder.getContext().authentication
+        val authentication = Security.authentication
         val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
             dto.internalComment
         else
@@ -62,7 +62,7 @@ class EventService(
         val categories = getCategories(dto.categoryIds)
         val participants = getPersons(dto.participantsIds)
 
-        val authentication = SecurityContextHolder.getContext().authentication
+        val authentication = Security.authentication
         val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
             dto.internalComment
         else
