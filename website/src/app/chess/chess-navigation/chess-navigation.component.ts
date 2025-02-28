@@ -56,24 +56,35 @@ export class ChessNavigationComponent {
   events = rxResource({
     loader: () => this.chessService.eventsRecentUpcoming()
   })
-    startOpenings = rxResource({
-        loader: () =>  this.chessService.startingOpenings()
-    })
+  startOpenings = rxResource({
+    loader: () =>  this.chessService.startingOpenings()
+  })
+  popularOpenings = rxResource({
+    loader: () =>  this.chessService.popularOpenings()
+  })
   sortedEvents = computed(() => {
     const events = this.events.value()
     if(events == undefined)
       return []
     return this.chessService.sortEvents(events)
   })
+  sortedPopularOpenings = computed(() => {
+    const openings = this.popularOpenings.value()
+    if(openings == undefined)
+      return []
+    return openings.sort((a, b) => a.ranking - b.ranking)
+  })
   menuItems = computed(() => {
     const sorted = this.sortedEvents()
       const openings = this.startOpenings.value() ?? []
-    return this.createMenu(sorted, openings)
+      const popularOpenings = this.sortedPopularOpenings()
+    return this.createMenu(sorted, openings, popularOpenings)
   })
 
-  private createMenu(events: ChessEvent[], openings: ChessOpening[]) {
+  private createMenu(events: ChessEvent[], openings: ChessOpening[], popularOpenings: ChessOpening[]) {
       const menuEvents = this.createMenuEvents(events);
       const menuOpenings = this.createMenuOpenings(openings);
+      const menuPopularOpenings = this.createMenuOpenings(popularOpenings);
 
       return [
       {
@@ -98,6 +109,10 @@ export class ChessNavigationComponent {
                 {
                     label: 'chess.navigation.start-openings',
                     items: menuOpenings,
+                },
+                {
+                    label: 'chess.navigation.popular-openings',
+                    items: menuPopularOpenings,
                 }
             ]
         },

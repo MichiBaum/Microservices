@@ -81,6 +81,7 @@
             "title": "Chess Events"
         },
         "home": {
+            "popular-openings": "Popular Openings",
             "recent-upcoming": "Recent, running and upcoming Events",
             "start-openings": "Start Openings",
             "to-all-events": "To all events"
@@ -94,6 +95,7 @@
             "openings": "Openings",
             "person": "Person",
             "player-analysis": "Player Analysis",
+            "popular-openings": "Popular Openings",
             "settings": "Settings",
             "start-openings": "Start Openings"
         },

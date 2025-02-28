@@ -1,26 +1,20 @@
 import {Component, inject} from '@angular/core';
 import {rxResource} from "@angular/core/rxjs-interop";
 import {ChessService} from "../../core/api-services/chess.service";
-import {RouterLink} from "@angular/router";
-import {Timeline} from "primeng/timeline";
-import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {ChessOpeningsListComponent} from "../chess-openings-list/chess-openings-list.component";
 
 @Component({
   selector: 'app-chess-start-openings-list',
     imports: [
-        RouterLink,
-        Timeline,
-        FaIconComponent
+        ChessOpeningsListComponent
     ],
   templateUrl: './chess-start-openings-list.component.html',
   styleUrl: './chess-start-openings-list.component.scss'
 })
 export class ChessStartOpeningsListComponent {
-    protected readonly faArrowUpRightFromSquare = faArrowUpRightFromSquare;
     private readonly chessService = inject(ChessService);
 
-    startOpenings = rxResource({
+    openings = rxResource({
         loader: () =>  this.chessService.startingOpenings()
     })
 

@@ -80,6 +80,7 @@
             "title": "Schach Veranstaltungen"
         },
         "home": {
+            "popular-openings": "Beliebte Eröffnungen",
             "recent-upcoming": "Vergangene, laufende und zukünftige Veranstaltungen",
             "start-openings": "Start Eröffnungen",
             "to-all-events": "Zu allen Veranstaltungen"
@@ -93,6 +94,7 @@
             "openings": "Eröffnungen",
             "person": "Person",
             "player-analysis": "Player Analysis",
+            "popular-openings": "Beliebte Eröffnungen",
             "settings": "Einstellungen",
             "start-openings": "Start Eröffnungen"
         },
