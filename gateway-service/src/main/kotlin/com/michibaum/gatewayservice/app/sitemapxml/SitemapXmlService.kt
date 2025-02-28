@@ -1,9 +1,9 @@
 package com.michibaum.gatewayservice.app.sitemapxml
 
 import jakarta.annotation.PreDestroy
+import org.springframework.core.task.VirtualThreadTaskExecutor
 import org.springframework.stereotype.Service
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Executors
+import java.util.concurrent.Callable
 
 @Service
 class SitemapXmlService(
@@ -11,7 +11,7 @@ class SitemapXmlService(
     private val dataLocationsFetcher: DataLocationsFetcher
 ) {
 
-    private val executor = Executors.newVirtualThreadPerTaskExecutor() // TODO use kotlin coroutines?? Safer? More Verbose?
+    private val taskExecutor = VirtualThreadTaskExecutor("sitemap-data-loader-")
 
     fun generateWith(host: String): String {
         // Sitemap size limits: All formats limit a single sitemap to 50MB (uncompressed) or 50,000 URLs.
@@ -31,9 +31,8 @@ class SitemapXmlService(
            """.trimIndent())
         }
 
-        // Process dynamic data locations asynchronously using virtual threads
         val dataLocationResults = sitemapXmlProperties.dataLocations.map { location ->
-            CompletableFuture.supplyAsync({
+            taskExecutor.submitCompletable( Callable{
                 val data = dataLocationsFetcher.fetch(location.dataLocation) // Use the updated DataLocationsFetcher
                 data.map { id ->
                     """
@@ -42,9 +41,9 @@ class SitemapXmlService(
                         </url>
                     """
                 }
-
-            }, executor)
+            })
         }.map { it.join() } // Wait for all tasks to complete and collect results
+
 
         // Append the generated results to the XML builder
         dataLocationResults.flatten().forEach { urlEntry ->
@@ -56,11 +55,5 @@ class SitemapXmlService(
 
         return xmlBuilder.toString()
     }
-
-    @PreDestroy
-    fun cleanUp() {
-        executor.close() // Ensure cleanup is handled when the service is destroyed
-    }
-
 
 }
