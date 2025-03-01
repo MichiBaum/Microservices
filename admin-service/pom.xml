@@ -15,6 +15,7 @@
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
+		<xstream.version>1.4.21</xstream.version>
 	</properties>
 
 	<dependencies>
@@ -47,6 +48,32 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		<dependency>
+			<!--
+            TODO Overrides/Fixes CVE-2020-13956 httpclient:4.5.3 in spring-cloud-starter-netflix-eureka-client with 4.5.14
+             https://www.mend.io/vulnerability-database/CVE-2020-13956?utm_source=JetBrains
+             -->
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.14</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<!--
+			TODO Overrides/Fixes CVE-2024-47072 xstream:1.4.20 in spring-cloud-starter-netflix-eureka-client with 1.4.21
+			 https://www.mend.io/vulnerability-database/CVE-2020-13956?utm_source=JetBrains&query=CVE-2024-47072
+			 https://github.com/Netflix/eureka/pull/1572
+			 -->
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.21</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>
 			<artifactId>caffeine</artifactId>
 		</dependency>
@@ -71,7 +98,7 @@
 
 		<dependency>
 			<groupId>com.michibaum</groupId>
-			<artifactId>authentication-library</artifactId>
+			<artifactId>spring-boot-starter-authentication</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 

@@ -28,6 +28,7 @@
             "s1": "Wenn Sie an einer Zusammenarbeit interessiert sind oder einfach nur über Softwareentwicklung, Architektur oder Sicherheit chatten möchten, können Sie sich gerne an mich wenden! Ich bin immer offen für neue Herausforderungen, Kooperationen und interessante Diskussionen.",
             "title": "Lass uns vernetzen!"
         },
+        "meta-description": "Lernen Sie Michael Baumberger kennen, einen engagierten Softwareentwickler mit Schwerpunkt in Webentwicklung und Backend-Engineering. Erfahren Sie mehr über seinen Werdegang, seine Erfolge und seine Leidenschaft für den Aufbau robuster und sicherer Anwendungen.",
         "passion": {
             "s1": "Programmieren ist nicht nur mein Job, sondern meine Leidenschaft. Ich erkunde ständig neue Technologien, verbessere meine Fähigkeiten und arbeite an Nebenprojekten. Im Laufe der Jahre habe ich eine tiefe Wertschätzung für clean Code, gut strukturierte Architekturen und sichere Anwendungen entwickelt.",
             "s2": "Im Backend arbeite ich hauptsächlich mit Java, Kotlin und dem Spring Framework, das ich in professionellen Umgebungen ausgiebig verwendet habe. Für meine persönlichen Projekte bevorzuge ich Kotlin, da mir seine prägnante Syntax, Nullsicherheit und funktionalen Programmierfunktionen gefallen. Ich habe auch Erfahrung mit Spring Boot, Spring Cloud und Microservice-Architekturen und stelle sicher, dass Anwendungen skalierbar und einfach zu warten sind.",
@@ -55,6 +56,7 @@
             "federation": "Verband",
             "games": "Partien",
             "location": "Standort",
+            "meta-description": "Tauchen Sie in die spannenden Details von {eventName} ein, welches vom {{from}} bis am {{to}} in {{location}} stattfindet, bei dem erstklassige Partien und Wettkämpfe präsentiert werden. Informieren Sie sich über Zeitpläne, Teilnehmer und Highlights für ein fesselndes Schacherlebnis.",
             "open-account": "Account öffnen",
             "open-official-website": "Offizielle Webseite öffnen",
             "organizer": "Veranstalter",
@@ -69,13 +71,21 @@
                 "firstname": "Vorname",
                 "lastname": "Nachname"
             },
-            "title": "Titel"
+            "tab-title": "{{title}} - MichiBaum",
+            "title": "{{title}}"
+        },
+        "events": {
+            "meta-description": "Informieren Sie sich über bevorstehende Schachturniere, Klubtreffen und Ausstellungen für Spieler aller Spielstärken. Knüpfen Sie Kontakte, lernen Sie neue Strategien und tauchen Sie in den Wettkampfaspekt des Schachs ein.",
+            "tab-title": "Schach Veranstaltungen",
+            "title": "Schach Veranstaltungen"
         },
         "home": {
+            "popular-openings": "Beliebte Eröffnungen",
             "recent-upcoming": "Vergangene, laufende und zukünftige Veranstaltungen",
             "start-openings": "Start Eröffnungen",
             "to-all-events": "Zu allen Veranstaltungen"
         },
+        "meta-description": "Tauchen Sie in die strategische Welt des Schachs ein und verbessern Sie Ihre Fähigkeiten gegen vielfältige Gegner. Entdecken Sie Turniere, spannende Eröffnungen, Taktiken und die Geschichte hinter diesem zeitlosen Spiel.",
         "navigation": {
             "all-events": "Alle Veranstaltungen",
             "events": "Veranstaltungen",
@@ -84,11 +94,22 @@
             "openings": "Eröffnungen",
             "person": "Person",
             "player-analysis": "Player Analysis",
+            "popular-openings": "Beliebte Eröffnungen",
             "settings": "Einstellungen",
             "start-openings": "Start Eröffnungen"
         },
+        "news": {
+            "meta-description": "Bleiben Sie auf dem Laufenden mit den neuesten Schachnachrichten, von wichtigen Turnieren bis hin zu bemerkenswerten Spielerleistungen. Erhalten Sie kurze Zusammenfassungen und ausführliche Berichte über internationale Ereignisse.",
+            "tab-title": "Schach Neuigkeiten - MichiBaum",
+            "title": "Schach Neuigkeiten"
+        },
         "opening": {
             "tree-depth": "Baumtiefe: "
+        },
+        "openings": {
+            "meta-description": "Entdecken Sie eine Vielzahl verschiedener Schacheröffnungen, die jeweils eigene Stärken und Strategien bieten. Verbessern Sie Ihr Spiel durch das Erlernen neuer Taktiken und den Ausbau Ihres Eröffnungsrepertoires.",
+            "tab-title": "Eröffnungen - MichiBaum",
+            "title": "Eröffnungen"
         },
         "platform": {
             "CHESSCOM": "Chess.com",
@@ -101,6 +122,7 @@
             "lastname": "Nachname",
             "search-person": "Person suchen"
         },
+        "tab-title": "Schach - MichiBaum",
         "title": "Schach"
     },
     "chess-settings": {
@@ -109,10 +131,12 @@
     "donate": {
         "buy-me-a-coffee": "Spende einen Kaffee",
         "hosttech": "Zu Hosttech",
+        "meta-description": "Helfen Sie mir, weiterhin wertvolle Inhalte bereitzustellen, indem Sie mein Engagement unterstützen. Jeder Beitrag zählt und fördert Wachstum sowie eine bessere Nutzererfahrung.",
         "s1": "👋 Hallo! Ich bin begeistert, diese Website 🌐 zu erstellen, und setze mich dafür ein, hochwertige Inhalte 📚 und ein nahtloses Erlebnis zu bieten. Um alles reibungslos am Laufen zu halten, arbeite ich etwa 30 Stunden pro Woche 🕒 an Verbesserungen, neuen Funktionen und Wartung. Außerdem kostet die Wartung des Servers etwa 70 CHF pro Monat 💰.",
         "s2": "💡 Wenn dir die Website gefallen hat oder sie dir hilfreich war, kannst du meine Arbeit gerne unterstützen 🤝. Deine Unterstützung hilft, die Kosten zu decken und ermöglicht es mir, noch mehr Zeit in den Aufbau und die Weiterentwicklung der Seite zu investieren 🛠️.",
         "s3": "🌟 Wenn du selbst einen zuverlässigen Server suchst, empfehle ich Hosttech. Verwende meinen Promo-Code 31886957, um mit deren Dienstleistungen zu starten 🚀.",
         "s4": "🙏 Vielen Dank für deine Unterstützung und dafür, dass du Teil dieser Reise bist! 🌈",
+        "tab-title": "Spenden - MichiBaum",
         "title": "Spenden"
     },
     "fitness": {
@@ -150,11 +174,13 @@
             "content": "Du willst mehr Inhalt sehen? Melde dich an!",
             "title": "Anmelden"
         },
+        "meta-description": "Entdecken Sie auf unserer Startseite die neuesten Aktualisierungen und Funktionen. Tauchen Sie ein in eine Vielzahl von Inhalten, von persönlichen Projekten bis hin zu Community-Einblicken.",
         "music": {
             "button": "Zu Musik",
             "content": "Musik spricht, was Worte nicht können, berührt Herzen grenzenlos.",
             "title": "Musik"
         },
+        "tab-title": "Startseite - MichiBaum",
         "title": "Startseite"
     },
     "imprint": {
@@ -168,6 +194,8 @@
         "disclaimer-of-liability-for-links-title": "Haftungsausschluss für Links",
         "disclaimer-of-liability-title": "Haftungsausschluss",
         "email-title": "E-Mail:",
+        "meta-description": "Hier finden Sie wichtige rechtliche Hinweise und Kontaktinformationen zu dieser Website. Erfahren Sie, wie wir Ihre Daten schützen und geltende Vorschriften einhalten.",
+        "tab-title": "Impressum - MichiBaum",
         "title": "Impressum",
         "translation-description": "Diese Applikation/Webseite wurde auf Deutsch geschrieben. Alle anderen Sprachen, welche zur Verfügung stehen wurden nicht von Menschen übersetzt und können deswegen Übersetzungsfehler beinhalten.",
         "translation-title": "Übersetzung"
@@ -178,12 +206,16 @@
     },
     "login": {
         "login": "Anmelden",
+        "meta-description": "Greifen Sie sicher auf Ihr Konto zu und verwalten Sie bequem Ihre persönlichen Einstellungen. Freuen Sie sich auf einen unkomplizierten Anmeldevorgang für eine nahtlose Nutzererfahrung.",
         "password": "Passwort",
         "register": "Zum Registrieren",
+        "tab-title": "Anmelden - MichiBaum",
         "title": "Anmelden",
         "username": "Benutzername"
     },
     "microservices": {
+        "meta-description": "Entdecken Sie unseren modularen Ansatz zur Entwicklung flexibler und skalierbarer Anwendungen mit Microservices. Erfahren Sie, wie einzelne Dienste zuverlässig miteinander kommunizieren und gleichzeitig eine hohe Leistungsfähigkeit beibehalten.",
+        "tab-title": "Microservices - MichiBaum",
         "title": "Microservices"
     },
     "music": {
@@ -215,12 +247,14 @@
             "summary": "Registrierung fehlgeschlagen"
         },
         "login": "Zum Anmelden",
+        "meta-description": "Erstellen Sie ein neues Konto, um erweiterte Funktionen freizuschalten und unserer wachsenden Community beizutreten. Die Registrierung ist schnell, benutzerfreundlich und vollkommen kostenlos.",
         "password": "Passwort",
         "register": "Registrieren",
         "success": {
             "details": "Sie können sich nun anmelden.",
             "summary": "Registrierung erfolgreich"
         },
+        "tab-title": "Registrieren - MichiBaum",
         "title": "Registrieren",
         "username": "Benutzername"
     },

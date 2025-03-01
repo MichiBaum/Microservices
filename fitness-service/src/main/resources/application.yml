@@ -10,6 +10,13 @@ server:
 #  http2:
 #    enabled: true
 
+public-endpoints:
+  package-names:
+    - com.michibaum.fitness_service
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+
 spring:
   threads:
     virtual:

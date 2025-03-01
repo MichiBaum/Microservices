@@ -5,6 +5,7 @@
   <ng-template pTemplate="content" let-event>
     <div class="cursor-pointer">
       <p class="text-xs">{{ event.dateFrom }} - {{event.dateTo}}</p>
+      <p class="text-xs text-muted-color">{{ joinEventCategories(event) }}</p>
       <p [routerLink]="['/chess/events', event.id]">{{ event.title }}</p>
     </div>
   </ng-template>

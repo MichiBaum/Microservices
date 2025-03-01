@@ -1,7 +1,6 @@
-import {Component, computed, inject, OnDestroy, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {Component, computed, inject, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
-import {ChessService} from "../../core/api-services/chess.service";
 import {CardModule} from "primeng/card";
 import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
@@ -11,10 +10,8 @@ import {NgIf} from "@angular/common";
 import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-event-participants.component";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
-import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
+import {TabsModule} from "primeng/tabs";
 import {Avatar} from "primeng/avatar";
-import {rxResource} from "@angular/core/rxjs-interop";
-import {EMPTY} from "rxjs";
 import {ChessEvent} from "../../core/models/chess/chess.models";
 
 @Component({
@@ -28,27 +25,24 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
     ChessEventParticipantsComponent,
     ChessEventGamesComponent,
     DividerModule,
-    Tabs,
-    TabList,
-    Tab,
-    TabPanel,
-    TabPanels,
+    TabsModule,
     Avatar,
   ],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.scss'
 })
-export class ChessEventComponent implements OnInit, OnDestroy {
+export class ChessEventComponent implements OnInit {
   private _sanitizer = inject(DomSanitizer);
   private readonly route = inject(ActivatedRoute);
   private readonly navigationService = inject(RouterNavigationService);
 
   event: WritableSignal<ChessEvent | undefined> = signal(undefined)
+
   embedUrl: Signal<SafeResourceUrl | undefined> = computed(() => {
     const event = this.event();
-    if(event === undefined)
+    if(event == undefined)
       return undefined
-    if(event.embedUrl == undefined || event.embedUrl === "")
+    if(event.embedUrl == undefined || event.embedUrl == "")
       return undefined
     return this._sanitizer.bypassSecurityTrustResourceUrl(event.embedUrl)
   })
@@ -65,10 +59,6 @@ export class ChessEventComponent implements OnInit, OnDestroy {
       this.route.data.subscribe(({ event }) => {
           this.event.set(event)
       })
-  }
-
-  ngOnDestroy() {
-
   }
 
   openEvent() {

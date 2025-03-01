@@ -1,0 +1,30 @@
+<div class="grid grid-cols-1 4k:grid-cols-6 xlScreen:grid-cols-5 lScreen:grid-cols-4 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
+
+
+    <p-card styleClass="h-full">
+        <ng-template #title>{{"chess.home.recent-upcoming" | translate}}</ng-template>
+
+        <app-chess-recent-upcoming-events></app-chess-recent-upcoming-events>
+
+        <ng-template #footer>
+            <div class="gap-6 mt-1">
+                <p-button [label]='"chess.home.to-all-events" | translate' class="w-full" styleClass="w-full" [routerLink]="['/chess/events']" />
+            </div>
+        </ng-template>
+    </p-card>
+
+    <p-card styleClass="h-full">
+        <ng-template #title>{{"chess.home.start-openings" | translate}}</ng-template>
+
+        <app-chess-start-openings-list></app-chess-start-openings-list>
+
+    </p-card>
+
+    <p-card styleClass="h-full">
+        <ng-template #title>{{"chess.home.popular-openings" | translate}}</ng-template>
+
+        <app-chess-popular-openings-list></app-chess-popular-openings-list>
+
+    </p-card>
+
+</div>

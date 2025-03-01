@@ -28,6 +28,7 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
         HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
     )
 
+    // TODO is this correct??
     private val securityContextRepository: SecurityContextRepository = RequestAttributeSecurityContextRepository()
 
     override fun doFilterInternal(

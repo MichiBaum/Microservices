@@ -7,13 +7,24 @@ import org.springframework.core.type.filter.AnnotationTypeFilter
 import org.springframework.web.bind.annotation.*
 import java.lang.reflect.Method
 
-
+/**
+ * https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html
+ */
 class PublicEndpointResolver(
     private val publicAnnotation: Class<out Annotation>,
     private vararg val packageName: String
 ) { // TODO take into account that @RestController can have @RequestMapping
 
     private val logger: Logger = LoggerFactory.getLogger(PublicEndpointResolver::class.java)
+    private val staticPublicEndpoints: ArrayList<PublicEndpointDetails> = ArrayList()
+
+    fun addStaticPublicEndpoint(endpoint: PublicEndpointDetails){
+        staticPublicEndpoints.add(endpoint)
+    }
+
+    fun addStaticPublicEndpoints(endpoints: List<PublicEndpointDetails>){
+        staticPublicEndpoints.addAll(endpoints)
+    }
 
     fun run(): List<PublicEndpointDetails> {
         val mappings = getAllRestController()
@@ -21,11 +32,13 @@ class PublicEndpointResolver(
             .map { getMappingValue(it) }
             .flatten()
 
-        logger.info("Found ${mappings.size} public endpoints")
-        for (mapping in mappings) {
-            logger.info("Mapping: ${mapping.httpMethod} '${mapping.rawPath}' converted to antPath: '${mapping.antPath}'")
+        val endpoints = staticPublicEndpoints + mappings
+
+        logger.info("Found ${endpoints.size} public endpoints")
+        for (endpoint in endpoints) {
+            logger.info("Mapping: ${endpoint.httpMethod} '${endpoint.rawPath}' converted to antPath: '${endpoint.antPath}'")
         }
-        return mappings
+        return endpoints
     }
 
 
@@ -112,7 +125,8 @@ class PublicEndpointResolver(
         logger.debug("Searching for all RestController in packages: ${packageName.joinToString(", ")}")
         val scanner = ClassPathScanningCandidateComponentProvider(false)
         scanner.addIncludeFilter(AnnotationTypeFilter(RestController::class.java))
-        val beanDefinitions = packageName.map { scanner.findCandidateComponents(it) }
+        val beanDefinitions = packageName
+            .map { scanner.findCandidateComponents(it) }
             .flatten()
             .filterNotNull()
 

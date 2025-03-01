@@ -12,14 +12,16 @@ import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException
+import org.springframework.web.client.RestClient
 
 @Service("lichessApiService")
 class ApiServiceImpl(
     chessConfigProperties: ChessConfigProperties,
+    restClientBuilder: RestClient.Builder,
     private val converter: Converter
 ): IApiService {
 
-    val client = chessConfigProperties.getWebClient(ChessPlatform.LICHESS)
+    val client = chessConfigProperties.createRestClient(restClientBuilder, ChessPlatform.LICHESS)
 
     override fun findUser(username: String): ApiResult<AccountDto> {
         val result = try {

@@ -17,7 +17,7 @@
 
       <div class="text-left">
         <ng-container *ngIf="item.subText && item.subText != '' && item.subText.length > 0 && item.subText as _subText">
-            <p class="text-xs">{{ _subText }}</p>
+            <p class="text-xs text-muted-color">{{ _subText }}</p>
         </ng-container>
         <p>{{ item.label | translate }}</p>
         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
