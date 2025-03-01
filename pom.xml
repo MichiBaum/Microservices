@@ -15,7 +15,7 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <version>3.4.2</version>
+        <version>3.4.3</version>
         <relativePath />
     </parent>
 
@@ -31,7 +31,7 @@
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>3.4.2</spring-boot-admin.version>
+        <spring-boot-admin.version>3.4.4</spring-boot-admin.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
@@ -50,7 +50,7 @@
         https://mockk.io/
         https://mvnrepository.com/artifact/io.mockk/mockk-jvm
         -->
-        <mockk.version>1.13.16</mockk.version>
+        <mockk.version>1.13.17</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
