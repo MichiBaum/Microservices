@@ -16,7 +16,7 @@ class OpeningConverter {
     
     fun toDto(opening: PopularOpening) =
         PopularOpeningResponseDto(
-            id = opening.id?.toString() ?: "",
+            id = opening.opening.id?.toString() ?: "",
             name = opening.opening.name,
             moveId = opening.opening.lastMove.id?.toString() ?: "",
             ranking = opening.ranking
