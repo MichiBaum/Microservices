@@ -3,6 +3,13 @@ server:
   undertow:
     url-charset: UTF-8
 
+public-endpoints:
+  package-names:
+    - com.michibaum.chess_service
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+
 spring:
   threads:
     virtual:
@@ -24,6 +31,9 @@ spring:
     allow-bean-definition-overriding: true
   boot:
     admin:
+      service:
+        username: admin_username
+        password: admin_password
       client:
         username: admin_username
         password: admin_password
