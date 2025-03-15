@@ -1,3 +1,13 @@
+<p-fieldset [toggleable]="true" [collapsed]="true">
+    <ng-template #header>
+        <p class="text-sm">{{'general.sort' | translate}}</p>
+    </ng-template>
+    <div class="flex flex-wrap gap-4">
+        <p-multiSelect [options]="years()" [(ngModel)]="selectedYears" placeholder="Select Year" styleClass="w-full">
+        </p-multiSelect>
+    </div>
+</p-fieldset>
+
 <div class="grid grid-cols-1 4k:grid-cols-6 xlScreen:grid-cols-5 lScreen:grid-cols-4 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
     <ng-container *ngFor="let category of categoriesAndEventsSorted()">
