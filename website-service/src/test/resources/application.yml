@@ -7,6 +7,13 @@ server:
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
     min-response-size: 1024
 
+public-endpoints:
+  package-names:
+    - com.michibaum.websiteservice
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+
 spring:
   threads:
     virtual:
@@ -22,8 +29,15 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
 
 eureka:
+  dashboard:
+    enabled: true
   instance:
     prefer-ip-address: true
   client:

@@ -4,6 +4,13 @@ server:
     url-charset: UTF-8
   port: 8761
 
+public-endpoints:
+  package-names:
+    - com.michibaum.registry_service
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+
 spring:
   threads:
     virtual:
@@ -19,6 +26,11 @@ spring:
           include-description: true
   main:
     allow-bean-definition-overriding: true
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
 
 eureka:
   instance:
