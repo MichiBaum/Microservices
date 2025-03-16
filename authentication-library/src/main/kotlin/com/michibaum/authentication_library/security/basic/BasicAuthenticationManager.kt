@@ -1,6 +1,7 @@
 package com.michibaum.authentication_library.security.basic
 
 import com.michibaum.authentication_library.security.SpecificAuthenticationManager
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.Authentication
 
 class BasicAuthenticationManager(private val credentialsValidator: CredentialsValidator):
@@ -14,7 +15,8 @@ class BasicAuthenticationManager(private val credentialsValidator: CredentialsVa
 
         val valid = credentialsValidator.validate(authentication)
         if (!valid) {
-            return null
+            authentication.isAuthenticated = false
+            throw BadCredentialsException("Invalid credentials")
         }
         authentication.isAuthenticated = true
 

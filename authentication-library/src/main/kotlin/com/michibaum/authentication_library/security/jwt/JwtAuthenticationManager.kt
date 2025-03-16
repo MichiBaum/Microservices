@@ -12,10 +12,14 @@ class JwtAuthenticationManager(private val jwtService: JwsValidator): SpecificAu
         if(authentication !is JwtAuthentication){
             return null
         }
+
         val result = jwtService.validate(authentication.token)
         when (result) {
             is JwsValidationSuccess -> authentication.apply { isAuthenticated = true }
-            is JwsValidationFailed -> authentication.apply { isAuthenticated = false }
+            is JwsValidationFailed -> {
+                authentication.apply { isAuthenticated = false }
+                throw InvalidJwtException()
+            }
         }
 
         return authentication

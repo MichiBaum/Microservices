@@ -15,7 +15,7 @@ open class JwsValidator {
                 .withIssuer("authentication-service")
                 .build()
             val verifiedJwt = verifier.verify(token)
-            return JwsValidationSuccess() // TODO JwsValidationSuccess(verifiedJwt)
+            return JwsValidationSuccess(verifiedJwt)
         } catch (ex: AlgorithmMismatchException) {
             return JwsValidationAlgorithmMismatch(ex)
         } catch (ex: SignatureVerificationException) {

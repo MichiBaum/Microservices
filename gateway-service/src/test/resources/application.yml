@@ -113,3 +113,13 @@ sitemap-xml:
       data-location: CHESS_EVENTS
     - static-part: "/chess/openings/{replace}"
       data-location: CHESS_OPENINGS
+
+cors:
+  allowed-origin-patterns:
+    - http://localhost:[80,4200]
+    - http://michibaum.ch:[80,4200]
+    - http://*.michibaum.ch:[80,4200]
+    - http://michibaum.com:[80,4200]
+    - http://*.michibaum.com:[80,4200]
+    - http://michibaum.eu:[80,4200]
+    - http://*.michibaum.eu:[80,4200]
