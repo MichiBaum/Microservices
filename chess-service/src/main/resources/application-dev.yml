@@ -17,6 +17,10 @@ spring:
       ddl-auto: validate
     # https://stackoverflow.com/a/48222934
     open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
   boot:
     admin:
