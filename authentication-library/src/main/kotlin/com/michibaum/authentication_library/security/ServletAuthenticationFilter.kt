@@ -28,7 +28,6 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
         HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
     )
 
-    // TODO is this correct??
     private val securityContextRepository: SecurityContextRepository = RequestAttributeSecurityContextRepository()
 
     override fun doFilterInternal(
@@ -37,7 +36,6 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
         filterChain: FilterChain,
     ) {
         try {
-
             val authenticationResult: Authentication? =
                 converters.mapNotNull { converter: AuthenticationConverter -> converter.convert(request) }
                     .firstNotNullOfOrNull { authentication -> authenticationManager.authenticate(authentication) }
@@ -56,7 +54,8 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
 
     @Throws(IOException::class, ServletException::class)
     private fun unsuccessfulAuthentication(
-        request: HttpServletRequest, response: HttpServletResponse,
+        request: HttpServletRequest,
+        response: HttpServletResponse,
         failed: AuthenticationException,
     ) {
         this.securityContextHolderStrategy.clearContext()
@@ -68,8 +67,9 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
         request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain,
         authentication: Authentication,
     ) {
-        val context: SecurityContext = this.securityContextHolderStrategy.createEmptyContext()
-        context.authentication = authentication
+        val context: SecurityContext = this.securityContextHolderStrategy.createEmptyContext().apply {
+            this.authentication = authentication
+        }
         this.securityContextHolderStrategy.context = context
         this.securityContextRepository.saveContext(context, request, response)
         chain.doFilter(request, response)

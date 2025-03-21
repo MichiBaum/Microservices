@@ -4,6 +4,7 @@ import com.michibaum.authentication_library.Security
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.AuthenticationException
 
 class ServletDelegateAuthenticationManager(private val authenticationManagers: List<SpecificAuthenticationManager>): AuthenticationManager {
 
@@ -13,6 +14,7 @@ class ServletDelegateAuthenticationManager(private val authenticationManagers: L
         }
     }
 
+    @Throws(AuthenticationException::class)
     override fun authenticate(authentication: Authentication?): Authentication {
         if (authentication == null) {
             throw EmptyAuthenticationException("Empty authentication")
