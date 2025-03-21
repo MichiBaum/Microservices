@@ -25,7 +25,7 @@
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
         https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2024.0-Release-Notes
         -->
-        <spring-cloud.version>2024.0.0</spring-cloud.version>
+        <spring-cloud.version>2024.0.1</spring-cloud.version>
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
@@ -42,7 +42,7 @@
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.1.10</kotlin.version>
+        <kotlin.version>2.1.20</kotlin.version>
         <kotlin.compiler.languageVersion>2.1</kotlin.compiler.languageVersion>
         <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 
