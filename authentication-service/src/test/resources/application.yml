@@ -29,6 +29,11 @@ spring:
         disable-ssl-validation: true
   main:
     allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    # https://stackoverflow.com/a/48222934
+    open-in-view: false
   boot:
     admin:
       service:

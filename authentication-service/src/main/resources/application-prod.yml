@@ -7,9 +7,6 @@ spring:
     password: ${DATABASE_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://authentication-db:3306/${DATABASE}
-  jpa:
-    hibernate:
-      ddl-auto: validate
   boot:
     admin:
       service:
