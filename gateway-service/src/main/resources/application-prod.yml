@@ -55,3 +55,15 @@ cors:
     - https://*.michibaum.com
     - https://michibaum.eu
     - https://*.michibaum.eu
+    - https://michibaum.org
+    - https://*.michibaum.org
+    - https://michibaum.app
+    - https://*.michibaum.app
+    - https://michibaum.me
+    - https://*.michibaum.me
+    - https://michibaum.net
+    - https://*.michibaum.net
+    - https://michibaum.info
+    - https://*.michibaum.info
+    - https://michibaum.xyz
+    - https://*.michibaum.xyz
