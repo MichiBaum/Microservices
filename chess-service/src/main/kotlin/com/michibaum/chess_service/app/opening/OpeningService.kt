@@ -16,8 +16,8 @@ class OpeningService(
         return popularOpeningRepository.findAllByOrderByRankingAsc()
     }
 
-    fun getOpeningById(openingId: UUID): Opening? {
-        return openingRepository.findById(openingId).getOrNull()
+    fun getOpeningByIdEagerLastMove(openingId: UUID): Opening? {
+        return openingRepository.findByIdEagerLastMove(openingId)
     }
 
     fun createOpening(dto: OpeningDto): Opening {
@@ -48,8 +48,8 @@ class OpeningService(
         return openingRepository.save(updatedOpening)
     }
 
-    fun getAll(): List<Opening> {
-        return openingRepository.findAllByDeletedFalse()
+    fun getAllEagerLastMove(deleted: Boolean): List<Opening> {
+        return openingRepository.findAllByDeletedFalseEagerLastMove(deleted)
     }
 
     fun findMoveHierarchy(lastMove: OpeningMove): List<MoveHierarchyProjection> {
@@ -64,12 +64,8 @@ class OpeningService(
         return openingMoveRepository.findById(uuid).getOrNull()
     }
 
-    fun findMoveByParent(id: UUID?): List<OpeningMove> {
-        return openingMoveRepository.findAllByParentIdAndDeletedFalse(id)
-    }
-
-    fun openingsByMoves(moves: List<OpeningMove>): List<Opening> {
-        return openingRepository.findByDeletedFalseAndLastMoveIn(moves)
+    fun findOpeningByParentMoveAndDeleted(id: UUID?, deleted: Boolean): List<Opening> {
+        return openingRepository.findOpeningByParentMoveAndDeleted(id, false)
     }
 
     fun createMove(dto: WriteOpeningMoveDto, parentMove: OpeningMove): OpeningMove {

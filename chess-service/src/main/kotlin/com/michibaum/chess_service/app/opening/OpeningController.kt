@@ -18,8 +18,8 @@ class OpeningController(
 
     @PublicEndpoint
     @GetMapping("/api/openings")
-    fun getAllOpenings(): ResponseEntity<List<OpeningResponseDto>> {
-        val openings = openingService.getAll()
+    fun getAllOpenings(): ResponseEntity<List<OpeningResponseDto>> { // TODO executes many querys but dont know why
+        val openings = openingService.getAllEagerLastMove(false)
         val dtos = openings.map { opening -> openingConverter.toDto(opening) }
         return ResponseEntity.ok(dtos)
     }
@@ -27,8 +27,7 @@ class OpeningController(
     @PublicEndpoint
     @GetMapping("/api/openings/starting")
     fun getAllStartingOpenings(): ResponseEntity<List<OpeningResponseDto>> {
-        val moves = openingService.findMoveByParent(null)
-        val openings = openingService.openingsByMoves(moves)
+        val openings = openingService.findOpeningByParentMoveAndDeleted(null, false)
         val dtos = openings.map { opening -> openingConverter.toDto(opening) }
         return ResponseEntity.ok(dtos)
     }
@@ -95,7 +94,7 @@ class OpeningController(
     fun deleteOpening(@PathVariable id: String): ResponseEntity<OpeningResponseDto> {
         return try {
             val uuid = UUID.fromString(id)
-            val opening = openingService.getOpeningById(uuid) ?:
+            val opening = openingService.getOpeningByIdEagerLastMove(uuid) ?:
                 return ResponseEntity.notFound().build()
             val updated = openingService.deleteOpening(opening)
             val dto = openingConverter.toDto(updated)
@@ -147,7 +146,7 @@ class OpeningController(
     fun getAllMovesForOpening(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
         return try {
             val uuid = UUID.fromString(id)
-            val opening = openingService.getOpeningById(uuid) ?:
+            val opening = openingService.getOpeningByIdEagerLastMove(uuid) ?:
                 return ResponseEntity.notFound().build()
             val engines = engineService.getAllChessEngines()
             val moves = openingService.findMoveHierarchy(opening.lastMove)
@@ -165,7 +164,7 @@ class OpeningController(
     fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
         return try {
             val uuid = UUID.fromString(id)
-            val opening = openingService.getOpeningById(uuid) ?:
+            val opening = openingService.getOpeningByIdEagerLastMove(uuid) ?:
                 return ResponseEntity.notFound().build()
             val engines = engineService.getAllChessEngines()
             val lastMove = opening.lastMove

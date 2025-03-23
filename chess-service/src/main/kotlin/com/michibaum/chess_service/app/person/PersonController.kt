@@ -26,7 +26,7 @@ class PersonController(
     @PublicEndpoint
     @GetMapping(value = ["/api/persons"])
     fun persons(): ResponseEntity<List<PersonDto>> {
-        val personDtos = personService.getAll()
+        val personDtos = personService.getAllEagerAccounts()
             .map { person -> personConverter.convert(person) }
         return ResponseEntity.ok(personDtos)
     }

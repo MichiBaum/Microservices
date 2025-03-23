@@ -16,9 +16,9 @@ interface EventRepository: JpaRepository<Event, UUID>, JpaSpecificationExecutor<
 
     fun findByCategoriesId(id: UUID): Set<Event>
 
-    @Query(value = "select e from Event e left join fetch e.categories where e.id = :id")
+    @Query(value = "select e from Event e left join fetch e.categories categories where e.id = :id")
     fun findByIdEagerCategories(id: UUID): Event?
 
-    @Query(value = "select e from Event e left join fetch e.participants where e.id = :id")
+    @Query(value = "select e from Event e left join fetch e.participants participants where e.id = :id")
     fun findByIdEagerParticipants(id: UUID): Event?
 }
