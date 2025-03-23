@@ -49,7 +49,7 @@ class OpeningController(
         return ResponseEntity.ok(response)
     }
 
-    @PostMapping("/api/openings/{id}")
+    @PostMapping("/api/openings/{id}") // TODO change to PUT
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun updateOpening(@PathVariable id: UUID, @RequestBody dto: OpeningDto): ResponseEntity<OpeningResponseDto> {
         val opening = openingService.updateOpening(id, dto)
@@ -74,7 +74,7 @@ class OpeningController(
         }
     }
 
-    @PostMapping("/api/openings/moves/{id}")
+    @PostMapping("/api/openings/moves/{id}") // TODO change to PUT
     fun updateMove(@RequestBody dto: WriteOpeningMoveDto): ResponseEntity<SimpleOpeningMoveDto> {
         return try {
             val uuid = UUID.fromString(dto.id)

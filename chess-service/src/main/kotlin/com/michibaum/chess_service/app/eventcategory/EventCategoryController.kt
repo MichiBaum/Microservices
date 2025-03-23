@@ -21,7 +21,6 @@ class EventCategoryController(
 ) {
 
     @PublicEndpoint
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping("/api/event-categories")
     fun getEventCategories(): ResponseEntity<List<EventCategoryDto>> {
         val categoryDtos = service.getAll()
@@ -32,16 +31,17 @@ class EventCategoryController(
     @PublicEndpoint
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping("/api/event-categories/with-events")
-    fun getEventCategoriesWithEvents(): ResponseEntity<List<EventCategoryWithEventDto>> {
+    fun getEventCategoriesWithEvents(): ResponseEntity<List<EventCategoryWithEventDto>> { // TODO custom sql query to fetch all in one
         val dtos = service.getAll().map { category ->
-            val eventDtos = eventService.findByCategoryId(category.idOrThrow()).map { event -> eventConverter.toDto(event) }
+            val eventDtos = eventService.findByCategoryId(category.idOrThrow())
+                .map { event -> eventConverter.toDto(event) }
             converter.toDto(category, eventDtos)
         }.toList()
         return ResponseEntity.ok().body(dtos)
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    @PutMapping("/api/event-categories")
+    @PutMapping("/api/event-categories") // TODO change to post
     fun createCategory(@Valid @RequestBody categoryDto: WriteEventCategoryDto): ResponseEntity<EventCategoryDto> {
         return try {
             val category = service.create(categoryDto)

@@ -98,7 +98,7 @@ class EventController(
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    @PutMapping("/api/events")
+    @PutMapping("/api/events") // TODO change to POST
     fun createEvent(@Valid @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{
         return try {
             val event = eventService.create(eventDto)

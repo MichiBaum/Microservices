@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.app.person
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import jakarta.validation.Valid
 import org.springframework.core.io.buffer.DataBuffer
 import org.springframework.core.io.buffer.DataBufferUtils
@@ -22,7 +23,7 @@ class PersonController(
     private val personConverter: PersonConverter
 ) {
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @PublicEndpoint
     @GetMapping(value = ["/api/persons"])
     fun persons(): ResponseEntity<List<PersonDto>> {
         val personDtos = personService.getAll()
@@ -31,7 +32,7 @@ class PersonController(
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    @PutMapping(value = ["/api/persons"])
+    @PutMapping(value = ["/api/persons"]) // TODO change to POST
     fun createPerson(@Valid @RequestBody personDto: WritePersonDto): ResponseEntity<PersonDto> {
         return try {
             val newPerson = personService.create(personDto)
@@ -62,7 +63,7 @@ class PersonController(
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    @PostMapping(value = ["/api/persons/search"]) // TODO PostMapping?
+    @PostMapping(value = ["/api/persons/search"]) // TODO PostMapping? GET Mapping with only Dto. No @... needed (other than @Valid)
     fun findPerson(@Valid @RequestBody personSearchDto: PersonSearchDto): ResponseEntity<List<PersonDto>> {
         val persons = personService.findByIfNotEmpty(
             personSearchDto.firstname, personSearchDto.lastname
