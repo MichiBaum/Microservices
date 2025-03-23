@@ -15,7 +15,7 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <version>3.4.3</version>
+        <version>3.4.4</version>
         <relativePath />
     </parent>
 
