@@ -65,7 +65,7 @@ class OpeningService(
     }
 
     fun findOpeningByParentMoveAndDeleted(id: UUID?, deleted: Boolean): List<Opening> {
-        return openingRepository.findOpeningByParentMoveAndDeleted(id, false)
+        return openingRepository.findOpeningByParentMoveAndDeleted(id, deleted)
     }
 
     fun createMove(dto: WriteOpeningMoveDto, parentMove: OpeningMove): OpeningMove {
