@@ -7,11 +7,6 @@ spring:
     password: ${DATABASE_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://chess-db:3306/${DATABASE}
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    # https://stackoverflow.com/a/48222934
-    open-in-view: false
   boot:
     admin:
       service:

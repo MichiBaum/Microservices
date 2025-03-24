@@ -12,8 +12,8 @@ import java.util.*
 
 @AutoConfigureMockMvc
 @SpringBootTest(properties = [
-    "spring.boot.admin.client.username=someUsername",
-    "spring.boot.admin.client.password=somePasswööörd"
+    "spring.boot.admin.service.username=someUsername",
+    "spring.boot.admin.service.password=somePasswööörd"
 ])
 class ActuatorIT {
 

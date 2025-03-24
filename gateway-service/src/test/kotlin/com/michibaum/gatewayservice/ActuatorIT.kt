@@ -1,58 +1,52 @@
 package com.michibaum.gatewayservice
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.*
 
-@AutoConfigureWebTestClient
-@SpringBootTest
+@AutoConfigureMockMvc
+@SpringBootTest(properties = [
+    "spring.boot.admin.service.username=someUsername",
+    "spring.boot.admin.service.password=somePasswööörd"
+])
 class ActuatorIT {
 
     @Autowired
-    lateinit var webClient: WebTestClient
+    lateinit var mockMvc: MockMvc
 
-    @Test
-    fun `actuator is allowed without authentication`(){
+    @ParameterizedTest
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    fun `actuator endpoints return 401`(endpoint: String){
         // GIVEN
 
         // WHEN
-        webClient.get()
-            .uri("/actuator")
-            .exchange()
-            .expectStatus()
-            .isOk
+        mockMvc.perform(get(endpoint))
+            .andExpect(status().isUnauthorized)
 
         // THEN
 
     }
 
-    @Test
-    fun `actuator health is allowed without authentication`(){
+    @ParameterizedTest
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    fun `actuator endpoints with basic authentication return 200`(endpoint: String){
         // GIVEN
+        val basicAuth = "someUsername:somePasswööörd"
+        val basicAuthEncoded = Base64.getEncoder().encodeToString(basicAuth.toByteArray())
 
         // WHEN
-        webClient.get()
-            .uri("/actuator/health")
-            .exchange()
-            .expectStatus()
-            .isOk
-
-        // THEN
-
-    }
-
-    @Test
-    fun `actuator info is allowed without authentication`(){
-        // GIVEN
-
-        // WHEN
-        webClient.get()
-            .uri("/actuator/info")
-            .exchange()
-            .expectStatus()
-            .isOk
+        mockMvc.perform(
+            get(endpoint)
+                .header("Authorization", "Basic $basicAuthEncoded")
+        )
+            .andExpect(status().isOk)
 
         // THEN
 

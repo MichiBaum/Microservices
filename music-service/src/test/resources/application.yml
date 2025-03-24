@@ -5,7 +5,7 @@ server:
 
 public-endpoints:
   package-names:
-    - com.michibaum.admin_service
+    - com.michibaum.music_service
   endpoints:
     - raw-path: /actuator/health/readiness
       request-method: GET
@@ -16,26 +16,8 @@ spring:
       enabled: true
   lifecycle:
     timeout-per-shutdown-phase: 20s
-  boot:
-    admin:
-      service:
-        username: admin_username
-        password: admin_password
-      server:
-        enabled: true
-      hazelcast:
-        enabled: true
-      ui:
-        title: Admin Server
-        enable-toasts: true
-      monitor:
-        status-interval: 3s
-        status-lifetime: 3s
-        info-interval: 20s
-        info-lifetime: 20s
-        default-retries: 3
   application:
-    name: admin-service
+    name: music-service
   cloud:
     discovery:
       client:
@@ -47,6 +29,20 @@ spring:
         disable-ssl-validation: true
   main:
     allow-bean-definition-overriding: true
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
+      client:
+        username: admin_username
+        password: admin_password
 
 eureka:
   instance:
@@ -71,6 +67,8 @@ management:
         enabled: true
     health:
       show-details: always
+      probes:
+        enabled: true
   health:
     livenessstate:
       enabled: true

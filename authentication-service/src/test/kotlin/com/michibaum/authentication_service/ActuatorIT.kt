@@ -12,8 +12,8 @@ import java.util.*
 
 @AutoConfigureMockMvc
 @SpringBootTest(properties = [
-    "spring.boot.admin.client.username=someUsername",
-    "spring.boot.admin.client.password=somePasswööörd"
+    "spring.boot.admin.service.username=someUsername",
+    "spring.boot.admin.service.password=somePasswööörd"
 ])
 @TestcontainersConfiguration
 class ActuatorIT {
@@ -24,14 +24,9 @@ class ActuatorIT {
     @ParameterizedTest
     @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
     fun `actuator endpoints return 401`(endpoint: String){
-        // GIVEN
-
         // WHEN
         mockMvc.perform(get(endpoint))
             .andExpect(status().isUnauthorized)
-
-        // THEN
-
     }
 
     @ParameterizedTest
@@ -47,9 +42,6 @@ class ActuatorIT {
                 .header("Authorization", "Basic $basicAuthEncoded")
         )
             .andExpect(status().isOk)
-
-        // THEN
-
     }
 
 }

@@ -12,9 +12,6 @@ spring:
     password: someRootPass
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/authentication-db
-  jpa:
-    hibernate:
-      ddl-auto: validate
   boot:
     admin:
       service:

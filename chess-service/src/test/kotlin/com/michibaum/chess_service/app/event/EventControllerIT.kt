@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.time.LocalDate
 import java.util.*
 
 @AutoConfigureMockMvc
@@ -32,7 +33,7 @@ class EventControllerIT {
 
 
     @Test
-    fun `return all events`(){
+    fun `returns all events`(){
         // GIVEN
         val event = EventProvider.event()
         val savedEvent = eventRepository.save(event)
@@ -47,10 +48,45 @@ class EventControllerIT {
             jsonPath("$.[0].title").exists(),
         )
 
+        // THEN
+    }
+
+    @Test
+    fun `returns all recent events`(){
+        // GIVEN
+        val event = EventProvider.event()
+        val savedEvent = eventRepository.save(event)
+
+        // WHEN
+        mockMvc.perform(
+            get("/api/events/recent-upcoming")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isOk,
+            jsonPath("$.[0].id").exists(),
+            jsonPath("$.[0].title").exists(),
+        )
 
         // THEN
+    }
 
+    @Test
+    fun `returns all upcoming events`(){
+        // GIVEN
+        val event = EventProvider.event(dateFrom = LocalDate.now().plusWeeks(2), dateTo = LocalDate.now().plusWeeks(3))
+        val savedEvent = eventRepository.save(event)
 
+        // WHEN
+        mockMvc.perform(
+            get("/api/events/recent-upcoming")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+            status().isOk,
+            jsonPath("$.[0].id").exists(),
+            jsonPath("$.[0].title").exists(),
+        )
+
+        // THEN
     }
 
     @Test
@@ -121,7 +157,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(mutableSetOf(savedPerson))
+        val event = EventProvider.event(participants = mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
 
         // WHEN
@@ -145,7 +181,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(mutableSetOf(savedPerson))
+        val event = EventProvider.event(participants = mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
         var uuid: UUID?
         do {
@@ -170,7 +206,7 @@ class EventControllerIT {
         // GIVEN
         val person = PersonProvider.person()
         val savedPerson = personRepository.save(person)
-        val event = EventProvider.event(mutableSetOf(savedPerson))
+        val event = EventProvider.event(participants = mutableSetOf(savedPerson))
         val savedEvent = eventRepository.save(event)
         val uuid = "abc"
 

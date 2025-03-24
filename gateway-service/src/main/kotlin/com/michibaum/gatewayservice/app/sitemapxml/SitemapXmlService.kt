@@ -1,6 +1,5 @@
 package com.michibaum.gatewayservice.app.sitemapxml
 
-import jakarta.annotation.PreDestroy
 import org.springframework.core.task.VirtualThreadTaskExecutor
 import org.springframework.stereotype.Service
 import java.util.concurrent.Callable
