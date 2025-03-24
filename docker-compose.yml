@@ -359,7 +359,7 @@ services:
     expose:
       - "9200"
     volumes:
-      - /data/zipkin-storage:/var/lib/mysql
+      - /data/zipkin-storage:/usr/share/elasticsearch/data
     networks:
       - microservice-network
 
