@@ -18,5 +18,5 @@ Google OSV scanner is responsible to find dependencies that are vulnerable.
 ## sonarqube.yml (SonarQube Analysis)
 Responsible to do a static code analysis.
 
-## publish-documentation.yml
-TODO https://www.jetbrains.com/help/writerside/deploy-docs-to-github-pages.html
+## writerside.yml
+Published the writersite documentation.
