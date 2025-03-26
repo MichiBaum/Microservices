@@ -4,6 +4,10 @@ on:
   push:
     branches: [ "master" ]
 
+permissions:
+  id-token: write
+  pages: write
+
 env:
   INSTANCE: 'Writerside/s'
   DOCKER_VERSION: '243.22562'
