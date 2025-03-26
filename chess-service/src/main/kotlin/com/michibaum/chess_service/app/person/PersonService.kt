@@ -47,8 +47,8 @@ class PersonService(
             else -> personRepository.findByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCase(firstname, lastname)
         }
 
-    fun getAll(): List<Person> {
-        return personRepository.findAll()
+    fun getAllEagerAccounts(): List<Person> {
+        return personRepository.findAllEagerAccounts()
     }
 
     fun find(uuid: UUID): Person? =

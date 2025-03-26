@@ -7,7 +7,7 @@ import java.util.*
 @Table(name = "popular_opening")
 data class PopularOpening(
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = false)
     @JoinColumn(name = "opening_id")
     val opening: Opening,
 

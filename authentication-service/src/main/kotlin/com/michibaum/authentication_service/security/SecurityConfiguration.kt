@@ -42,6 +42,7 @@ class SecurityConfiguration {
             .formLogin { formLoginSpec -> formLoginSpec.disable() }
             .csrf { csrfSpec -> csrfSpec.disable() }
             .logout { logoutSpec -> logoutSpec.disable() }
+            .anonymous { anonymousSpec -> anonymousSpec.disable() }
             .sessionManagement { sessionManagementSpec -> sessionManagementSpec.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .build()
     }

@@ -4,6 +4,13 @@ server:
     url-charset: UTF-8
   port: 80
 
+public-endpoints:
+  package-names:
+    - com.michibaum.gatewayservice
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+
 spring:
   threads:
     virtual:
@@ -13,22 +20,21 @@ spring:
   application:
     name: gateway-service
   cloud:
-    openfeign:
-      lazy-attributes-resolution: true
     discovery:
       client:
         health-indicator:
           include-description: true
-
+    openfeign:
+      lazy-attributes-resolution: true
+      httpclient:
+        disable-ssl-validation: true
   main:
     allow-bean-definition-overriding: true
   boot:
     admin:
-      client:
-        enabled: true
-#        ?
-        username: admin
-        password: admin
+      service:
+        username: admin_username
+        password: admin_password
 
 eureka:
   instance:
@@ -39,6 +45,8 @@ eureka:
     register-with-eureka: true
     refresh:
       enable: true
+    restclient:
+      enabled: true
 
 management:
   endpoints:
@@ -78,3 +86,40 @@ management:
       enabled: true
     ssl:
       enabled: true
+
+robots-txt:
+  crawlers:
+    -
+      user-agent: "*"
+      allowed:
+        - "/"
+        - "/*"
+  sitemaps:
+    - "/sitemap.xml"
+sitemap-xml:
+  locations:
+    - "/"
+    - "/home"
+    - "/login"
+    - "/register"
+    - "/about-me"
+    - "/donate"
+    - "/imprint"
+    - "/chess"
+    - "/chess/news"
+    - "/chess/events"
+  data-locations:
+    - static-part: "/chess/events/{replace}"
+      data-location: CHESS_EVENTS
+    - static-part: "/chess/openings/{replace}"
+      data-location: CHESS_OPENINGS
+
+cors:
+  allowed-origin-patterns:
+    - http://localhost:[80,4200]
+    - http://michibaum.ch:[80,4200]
+    - http://*.michibaum.ch:[80,4200]
+    - http://michibaum.com:[80,4200]
+    - http://*.michibaum.com:[80,4200]
+    - http://michibaum.eu:[80,4200]
+    - http://*.michibaum.eu:[80,4200]

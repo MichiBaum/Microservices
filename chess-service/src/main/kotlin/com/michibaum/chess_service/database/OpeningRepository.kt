@@ -1,9 +1,16 @@
 package com.michibaum.chess_service.database
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import java.util.UUID
 
 interface OpeningRepository : JpaRepository<Opening, UUID>{
-    fun findByDeletedFalseAndLastMoveIn(moves: List<OpeningMove>): List<Opening>
-    fun findAllByDeletedFalse(): List<Opening>
+    @Query("SELECT o FROM Opening o left join fetch o.lastMove move WHERE o.deleted = :deleted AND o.lastMove.parent.id = :id")
+    fun findOpeningByParentMoveAndDeleted(id: UUID?, deleted: Boolean): List<Opening>
+
+    @Query("SELECT o FROM Opening o left join fetch o.lastMove move WHERE o.deleted = :deleted")
+    fun findAllByDeletedFalseEagerLastMove(deleted: Boolean): List<Opening>
+
+    @Query("SELECT o FROM Opening o left join fetch o.lastMove move WHERE o.id = :id")
+    fun findByIdEagerLastMove(id: UUID): Opening?
 }

@@ -27,20 +27,18 @@ class EventController(
 
     @PublicEndpoint
     @GetMapping("/api/events")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAllEvents(): List<EventDto> =
-        eventService.findAll()
+        eventService.findAllEagerCategories()
             .map { eventConverter.toDto(it) }
 
     @GetMapping("/api/events/search")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun searchEvents(@ModelAttribute param: SearchEventDto): List<EventDto> {
         return eventService.findAllBy(param.getSpecification(), param.getPageable()).content
             .map { eventConverter.toDto(it) }
     }
 
+    @PublicEndpoint
     @GetMapping("/api/events/recent-upcoming")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getAllRecentAndUpcomingEvents(): List<EventDto> {
         val recent = LocalDate.now().minusMonths(1)
         val upcoming = LocalDate.now().plusMonths(2)
@@ -50,11 +48,10 @@ class EventController(
 
     @PublicEndpoint
     @GetMapping("/api/events/{id}")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEvent(@PathVariable id: String): ResponseEntity<EventDto>{
         return try {
             val uuid = UUID.fromString(id)
-            val event = eventService.find(uuid) ?:
+            val event = eventService.findEagerCategories(uuid) ?:
                 return ResponseEntity.notFound().build()
             val dto = eventConverter.toDto(event)
             return ResponseEntity.ok(dto)
@@ -67,11 +64,10 @@ class EventController(
 
     @PublicEndpoint
     @GetMapping("/api/events/{id}/participants")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEventParticipants(@PathVariable id: String): ResponseEntity<List<PersonDto>> {
         return try {
             val uuid = UUID.fromString(id)
-            val event = eventService.find(uuid) ?:
+            val event = eventService.findEagerParticipants(uuid) ?:
                 return ResponseEntity.notFound().build()
             val participants = event.participants
                 .map { participant -> personConverter.convert(participant) }
@@ -102,7 +98,7 @@ class EventController(
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    @PutMapping("/api/events")
+    @PutMapping("/api/events") // TODO change to POST
     fun createEvent(@Valid @RequestBody eventDto: WriteEventDto): ResponseEntity<EventDto>{
         return try {
             val event = eventService.create(eventDto)

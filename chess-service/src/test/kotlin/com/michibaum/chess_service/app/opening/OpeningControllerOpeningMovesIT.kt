@@ -32,6 +32,7 @@ class OpeningControllerOpeningMovesIT {
 
     @Test
     fun `should return move hierarchy for a valid opening`() {
+        // GIVEN
         val move1 = OpeningMove(move = "e4", parent = null)
         val move2 = OpeningMove(move = "e5", parent = move1)
         val move3 = OpeningMove(move = "Nf3", parent = move2)
@@ -39,6 +40,7 @@ class OpeningControllerOpeningMovesIT {
         val opening = Opening(name = "Italian Game", lastMove = move4)
         openingRepository.save(opening)
 
+        // WHEN
         mockMvc.perform(get("/api/openings/${opening.id}/moves"))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -50,10 +52,12 @@ class OpeningControllerOpeningMovesIT {
 
     @Test
     fun `should return one move hierarchy for a valid opening`() {
+        // GIVEN
         val move = OpeningMove(move = "e4", parent = null)
         val opening = Opening(name = "Kings pawn opening", lastMove = move)
         openingRepository.save(opening)
 
+        // WHEN
         mockMvc.perform(get("/api/openings/${opening.id}/moves"))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -62,6 +66,7 @@ class OpeningControllerOpeningMovesIT {
 
     @Test
     fun `should return move hierarchy with evaluation for a valid opening`() {
+        // GIVEN
         val stockfish = chessEngineRepository.save(ChessEngine(name = "Stockfish", version = "15.1"))
         val lc0 = chessEngineRepository.save(ChessEngine(name = "lc0", version = "0.31"))
 
@@ -76,6 +81,7 @@ class OpeningControllerOpeningMovesIT {
         val eval2 = openingMoveEvaluationRepository.save(OpeningMoveEvaluation(lc0, move3, 35, "0.3"))
         val eval3 = openingMoveEvaluationRepository.save(OpeningMoveEvaluation(lc0, move4, 10, "1"))
 
+        // WHEN
         mockMvc.perform(get("/api/openings/${opening.id}/moves"))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -93,6 +99,7 @@ class OpeningControllerOpeningMovesIT {
 
     @Test
     fun `should return 404 for an invalid opening`() {
+        // WHEN
         mockMvc.perform(get("/api/openings/${UUID.randomUUID()}/moves"))
             .andExpect(status().isNotFound)
     }

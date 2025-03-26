@@ -24,11 +24,17 @@ class EventService(
     private val personRepository: PersonRepository
 ) {
 
-    fun findAll(): List<Event> =
-        eventRepository.findAll()
+    fun findAllEagerCategories(): List<Event> =
+        eventRepository.findAllEagerCategories()
 
     fun find(id: UUID): Event? =
         eventRepository.findById(id).getOrNull()
+
+    fun findEagerCategories(id: UUID): Event? =
+        eventRepository.findByIdEagerCategories(id)
+
+    fun findEagerParticipants(id: UUID): Event? =
+        eventRepository.findByIdEagerParticipants(id)
 
     fun findRecentAndUpcoming(recent: LocalDate, upcoming: LocalDate): List<Event> =
         eventRepository.findByDateFromGreaterThanAndDateToLessThan(recent, upcoming)
@@ -101,4 +107,5 @@ class EventService(
     fun findAllBy(specification: Specification<Event>, pageable: PageRequest): Page<Event> {
         return eventRepository.findAll(specification, pageable)
     }
+
 }

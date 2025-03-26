@@ -3,6 +3,13 @@ server:
   undertow:
     url-charset: UTF-8
 
+public-endpoints:
+  package-names:
+    - com.michibaum.usermanagement_service
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+
 spring:
   threads:
     virtual:
@@ -18,8 +25,20 @@ spring:
           include-description: true
     openfeign:
       lazy-attributes-resolution: true
+      httpclient:
+        disable-ssl-validation: true
   main:
     allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    # https://stackoverflow.com/a/48222934
+    open-in-view: false
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
 
 eureka:
   instance:
