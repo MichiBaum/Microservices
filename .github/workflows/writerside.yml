@@ -5,8 +5,8 @@ on:
     branches: [ "master" ]
 
 env:
-  INSTANCE: 'docs/Writerside/s'
-  DOCKER_VERSION: '2025.03.8312'
+  INSTANCE: 'Writerside/s'
+  DOCKER_VERSION: '243.22562'
 
 jobs:
   build:
@@ -43,6 +43,7 @@ jobs:
       - name: Build docs using Writerside Docker builder
         uses: JetBrains/writerside-github-action@v4
         with:
+          location: 'docs'
           instance: ${{ env.INSTANCE }}
           docker-version: ${{ env.DOCKER_VERSION }}
           artifact: ${{ steps.define-ids.outputs.artifact }}
