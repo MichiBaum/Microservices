@@ -1,6 +1,11 @@
 server:
   port: 8082
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
+
 spring:
   boot:
     admin:
@@ -17,7 +22,3 @@ spring:
         default-password: admin_password
         enabled: true
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
