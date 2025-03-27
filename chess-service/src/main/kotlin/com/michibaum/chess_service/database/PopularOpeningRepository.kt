@@ -6,7 +6,12 @@ import java.util.UUID
 
 interface PopularOpeningRepository : JpaRepository<PopularOpening, UUID> {
 
-    @Query("SELECT po FROM PopularOpening po left join fetch po.opening o ORDER BY po.ranking ASC")
+    @Query("""
+        SELECT po FROM PopularOpening po
+        left join fetch po.opening o
+        left join fetch o.lastMove lm
+        ORDER BY po.ranking ASC
+    """)
     fun findAllByOrderByRankingAsc(): List<PopularOpening>
 
 }
