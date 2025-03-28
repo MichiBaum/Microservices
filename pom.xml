@@ -8,18 +8,13 @@
     <packaging>pom</packaging>
     <name>microservice</name>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
+    <properties>
         <!--
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <version>3.4.4</version>
-        <relativePath />
-    </parent>
+        <spring-boot.version>3.4.4</spring-boot.version>
 
-    <properties>
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
@@ -102,6 +97,13 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
