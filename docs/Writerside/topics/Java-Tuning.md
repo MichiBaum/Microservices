@@ -21,3 +21,5 @@ My recommendation (with the specified resources) is to configure following:
 - -XX:G1HeapRegionSize=16M
 - -XX:+UseG1GC
 - -XX:+UseContainerSupport
+- -XX:MaxGCPauseMillis=200
+- -XX:+UseStringDeduplication
