@@ -51,9 +51,6 @@ And these databases:
 - Fitness DB
 - Music DB
 
-All docs can be found [/docs/Writerside/topics](./docs/Writerside/topics/Overview.md)
-
-
 ## License
 
 [![GitHub license](https://badgen.net/github/license/MichiBaum/Microservices)](https://github.com/MichiBaum/Microservices/blob/master/LICENSE)
