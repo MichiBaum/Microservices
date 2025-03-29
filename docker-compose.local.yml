@@ -1,0 +1,31 @@
+services:
+  zipkin-storage:
+    image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.5
+    restart: always
+    expose:
+      - "9200"
+
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin:3.5
+    restart: always
+    depends_on:
+      - zipkin-storage
+    environment:
+      STORAGE_TYPE: elasticsearch
+      ES_HOSTS: zipkin-storage:9200
+      # TODO EUREKA_SERVICE_URL doesnt work: WARN [/] 1 --- [orker-epoll-2-2] c.l.a.s.e.EurekaUpdatingListener: Failed to register zipkin to Eureka: http://registry.michibaum.ch:8761/eureka/v2
+#      EUREKA_SERVICE_URL: http://registry.michibaum.ch:8761/eureka/v2
+#      EUREKA_HOSTNAME: zipkin
+    ports:
+      - "9411:9411"
+
+  zipkin-dependencies:
+    image: ghcr.io/openzipkin/zipkin-dependencies:3.2
+    restart: always
+    depends_on:
+      - zipkin-storage
+    user: root
+    entrypoint: /usr/sbin/crond -f
+    environment:
+      STORAGE_TYPE: elasticsearch
+      ES_HOSTS: zipkin-storage:9200

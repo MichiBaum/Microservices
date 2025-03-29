@@ -1,11 +1,13 @@
 import {Router} from '@angular/router';
 import {inject, Injectable} from '@angular/core';
+import {EnvironmentConfig} from "../config/environment.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouterNavigationService {
   private router = inject(Router);
+  private environment = inject(EnvironmentConfig)
 
 
   home() {
@@ -24,10 +26,6 @@ export class RouterNavigationService {
     this.router.navigate(['/chess']);
   }
 
-  chess_settings() {
-    this.router.navigate(['/chess-settings']);
-  }
-
   open(url: string) {
     window.open(url, '_blank');
   }
@@ -41,6 +39,10 @@ export class RouterNavigationService {
 
   microservices() {
     this.router.navigate(['/microservices'])
+  }
+
+  zipkin() {
+      open(this.environment.zipkin())
   }
 
   login() {
@@ -75,15 +77,7 @@ export class RouterNavigationService {
     this.router.navigate(['/fitness']);
   }
 
-  fitness_settings() {
-    this.router.navigate(['/fitness-settings']);
-  }
-
   music() {
     this.router.navigate(['/music']);
-  }
-
-  music_settings() {
-    this.router.navigate(['/music-settings']);
   }
 }

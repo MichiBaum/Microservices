@@ -5,5 +5,6 @@ export const environment = {
   chessService: (domain: string) => `https://chess.${domain}/api`,
   adminService: (domain: string) => `https://admin.${domain}`,
   fitnessService: (domain: string) => `https://fitness.${domain}/api`,
-  musicService: (domain: string) => `https://music.${domain}/api`
+  musicService: (domain: string) => `https://music.${domain}/api`,
+  zipkinService: (domain: string) => `https://zipkin.${domain}/zipkin`
 };

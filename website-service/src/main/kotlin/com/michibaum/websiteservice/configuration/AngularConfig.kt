@@ -1,4 +1,4 @@
-package com.michibaum.websiteservice
+package com.michibaum.websiteservice.configuration
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource

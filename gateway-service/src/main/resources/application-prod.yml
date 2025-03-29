@@ -47,6 +47,18 @@ eureka:
     secure-port-enabled: true
     secure-port: 443
 
+management:
+  zipkin:
+    service-url: http://zipkin:9411
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+      export:
+        enabled: true
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
 cors:
   allowed-origin-patterns:
     - https://michibaum.ch

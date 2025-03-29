@@ -39,4 +39,8 @@ export class EnvironmentConfig {
     return environment.musicService(this.hostname);
   }
 
+  zipkin(): string {
+      return environment.zipkinService(this.hostname);
+  }
+
 }
