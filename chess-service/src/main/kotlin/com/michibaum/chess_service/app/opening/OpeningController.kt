@@ -18,7 +18,7 @@ class OpeningController(
 
     @PublicEndpoint
     @GetMapping("/api/openings")
-    fun getAllOpenings(): ResponseEntity<List<OpeningResponseDto>> { // TODO executes many querys but dont know why
+    fun getAllOpenings(): ResponseEntity<List<OpeningResponseDto>> {
         val openings = openingService.getAllEagerLastMove(false)
         val dtos = openings.map { opening -> openingConverter.toDto(opening) }
         return ResponseEntity.ok(dtos)
