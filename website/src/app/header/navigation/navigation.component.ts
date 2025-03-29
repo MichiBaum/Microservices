@@ -17,6 +17,7 @@ import {
     faHouse,
     faKey,
     faLightbulb,
+    faMap,
     faMicrochip,
     faStamp,
     faUser
@@ -166,6 +167,15 @@ export class NavigationComponent implements OnInit, OnDestroy{
               this.sidebarVisible.set(false)
               this.routerNavigationService.microservices();
             }
+          } as MenuItem,
+          {
+            label: "Zipkin",
+            customIcon: faMap,
+            visible: Sides.microservices.canActivate(this.permissionService),
+            command: () => {
+             this.sidebarVisible.set(false)
+             this.routerNavigationService.zipkin();
+            },
           } as MenuItem,
           {
             label: 'navigation.github',
