@@ -6,6 +6,8 @@ services:
     env_file:
       - .env
     restart: always
+    depends_on:
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -28,6 +30,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -50,6 +53,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${AUTHENTICATION_DB_USERNAME}
@@ -101,6 +105,7 @@ services:
     depends_on:
       - registry-service
       - usermanagement-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${USERMANAGEMENT_DB_USERNAME}
@@ -151,6 +156,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -175,6 +181,7 @@ services:
     restart: always
     depends_on:
       - registry-service
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
@@ -198,6 +205,7 @@ services:
     depends_on:
       - registry-service
       - chess-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${CHESS_DB_USERNAME}
@@ -250,6 +258,7 @@ services:
     depends_on:
       - registry-service
       - fitness-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${FITNESS_DB_USERNAME}
@@ -301,6 +310,7 @@ services:
     depends_on:
       - registry-service
       - music-db
+      - zipkin
     environment:
       spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
       DATABASE_USERNAME: ${MUSIC_DB_USERNAME}
@@ -342,6 +352,42 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
+
+  zipkin-storage:
+    image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.4
+    restart: always
+    expose:
+      - "9200"
+    volumes:
+      - /data/zipkin-storage:/usr/share/elasticsearch/data
+    networks:
+      - microservice-network
+
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin:3.4
+    restart: always
+    depends_on:
+      - zipkin-storage
+    environment:
+      STORAGE_TYPE: elasticsearch
+      ES_HOSTS: zipkin-storage:9200
+    expose:
+      - "9411"
+    networks:
+      - microservice-network
+
+  zipkin-dependencies:
+    image: ghcr.io/openzipkin/zipkin-dependencies
+    restart: always
+    depends_on:
+      - zipkin-storage
+    user: root
+    entrypoint: /usr/sbin/crond -f
+    environment:
+      STORAGE_TYPE: elasticsearch
+      ES_HOSTS: zipkin-storage:9200
+    networks:
+      - microservice-network
 
 #  Matomo
 # https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
