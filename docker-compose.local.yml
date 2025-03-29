@@ -1,12 +1,12 @@
 services:
   zipkin-storage:
-    image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.4
+    image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.5
     restart: always
     expose:
       - "9200"
 
   zipkin:
-    image: ghcr.io/openzipkin/zipkin:3.4
+    image: ghcr.io/openzipkin/zipkin:3.5
     restart: always
     depends_on:
       - zipkin-storage
@@ -20,7 +20,7 @@ services:
       - "9411:9411"
 
   zipkin-dependencies:
-    image: ghcr.io/openzipkin/zipkin-dependencies
+    image: ghcr.io/openzipkin/zipkin-dependencies:3.2
     restart: always
     depends_on:
       - zipkin-storage
