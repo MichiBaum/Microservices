@@ -1,7 +1,9 @@
 package com.michibaum.gatewayservice.config
 
+import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.gatewayservice.app.robotstxt.RobotsTxtController
 import com.michibaum.gatewayservice.app.sitemapxml.SitemapXmlController
+import com.michibaum.permission_library.Permissions
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb
@@ -10,6 +12,7 @@ import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.htt
 import org.springframework.cloud.gateway.server.mvc.predicate.GatewayRequestPredicates.host
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.function.RouterFunction
 import org.springframework.web.servlet.function.ServerResponse
 import java.net.URI
@@ -25,7 +28,8 @@ class RouterConfiguration {
     fun gatewayRoutes(
         zipkinProperties: ZipkinProperties,
         robotsTxtController: RobotsTxtController,
-        sitemapXmlController: SitemapXmlController
+        sitemapXmlController: SitemapXmlController,
+        authFilter: ServletAuthenticationFilter
     ): RouterFunction<ServerResponse> {
         return route()
             // Add a redirect for "www.michibaum.*"
@@ -48,8 +52,15 @@ class RouterConfiguration {
 
             // Specific services (Higher priority)
             .route(host("admin.michibaum.*"), lb("admin-service").apply(http()))
-            // TODO require authentication for zipkin
-            //  .route(host("zipkin.michibaum.*"), http(zipkinProperties.serviceUrl))
+            .route(host("zipkin.michibaum.*")){request ->
+                val authentication = authFilter.getAuthentication(request.servletRequest())
+                if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.contains(Permissions.ADMIN_SERVICE.name)) {
+                    ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
+                } else {
+                    http(zipkinProperties.serviceUrl).handle(request)
+                }
+
+            }
             .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
             .route(host("authentication.michibaum.*"), lb("authentication-service").apply(http()))
             .route(host("usermanagement.michibaum.*"), lb("usermanagement-service").apply(http()))

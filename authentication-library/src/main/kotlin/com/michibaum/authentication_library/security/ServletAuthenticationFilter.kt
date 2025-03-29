@@ -36,9 +36,7 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
         filterChain: FilterChain,
     ) {
         try {
-            val authenticationResult: Authentication? =
-                converters.mapNotNull { converter: AuthenticationConverter -> converter.convert(request) }
-                    .firstNotNullOfOrNull { authentication -> authenticationManager.authenticate(authentication) }
+            val authenticationResult: Authentication? = getAuthentication(request)
 
             if (authenticationResult == null) {
                 filterChain.doFilter(request, response)
@@ -51,6 +49,10 @@ class ServletAuthenticationFilter(private val authenticationManager: Authenticat
         }
     }
 
+    fun getAuthentication(request: HttpServletRequest): Authentication? {
+        return converters.mapNotNull { converter: AuthenticationConverter -> converter.convert(request) }
+            .firstNotNullOfOrNull { authentication -> authenticationManager.authenticate(authentication) }
+    }
 
     @Throws(IOException::class, ServletException::class)
     private fun unsuccessfulAuthentication(
