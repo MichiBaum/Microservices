@@ -1,12 +1,16 @@
 services:
   zipkin-storage:
     image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.5
+    env_file:
+      - .local-env
     restart: always
     expose:
       - "9200"
 
   zipkin:
     image: ghcr.io/openzipkin/zipkin:3.5
+    env_file:
+      - .local-env
     restart: always
     depends_on:
       - zipkin-storage
@@ -21,6 +25,8 @@ services:
 
   zipkin-dependencies:
     image: ghcr.io/openzipkin/zipkin-dependencies:3.2
+    env_file:
+      - .local-env
     restart: always
     depends_on:
       - zipkin-storage
@@ -32,17 +38,18 @@ services:
 
   prometheus:
     build:
-      dockerfile: prometheus/Dockerfile
+      context: prometheus
+      dockerfile: Dockerfile
+    environment:
+      PROMETHEUS_EUREKA_URL: http://admin_username:admin_password@host.docker.internal:8761/eureka
+      PROMETHEUS_EUREKA_USERNAME: admin_username
+      PROMETHEUS_EUREKA_PASSWORD: admin_password
     ports:
       - "9090:9090"
-    environment:
-      EUREKA_URL: http://admin_username:admin_password@host.docker.internal:8761/eureka
-      EUREKA_USERNAME: admin_username
-      EUREKA_PASSWORD: admin_password
-    volumes:
-      - ./prometheus:/etc/prometheus
 
   grafana:
     image: grafana/grafana
     ports:
       - "3000:3000"
+    volumes:
+      - ./grafana:/etc/grafana/provisioning

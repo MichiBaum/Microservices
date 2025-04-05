@@ -395,15 +395,16 @@ services:
       - microservice-network
 
   prometheus:
-    image: prom/prometheus
+    build:
+      context: prometheus
+      dockerfile: Dockerfile
     restart: always
+    environment:
+      PROMETHEUS_EUREKA_URL: ${PROMETHEUS_EUREKA_URL}
+      PROMETHEUS_EUREKA_USERNAME: ${ADMIN_SERVICE_USERNAME}
+      PROMETHEUS_EUREKA_PASSWORD: ${ADMIN_SERVICE_PASSWORD}
     expose:
       - "9090"
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    volumes:
-      - ./prometheus:/etc/prometheus
-      - /data/prometheus:/prometheus
     networks:
       - microservice-network
 
@@ -415,7 +416,7 @@ services:
     expose:
       - "3000"
     volumes:
-      - ./grafana:/etc/grafana/provisioning/datasources
+      - ./grafana:/etc/grafana/provisioning
     networks:
       - microservice-network
 

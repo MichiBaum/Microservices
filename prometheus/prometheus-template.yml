@@ -5,10 +5,10 @@ global:
 scrape_configs:
   - job_name: 'eureka'
     eureka_sd_configs:
-      - server: ${EUREKA_URL}
+      - server: ${PROMETHEUS_EUREKA_URL}
     basic_auth:
-      username: ${EUREKA_USERNAME}
-      password: ${EUREKA_PASSWORD}
+      username: ${PROMETHEUS_EUREKA_USERNAME}
+      password: ${PROMETHEUS_EUREKA_PASSWORD}
     relabel_configs:
       - source_labels: [ __meta_eureka_app_name ]
         target_label: application
