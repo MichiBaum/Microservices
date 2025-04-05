@@ -54,7 +54,6 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
         "enable": true,
@@ -92,7 +91,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -171,7 +169,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -249,7 +246,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -333,7 +329,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -440,7 +435,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -540,7 +534,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -671,7 +664,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -768,7 +760,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "max(http_server_requests_seconds_max{application=\"$application\", instance=\"$instance\", status!~\"5..\"})",
@@ -870,7 +861,6 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "tomcat_threads_busy_threads{application=\"$application\", instance=\"$instance\"}",
@@ -894,7 +884,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "tomcat_threads_config_max_threads{application=\"$application\", instance=\"$instance\"}",
@@ -918,7 +907,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "jetty_threads_current{application=\"$application\", instance=\"$instance\"}",
@@ -959,7 +947,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -1058,7 +1045,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(jvm_memory_committed_bytes{application=\"$application\", instance=\"$instance\", area=\"heap\"})",
@@ -1086,7 +1072,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -1186,7 +1171,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(jvm_memory_committed_bytes{application=\"$application\", instance=\"$instance\", area=\"nonheap\"})",
@@ -1214,7 +1198,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -1313,7 +1296,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(jvm_memory_committed_bytes{application=\"$application\", instance=\"$instance\"})",
@@ -1341,7 +1323,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -1441,7 +1422,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "process_memory_rss_bytes{application=\"$application\", instance=\"$instance\"}",
@@ -1463,7 +1443,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "process_memory_rss_bytes{application=\"$application\", instance=\"$instance\"} + process_memory_swap_bytes{application=\"$application\", instance=\"$instance\"}",
@@ -1579,7 +1558,6 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "system_cpu_usage{application=\"$application\", instance=\"$instance\"}",
@@ -1605,7 +1583,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "avg_over_time(process_cpu_usage{application=\"$application\", instance=\"$instance\"}[15m])",
@@ -1708,7 +1685,6 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "system_load_average_1m{application=\"$application\", instance=\"$instance\"}",
@@ -1736,7 +1712,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
@@ -1836,7 +1811,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "jvm_threads_daemon_threads{application=\"$application\", instance=\"$instance\"}",
@@ -1861,7 +1835,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "process_threads{application=\"$application\", instance=\"$instance\"}",
@@ -2054,7 +2027,6 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "jvm_threads_states_threads{application=\"$application\", instance=\"$instance\"}",
@@ -2158,7 +2130,6 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "sum(rate(jvm_gc_pause_seconds_sum{application=\"$application\", instance=\"$instance\"}[1m])) by (application, instance) / on(application, instance) system_cpu_count",
@@ -2336,7 +2307,6 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "increase(logback_events_total{application=\"$application\", instance=\"$instance\"}[1m])",
@@ -2442,7 +2412,6 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "process_files_open_files{application=\"$application\", instance=\"$instance\"}",
@@ -2488,7 +2457,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
@@ -2519,7 +2487,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "jvm_memory_committed_bytes{application=\"$application\", instance=\"$instance\", id=~\"$jvm_memory_pool_heap\"}",
@@ -2566,7 +2533,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
@@ -2597,7 +2563,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "jvm_memory_committed_bytes{application=\"$application\", instance=\"$instance\", id=~\"$jvm_memory_pool_nonheap\"}",
@@ -2644,64 +2609,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "ops"
-        },
-        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -2710,20 +2618,6 @@
         "y": 52
       },
       "id": 98,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -2743,64 +2637,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -2809,20 +2646,6 @@
         "y": 52
       },
       "id": 101,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -2839,7 +2662,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "jvm_gc_pause_seconds_max{application=\"$application\", instance=\"$instance\"}",
@@ -2859,62 +2681,6 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "Bps"
-        },
-        "overrides": []
-      },
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -2922,24 +2688,9 @@
         "y": 52
       },
       "id": 99,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "rate(jvm_gc_memory_allocated_bytes_total{application=\"$application\", instance=\"$instance\"}[1m])",
@@ -2980,64 +2731,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -3046,20 +2740,6 @@
         "y": 60
       },
       "id": 37,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -3080,63 +2760,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -3145,20 +2769,6 @@
         "y": 60
       },
       "id": 38,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
       "targets": [
         {
           "datasource": {
@@ -3194,7 +2804,6 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
@@ -3221,7 +2830,6 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "expr": "jvm_buffer_total_capacity_bytes{application=\"$application\", instance=\"$instance\", id=~\"$jvm_buffer_pool\"}",
@@ -3332,6 +2940,16 @@
         "regex": "",
         "sort": 1,
         "type": "query"
+      },
+      {
+        "current": {},
+        "label": "Prometheus",
+        "name": "DS_PROMETHEUS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
       }
     ]
   },
@@ -3342,7 +2960,7 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "JVM (Micrometer)",
-  "uid": "aehzlpe6nkdfkd",
-  "version": 1,
+  "uid": "fehzzxyjj53i8f",
+  "version": 2,
   "weekStart": ""
 }
