@@ -1,12 +1,13 @@
-name: Build and Publish
+name: Build and Publish Tagged Version
 
 on:
   push:
-    branches: [ "master" ]
+    tags:
+      - '*'
 
 jobs:
   build:
-    name: 'Build and publish latest docker containers'
+    name: 'Build and publish tagged docker containers'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,11 +24,15 @@ jobs:
         with:
           node-version: 20
 
+      - name: Get tag name
+        id: get_tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
       - name: Angular install
         run: npm --prefix ./website install ./website
 
       - name: Angular build
         run: npm run --prefix website build-production
 
-      - name: Maven package and publish latest
-        run: mvn package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=latest
+      - name: Maven package and publish with tag
+        run: mvn package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=${{ env.TAG_NAME }}
