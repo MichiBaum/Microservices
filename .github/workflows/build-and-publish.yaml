@@ -3,10 +3,12 @@ name: Build and Publish
 on:
   push:
     branches: [ "master" ]
+    tags:
+      - '*'
 
 jobs:
   build:
-    name: 'Build and publish latest docker containers'
+    name: 'Build and publish docker containers'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,11 +25,20 @@ jobs:
         with:
           node-version: 20
 
+      - name: Determine tag
+        id: determine_tag
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            echo "DOCKER_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+          else
+            echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+          fi
+
       - name: Angular install
         run: npm --prefix ./website install ./website
 
       - name: Angular build
         run: npm run --prefix website build-production
 
-      - name: Maven package and publish latest
-        run: mvn package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=latest
+      - name: Maven package and publish
+        run: mvn package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=${{ env.DOCKER_TAG }}
