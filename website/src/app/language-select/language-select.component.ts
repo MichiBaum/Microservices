@@ -1,19 +1,17 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {LanguageConfig} from "../core/config/language.config";
 import {TranslateModule} from "@ngx-translate/core";
-import {DropdownModule} from "primeng/dropdown";
-import {SelectButtonModule} from "primeng/selectbutton";
 import {Language} from "../core/models/language.model";
+import {Listbox} from "primeng/listbox";
 import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-language-select',
-  imports: [
-    DropdownModule,
-    SelectButtonModule,
-    TranslateModule,
-    FormsModule
-  ],
+    imports: [
+        TranslateModule,
+        Listbox,
+        FormsModule
+    ],
   templateUrl: './language-select.component.html',
   styleUrl: './language-select.component.scss'
 })

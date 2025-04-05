@@ -35,7 +35,8 @@
             "s3": "Im Frontend habe ich mit einer Vielzahl von Technologien gearbeitet, darunter Angular, HTML, CSS, JSP, JavaScript und Knockout.js. Mein derzeitiges Frontend-Framework der Wahl ist Angular, oft kombiniert mit PrimeNG für eine moderne Benutzeroberfläche. Während ich mich mehr auf die Backend-Entwicklung konzentriere, versuche ich immer, eine nahtlose Verbindung zwischen Frontend und Backend herzustellen, um ein großartiges Benutzererlebnis zu gewährleisten.",
             "title": "Meine Leidenschaft für Entwicklung"
         },
-        "title": "Über mich - Michael Baumberger"
+        "title": "Über mich",
+        "title-with-name": "Über mich - Michael Baumberger"
     },
     "application": {
         "title": "Microservices"
@@ -201,8 +202,10 @@
         "translation-title": "Übersetzung"
     },
     "languages": {
+        "chinese": "中文",
         "english": "English",
-        "german": "Deutsch"
+        "german": "Deutsch",
+        "spanish": "Español"
     },
     "login": {
         "login": "Anmelden",

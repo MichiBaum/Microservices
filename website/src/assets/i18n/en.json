@@ -202,8 +202,10 @@
         "translation-title": "Translation"
     },
     "languages": {
+        "chinese": "中文",
         "english": "English",
-        "german": "Deutsch"
+        "german": "Deutsch",
+        "spanish": "Español"
     },
     "login": {
         "login": "Login",
