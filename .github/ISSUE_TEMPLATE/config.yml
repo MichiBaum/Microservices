@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and Discussions
+    url: https://github.com/michibaum/Microservices/discussions
+    about: Please ask and answer questions here.
+  - name: Project Documentation
+    url: https://michibaum.github.io/Microservices/
+    about: Check the project documentation for help.

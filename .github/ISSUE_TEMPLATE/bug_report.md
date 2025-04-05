@@ -7,32 +7,51 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+## 🐛 Bug Description
 A clear and concise description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior:
+## 🔍 Affected Service(s)
+Which microservice(s) are affected by this bug:
+- [ ] Admin Service
+- [ ] Authentication Service
+- [ ] Chess Service
+- [ ] Fitness Service
+- [ ] Gateway Service
+- [ ] Music Service
+- [ ] Registry Service
+- [ ] User Management Service
+- [ ] Website Service
+- [ ] Website
+- [ ] Other (please specify)
+
+## 🔄 Steps to Reproduce
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+## ✅ Expected Behavior
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+## 📱 Environment
+**Client:**
+- Device: [e.g. Desktop, iPhone 13]
+- OS: [e.g. Windows 11, iOS 15]
+- Browser: [e.g. Chrome 96, Safari]
+- Version: [e.g. 22]
+
+**Server/Deployment:**
+- Environment: [e.g. Development, Staging, Production]
+- Docker version (if applicable): [e.g. 20.10.12]
+- Kubernetes version (if applicable): [e.g. 1.23]
+
+## 📋 Logs
+```
+Paste any relevant logs here
+```
+
+## 📷 Screenshots
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
-- OS: [e.g. iOS]
-- Browser [e.g. chrome, safari]
-- Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
-- Device: [e.g. iPhone6]
-- OS: [e.g. iOS8.1]
-- Browser [e.g. stock browser, safari]
-- Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+## 📝 Additional Context
+Add any other context about the problem here, such as potential interactions with other services.
