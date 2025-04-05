@@ -15,6 +15,10 @@ export const languages: Language[] = [
   {
     name: 'languages.spanish',
     isoCode: 'es'
+  } as Language,
+  {
+    name: 'languages.chinese',
+    isoCode: 'zh'
   } as Language
 ];
 

@@ -1,0 +1,270 @@
+{
+    "about-me": {
+        "beyond-coding": {
+            "s1": "虽然编程是我的主要热情所在，但我对软件架构、IT安全和团队管理也有浓厚的兴趣。设计稳健且可扩展的系统让我感到兴奋，就像实施安全最佳实践来保护应用程序免受漏洞影响一样。此外，我喜欢学习有效的团队协作以及如何创建高效且激励人心的开发环境。",
+            "s2": "我通过阅读软件开发、架构和安全方面的书籍不断扩展我的知识。目前，我拥有约30本技术书籍，涵盖从设计模式到干净代码原则和分布式系统等主题。跟上技术最新趋势是我真正享受的事情。",
+            "title": "编程之外"
+        },
+        "customer-project": {
+            "s1": "您有网站或网络应用程序的想法，但不知道从何开始？或者您现有的项目需要改进、更好的性能或全新的设计？我可以帮助您！",
+            "s2": "凭借我在后端和前端开发方面的经验，我创建现代、安全且可扩展的应用程序，满足您的需求。无论是商业网站、定制网络应用还是内部工具，我都专注于干净的架构、可维护性和性能。",
+            "s3": "我主要使用Java、Kotlin和Spring Boot进行后端开发，使用Angular进行前端应用程序开发。但我始终为工作选择最佳技术，确保您的项目在考虑可扩展性、安全性和长期可维护性的前提下构建。",
+            "s4": "如果您感兴趣，请随时联系我，让我们讨论如何将您的想法变为现实！",
+            "title": "需要网站或网络应用程序？"
+        },
+        "experience": {
+            "experience": "经验",
+            "intro": "这里展示了我的经验列表。",
+            "platforms-and-tools": "平台和工具",
+            "programming-languages-and-databases": "编程语言和数据库",
+            "rating": "评级（关于我自己）",
+            "softskills": "软技能",
+            "years": "年份"
+        },
+        "introduction": {
+            "s1": "你好！我的名字是Michael Baumberger。我是一名来自瑞士的热情软件开发者，在网络开发和后端工程方面有着丰富的背景。我在IT世界的旅程始于2017年至2021年在Würth ITensis的学徒期，在那里我获得了构建、维护和优化软件解决方案的实践经验。完成学徒期后，我继续在那里工作到2024年，进一步提升我的技能并参与各种项目。"
+        },
+        "lets-contact": {
+            "s1": "如果您有兴趣合作，或者只是想聊聊软件开发、架构或安全方面的话题，请随时联系我！我始终对新挑战、合作和有趣的讨论持开放态度。",
+            "title": "让我们联系！"
+        },
+        "meta-description": "了解Michael Baumberger，一位专注于网络开发和后端工程的软件开发者。探索他的旅程、成就以及对构建稳健安全应用程序的热情。",
+        "passion": {
+            "s1": "编程不仅是我的工作，更是我热爱的事业。我不断探索新技术，提升技能，并从事副项目。多年来，我对干净的代码、结构良好的架构和安全的应用程序产生了深刻的认识。",
+            "s2": "在后端方面，我主要使用Java、Kotlin和Spring框架，这些我在专业环境中广泛使用。对于个人项目，我更喜欢Kotlin，因为我喜欢它简洁的语法、空安全和函数式编程能力。我还有使用Spring Boot、Spring Cloud和微服务架构的经验，确保应用程序可扩展且易于维护。",
+            "s3": "在前端方面，我使用过多种技术，包括Angular、HTML、CSS、JSP、JavaScript和Knockout.js。我目前选择的前端框架是Angular，通常与PrimeNG结合使用，以实现现代化的用户界面。虽然我更专注于后端开发，但我始终致力于创建前端和后端之间的无缝连接，确保良好的用户体验。",
+            "title": "我对开发的热情"
+        },
+        "title": "关于我",
+        "title-with-name": "关于我 - Michael Baumberger"
+    },
+    "application": {
+        "title": "微服务"
+    },
+    "chess": {
+        "account": {
+            "name": "名称",
+            "platform": "平台",
+            "size": "大小"
+        },
+        "event": {
+            "account": "账户",
+            "birthday": "生日",
+            "chess-com": "Chess.com",
+            "date-from": "从",
+            "date-to": "至",
+            "details": "详情",
+            "federation": "联盟",
+            "games": "对局",
+            "location": "地点",
+            "meta-description": "深入了解{{title}}的精彩细节，该活动从{{from}}持续到{{to}}，在{{location}}举行，展示顶级比赛和竞赛。查看日程安排、参与者和亮点，获得真正引人入胜的体验。",
+            "open-account": "打开账户",
+            "open-official-website": "打开官方网站",
+            "organizer": "组织者",
+            "participant": {
+                "firstname": "名",
+                "lastname": "姓"
+            },
+            "participants": "参与者",
+            "sort": {
+                "birthday": "生日",
+                "federation": "联盟",
+                "firstname": "名",
+                "lastname": "姓"
+            },
+            "tab-title": "{{title}} - MichiBaum",
+            "title": "{{title}}"
+        },
+        "events": {
+            "meta-description": "探索即将到来的国际象棋锦标赛、俱乐部聚会和向各级爱好者开放的展览。与志同道合的爱好者交流，学习新策略，沉浸在竞技游戏中。",
+            "tab-title": "国际象棋赛事",
+            "title": "国际象棋赛事"
+        },
+        "home": {
+            "popular-openings": "流行开局",
+            "recent-upcoming": "最近、正在进行和即将到来的赛事",
+            "start-openings": "开始开局",
+            "to-all-events": "查看所有赛事"
+        },
+        "meta-description": "沉浸在国际象棋的战略世界中，与各种对手对弈提升技能。探索锦标赛、迷人的开局、战术以及这个永恒游戏背后的历史。",
+        "navigation": {
+            "all-events": "所有赛事",
+            "events": "赛事",
+            "home": "首页",
+            "news": "新闻",
+            "openings": "开局",
+            "person": "个人",
+            "player-analysis": "棋手分析",
+            "popular-openings": "流行开局",
+            "settings": "设置",
+            "start-openings": "开始开局"
+        },
+        "news": {
+            "meta-description": "了解最新的国际象棋新闻，从重大锦标赛到杰出棋手的成就。获取全球赛事的快速亮点和深入报道。",
+            "tab-title": "国际象棋新闻 - MichiBaum",
+            "title": "国际象棋新闻"
+        },
+        "opening": {
+            "tree-depth": "树深度："
+        },
+        "openings": {
+            "meta-description": "探索各种国际象棋开局，每种开局都有独特的优势和策略。通过掌握新战术和扩展开局库来提升您的游戏水平。",
+            "tab-title": "开局 - MichiBaum",
+            "title": "开局"
+        },
+        "platform": {
+            "CHESSCOM": "Chess.com",
+            "FIDE": "国际象棋联合会",
+            "FREESTYLE": "自由式",
+            "LICHESS": "Lichess"
+        },
+        "player": {
+            "firstname": "名",
+            "lastname": "姓",
+            "search-person": "搜索人员"
+        },
+        "tab-title": "国际象棋 - MichiBaum",
+        "title": "国际象棋"
+    },
+    "chess-settings": {
+        "title": "国际象棋设置"
+    },
+    "donate": {
+        "buy-me-a-coffee": "请我喝杯咖啡",
+        "hosttech": "前往Hosttech",
+        "meta-description": "通过支持我的努力，帮助我继续提供有价值的内容。每一份贡献都会产生影响，推动增长并改善用户体验。",
+        "s1": "👋 你好！我热衷于创建这个网站 🌐，并致力于提供高质量的内容 📚 和流畅的体验。为了保持一切顺利运行，我每周花费约30小时 🕒 进行改进、功能开发和维护。此外，维护服务器每月花费约70瑞士法郎 💰。",
+        "s2": "💡 如果您喜欢这个网站或发现它很有用，请考虑支持我的工作 🤝。您的赞助有助于支付成本，让我能够投入更多时间来构建和完善网站 🛠️。",
+        "s3": "🌟 如果您自己正在寻找可靠的服务器，我推荐Hosttech。使用我的促销代码31886957开始使用他们的服务 🚀。",
+        "s4": "🙏 感谢您的支持，感谢您成为这段旅程的一部分！🌈",
+        "tab-title": "捐赠 - MichiBaum",
+        "title": "捐赠"
+    },
+    "fitness": {
+        "title": "健身"
+    },
+    "fitness-settings": {
+        "title": "健身设置"
+    },
+    "general": {
+        "sort": "排序"
+    },
+    "home": {
+        "about-me": {
+            "button": "前往关于我",
+            "content": "谁是这个平台的开发者？了解更多关于我的信息！",
+            "title": "关于我"
+        },
+        "chess": {
+            "button": "前往国际象棋",
+            "content": "国际象棋很有趣。关于国际象棋棋手的统计数据更有趣。",
+            "title": "国际象棋"
+        },
+        "donate": {
+            "button": "前往捐赠",
+            "content": "您喜欢这个网站吗？考虑给我捐赠一杯咖啡。",
+            "title": "捐赠"
+        },
+        "fitness": {
+            "button": "前往健身",
+            "content": "健身和统计数据结合在一起？哇哇哇！！",
+            "title": "健身"
+        },
+        "login": {
+            "button": "前往登录",
+            "content": "想看更多内容？登录或注册！",
+            "title": "登录"
+        },
+        "meta-description": "浏览我们网站的主页，了解最新更新和功能。深入探索从个人项目到社区见解的各种内容。",
+        "music": {
+            "button": "前往音乐",
+            "content": "音乐表达了言语无法表达的内容，超越一切地触动人心。",
+            "title": "音乐"
+        },
+        "tab-title": "首页 - MichiBaum",
+        "title": "首页"
+    },
+    "imprint": {
+        "contact-address-title": "联系地址",
+        "copyrights": "本网站内容、图像、照片或其他文件的版权和所有其他权利专属于上述所有者或特别指定的权利持有人。在复制任何元素之前，必须事先获得版权持有人的书面同意。",
+        "copyrights-title": "版权",
+        "disclaimer-of-liability-1": "作者对信息的正确性、准确性、及时性、可靠性和完整性不承担任何责任。",
+        "disclaimer-of-liability-2": "因访问或使用或不使用已发布信息、滥用连接或技术故障而导致的物质或非物质损害的责任索赔均不予受理。",
+        "disclaimer-of-liability-3": "所有报价均不具约束力。作者明确保留更改、补充或删除页面部分或整个报价的权利，恕不另行通知，或暂时或永久停止发布。",
+        "disclaimer-of-liability-for-links": "对第三方网站的引用和链接超出了我们的责任范围。我们拒绝对此类网站承担任何责任。访问和使用此类网站的风险由用户自行承担。",
+        "disclaimer-of-liability-for-links-title": "链接免责声明",
+        "disclaimer-of-liability-title": "免责声明",
+        "email-title": "电子邮件：",
+        "meta-description": "在此处查找本网站的基本法律详情和联系信息。了解我们如何保护您的数据并遵守相关法规。",
+        "tab-title": "版权说明 - MichiBaum",
+        "title": "版权说明",
+        "translation-description": "此应用程序/网站最初是用德语编写的。所有其他可用语言均未经人工翻译，因此可能包含翻译错误。",
+        "translation-title": "翻译"
+    },
+    "languages": {
+        "chinese": "中文",
+        "english": "English",
+        "german": "Deutsch",
+        "spanish": "Español"
+    },
+    "login": {
+        "login": "登录",
+        "meta-description": "安全地访问您的帐户并方便地管理您的个人设置。期待一个简单的注册过程以获得无缝的用户体验。",
+        "password": "密码",
+        "register": "前往注册",
+        "tab-title": "登录 - MichiBaum",
+        "title": "登录",
+        "username": "用户名"
+    },
+    "microservices": {
+        "meta-description": "探索我们使用微服务构建灵活、可扩展应用程序的模块化方法。了解各个服务如何无缝通信，同时保持强大的性能。",
+        "tab-title": "微服务 - MichiBaum",
+        "title": "微服务"
+    },
+    "music": {
+        "title": "音乐"
+    },
+    "music-settings": {
+        "title": "音乐设置"
+    },
+    "navigation": {
+        "apps": "应用",
+        "developer-and-project": "开发者与项目",
+        "else": "其他",
+        "github": "Github",
+        "light-dark-mode": "明/暗模式",
+        "navigation": "导航",
+        "settings": "设置"
+    },
+    "owner": {
+        "address": "Birchli 14",
+        "city": "8840 Einsiedeln",
+        "country": "瑞士",
+        "email": "admin@michibaum.ch",
+        "name": "Michael Baumberger"
+    },
+    "register": {
+        "email": "电子邮件",
+        "error": {
+            "details": "该用户名或电子邮箱可能已被使用。",
+            "summary": "注册失败"
+        },
+        "login": "前往登录",
+        "meta-description": "创建一个新帐户来解锁高级功能并加入我们不断壮大的社区。注册快捷、用户友好且完全免费。",
+        "password": "密码",
+        "register": "注册",
+        "success": {
+            "details": "您现在可以登录。",
+            "summary": "注册成功"
+        },
+        "tab-title": "注册 - MichiBaum",
+        "title": "注册",
+        "username": "用户名"
+    },
+    "sw-update": {
+        "later": "稍后",
+        "update": "更新",
+        "update-available": "更新可用！",
+        "update-available-message": "新版本可用！"
+    }
+}
