@@ -299,7 +299,8 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <jvmTarget>${java.version}</jvmTarget>
+                    <languageVersion>${kotlin.compiler.languageVersion}</languageVersion>
+                    <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
                     <args>
                         <arg>-Xjsr305=strict</arg>
                     </args>
