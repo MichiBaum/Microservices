@@ -203,7 +203,8 @@
     },
     "languages": {
         "english": "English",
-        "german": "Deutsch"
+        "german": "Deutsch",
+        "spanish": "Español"
     },
     "login": {
         "login": "Login",
