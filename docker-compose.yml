@@ -166,8 +166,13 @@ services:
       - /data/ssl:/data/ssl
     networks:
       - microservice-network
+# Healthcheck disabled due to SSL certificate verification issues
+# To enable, either:
+# 1. Configure wget to skip certificate verification
+# 2. Use a valid certificate for local healthchecks
+# 3. Use an HTTP endpoint instead of HTTPS for healthchecks
 #    healthcheck:
-#      test: "wget -T5 -qO- https://localhost/actuator/health/readiness | grep UP || exit 1" TODO 283BAA1DD17F0000:error:0A000086:SSL routines:tls_post_process_server_certificate:certificate verify failed:ssl/statem/statem_clnt.c:2103: ssl_client: SSL_connect wget: error getting response: Connection reset by peer
+#      test: "wget --no-check-certificate -T5 -qO- https://localhost/actuator/health/readiness | grep UP || exit 1"
 #      start_period: 5s
 #      interval: 5s
 #      timeout: 5s
@@ -388,10 +393,6 @@ services:
       ES_HOSTS: zipkin-storage:9200
     networks:
       - microservice-network
-
-#  Matomo
-# https://medium.com/@davquar/matomo-lets-install-it-with-docker-512211705c76
-# https://github.com/matomo-org/docker
 
 networks:
   microservice-network:
