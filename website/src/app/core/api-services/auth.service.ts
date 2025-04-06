@@ -16,6 +16,7 @@ export class AuthService {
   private readonly router = inject(RouterNavigationService);
   private readonly httpErrorConfig = inject(HttpErrorHandler);
   private readonly userInfoService = inject(UserInfoService);
+  private readonly jwtName = 'Authentication';
 
   successLoginEmitter = new Subject<void>();
   logoutEmitter = new Subject<void>()
@@ -26,7 +27,7 @@ export class AuthService {
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)))
       .subscribe(value => {
         if(value.jwt != null && value.jwt !== ""){
-          localStorage.setItem('Authentication', value.jwt);
+          localStorage.setItem(this.jwtName, value.jwt);
           this.successLoginEmitter.next()
           this.router.home()
         }
@@ -55,13 +56,13 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem('Authentication');
+    localStorage.removeItem(this.jwtName);
     this.logoutEmitter.next();
     this.router.home()
   }
 
   getJwtTokenFromLocalStorage(){
-    return localStorage.getItem('Authentication')
+    return localStorage.getItem(this.jwtName)
   }
 
   jwtIsPresent() {
@@ -78,4 +79,27 @@ export class AuthService {
     this.router.home()
   }
 
+    private getCookieDomain(): string {
+        const hostname = window.location.hostname;
+        return hostname.startsWith('.') ? hostname : '.' + hostname;
+    }
+
+    setJwtAsCookie() {
+        const jwt = this.getJwtTokenFromLocalStorage();
+        if (!jwt) {
+            return;
+        }
+        const domain = this.getCookieDomain();
+        const date = new Date();
+        date.setTime(date.getTime() + (2 * 60 * 60 * 1000)); // 2 hours
+        const expires = "expires=" + date.toUTCString();
+
+        document.cookie = `${this.jwtName}=${jwt}; ${expires}; domain=${domain}; path=/`;
+
+    }
+
+    removeAuthCookie() {
+        const domain = this.getCookieDomain();
+        document.cookie = `${this.jwtName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${domain}; path=/`;
+    }
 }
