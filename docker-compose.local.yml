@@ -37,15 +37,11 @@ services:
       ES_HOSTS: zipkin-storage:9200
 
   prometheus:
-    build:
-      context: prometheus
-      dockerfile: Dockerfile
-    environment:
-      PROMETHEUS_EUREKA_URL: http://admin_username:admin_password@host.docker.internal:8761/eureka
-      PROMETHEUS_EUREKA_USERNAME: admin_username
-      PROMETHEUS_EUREKA_PASSWORD: admin_password
+    image: prom/prometheus:v3.2.1
     ports:
       - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana

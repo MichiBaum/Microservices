@@ -395,16 +395,12 @@ services:
       - microservice-network
 
   prometheus:
-    build:
-      context: prometheus
-      dockerfile: Dockerfile
+    image: prom/prometheus:v3.2.1
     restart: always
-    environment:
-      PROMETHEUS_EUREKA_URL: ${PROMETHEUS_EUREKA_URL}
-      PROMETHEUS_EUREKA_USERNAME: ${ADMIN_SERVICE_USERNAME}
-      PROMETHEUS_EUREKA_PASSWORD: ${ADMIN_SERVICE_PASSWORD}
     expose:
       - "9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - microservice-network
 
