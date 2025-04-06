@@ -394,6 +394,33 @@ services:
     networks:
       - microservice-network
 
+  prometheus:
+    build:
+      context: prometheus
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      PROMETHEUS_EUREKA_URL: ${PROMETHEUS_EUREKA_URL}
+      PROMETHEUS_EUREKA_USERNAME: ${ADMIN_SERVICE_USERNAME}
+      PROMETHEUS_EUREKA_PASSWORD: ${ADMIN_SERVICE_PASSWORD}
+    expose:
+      - "9090"
+    networks:
+      - microservice-network
+
+  grafana:
+    image: grafana/grafana
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - "3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - microservice-network
+
 networks:
   microservice-network:
     name: microservice-network

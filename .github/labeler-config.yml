@@ -72,3 +72,13 @@ website:
   - any:
     - changed-files:
       - any-glob-to-any-file: ['website/**']
+
+prometheus:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: [ 'prometheus/**' ]
+
+grafana:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: [ 'grafana/**' ]

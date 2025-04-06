@@ -48,8 +48,11 @@ eureka:
     secure-port: 443
 
 management:
+  services:
+    zipkin-url: http://zipkin:9411
+    prometheus-url: http://prometheus:9090
+    grafana-url: http://grafana:3000
   zipkin:
-    service-url: http://zipkin:9411
     tracing:
       endpoint: http://zipkin:9411/api/v2/spans
       export:

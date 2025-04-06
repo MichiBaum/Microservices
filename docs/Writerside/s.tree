@@ -21,6 +21,10 @@
     </toc-element>
     <toc-element topic="Authentication.md"/>
     <toc-element topic="Services.md">
+        <toc-element topic="Grafana.md">
+            <toc-element topic="Datasources.md"/>
+            <toc-element topic="Dashboards.md"/>
+        </toc-element>
         <toc-element topic="Website-Service.md"/>
         <toc-element topic="Usermanagement-Service.md"/>
         <toc-element topic="Registry-Service.md"/>

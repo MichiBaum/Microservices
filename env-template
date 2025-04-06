@@ -49,3 +49,5 @@ SPOTIFY_CLIENT_SECRET=PleaseChangeMe
 
 ZIPKIN_DB_USERNAME=PleaseChangeMe
 ZIPKIN_DB_PASSWORD=PleaseChangeMe
+
+PROMETHEUS_EUREKA_URL=http://admin_username:admin_password@registry-service:8761/eureka
