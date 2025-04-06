@@ -45,6 +45,7 @@ services:
 
   grafana:
     image: grafana/grafana
+    # TODO GF_CSRF_TRUSTED_ORIGINS
     ports:
       - "3000:3000"
     volumes:
