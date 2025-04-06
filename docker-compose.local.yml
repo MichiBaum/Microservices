@@ -39,6 +39,7 @@ services:
 
   grafana:
     image: grafana/grafana
+    # TODO GF_CSRF_TRUSTED_ORIGINS
     environment:
       GF_SERVER_DOMAIN: grafana.michibaum.ch
     ports:
