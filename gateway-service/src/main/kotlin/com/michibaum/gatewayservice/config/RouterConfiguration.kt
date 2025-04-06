@@ -14,11 +14,12 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.function.RouterFunction
+import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
 import java.net.URI
 
 @Configuration
-@EnableConfigurationProperties(value = [ZipkinProperties::class])
+@EnableConfigurationProperties(value = [ServicesProperties::class])
 class RouterConfiguration {
 
     /**
@@ -26,7 +27,7 @@ class RouterConfiguration {
      */
     @Bean
     fun gatewayRoutes(
-        zipkinProperties: ZipkinProperties,
+        servicesProperties: ServicesProperties,
         robotsTxtController: RobotsTxtController,
         sitemapXmlController: SitemapXmlController,
         authFilter: ServletAuthenticationFilter
@@ -53,13 +54,13 @@ class RouterConfiguration {
             // Specific services (Higher priority)
             .route(host("admin.michibaum.*"), lb("admin-service").apply(http()))
             .route(host("zipkin.michibaum.*")){request ->
-                val authentication = authFilter.getAuthentication(request.servletRequest())
-                if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.contains(Permissions.ADMIN_SERVICE.name)) {
-                    ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
-                } else {
-                    http(zipkinProperties.serviceUrl).handle(request)
-                }
-
+                request.authenticate(servicesProperties.zipkinUrl, authFilter)
+            }
+            .route(host("grafana.michibaum.*")){request ->
+                request.authenticate(servicesProperties.grafanaUrl, authFilter)
+            }
+            .route(host("prometheus.michibaum.*")){request ->
+                request.authenticate(servicesProperties.prometheusUrl, authFilter)
             }
             .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
             .route(host("authentication.michibaum.*"), lb("authentication-service").apply(http()))
@@ -75,7 +76,18 @@ class RouterConfiguration {
 
 }
 
-@ConfigurationProperties(prefix = "management.zipkin")
-data class ZipkinProperties(
-    val serviceUrl: URI
+@ConfigurationProperties(prefix = "management.services")
+data class ServicesProperties(
+    val zipkinUrl: URI,
+    val grafanaUrl: URI,
+    val prometheusUrl: URI
 )
+
+fun ServerRequest.authenticate(redirect: URI, authFilter: ServletAuthenticationFilter): ServerResponse {
+    val authentication = authFilter.getAuthentication(servletRequest())
+    return if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.contains(Permissions.ADMIN_SERVICE.name)) {
+        ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
+    } else {
+        http(redirect).handle(this)
+    }
+}

@@ -7,8 +7,11 @@ eureka:
       defaultZone: http://admin_username:admin_password@localhost:8761/eureka
 
 management:
+  services:
+    zipkin-url: http://localhost:9411
+    prometheus-url: http://localhost:9090
+    grafana-url: http://localhost:3000
   zipkin:
-    service-url: http://localhost:9411
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
       export:
