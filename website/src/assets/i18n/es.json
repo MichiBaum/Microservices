@@ -1,0 +1,274 @@
+{
+    "about-me": {
+        "beyond-coding": {
+            "s1": "Aunque la programación es mi mayor pasión, también me interesa mucho la arquitectura de software, la seguridad informática y la gestión de equipos. Me apasiona diseñar sistemas robustos y escalables, así como implementar las mejores prácticas de seguridad para proteger las aplicaciones de vulnerabilidades. También disfruto aprender sobre la colaboración efectiva en equipo y cómo crear un entorno de desarrollo productivo y motivador.",
+            "s2": "Estoy ampliando constantemente mis conocimientos leyendo libros sobre desarrollo de software, arquitectura y seguridad. Actualmente tengo alrededor de 30 libros técnicos que cubren temas que van desde patrones de diseño hasta principios de código limpio y sistemas distribuidos. Realmente disfruto estar actualizado con las últimas tendencias tecnológicas.",
+            "title": "Más allá de la codificación"
+        },
+        "customer-project": {
+            "s1": "¿Tienes una idea para un sitio web o una aplicación web pero no sabes por dónde empezar? ¿O tal vez su proyecto existente necesita mejoras, un mejor rendimiento o un nuevo diseño? ¡Puedo ayudarle!",
+            "s2": "Con mi experiencia en desarrollo backend y frontend, creo aplicaciones modernas, seguras y escalables adaptadas a tus necesidades. Ya sea un sitio web comercial, una aplicación web personalizada o una herramienta interna, me concentro en la arquitectura limpia, la facilidad de mantenimiento y el rendimiento.",
+            "s3": "Trabajo principalmente con Java, Kotlin y Spring Boot para el desarrollo backend y Angular para aplicaciones frontend. Pero siempre elijo las mejores tecnologías para el trabajo y me aseguro de que su proyecto esté construido teniendo en cuenta la escalabilidad, la seguridad y la capacidad de mantenimiento a largo plazo.",
+            "s4": "Si estás interesado, contáctame y discutamos cómo puedo hacer realidad tu idea.",
+            "title": "¿Necesitas un sitio web o una aplicación web?"
+        },
+        "experience": {
+            "experience": "Experiencia",
+            "intro": "Aquí hay una lista de mis experiencias.",
+            "platforms-and-tools": "Plataformas y herramientas",
+            "programming-languages-and-databases": "Lenguajes de programación y bases de datos",
+            "rating": "Calificación (sobre mí)",
+            "softskills": "Habilidades sociales",
+            "years": "Años"
+        },
+        "introduction": {
+            "s1": "¡Hola! Mi nombre es Michael Baumberger. Soy un desarrollador de software apasionado de Suiza con una sólida experiencia en desarrollo web e ingeniería de backend. Mi viaje hacia el mundo de las TI comenzó con una formación en Würth ITensis de 2017 a 2021, donde adquirí experiencia práctica en la creación, el mantenimiento y la optimización de soluciones de software. Tras finalizar mi formación, continué trabajando allí hasta 2024, perfeccionando aún más mis habilidades y trabajando en diversos proyectos."
+        },
+        "lets-contact": {
+            "s1": "Si estás interesado en colaborar o simplemente quieres charlar sobre desarrollo de software, arquitectura o seguridad, ¡no dudes en contactarme! Siempre estoy abierto a nuevos desafíos, colaboraciones y discusiones interesantes.",
+            "title": "¡Conectémonos!"
+        },
+        "meta-description": "Conozca a Michael Baumberger, un desarrollador de software dedicado con un enfoque en el desarrollo web y la ingeniería de backend. Conozca más sobre su carrera, sus logros y su pasión por crear aplicaciones robustas y seguras.",
+        "passion": {
+            "s1": "La programación no es sólo mi trabajo, es mi pasión. Estoy constantemente explorando nuevas tecnologías, mejorando mis habilidades y trabajando en proyectos paralelos. A lo largo de los años, he desarrollado un profundo aprecio por el código limpio, las arquitecturas bien estructuradas y las aplicaciones seguras.",
+            "s2": "En el backend, trabajo principalmente con Java, Kotlin y Spring Framework, que he utilizado ampliamente en entornos profesionales. Para mis proyectos personales, prefiero Kotlin porque me gusta su sintaxis concisa, seguridad nula y características de programación funcional. También tengo experiencia con Spring Boot, Spring Cloud y arquitecturas de microservicios, asegurando que las aplicaciones sean escalables y fáciles de mantener.",
+            "s3": "En el frontend, trabajé con una variedad de tecnologías, incluidas Angular, HTML, CSS, JSP, JavaScript y Knockout.js. Mi marco de interfaz de usuario actual de elección es Angular, a menudo combinado con PrimeNG para una interfaz de usuario moderna. Si bien me concentro más en el desarrollo backend, siempre trato de crear una conexión perfecta entre el frontend y el backend para garantizar una excelente experiencia de usuario.",
+            "title": "Mi pasión por el desarrollo"
+        },
+        "title": "Sobre mí",
+        "title-with-name": "Sobre mí - Michael Baumberger"
+    },
+    "application": {
+        "title": "Microservicios"
+    },
+    "chess": {
+        "account": {
+            "name": "Nombre",
+            "platform": "Plataforma",
+            "size": "Tamaño"
+        },
+        "event": {
+            "account": "Cuenta",
+            "birthday": "Fecha de nacimiento",
+            "chess-com": "Chess.com",
+            "date-from": "Desde",
+            "date-to": "Hasta",
+            "details": "Detalles",
+            "federation": "Federación",
+            "games": "Partidas",
+            "location": "Ubicación",
+            "meta-description": "Sumérgete en los emocionantes detalles de {{title}} que se desarrolla desde {{from}} hasta {{to}} en {{location}}, un evento de ajedrez que muestra partidas y competiciones de primer nivel. Consulta horarios, participantes y aspectos destacados para una experiencia verdaderamente cautivadora.",
+            "open-account": "Abrir cuenta",
+            "open-official-website": "Abrir sitio web oficial",
+            "organizer": "Organizador",
+            "participant": {
+                "firstname": "Nombre",
+                "lastname": "Apellido"
+            },
+            "participants": "Participantes",
+            "sort": {
+                "birthday": "Fecha de nacimiento",
+                "federation": "Federación",
+                "firstname": "Nombre",
+                "lastname": "Apellido"
+            },
+            "tab-title": "{{title}} - MichiBaum",
+            "title": "{{title}}"
+        },
+        "events": {
+            "meta-description": "Explora próximos torneos de ajedrez, encuentros de clubes y exhibiciones abiertas a aficionados de todos los niveles. Conéctate con otros entusiastas, aprende nuevas estrategias y sumérgete en el juego competitivo.",
+            "tab-title": "Eventos de Ajedrez",
+            "title": "Eventos de Ajedrez"
+        },
+        "home": {
+            "popular-openings": "Aperturas Populares",
+            "recent-upcoming": "Eventos recientes, en curso y próximos",
+            "start-openings": "Aperturas Iniciales",
+            "to-all-events": "Ver todos los eventos"
+        },
+        "meta-description": "Sumérgete en el mundo estratégico del ajedrez y perfecciona tus habilidades contra diversos oponentes. Explora torneos, fascinantes aperturas, tácticas y la historia detrás de este juego atemporal.",
+        "navigation": {
+            "all-events": "Todos los eventos",
+            "events": "Eventos",
+            "home": "Inicio",
+            "news": "Noticias",
+            "openings": "Aperturas",
+            "person": "Persona",
+            "player-analysis": "Análisis de jugador",
+            "popular-openings": "Aperturas populares",
+            "settings": "Configuración",
+            "start-openings": "Aperturas iniciales"
+        },
+        "news": {
+            "meta-description": "Mantente informado con las últimas noticias de ajedrez, desde grandes torneos hasta logros notables de jugadores. Obtén resúmenes rápidos y cobertura detallada de eventos que ocurren en todo el mundo.",
+            "tab-title": "Noticias de Ajedrez - MichiBaum",
+            "title": "Noticias de Ajedrez"
+        },
+        "opening": {
+            "tree-depth": "Profundidad del árbol: "
+        },
+        "openings": {
+            "meta-description": "Descubre una amplia gama de aperturas de ajedrez, cada una con fortalezas y estrategias únicas. Mejora tu juego dominando nuevas tácticas y ampliando tu repertorio de aperturas.",
+            "tab-title": "Aperturas - MichiBaum",
+            "title": "Aperturas"
+        },
+        "platform": {
+            "CHESSCOM": "Chess.com",
+            "FIDE": "Fide",
+            "FREESTYLE": "Freestyle",
+            "LICHESS": "Lichess"
+        },
+        "player": {
+            "firstname": "Nombre",
+            "lastname": "Apellido",
+            "search-person": "Buscar Persona"
+        },
+        "tab-title": "Ajedrez - MichiBaum",
+        "title": "Ajedrez"
+    },
+    "chess-settings": {
+        "title": "Configuración de Ajedrez"
+    },
+    "donate": {
+        "buy-me-a-coffee": "Invítame a un café",
+        "hosttech": "Ir a Hosttech",
+        "meta-description": "Ayúdame a seguir proporcionando contenido valioso apoyando mis esfuerzos. Cada contribución marca la diferencia, impulsando el crecimiento y mejorando las experiencias de los usuarios.",
+        "s1": "👋 ¡Hola! Me apasiona crear este sitio web 🌐 y estoy comprometido a ofrecer contenido de alta calidad 📚 y una experiencia fluida. Para mantener todo funcionando sin problemas, dedico alrededor de 30 horas cada semana 🕒 trabajando en mejoras, características y mantenimiento. Además, mantener el servidor cuesta alrededor de 70 CHF al mes 💰.",
+        "s2": "💡 Si has disfrutado del sitio web o lo has encontrado útil, considera apoyar mi trabajo 🤝. Tu patrocinio ayuda a cubrir los costos y me permite dedicar aún más tiempo a construir y perfeccionar el sitio 🛠️.",
+        "s3": "🌟 Y si tú mismo estás buscando un servidor confiable, te recomiendo Hosttech. Usa mi código promocional 31886957 para comenzar con sus servicios 🚀.",
+        "s4": "🙏 ¡Gracias por tu apoyo y por ser parte de este viaje! 🌈",
+        "tab-title": "Donar - MichiBaum",
+        "title": "Donar"
+    },
+    "fitness": {
+        "title": "Fitness"
+    },
+    "fitness-settings": {
+        "title": "Configuración de Fitness"
+    },
+    "general": {
+        "sort": "Ordenar"
+    },
+    "home": {
+        "about-me": {
+            "button": "Ir a sobre mí",
+            "content": "¿Quién es el desarrollador de esta plataforma? ¡Aprende más sobre mí!",
+            "title": "Sobre mí"
+        },
+        "chess": {
+            "button": "Ir a ajedrez",
+            "content": "El ajedrez es interesante. Las estadísticas sobre jugadores de ajedrez son aún más interesantes.",
+            "title": "Ajedrez"
+        },
+        "donate": {
+            "button": "Ir a donaciones",
+            "content": "¿Te gusta el sitio web? Considera invitarme a un café.",
+            "title": "Donar"
+        },
+        "fitness": {
+            "button": "Ir a fitness",
+            "content": "¿Fitness y estadísticas juntos? ¡Wooooowww!!",
+            "title": "Fitness"
+        },
+        "login": {
+            "button": "Ir a iniciar sesión",
+            "content": "¿Quieres ver más contenido? ¡Inicia sesión o regístrate!",
+            "title": "Iniciar sesión"
+        },
+        "meta-description": "Explora la página principal de nuestro sitio web para las últimas actualizaciones y características. Sumérgete en una variedad de contenido que va desde proyectos personales hasta perspectivas de la comunidad.",
+        "music": {
+            "button": "Ir a música",
+            "content": "La música expresa lo que las palabras no pueden, tocando corazones más allá de toda medida.",
+            "title": "Música"
+        },
+        "tab-title": "Inicio - MichiBaum",
+        "title": "Inicio"
+    },
+    "imprint": {
+        "contact-address-title": "Dirección de contacto",
+        "copyrights": "Los derechos de autor y todos los demás derechos sobre el contenido, imágenes, fotos u otros archivos de este sitio web pertenecen exclusivamente al propietario mencionado anteriormente o al titular de los derechos específicamente nombrado. Se debe obtener el consentimiento por escrito del titular de los derechos de autor antes de la reproducción de cualquier elemento.",
+        "copyrights-title": "Derechos de autor",
+        "disclaimer-of-liability-1": "El autor no asume ninguna responsabilidad por la exactitud, precisión, actualidad, fiabilidad e integridad de la información.",
+        "disclaimer-of-liability-2": "Se excluyen las reclamaciones de responsabilidad contra el autor debido a daños materiales o inmateriales resultantes del acceso o uso o no uso de la información publicada, mal uso de la conexión o fallos técnicos.",
+        "disclaimer-of-liability-3": "Todas las ofertas no son vinculantes. El autor se reserva expresamente el derecho de cambiar, complementar o eliminar partes de las páginas o toda la oferta sin previo aviso especial o de cesar temporal o permanentemente la publicación.",
+        "disclaimer-of-liability-for-links": "Las referencias y enlaces a sitios web de terceros están fuera de nuestra área de responsabilidad. Se rechaza cualquier responsabilidad por dichos sitios web. El acceso y uso de dichos sitios web es bajo el propio riesgo del usuario.",
+        "disclaimer-of-liability-for-links-title": "Descargo de responsabilidad por enlaces",
+        "disclaimer-of-liability-title": "Descargo de responsabilidad",
+        "email-title": "Correo electrónico:",
+        "google-analytics": "Este sitio web utiliza Google Analytics, un servicio de análisis web de Google LLC (Google). Google Analytics utiliza cookies. La información generada por la cookie sobre su uso de este sitio web se transmite generalmente a un servidor de Google. Google utiliza esta información en nombre del operador del sitio web para evaluar su uso del sitio web, generar informes sobre la actividad del sitio web y proporcionar otros servicios relacionados con el uso del sitio web y de internet.",
+        "google-analytics-title": "Google Analytics",
+        "hosting-provider": "Este sitio web está alojado por hosttech GmbH, Richterswil, Suiza.",
+        "hosting-provider-title": "Proveedor de alojamiento",
+        "meta-description": "Encuentra aquí detalles legales esenciales e información de contacto para este sitio web. Aprende cómo protegemos tus datos y cumplimos con las regulaciones relevantes.",
+        "tab-title": "Aviso legal - MichiBaum",
+        "title": "Aviso legal",
+        "translation-description": "Esta aplicación/sitio web fue escrita en alemán. Todos los demás idiomas disponibles no han sido traducidos por humanos y, por lo tanto, pueden contener errores de traducción.",
+        "translation-title": "Traducción"
+    },
+    "languages": {
+        "chinese": "中文",
+        "english": "English",
+        "german": "Deutsch",
+        "spanish": "Español"
+    },
+    "login": {
+        "login": "Iniciar sesión",
+        "meta-description": "Accede a tu cuenta de forma segura y gestiona tus ajustes personales con facilidad. Disfruta de un proceso de inicio de sesión sencillo diseñado para una navegación fluida.",
+        "password": "Contraseña",
+        "register": "Ir a registro",
+        "tab-title": "Iniciar sesión - MichiBaum",
+        "title": "Iniciar sesión",
+        "username": "Nombre de usuario"
+    },
+    "microservices": {
+        "meta-description": "Descubre nuestro enfoque modular para construir aplicaciones flexibles y escalables utilizando microservicios. Aprende cómo los servicios individuales se comunican sin problemas mientras mantienen un rendimiento robusto.",
+        "tab-title": "Microservicios - MichiBaum",
+        "title": "Microservicios"
+    },
+    "music": {
+        "title": "Música"
+    },
+    "music-settings": {
+        "title": "Configuración de Música"
+    },
+    "navigation": {
+        "apps": "Aplicaciones",
+        "developer-and-project": "Desarrollador y Proyecto",
+        "else": "Otro",
+        "github": "Github",
+        "light-dark-mode": "Modo claro/oscuro",
+        "navigation": "Navegación",
+        "settings": "Configuración"
+    },
+    "owner": {
+        "address": "Birchli 14",
+        "city": "8840 Einsiedeln",
+        "country": "Suiza",
+        "email": "admin@michibaum.ch",
+        "name": "Michael Baumberger"
+    },
+    "register": {
+        "email": "Correo electrónico",
+        "error": {
+            "details": "El nombre de usuario o correo electrónico puede que ya esté en uso.",
+            "summary": "Error de registro"
+        },
+        "login": "Ir a iniciar sesión",
+        "meta-description": "Crea una nueva cuenta para desbloquear funciones mejoradas y unirte a nuestra creciente comunidad. El registro es rápido, intuitivo y completamente gratuito.",
+        "password": "Contraseña",
+        "register": "Registrarse",
+        "success": {
+            "details": "Ahora puedes iniciar sesión.",
+            "summary": "Registro exitoso"
+        },
+        "tab-title": "Registro - MichiBaum",
+        "title": "Registro",
+        "username": "Nombre de usuario"
+    },
+    "sw-update": {
+        "later": "Más tarde",
+        "update": "Actualizar",
+        "update-available": "¡Actualización disponible!",
+        "update-available-message": "¡Una nueva versión está disponible!"
+    }
+}

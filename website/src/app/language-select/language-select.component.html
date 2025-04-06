@@ -1,10 +1,10 @@
-<p-selectButton
-  [options]="languages()"
-  [(ngModel)]="selectedLanguage"
-  [multiple]="false"
-  (onChange)="selectLanguage()"
+<p-listbox
+    [options]="languages()"
+    [(ngModel)]="selectedLanguage"
+    (onChange)="selectLanguage()"
+    class="w-full md:w-56"
 >
-  <ng-template #item let-item>
-    <span>{{ item.name | translate }}</span>
-  </ng-template>
-</p-selectButton>
+    <ng-template #item let-item>
+        <span>{{ item.name | translate }}</span>
+    </ng-template>
+</p-listbox>

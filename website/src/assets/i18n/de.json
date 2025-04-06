@@ -35,7 +35,8 @@
             "s3": "Im Frontend habe ich mit einer Vielzahl von Technologien gearbeitet, darunter Angular, HTML, CSS, JSP, JavaScript und Knockout.js. Mein derzeitiges Frontend-Framework der Wahl ist Angular, oft kombiniert mit PrimeNG für eine moderne Benutzeroberfläche. Während ich mich mehr auf die Backend-Entwicklung konzentriere, versuche ich immer, eine nahtlose Verbindung zwischen Frontend und Backend herzustellen, um ein großartiges Benutzererlebnis zu gewährleisten.",
             "title": "Meine Leidenschaft für Entwicklung"
         },
-        "title": "Über mich - Michael Baumberger"
+        "title": "Über mich",
+        "title-with-name": "Über mich - Michael Baumberger"
     },
     "application": {
         "title": "Microservices"
@@ -194,6 +195,10 @@
         "disclaimer-of-liability-for-links-title": "Haftungsausschluss für Links",
         "disclaimer-of-liability-title": "Haftungsausschluss",
         "email-title": "E-Mail:",
+        "google-analytics": "Diese Website benutzt Google Analytics, einen Webanalysedienst der Google LLC (Google). Google Analytics verwendet Cookies. Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google übertragen und dort gespeichert. Im Auftrag des Betreibers dieser Website wird Google diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports über die Websiteaktivitäten zusammenzustellen und um weitere mit der Websitenutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Websitebetreiber zu erbringen.",
+        "google-analytics-title": "Google Analytics",
+        "hosting-provider": "Diese Website wird von der hosttech GmbH, Richterswil, Schweiz, gehostet.",
+        "hosting-provider-title": "Hosting-Anbieter",
         "meta-description": "Hier finden Sie wichtige rechtliche Hinweise und Kontaktinformationen zu dieser Website. Erfahren Sie, wie wir Ihre Daten schützen und geltende Vorschriften einhalten.",
         "tab-title": "Impressum - MichiBaum",
         "title": "Impressum",
@@ -201,8 +206,10 @@
         "translation-title": "Übersetzung"
     },
     "languages": {
+        "chinese": "中文",
         "english": "English",
-        "german": "Deutsch"
+        "german": "Deutsch",
+        "spanish": "Español"
     },
     "login": {
         "login": "Anmelden",
