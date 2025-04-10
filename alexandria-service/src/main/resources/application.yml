@@ -1,0 +1,107 @@
+server:
+  shutdown: graceful
+  undertow:
+    url-charset: UTF-8
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+#  TODO Issue: https://github.com/MichiBaum/Microservices/issues/170
+#  http2:
+#    enabled: true
+
+public-endpoints:
+  package-names:
+    - com.michibaum.alexandria_service
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  application:
+    name: alexandria-service
+  cloud:
+    discovery:
+      client:
+        health-indicator:
+          include-description: true
+    openfeign:
+      lazy-attributes-resolution: true
+      httpclient:
+        disable-ssl-validation: true
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    # https://stackoverflow.com/a/48222934
+    open-in-view: false
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    validateOnMigrate: true
+    locations: classpath:db/migration
+    driver-class-name: org.mariadb.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
+
+eureka:
+  instance:
+    metadata-map:
+      prometheus.path: /actuator/prometheus
+    prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
+
+management:
+  observations:
+    annotations:
+      enabled: true
+  endpoints:
+    access:
+      default: unrestricted
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full
+      enabled: true
+    build:
+      enabled: true
+    defaults:
+      enabled: true
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+    process:
+      enabled: true
+    ssl:
+      enabled: true
