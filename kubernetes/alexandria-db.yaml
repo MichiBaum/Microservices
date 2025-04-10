@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alexandria-db
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alexandria-db
+  template:
+    metadata:
+      labels:
+        app: alexandria-db
+    spec:
+      containers:
+      - name: alexandria-db
+        image: mariadb:10.11
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ALEXANDRIA_DB_USERNAME
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ALEXANDRIA_DB_PASSWORD
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ALEXANDRIA_DB_ROOT_PASSWORD
+        - name: MARIADB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: ALEXANDRIA_DB
+        volumeMounts:
+        - name: alexandria-db-data
+          mountPath: /var/lib/mysql
+        livenessProbe:
+          exec:
+            command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: alexandria-db-data
+        persistentVolumeClaim:
+          claimName: alexandria-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alexandria-db
+  namespace: microservices
+spec:
+  selector:
+    app: alexandria-db
+  ports:
+  - port: 3306
+    targetPort: 3306
+  type: ClusterIP

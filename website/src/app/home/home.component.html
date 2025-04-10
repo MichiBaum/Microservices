@@ -14,6 +14,14 @@
   }
 
   <app-home-card
+    [headerImage]="'home_notes.jpeg'"
+    [titleText]="'home.notes.title' | translate"
+    [content]="'home.notes.content' | translate"
+    [buttonLabel]="'home.notes.button' | ifAuthenticatedElse:'home.login.button' | translate"
+    (navigate)="goToNotes()"
+  ></app-home-card>
+
+  <app-home-card
     [headerImage]="'home_chess.webp'"
     [titleText]="'home.chess.title' | translate"
     [icon]="faChess"
@@ -23,30 +31,28 @@
     (navigate)="routerNavigationService.chess()"
   ></app-home-card>
 
-@if (canActivateFitness()) {
+  @defer{
   <app-home-card
     [headerImage]="'home_fitness.webp'"
     [titleText]="'home.fitness.title' | translate"
     [icon]="faDumbbell"
     [content]="'home.fitness.content' | translate"
-    [buttonLabel]="'home.fitness.button' | translate"
-    (navigate)="routerNavigationService.fitness()"
+    [buttonLabel]="'home.fitness.button' | canActivateElse:'home.login.button':Sides.fitness | translate"
+    (navigate)="goToFitness()"
   ></app-home-card>
 }
 
-@if (canActivateMusic()) {
   @defer{
   <app-home-card
     [headerImage]="'home_music.webp'"
     [titleText]="'home.music.title' | translate"
     [icon]="faMusic"
     [content]="'home.music.content' | translate"
-    [buttonLabel]="'home.music.button' | translate"
-    (navigate)="routerNavigationService.music()"
+    [buttonLabel]="'home.music.button' | canActivateElse:'home.login.button':Sides.music | translate"
+    (navigate)="goToMusic()"
   ></app-home-card>
   } @placeholder {
   <app-defer-placeholder height="35rem"></app-defer-placeholder>
-}
 }
 
 @defer{

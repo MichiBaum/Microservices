@@ -14,4 +14,6 @@ export enum Permissions {
 
     FITNESS_SERVICE,
     MUSIC_SERVICE,
+
+    ALEXANDRIA_SERVICE
 }

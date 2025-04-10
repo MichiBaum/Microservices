@@ -42,6 +42,10 @@ export class EnvironmentConfig {
     return environment.musicService(this.protocol, this.hostname);
   }
 
+  alexandriaService() {
+    return environment.alexandriaService(this.protocol, this.hostname);
+  }
+
   jaeger(): string {
       return environment.jaegerService(this.protocol, this.hostname);
   }

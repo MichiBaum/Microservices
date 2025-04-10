@@ -9,6 +9,7 @@ data:
   JAEGER_DB_JAVA_TOOL_OPTIONS: "-Xms256m -Xmx1g -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+UseG1GC -XX:+UseContainerSupport"
   
   # Database names
+  ALEXANDRIA_DB: "alexandria"
   AUTHENTICATION_DB: "authentication"
   USERMANAGEMENT_DB: "usermanagement"
   CHESS_DB: "chess"
