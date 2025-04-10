@@ -16,5 +16,8 @@ enum class Permissions {
     CHESS_SERVICE_ADMIN,
 
     FITNESS_SERVICE,
-    MUSIC_SERVICE;
+
+    MUSIC_SERVICE,
+
+    ALEXANDRIA_SERVICE;
 }

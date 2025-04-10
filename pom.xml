@@ -141,6 +141,8 @@
         <module>authentication-library</module>
         <module>spring-boot-starter-authentication</module>
         <module>spring-boot-starter-discord</module>
+        <module>spring-boot-starter-cache</module>
+        
         <module>gateway-service</module>
         <module>admin-service</module>
         <module>registry-service</module>
@@ -150,7 +152,7 @@
         <module>chess-service</module>
         <module>fitness-service</module>
         <module>music-service</module>
-        <module>spring-boot-starter-cache</module>
+        <module>alexandria-service</module>
     </modules>
 
     <profiles>
