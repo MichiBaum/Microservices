@@ -23,6 +23,11 @@ issue_template:
     - changed-files:
       - any-glob-to-any-file: ['.github/ISSUE_TEMPLATE/**']
 
+alexandria-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['alexandria-service/**']
+
 admin-service:
   - any:
     - changed-files:

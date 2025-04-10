@@ -253,6 +253,22 @@ export const routes: Routes = [
         data: {"permissions": [Permissions.FITNESS_SERVICE]}
     },
     {
+        path: 'notes',
+        canActivate: [isAuthenticatedGuard],
+        children: [
+            {
+                path: '',
+                loadComponent: () => import("./note/notes.component").then((c) => c.NotesComponent),
+                canActivate: [isAuthenticatedGuard],
+            },
+            {
+                path: "edit/:id",
+                loadComponent: () => import("./note/edit-note/edit-note.component").then((c) => c.EditNoteComponent),
+                canActivate: [isAuthenticatedGuard]
+            }
+        ]
+    },
+    {
         path: Sides.fitness_settings.navigation, // TODO remove like chess settings
         loadComponent: () => import("./fitness-settings/fitness-settings.component").then((c) => c.FitnessSettingsComponent),
         canActivate: [isAuthenticatedGuard, isPermittedGuard],

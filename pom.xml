@@ -191,6 +191,7 @@
         <module>chess-service</module>
         <module>fitness-service</module>
         <module>music-service</module>
+        <module>alexandria-service</module>
         <module>spring-boot-starter-cache</module>
         <module>spring-boot-starter-observability</module>
     </modules>

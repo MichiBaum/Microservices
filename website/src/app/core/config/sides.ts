@@ -1,7 +1,7 @@
 import {Permissions} from "./permissions";
 import {PermissionService} from "../services/permission.service";
 
-interface Side{
+export interface Side{
   name: string
   translationKey: string,
   navigation: string,
@@ -66,6 +66,13 @@ export const Sides = {
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.CHESS_SERVICE]),
     neededPermissions: [Permissions.CHESS_SERVICE_ADMIN]
   } as Side,
+  note: {
+    name: "note",
+    translationKey: "note.title",
+    navigation: "notes",
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.ALEXANDRIA_SERVICE]),
+    neededPermissions: [Permissions.ALEXANDRIA_SERVICE]
+  } as Side,
   default: {
     name: "default",
     translationKey: "",
@@ -107,5 +114,5 @@ export const Sides = {
     navigation: "music-settings",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
     neededPermissions: [Permissions.MUSIC_SERVICE]
-  } as Side
+  } as Side,
 }

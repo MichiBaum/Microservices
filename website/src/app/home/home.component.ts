@@ -8,6 +8,8 @@ import {ScrollTopModule} from "primeng/scrolltop";
 import {HomeCardComponent} from "./home-card/home-card.component";
 import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-placeholder.component";
 import {faChess, faDumbbell, faHeart, faMusic, faSignInAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import {IfAuthenticatedElsePipe} from "../core/pipes/if-authenticated-else.pipe";
+import {CanActivateElsePipe} from "../core/pipes/can-activate-else.pipe";
 
 @Component({
   selector: 'app-home',
@@ -15,8 +17,10 @@ import {faChess, faDumbbell, faHeart, faMusic, faSignInAlt, faUser} from "@forta
     TranslateModule,
     ScrollTopModule,
     HomeCardComponent,
-    DeferPlaceholderComponent
-],
+    DeferPlaceholderComponent,
+    IfAuthenticatedElsePipe,
+    CanActivateElsePipe
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

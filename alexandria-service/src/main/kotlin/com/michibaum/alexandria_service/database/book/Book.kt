@@ -1,0 +1,24 @@
+package com.michibaum.alexandria_service.database.book
+
+import com.michibaum.alexandria_service.database.Author
+import com.michibaum.alexandria_service.database.IdNullException
+import jakarta.persistence.*
+import java.util.*
+
+@Entity
+@Table(name="book")
+class Book (
+
+    @Column(name="title", nullable = false)
+    val title: String,
+
+    @ManyToOne(targetEntity = Author::class, fetch = FetchType.LAZY, optional = false)
+    val author: Author,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    val id: UUID? = null
+
+){
+    fun idOrThrow(): UUID = id ?: throw IdNullException()
+}
