@@ -170,6 +170,7 @@
         <module>chess-service</module>
         <module>fitness-service</module>
         <module>music-service</module>
+        <module>alexandria-service</module>
     </modules>
 
     <profiles>
