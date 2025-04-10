@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <springProfile name="dev">
+        <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>
+                    %d{yyyy-MM-dd HH:mm:ss} [%X{traceId:-} %X{spanId:-}] [%thread] %-5level %logger{36} - %msg%n%throwable
+                </Pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="Console" />
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <!-- TODO Only use until file logging or service like loki is implemented -->
+        <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>
+                    %d{yyyy-MM-dd HH:mm:ss} [%X{traceId:-} %X{spanId:-}] [%thread] %-5level %logger{36} - %msg%n%throwable
+                </Pattern>
+            </encoder>
+        </appender>
+        <appender name="Discord" class="com.michibaum.discord.logging.DiscordAppenderDelegator"/>
+
+        <root level="WARN">
+            <appender-ref ref="Discord" />
+            <appender-ref ref="Console" />
+        </root>
+    </springProfile>
+
+</configuration>
