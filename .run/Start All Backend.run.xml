@@ -1,6 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Start All Backend" type="CompoundRunConfigurationType">
     <toRun name="Dev Admin-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev Alexandria-Service" type="SpringBootApplicationConfigurationType" />
     <toRun name="Dev Authentication-Service" type="SpringBootApplicationConfigurationType" />
     <toRun name="Dev Chess-Service" type="SpringBootApplicationConfigurationType" />
     <toRun name="Dev Fitness-Service" type="SpringBootApplicationConfigurationType" />
