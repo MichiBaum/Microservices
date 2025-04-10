@@ -1,0 +1,41 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://alexandria-db:3306/${DATABASE}
+  boot:
+    admin:
+      service:
+        username: ${ADMIN_SERVICE_USERNAME}
+        password: ${ADMIN_SERVICE_PASSWORD}
+      client:
+        username: ${ADMIN_SERVICE_USERNAME}
+        password: ${ADMIN_SERVICE_PASSWORD}
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_ALEXANDRIA_SERVICE_LOG_CHANNEL}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
+
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+      export:
+        enabled: true
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
