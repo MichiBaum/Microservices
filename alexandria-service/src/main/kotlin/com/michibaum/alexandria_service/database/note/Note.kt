@@ -1,4 +1,14 @@
 package com.michibaum.alexandria_service.database.note
 
-class Note {
-}
+import jakarta.persistence.*
+import java.util.*
+
+@Entity
+@Table(name="news_note")
+class Note (
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    val id: UUID? = null
+
+){}
