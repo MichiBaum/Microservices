@@ -4,8 +4,8 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name="news_paper")
-class NewsPaper (
+@Table(name="news_tag")
+class NewsTag (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
