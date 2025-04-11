@@ -1,11 +1,11 @@
-package com.michibaum.alexandria_service.database.news
+package com.michibaum.alexandria_service.database.magazine
 
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name="news_paper")
-class NewsPaper (
+@Table(name="magazine")
+class Magazine (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
