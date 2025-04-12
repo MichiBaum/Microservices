@@ -17,7 +17,11 @@ With the resources described in [Server](Server.md#resources) Java autoconfigure
 My recommendation (with the specified resources) is to configure following:
 
 - -Xmx1g
-- -Xms512m
+- -Xms256m
 - -XX:G1HeapRegionSize=16M
 - -XX:+UseG1GC
 - -XX:+UseContainerSupport
+- -XX:MaxGCPauseMillis=100
+- -XX:UsaStringDeduplication
+- -XX:MinHeapFreeRatio=25
+- -XX:MaxHeapFreeRatio=50
