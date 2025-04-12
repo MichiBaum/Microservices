@@ -89,11 +89,14 @@ export class AuthService {
         if (!jwt) {
             return;
         }
-        const domain = this.getCookieDomain();
-        const date = new Date();
-        date.setTime(date.getTime() + (2 * 60 * 60 * 1000)); // 2 hours
-        const expires = "expires=" + date.toUTCString();
 
+        const decodedJwt = jwtDecode<JwtPayload>(jwt);
+        const jwtExpirationDate = new Date(decodedJwt.exp * 1000);
+        const maxCookieExpiration = new Date(Date.now() + (2 * 60 * 60 * 1000)); // Current time + 2 hours
+
+        // Ensure the cookie never exceeds the JWT's valid expiration
+        const expires = jwtExpirationDate < maxCookieExpiration ? jwtExpirationDate : maxCookieExpiration;
+        const domain = this.getCookieDomain();
         document.cookie = `${this.jwtName}=${jwt}; ${expires}; domain=${domain}; path=/`;
 
     }

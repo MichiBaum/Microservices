@@ -45,6 +45,10 @@ export class RouterNavigationService {
       open(this.environment.zipkin())
   }
 
+  admin() {
+     open(this.environment.adminService())
+  }
+
   login() {
     this.router.navigate(['/login']);
   }
@@ -80,4 +84,5 @@ export class RouterNavigationService {
   music() {
     this.router.navigate(['/music']);
   }
+
 }

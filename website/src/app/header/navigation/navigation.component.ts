@@ -164,16 +164,28 @@ export class NavigationComponent implements OnInit, OnDestroy{
             customIcon: faMicrochip,
             visible: Sides.microservices.canActivate(this.permissionService),
             command: () => {
-              this.sidebarVisible.set(false)
+              this.sidebarVisible.set(false);
+              this.authService.setJwtAsCookie();
               this.routerNavigationService.microservices();
             }
           } as MenuItem,
+         {
+             label: "Admin Service",
+             customIcon: faMicrochip,
+             visible: Sides.microservices.canActivate(this.permissionService),
+             command: () => {
+                 this.sidebarVisible.set(false);
+                 this.authService.setJwtAsCookie();
+                 this.routerNavigationService.admin();
+             },
+         } as MenuItem,
           {
             label: "Zipkin",
             customIcon: faMap,
             visible: Sides.microservices.canActivate(this.permissionService),
             command: () => {
              this.sidebarVisible.set(false)
+             this.authService.setJwtAsCookie();
              this.routerNavigationService.zipkin();
             },
           } as MenuItem,
