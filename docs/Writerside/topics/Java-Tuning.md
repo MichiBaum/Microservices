@@ -23,5 +23,5 @@ My recommendation (with the specified resources) is to configure following:
 - -XX:+UseContainerSupport
 - -XX:MaxGCPauseMillis=100
 - -XX:UsaStringDeduplication
-- -XX:MinHeapFreeRatio=25
-- -XX:MaxHeapFreeRatio=50
+- -XX:MinHeapFreeRatio=20
+- -XX:MaxHeapFreeRatio=35
