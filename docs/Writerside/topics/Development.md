@@ -19,6 +19,7 @@ In ``C:\Windows\System32\drivers\etc`` find file *hosts* and add those lines (ad
 ```
 # Added Manually
 # Microservices
+127.0.0.1 alexandria.michibaum.ch
 127.0.0.1 chess.michibaum.ch
 127.0.0.1 gateway.michibaum.ch
 127.0.0.1 registry.michibaum.ch
