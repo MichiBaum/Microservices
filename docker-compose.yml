@@ -360,6 +360,58 @@ services:
       timeout: 5s
       retries: 3
 
+  alexandria-service:
+    image: 70131370/alexandria-service
+    pull_policy: always
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - registry-service
+      - alexandria-db
+      - zipkin
+    environment:
+      spring_profiles_active: ${SPRING_ACTIVE_PROFILES}
+      DATABASE_USERNAME: ${ALEXANDRIA_DB_USERNAME}
+      DATABASE_PASSWORD: ${ALEXANDRIA_DB_PASSWORD}
+      DATABASE: ${ALEXANDRIA_DB}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
+    expose:
+      - "80"
+    networks:
+      - microservice-network
+    healthcheck:
+      test: "wget -T5 -qO- http://localhost/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  alexandria-db:
+    image: mariadb:10.11
+    env_file:
+      - .env
+    restart: always
+    environment:
+      MARIADB_USER: ${ALEXANDRIA_DB_USERNAME}
+      MARIADB_PASSWORD: ${ALEXANDRIA_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${ALEXANDRIA_DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${ALEXANDRIA_DB}
+    expose:
+      - "3306"
+    ports:
+      - "127.0.0.1:3311:3306"
+    volumes:
+      - /data/alexandria-db:/var/lib/mysql
+    networks:
+      - microservice-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
   zipkin-storage:
     image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.5
     restart: always
