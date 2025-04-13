@@ -9,6 +9,7 @@ docker run --name microservices -e MARIADB_ROOT_PASSWORD=someRootPass -p 3306:33
 After that create the databases in the container.
 
 ```Bash
+create schema `alexandria-db`;
 create schema `authentication-db`;
 create schema `chess-db`;
 create schema `fitness-db`;
