@@ -22,6 +22,7 @@ The date variable ``$(date ...)`` needs a change when run as cronjob. YOu need t
 root@35591:/ crontab -l
 ...
 # Everyday at 02:00 do a sqldump of Microservices docker databases
+0 2 * * * docker exec microservices-alexandria-db-1 mysqldump -u root -pROOTPASSWORD alexandria | gzip -c > /data/db-backup/alexandria_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
 0 2 * * * docker exec microservices-chess-db-1 mysqldump -u root -pROOTPASSWORD chess | gzip -c > /data/db-backup/chess_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
 0 2 * * * docker exec microservices-music-db-1 mysqldump -u root -pROOTPASSWORD music | gzip -c > /data/db-backup/music_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
 0 2 * * * docker exec microservices-fitness-db-1 mysqldump -u root -pROOTPASSWORD fitness | gzip -c > /data/db-backup/fitness_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
