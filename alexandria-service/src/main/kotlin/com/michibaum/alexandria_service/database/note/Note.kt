@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name="news_note")
+@Table(name="note")
 class Note (
 
     @Id
