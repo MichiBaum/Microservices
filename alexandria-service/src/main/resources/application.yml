@@ -38,7 +38,7 @@ spring:
     allow-bean-definition-overriding: true
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     # https://stackoverflow.com/a/48222934
     open-in-view: false
   flyway:
