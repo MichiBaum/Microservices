@@ -12,7 +12,7 @@ data class ApisConfigProperties(
 
     fun createRestClient(restClientBuilder: RestClient.Builder): RestClient {
         return restClientBuilder.baseUrl(baseUrl)
-            .defaultHeader("User-Agent", "chess-statistic-application/0.1; +http://www.michibaum.ch")
+            .defaultHeader("User-Agent", "chess-statistic-application/0.1; +https://michibaum.ch")
             .build()
     }
 
