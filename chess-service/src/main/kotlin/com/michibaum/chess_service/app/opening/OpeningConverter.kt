@@ -27,6 +27,15 @@ class OpeningConverter {
             ranking = opening.ranking
         )
 
+    fun toDto(evaluation: OpeningMoveEvaluation): OpeningMoveEvaluationDto{
+        return OpeningMoveEvaluationDto(
+            id = evaluation.id!!.toString(),
+            engineId = evaluation.engine.id!!.toString(),
+            depth = evaluation.depth,
+            evaluation = evaluation.evaluation
+        )
+    }
+
     @Observed
     fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveDto? {
         // Group evaluations by move ID
@@ -37,6 +46,7 @@ class OpeningConverter {
             valueTransform = { move ->
                 val chessEngine = engines.find { engine -> engine.id == move.getEngineId() }
                 EvaluationDto(
+                    id = move.getEvaluationId()!!,
                     engineId = move.getEngineId()!!.toString(),
                     engineName = chessEngine?.name ?: "",
                     engineVersion = chessEngine?.version ?: "",

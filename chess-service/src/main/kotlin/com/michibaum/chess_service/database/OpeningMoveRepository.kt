@@ -27,6 +27,7 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
             hierarchy.parent_id AS parentId,
             evaluation.engine_id AS engineId,
             evaluation.depth AS depth,
+            evaluation.id AS evaluationId,
             evaluation.evaluation AS evaluation,
             opening.name AS openingName,
             opening.id AS openingId
@@ -56,6 +57,7 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
             hierarchy.parent_id AS parentId,
             evaluation.engine_id AS engineId,
             evaluation.depth AS depth,
+            evaluation.id AS evaluationId,
             evaluation.evaluation AS evaluation,
             opening.name AS openingName,
             opening.id AS openingId
@@ -64,4 +66,11 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
         LEFT JOIN opening ON hierarchy.id = opening.last_move_id AND opening.deleted = false
     """, nativeQuery = true)
     fun findMoveChildren(@Param("startingId") startingId: UUID?, @Param("maxDepth") maxDepth: Int): List<MoveHierarchyProjection>
+
+    @Query("""
+        SELECT o FROM OpeningMove o 
+            left join fetch o.moveEvaluations e
+            left join fetch e.engine
+        WHERE o.id = :uuid""")
+    fun findByIdEagerEvaluations(uuid: UUID): OpeningMove?
 }

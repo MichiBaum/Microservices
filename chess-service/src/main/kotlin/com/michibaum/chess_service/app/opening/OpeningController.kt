@@ -178,4 +178,34 @@ class OpeningController(
         }
     }
 
+    @PublicEndpoint
+    @GetMapping("/api/openings/moves/{id}/evaluations")
+    fun getEvaluation(@PathVariable id: String): ResponseEntity<List<OpeningMoveEvaluationDto>>{
+        return try {
+            val uuid = UUID.fromString(id)
+            val move = openingService.findMoveEagerEvaluations(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val evaluations = move.moveEvaluations
+            val dtos = evaluations.map { openingConverter.toDto(it) }
+            return ResponseEntity.ok(dtos)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @DeleteMapping("/api/openings/evaluations/{id}")
+    fun deleteEvaluation(@PathVariable id: String): ResponseEntity<Boolean>{
+        return try {
+            val uuid = UUID.fromString(id)
+            openingService.deleteEvaluation(uuid)
+            return ResponseEntity.ok(true)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
 }

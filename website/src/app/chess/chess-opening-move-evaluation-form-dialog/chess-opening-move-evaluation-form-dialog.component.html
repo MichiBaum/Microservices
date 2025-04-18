@@ -1,13 +1,24 @@
 <p-dialog header="Evaluations" [modal]="true" [(visible)]="_visible" (onHide)="hide()">
 
+    <div class="grid grid-cols-3">
+
     <ng-container *ngFor="let evaluation of evaluations.value() ?? []">
         <p-card>
-            <app-chess-opening-move-evaluation-form [availableEngines]="availableEngines.value() ?? []"></app-chess-opening-move-evaluation-form>
+            <ng-template #title>Saved</ng-template>
+            <app-chess-opening-move-evaluation-form
+                [evaluation]="evaluation"
+                [engines]="availableEngines.value() ?? []"
+                (onSave)="savedChange()"
+                (onDelete)="deletedChange()"
+            ></app-chess-opening-move-evaluation-form>
         </p-card>
     </ng-container>
 
     <p-card>
-        <app-chess-opening-move-evaluation-form [availableEngines]="availableEngines.value() ?? []"></app-chess-opening-move-evaluation-form>
+        <ng-template #title>New Evaluation</ng-template>
+        <app-chess-opening-move-evaluation-form [engines]="availableEngines.value() ?? []"></app-chess-opening-move-evaluation-form>
     </p-card>
+
+    </div>
 
 </p-dialog>

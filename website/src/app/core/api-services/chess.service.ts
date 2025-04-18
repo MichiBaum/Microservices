@@ -2,19 +2,19 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
     Account,
-    ChessEngine,
+    ChessEngine, ChessEvaluation,
     ChessEvent,
     ChessEventCategory,
     ChessEventCategoryWithEvents,
     ChessGame,
-    ChessOpening, ChessOpeningMove,
+    ChessOpening, ChessOpeningMove, OpeningEvaluation,
     Person,
     PopularChessOpening,
     SearchChessEvent,
     SearchPerson,
     WriteChessEngine,
     WriteChessEvent,
-    WriteChessEventCategory, WriteOpeningMove,
+    WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
     WritePerson
 } from "../models/chess/chess.models";
 import {catchError, Observable} from "rxjs";
@@ -193,5 +193,20 @@ export class ChessService {
 
     deleteOpeningMove(id: string): Observable<void> {
       return this.http.delete<void>(this.environment.chessService() + '/openings/moves/' + id)
+    }
+
+    openingEvaluations(moveId: string): Observable<OpeningEvaluation[]> {
+        return this.http.get<OpeningEvaluation[]>(this.environment.chessService() + `/openings/moves/${moveId}/evaluations`);
+    }
+
+    deleteOpeningEvaluation(id: string): Observable<boolean> {
+      return this.http.delete<boolean>(this.environment.chessService() + `/openings/evaluations/${id}`);
+    }
+
+    openingEvaluation(id: string, evaluation: WriteOpeningEvaluation): Observable<OpeningEvaluation[]> { // TODO
+        if(id !== undefined && id !== '')
+            return this.http.post<OpeningEvaluation[]>(this.environment.chessService() + "/openings/moves/${moveId}/evaluations", evaluation)
+        else
+            return this.http.put<OpeningEvaluation[]>(this.environment.chessService() + "/openings/moves/${moveId}/evaluations", evaluation)
     }
 }

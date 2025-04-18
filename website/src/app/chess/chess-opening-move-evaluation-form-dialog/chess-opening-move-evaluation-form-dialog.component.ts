@@ -29,7 +29,6 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
     _visible = linkedSignal(() => this.visible())
     openingMove = input<SelectedMove | undefined>();
     visibleChange = output<boolean>();
-    saved = output<WriteOpeningMove>();
 
     availableEngines = rxResource({
         loader: () => this.chessService.engines()
@@ -38,8 +37,8 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
         request: () => ({moveId: this.openingMove()?.id}),
         loader: (params) => {
             const moveId = params.request.moveId
-            // TODO return this.chessService.openingEvaluations(moveId)
-            return of([])
+            if(moveId == undefined) return of([])
+            return this.chessService.openingEvaluations(moveId)
         }
     })
 
@@ -48,4 +47,11 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
         this.visibleChange.emit(false);
     }
 
+    savedChange() {
+        this.evaluations.reload()
+    }
+
+    deletedChange() {
+        this.evaluations.reload()
+    }
 }

@@ -135,6 +135,7 @@ export interface PopularChessOpening{
 }
 
 export interface ChessEvaluation{
+    id: string;
     engineId: string;
     engineName: string;
     engineVersion: string;
@@ -157,4 +158,17 @@ export interface WriteOpeningMove{
     move: string;
     fen: string;
     parentMoveId: string;
+}
+
+export interface OpeningEvaluation{
+    id: string;
+    engineId: string;
+    depth: number;
+    evaluation: string;
+}
+
+export interface WriteOpeningEvaluation{
+    engineId: string;
+    depth: number;
+    evaluation: string;
 }

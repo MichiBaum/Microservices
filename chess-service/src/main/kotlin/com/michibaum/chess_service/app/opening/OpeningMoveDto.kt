@@ -18,9 +18,17 @@ data class OpeningMoveDto(
 )
 
 data class EvaluationDto(
+    val id: String,
     val engineId: String,
     val engineName: String,
     val engineVersion: String,
+    val depth: Int,
+    val evaluation: String
+)
+
+data class OpeningMoveEvaluationDto(
+    val id: String,
+    val engineId: String,
     val depth: Int,
     val evaluation: String
 )

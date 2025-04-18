@@ -9,7 +9,8 @@ import kotlin.jvm.optionals.getOrNull
 class OpeningService(
     private val openingRepository: OpeningRepository,
     private val openingMoveRepository: OpeningMoveRepository,
-    private val popularOpeningRepository: PopularOpeningRepository
+    private val popularOpeningRepository: PopularOpeningRepository,
+    private val evaluationRepository: OpeningMoveEvaluationRepository
 ) {
 
     fun getPopularOpenings(): List<PopularOpening> {
@@ -96,6 +97,14 @@ class OpeningService(
     fun deleteMove(move: OpeningMove): OpeningMove {
         val toSave = move.copy( deleted = true )
         return openingMoveRepository.save(toSave)
+    }
+
+    fun findMoveEagerEvaluations(uuid: UUID): OpeningMove? {
+        return openingMoveRepository.findByIdEagerEvaluations(uuid)
+    }
+
+    fun deleteEvaluation(uuid: UUID) {
+        return evaluationRepository.deleteById(uuid)
     }
 
 }
