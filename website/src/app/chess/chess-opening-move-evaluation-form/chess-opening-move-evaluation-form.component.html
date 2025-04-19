@@ -1,22 +1,4 @@
-<p-select
-    [options]="availableEngines()"
-    [(ngModel)]="selectedEngine"
-    placeholder="Select as Engine"
-    class="w-full"
->
-    <ng-template #selectedItem let-engine>
-        <div class="flex items-center gap-2" *ngIf="engine">
-            <div>{{ engine.name }} {{ engine.version }}</div>
-        </div>
-    </ng-template>
-    <ng-template let-engine #item>
-        <div class="flex items-center gap-2">
-            <div>{{ engine.name }} {{engine.version}}</div>
-        </div>
-    </ng-template>
-</p-select>
-
-<form [formGroup]="formGroup">
+<form [formGroup]="formGroup" class="mb-5">
 
     <p-floatlabel variant="in" class="mb-2">
         <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
@@ -32,6 +14,24 @@
         <input class="w-full" pInputText id="evaluation" formControlName="evaluation" autocomplete="off" />
         <label for="evaluation">Evaluation</label>
     </p-floatlabel>
+
+    <p-select
+        [options]="engines()"
+        placeholder="Select as Engine"
+        formControlName="engineId"
+        class="w-full"
+    >
+        <ng-template #selectedItem let-engine>
+            <div class="flex items-center gap-2" *ngIf="engine">
+                <div>{{ engine.name }} {{ engine.version }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-engine #item>
+            <div class="flex items-center gap-2">
+                <div>{{ engine.name }} {{engine.version}}</div>
+            </div>
+        </ng-template>
+    </p-select>
 
 </form>
 

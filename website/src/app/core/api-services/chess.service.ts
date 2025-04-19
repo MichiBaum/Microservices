@@ -2,25 +2,26 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
     Account,
-    ChessEngine,
+    ChessEngine, ChessEvaluation,
     ChessEvent,
     ChessEventCategory,
     ChessEventCategoryWithEvents,
     ChessGame,
-    ChessOpening, ChessOpeningMove,
+    ChessOpening, ChessOpeningMove, OpeningEvaluation,
     Person,
     PopularChessOpening,
     SearchChessEvent,
     SearchPerson,
     WriteChessEngine,
     WriteChessEvent,
-    WriteChessEventCategory, WriteOpeningMove,
+    WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
     WritePerson
 } from "../models/chess/chess.models";
-import {catchError, Observable} from "rxjs";
+import {catchError, Observable, throwError} from "rxjs";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
 import {UserInfoService} from "../services/user-info.service";
 import {EnvironmentConfig} from "../config/environment.config";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Injectable({providedIn: 'root'})
 export class ChessService {
@@ -188,10 +189,27 @@ export class ChessService {
     }
 
     deleteOpening(id: string): Observable<void> {
-      return this.http.delete<void>(this.environment.chessService() + '/openings/' + id)
+      return this.http.delete<void>(this.environment.chessService() + `/openings/${id}`)
     }
 
     deleteOpeningMove(id: string): Observable<void> {
-      return this.http.delete<void>(this.environment.chessService() + '/openings/moves/' + id)
+      return this.http.delete<void>(this.environment.chessService() + `/openings/moves/${id}`)
+    }
+
+    openingEvaluations(moveId: string): Observable<OpeningEvaluation[]> {
+        return this.http.get<OpeningEvaluation[]>(this.environment.chessService() + `/openings/moves/${moveId}/evaluations`);
+    }
+
+    deleteOpeningEvaluation(id: string): Observable<boolean> {
+      return this.http.delete<boolean>(this.environment.chessService() + `/openings/evaluations/${id}`);
+    }
+
+    openingEvaluation(id: string, moveId: string, evaluation: WriteOpeningEvaluation): Observable<OpeningEvaluation> {
+        if(moveId === undefined || moveId == '')
+            return throwError(() => new Error('Move ID is required.'));
+        if(id === undefined || id == '')
+            return this.http.post<OpeningEvaluation>(this.environment.chessService() + `/openings/moves/${moveId}/evaluations`, evaluation)
+        else
+            return this.http.put<OpeningEvaluation>(this.environment.chessService() + `/openings/moves/${moveId}/evaluations/${id}`, evaluation)
     }
 }

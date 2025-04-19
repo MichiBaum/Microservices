@@ -105,6 +105,7 @@
             "title": "Noticias de Ajedrez"
         },
         "opening": {
+            "engine-evaluation": "{{engine}}({{version}}) evaluó {{evaluation}} a profundidad {{depth}}",
             "tree-depth": "Profundidad del árbol: "
         },
         "openings": {

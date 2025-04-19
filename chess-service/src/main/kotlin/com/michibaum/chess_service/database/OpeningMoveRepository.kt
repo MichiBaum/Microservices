@@ -10,22 +10,24 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
 
     @Query(value = """
         WITH RECURSIVE move_hierarchy AS (
-            SELECT id, move, parent_id
+            SELECT id, move, fen, parent_id
             FROM opening_move
             WHERE id = :startingId
             
             UNION ALL
             
-            SELECT move.id, move.move, move.parent_id
+            SELECT move.id, move.move, move.fen, move.parent_id
             FROM opening_move move
             INNER JOIN move_hierarchy hierarchy ON move.id = hierarchy.parent_id
         )
         SELECT
             hierarchy.id AS moveId,
             hierarchy.move AS move,
+            hierarchy.fen AS fen,
             hierarchy.parent_id AS parentId,
             evaluation.engine_id AS engineId,
             evaluation.depth AS depth,
+            evaluation.id AS evaluationId,
             evaluation.evaluation AS evaluation,
             opening.name AS openingName,
             opening.id AS openingId
@@ -37,13 +39,13 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
 
     @Query(value = """
         WITH RECURSIVE move_hierarchy AS (
-            SELECT id, move, parent_id, 0 AS depth
+            SELECT id, move, fen, parent_id, 0 AS depth
             FROM opening_move
             WHERE id = :startingId AND deleted = false
     
             UNION ALL
     
-            SELECT move.id, move.move, move.parent_id, hierarchy.depth + 1
+            SELECT move.id, move.move, move.fen, move.parent_id, hierarchy.depth + 1
             FROM opening_move move
             INNER JOIN move_hierarchy hierarchy ON move.parent_id = hierarchy.id
             WHERE hierarchy.depth + 1 <= :maxDepth AND move.deleted = false
@@ -51,9 +53,11 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
         SELECT
             hierarchy.id AS moveId,
             hierarchy.move AS move,
+            hierarchy.fen AS fen,
             hierarchy.parent_id AS parentId,
             evaluation.engine_id AS engineId,
             evaluation.depth AS depth,
+            evaluation.id AS evaluationId,
             evaluation.evaluation AS evaluation,
             opening.name AS openingName,
             opening.id AS openingId
@@ -62,4 +66,11 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
         LEFT JOIN opening ON hierarchy.id = opening.last_move_id AND opening.deleted = false
     """, nativeQuery = true)
     fun findMoveChildren(@Param("startingId") startingId: UUID?, @Param("maxDepth") maxDepth: Int): List<MoveHierarchyProjection>
+
+    @Query("""
+        SELECT o FROM OpeningMove o 
+            left join fetch o.moveEvaluations e
+            left join fetch e.engine
+        WHERE o.id = :uuid""")
+    fun findByIdEagerEvaluations(uuid: UUID): OpeningMove?
 }
