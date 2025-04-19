@@ -47,4 +47,4 @@ MUSIC_DB=music
 SPOTIFY_CLIENT_ID=PleaseChangeMe
 SPOTIFY_CLIENT_SECRET=PleaseChangeMe
 
-ZIPKIN_DB_JAVA_TOOL_OPTIONS=-Xms256m -Xmx1g -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35
+ZIPKIN_DB_JAVA_TOOL_OPTIONS=-Xms256m -Xmx512m -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35

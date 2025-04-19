@@ -363,6 +363,8 @@ services:
     restart: always
     expose:
       - "9200"
+    environment:
+      ES_JAVA_OPTS: ${ZIPKIN_DB_JAVA_TOOL_OPTIONS}
     volumes:
       - /data/zipkin-storage:/usr/share/elasticsearch/data
     networks:
@@ -376,7 +378,6 @@ services:
     environment:
       STORAGE_TYPE: elasticsearch
       ES_HOSTS: zipkin-storage:9200
-      ES_JAVA_OPTS: ${ZIPKIN_DB_JAVA_TOOL_OPTIONS}
     expose:
       - "9411"
     networks:
