@@ -107,4 +107,29 @@ class OpeningService(
         return evaluationRepository.deleteById(uuid)
     }
 
+    fun createEvaluation(dto: WriteOpeningEvaluationDto, openingMove: OpeningMove, engine: ChessEngine): OpeningMoveEvaluation {
+        val newEvaluation = OpeningMoveEvaluation(
+            engine = engine,
+            openingMove = openingMove,
+            depth = dto.depth,
+            evaluation = dto.evaluation
+        )
+        return evaluationRepository.save(newEvaluation)
+    }
+
+    fun findEvolution(evaluationId: UUID): OpeningMoveEvaluation? {
+        return evaluationRepository.findById(evaluationId).getOrNull()
+    }
+
+    fun updateEvaluation(evolution: OpeningMoveEvaluation, engine: ChessEngine, dto: WriteOpeningEvaluationDto): OpeningMoveEvaluation {
+        val newEvaluation = OpeningMoveEvaluation(
+            engine = engine,
+            openingMove = evolution.openingMove,
+            depth = dto.depth,
+            evaluation = dto.evaluation,
+            id = evolution.id
+        )
+        return evaluationRepository.save(newEvaluation)
+    }
+
 }

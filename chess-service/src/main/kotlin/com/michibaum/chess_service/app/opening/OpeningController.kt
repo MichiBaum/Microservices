@@ -124,15 +124,16 @@ class OpeningController(
     }
 
     @PublicEndpoint
-    @GetMapping("/api/moves/{id}/children")
-    fun getAllChildren(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
+    @GetMapping("/api/openings/{id}/children")
+    fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
         return try {
             val uuid = UUID.fromString(id)
-            val move = openingService.findMoveBy(uuid) ?:
+            val opening = openingService.getOpeningByIdEagerLastMove(uuid) ?:
                 return ResponseEntity.notFound().build()
             val engines = engineService.getAllChessEngines()
-            val moves = openingService.findMoveChildren(move, maxDepth)
-            val moveHierarchy = openingConverter.buildMoveHierarchy(moves, engines, move.id)
+            val lastMove = opening.lastMove
+            val moves = openingService.findMoveChildren(lastMove, maxDepth)
+            val moveHierarchy = openingConverter.buildMoveHierarchy(moves, engines, lastMove.id)
             return ResponseEntity.ok(moveHierarchy)
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()
@@ -159,24 +160,6 @@ class OpeningController(
         }
     }
 
-    @PublicEndpoint
-    @GetMapping("/api/openings/{id}/children")
-    fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
-        return try {
-            val uuid = UUID.fromString(id)
-            val opening = openingService.getOpeningByIdEagerLastMove(uuid) ?:
-                return ResponseEntity.notFound().build()
-            val engines = engineService.getAllChessEngines()
-            val lastMove = opening.lastMove
-            val moves = openingService.findMoveChildren(lastMove, maxDepth)
-            val moveHierarchy = openingConverter.buildMoveHierarchy(moves, engines, lastMove.id)
-            return ResponseEntity.ok(moveHierarchy)
-        } catch (ex: IllegalArgumentException) {
-            ResponseEntity.badRequest().build()
-        } catch (ex: Exception) {
-            ResponseEntity.internalServerError().build()
-        }
-    }
 
     @PublicEndpoint
     @GetMapping("/api/openings/moves/{id}/evaluations")
@@ -201,6 +184,44 @@ class OpeningController(
             val uuid = UUID.fromString(id)
             openingService.deleteEvaluation(uuid)
             return ResponseEntity.ok(true)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @PostMapping("/api/openings/moves/{id}/evaluations")
+    fun createEvaluation(@PathVariable id: String, @RequestBody dto: WriteOpeningEvaluationDto): ResponseEntity<OpeningMoveEvaluationDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val openingMove = openingService.findMoveEagerEvaluations(uuid) ?:
+                return ResponseEntity.notFound().build()
+            val engineId = UUID.fromString(dto.engineId)
+            val engine = engineService.findById(engineId) ?:
+                return ResponseEntity.notFound().build()
+            val newEvaluation = openingService.createEvaluation(dto,openingMove, engine)
+            val newDto = openingConverter.toDto(newEvaluation)
+            return ResponseEntity.ok(newDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @PutMapping("/api/openings/moves/{moveId}/evaluations/{id}")
+    fun updateEvaluation(@PathVariable moveId: String, @PathVariable id: String, @RequestBody dto: WriteOpeningEvaluationDto): ResponseEntity<OpeningMoveEvaluationDto>{
+        return try {
+            val evaluationId = UUID.fromString(id)
+            val evolution = openingService.findEvolution(evaluationId) ?:
+                return ResponseEntity.notFound().build()
+            val engineId = UUID.fromString(dto.engineId)
+            val engine = engineService.findById(engineId) ?:
+                return ResponseEntity.notFound().build()
+            val newEvaluation = openingService.updateEvaluation(evolution, engine, dto)
+            val newDto = openingConverter.toDto(newEvaluation)
+            return ResponseEntity.ok(newDto)
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()
         } catch (ex: Exception) {

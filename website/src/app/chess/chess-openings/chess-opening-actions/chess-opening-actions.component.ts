@@ -12,6 +12,7 @@ import {
     ChessOpeningMoveEvaluationFormDialogComponent
 } from "../../chess-opening-move-evaluation-form-dialog/chess-opening-move-evaluation-form-dialog.component";
 import {SelectedMove} from "../../chess-move-tree/selected-move.model";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-chess-opening-actions',
@@ -19,7 +20,8 @@ import {SelectedMove} from "../../chess-move-tree/selected-move.model";
         Menubar,
         ChessOpeningFormDialogComponent,
         ChessOpeningMoveFormDialogComponent,
-        ChessOpeningMoveEvaluationFormDialogComponent
+        ChessOpeningMoveEvaluationFormDialogComponent,
+        NgIf
     ],
   templateUrl: './chess-opening-actions.component.html',
   styleUrl: './chess-opening-actions.component.scss'

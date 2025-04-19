@@ -1,23 +1,20 @@
 import {
     Component,
-    computed,
-    effect,
     inject,
-    Input,
     input,
     OnChanges,
     output,
-    signal,
     SimpleChanges
 } from '@angular/core';
 import {FloatLabel} from "primeng/floatlabel";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {InputText} from "primeng/inputtext";
-import {ChessEngine, OpeningEvaluation} from "../../core/models/chess/chess.models";
+import {ChessEngine, OpeningEvaluation, WriteOpeningEvaluation} from "../../core/models/chess/chess.models";
 import {Select} from "primeng/select";
 import {NgIf} from "@angular/common";
 import {Button} from "primeng/button";
 import {ChessService} from "../../core/api-services/chess.service";
+import {SelectedMove} from "../chess-move-tree/selected-move.model";
 
 @Component({
   selector: 'app-chess-opening-move-evaluation-form',
@@ -39,6 +36,7 @@ export class ChessOpeningMoveEvaluationFormComponent implements OnChanges {
 
     engines = input.required<ChessEngine[]>()
     evaluation = input<OpeningEvaluation>();
+    move = input.required<SelectedMove>();
 
     onDelete = output<void>()
     onSave = output<OpeningEvaluation>()
@@ -70,6 +68,7 @@ export class ChessOpeningMoveEvaluationFormComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(changes['evaluation']?.currentValue != undefined) {
+            this.formGroup.reset();
             const evaluation = changes['evaluation'].currentValue as OpeningEvaluation;
             const engines = changes['engines']?.currentValue as ChessEngine[] ?? [] as ChessEngine[];
             const selectedEngine = engines.find(x => x.id === evaluation.engineId) ?? null;
@@ -92,7 +91,19 @@ export class ChessOpeningMoveEvaluationFormComponent implements OnChanges {
     }
 
     save() {
-        this.chessService.
+        const write: WriteOpeningEvaluation = {
+            engineId: this.formGroup.controls['engineId'].value?.id ?? '',
+            depth: this.formGroup.controls['depth'].value,
+            evaluation: this.formGroup.controls['evaluation'].value,
+        }
+        let moveId = this.move().id;
+        if(moveId == undefined)
+            return
+        this.chessService.openingEvaluation(this.formGroup.controls['id'].value, moveId, write).subscribe(result => {
+            this.onSave.emit(result)
+            this.formGroup.reset()
+
+        })
     }
 
     canDelete() {
