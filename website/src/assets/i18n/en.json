@@ -105,6 +105,7 @@
             "title": "Chess News"
         },
         "opening": {
+            "engine-evaluation": "{{engine}}({{version}}) evaluated {{evaluation}} at depth {{depth}}",
             "tree-depth": "Tree depth: "
         },
         "openings": {

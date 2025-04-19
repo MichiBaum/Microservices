@@ -105,6 +105,7 @@
             "title": "国际象棋新闻"
         },
         "opening": {
+            "engine-evaluation": "{{engine}}({{version}}) 在深度 {{depth}} 评估为 {{evaluation}}",
             "tree-depth": "树深度："
         },
         "openings": {

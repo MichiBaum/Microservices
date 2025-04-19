@@ -11,6 +11,7 @@ import {Tooltip} from "primeng/tooltip";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
 import {SelectedMove} from "./selected-move.model";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-chess-move-tree',
@@ -21,6 +22,7 @@ import {SelectedMove} from "./selected-move.model";
         NgForOf,
         Tooltip,
         FaIconComponent,
+        TranslatePipe,
     ],
   templateUrl: './chess-move-tree.component.html',
   styleUrl: './chess-move-tree.component.scss'
