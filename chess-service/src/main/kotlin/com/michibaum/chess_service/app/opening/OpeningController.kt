@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.opening
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
+import com.michibaum.authentication_library.public_endpoints.PublicPattern
 import com.michibaum.chess_service.app.chessengine.ChessEngineService
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
@@ -123,7 +124,7 @@ class OpeningController(
         }
     }
 
-    @PublicEndpoint
+    @PublicEndpoint // TODO pattern = PublicPattern.UUID
     @GetMapping("/api/openings/{id}/children")
     fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
         return try {
@@ -142,7 +143,7 @@ class OpeningController(
         }
     }
 
-    @PublicEndpoint
+    @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/openings/{id}/moves")
     fun getAllMovesForOpening(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
         return try {
@@ -161,7 +162,7 @@ class OpeningController(
     }
 
 
-    @PublicEndpoint
+    @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/openings/moves/{id}/evaluations")
     fun getEvaluation(@PathVariable id: String): ResponseEntity<List<OpeningMoveEvaluationDto>>{
         return try {

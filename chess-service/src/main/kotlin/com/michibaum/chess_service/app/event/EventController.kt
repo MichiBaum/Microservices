@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.event
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
+import com.michibaum.authentication_library.public_endpoints.PublicPattern
 import com.michibaum.chess_service.app.game.GameConverter
 import com.michibaum.chess_service.app.game.GameDto
 import com.michibaum.chess_service.app.game.GameService
@@ -46,7 +47,7 @@ class EventController(
             .map { eventConverter.toDto(it) }
     }
 
-    @PublicEndpoint
+    @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/events/{id}")
     fun getEvent(@PathVariable id: String): ResponseEntity<EventDto>{
         return try {
@@ -62,7 +63,7 @@ class EventController(
         }
     }
 
-    @PublicEndpoint
+    @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/events/{id}/participants")
     fun getEventParticipants(@PathVariable id: String): ResponseEntity<List<PersonDto>> {
         return try {
@@ -79,7 +80,7 @@ class EventController(
         }
     }
 
-    @PublicEndpoint
+    @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/events/{id}/games")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun getEventGames(@PathVariable id: String): ResponseEntity<List<GameDto>> {
