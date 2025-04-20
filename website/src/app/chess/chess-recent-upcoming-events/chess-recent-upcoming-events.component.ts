@@ -20,7 +20,7 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
     EventIconColorPipe
   ],
   templateUrl: './chess-recent-upcoming-events.component.html',
-  styleUrl: './chess-recent-upcoming-events.component.scss'
+  styleUrl: './chess-recent-upcoming-events.component.css'
 })
 export class ChessRecentUpcomingEventsComponent {
   private readonly chessService = inject(ChessService);
@@ -38,3 +38,5 @@ export class ChessRecentUpcomingEventsComponent {
         return event.categories.map(category => category.title).join(', ');
     }
 }
+
+

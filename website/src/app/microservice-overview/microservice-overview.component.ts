@@ -9,7 +9,9 @@ import {CookieAdminComponent} from "./cookie-admin/cookie-admin.component";
         CookieAdminComponent
     ],
   templateUrl: './microservice-overview.component.html',
-  styleUrl: './microservice-overview.component.scss'
+  styleUrl: './microservice-overview.component.css'
 })
 export class MicroserviceOverviewComponent {
 }
+
+

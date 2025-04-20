@@ -12,7 +12,7 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
     NgIf
   ],
   templateUrl: './home-card.component.html',
-  styleUrl: './home-card.component.scss'
+  styleUrl: './home-card.component.css'
 })
 export class HomeCardComponent {
 
@@ -26,3 +26,5 @@ export class HomeCardComponent {
   constructor() {}
 
 }
+
+

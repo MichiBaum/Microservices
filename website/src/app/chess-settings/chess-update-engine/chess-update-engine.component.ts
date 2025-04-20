@@ -21,7 +21,7 @@ import {Button} from "primeng/button";
         Button
     ],
   templateUrl: './chess-update-engine.component.html',
-  styleUrl: './chess-update-engine.component.scss'
+  styleUrl: './chess-update-engine.component.css'
 })
 export class ChessUpdateEngineComponent {
   private readonly chessService = inject(ChessService);
@@ -100,3 +100,5 @@ export class ChessUpdateEngineComponent {
     this.formGroup.reset();
   }
 }
+
+

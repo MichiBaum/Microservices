@@ -18,7 +18,7 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ],
   templateUrl: './about-me-experience.component.html',
-  styleUrl: './about-me-experience.component.scss'
+  styleUrl: './about-me-experience.component.css'
 })
 export class AboutMeExperienceComponent {
 
@@ -63,3 +63,5 @@ export class AboutMeExperienceComponent {
   ]);
 
 }
+
+

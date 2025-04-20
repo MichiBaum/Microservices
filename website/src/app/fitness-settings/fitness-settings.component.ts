@@ -9,7 +9,7 @@ import {FitnessLoginComponent} from "./fitness-login/fitness-login.component";
     FitnessLoginComponent
   ],
   templateUrl: './fitness-settings.component.html',
-  styleUrl: './fitness-settings.component.scss'
+  styleUrl: './fitness-settings.component.css'
 })
 export class FitnessSettingsComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
@@ -20,3 +20,5 @@ export class FitnessSettingsComponent implements OnInit{
   }
 
 }
+
+

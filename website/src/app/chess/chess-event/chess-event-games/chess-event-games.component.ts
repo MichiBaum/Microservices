@@ -8,7 +8,7 @@ import {of} from 'rxjs';
   selector: 'app-chess-event-games',
   imports: [],
   templateUrl: './chess-event-games.component.html',
-  styleUrl: './chess-event-games.component.scss'
+  styleUrl: './chess-event-games.component.css'
 })
 export class ChessEventGamesComponent {
   private readonly chessService = inject(ChessService);
@@ -36,3 +36,5 @@ export class ChessEventGamesComponent {
   readonly haveContent = output<boolean>();
 
 }
+
+

@@ -18,7 +18,7 @@ import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-place
     DeferPlaceholderComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.css'
 })
 export class HomeComponent {
   protected routerNavigationService = inject(RouterNavigationService);
@@ -41,3 +41,5 @@ export class HomeComponent {
     return Sides.music.canActivate(this.permissionService)
   }
 }
+
+

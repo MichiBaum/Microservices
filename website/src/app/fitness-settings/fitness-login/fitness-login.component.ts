@@ -9,7 +9,7 @@ import {RouterNavigationService} from "../../core/services/router-navigation.ser
     Button
   ],
   templateUrl: './fitness-login.component.html',
-  styleUrl: './fitness-login.component.scss'
+  styleUrl: './fitness-login.component.css'
 })
 export class FitnessLoginComponent {
   private readonly fitnessService = inject(FitnessService);
@@ -21,3 +21,5 @@ export class FitnessLoginComponent {
   }
 
 }
+
+

@@ -20,7 +20,7 @@ import {FilterService, SelectItem} from "primeng/api";
     ConfirmDialogModule
   ],
   templateUrl: './select-chess-event.component.html',
-  styleUrl: './select-chess-event.component.scss'
+  styleUrl: './select-chess-event.component.css'
 })
 export class SelectChessEventComponent implements OnInit{
   private readonly filterService = inject(FilterService);
@@ -79,3 +79,5 @@ export class SelectChessEventComponent implements OnInit{
   }
 
 }
+
+

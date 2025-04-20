@@ -28,7 +28,7 @@ import {AboutMeExperienceComponent} from "./about-me-experience/about-me-experie
     AboutMeExperienceComponent
   ],
   templateUrl: './about-me.component.html',
-  styleUrl: './about-me.component.scss'
+  styleUrl: './about-me.component.css'
 })
 export class AboutMeComponent {
   private readonly routerNavigationService = inject(RouterNavigationService);
@@ -61,3 +61,5 @@ export class AboutMeComponent {
   }
 
 }
+
+

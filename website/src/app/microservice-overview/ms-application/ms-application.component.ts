@@ -22,8 +22,10 @@ import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from "prim
     Accordion
   ],
   templateUrl: './ms-application.component.html',
-  styleUrl: './ms-application.component.scss'
+  styleUrl: './ms-application.component.css'
 })
 export class MsApplicationComponent {
   application = input<Application>()
 }
+
+

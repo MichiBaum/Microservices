@@ -20,7 +20,7 @@ import {Select} from "primeng/select";
     Select
   ],
   templateUrl: './fitness-sleep.component.html',
-  styleUrl: './fitness-sleep.component.scss'
+  styleUrl: './fitness-sleep.component.css'
 })
 export class FitnessSleepComponent implements OnInit {
   private readonly fitnessService = inject(FitnessService);
@@ -54,3 +54,5 @@ export class FitnessSleepComponent implements OnInit {
   }
 
 }
+
+

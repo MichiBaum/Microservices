@@ -10,7 +10,7 @@ import {ChessOpening} from "../../core/models/chess/chess.models";
         ChessOpeningFormComponent
     ],
   templateUrl: './chess-opening-form-dialog.component.html',
-  styleUrl: './chess-opening-form-dialog.component.scss'
+  styleUrl: './chess-opening-form-dialog.component.css'
 })
 export class ChessOpeningFormDialogComponent {
 
@@ -36,3 +36,5 @@ export class ChessOpeningFormDialogComponent {
     }
 
 }
+
+

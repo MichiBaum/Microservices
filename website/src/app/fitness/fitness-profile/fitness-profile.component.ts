@@ -9,7 +9,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './fitness-profile.component.html',
-  styleUrl: './fitness-profile.component.scss'
+  styleUrl: './fitness-profile.component.css'
 })
 export class FitnessProfileComponent implements OnInit{
   private readonly fitnessService = inject(FitnessService);
@@ -22,3 +22,5 @@ export class FitnessProfileComponent implements OnInit{
   }
 
 }
+
+

@@ -16,7 +16,7 @@ import {AuthService} from "./core/api-services/auth.service";
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.css',
   providers: [MessageService, ConfirmationService]
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -69,3 +69,5 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 }
+
+

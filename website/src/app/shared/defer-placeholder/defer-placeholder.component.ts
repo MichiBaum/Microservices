@@ -5,10 +5,12 @@ import {Component, input} from '@angular/core';
   imports: [
   ],
   templateUrl: './defer-placeholder.component.html',
-  styleUrl: './defer-placeholder.component.scss'
+  styleUrl: './defer-placeholder.component.css'
 })
 export class DeferPlaceholderComponent {
 
   height = input<string>("2rem")
 
 }
+
+

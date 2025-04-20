@@ -44,7 +44,7 @@ import {Select} from "primeng/select";
     Select
   ],
   templateUrl: './chess-update-event.component.html',
-  styleUrl: './chess-update-event.component.scss'
+  styleUrl: './chess-update-event.component.css'
 })
 export class ChessUpdateEventComponent implements OnInit{
   private readonly chessService = inject(ChessService);
@@ -230,3 +230,5 @@ export class ChessUpdateEventComponent implements OnInit{
   }
 
 }
+
+
