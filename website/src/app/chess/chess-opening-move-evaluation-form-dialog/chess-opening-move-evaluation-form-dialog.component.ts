@@ -1,8 +1,7 @@
-import {Component, inject, input, linkedSignal, output} from '@angular/core';
+import {Component, inject, input, linkedSignal, output, signal} from '@angular/core';
 import {
     ChessOpeningMoveEvaluationFormComponent
 } from "../chess-opening-move-evaluation-form/chess-opening-move-evaluation-form.component";
-import {WriteOpeningMove} from "../../core/models/chess/chess.models";
 import {Dialog} from "primeng/dialog";
 import {SelectedMove} from "../chess-move-tree/selected-move.model";
 import {ChessService} from "../../core/api-services/chess.service";
@@ -27,9 +26,8 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
 
     visible = input<boolean>(false);
     _visible = linkedSignal(() => this.visible())
-    openingMove = input<SelectedMove | undefined>();
+    openingMove = input.required<SelectedMove>();
     visibleChange = output<boolean>();
-    saved = output<WriteOpeningMove>();
 
     availableEngines = rxResource({
         loader: () => this.chessService.engines()
@@ -38,8 +36,8 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
         request: () => ({moveId: this.openingMove()?.id}),
         loader: (params) => {
             const moveId = params.request.moveId
-            // TODO return this.chessService.openingEvaluations(moveId)
-            return of([])
+            if(moveId == undefined) return of([])
+            return this.chessService.openingEvaluations(moveId)
         }
     })
 
@@ -48,4 +46,11 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
         this.visibleChange.emit(false);
     }
 
+    savedChange() {
+        this.evaluations.reload()
+    }
+
+    deletedChange() {
+        this.evaluations.reload()
+    }
 }

@@ -105,6 +105,7 @@
             "title": "Schach Neuigkeiten"
         },
         "opening": {
+            "engine-evaluation": "{{engine}}({{version}}) bewertete {{evaluation}} in Tiefe {{depth}}",
             "tree-depth": "Baumtiefe: "
         },
         "openings": {

@@ -4,6 +4,7 @@ import com.michibaum.chess_service.database.ChessEngine
 import com.michibaum.chess_service.database.ChessEngineRepository
 import org.springframework.stereotype.Service
 import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class ChessEngineService(
@@ -32,6 +33,10 @@ class ChessEngineService(
         )
 
         return chessEngineRepository.save(updatedEntity)
+    }
+
+    fun findById(id: UUID): ChessEngine? {
+        return chessEngineRepository.findById(id).getOrNull()
     }
 
 }

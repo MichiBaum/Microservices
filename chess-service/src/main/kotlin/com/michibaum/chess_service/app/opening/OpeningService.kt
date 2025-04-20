@@ -9,7 +9,8 @@ import kotlin.jvm.optionals.getOrNull
 class OpeningService(
     private val openingRepository: OpeningRepository,
     private val openingMoveRepository: OpeningMoveRepository,
-    private val popularOpeningRepository: PopularOpeningRepository
+    private val popularOpeningRepository: PopularOpeningRepository,
+    private val evaluationRepository: OpeningMoveEvaluationRepository
 ) {
 
     fun getPopularOpenings(): List<PopularOpening> {
@@ -71,6 +72,7 @@ class OpeningService(
     fun createMove(dto: WriteOpeningMoveDto, parentMove: OpeningMove): OpeningMove {
         val newMove = OpeningMove(
             move = dto.move,
+            fen = dto.fen,
             parent = parentMove
         )
         return openingMoveRepository.save(newMove)
@@ -80,6 +82,7 @@ class OpeningService(
         val newMove = OpeningMove(
             id = move.id,
             move = dto.move,
+            fen = dto.fen,
             parent = move.parent,
             moveEvaluations = move.moveEvaluations
         )
@@ -94,6 +97,39 @@ class OpeningService(
     fun deleteMove(move: OpeningMove): OpeningMove {
         val toSave = move.copy( deleted = true )
         return openingMoveRepository.save(toSave)
+    }
+
+    fun findMoveEagerEvaluations(uuid: UUID): OpeningMove? {
+        return openingMoveRepository.findByIdEagerEvaluations(uuid)
+    }
+
+    fun deleteEvaluation(uuid: UUID) {
+        return evaluationRepository.deleteById(uuid)
+    }
+
+    fun createEvaluation(dto: WriteOpeningEvaluationDto, openingMove: OpeningMove, engine: ChessEngine): OpeningMoveEvaluation {
+        val newEvaluation = OpeningMoveEvaluation(
+            engine = engine,
+            openingMove = openingMove,
+            depth = dto.depth,
+            evaluation = dto.evaluation
+        )
+        return evaluationRepository.save(newEvaluation)
+    }
+
+    fun findEvolution(evaluationId: UUID): OpeningMoveEvaluation? {
+        return evaluationRepository.findById(evaluationId).getOrNull()
+    }
+
+    fun updateEvaluation(evolution: OpeningMoveEvaluation, engine: ChessEngine, dto: WriteOpeningEvaluationDto): OpeningMoveEvaluation {
+        val newEvaluation = OpeningMoveEvaluation(
+            engine = engine,
+            openingMove = evolution.openingMove,
+            depth = dto.depth,
+            evaluation = dto.evaluation,
+            id = evolution.id
+        )
+        return evaluationRepository.save(newEvaluation)
     }
 
 }

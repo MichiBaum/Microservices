@@ -42,9 +42,9 @@ Start new Containers with new Images
 
 ```bash
 # Start specific containers
-docker compose up -d website-service chess-service
+docker compose up -d --no-recreate website-service chess-service
 
 # Start all containers
-docker compose up -d
+docker compose up -d --no-recreate
 
 ```

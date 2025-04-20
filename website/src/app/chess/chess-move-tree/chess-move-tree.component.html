@@ -17,7 +17,9 @@
                 <fa-icon [pTooltip]="tooltipContent" *ngIf="move.data.evaluations.length != 0" [icon]="faCircleInfo"></fa-icon>
                 <ng-template #tooltipContent>
                     <div class="block">
-                        <span class="text-sm block" *ngFor="let eval of move.data.evaluations">{{ eval.engineName }}({{eval.engineVersion}}) evaluated {{eval.evaluation}} at depth {{ eval.depth }}</span>
+                        <span class="text-sm block" *ngFor="let eval of move.data.evaluations">
+                            {{'chess.opening.engine-evaluation' | translate: {engine: eval.engineName, version: eval.engineVersion, depth: eval.depth, evaluation: eval.evaluation} }}
+                        </span>
                     </div>
                 </ng-template>
             </div>

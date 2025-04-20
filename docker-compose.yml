@@ -363,6 +363,8 @@ services:
     restart: always
     expose:
       - "9200"
+    environment:
+      ES_JAVA_OPTS: ${ZIPKIN_DB_JAVA_TOOL_OPTIONS}
     volumes:
       - /data/zipkin-storage:/usr/share/elasticsearch/data
     networks:
