@@ -42,7 +42,6 @@
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
         <kotlin.version>2.1.20</kotlin.version>
-        <kotlin.compiler.languageVersion>2.2</kotlin.compiler.languageVersion>
         <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 
         <!--
@@ -261,7 +260,6 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <languageVersion>${kotlin.compiler.languageVersion}</languageVersion>
                     <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
                     <args>
                         <arg>-Xjsr305=strict</arg>
