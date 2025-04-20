@@ -33,7 +33,7 @@ import {of} from "rxjs";
     SelectChessPersonComponent
   ],
   templateUrl: './chess-update-game.component.html',
-  styleUrl: './chess-update-game.component.scss'
+  styleUrl: './chess-update-game.component.css'
 })
 export class ChessUpdateGameComponent {
   private readonly chessService = inject(ChessService);
@@ -75,3 +75,5 @@ export class ChessUpdateGameComponent {
 
   }
 }
+
+

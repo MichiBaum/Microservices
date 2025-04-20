@@ -6,7 +6,7 @@ import * as d3 from "d3";
   selector: 'app-sleep-stages-chart',
   imports: [],
   templateUrl: './sleep-stages-chart.component.html',
-  styleUrl: './sleep-stages-chart.component.scss'
+  styleUrl: './sleep-stages-chart.component.css'
 })
 export class SleepStagesChartComponent implements OnChanges{
   private elementRef = inject(ElementRef);
@@ -112,3 +112,5 @@ export class SleepStagesChartComponent implements OnChanges{
   }
 
 }
+
+

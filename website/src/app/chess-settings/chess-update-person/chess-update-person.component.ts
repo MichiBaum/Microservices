@@ -35,7 +35,7 @@ import {FloatLabel} from "primeng/floatlabel";
     FloatLabel
   ],
   templateUrl: './chess-update-person.component.html',
-  styleUrl: './chess-update-person.component.scss'
+  styleUrl: './chess-update-person.component.css'
 })
 export class ChessUpdatePersonComponent implements OnInit{
   private readonly chessService = inject(ChessService);
@@ -159,3 +159,5 @@ export class ChessUpdatePersonComponent implements OnInit{
 
   }
 }
+
+

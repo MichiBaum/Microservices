@@ -6,7 +6,7 @@ import {Sides} from '../core/config/sides';
   selector: 'app-music',
   imports: [],
   templateUrl: './music.component.html',
-  styleUrl: './music.component.scss'
+  styleUrl: './music.component.css'
 })
 export class MusicComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
@@ -16,3 +16,5 @@ export class MusicComponent implements OnInit{
   }
 
 }
+
+

@@ -24,7 +24,7 @@ import {FocusTrapModule} from "primeng/focustrap";
     FocusTrapModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
   private readonly authService = inject(AuthService);
@@ -63,3 +63,5 @@ export class LoginComponent {
     this.router.register()
   }
 }
+
+

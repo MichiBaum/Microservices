@@ -41,7 +41,7 @@ import {rxResource} from "@angular/core/rxjs-interop";
     TranslatePipe
   ],
   templateUrl: './chess-navigation.component.html',
-  styleUrl: './chess-navigation.component.scss'
+  styleUrl: './chess-navigation.component.css'
 })
 export class ChessNavigationComponent {
   private readonly chessService = inject(ChessService);
@@ -186,3 +186,5 @@ export class ChessNavigationComponent {
     }
 
 }
+
+

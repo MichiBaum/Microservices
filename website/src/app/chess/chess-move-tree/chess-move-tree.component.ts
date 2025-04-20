@@ -25,7 +25,7 @@ import {TranslatePipe} from "@ngx-translate/core";
         TranslatePipe,
     ],
   templateUrl: './chess-move-tree.component.html',
-  styleUrl: './chess-move-tree.component.scss'
+  styleUrl: './chess-move-tree.component.css'
 })
 export class ChessMoveTreeComponent {
     protected readonly faCircleInfo = faCircleInfo;
@@ -68,3 +68,5 @@ export class ChessMoveTreeComponent {
         this.selectedMove.emit(undefined)
     }
 }
+
+

@@ -24,7 +24,7 @@ import {NgIf} from "@angular/common";
         NgIf
     ],
   templateUrl: './chess-opening-actions.component.html',
-  styleUrl: './chess-opening-actions.component.scss'
+  styleUrl: './chess-opening-actions.component.css'
 })
 export class ChessOpeningActionsComponent {
     private readonly permissionService = inject(PermissionService);
@@ -131,3 +131,5 @@ export class ChessOpeningActionsComponent {
     }
 
 }
+
+

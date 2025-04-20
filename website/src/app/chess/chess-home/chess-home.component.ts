@@ -21,8 +21,10 @@ import {ChessPopularOpeningsListComponent} from "../chess-popular-openings-list/
         ChessPopularOpeningsListComponent
     ],
   templateUrl: './chess-home.component.html',
-  styleUrl: './chess-home.component.scss'
+  styleUrl: './chess-home.component.css'
 })
 export class ChessHomeComponent {
 
 }
+
+

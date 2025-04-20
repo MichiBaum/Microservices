@@ -27,7 +27,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './chess-update-account.component.html',
-  styleUrl: './chess-update-account.component.scss'
+  styleUrl: './chess-update-account.component.css'
 })
 export class ChessUpdateAccountComponent{
   private readonly chessService = inject(ChessService);
@@ -64,3 +64,5 @@ export class ChessUpdateAccountComponent{
   }
 
 }
+
+

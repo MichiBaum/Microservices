@@ -9,7 +9,7 @@ import {ChartModule} from "primeng/chart";
     ChartModule
   ],
   templateUrl: './fitness-weight.component.html',
-  styleUrl: './fitness-weight.component.scss'
+  styleUrl: './fitness-weight.component.css'
 })
 export class FitnessWeightComponent implements OnInit {
   private readonly fitnessService = inject(FitnessService);
@@ -86,3 +86,5 @@ export class FitnessWeightComponent implements OnInit {
   }
 
 }
+
+

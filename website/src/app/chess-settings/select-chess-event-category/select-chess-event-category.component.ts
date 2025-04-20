@@ -18,7 +18,7 @@ import {InputIcon} from "primeng/inputicon";
     InputIcon
   ],
   templateUrl: './select-chess-event-category.component.html',
-  styleUrl: './select-chess-event-category.component.scss'
+  styleUrl: './select-chess-event-category.component.css'
 })
 export class SelectChessEventCategoryComponent {
   readonly categories = input<ChessEventCategory[]>([]);
@@ -31,3 +31,5 @@ export class SelectChessEventCategoryComponent {
     this.selectedCategoryEmitter.emit(this.selectedCategory())
   }
 }
+
+

@@ -9,7 +9,7 @@ import {MusicLoginComponent} from "./music-login/music-login.component";
     MusicLoginComponent
   ],
   templateUrl: './music-settings.component.html',
-  styleUrl: './music-settings.component.scss'
+  styleUrl: './music-settings.component.css'
 })
 export class MusicSettingsComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
@@ -19,3 +19,5 @@ export class MusicSettingsComponent implements OnInit{
   }
 
 }
+
+

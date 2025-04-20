@@ -20,7 +20,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     FaIconComponent
   ],
   templateUrl: './chess-player-card.component.html',
-  styleUrl: './chess-player-card.component.scss'
+  styleUrl: './chess-player-card.component.css'
 })
 export class ChessPlayerCardComponent {
   private readonly navigationService = inject(RouterNavigationService);
@@ -34,3 +34,5 @@ export class ChessPlayerCardComponent {
 
   protected readonly length = length;
 }
+
+

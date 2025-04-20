@@ -12,10 +12,12 @@ import {Button} from "primeng/button";
     Button
   ],
   templateUrl: './fide-import.component.html',
-  styleUrl: './fide-import.component.scss'
+  styleUrl: './fide-import.component.css'
 })
 export class FideImportComponent {
   private readonly environment = inject(EnvironmentConfig);
   protected readonly chessBaseUrl = this.environment.chessService();
 
 }
+
+

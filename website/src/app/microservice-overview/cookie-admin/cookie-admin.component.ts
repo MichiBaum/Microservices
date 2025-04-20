@@ -8,7 +8,7 @@ import {Button} from "primeng/button";
         Button
     ],
   templateUrl: './cookie-admin.component.html',
-  styleUrl: './cookie-admin.component.scss'
+  styleUrl: './cookie-admin.component.css'
 })
 export class CookieAdminComponent {
     authService: AuthService = inject(AuthService);
@@ -21,3 +21,5 @@ export class CookieAdminComponent {
         this.authService.removeAuthCookie()
     }
 }
+
+

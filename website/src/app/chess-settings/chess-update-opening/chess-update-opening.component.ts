@@ -20,7 +20,7 @@ import {ChessOpeningFormComponent} from "../../chess/chess-opening-form/chess-op
         ChessOpeningFormComponent
     ],
   templateUrl: './chess-update-opening.component.html',
-  styleUrl: './chess-update-opening.component.scss'
+  styleUrl: './chess-update-opening.component.css'
 })
 export class ChessUpdateOpeningComponent {
     chessService = inject(ChessService);
@@ -72,3 +72,5 @@ export class ChessUpdateOpeningComponent {
 		this.formGroup.reset();
     }
 }
+
+

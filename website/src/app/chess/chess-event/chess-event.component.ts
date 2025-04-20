@@ -29,7 +29,7 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
     Avatar,
   ],
   templateUrl: './chess-event.component.html',
-  styleUrl: './chess-event.component.scss'
+  styleUrl: './chess-event.component.css'
 })
 export class ChessEventComponent implements OnInit {
   private _sanitizer = inject(DomSanitizer);
@@ -69,3 +69,5 @@ export class ChessEventComponent implements OnInit {
 
 
 }
+
+

@@ -24,7 +24,7 @@ import {Fieldset} from "primeng/fieldset";
     Fieldset
   ],
   templateUrl: './chess-event-participants.component.html',
-  styleUrl: './chess-event-participants.component.scss'
+  styleUrl: './chess-event-participants.component.css'
 })
 export class ChessEventParticipantsComponent {
   private readonly chessService = inject(ChessService);
@@ -92,3 +92,5 @@ enum SortByValue {
   federation = 'federation',
   birthday = 'birthday'
 }
+
+

@@ -20,7 +20,7 @@ import {Subscription} from "rxjs";
     MenubarModule
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnDestroy{
   private readonly languageConfig = inject(LanguageConfig);
@@ -51,3 +51,5 @@ export class HeaderComponent implements OnDestroy{
   }
 
 }
+
+

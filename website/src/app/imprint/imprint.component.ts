@@ -9,8 +9,10 @@ import {TranslateModule} from "@ngx-translate/core";
     TranslateModule
   ],
   templateUrl: './imprint.component.html',
-  styleUrl: './imprint.component.scss'
+  styleUrl: './imprint.component.css'
 })
 export class ImprintComponent {
 
 }
+
+

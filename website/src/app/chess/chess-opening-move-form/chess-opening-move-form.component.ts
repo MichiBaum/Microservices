@@ -16,7 +16,7 @@ import {ChessService} from "../../core/api-services/chess.service";
         Button
     ],
     templateUrl: './chess-opening-move-form.component.html',
-    styleUrl: './chess-opening-move-form.component.scss'
+    styleUrl: './chess-opening-move-form.component.css'
 })
 export class ChessOpeningMoveFormComponent implements OnChanges {
     chessService = inject(ChessService)
@@ -92,3 +92,5 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
         return move != undefined && move.id != undefined && move.id != '';
     }
 }
+
+
