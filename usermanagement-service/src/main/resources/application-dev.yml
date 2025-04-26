@@ -23,6 +23,8 @@ spring:
     password: someRootPass
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/usermanagement-db
+  jpa:
+    show-sql: true
   boot:
     admin:
       service:
