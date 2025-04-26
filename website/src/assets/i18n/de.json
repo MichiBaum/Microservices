@@ -50,7 +50,6 @@
         "event": {
             "account": "Account",
             "birthday": "Geburtstag",
-            "chess-com": "Chess.com",
             "date-from": "Von",
             "date-to": "Bis",
             "details": "Details",
