@@ -41,10 +41,8 @@ eureka:
     prefer-ip-address: true
   client:
     enabled: true
-    fetch-registry: true
+    fetch-registry: false
     register-with-eureka: true
-    refresh:
-      enable: true
   server:
     metrics:
       enabled: true

@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @SpringBootApplication
 @EnableEurekaServer
 @EnableDiscoveryClient
-@EnableScheduling
 class RegistryServiceApplication
 
 fun main(args: Array<String>) {
