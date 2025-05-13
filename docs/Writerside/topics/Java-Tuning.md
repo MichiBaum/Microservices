@@ -21,7 +21,8 @@ My recommendation (with the specified resources) is to configure following:
 - -XX:G1HeapRegionSize=8M
 - -XX:+UseG1GC
 - -XX:+UseContainerSupport
-- -XX:MaxGCPauseMillis=100
+- -XX:MaxGCPauseMillis=50
 - -XX:UsaStringDeduplication
 - -XX:MinHeapFreeRatio=20
 - -XX:MaxHeapFreeRatio=35
+- -XX:+ParallelRefProcEnabled
