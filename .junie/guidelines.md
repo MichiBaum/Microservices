@@ -58,7 +58,7 @@ This is a microservices-based application written primarily in Kotlin. The proje
 ## Preferred Technologies
 - Kotlin for backend development
 - Spring Boot framework
-- PostgreSQL for database
+- MariaDB for database
 - Docker for containerization
 
 ## Development Workflow
