@@ -39,6 +39,7 @@ export class HomeComponent {
   canActivateMusic() {
     return Sides.music.canActivate(this.permissionService)
   }
+
 }
 
 

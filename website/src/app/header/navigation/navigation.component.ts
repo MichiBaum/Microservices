@@ -8,7 +8,8 @@ import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
 import {Ripple} from "primeng/ripple";
 import {
-    faBars, faChartLine,
+    faBars,
+    faChartLine,
     faChess,
     faCoffee,
     faCompactDisc,
@@ -18,6 +19,7 @@ import {
     faLightbulb,
     faMap,
     faMicrochip,
+    faNoteSticky,
     faStamp,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
@@ -73,81 +75,90 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.logoutSubscription.unsubscribe();
     }
 
-    getNavItems = () =>
-        [
+  getNavItems = () =>
+     [
+      {
+        label: 'navigation.apps',
+        items: [
+          {
+            label: Sides.login.translationKey,
+            customIcon: faKey,
+            visible: !this.permissionService.isAuthenticated(),
+            command: () => {
+              this.sidebarVisible.set(false)
+              this.routerNavigationService.login();
+            }
+          } as MenuItem,
+          {
+            label: Sides.home.translationKey,
+            customIcon: faHouse,
+            visible: true,
+            command: () => {
+              this.sidebarVisible.set(false)
+              this.routerNavigationService.home();
+            }
+          } as MenuItem,
             {
-                label: 'navigation.apps',
-                items: [
-                    {
-                        label: Sides.login.translationKey,
-                        customIcon: faKey,
-                        visible: !this.permissionService.isAuthenticated(),
-                        command: () => {
-                            this.sidebarVisible.set(false)
-                            this.routerNavigationService.login();
-                        }
-                    } as MenuItem,
-                    {
-                        label: Sides.home.translationKey,
-                        customIcon: faHouse,
-                        visible: true,
-                        command: () => {
-                            this.sidebarVisible.set(false)
-                            this.routerNavigationService.home();
-                        }
-                    } as MenuItem,
-                    {
-                        label: Sides.fitness.translationKey,
-                        customIcon: faDumbbell,
-                        visible: this.permissionService.hasAnyOf([Permissions.FITNESS_SERVICE]),
-                        command: () => {
-                            this.sidebarVisible.set(false)
-                            this.routerNavigationService.fitness();
-                        }
-                    } as MenuItem,
-                    {
-                        label: Sides.music.translationKey,
-                        customIcon: faCompactDisc,
-                        visible: Sides.music.canActivate(this.permissionService),
-                        command: () => {
-                            this.sidebarVisible.set(false)
-                            this.routerNavigationService.music();
-                        }
-                    } as MenuItem,
-                    {
-                        label: Sides.chess.translationKey,
-                        customIcon: faChess,
-                        visible: true,
-                        command: () => {
-                            this.sidebarVisible.set(false)
-                            this.routerNavigationService.chess();
-                        },
-                    } as MenuItem
-                ]
+                label: 'Notes',
+                customIcon: faNoteSticky,
+                visible: true,
+                command: () => {
+                    this.sidebarVisible.set(false)
+                    this.routerNavigationService.notes();
+                }
+            } as MenuItem,
+          {
+            label: Sides.fitness.translationKey,
+            customIcon: faDumbbell,
+            visible: this.permissionService.hasAnyOf([Permissions.FITNESS_SERVICE]),
+            command: () => {
+              this.sidebarVisible.set(false)
+              this.routerNavigationService.fitness();
+            }
+          } as MenuItem,
+          {
+            label: Sides.music.translationKey,
+            customIcon: faCompactDisc,
+            visible: Sides.music.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible.set(false)
+              this.routerNavigationService.music();
+            }
+          } as MenuItem,
+          {
+            label: Sides.chess.translationKey,
+            customIcon: faChess,
+            visible: true,
+            command: () => {
+              this.sidebarVisible.set(false)
+              this.routerNavigationService.chess();
             },
-            {
-                label: 'navigation.developer-and-project',
-                items: [
-                    {
-                        label: Sides.about_me.translationKey,
-                        customIcon: faUser,
-                        visible: Sides.about_me.canActivate(this.permissionService), // TODO
-                        command: () => {
-                            this.sidebarVisible.set(false)
-                            this.routerNavigationService.about_me();
-                        }
-                    },
-                    {
-                        label: Sides.donate.translationKey,
-                        customIcon: faCoffee,
-                        visible: Sides.donate.canActivate(this.permissionService),
-                        command: () => {
-                            this.sidebarVisible.set(false)
-                            this.routerNavigationService.donate();
-                        }
-                    } as MenuItem,
-                    {
-                        label: 'navigation.github',
+          } as MenuItem
+        ]
+      },
+      {
+         label: 'navigation.developer-and-project',
+         items: [
+          {
+            label: Sides.about_me.translationKey,
+            customIcon: faUser,
+            visible: Sides.about_me.canActivate(this.permissionService), // TODO
+            command: () => {
+              this.sidebarVisible.set(false)
+              this.routerNavigationService.about_me();
+            }
+          },
+          {
+            label: Sides.donate.translationKey,
+            customIcon: faCoffee,
+            visible: Sides.donate.canActivate(this.permissionService),
+            command: () => {
+              this.sidebarVisible.set(false)
+              this.routerNavigationService.donate();
+            }
+          } as MenuItem,
+          {
+            label: 'navigation.github',
                         customIcon: faGithub,
                         visible: true,
                         command: () => {
