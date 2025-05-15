@@ -107,5 +107,5 @@ export const Sides = {
     navigation: "music-settings",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
     neededPermissions: [Permissions.MUSIC_SERVICE]
-  } as Side
+  } as Side,
 }
