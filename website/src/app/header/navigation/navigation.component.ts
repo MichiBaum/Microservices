@@ -18,7 +18,7 @@ import {
     faKey,
     faLightbulb,
     faMap,
-    faMicrochip,
+    faMicrochip, faNoteSticky,
     faStamp,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
@@ -109,6 +109,15 @@ export class NavigationComponent implements OnInit, OnDestroy{
               this.routerNavigationService.home();
             }
           } as MenuItem,
+            {
+                label: 'Notes',
+                customIcon: faNoteSticky,
+                visible: true,
+                command: () => {
+                    this.sidebarVisible.set(false)
+                    this.routerNavigationService.notes();
+                }
+            } as MenuItem,
           {
             label: Sides.fitness.translationKey,
             customIcon: faDumbbell,
