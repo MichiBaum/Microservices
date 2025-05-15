@@ -93,4 +93,7 @@ export class RouterNavigationService {
         this.router.navigate(['/music']);
     }
 
+    notes() {
+        this.router.navigate(['/notes'])
+    }
 }
