@@ -16,6 +16,18 @@
   }
 
   @defer{
+      <app-home-card
+          [headerImage]="'home_notes.jpeg'"
+          [titleText]="'home.notes.title' | translate"
+          [content]="'home.notes.content' | translate"
+          [buttonLabel]="'home.notes.button' | translate"
+          (navigate)="routerNavigationService.notes()"
+      ></app-home-card>
+  } @placeholder {
+      <app-defer-placeholder height="35rem"></app-defer-placeholder>
+  }
+
+  @defer{
   <app-home-card
     [headerImage]="'home_chess.webp'"
     [titleText]="'home.chess.title' | translate"

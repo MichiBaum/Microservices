@@ -5,10 +5,18 @@ import java.util.*
 
 @Entity
 @Table(name="note")
-class Note (
+class Note ( // TODO add Hibernate Envers, Author
+
+    @Column(name="text")
+    val text: String,
+
+    @Column(name="encrypted")
+    val encryped: Boolean,
+
+    // TODO Sharing of notes
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID? = null
+    val id: UUID? = null,
 
 ){}
