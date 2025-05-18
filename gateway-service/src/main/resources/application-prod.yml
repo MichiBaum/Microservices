@@ -23,6 +23,8 @@ spring:
       client:
         username: ${ADMIN_SERVICE_USERNAME}
         password: ${ADMIN_SERVICE_PASSWORD}
+        instance:
+          management-url: http://gateway-service
   microservices:
     discord:
       enabled: true
