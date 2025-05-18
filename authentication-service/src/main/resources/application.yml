@@ -63,6 +63,14 @@ eureka:
       enable: true
 
 management:
+  metrics:
+    data:
+      repository:
+        autotime:
+          percentiles-histogram: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
   observations:
     annotations:
       enabled: true

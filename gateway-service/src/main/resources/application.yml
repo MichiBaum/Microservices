@@ -54,6 +54,10 @@ eureka:
       enabled: true
 
 management:
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
   observations:
     annotations:
       enabled: true
