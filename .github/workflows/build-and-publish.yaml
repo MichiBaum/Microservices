@@ -27,6 +27,7 @@ jobs:
           node-version: 22
           cache: 'npm'
           check-latest: true
+          cache-dependency-path: website/package-lock.json
 
       - name: Determine tag
         id: determine_tag
