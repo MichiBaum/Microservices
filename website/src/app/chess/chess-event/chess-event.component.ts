@@ -1,5 +1,4 @@
 import {Component, computed, inject, OnInit, Signal, signal, WritableSignal} from '@angular/core';
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from '@angular/router';
 import {CardModule} from "primeng/card";
 import {Button} from "primeng/button";
@@ -11,7 +10,6 @@ import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
 import {TabsModule} from "primeng/tabs";
-import {Avatar} from "primeng/avatar";
 import {ChessEvent} from "../../core/models/chess/chess.models";
 
 @Component({
@@ -26,26 +24,16 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
     ChessEventGamesComponent,
     DividerModule,
     TabsModule,
-    Avatar,
   ],
   templateUrl: './chess-event.component.html',
-  styleUrl: './chess-event.component.scss'
+  styleUrl: './chess-event.component.css'
 })
 export class ChessEventComponent implements OnInit {
-  private _sanitizer = inject(DomSanitizer);
   private readonly route = inject(ActivatedRoute);
   private readonly navigationService = inject(RouterNavigationService);
 
   event: WritableSignal<ChessEvent | undefined> = signal(undefined)
 
-  embedUrl: Signal<SafeResourceUrl | undefined> = computed(() => {
-    const event = this.event();
-    if(event == undefined)
-      return undefined
-    if(event.embedUrl == undefined || event.embedUrl == "")
-      return undefined
-    return this._sanitizer.bypassSecurityTrustResourceUrl(event.embedUrl)
-  })
   categories: Signal<string> = computed(() => {
     const event = this.event();
     if(event == undefined)
@@ -69,3 +57,5 @@ export class ChessEventComponent implements OnInit {
 
 
 }
+
+

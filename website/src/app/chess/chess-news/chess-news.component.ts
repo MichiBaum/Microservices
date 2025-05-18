@@ -7,8 +7,10 @@ import {Message} from "primeng/message";
     Message
   ],
   templateUrl: './chess-news.component.html',
-  styleUrl: './chess-news.component.scss'
+  styleUrl: './chess-news.component.css'
 })
 export class ChessNewsComponent {
 
 }
+
+

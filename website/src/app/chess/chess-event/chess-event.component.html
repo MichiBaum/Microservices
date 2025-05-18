@@ -3,12 +3,7 @@
       <p-tab value="0">
         {{'chess.event.details' | translate}}
       </p-tab>
-      <p-tab value="1" [disabled]="embedUrl() == undefined">
-        <p-avatar image="https://www.chess.com/bundles/web/favicons/favicon.5d6cb047.svg" shape="circle" />
-
-        {{'chess.event.chess-com' | translate}}
-      </p-tab>
-      <p-tab value="2" [disabled]="gamesTabDisabled()">
+      <p-tab value="1" [disabled]="gamesTabDisabled()">
         {{'chess.event.games' | translate}}
       </p-tab>
     </p-tablist>
@@ -45,11 +40,6 @@
 
       </p-tabpanel>
       <p-tabpanel value="1">
-
-        <iframe style="border:0;" [src]="embedUrl()" scrolling="no"></iframe>
-
-      </p-tabpanel>
-      <p-tabpanel value="2">
 
         <app-chess-event-games *ngIf="event()" [event]="event()" (haveContent)="gamesTabDisabled.set(!$event)"></app-chess-event-games>
 

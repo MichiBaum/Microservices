@@ -13,7 +13,7 @@ import {ChessOpening} from "../../core/models/chess/chess.models";
         FaIconComponent
     ],
   templateUrl: './chess-openings-list.component.html',
-  styleUrl: './chess-openings-list.component.scss'
+  styleUrl: './chess-openings-list.component.css'
 })
 export class ChessOpeningsListComponent {
     protected readonly faArrowUpRightFromSquare = faArrowUpRightFromSquare;
@@ -21,3 +21,5 @@ export class ChessOpeningsListComponent {
     openings = input.required<ChessOpening[]>()
 
 }
+
+

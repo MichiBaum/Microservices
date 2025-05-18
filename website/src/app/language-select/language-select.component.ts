@@ -13,7 +13,7 @@ import {FormsModule} from "@angular/forms";
         FormsModule
     ],
   templateUrl: './language-select.component.html',
-  styleUrl: './language-select.component.scss'
+  styleUrl: './language-select.component.css'
 })
 export class LanguageSelectComponent implements OnInit{
   private readonly languageConfig = inject(LanguageConfig);
@@ -34,3 +34,5 @@ export class LanguageSelectComponent implements OnInit{
 
 
 }
+
+

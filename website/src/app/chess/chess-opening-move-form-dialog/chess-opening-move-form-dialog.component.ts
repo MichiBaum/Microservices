@@ -10,7 +10,7 @@ import {WriteOpeningMove} from "../../core/models/chess/chess.models";
         Dialog
     ],
   templateUrl: './chess-opening-move-form-dialog.component.html',
-  styleUrl: './chess-opening-move-form-dialog.component.scss'
+  styleUrl: './chess-opening-move-form-dialog.component.css'
 })
 export class ChessOpeningMoveFormDialogComponent {
     visible = input<boolean>(false);
@@ -35,3 +35,5 @@ export class ChessOpeningMoveFormDialogComponent {
         this.deleted.emit();
     }
 }
+
+

@@ -18,7 +18,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './select-chess-person.component.html',
-  styleUrl: './select-chess-person.component.scss'
+  styleUrl: './select-chess-person.component.css'
 })
 export class SelectChessPersonComponent {
   readonly persons = input<Person[]>([]);
@@ -39,3 +39,5 @@ export class SelectChessPersonComponent {
   }
 
 }
+
+

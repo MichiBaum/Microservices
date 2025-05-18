@@ -25,7 +25,7 @@ import {rxResource} from "@angular/core/rxjs-interop";
     FloatLabel
   ],
   templateUrl: './chess-update-event-category.component.html',
-  styleUrl: './chess-update-event-category.component.scss'
+  styleUrl: './chess-update-event-category.component.css'
 })
 export class ChessUpdateEventCategoryComponent {
   private readonly chessService = inject(ChessService);
@@ -94,3 +94,5 @@ export class ChessUpdateEventCategoryComponent {
 
   }
 }
+
+

@@ -19,8 +19,10 @@ import {TranslateModule} from "@ngx-translate/core";
         TranslateModule
     ],
   templateUrl: './chess.component.html',
-  styleUrl: './chess.component.scss'
+  styleUrl: './chess.component.css'
 })
 export class ChessComponent {
 
 }
+
+

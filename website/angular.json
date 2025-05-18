@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "schematics": {
     "@schematics/angular:component": {
-      "style": "scss"
+      "style": "css"
     }
   },
   "projects": {
@@ -33,7 +33,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ],
             "scripts": []
           },

@@ -21,7 +21,7 @@ import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-place
     DeferPlaceholderComponent
   ],
   templateUrl: './fitness.component.html',
-  styleUrl: './fitness.component.scss'
+  styleUrl: './fitness.component.css'
 })
 export class FitnessComponent implements OnInit{
   private readonly headerService = inject(HeaderService);
@@ -37,3 +37,5 @@ export class FitnessComponent implements OnInit{
   }
 
 }
+
+

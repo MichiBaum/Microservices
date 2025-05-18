@@ -23,7 +23,7 @@ import {TranslatePipe} from "@ngx-translate/core";
         TranslatePipe
     ],
   templateUrl: './chess-opening.component.html',
-  styleUrl: './chess-opening.component.scss'
+  styleUrl: './chess-opening.component.css'
 })
 export class ChessOpeningComponent implements OnDestroy{
     private readonly route = inject(ActivatedRoute);
@@ -64,3 +64,5 @@ export class ChessOpeningComponent implements OnDestroy{
     protected readonly faPlus = faPlus;
     protected readonly faMinus = faMinus;
 }
+
+

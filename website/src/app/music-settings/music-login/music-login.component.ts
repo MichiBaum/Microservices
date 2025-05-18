@@ -9,7 +9,7 @@ import {MusicService} from "../../core/api-services/music.service";
     Button
   ],
   templateUrl: './music-login.component.html',
-  styleUrl: './music-login.component.scss'
+  styleUrl: './music-login.component.css'
 })
 export class MusicLoginComponent {
   private readonly musicService = inject(MusicService);
@@ -20,3 +20,5 @@ export class MusicLoginComponent {
   }
 
 }
+
+

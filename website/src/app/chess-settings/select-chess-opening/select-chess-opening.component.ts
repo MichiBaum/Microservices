@@ -8,7 +8,7 @@ import {ChessOpening} from "../../core/models/chess/chess.models";
     TableModule
   ],
   templateUrl: './select-chess-opening.component.html',
-  styleUrl: './select-chess-opening.component.scss'
+  styleUrl: './select-chess-opening.component.css'
 })
 export class SelectChessOpeningComponent {
   openings = input<ChessOpening[]>([]);
@@ -20,3 +20,5 @@ export class SelectChessOpeningComponent {
     this.selectedOpening.emit(this.tableSelectedOpening())
   }
 }
+
+

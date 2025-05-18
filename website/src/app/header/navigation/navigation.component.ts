@@ -51,7 +51,7 @@ import {Subscription} from "rxjs";
     Button
   ],
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.scss'
+  styleUrl: './navigation.component.css'
 })
 export class NavigationComponent implements OnInit, OnDestroy{
   private readonly routerNavigationService = inject(RouterNavigationService);
@@ -226,3 +226,5 @@ export class NavigationComponent implements OnInit, OnDestroy{
     ] as MenuItem[];
 
 }
+
+

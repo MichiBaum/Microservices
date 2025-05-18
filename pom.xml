@@ -13,7 +13,7 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <spring-boot.version>3.4.4</spring-boot.version>
+        <spring-boot.version>3.4.5</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
@@ -48,7 +48,7 @@
         https://mockk.io/
         https://mvnrepository.com/artifact/io.mockk/mockk-jvm
         -->
-        <mockk.version>1.14.0</mockk.version>
+        <mockk.version>1.14.2</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
@@ -260,6 +260,15 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
                 <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
                     <args>

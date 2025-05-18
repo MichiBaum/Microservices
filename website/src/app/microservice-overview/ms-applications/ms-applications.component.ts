@@ -12,7 +12,7 @@ import {MsApplicationComponent} from "../ms-application/ms-application.component
     MsApplicationComponent
   ],
   templateUrl: './ms-applications.component.html',
-  styleUrl: './ms-applications.component.scss'
+  styleUrl: './ms-applications.component.css'
 })
 export class MsApplicationsComponent {
   private readonly adminService = inject(AdminService);
@@ -21,3 +21,5 @@ export class MsApplicationsComponent {
     loader: () => this.adminService.applications()
   })
 }
+
+

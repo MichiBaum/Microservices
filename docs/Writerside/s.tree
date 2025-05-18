@@ -7,11 +7,13 @@
     <toc-element topic="Development.md">
         <toc-element topic="Project-structure.md"/>
         <toc-element topic="Local-Database.md"/>
+        <toc-element topic="Local-docker-compose.md"/>
     </toc-element>
     <toc-element topic="Github.md">
         <toc-element topic="Actions.md"/>
     </toc-element>
     <toc-element topic="Server.md">
+        <toc-element topic="Fail2Ban.md"/>
         <toc-element topic="Java-Tuning.md"/>
         <toc-element topic="New-Deployment.md"/>
         <toc-element topic="ssl.md"/>
@@ -33,6 +35,7 @@
         <toc-element topic="Fitness-Service.md"/>
         <toc-element topic="Chess-Service.md"/>
         <toc-element topic="Authentication-Service.md"/>
+        <toc-element topic="Alexandria-Service.md"/>
         <toc-element topic="Admin-Service.md"/>
     </toc-element>
     <toc-element topic="Libraries.md">
@@ -47,6 +50,7 @@
     <toc-element topic="Docker.md">
         <toc-element topic="env.md"/>
     </toc-element>
+    <toc-element topic="JMeter.md"/>
     <toc-element topic="Maven.md"/>
     <toc-element topic="Decisions.md">
         <toc-element topic="2024-12-30-testcontainers.md"/>

@@ -33,7 +33,7 @@ import {ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models
         FormsModule
     ],
   templateUrl: './chess-events-list.component.html',
-  styleUrl: './chess-events-list.component.scss'
+  styleUrl: './chess-events-list.component.css'
 })
 export class ChessEventsListComponent {
   private readonly chessService = inject(ChessService);
@@ -78,3 +78,5 @@ export class ChessEventsListComponent {
   selectedYears = signal<string[]>([]);
 
 }
+
+

@@ -41,12 +41,23 @@ eureka:
     prefer-ip-address: true
   client:
     enabled: true
-    fetch-registry: true
+    fetch-registry: false
     register-with-eureka: true
-    refresh:
-      enable: true
+  server:
+    metrics:
+      enabled: true
+    peer-node-read-timeout-ms: 1000
+    renewal-percent-threshold: 0.85
+    response-cache-update-interval-ms: 10000
+    eviction-interval-timer-in-ms: 30000
+    wait-time-in-ms-when-sync-empty: 500
+    registry-sync-retries: 5
 
 management:
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
   observations:
     annotations:
       enabled: true

@@ -20,6 +20,8 @@ Actions Badges:
 This project is all about microservices. Frontend is currently build with Angular.
 There are microservices build with spring, spring cloud and so forth.
 
+Documentation build from master branch can be found [here](https://michibaum.github.io/Microservices/).
+
 
 ![Alt](https://repobeats.axiom.co/api/embed/69bb8de5fa17a6f9aa3c3c0ffad238a1e056edac.svg "Repobeats analytics image")
 
@@ -48,9 +50,6 @@ And these databases:
 - Chess DB
 - Fitness DB
 - Music DB
-
-All docs can be found [/docs/Writerside/topics](./docs/Writerside/topics/Overview.md)
-
 
 ## License
 

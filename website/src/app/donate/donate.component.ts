@@ -14,9 +14,11 @@ import {NgOptimizedImage} from "@angular/common";
     NgOptimizedImage
   ],
   templateUrl: './donate.component.html',
-  styleUrl: './donate.component.scss'
+  styleUrl: './donate.component.css'
 })
 export class DonateComponent {
   protected router = inject(RouterNavigationService);
 
 }
+
+

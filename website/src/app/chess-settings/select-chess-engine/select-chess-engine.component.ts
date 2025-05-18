@@ -8,7 +8,7 @@ import {ChessEngine} from "../../core/models/chess/chess.models";
     TableModule
   ],
   templateUrl: './select-chess-engine.component.html',
-  styleUrl: './select-chess-engine.component.scss'
+  styleUrl: './select-chess-engine.component.css'
 })
 export class SelectChessEngineComponent {
 
@@ -21,3 +21,5 @@ export class SelectChessEngineComponent {
     this.selectedEngine.emit(this.tableSelectedEngine())
   }
 }
+
+

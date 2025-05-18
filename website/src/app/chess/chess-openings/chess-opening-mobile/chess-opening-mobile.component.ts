@@ -7,8 +7,10 @@ import {Message} from "primeng/message";
         Message
     ],
   templateUrl: './chess-opening-mobile.component.html',
-  styleUrl: './chess-opening-mobile.component.scss'
+  styleUrl: './chess-opening-mobile.component.css'
 })
 export class ChessOpeningMobileComponent {
 
 }
+
+

@@ -18,7 +18,7 @@ import {Subscription} from "rxjs";
     Ripple
   ],
   templateUrl: './logout.component.html',
-  styleUrl: './logout.component.scss'
+  styleUrl: './logout.component.css'
 })
 export class LogoutComponent implements OnDestroy{
   private readonly authService = inject(AuthService);
@@ -44,3 +44,5 @@ export class LogoutComponent implements OnDestroy{
     this.routerNavigation.login()
   }
 }
+
+

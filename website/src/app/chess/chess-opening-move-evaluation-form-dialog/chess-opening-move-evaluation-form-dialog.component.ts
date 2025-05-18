@@ -19,7 +19,7 @@ import {of} from "rxjs";
         NgForOf
     ],
   templateUrl: './chess-opening-move-evaluation-form-dialog.component.html',
-  styleUrl: './chess-opening-move-evaluation-form-dialog.component.scss'
+  styleUrl: './chess-opening-move-evaluation-form-dialog.component.css'
 })
 export class ChessOpeningMoveEvaluationFormDialogComponent {
     private readonly chessService = inject(ChessService);
@@ -54,3 +54,5 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
         this.evaluations.reload()
     }
 }
+
+

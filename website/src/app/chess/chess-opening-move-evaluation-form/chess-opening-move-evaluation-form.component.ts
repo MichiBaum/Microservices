@@ -28,7 +28,7 @@ import {SelectedMove} from "../chess-move-tree/selected-move.model";
         Button
     ],
   templateUrl: './chess-opening-move-evaluation-form.component.html',
-  styleUrl: './chess-opening-move-evaluation-form.component.scss'
+  styleUrl: './chess-opening-move-evaluation-form.component.css'
 })
 export class ChessOpeningMoveEvaluationFormComponent implements OnChanges {
 
@@ -110,3 +110,5 @@ export class ChessOpeningMoveEvaluationFormComponent implements OnChanges {
         return this.formGroup.controls['id'].value != undefined && this.formGroup.controls['id'].value !== '';
     }
 }
+
+

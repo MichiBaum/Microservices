@@ -9,7 +9,7 @@ import {ChessService} from "../../core/api-services/chess.service";
         ChessOpeningsListComponent
     ],
   templateUrl: './chess-popular-openings-list.component.html',
-  styleUrl: './chess-popular-openings-list.component.scss'
+  styleUrl: './chess-popular-openings-list.component.css'
 })
 export class ChessPopularOpeningsListComponent {
     private readonly chessService = inject(ChessService);
@@ -26,3 +26,5 @@ export class ChessPopularOpeningsListComponent {
     })
 
 }
+
+

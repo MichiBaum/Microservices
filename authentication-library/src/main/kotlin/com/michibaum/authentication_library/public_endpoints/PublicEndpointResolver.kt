@@ -36,7 +36,7 @@ class PublicEndpointResolver(
 
         logger.info("Found ${endpoints.size} public endpoints")
         for (endpoint in endpoints) {
-            logger.info("Mapping: ${endpoint.httpMethod} '${endpoint.rawPath}' converted to antPath: '${endpoint.antPath}'")
+            logger.info("Mapping: ${endpoint.httpMethod} '${endpoint.rawPath}' converted to: '${endpoint.path}'")
         }
         return endpoints
     }
@@ -67,37 +67,46 @@ class PublicEndpointResolver(
 
         val mappings = ArrayList<PublicEndpointDetails>()
 
-        getEndpointsFromRequestMapping(method).also {
+        // Extract pattern type from PublicEndpoint annotation
+        val patternType = if (method.isAnnotationPresent(PublicEndpoint::class.java)) {
+            method.getAnnotation(PublicEndpoint::class.java).pattern
+        } else {
+            PublicPattern.ANT
+        }
+
+        logger.debug("Using pattern type: $patternType for method: ${method.name}")
+
+        getEndpointsFromRequestMapping(method, patternType).also {
             mappings.addAll(it)
         }
 
         if(method.isAnnotationPresent(GetMapping::class.java)){
             val paths = method.getAnnotation(GetMapping::class.java).value
-            val result = paths.map { PublicEndpointDetails(it, RequestMethod.GET) }
+            val result = paths.map { PublicEndpointDetails(it, RequestMethod.GET, patternType) }
             mappings.addAll(result)
         }
 
         if(method.isAnnotationPresent(PostMapping::class.java)){
             val paths = method.getAnnotation(PostMapping::class.java).value
-            val result = paths.map { PublicEndpointDetails(it, RequestMethod.POST) }
+            val result = paths.map { PublicEndpointDetails(it, RequestMethod.POST, patternType) }
             mappings.addAll(result)
         }
 
         if(method.isAnnotationPresent(PutMapping::class.java)){
             val paths = method.getAnnotation(PutMapping::class.java).value
-            val result = paths.map { PublicEndpointDetails(it, RequestMethod.PUT) }
+            val result = paths.map { PublicEndpointDetails(it, RequestMethod.PUT, patternType) }
             mappings.addAll(result)
         }
 
         if(method.isAnnotationPresent(PatchMapping::class.java)){
             val paths = method.getAnnotation(PatchMapping::class.java).value
-            val result = paths.map { PublicEndpointDetails(it, RequestMethod.PATCH) }
+            val result = paths.map { PublicEndpointDetails(it, RequestMethod.PATCH, patternType) }
             mappings.addAll(result)
         }
 
         if (method.isAnnotationPresent(DeleteMapping::class.java)) {
             val paths = method.getAnnotation(DeleteMapping::class.java).value
-            val result = paths.map { PublicEndpointDetails(it, RequestMethod.DELETE) }
+            val result = paths.map { PublicEndpointDetails(it, RequestMethod.DELETE, patternType) }
             mappings.addAll(result)
         }
 
@@ -107,13 +116,14 @@ class PublicEndpointResolver(
 
     private fun getEndpointsFromRequestMapping(
         method: Method,
+        patternType: PublicPattern
     ): List<PublicEndpointDetails> {
         if (method.isAnnotationPresent(RequestMapping::class.java)) {
             val paths = method.getAnnotation(RequestMapping::class.java).value
             val methods = method.getAnnotation(RequestMapping::class.java).method
             val result = paths.map { path ->
                 methods.map { method ->
-                    PublicEndpointDetails(path, method)
+                    PublicEndpointDetails(path, method, patternType)
                 }
             }.flatten()
             return result
