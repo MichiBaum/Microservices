@@ -10,6 +10,7 @@ import com.michibaum.authentication_library.security.basic.CredentialsValidator
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
+import io.micrometer.observation.ObservationRegistry
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.AutoConfiguration
@@ -46,16 +47,16 @@ class AuthenticationAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(JwtAuthenticationManager::class)
-    fun jwtAuthenticationManager(jwsValidator: JwsValidator): SpecificAuthenticationManager {
+    fun jwtAuthenticationManager(jwsValidator: JwsValidator, observationRegistry: ObservationRegistry): SpecificAuthenticationManager {
         logger.info("Creating JwtAuthenticationManager in AuthenticationAutoConfiguration")
-        return JwtAuthenticationManager(jwsValidator)
+        return JwtAuthenticationManager(jwsValidator, observationRegistry)
     }
 
     @Bean
     @ConditionalOnMissingBean(BasicAuthenticationManager::class)
-    fun basicAuthenticationManager(credentialsValidator: CredentialsValidator): SpecificAuthenticationManager {
+    fun basicAuthenticationManager(credentialsValidator: CredentialsValidator, observationRegistry: ObservationRegistry): SpecificAuthenticationManager {
         logger.info("Creating BasicAuthenticationManager in AuthenticationAutoConfiguration")
-        return BasicAuthenticationManager(credentialsValidator)
+        return BasicAuthenticationManager(credentialsValidator, observationRegistry)
     }
 
     @Bean
