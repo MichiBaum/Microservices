@@ -162,6 +162,8 @@ services:
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
     ports:
       - "443:443"
+    expose:
+      - "80"
     volumes:
       - /data/ssl:/data/ssl
     networks:
