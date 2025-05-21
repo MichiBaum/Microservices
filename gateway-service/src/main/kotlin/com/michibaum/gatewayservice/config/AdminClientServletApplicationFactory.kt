@@ -19,7 +19,7 @@ class AdminClientServletApplicationFactory(
     servletContext: ServletContext,
     pathMappedEndpoints: PathMappedEndpoints,
     webEndpoint: WebEndpointProperties,
-    metadataContributors: MetadataContributor,
+    metadataContributor: MetadataContributor,
     dispatcherServletPath: DispatcherServletPath
 ) : ServletApplicationFactory(
     instance,
@@ -28,7 +28,7 @@ class AdminClientServletApplicationFactory(
     servletContext,
     pathMappedEndpoints,
     webEndpoint,
-    metadataContributors,
+    metadataContributor,
     dispatcherServletPath
 ) {
 
