@@ -25,9 +25,6 @@ spring:
         custom-discord:
           enabled: true
           channel-id: ${ADMIN_SERVICE_NOTIFY_DISCORD_CHANNEL}
-      discovery:
-        #       Because of ssl gateway-service doesn't work
-        ignored-services: gateway-service
 eureka:
   client:
     service-url:

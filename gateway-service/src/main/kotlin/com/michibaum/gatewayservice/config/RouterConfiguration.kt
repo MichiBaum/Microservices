@@ -53,14 +53,14 @@ class RouterConfiguration {
 
             // Specific services (Higher priority)
             .route(host("admin.michibaum.*"), lb("admin-service").apply(http()))
-            .route(host("zipkin.michibaum.*")){request ->
-                request.authenticate(servicesProperties.zipkinUrl, authFilter)
+            .route(host("zipkin.michibaum.*")){request -> 
+                request.authenticate(servicesProperties.zipkinUrl, authFilter, Permissions.ADMIN_SERVICE)
             }
             .route(host("grafana.michibaum.*")){request ->
-                request.authenticate(servicesProperties.grafanaUrl, authFilter)
+                request.authenticate(servicesProperties.grafanaUrl, authFilter, Permissions.ADMIN_SERVICE)
             }
             .route(host("prometheus.michibaum.*")){request ->
-                request.authenticate(servicesProperties.prometheusUrl, authFilter)
+                request.authenticate(servicesProperties.prometheusUrl, authFilter, Permissions.ADMIN_SERVICE)
             }
             .route(host("registry.michibaum.*"), lb("registry-service").apply(http()))
             .route(host("authentication.michibaum.*"), lb("authentication-service").apply(http()))
@@ -83,9 +83,9 @@ data class ServicesProperties(
     val prometheusUrl: URI
 )
 
-fun ServerRequest.authenticate(redirect: URI, authFilter: ServletAuthenticationFilter): ServerResponse {
+fun ServerRequest.authenticate(redirect: URI, authFilter: ServletAuthenticationFilter, vararg requiredPermissions: Permissions): ServerResponse {
     val authentication = authFilter.getAuthentication(servletRequest())
-    return if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.contains(Permissions.ADMIN_SERVICE.name)) {
+    return if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.containsAll(requiredPermissions.toList().map { it.name })) {
         ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
     } else {
         http(redirect).handle(this)

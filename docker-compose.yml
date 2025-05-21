@@ -399,15 +399,15 @@ services:
     expose:
       - "9090"
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus-prod.yml:/etc/prometheus/prometheus.yml
     networks:
       - microservice-network
 
   grafana:
     image: grafana/grafana
     restart: always
-    env_file:
-      - .env
+    environment:
+      GF_SERVER_DOMAIN: grafana.michibaum.ch
     expose:
       - "3000"
     volumes:
