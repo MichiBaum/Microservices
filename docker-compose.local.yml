@@ -1,16 +1,12 @@
 services:
   zipkin-storage:
     image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.5
-    env_file:
-      - .local-env
     restart: always
     expose:
       - "9200"
 
   zipkin:
     image: ghcr.io/openzipkin/zipkin:3.5
-    env_file:
-      - .local-env
     restart: always
     depends_on:
       - zipkin-storage
@@ -25,8 +21,6 @@ services:
 
   zipkin-dependencies:
     image: ghcr.io/openzipkin/zipkin-dependencies:3.2
-    env_file:
-      - .local-env
     restart: always
     depends_on:
       - zipkin-storage
@@ -41,10 +35,12 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus-dev.yml:/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana
+    environment:
+      GF_SERVER_DOMAIN: grafana.michibaum.ch
     ports:
       - "3000:3000"
     volumes:
