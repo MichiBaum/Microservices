@@ -86,7 +86,7 @@ services:
     ports:
       - "127.0.0.1:3307:3306"
     volumes:
-      - /data/authentication-db:/var/lib/mysql
+      - authentication-db-data:/var/lib/mysql
     networks:
       - microservice-network
     healthcheck:
@@ -138,7 +138,7 @@ services:
     ports:
       - "127.0.0.1:3308:3306"
     volumes:
-      - /data/usermanagement-db:/var/lib/mysql
+      - usermanagement-db-data:/var/lib/mysql
     networks:
       - microservice-network
     healthcheck:
@@ -241,7 +241,7 @@ services:
     ports:
       - "127.0.0.1:3309:3306"
     volumes:
-      - /data/chess-db:/var/lib/mysql
+      - chess-db-data:/var/lib/mysql
     networks:
       - microservice-network
     healthcheck:
@@ -293,7 +293,7 @@ services:
     ports:
       - "127.0.0.1:3310:3306"
     volumes:
-      - /data/fitness-db:/var/lib/mysql
+      - fitness-db-data:/var/lib/mysql
     networks:
       - microservice-network
     healthcheck:
@@ -345,7 +345,7 @@ services:
     ports:
       - "127.0.0.1:3311:3306"
     volumes:
-      - /data/music-db:/var/lib/mysql
+      - music-db-data:/var/lib/mysql
     networks:
       - microservice-network
     healthcheck:
@@ -363,7 +363,7 @@ services:
     environment:
       ES_JAVA_OPTS: ${ZIPKIN_DB_JAVA_TOOL_OPTIONS}
     volumes:
-      - /data/zipkin-storage:/usr/share/elasticsearch/data
+      - zipkin-storage-data:/usr/share/elasticsearch/data
     networks:
       - microservice-network
 
@@ -426,3 +426,37 @@ networks:
   microservice-network:
     name: microservice-network
     driver: bridge
+
+volumes:
+  # Database volumes with explicit configuration for better performance and reliability
+  authentication-db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/authentication-db
+  usermanagement-db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/usermanagement-db
+  chess-db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/chess-db
+  fitness-db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/fitness-db
+  music-db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/music-db
+  zipkin-storage-data:
