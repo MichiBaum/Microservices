@@ -57,20 +57,15 @@ This is a microservices-based application written primarily in Kotlin. The proje
 
 ## Preferred Technologies
 - Kotlin for backend development
+- Spring framework
 - Spring Boot framework
+- Spring Cloud framework
 - MariaDB for database
 - Docker for containerization
 
-## Development Workflow
-- Use feature branches for development
-- Submit pull requests for code review
-- Ensure CI/CD pipeline passes before merging
-- Follow semantic versioning
-
 ## Additional Resources
-- Project documentation: See README.md files in each service
+- Project documentation: Documentation written with Writerside in docs directory
 - API documentation: Available in the docs directory
-- Team communication: Use appropriate channels for questions
 
 ## Specific Guidance for Junie
 When assisting with this project:
