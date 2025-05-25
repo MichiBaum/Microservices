@@ -3,86 +3,94 @@ import {inject, Injectable} from '@angular/core';
 import {EnvironmentConfig} from "../config/environment.config";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class RouterNavigationService {
-  private router = inject(Router);
-  private environment = inject(EnvironmentConfig)
+    private router = inject(Router);
+    private environment = inject(EnvironmentConfig)
 
 
-  home() {
-    this.router.navigate(['/home']);
-  }
-
-  github() {
-    open('https://github.com/MichiBaum');
-  }
-
-  imprint() {
-    this.router.navigate(['/imprint']);
-  }
-
-  chess() {
-    this.router.navigate(['/chess']);
-  }
-
-  open(url: string) {
-    window.open(url, '_blank');
-  }
-
-  openPopup(url: string){
-    const handle = window.open(url, '_blank', 'popup');
-    if (!handle) {
-      this.open(url)
+    home() {
+        this.router.navigate(['/home']);
     }
-  }
 
-  microservices() {
-    this.router.navigate(['/microservices'])
-  }
+    github() {
+        open('https://github.com/MichiBaum');
+    }
 
-  zipkin() {
-      open(this.environment.zipkin())
-  }
+    imprint() {
+        this.router.navigate(['/imprint']);
+    }
 
-  admin() {
-     open(this.environment.adminService())
-  }
+    chess() {
+        this.router.navigate(['/chess']);
+    }
 
-  login() {
-    this.router.navigate(['/login']);
-  }
+    open(url: string) {
+        window.open(url, '_blank');
+    }
 
-  about_me(){
-    this.router.navigate(['/about-me']);
-  }
+    openPopup(url: string) {
+        const handle = window.open(url, '_blank', 'popup');
+        if (!handle) {
+            this.open(url)
+        }
+    }
 
-  donate() {
-    this.router.navigate(['/donate']);
-  }
+    microservices() {
+        this.router.navigate(['/microservices'])
+    }
 
-  buymeacoffee() {
-    open('https://www.buymeacoffee.com/michibaum');
-  }
+    zipkin() {
+        open(this.environment.zipkin())
+    }
 
-  linkedIn() {
-    open('https://linkedin.com/in/michael-baumberger-a06306198/')
-  }
+    admin() {
+        open(this.environment.adminService())
+    }
 
-  hosttech(){
-    open('https://www.hosttech.ch/?promocode=31886957')
-  }
+    grafana() {
+        open(this.environment.grafana())
+    }
 
-  register() {
-    this.router.navigate(['/register']);
-  }
+    prometheus() {
+        open(this.environment.prometheus())
+    }
 
-  fitness() {
-    this.router.navigate(['/fitness']);
-  }
+    login() {
+        this.router.navigate(['/login']);
+    }
 
-  music() {
-    this.router.navigate(['/music']);
-  }
+    about_me() {
+        this.router.navigate(['/about-me']);
+    }
+
+    donate() {
+        this.router.navigate(['/donate']);
+    }
+
+    buymeacoffee() {
+        open('https://www.buymeacoffee.com/michibaum');
+    }
+
+    linkedIn() {
+        open('https://linkedin.com/in/michael-baumberger-a06306198/')
+    }
+
+    hosttech() {
+        open('https://www.hosttech.ch/?promocode=31886957')
+    }
+
+    register() {
+        this.router.navigate(['/register']);
+    }
+
+    fitness() {
+        this.router.navigate(['/fitness']);
+    }
+
+    music() {
+        this.router.navigate(['/music']);
+    }
 
 }

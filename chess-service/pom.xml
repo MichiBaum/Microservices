@@ -95,7 +95,6 @@
             <optional>true</optional>
         </dependency>
 
-
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>usermanagement-library</artifactId>

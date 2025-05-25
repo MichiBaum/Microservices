@@ -1,6 +1,11 @@
 server:
   port: 8081
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
+
 spring:
   boot:
     admin:
@@ -10,11 +15,6 @@ spring:
       client:
         username: admin_username
         password: admin_password
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
 
 management:
   zipkin:

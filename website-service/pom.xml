@@ -8,6 +8,7 @@
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>website-service</artifactId>

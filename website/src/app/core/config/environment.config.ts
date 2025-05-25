@@ -43,4 +43,12 @@ export class EnvironmentConfig {
       return environment.zipkinService(this.hostname);
   }
 
+    grafana(): string {
+        return environment.grafanaService(this.hostname);
+    }
+
+    prometheus(): string {
+        return environment.prometheusService(this.hostname);
+    }
+
 }
