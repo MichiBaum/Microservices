@@ -1,6 +1,5 @@
 package com.michibaum.gatewayservice.config
 
-import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import de.codecentric.boot.admin.client.config.ClientProperties
 import de.codecentric.boot.admin.client.config.InstanceProperties
 import de.codecentric.boot.admin.client.config.SpringBootAdminClientAutoConfiguration
