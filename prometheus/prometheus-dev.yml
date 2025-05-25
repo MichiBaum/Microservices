@@ -17,8 +17,6 @@ scrape_configs:
       - source_labels: [ __meta_eureka_app_instance_id ]
         target_label: instance
         action: replace
-      # Example 1: Matches "host.docker.internal:<ANY_SERVICE_NAME>:<PORT>"
-      #            Then rewrite the address to "host.docker.internal:<PORT>"
       - source_labels: [__meta_eureka_app_instance_id]
         regex: '^host\.docker\.internal:([^:]+):(\d+)$'
         replacement: 'host.docker.internal:$2'
