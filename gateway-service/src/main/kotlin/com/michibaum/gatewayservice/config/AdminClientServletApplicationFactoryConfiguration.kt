@@ -1,5 +1,6 @@
 package com.michibaum.gatewayservice.config
 
+import com.michibaum.authentication_library.public_endpoints.PublicEndpointResolver
 import de.codecentric.boot.admin.client.config.ClientProperties
 import de.codecentric.boot.admin.client.config.InstanceProperties
 import de.codecentric.boot.admin.client.config.SpringBootAdminClientAutoConfiguration
@@ -7,6 +8,8 @@ import de.codecentric.boot.admin.client.registration.ApplicationFactory
 import de.codecentric.boot.admin.client.registration.metadata.CompositeMetadataContributor
 import de.codecentric.boot.admin.client.registration.metadata.MetadataContributor
 import jakarta.servlet.ServletContext
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.ObjectProvider
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties
@@ -23,6 +26,8 @@ import org.springframework.context.annotation.Primary
 @EnableConfigurationProperties(ClientProperties::class, InstanceProperties::class, ServerProperties::class, ManagementServerProperties::class)
 @AutoConfigureBefore(value = [SpringBootAdminClientAutoConfiguration.ServletConfiguration::class])
 class AdminClientServletApplicationFactoryConfiguration {
+
+    private val logger: Logger = LoggerFactory.getLogger(AdminClientServletApplicationFactoryConfiguration::class.java)
     
     @Bean
     @Primary
@@ -36,6 +41,7 @@ class AdminClientServletApplicationFactoryConfiguration {
         metadataContributors: ObjectProvider<List<MetadataContributor>>,
         dispatcherServletPath: DispatcherServletPath
     ): ApplicationFactory {
+        logger.info("Registering Admin Client Servlet Application Factory")
         return AdminClientServletApplicationFactory(
             instance, 
             management, 
