@@ -4,6 +4,8 @@ import de.codecentric.boot.admin.client.config.InstanceProperties
 import de.codecentric.boot.admin.client.registration.ServletApplicationFactory
 import de.codecentric.boot.admin.client.registration.metadata.MetadataContributor
 import jakarta.servlet.ServletContext
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints
@@ -32,14 +34,18 @@ class AdminClientServletApplicationFactory(
     dispatcherServletPath
 ) {
 
+    private val logger: Logger = LoggerFactory.getLogger(AdminClientServletApplicationFactory::class.java)
+
     override fun getManagementBaseUrl(): String {
         val baseUrl: String? = instance.managementBaseUrl
 
         if (baseUrl != null && StringUtils.hasText(baseUrl)) {
+            logger.info("ManagementBaseUrl is configured to '{}'", baseUrl)
             return baseUrl
         }
 
         if (isManagementPortEqual) {
+            logger.info("ManagementPort is configured to match ServerPort. Using server.port as management.port")
             return UriComponentsBuilder.fromHttpUrl(getServiceUrl())
                 .path("/")
                 .path(dispatcherServletPrefix)
@@ -47,6 +53,7 @@ class AdminClientServletApplicationFactory(
                 .toUriString()
         }
 
+        logger.info("ManagementBaseUrl not configured. Trying to resolve it automatically")
         val ssl = management.ssl
         return UriComponentsBuilder.newInstance()
             .scheme(getScheme(ssl))
