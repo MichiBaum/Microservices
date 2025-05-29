@@ -6,6 +6,7 @@ create table magazine
 create table book
 (
     id uuid not null primary key,
+    title varchar(255) not null
 );
 
 create table list_of_contents

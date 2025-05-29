@@ -9,6 +9,9 @@ import java.util.*
 @Table(name="book")
 class Book (
 
+    @Column(name="title", nullable = false)
+    val title: String,
+
     @ManyToOne(targetEntity = Author::class, fetch = FetchType.LAZY, optional = false)
     val author: Author,
 

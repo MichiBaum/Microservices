@@ -13,6 +13,12 @@ class Note ( // TODO add Hibernate Envers, Author
     @Column(name="encrypted")
     val encryped: Boolean,
 
+    @Column(name="belongs_to")
+    val belongsTo: String,
+    
+    @ManyToMany(mappedBy = "notes", fetch = FetchType.LAZY)
+    val categories: List<NoteCategory>,
+    
     // TODO Sharing of notes
 
     @Id
