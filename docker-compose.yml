@@ -434,29 +434,29 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ./data/authentication-db
+      device: /data/authentication-db
   usermanagement-db-data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ./data/usermanagement-db
+      device: /data/usermanagement-db
   chess-db-data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ./data/chess-db
+      device: /data/chess-db
   fitness-db-data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ./data/fitness-db
+      device: /data/fitness-db
   music-db-data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ./data/music-db
+      device: /data/music-db
   zipkin-storage-data:
