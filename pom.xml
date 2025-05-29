@@ -9,28 +9,31 @@
     <name>microservice</name>
 
     <properties>
+        <!-- https://spring.io/projects#release-calendar -->
+        
         <!--
-        https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
+        https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <spring-boot.version>3.4.5</spring-boot.version>
+        <!-- TODO update to 3.5.0 when spring cloud 2025.0.0 release 27 Mai -->
+        <spring-boot.version>3.4.6</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
-        https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2024.0-Release-Notes
         -->
+        <!-- TODO 2025.0.0 release 27 Mai -->
         <spring-cloud.version>2024.0.1</spring-cloud.version>
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>3.4.5</spring-boot-admin.version>
+        <spring-boot-admin.version>3.4.6</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
-        <datasource-micrometer-spring-boot.version>1.1.0</datasource-micrometer-spring-boot.version>
+        <datasource-micrometer-spring-boot.version>1.1.1</datasource-micrometer-spring-boot.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
@@ -41,7 +44,7 @@
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.1.20</kotlin.version>
+        <kotlin.version>2.1.21</kotlin.version>
         <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 
         <!--
@@ -185,7 +188,7 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.12</version>
+                        <version>0.8.13</version>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
