@@ -12,7 +12,7 @@
         <!-- https://spring.io/projects#release-calendar -->
         
         <!--
-        https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
+        https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
         <!-- TODO update to 3.5.0 when spring cloud 2025.0.0 release 27 Mai -->
@@ -21,7 +21,6 @@
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
-        https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2024.0-Release-Notes
         -->
         <!-- TODO 2025.0.0 release 27 Mai -->
         <spring-cloud.version>2024.0.1</spring-cloud.version>
