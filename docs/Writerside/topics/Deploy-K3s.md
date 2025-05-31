@@ -28,6 +28,7 @@ The application has been converted from Docker Compose to K3s. The following res
 - `registry-service.yaml`: Service registry (Eureka)
 - `zipkin.yaml`: Distributed tracing (Zipkin, Zipkin Storage, Zipkin Dependencies)
 - `monitoring.yaml`: Monitoring tools (Prometheus, Grafana)
+- `traefik-middleware.yaml`: Defines Traefik middleware for HTTP to HTTPS redirection
 - `authentication-db.yaml`: Authentication database (MariaDB)
 - `usermanagement-db.yaml`: User Management database (MariaDB)
 - `chess-db.yaml`: Chess database (MariaDB)
