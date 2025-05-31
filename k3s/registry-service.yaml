@@ -59,15 +59,15 @@ spec:
           httpGet:
             path: /actuator/health/readiness
             port: 8761
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          timeoutSeconds: 5
+          initialDelaySeconds: 50
+          periodSeconds: 10
+          timeoutSeconds: 10
           failureThreshold: 5
         livenessProbe:
           httpGet:
             path: /actuator/health
             port: 8761
-          initialDelaySeconds: 10
+          initialDelaySeconds: 50
           periodSeconds: 10
 ---
 apiVersion: v1
