@@ -2,6 +2,8 @@
 
 This directory contains Kubernetes manifest files for deploying the microservices application.
 
+For information on how to update the Kubernetes deployment, please refer to the [Kubernetes Updates Guide](kubernetes-updates.md).
+
 ## Overview
 
 The application has been converted from Docker Compose to Kubernetes. The following resources have been created:
