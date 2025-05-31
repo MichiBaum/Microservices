@@ -102,7 +102,7 @@ The application has been converted from Docker Compose to K3s. The following res
 Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace:
 
 ```bash
-k3s kubectl create secret tls michibaum-tls --cert=path/to/tls.crt --key=path/to/tls.key -n microservices
+k3s kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
 ```
 
 ## Ingress Configuration

@@ -88,9 +88,17 @@ spec:
   tls:
   - hosts:
     - michibaum.ch
+    - michibaum.com
+    - michibaum.net
+    - michibaum.eu
+    - michibaum.org
+    - michibaum.app
+    - michibaum.me
+    - michibaum.info
+    - michibaum.xyz
     secretName: michibaum-tls
   rules:
-  - host: michibaum.ch
+  - host: michibaum.*
     http:
       paths:
       - path: /
