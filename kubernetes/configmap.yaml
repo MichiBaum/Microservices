@@ -5,7 +5,7 @@ metadata:
   namespace: microservices
 data:
   SPRING_ACTIVE_PROFILES: "prod"
-  JAVA_TOOL_OPTIONS: "-XX:+PrintFlagsFinal -XX:+PrintFlagsInitial"
+  JAVA_TOOL_OPTIONS: "-Xmx1g -Xms256m -XX:G1HeapRegionSize=8M -XX:+UseG1GC -XX:+UseContainerSupport -XX:MaxGCPauseMillis=100 -XX:+UseStringDeduplication -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+ParallelRefProcEnabled -XX:+ExitOnOutOfMemoryError"
   ZIPKIN_DB_JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35"
   
   # Database names
