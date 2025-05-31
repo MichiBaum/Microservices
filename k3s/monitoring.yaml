@@ -1,0 +1,159 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v3.2.1
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - name: prometheus-config
+          mountPath: /etc/prometheus/prometheus.yml
+          subPath: prometheus.yml
+      volumes:
+      - name: prometheus-config
+        configMap:
+          name: prometheus-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: microservices
+spec:
+  selector:
+    app: prometheus
+  ports:
+  - port: 9090
+    targetPort: 9090
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: microservices
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+    scrape_configs:
+      - job_name: 'prometheus'
+        static_configs:
+          - targets: ['localhost:9090']
+      - job_name: 'kubernetes-services'
+        kubernetes_sd_configs:
+          - role: service
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+          - action: labelmap
+            regex: __meta_kubernetes_service_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            action: replace
+            target_label: kubernetes_name
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        ports:
+        - containerPort: 3000
+        env:
+        - name: GF_SERVER_DOMAIN
+          value: "grafana.michibaum.ch"
+        - name: GF_SERVER_CORS_ALLOWED_ORIGINS
+          value: "*"
+        - name: GF_SERVER_CORS_ALLOWED_METHODS
+          value: "GET,POST,PUT,DELETE,PATCH,OPTIONS"
+        - name: GF_SECURITY_COOKIE_SAMESITE
+          value: "disabled"
+        - name: GF_SECURITY_CSRF_TRUSTED_ORIGINS
+          value: "grafana.michibaum.ch"
+        - name: GF_SECURITY_ALLOW_EMBEDDING
+          value: "true"
+        - name: GF_AUTH_LOGIN_COOKIE_NAME
+          value: "grafana_session"
+        volumeMounts:
+        - name: grafana-provisioning
+          mountPath: /etc/grafana/provisioning
+        - name: grafana-dashboards
+          mountPath: /var/lib/grafana/dashboards
+      volumes:
+      - name: grafana-provisioning
+        configMap:
+          name: grafana-provisioning
+      - name: grafana-dashboards
+        configMap:
+          name: grafana-dashboards
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: microservices
+spec:
+  selector:
+    app: grafana
+  ports:
+  - port: 3000
+    targetPort: 3000
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provisioning
+  namespace: microservices
+data:
+  # This will be populated with actual provisioning configuration
+  placeholder: "placeholder"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: microservices
+data:
+  # This will be populated with actual dashboard configuration
+  placeholder: "placeholder"

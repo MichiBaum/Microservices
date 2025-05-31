@@ -18,6 +18,8 @@ spring:
 
 eureka:
   client:
+    # Because of kubernetes
+    register-with-eureka: false
     service-url:
       defaultZone: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
   environment: prod

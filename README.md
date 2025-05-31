@@ -13,7 +13,7 @@
 
 Actions Badges:  
 [![Automatic Dependency Submission](https://github.com/MichiBaum/Microservices/actions/workflows/dependency-graph/auto-submission/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/dependency-graph/auto-submission)
-[![Build and Publish](https://github.com/MichiBaum/Microservices/actions/workflows/deploy.yaml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/deploy.yaml)
+[![Build and Publish](https://github.com/MichiBaum/Microservices/actions/workflows/build-and-publish.yaml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/build-and-publish.yaml)
 [![OSV-Scanner PR Scan](https://github.com/MichiBaum/Microservices/actions/workflows/osv-scanner.yml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/osv-scanner.yml)
 [![SonarQube Analysis](https://github.com/MichiBaum/Microservices/actions/workflows/sonarqube.yml/badge.svg)](https://github.com/MichiBaum/Microservices/actions/workflows/sonarqube.yml)
 
@@ -27,22 +27,25 @@ Documentation build from master branch can be found [here](https://michibaum.git
 
 ## Modules
 There are these microservices:
-- [Admin Service](./admin-service/README.md)
-- [Authentication Service](./authentication-service/README.md)
-- [Gateway Service](./gateway-service/README.md)
-- [Registry Service](./registry-service/README.md)
-- [Usermanagement Service](./usermanagement-service/README.md)
-- [Website Service](./website-service/README.md)
-- [Chess Service](./chess-service/README.md)
-- [Fitness Service](./fitness-service/README.md)
-- [Music Service](./music-service/README.md)
+- Admin Service
+- Authentication Service
+- Gateway Service
+- Registry Service
+- Usermanagement Service
+- Website Service
+- Chess Service
+- Fitness Service
+- Music Service
+- Grafana Service
+- Prometheus Service
+- Zipkin Service
 
 And these libraries:
-- [Authentication Library](./authentication-library/README.md)
-- [Spring Boot Starter Authentication](./spring-boot-starter-authentication/README.md)
-- [Permission Library](./permission-library/README.md)
-- [Usermanagement Library](./usermanagement-library/README.md)
-- [Spring Boot Starter Discord](./spring-boot-starter-discord/README.md)
+- Authentication Library
+- Spring Boot Starter Authentication
+- Permission Library
+- Usermanagement Library
+- Spring Boot Starter Discord
 
 And these databases:
 - Authentication DB

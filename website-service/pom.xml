@@ -8,6 +8,7 @@
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>website-service</artifactId>
@@ -119,7 +120,7 @@
                         <version>3.4.5</version>
                         <configuration>
                             <from>
-                                <image>eclipse-temurin:21-jre-alpine</image>
+                                <image>eclipse-temurin:24-jre-alpine</image>
                                 <auth>
                                     <!--suppress UnresolvedMavenProperty -->
                                     <username>${dockerHub.username}</username>

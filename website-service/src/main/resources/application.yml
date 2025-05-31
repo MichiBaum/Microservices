@@ -34,9 +34,9 @@ spring:
     allow-bean-definition-overriding: true
 
 eureka:
-  dashboard:
-    enabled: true
   instance:
+    metadata-map:
+      prometheus.path: /actuator/prometheus
     prefer-ip-address: true
   client:
     enabled: true
