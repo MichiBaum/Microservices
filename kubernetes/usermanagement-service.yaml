@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usermanagement-service
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usermanagement-service
+  template:
+    metadata:
+      labels:
+        app: usermanagement-service
+    spec:
+      containers:
+      - name: usermanagement-service
+        image: 70131370/usermanagement-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: spring_profiles_active
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: SPRING_ACTIVE_PROFILES
+        - name: JAVA_TOOL_OPTIONS
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: JAVA_TOOL_OPTIONS
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: USERMANAGEMENT_DB_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: USERMANAGEMENT_DB_PASSWORD
+        - name: DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: USERMANAGEMENT_DB
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: usermanagement-service
+  namespace: microservices
+spec:
+  selector:
+    app: usermanagement-service
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP

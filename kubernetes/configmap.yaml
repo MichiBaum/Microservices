@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microservices-config
+  namespace: microservices
+data:
+  SPRING_ACTIVE_PROFILES: "prod"
+  JAVA_TOOL_OPTIONS: "-XX:+PrintFlagsFinal -XX:+PrintFlagsInitial"
+  ZIPKIN_DB_JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35"
+  
+  # Database names
+  AUTHENTICATION_DB: "authentication"
+  USERMANAGEMENT_DB: "usermanagement"
+  CHESS_DB: "chess"
+  FITNESS_DB: "fitness"
+  MUSIC_DB: "music"
