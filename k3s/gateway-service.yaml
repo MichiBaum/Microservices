@@ -99,4 +99,4 @@ spec:
           service:
             name: gateway-service
             port:
-              number: 80
+              number: 443
