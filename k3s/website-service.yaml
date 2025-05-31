@@ -30,6 +30,16 @@ spec:
             configMapKeyRef:
               name: microservices-config
               key: JAVA_TOOL_OPTIONS
+        - name: ADMIN_SERVICE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ADMIN_SERVICE_USERNAME
+        - name: ADMIN_SERVICE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ADMIN_SERVICE_PASSWORD
         readinessProbe:
           httpGet:
             path: /actuator/health/readiness

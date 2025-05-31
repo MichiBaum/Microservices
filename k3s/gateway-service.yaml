@@ -36,6 +36,16 @@ spec:
             secretKeyRef:
               name: microservices-secrets
               key: SSL_KEYSTORE_PASSWORD
+        - name: ADMIN_SERVICE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ADMIN_SERVICE_USERNAME
+        - name: ADMIN_SERVICE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ADMIN_SERVICE_PASSWORD
         volumeMounts:
         - name: ssl-certs
           mountPath: /data/ssl
