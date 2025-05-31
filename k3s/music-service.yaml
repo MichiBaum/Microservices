@@ -55,6 +55,11 @@ spec:
             secretKeyRef:
               name: microservices-secrets
               key: ADMIN_SERVICE_PASSWORD
+        - name: DISCORD_MUSIC_SERVICE_LOG_CHANNEL
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_MUSIC_SERVICE_LOG_CHANNEL
         - name: SPOTIFY_CLIENT_ID
           valueFrom:
             secretKeyRef:

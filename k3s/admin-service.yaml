@@ -45,6 +45,11 @@ spec:
             secretKeyRef:
               name: microservices-secrets
               key: ADMIN_SERVICE_NOTIFY_DISCORD_CHANNEL
+        - name: DISCORD_ADMIN_SERVICE_LOG_CHANNEL
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_ADMIN_SERVICE_LOG_CHANNEL
         readinessProbe:
           httpGet:
             path: /actuator/health/readiness

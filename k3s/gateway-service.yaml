@@ -46,6 +46,11 @@ spec:
             secretKeyRef:
               name: microservices-secrets
               key: ADMIN_SERVICE_PASSWORD
+        - name: DISCORD_GATEWAY_SERVICE_LOG_CHANNEL
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_GATEWAY_SERVICE_LOG_CHANNEL
         volumeMounts:
         - name: ssl-certs
           mountPath: /data/ssl

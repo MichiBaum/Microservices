@@ -40,6 +40,11 @@ spec:
             secretKeyRef:
               name: microservices-secrets
               key: ADMIN_SERVICE_PASSWORD
+        - name: DISCORD_WEBSITE_SERVICE_LOG_CHANNEL
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_WEBSITE_SERVICE_LOG_CHANNEL
         readinessProbe:
           httpGet:
             path: /actuator/health/readiness
