@@ -1,4 +1,4 @@
-# Install Kubernetes on Ubuntu 22.04
+# Install Kubernetes on Ubuntu
 
 This document provides step-by-step instructions for installing Kubernetes on Ubuntu 22.04 LTS, setting up a cluster, and joining worker nodes to the cluster.
 
@@ -218,6 +218,9 @@ All pods should be in the `Running` state.
 If you want to manage the Kubernetes cluster from your local machine:
 
 1. Install kubectl on your local machine
+
+Installation guide can be found on [kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
+
 2. Copy the kubeconfig file from the control plane node:
 
 ```bash
