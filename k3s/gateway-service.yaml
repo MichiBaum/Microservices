@@ -51,6 +51,16 @@ spec:
             secretKeyRef:
               name: microservices-secrets
               key: DISCORD_GATEWAY_SERVICE_LOG_CHANNEL
+        - name: DISCORD_BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_BOT_TOKEN
+        - name: DISCORD_GUILD_ID
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_GUILD_ID
         volumeMounts:
         - name: ssl-certs
           mountPath: /data/ssl
