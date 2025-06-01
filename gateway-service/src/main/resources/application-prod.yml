@@ -1,20 +1,7 @@
 server:
-  port: 443
-  ssl:
-    enabled: true
-    bundle: server
+  port: 80
 
 spring:
-  ssl:
-    bundle:
-      jks:
-        server:
-          key:
-            alias: "michibaum"
-          keystore:
-            location: "/data/ssl/keystore.p12"
-            password: ${SSL_KEYSTORE_PASSWORD}
-            type: "PKCS12"
   boot:
     admin:
       service:
@@ -36,10 +23,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
-  instance:
-    non-secure-port-enabled: false
-    secure-port-enabled: true
-    secure-port: 443
 
 management:
   services:
