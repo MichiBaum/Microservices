@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana
+        image: grafana/grafana:11.6.2
         ports:
         - containerPort: 3000
         env:
@@ -35,12 +35,21 @@ spec:
           value: "grafana_session"
         volumeMounts:
           - name: grafana-datasources
-            mountPath: /etc/grafana/provisioning/datasources
-            subPath: datasource.yml
+            mountPath: /etc/grafana/provisioning/datasources/
+          - name: grafana-dashboards
+            mountPath: /etc/grafana/provisioning/dashboards/
+          - name: grafana-dashboards-volume
+            mountPath: /var/lib/grafana/dashboards
       volumes:
         - name: grafana-datasources
           configMap:
             name: grafana-datasources
+        - name: grafana-dashboards
+          configMap:
+            name: grafana-dashboards
+        - name: grafana-dashboards-volume
+          persistentVolumeClaim:
+            claimName: grafana-dashboards-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -71,3 +80,64 @@ data:
         type: zipkin
         access: proxy
         url: http://zipkin:9411
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: microservices
+data:
+  default.yml: |
+    apiVersion: 1
+
+    providers:
+      - name: 'Main'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        updateIntervalSeconds: 30
+        allowUiUpdates: true
+        options:
+          path: /var/lib/grafana/dashboards
+          foldersFromFilesStructure: true
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-dashboards-pvc
+  namespace: microservices
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  selector:
+    matchLabels:
+      app: grafana
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: grafana-dashboards-pv
+  labels:
+    type: local
+    app: grafana
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - 35591.hostserv.eu
+  hostPath:
+    path: "/data/grafana-dashboards"
