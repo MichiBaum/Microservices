@@ -7,6 +7,6 @@ export const environment = {
     fitnessService: (domain: string) => `https://fitness.${domain}/api`,
     musicService: (domain: string) => `https://music.${domain}/api`,
     zipkinService: (domain: string) => `https://zipkin.${domain}/zipkin`,
-    grafanaService: (domain: string) => `https://garafana.${domain}`,
+    grafanaService: (domain: string) => `https://grafana.${domain}`,
     prometheusService: (domain: string) => `https://prometheus.${domain}`
 };

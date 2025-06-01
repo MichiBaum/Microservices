@@ -1,6 +1,6 @@
 # Overview
 
-This project is  build with Kotlin, Spring, Docker and Angular running under 
+This project is  build with Kotlin, Spring, Angular and Kubernetes running under 
 - [michibaum.ch](https://michibaum.ch)
 - [michibaum.com](https://michibaum.com)
 - [michibaum.eu](https://michibaum.eu)
