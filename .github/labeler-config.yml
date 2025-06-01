@@ -3,11 +3,6 @@ documentation:
     - changed-files:
       - any-glob-to-any-file: ['docs/**', '**/*.md']
 
-docker:
-  - any:
-    - changed-files:
-      - any-glob-to-any-file: ['.env', 'env-template', 'docker-compose.yml']
-
 kubernetes:
   - any:
     - changed-files:

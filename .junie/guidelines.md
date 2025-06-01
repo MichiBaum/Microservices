@@ -61,7 +61,7 @@ This is a microservices-based application written primarily in Kotlin. The proje
 - Spring Boot framework
 - Spring Cloud framework
 - MariaDB for database
-- Docker for containerization
+- K3S for containerization
 
 ## Additional Resources
 - Project documentation: Documentation written with Writerside in docs directory

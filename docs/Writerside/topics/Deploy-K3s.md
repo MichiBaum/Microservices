@@ -116,17 +116,6 @@ If you've disabled Traefik during K3s installation or want to use a different in
 - Prometheus is available at: `http://prometheus-service.microservices.svc.cluster.local:9090`
 - Grafana is available at: `http://grafana-service.microservices.svc.cluster.local:3000`
 
-## Differences from Docker Compose
-
-The K3s configuration differs from the Docker Compose setup in the following ways:
-
-1. **Resource Management**: K3s allows for more granular control over CPU and memory resources.
-2. **Scaling**: Services can be scaled independently by adjusting the number of replicas.
-3. **Service Discovery**: Services use Kubernetes DNS for service discovery instead of Docker's network aliases.
-4. **Configuration**: Environment variables are stored in ConfigMaps and Secrets instead of .env files.
-5. **Networking**: Services communicate through Kubernetes Services instead of Docker networks.
-6. **Ingress**: External access is managed through Kubernetes Ingress (via Traefik in K3s) instead of port mapping.
-
 ## Notes
 
 - The configuration uses hostPath volumes for simplicity. In a production environment, you should use a more robust storage solution like a cloud provider's persistent disk.
