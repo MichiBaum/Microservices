@@ -26,9 +26,12 @@
         </appender>
         <appender name="Discord" class="com.michibaum.discord.logging.DiscordAppenderDelegator"/>
 
+        <root level="INFO">
+            <appender-ref ref="Console" />
+        </root>
+        
         <root level="WARN">
             <appender-ref ref="Discord" />
-            <appender-ref ref="Console" />
         </root>
     </springProfile>
 
