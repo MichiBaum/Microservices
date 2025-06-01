@@ -19,7 +19,6 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-        - containerPort: 443
         env:
         - name: spring_profiles_active
           valueFrom:
@@ -61,27 +60,20 @@ spec:
             secretKeyRef:
               name: microservices-secrets
               key: DISCORD_GUILD_ID
-        volumeMounts:
-        - name: ssl-certs
-          mountPath: /data/ssl
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          timeoutSeconds: 5
-          failureThreshold: 5
-        livenessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 10
-      volumes:
-      - name: ssl-certs
-        hostPath:
-          path: /data/ssl
+#        readinessProbe:
+#          httpGet:
+#            path: /actuator/health/readiness
+#            port: 80
+#          initialDelaySeconds: 5
+#          periodSeconds: 5
+#          timeoutSeconds: 5
+#          failureThreshold: 5
+#        livenessProbe:
+#          httpGet:
+#            path: /actuator/health
+#            port: 80
+#          initialDelaySeconds: 10
+#          periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
@@ -95,9 +87,6 @@ spec:
   - name: http
     port: 80
     targetPort: 80
-  - name: https
-    port: 443
-    targetPort: 443
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
@@ -106,10 +95,10 @@ metadata:
   name: gateway-ingress
   namespace: microservices
   annotations:
-    kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: "microservices-redirect-https@kubernetescrd"
 spec:
+  ingressClassName: "traefik"
   tls:
   - hosts:
     - michibaum.ch
@@ -123,7 +112,7 @@ spec:
     - michibaum.xyz
     secretName: michibaum-tls
   rules:
-  - host: michibaum.*
+  - host: michibaum.ch
     http:
       paths:
       - path: /
@@ -132,4 +121,24 @@ spec:
           service:
             name: gateway-service
             port:
-              number: 443
+              number: 80
+  - host: michibaum.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: gateway-service
+              port:
+                number: 80
+  - host: michibaum.net
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: gateway-service
+              port:
+                number: 80
