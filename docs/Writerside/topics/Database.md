@@ -9,7 +9,7 @@ To update database's table, columns or anything [Flyway](Flyway.md) is used.
 A backup of a database can be done with this command:
 
 ```Bash
-# Replace service, database and root password. Root password can be found in .env
+# Replace service, database and root password. Root password can be found in secrets.yaml
 docker exec microservices-chess-db-1 mysqldump -u root -pROOTPASSWORD chess | gzip -c > /data/db-backup/chess_$(date -d "today" +"%Y-%m-%d_%H-%M").sql.gz
 ```
 

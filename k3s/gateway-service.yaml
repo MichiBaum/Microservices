@@ -4,7 +4,7 @@ metadata:
   name: gateway-service
   namespace: microservices
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: gateway-service
@@ -96,7 +96,6 @@ metadata:
   namespace: microservices
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.middlewares: "microservices-redirect-https@kubernetescrd"
 spec:
   ingressClassName: "traefik"
   tls:
@@ -112,33 +111,12 @@ spec:
     - michibaum.xyz
     secretName: michibaum-tls
   rules:
-  - host: michibaum.ch
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: gateway-service
-            port:
-              number: 80
-  - host: michibaum.com
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: gateway-service
-              port:
-                number: 80
-  - host: michibaum.net
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: gateway-service
-              port:
-                number: 80
+    - http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: gateway-service
+                port:
+                  number: 80
+            pathType: Prefix

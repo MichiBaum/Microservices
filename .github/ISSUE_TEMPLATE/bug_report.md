@@ -41,8 +41,7 @@ A clear and concise description of what you expected to happen.
 - Version: [e.g. 22]
 
 **Server/Deployment:**
-- Environment: [e.g. Development, Staging, Production]
-- Docker version (if applicable): [e.g. 20.10.12]
+- Environment: [e.g. Development, Production]
 - Kubernetes version (if applicable): [e.g. 1.23]
 
 ## 📋 Logs
