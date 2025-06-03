@@ -35,14 +35,6 @@ class Event(
     @Column(nullable = false)
     val platform: ChessPlatform,
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = EventCategory::class)
-    @JoinTable(name = "EVENT_CATEGORY_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "category_id")])
-    val categories: Set<EventCategory> = setOf(),
-
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Person::class)
-    @JoinTable(name = "EVENT_PARTICIPANTS_MAPPING", joinColumns = [JoinColumn(name = "event_id")], inverseJoinColumns = [JoinColumn(name = "person_id")])
-    val participants: Set<Person> = setOf(),
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
