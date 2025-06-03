@@ -19,9 +19,6 @@ class GameMove(
     @Column(nullable = false)
     val moveNumber: Int,
 
-    @OneToMany(mappedBy = "gameMove", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val moveEvaluations: Set<GameMoveEvaluation> = emptySet(),
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
