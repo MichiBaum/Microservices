@@ -24,9 +24,6 @@ class Person(
     @Column(nullable = false)
     val gender: Gender,
 
-    @OneToMany(mappedBy="person", fetch = FetchType.EAGER, targetEntity = Account::class) // Most searches are for persons. Person in Account can be lazy. If searched for a account another request is used to get the person.
-    val accounts: Set<Account>,
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,

@@ -16,9 +16,6 @@ data class OpeningMove(
     @ManyToOne(targetEntity = OpeningMove::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.ALL])
     val parent: OpeningMove? = null,
 
-    @OneToMany(mappedBy = "openingMove", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
-    val moveEvaluations: Set<OpeningMoveEvaluation> = emptySet(),
-
     @Column(nullable = false)
     val deleted: Boolean = false,
 

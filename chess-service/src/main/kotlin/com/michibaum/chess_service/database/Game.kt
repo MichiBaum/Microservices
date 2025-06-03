@@ -22,9 +22,6 @@ class Game(
     @Enumerated(EnumType.STRING)
     val gameType: GameType,
 
-    @OneToMany(mappedBy="game", fetch = FetchType.EAGER, targetEntity = Player::class, cascade = [CascadeType.ALL])
-    val players: Set<Player>,
-
     @ManyToOne(targetEntity = Event::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinColumn(name="event_id", nullable=true)
     val event: Event? = null,
