@@ -1,0 +1,243 @@
+# Database Backup Resources
+
+# Persistent Volume for database backups
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: db-backup-pv
+  labels:
+    type: local
+    app: db-backup
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - 35591.hostserv.eu
+  hostPath:
+    path: "/data/db-backup"
+---
+# Persistent Volume Claim for database backups
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-backup-pvc
+  namespace: microservices
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      app: db-backup
+---
+# Chess Database Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: chess-db-backup
+  namespace: microservices
+spec:
+  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: mariadb:10.11
+            command:
+            - /bin/bash
+            - -c
+            - |
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              mysqldump -h chess-db -u root -p${ROOT_PASSWORD} chess | gzip -c > /backup/chess_${TIMESTAMP}.sql.gz
+              echo "Backup completed: chess_${TIMESTAMP}.sql.gz"
+            env:
+            - name: ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: microservices-secrets
+                  key: CHESS_DB_ROOT_PASSWORD
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-volume
+            persistentVolumeClaim:
+              claimName: db-backup-pvc
+---
+# Music Database Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: music-db-backup
+  namespace: microservices
+spec:
+  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: mariadb:10.11
+            command:
+            - /bin/bash
+            - -c
+            - |
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              mysqldump -h music-db -u root -p${ROOT_PASSWORD} music | gzip -c > /backup/music_${TIMESTAMP}.sql.gz
+              echo "Backup completed: music_${TIMESTAMP}.sql.gz"
+            env:
+            - name: ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: microservices-secrets
+                  key: MUSIC_DB_ROOT_PASSWORD
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-volume
+            persistentVolumeClaim:
+              claimName: db-backup-pvc
+---
+# Fitness Database Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: fitness-db-backup
+  namespace: microservices
+spec:
+  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: mariadb:10.11
+            command:
+            - /bin/bash
+            - -c
+            - |
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              mysqldump -h fitness-db -u root -p${ROOT_PASSWORD} fitness | gzip -c > /backup/fitness_${TIMESTAMP}.sql.gz
+              echo "Backup completed: fitness_${TIMESTAMP}.sql.gz"
+            env:
+            - name: ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: microservices-secrets
+                  key: FITNESS_DB_ROOT_PASSWORD
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-volume
+            persistentVolumeClaim:
+              claimName: db-backup-pvc
+---
+# Usermanagement Database Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: usermanagement-db-backup
+  namespace: microservices
+spec:
+  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: mariadb:10.11
+            command:
+            - /bin/bash
+            - -c
+            - |
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              mysqldump -h usermanagement-db -u root -p${ROOT_PASSWORD} usermanagement | gzip -c > /backup/usermanagement_${TIMESTAMP}.sql.gz
+              echo "Backup completed: usermanagement_${TIMESTAMP}.sql.gz"
+            env:
+            - name: ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: microservices-secrets
+                  key: USERMANAGEMENT_DB_ROOT_PASSWORD
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-volume
+            persistentVolumeClaim:
+              claimName: db-backup-pvc
+---
+# Authentication Database Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: authentication-db-backup
+  namespace: microservices
+spec:
+  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: mariadb:10.11
+            command:
+            - /bin/bash
+            - -c
+            - |
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              mysqldump -h authentication-db -u root -p${ROOT_PASSWORD} authentication | gzip -c > /backup/authentication_${TIMESTAMP}.sql.gz
+              echo "Backup completed: authentication_${TIMESTAMP}.sql.gz"
+            env:
+            - name: ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: microservices-secrets
+                  key: AUTHENTICATION_DB_ROOT_PASSWORD
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-volume
+            persistentVolumeClaim:
+              claimName: db-backup-pvc
