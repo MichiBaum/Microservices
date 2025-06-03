@@ -5,12 +5,11 @@ import org.springframework.stereotype.Component
 @Component
 class SleepConverter {
     fun toDto(sleep: Sleep): SleepDto {
-        val stages = sleep.stages.map { toDto(it) }
         return SleepDto(
+            id = sleep.id,
             startTime = sleep.startTime,
             endTime = sleep.endTime,
-            duration = sleep.duration,
-            stages = stages
+            duration = sleep.duration
         )
     }
 

@@ -1,5 +1,10 @@
 # Fail2Ban
 
+## Instalation
+```Bash
+apt install fail2ban
+```
+
 ## Version
 ```Bash
 fail2ban-client version

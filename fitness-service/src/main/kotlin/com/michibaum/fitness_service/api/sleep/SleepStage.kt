@@ -22,6 +22,10 @@ class SleepStage(
     @Column(nullable = false)
     val duration: Long,
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "sleep_id", nullable = false)
+    val sleep: Sleep,
+
     @Id
     @UuidGenerator
     val id: UUID = UUID.randomUUID(),
