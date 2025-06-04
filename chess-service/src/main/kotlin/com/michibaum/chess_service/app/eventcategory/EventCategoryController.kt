@@ -32,7 +32,7 @@ class EventCategoryController(
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     @GetMapping("/api/event-categories/with-events")
     fun getEventCategoriesWithEvents(): ResponseEntity<List<EventCategoryWithEventDto>> { // TODO custom sql query to fetch all in one
-        val events = eventService.findAllEagerCategories()
+        val events = eventService.findAll()
         val result = eventConverter.toDto(events)
         return ResponseEntity.ok().body(result)
     }

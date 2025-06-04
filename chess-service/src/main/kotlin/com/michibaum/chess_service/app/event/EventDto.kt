@@ -14,5 +14,5 @@ data class EventDto(
     val dateTo: String? = null,
     val internalComment: String = "",
     val platform: ChessPlatform,
-    val categories: List<EventCategoryDto> = mutableListOf(),
+    val categories: Set<EventCategoryDto> = mutableSetOf(),
 )
