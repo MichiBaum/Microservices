@@ -111,11 +111,6 @@ K3s comes with Traefik as its built-in ingress controller. If you're using the d
 
 If you've disabled Traefik during K3s installation or want to use a different ingress controller, you'll need to install and configure it separately.
 
-## Monitoring
-
-- Prometheus is available at: `http://prometheus-service.microservices.svc.cluster.local:9090`
-- Grafana is available at: `http://grafana-service.microservices.svc.cluster.local:3000`
-
 ## Notes
 
 - The configuration uses hostPath volumes for simplicity. In a production environment, you should use a more robust storage solution like a cloud provider's persistent disk.
