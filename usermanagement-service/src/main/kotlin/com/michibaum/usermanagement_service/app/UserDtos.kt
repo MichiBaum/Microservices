@@ -1,4 +1,4 @@
-package com.michibaum.usermanagement_service
+package com.michibaum.usermanagement_service.app
 
 data class ReturnUserDto(
     val id: String,

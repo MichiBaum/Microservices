@@ -1,12 +1,20 @@
-package com.michibaum.usermanagement_service
+package com.michibaum.usermanagement_service.app
 
+import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.*
+import com.michibaum.usermanagement_service.database.Permission
+import com.michibaum.usermanagement_service.database.PermissionRepository
+import com.michibaum.usermanagement_service.database.User
+import com.michibaum.usermanagement_service.database.UserPermissionMapping
+import com.michibaum.usermanagement_service.database.UserPermissionMappingRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.UUID
 
 @RestController
 class UsermanagementController (
-    private val userService: UserService
+    private val userService: UserService,
+    private val permiRepository: PermissionRepository
 ) : UserManagementEndpoints {
 
     override fun checkUserDetails(loginDto: LoginDto): UserDetailsDto? {
@@ -16,12 +24,14 @@ class UsermanagementController (
 
         val user = userService.findByUsername(loginDto.username) ?: return null
         val matching = userService.checkPassword(loginDto.password, user.password)
-        if (!matching) return null
-
+        if (!matching)
+            return null
+        
+        val permissions = permiRepository.findByUser(user)
         return UserDetailsDto(
             id = user.id.toString(),
             username = user.username,
-            permissions = user.permissions.map { it.permission }.toSet()
+            permissions = permissions.map { it.permission }.toSet()
         )
     }
 
@@ -35,25 +45,30 @@ class UsermanagementController (
             return null
 
         val user = userService.createDefaultUser(createUserDto)
+        val userPermissionMapping = userService.addDefaultPermissions(user)
         val dto = UserDetailsDto(
             id = user.id.toString(),
             username = user.username,
-            permissions = user.permissions.map { it.permission }.toSet()
+            permissions = userPermissionMapping.map { it.permission.permission }.toSet()
         )
         return dto
     }
 
     @GetMapping("/api/user/{id}")
-    fun get(@PathVariable id: String): ResponseEntity<ReturnUserDto> =
-        userService.getUser(id)
+    fun get(@PathVariable id: String): ResponseEntity<ReturnUserDto>{
+        val userId = UUID.fromString(id)
+        return userService.getUser(userId)
             .let { convertUserToDto(it) }
             .let { toResponseEntity(it) }
+    }
 
     @PostMapping("/api/user/{id}")
-    fun update(@PathVariable id: String, @RequestBody updateUserDto: UpdateUserDto): ResponseEntity<ReturnUserDto> =
-        userService.update(id, updateUserDto)
+    fun update(@PathVariable id: String, @RequestBody updateUserDto: UpdateUserDto): ResponseEntity<ReturnUserDto>{
+        val userId = UUID.fromString(id)
+        return userService.update(userId, updateUserDto)
             .let { convertUserToDto(it) }
             .let { toResponseEntity(it) }
+    }
 
     fun convertUserToDto(user: User?): ReturnUserDto? =
         user?.let {
