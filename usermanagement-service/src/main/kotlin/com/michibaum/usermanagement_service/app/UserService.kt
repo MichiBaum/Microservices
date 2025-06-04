@@ -1,7 +1,12 @@
-package com.michibaum.usermanagement_service
+package com.michibaum.usermanagement_service.app
 
 import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.CreateUserDto
+import com.michibaum.usermanagement_service.database.PermissionRepository
+import com.michibaum.usermanagement_service.database.User
+import com.michibaum.usermanagement_service.database.UserPermissionMapping
+import com.michibaum.usermanagement_service.database.UserPermissionMappingRepository
+import com.michibaum.usermanagement_service.database.UserRepository
 import io.micrometer.observation.annotation.Observed
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -11,12 +16,13 @@ import java.util.*
 class UserService(
     private val userRepository: UserRepository,
     private val permissionRepository: PermissionRepository,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
+    private val userPermissionMappingRepository: UserPermissionMappingRepository
 ) {
 
-    fun getUser(id: String) = userRepository.findById(id).orElseNull()
+    fun getUser(id: UUID) = userRepository.findById(id).orElseNull()
 
-    fun update(id: String, updateUserDto: UpdateUserDto): User? {
+    fun update(id: UUID, updateUserDto: UpdateUserDto): User? {
         val foundUser = userRepository.findById(id).orElseNull()
         return foundUser?.let {
             // TODO update User
@@ -38,14 +44,22 @@ class UserService(
     }
 
     fun createDefaultUser(createUserDto: CreateUserDto): User {
-        val permissions = permissionRepository.findById(Permissions.USERMANAGEMENT_SERVICE_EDIT_OWN_USER.name).orElseThrow()
         val user = User(
             username = createUserDto.username,
             email = createUserDto.email,
             password = passwordEncoder.encode(createUserDto.password),
-            permissions = setOf(permissions),
         )
         return userRepository.save(user)
+    }
+
+    fun addDefaultPermissions(user: User): List<UserPermissionMapping> {
+        val defaultPermissions = listOf(
+            Permissions.USERMANAGEMENT_SERVICE_EDIT_OWN_USER.name,
+            Permissions.CHESS_SERVICE.name
+        )
+        val permissions = permissionRepository.findAllById(defaultPermissions)
+        val x = permissions.map { UserPermissionMapping(user, it) }
+        return userPermissionMappingRepository.saveAll(x)
     }
 
 }
