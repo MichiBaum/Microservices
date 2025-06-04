@@ -1,4 +1,4 @@
-package com.michibaum.usermanagement_service
+package com.michibaum.usermanagement_service.database
 
 import jakarta.persistence.*
 import java.io.Serializable
