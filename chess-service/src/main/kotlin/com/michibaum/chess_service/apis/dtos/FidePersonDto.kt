@@ -13,14 +13,13 @@ class FidePersonDto(
     val federation: String?,
     val gender: Gender
 ) {
-    fun toPerson(id: UUID = UUID.randomUUID(), birthDay: LocalDate? = null, accounts: Set<Account> = emptySet()): Person {
+    fun toPerson(id: UUID = UUID.randomUUID(), birthDay: LocalDate? = null): Person {
         return Person(
             firstname = firstname,
             lastname = lastname,
             federation = federation,
             birthday = birthDay,
             gender = gender,
-            accounts = accounts,
             id = id
         )
     }
