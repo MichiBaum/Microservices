@@ -73,6 +73,13 @@ Save this token as you'll need it to join agent nodes to the cluster.
 
 Perform these steps on each agent node you want to add to the cluster.
 
+### Install K3s as Server
+
+```bash
+curl -sfL https://get.k3s.io | K3S_TOKEN=<node-token> sh -s - server --server https://<main-server-ip>:6443
+
+```
+
 ### Install K3s Agent
 
 Use the installation script with the K3S_URL and K3S_TOKEN environment variables:
