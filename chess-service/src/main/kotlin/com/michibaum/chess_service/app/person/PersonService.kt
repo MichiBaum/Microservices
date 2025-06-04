@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.person
 
 import com.michibaum.chess_service.database.Account
+import com.michibaum.chess_service.database.Event
 import com.michibaum.chess_service.database.Person
 import com.michibaum.chess_service.database.PersonRepository
 import org.springframework.stereotype.Service
@@ -77,6 +78,10 @@ class PersonService(
             accounts = emptySet(),
         )
         return personRepository.save(newPerson)
+    }
+
+    fun findByEvent(event: Event): Set<Person> {
+        return personRepository.findParticipantsOfEvent(event)
     }
 
 }

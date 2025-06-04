@@ -11,6 +11,10 @@ interface PersonRepository: JpaRepository<Person, UUID> {
     fun findByFirstnameContainingIgnoreCase(firstname: String): Set<Person>
     fun findByLastnameContainingIgnoreCase(lastname: String): Set<Person>
 
-    @Query("SELECT p FROM Person p JOIN FETCH p.accounts")
+    @Query("SELECT p FROM Person p")
     fun findAllEagerAccounts(): List<Person>
+    
+    @Query("SELECT p FROM Person p JOIN EventParticipantsMapping epm ON epm.person = p WHERE epm.event = :event")
+    fun findParticipantsOfEvent(event: Event): Set<Person>
+    
 }
