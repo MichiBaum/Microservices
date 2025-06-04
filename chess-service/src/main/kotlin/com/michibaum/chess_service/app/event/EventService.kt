@@ -15,7 +15,6 @@ import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
-import kotlin.jvm.optionals.getOrNull
 
 @Service
 class EventService(
@@ -24,17 +23,11 @@ class EventService(
     private val personRepository: PersonRepository
 ) {
 
-    fun findAllEagerCategories(): List<Event> =
-        eventRepository.findAllEagerCategories()
+    fun findAll(): List<Event> =
+        eventRepository.findAll()
 
     fun find(id: UUID): Event? =
-        eventRepository.findById(id).getOrNull()
-
-    fun findEagerCategories(id: UUID): Event? =
-        eventRepository.findByIdEagerCategories(id)
-
-    fun findEagerParticipants(id: UUID): Event? =
-        eventRepository.findByIdEagerParticipants(id)
+        eventRepository.findByEventId(id)
 
     fun findRecentAndUpcoming(recent: LocalDate, upcoming: LocalDate): List<Event> =
         eventRepository.findByDateFromGreaterThanAndDateToLessThan(recent, upcoming)
@@ -100,9 +93,6 @@ class EventService(
         val categoryIds = ids.map { UUID.fromString(it) }
         return eventCategoryService.findAllById(categoryIds).toSet()
     }
-
-    fun findByCategoryId(id: UUID): Set<Event> =
-        eventRepository.findByCategoriesId(id)
 
     fun findAllBy(specification: Specification<Event>, pageable: PageRequest): Page<Event> {
         return eventRepository.findAll(specification, pageable)
