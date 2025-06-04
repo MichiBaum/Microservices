@@ -1,7 +1,6 @@
-package com.michibaum.usermanagement_service
+package com.michibaum.usermanagement_service.database
 
 import jakarta.persistence.*
-import jakarta.persistence.FetchType.EAGER
 import java.util.*
 
 @Entity
