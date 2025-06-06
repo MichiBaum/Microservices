@@ -45,7 +45,7 @@ metadata:
   name: chess-db-backup
   namespace: microservices
 spec:
-  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  schedule: "0 2,14 * * *"  # Run at 2:00 AM and 2 PM every day
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -85,7 +85,7 @@ metadata:
   name: music-db-backup
   namespace: microservices
 spec:
-  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  schedule: "0 2,14 * * *"  # Run at 2:00 AM and 2 PM every day
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -125,7 +125,7 @@ metadata:
   name: fitness-db-backup
   namespace: microservices
 spec:
-  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  schedule: "0 2,14 * * *"  # Run at 2:00 AM and 2 PM every day
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -165,7 +165,7 @@ metadata:
   name: usermanagement-db-backup
   namespace: microservices
 spec:
-  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  schedule: "0 2,14 * * *"  # Run at 2:00 AM and 2 PM every day
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -205,7 +205,7 @@ metadata:
   name: authentication-db-backup
   namespace: microservices
 spec:
-  schedule: "0 2 * * *"  # Run at 2:00 AM every day
+  schedule: "0 2,14 * * *"  # Run at 2:00 AM and 2 PM every day
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
