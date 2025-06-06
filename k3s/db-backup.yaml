@@ -60,7 +60,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M_\%z)
               mysqldump -h chess-db -u root -p${ROOT_PASSWORD} chess | gzip -c > /backup/chess_${TIMESTAMP}.sql.gz
               echo "Backup completed: chess_${TIMESTAMP}.sql.gz"
             env:
@@ -100,7 +100,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M_\%z)
               mysqldump -h music-db -u root -p${ROOT_PASSWORD} music | gzip -c > /backup/music_${TIMESTAMP}.sql.gz
               echo "Backup completed: music_${TIMESTAMP}.sql.gz"
             env:
@@ -140,7 +140,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M_\%z)
               mysqldump -h fitness-db -u root -p${ROOT_PASSWORD} fitness | gzip -c > /backup/fitness_${TIMESTAMP}.sql.gz
               echo "Backup completed: fitness_${TIMESTAMP}.sql.gz"
             env:
@@ -180,7 +180,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M_\%z)
               mysqldump -h usermanagement-db -u root -p${ROOT_PASSWORD} usermanagement | gzip -c > /backup/usermanagement_${TIMESTAMP}.sql.gz
               echo "Backup completed: usermanagement_${TIMESTAMP}.sql.gz"
             env:
@@ -220,7 +220,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M)
+              TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M_\%z)
               mysqldump -h authentication-db -u root -p${ROOT_PASSWORD} authentication | gzip -c > /backup/authentication_${TIMESTAMP}.sql.gz
               echo "Backup completed: authentication_${TIMESTAMP}.sql.gz"
             env:
