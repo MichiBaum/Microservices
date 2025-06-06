@@ -117,6 +117,16 @@ If you've disabled Traefik during K3s installation or want to use a different in
 - K3s comes with Traefik as its built-in ingress controller. The ingress configuration in this guide assumes you're using the default Traefik controller.
 - Secrets contain placeholder values. Replace them with actual values before deployment.
 
+## Port Forward
+
+```yaml
+kubectl port-forward -n microservices svc/authentication-db 3307:3306
+kubectl port-forward -n microservices svc/chess-db 3309:3306
+kubectl port-forward -n microservices svc/fitness-db 3310:3306
+kubectl port-forward -n microservices svc/music-db 3311:3306
+kubectl port-forward -n microservices svc/usermanagement-db 3308:3306
+```
+
 ## Updating the K3s Deployment
 
 ### Update Types

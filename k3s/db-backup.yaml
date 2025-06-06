@@ -1,6 +1,3 @@
-# Database Backup Resources
-
-# Persistent Volume for database backups
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -17,15 +14,14 @@ spec:
   nodeAffinity:
     required:
       nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - 35591.hostserv.eu
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - 35591.hostserv.eu
   hostPath:
     path: "/data/db-backup"
 ---
-# Persistent Volume Claim for database backups
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -34,7 +30,7 @@ metadata:
 spec:
   storageClassName: manual
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 10Gi
