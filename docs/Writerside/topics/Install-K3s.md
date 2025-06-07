@@ -152,54 +152,6 @@ sed -i 's/127.0.0.1/<server-ip>/g' ~/.kube/config
 
 ## Additional Configuration
 
-### Install Kubernetes Dashboard (Optional)
-
-1. Deploy the dashboard:
-
-```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
-```
-
-2. Create an admin user and role binding:
-
-```bash
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: admin-user
-  namespace: kubernetes-dashboard
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: admin-user
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: admin-user
-  namespace: kubernetes-dashboard
-EOF
-```
-
-3. Get the token for the admin user:
-
-```bash
-kubectl -n kubernetes-dashboard create token admin-user
-```
-
-4. Start the kubectl proxy:
-
-```bash
-kubectl proxy
-```
-
-5. Access the dashboard at:
-   http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
-
 ## Troubleshooting
 
 ### Node Not Ready
