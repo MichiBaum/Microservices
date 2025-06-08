@@ -11,7 +11,6 @@ import * as d3 from "d3";
 export class SleepStagesChartComponent implements OnChanges{
   private elementRef = inject(ElementRef);
 
-
   readonly sleepStages = input<SleepStage[]>();
   readonly container = viewChild<ElementRef>('container');
 
