@@ -138,4 +138,19 @@ class TestAuthentication(private val authoritiesParam: MutableCollection<Granted
     override fun getPrincipal(): Any = ""
     override fun isAuthenticated(): Boolean = false
     override fun setAuthenticated(isAuthenticated: Boolean) = Unit
+    
+    /**
+     * Has to be the same as in extension method
+     * @see Authentication.anyOf
+     */
+    fun anyOf(vararg permissions: Permissions): Boolean {
+        if (permissions.isEmpty())
+            return true
+
+        return permissions.any { permission ->
+            authorities.any {
+                    a -> a.authority == permission.name
+            }
+        }
+    }
 }

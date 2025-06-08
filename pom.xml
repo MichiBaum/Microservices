@@ -15,21 +15,19 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <!-- TODO update to 3.5.0 when spring cloud 2025.0.0 release 27 Mai -->
-        <spring-boot.version>3.4.6</spring-boot.version>
+        <spring-boot.version>3.5.0</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
         -->
-        <!-- TODO 2025.0.0 release 27 Mai -->
-        <spring-cloud.version>2024.0.1</spring-cloud.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>3.4.6</spring-boot-admin.version>
+        <spring-boot-admin.version>3.5.0</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
@@ -57,11 +55,6 @@
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
 
         <!-- Dependency override due to security risks -->
-        <httpclient.version>4.5.14</httpclient.version>
-        <xstream.version>1.4.21</xstream.version>
-        <commons-io.version>2.14.0</commons-io.version>
-        <guava.version>33.4.0-jre</guava.version>
-        <commons-compress.version>1.26.2</commons-compress.version>
     </properties>
 
     <dependencies>
@@ -79,31 +72,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-compress</artifactId>
-                <version>${commons-compress.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>${xstream.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
