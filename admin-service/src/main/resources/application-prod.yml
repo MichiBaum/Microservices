@@ -2,6 +2,8 @@ server:
   port: 80
 
 spring:
+  main:
+    cloud-platform: kubernetes
   microservices:
     discord:
       enabled: true
