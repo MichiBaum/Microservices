@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import java.util.*
 
-interface SleepRepository: JpaRepository<Sleep, UUID> {
-    
-    @Query("SELECT s FROM Sleep s WHERE s.userId = :userId")
-    fun findByUserId(userId: String): Set<Sleep>
+interface SleepStageRepository: JpaRepository<SleepStage, UUID> {
+
+    @Query("SELECT s FROM SleepStage s WHERE s.sleep.id = :sleepId")
+    fun findBySleep(sleepId: UUID): Set<SleepStage>
     
 }

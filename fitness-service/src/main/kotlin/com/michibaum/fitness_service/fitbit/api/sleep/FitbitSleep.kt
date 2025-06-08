@@ -14,17 +14,14 @@ class FitbitSleep(
     startTime: LocalDateTime,
     endTime: LocalDateTime,
     duration: Long,
-    stages: Set<SleepStage>,
     userId: String,
 
     @Column(nullable = false, unique = true)
     val fitbitId: Long,
 
-    ): Sleep(
+    ): Sleep (
     startTime = startTime,
     endTime = endTime,
     duration = duration,
-    stages = stages,
     userId = userId
-
 )

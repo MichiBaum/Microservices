@@ -1,13 +1,13 @@
 export interface Sleep {
-  startTime: Date;
-  endTime: Date;
-  duration: number;
-  stages: SleepStage[];
+    id: string;
+    startTime: Date;
+    endTime: Date;
+    duration: number;
 }
 
 export interface SleepStage{
-  start: Date;
-  end: Date;
-  stage: string;
-  duration: number;
+    start: Date;
+    end: Date;
+    stage: string;
+    duration: number;
 }
