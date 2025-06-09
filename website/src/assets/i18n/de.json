@@ -5,13 +5,6 @@
             "s2": "Ich erweitere mein Wissen ständig, indem ich Bücher über Softwareentwicklung, Architektur und Sicherheit lese. Mittlerweile besitze ich etwa 30 technische Bücher, die Themen von Designmustern über Clean-Code-Prinzipien bis hin zu verteilten Systemen abdecken. Es macht mir wirklich Spaß, über die neuesten Technologietrends auf dem Laufenden zu bleiben.",
             "title": "Über das Codieren hinaus"
         },
-        "customer-project": {
-            "s1": "Sie haben eine Idee für eine Website oder Webanwendung, wissen aber nicht, wo Sie anfangen sollen? Oder vielleicht braucht Ihr bestehendes Projekt Verbesserungen, eine bessere Leistung oder ein neues Design? Ich kann Ihnen helfen!",
-            "s2": "Mit meiner Erfahrung in der Backend- und Frontend-Entwicklung erstelle ich moderne, sichere und skalierbare Anwendungen, die auf Ihre Bedürfnisse zugeschnitten sind. Ob es sich um eine Business-Website, eine benutzerdefinierte Web-App oder ein internes Tool handelt, ich konzentriere mich auf saubere Architektur, Wartbarkeit und Leistung.",
-            "s3": "Ich arbeite hauptsächlich mit Java, Kotlin und Spring Boot für die Backend-Entwicklung und Angular für Frontend-Anwendungen. Aber ich wähle immer die besten Technologien für den Job aus und stelle sicher, dass Ihr Projekt mit Blick auf Skalierbarkeit, Sicherheit und langfristige Wartbarkeit erstellt wird.",
-            "s4": "Wenn Sie interessiert sind, nehmen Sie gerne Kontakt mit mir auf und lassen Sie uns besprechen, wie ich Ihre Idee zum Leben erwecken kann!",
-            "title": "Sie benötigen eine Website oder Webanwendung?"
-        },
         "experience": {
             "experience": "Erfahrung",
             "intro": "Hier ist eine Liste mit meinen Erfahrungen.",
