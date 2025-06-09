@@ -5,13 +5,6 @@
             "s2": "Estoy ampliando constantemente mis conocimientos leyendo libros sobre desarrollo de software, arquitectura y seguridad. Actualmente tengo alrededor de 30 libros técnicos que cubren temas que van desde patrones de diseño hasta principios de código limpio y sistemas distribuidos. Realmente disfruto estar actualizado con las últimas tendencias tecnológicas.",
             "title": "Más allá de la codificación"
         },
-        "customer-project": {
-            "s1": "¿Tienes una idea para un sitio web o una aplicación web pero no sabes por dónde empezar? ¿O tal vez su proyecto existente necesita mejoras, un mejor rendimiento o un nuevo diseño? ¡Puedo ayudarle!",
-            "s2": "Con mi experiencia en desarrollo backend y frontend, creo aplicaciones modernas, seguras y escalables adaptadas a tus necesidades. Ya sea un sitio web comercial, una aplicación web personalizada o una herramienta interna, me concentro en la arquitectura limpia, la facilidad de mantenimiento y el rendimiento.",
-            "s3": "Trabajo principalmente con Java, Kotlin y Spring Boot para el desarrollo backend y Angular para aplicaciones frontend. Pero siempre elijo las mejores tecnologías para el trabajo y me aseguro de que su proyecto esté construido teniendo en cuenta la escalabilidad, la seguridad y la capacidad de mantenimiento a largo plazo.",
-            "s4": "Si estás interesado, contáctame y discutamos cómo puedo hacer realidad tu idea.",
-            "title": "¿Necesitas un sitio web o una aplicación web?"
-        },
         "experience": {
             "experience": "Experiencia",
             "intro": "Aquí hay una lista de mis experiencias.",
