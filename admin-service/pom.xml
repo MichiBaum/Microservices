@@ -135,7 +135,7 @@
 						<version>${jib-maven-plugin.version}</version>
 						<configuration>
 							<from>
-								<image>eclipse-temurin:24-jre-alpine</image>
+								<image>${jib-maven-plugin.image}</image>
 								<auth>
 									<!--suppress UnresolvedMavenProperty -->
 									<username>${dockerHub.username}</username>
