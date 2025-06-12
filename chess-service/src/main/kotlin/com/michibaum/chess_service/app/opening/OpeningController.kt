@@ -167,9 +167,7 @@ class OpeningController(
     fun getEvaluation(@PathVariable id: String): ResponseEntity<List<OpeningMoveEvaluationDto>>{
         return try {
             val uuid = UUID.fromString(id)
-            val move = openingService.findMoveEagerEvaluations(uuid) ?:
-                return ResponseEntity.notFound().build()
-            val evaluations = move.moveEvaluations
+            val evaluations = openingService.findEvolutionsByMoveId(uuid)
             val dtos = evaluations.map { openingConverter.toDto(it) }
             return ResponseEntity.ok(dtos)
         } catch (ex: IllegalArgumentException) {
@@ -196,7 +194,7 @@ class OpeningController(
     fun createEvaluation(@PathVariable id: String, @RequestBody dto: WriteOpeningEvaluationDto): ResponseEntity<OpeningMoveEvaluationDto> {
         return try {
             val uuid = UUID.fromString(id)
-            val openingMove = openingService.findMoveEagerEvaluations(uuid) ?:
+            val openingMove = openingService.findMoveBy(uuid) ?:
                 return ResponseEntity.notFound().build()
             val engineId = UUID.fromString(dto.engineId)
             val engine = engineService.findById(engineId) ?:
