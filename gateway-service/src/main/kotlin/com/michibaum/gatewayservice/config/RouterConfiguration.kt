@@ -14,6 +14,8 @@ import org.springframework.cloud.gateway.server.mvc.predicate.GatewayRequestPred
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.Authentication
+import org.springframework.web.servlet.function.HandlerFunction
 import org.springframework.web.servlet.function.RouterFunction
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
@@ -76,81 +78,4 @@ class RouterConfiguration {
             .build()
     }
 
-}
-
-@ConfigurationProperties(prefix = "management.services")
-data class ServicesProperties(
-    val zipkinUrl: URI,
-    val grafanaUrl: URI,
-    val prometheusUrl: URI
-)
-
-fun ServerRequest.authenticate(redirect: URI, authFilter: ServletAuthenticationFilter, vararg requiredPermissions: Permissions): ServerResponse {
-    val authentication = authFilter.getAuthentication(servletRequest())
-    return if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.containsAll(requiredPermissions.toList().map { it.name })) {
-        ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
-    } else {
-        http(redirect).handle(this)
-    }
-}
-
-/**
- * Applies a circuit breaker to an authentication handler.
- * @param redirect The URI to redirect to
- * @param authFilter The authentication filter
- * @param circuitBreakerFactory The circuit breaker factory
- * @param serviceName The name of the service (used as the circuit breaker ID)
- * @param requiredPermissions The required permissions
- * @return A handler function wrapped with a circuit breaker
- */
-fun ServerRequest.authenticateWithCircuitBreaker(
-    redirect: URI,
-    authFilter: ServletAuthenticationFilter,
-    circuitBreakerFactory: CircuitBreakerFactory<*, *>,
-    serviceName: String,
-    vararg requiredPermissions: Permissions
-): ServerResponse {
-    val authentication = authFilter.getAuthentication(servletRequest())
-    return if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.containsAll(requiredPermissions.toList().map { it.name })) {
-        ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
-    } else {
-        val circuitBreaker = circuitBreakerFactory.create("$serviceName-circuit-breaker")
-        try {
-            circuitBreaker.run({ http(redirect).handle(this) }, { throwable ->
-                // Fallback response when circuit is open or call fails
-                ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
-                    .body("Service $serviceName is currently unavailable. Please try again later.")
-            })
-        } catch (e: Exception) {
-            ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("An error occurred while processing your request: ${e.message}")
-        }
-    }
-}
-
-/**
- * Applies a circuit breaker to a handler function.
- * @param handlerFunction The handler function to apply the circuit breaker to
- * @param serviceName The name of the service (used as the circuit breaker ID)
- * @param circuitBreakerFactory The circuit breaker factory
- * @return A handler function wrapped with a circuit breaker
- */
-fun applyCircuitBreaker(
-    handlerFunction: org.springframework.web.servlet.function.HandlerFunction<ServerResponse>,
-    serviceName: String,
-    circuitBreakerFactory: CircuitBreakerFactory<*, *>
-): org.springframework.web.servlet.function.HandlerFunction<ServerResponse> {
-    val circuitBreaker = circuitBreakerFactory.create("$serviceName-circuit-breaker")
-    return org.springframework.web.servlet.function.HandlerFunction { request ->
-        try {
-            circuitBreaker.run({ handlerFunction.handle(request) }, { throwable ->
-                // Fallback response when circuit is open or call fails
-                ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
-                    .body("Service $serviceName is currently unavailable. Please try again later.")
-            })
-        } catch (e: Exception) {
-            ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("An error occurred while processing your request: ${e.message}")
-        }
-    }
 }
