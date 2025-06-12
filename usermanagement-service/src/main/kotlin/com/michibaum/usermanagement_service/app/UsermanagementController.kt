@@ -1,15 +1,11 @@
 package com.michibaum.usermanagement_service.app
 
-import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.*
-import com.michibaum.usermanagement_service.database.Permission
 import com.michibaum.usermanagement_service.database.PermissionRepository
 import com.michibaum.usermanagement_service.database.User
-import com.michibaum.usermanagement_service.database.UserPermissionMapping
-import com.michibaum.usermanagement_service.database.UserPermissionMappingRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.UUID
+import java.util.*
 
 @RestController
 class UsermanagementController (
