@@ -84,7 +84,6 @@ class OpeningService(
             move = dto.move,
             fen = dto.fen,
             parent = move.parent,
-            moveEvaluations = move.moveEvaluations
         )
         return openingMoveRepository.save(newMove)
     }
@@ -97,10 +96,6 @@ class OpeningService(
     fun deleteMove(move: OpeningMove): OpeningMove {
         val toSave = move.copy( deleted = true )
         return openingMoveRepository.save(toSave)
-    }
-
-    fun findMoveEagerEvaluations(uuid: UUID): OpeningMove? {
-        return openingMoveRepository.findByIdEagerEvaluations(uuid)
     }
 
     fun deleteEvaluation(uuid: UUID) {
@@ -130,6 +125,10 @@ class OpeningService(
             id = evolution.id
         )
         return evaluationRepository.save(newEvaluation)
+    }
+
+    fun findEvolutionsByMoveId(uuid: UUID):List<OpeningMoveEvaluation> {
+        return evaluationRepository.findByMoveId(uuid)
     }
 
 }
