@@ -8,8 +8,6 @@ import java.util.UUID
 
 @Repository
 interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
-    fun findAllByParentIdAndDeletedFalse(parent: UUID?): List<OpeningMove>
-
     @Query(value = """
         WITH RECURSIVE move_hierarchy AS (
             SELECT id, move, fen, parent_id
@@ -69,10 +67,4 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
     """, nativeQuery = true)
     fun findMoveChildren(@Param("startingId") startingId: UUID?, @Param("maxDepth") maxDepth: Int): List<MoveHierarchyProjection>
 
-    @Query("""
-        SELECT o FROM OpeningMove o 
-            left join fetch o.moveEvaluations e
-            left join fetch e.engine
-        WHERE o.id = :uuid""")
-    fun findByIdEagerEvaluations(uuid: UUID): OpeningMove?
 }

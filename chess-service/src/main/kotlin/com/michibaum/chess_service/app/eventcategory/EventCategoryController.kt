@@ -15,9 +15,7 @@ import java.util.*
 @RestController
 class EventCategoryController(
     private val service: EventCategoryService,
-    private val converter: EventCategoryConverter,
-    private val eventService: EventService,
-    private val eventConverter: EventConverter
+    private val converter: EventCategoryConverter
 ) {
 
     @PublicEndpoint
@@ -26,15 +24,6 @@ class EventCategoryController(
         val categoryDtos = service.getAll()
             .map(converter::toDto)
         return ResponseEntity.ok().body(categoryDtos)
-    }
-
-    @PublicEndpoint
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    @GetMapping("/api/event-categories/with-events")
-    fun getEventCategoriesWithEvents(): ResponseEntity<List<EventCategoryWithEventDto>> { // TODO custom sql query to fetch all in one
-        val events = eventService.findAll()
-        val result = eventConverter.toDto(events)
-        return ResponseEntity.ok().body(result)
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
