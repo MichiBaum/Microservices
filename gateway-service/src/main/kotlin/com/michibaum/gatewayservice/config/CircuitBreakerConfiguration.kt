@@ -37,18 +37,38 @@ class CircuitBreakerConfiguration {
             }
         }
     }
+
+    @Bean
+    fun grafanaAndZipkinCustomizer(): Customizer<Resilience4JCircuitBreakerFactory> {
+        return Customizer { factory ->
+            factory.configure({ builder ->
+                builder
+                    .timeLimiterConfig(TimeLimiterConfig.custom()
+                        .timeoutDuration(Duration.ofMillis(1000))
+                        .build())
+                    .circuitBreakerConfig(CircuitBreakerConfig.custom()
+                        .slidingWindowSize(10)
+                        .failureRateThreshold(50.0f)
+                        .waitDurationInOpenState(Duration.ofSeconds(10))
+                        .permittedNumberOfCallsInHalfOpenState(5)
+                        .slowCallRateThreshold(50.0f)
+                        .slowCallDurationThreshold(Duration.ofSeconds(2))
+                        .build())
+            }, CircuitBreakerId.GRAFANA.id, CircuitBreakerId.ZIPKIN.id)
+        }
+    }
 }
 
 typealias CircuitBreakerResponse = (Throwable) -> ServerResponse
 
 fun createCircuitBreaker(
-    serviceName: String,
+    circuitBreakerId: CircuitBreakerId,
     circuitBreakerFactory: CircuitBreakerFactory<*, *>
-): CircuitBreaker = circuitBreakerFactory.create("$serviceName-circuit-breaker")
+): CircuitBreaker = circuitBreakerFactory.create(circuitBreakerId.id)
 
-fun createCircuitBreakerServiceUnavailableResponse(serviceName: String): CircuitBreakerResponse = { _ ->
+fun createCircuitBreakerServiceUnavailableResponse(circuitBreakerId: CircuitBreakerId): CircuitBreakerResponse = { _ ->
     ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
-        .body("Service $serviceName is currently unavailable. Please try again later.")
+        .body("Service ${circuitBreakerId.serviceId} is currently unavailable. Please try again later.")
 }
 
 fun createCircuitBreakerErrorResponse(error: Exception): ServerResponse =
@@ -57,16 +77,16 @@ fun createCircuitBreakerErrorResponse(error: Exception): ServerResponse =
 
 fun applyCircuitBreaker(
     handlerFunction: HandlerFunction<ServerResponse>,
-    serviceName: String,
+    circuitBreakerId: CircuitBreakerId,
     circuitBreakerFactory: CircuitBreakerFactory<*, *>
 ): HandlerFunction<ServerResponse> {
-    val circuitBreaker = createCircuitBreaker(serviceName, circuitBreakerFactory)
+    val circuitBreaker = createCircuitBreaker(circuitBreakerId, circuitBreakerFactory)
 
     return HandlerFunction { request ->
         try {
             circuitBreaker.run(
                 { handlerFunction.handle(request) },
-                createCircuitBreakerServiceUnavailableResponse(serviceName)
+                createCircuitBreakerServiceUnavailableResponse(circuitBreakerId)
             )
         } catch (e: Exception) {
             createCircuitBreakerErrorResponse(e)

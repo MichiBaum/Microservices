@@ -3,6 +3,7 @@ package com.michibaum.gatewayservice.config
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.gatewayservice.app.robotstxt.RobotsTxtController
 import com.michibaum.gatewayservice.app.sitemapxml.SitemapXmlController
+import com.michibaum.gatewayservice.config.CircuitBreakerId.*
 import com.michibaum.permission_library.Permissions
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -56,25 +57,36 @@ class RouterConfiguration {
             .GET("/sitemap.xml", sitemapXmlController.sitemapXml())
 
             // Specific services (Higher priority)
-            .route(host("admin.michibaum.*"), applyCircuitBreaker(lb("admin-service").apply(http()), "admin-service", circuitBreakerFactory))
+            .route(host("admin.michibaum.*"), applyCircuitBreaker(lb(ADMIN.serviceId).apply(http()),
+                ADMIN, circuitBreakerFactory))
             .route(host("zipkin.michibaum.*")){request -> 
-                request.authenticateWithCircuitBreaker(servicesProperties.zipkinUrl, authFilter, circuitBreakerFactory, "zipkin", Permissions.ADMIN_SERVICE)
+                request.authenticateWithCircuitBreaker(servicesProperties.zipkinUrl, authFilter, circuitBreakerFactory,
+                    ZIPKIN, Permissions.ADMIN_SERVICE)
             }
             .route(host("grafana.michibaum.*")){request ->
-                request.authenticateWithCircuitBreaker(servicesProperties.grafanaUrl, authFilter, circuitBreakerFactory, "grafana", Permissions.ADMIN_SERVICE)
+                request.authenticateWithCircuitBreaker(servicesProperties.grafanaUrl, authFilter, circuitBreakerFactory,
+                    GRAFANA, Permissions.ADMIN_SERVICE)
             }
             .route(host("prometheus.michibaum.*")){request ->
-                request.authenticateWithCircuitBreaker(servicesProperties.prometheusUrl, authFilter, circuitBreakerFactory, "prometheus", Permissions.ADMIN_SERVICE)
+                request.authenticateWithCircuitBreaker(servicesProperties.prometheusUrl, authFilter, circuitBreakerFactory,
+                    PROMETHEUS, Permissions.ADMIN_SERVICE)
             }
-            .route(host("registry.michibaum.*"), applyCircuitBreaker(lb("registry-service").apply(http()), "registry-service", circuitBreakerFactory))
-            .route(host("authentication.michibaum.*"), applyCircuitBreaker(lb("authentication-service").apply(http()), "authentication-service", circuitBreakerFactory))
-            .route(host("usermanagement.michibaum.*"), applyCircuitBreaker(lb("usermanagement-service").apply(http()), "usermanagement-service", circuitBreakerFactory))
-            .route(host("chess.michibaum.*"), applyCircuitBreaker(lb("chess-service").apply(http()), "chess-service", circuitBreakerFactory))
-            .route(host("fitness.michibaum.*"), applyCircuitBreaker(lb("fitness-service").apply(http()), "fitness-service", circuitBreakerFactory))
-            .route(host("music.michibaum.*"), applyCircuitBreaker(lb("music-service").apply(http()), "music-service", circuitBreakerFactory))
+            .route(host("registry.michibaum.*"), applyCircuitBreaker(lb(REGISTRY.serviceId).apply(http()),
+                REGISTRY, circuitBreakerFactory))
+            .route(host("authentication.michibaum.*"), applyCircuitBreaker(lb(AUTHENTICATION.serviceId).apply(http()),
+                AUTHENTICATION, circuitBreakerFactory))
+            .route(host("usermanagement.michibaum.*"), applyCircuitBreaker(lb(USERMANAGEMENT.serviceId).apply(http()),
+                USERMANAGEMENT, circuitBreakerFactory))
+            .route(host("chess.michibaum.*"), applyCircuitBreaker(lb(CHESS.serviceId).apply(http()),
+                CHESS, circuitBreakerFactory))
+            .route(host("fitness.michibaum.*"), applyCircuitBreaker(lb(FITNESS.serviceId).apply(http()),
+                FITNESS, circuitBreakerFactory))
+            .route(host("music.michibaum.*"), applyCircuitBreaker(lb(MUSIC.serviceId).apply(http()),
+                MUSIC, circuitBreakerFactory))
 
             // Catch-all for main website (Lowest priority, must come last)
-            .route(host("michibaum.*"), applyCircuitBreaker(lb("website-service").apply(http()), "website-service", circuitBreakerFactory))
+            .route(host("michibaum.*"), applyCircuitBreaker(lb(WEBSITE.serviceId).apply(http()),
+                WEBSITE, circuitBreakerFactory))
             .build()
     }
 
