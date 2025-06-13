@@ -1,6 +1,6 @@
 package com.michibaum.gatewayservice.config
 
-enum class CircuitBreakerId(val id: String, val serviceId: String) {
+enum class Service(val cbId: String, val id: String) {
     GRAFANA("grafana-circuit-breaker", "grafana-service"),
     ZIPKIN("zipkin-circuit-breaker", "zipkin-service"),
     ADMIN("admin-circuit-breaker", "admin-service"),

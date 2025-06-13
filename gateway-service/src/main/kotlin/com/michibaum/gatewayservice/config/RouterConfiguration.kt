@@ -3,9 +3,8 @@ package com.michibaum.gatewayservice.config
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.gatewayservice.app.robotstxt.RobotsTxtController
 import com.michibaum.gatewayservice.app.sitemapxml.SitemapXmlController
-import com.michibaum.gatewayservice.config.CircuitBreakerId.*
+import com.michibaum.gatewayservice.config.Service.*
 import com.michibaum.permission_library.Permissions
-import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
 import org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb
@@ -14,11 +13,7 @@ import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.htt
 import org.springframework.cloud.gateway.server.mvc.predicate.GatewayRequestPredicates.host
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpStatus
-import org.springframework.security.core.Authentication
-import org.springframework.web.servlet.function.HandlerFunction
 import org.springframework.web.servlet.function.RouterFunction
-import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
 import java.net.URI
 
@@ -57,7 +52,7 @@ class RouterConfiguration {
             .GET("/sitemap.xml", sitemapXmlController.sitemapXml())
 
             // Specific services (Higher priority)
-            .route(host("admin.michibaum.*"), applyCircuitBreaker(lb(ADMIN.serviceId).apply(http()),
+            .route(host("admin.michibaum.*"), applyCircuitBreaker(lb(ADMIN.id).apply(http()),
                 ADMIN, circuitBreakerFactory))
             .route(host("zipkin.michibaum.*")){request -> 
                 request.authenticateWithCircuitBreaker(servicesProperties.zipkinUrl, authFilter, circuitBreakerFactory,
@@ -71,21 +66,21 @@ class RouterConfiguration {
                 request.authenticateWithCircuitBreaker(servicesProperties.prometheusUrl, authFilter, circuitBreakerFactory,
                     PROMETHEUS, Permissions.ADMIN_SERVICE)
             }
-            .route(host("registry.michibaum.*"), applyCircuitBreaker(lb(REGISTRY.serviceId).apply(http()),
+            .route(host("registry.michibaum.*"), applyCircuitBreaker(lb(REGISTRY.id).apply(http()),
                 REGISTRY, circuitBreakerFactory))
-            .route(host("authentication.michibaum.*"), applyCircuitBreaker(lb(AUTHENTICATION.serviceId).apply(http()),
+            .route(host("authentication.michibaum.*"), applyCircuitBreaker(lb(AUTHENTICATION.id).apply(http()),
                 AUTHENTICATION, circuitBreakerFactory))
-            .route(host("usermanagement.michibaum.*"), applyCircuitBreaker(lb(USERMANAGEMENT.serviceId).apply(http()),
+            .route(host("usermanagement.michibaum.*"), applyCircuitBreaker(lb(USERMANAGEMENT.id).apply(http()),
                 USERMANAGEMENT, circuitBreakerFactory))
-            .route(host("chess.michibaum.*"), applyCircuitBreaker(lb(CHESS.serviceId).apply(http()),
+            .route(host("chess.michibaum.*"), applyCircuitBreaker(lb(CHESS.id).apply(http()),
                 CHESS, circuitBreakerFactory))
-            .route(host("fitness.michibaum.*"), applyCircuitBreaker(lb(FITNESS.serviceId).apply(http()),
+            .route(host("fitness.michibaum.*"), applyCircuitBreaker(lb(FITNESS.id).apply(http()),
                 FITNESS, circuitBreakerFactory))
-            .route(host("music.michibaum.*"), applyCircuitBreaker(lb(MUSIC.serviceId).apply(http()),
+            .route(host("music.michibaum.*"), applyCircuitBreaker(lb(MUSIC.id).apply(http()),
                 MUSIC, circuitBreakerFactory))
 
             // Catch-all for main website (Lowest priority, must come last)
-            .route(host("michibaum.*"), applyCircuitBreaker(lb(WEBSITE.serviceId).apply(http()),
+            .route(host("michibaum.*"), applyCircuitBreaker(lb(WEBSITE.id).apply(http()),
                 WEBSITE, circuitBreakerFactory))
             .build()
     }

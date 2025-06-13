@@ -14,7 +14,7 @@ fun ServerRequest.authenticateWithCircuitBreaker(
     redirect: URI,
     authFilter: ServletAuthenticationFilter,
     circuitBreakerFactory: CircuitBreakerFactory<*, *>,
-    circuitBreakerId: CircuitBreakerId,
+    service: Service,
     vararg requiredPermissions: Permissions
 ): ServerResponse {
     val authentication = authFilter.getAuthentication(servletRequest())
@@ -23,11 +23,11 @@ fun ServerRequest.authenticateWithCircuitBreaker(
         return ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
     }
 
-    val circuitBreaker = createCircuitBreaker(circuitBreakerId, circuitBreakerFactory)
+    val circuitBreaker = createCircuitBreaker(service, circuitBreakerFactory)
     return try {
         circuitBreaker.run(
             { http(redirect).handle(this) },
-            createCircuitBreakerServiceUnavailableResponse(circuitBreakerId)
+            createCircuitBreakerServiceUnavailableResponse(service)
         )
     } catch (e: Exception) {
         createCircuitBreakerErrorResponse(e)

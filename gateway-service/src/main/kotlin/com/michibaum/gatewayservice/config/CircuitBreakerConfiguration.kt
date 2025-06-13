@@ -54,7 +54,7 @@ class CircuitBreakerConfiguration {
                         .slowCallRateThreshold(50.0f)
                         .slowCallDurationThreshold(Duration.ofSeconds(2))
                         .build())
-            }, CircuitBreakerId.GRAFANA.id, CircuitBreakerId.ZIPKIN.id)
+            }, Service.GRAFANA.cbId, Service.ZIPKIN.cbId)
         }
     }
 }
@@ -62,13 +62,13 @@ class CircuitBreakerConfiguration {
 typealias CircuitBreakerResponse = (Throwable) -> ServerResponse
 
 fun createCircuitBreaker(
-    circuitBreakerId: CircuitBreakerId,
+    service: Service,
     circuitBreakerFactory: CircuitBreakerFactory<*, *>
-): CircuitBreaker = circuitBreakerFactory.create(circuitBreakerId.id)
+): CircuitBreaker = circuitBreakerFactory.create(service.cbId)
 
-fun createCircuitBreakerServiceUnavailableResponse(circuitBreakerId: CircuitBreakerId): CircuitBreakerResponse = { _ ->
+fun createCircuitBreakerServiceUnavailableResponse(service: Service): CircuitBreakerResponse = { _ ->
     ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
-        .body("Service ${circuitBreakerId.serviceId} is currently unavailable. Please try again later.")
+        .body("Service ${service.id} is currently unavailable. Please try again later.")
 }
 
 fun createCircuitBreakerErrorResponse(error: Exception): ServerResponse =
@@ -77,16 +77,16 @@ fun createCircuitBreakerErrorResponse(error: Exception): ServerResponse =
 
 fun applyCircuitBreaker(
     handlerFunction: HandlerFunction<ServerResponse>,
-    circuitBreakerId: CircuitBreakerId,
+    service: Service,
     circuitBreakerFactory: CircuitBreakerFactory<*, *>
 ): HandlerFunction<ServerResponse> {
-    val circuitBreaker = createCircuitBreaker(circuitBreakerId, circuitBreakerFactory)
+    val circuitBreaker = createCircuitBreaker(service, circuitBreakerFactory)
 
     return HandlerFunction { request ->
         try {
             circuitBreaker.run(
                 { handlerFunction.handle(request) },
-                createCircuitBreakerServiceUnavailableResponse(circuitBreakerId)
+                createCircuitBreakerServiceUnavailableResponse(service)
             )
         } catch (e: Exception) {
             createCircuitBreakerErrorResponse(e)
