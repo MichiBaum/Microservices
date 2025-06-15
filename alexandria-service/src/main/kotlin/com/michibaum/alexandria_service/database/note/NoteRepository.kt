@@ -10,6 +10,6 @@ interface NoteRepository : JpaRepository<Note, UUID> {
         SELECT n FROM Note n
         WHERE n.belongsTo = :belongsTo
     """)
-    fun findByBelongsTo(belongsTo: String): List<Note>
-    
+    fun findAllByBelongsTo(belongsTo: String): List<Note>
+
 }
