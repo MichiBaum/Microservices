@@ -25,13 +25,6 @@ class NoteCategory(
     @Column(name="belongs_to")
     val belongsTo: String,
 
-    @ManyToMany(fetch = LAZY)
-    @JoinTable(name="notes_to_category",
-        joinColumns= [JoinColumn(name="note_id", referencedColumnName="id")],
-        inverseJoinColumns=[JoinColumn(name="note_category_id", referencedColumnName="id")]
-    )
-    val notes: List<Note>,
-    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,

@@ -1,5 +1,6 @@
 package com.michibaum.alexandria_service.database.note
 
+import com.michibaum.alexandria_service.database.IdNullException
 import jakarta.persistence.*
 import java.util.*
 
@@ -16,13 +17,12 @@ class Note ( // TODO add Hibernate Envers, Author
     @Column(name="belongs_to")
     val belongsTo: String,
     
-    @ManyToMany(mappedBy = "notes", fetch = FetchType.LAZY)
-    val categories: List<NoteCategory>,
-    
     // TODO Sharing of notes
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
 
-){}
+){
+    fun idOrThrow(): UUID = id ?: throw IdNullException()
+}
