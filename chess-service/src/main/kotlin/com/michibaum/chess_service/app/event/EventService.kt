@@ -6,6 +6,11 @@ import com.michibaum.chess_service.app.eventcategory.EventCategoryService
 import com.michibaum.chess_service.database.PersonRepository
 import com.michibaum.chess_service.database.Event
 import com.michibaum.chess_service.database.EventCategory
+import com.michibaum.chess_service.database.EventCategoryMapping
+import com.michibaum.chess_service.database.EventCategoryMappingProjection
+import com.michibaum.chess_service.database.EventCategoryMappingRepository
+import com.michibaum.chess_service.database.EventParticipantMappingRepository
+import com.michibaum.chess_service.database.EventParticipantsMapping
 import com.michibaum.chess_service.database.EventRepository
 import com.michibaum.chess_service.database.Person
 import com.michibaum.permission_library.Permissions
@@ -13,6 +18,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 import java.util.*
 
@@ -20,7 +26,9 @@ import java.util.*
 class EventService(
     private val eventRepository: EventRepository,
     private val eventCategoryService: EventCategoryService,
-    private val personRepository: PersonRepository
+    private val eventCategoryMappingRepository: EventCategoryMappingRepository,
+    private val personRepository: PersonRepository,
+    private val eventParticipantMappingRepository: EventParticipantMappingRepository
 ) {
 
     fun findAll(): List<Event> =
@@ -32,6 +40,7 @@ class EventService(
     fun findRecentAndUpcoming(recent: LocalDate, upcoming: LocalDate): List<Event> =
         eventRepository.findByDateFromGreaterThanAndDateToLessThan(recent, upcoming)
 
+    @Transactional
     fun create(dto: WriteEventDto): Event {
         val categories = getCategories(dto.categoryIds)
         val participants = getPersons(dto.participantsIds)
@@ -51,12 +60,17 @@ class EventService(
             dateTo = LocalDate.parse(dto.dateTo),
             internalComment = internalComment,
             platform = dto.platform,
-            categories = categories,
-            participants = participants
         )
-        return eventRepository.save(event)
-    }
 
+        val savedNewEvent = eventRepository.save(event)
+        updateEventCategoryMapping(savedNewEvent, categories)
+        updateEventparticipantsMapping(savedNewEvent, participants)
+
+        return savedNewEvent
+    }
+    
+
+    @Transactional
     fun update(event: Event, dto: WriteEventDto): Event {
         val categories = getCategories(dto.categoryIds)
         val participants = getPersons(dto.participantsIds)
@@ -76,17 +90,39 @@ class EventService(
             dateTo = LocalDate.parse(dto.dateTo),
             internalComment = internalComment,
             platform = dto.platform,
-            categories = categories,
-            participants = participants,
             id = event.id
         )
 
-        return eventRepository.save(newEvent)
+        val savedNewEvent = eventRepository.save(newEvent)
+        updateEventCategoryMapping(savedNewEvent, categories)
+        updateEventparticipantsMapping(savedNewEvent, participants)
+        
+        return savedNewEvent
+    }
+    
+    @Transactional
+    fun updateEventCategoryMapping(event: Event, categories: Set<EventCategory>): List<EventCategoryMapping?> {
+        eventCategoryMappingRepository.deleteByEvent(event)
+        val newMappings = categories.map { EventCategoryMapping(event, it) }
+        if(newMappings.isEmpty())
+            return emptyList()
+        return eventCategoryMappingRepository.saveAll(newMappings)
+    }
+    
+    @Transactional
+    fun updateEventparticipantsMapping(event: Event, participants: Set<Person>): List<EventParticipantsMapping> {
+        eventParticipantMappingRepository.deleteByEvent(event)
+        val newMappings = participants.map { EventParticipantsMapping(event, it) }
+        if(newMappings.isEmpty()){
+            return emptyList()
+        }
+        return eventParticipantMappingRepository.saveAll(newMappings)
+        
     }
 
-    private fun getPersons(ids: List<String>): MutableSet<Person> {
+    private fun getPersons(ids: List<String>): Set<Person> {
         val participantsIds = ids.map { UUID.fromString(it) }
-        return personRepository.findAllById(participantsIds).toMutableSet()
+        return personRepository.findAllById(participantsIds).toSet()
     }
 
     private fun getCategories(ids: List<String>): Set<EventCategory> {
