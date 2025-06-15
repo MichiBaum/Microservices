@@ -9,6 +9,7 @@ data:
   ZIPKIN_DB_JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35"
   
   # Database names
+  ALEXANDRIA_DB: "alexandria"
   AUTHENTICATION_DB: "authentication"
   USERMANAGEMENT_DB: "usermanagement"
   CHESS_DB: "chess"

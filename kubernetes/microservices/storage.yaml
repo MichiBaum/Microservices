@@ -243,3 +243,43 @@ spec:
   selector:
     matchLabels:
       app: zipkin-storage
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: alexandria-db-pv
+  labels:
+    type: local
+    app: alexandria-db
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - 35591.hostserv.eu
+  hostPath:
+    path: "/data/alexandria-db"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: alexandria-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: alexandria-db
