@@ -256,6 +256,7 @@ export const routes: Routes = [
     {
         path: 'notes',
         loadComponent: () => import("./note/notes.component").then((c) => c.NotesComponent),
+        canActivate: [isAuthenticatedGuard],
     },
     {
         path: Sides.fitness_settings.navigation, // TODO remove like chess settings
