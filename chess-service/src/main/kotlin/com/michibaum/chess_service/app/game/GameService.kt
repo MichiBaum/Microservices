@@ -43,12 +43,12 @@ class GameService(
     }
 
     private fun convertGame(gameDto: GameDto, accounts: Set<Account>): Game {
+        TODO()
         val game = Game(
             chessPlatform = gameDto.chessPlatform,
             platformId = gameDto.id,
             pgn = gameDto.pgn,
             gameType = gameDto.gameType,
-            players = mutableSetOf()
         )
 
 
@@ -62,10 +62,9 @@ class GameService(
             )
         }.toSet()
 
-        (game.players as MutableSet<Player>).addAll(players) // TODO fuck immutable
+        //(game.players as MutableSet<Player>).addAll(players) // TODO fuck immutable
 
         return game
-
     }
 
     fun getByEvent(event: Event): List<Game> =

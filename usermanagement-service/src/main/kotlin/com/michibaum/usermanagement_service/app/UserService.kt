@@ -7,6 +7,7 @@ import com.michibaum.usermanagement_service.database.User
 import com.michibaum.usermanagement_service.database.UserPermissionMapping
 import com.michibaum.usermanagement_service.database.UserPermissionMappingRepository
 import com.michibaum.usermanagement_service.database.UserRepository
+import io.micrometer.observation.annotation.Observed
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*

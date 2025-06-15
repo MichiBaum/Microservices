@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.database
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import java.util.*
 
@@ -22,4 +23,8 @@ interface EventCategoryMappingRepository: JpaRepository<EventCategoryMapping, Ev
     )
     fun findByEvents(event: Event): Set<EventCategoryMappingProjection>
     
+    @Modifying
+    @Query("DELETE FROM EventCategoryMapping ecm WHERE ecm.event = :event")
+    fun deleteByEvent(event: Event)
+
 }
