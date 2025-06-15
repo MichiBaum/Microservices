@@ -238,3 +238,43 @@ spec:
           - name: backup-volume
             persistentVolumeClaim:
               claimName: db-backup-pvc
+---
+# Alexandria Database Backup CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: alexandria-db-backup
+  namespace: microservices
+spec:
+  schedule: "0 2,14 * * *"  # Run at 2:00 AM and 2 PM every day
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup
+              image: mariadb:10.11
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  TIMESTAMP=$(date +\%Y-\%m-\%d_\%H-\%M_\%z)
+                  mysqldump -h alexandria-db -u root -p${ROOT_PASSWORD} alexandria | gzip -c > /backup/alexandria_${TIMESTAMP}.sql.gz
+                  echo "Backup completed: alexandria_${TIMESTAMP}.sql.gz"
+              env:
+                - name: ROOT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: microservices-secrets
+                      key: ALEXANDRIA_DB_ROOT_PASSWORD
+              volumeMounts:
+                - name: backup-volume
+                  mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+            - name: backup-volume
+              persistentVolumeClaim:
+                claimName: db-backup-pvc

@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alexandria-service
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alexandria-service
+  template:
+    metadata:
+      labels:
+        app: alexandria-service
+    spec:
+      containers:
+      - name: alexandria-service
+        image: 70131370/alexandria-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "512Mi"
+          limits:
+            memory: "1.5Gi"
+        env:
+        - name: spring_profiles_active
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: SPRING_ACTIVE_PROFILES
+        - name: JAVA_TOOL_OPTIONS
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: JAVA_TOOL_OPTIONS
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ALEXANDRIA_DB_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ALEXANDRIA_DB_PASSWORD
+        - name: DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: ALEXANDRIA_DB
+        - name: ADMIN_SERVICE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ADMIN_SERVICE_USERNAME
+        - name: ADMIN_SERVICE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: ADMIN_SERVICE_PASSWORD
+        - name: DISCORD_ALEXANDRIA_SERVICE_LOG_CHANNEL
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_ALEXANDRIA_SERVICE_LOG_CHANNEL
+        - name: DISCORD_BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_BOT_TOKEN
+        - name: DISCORD_GUILD_ID
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: DISCORD_GUILD_ID
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alexandria-service
+  namespace: microservices
+spec:
+  selector:
+    app: alexandria-service
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP
