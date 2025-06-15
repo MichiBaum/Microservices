@@ -1,4 +1,6 @@
 spring:
+  main:
+    cloud-platform: kubernetes
   boot:
     admin:
       service:

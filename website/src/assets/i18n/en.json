@@ -5,13 +5,6 @@
             "s2": "I continuously expand my knowledge by reading books on software development, architecture, and security. At this point, I own around 30 technical books, covering topics from design patterns to clean code principles and distributed systems. Staying up-to-date with the latest trends in technology is something I truly enjoy.",
             "title": "Beyond Coding"
         },
-        "customer-project": {
-            "s1": "Do you have an idea for a website or web application but don’t know where to start? Or maybe your existing project needs improvements, better performance, or a fresh design? I can help!",
-            "s2": "With my experience in backend and frontend development, I create modern, secure, and scalable applications tailored to your needs. Whether it’s a business website, a custom web app, or an internal tool, I focus on clean architecture, maintainability, and performance.",
-            "s3": "I primarily work with Java, Kotlin and Spring Boot for backend development and Angular for frontend applications. But I always choose the best technologies for the job, ensuring your project is built with scalability, security, and long-term maintainability in mind.",
-            "s4": "If you’re interested, feel free to get in touch, and let’s discuss how I can bring your idea to life!",
-            "title": "Need a Website or Web Application?"
-        },
         "experience": {
             "experience": "Experience",
             "intro": "Here you see a List of my experiences.",

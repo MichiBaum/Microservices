@@ -17,6 +17,8 @@ public-endpoints:
   endpoints:
     - raw-path: /actuator/health/readiness
       request-method: GET
+    - raw-path: /actuator/health/liveness
+      request-method: GET
 
 spring:
   threads:

@@ -14,21 +14,21 @@ docker exec microservices-chess-db-1 mysqldump -u root -pROOTPASSWORD chess | gz
 ```
 
 ## Automatic backup
-The backup described [above](#backup) is executed every day at 02:00 for all databases with a cronjob.  
-The date variable ``$(date ...)`` needs a change when run as cronjob. YOu need to escape ``%`` like ``\%``
+The backup described [above](#backup) is executed every day at 02:00 for all databases using Kubernetes CronJobs.
 
-```Bash
-# Show all jobs (crontab -l)
-root@35591:/ crontab -l
-...
-# Everyday at 02:00 do a sqldump of Microservices docker databases
-0 2 * * * docker exec microservices-chess-db-1 mysqldump -u root -pROOTPASSWORD chess | gzip -c > /data/db-backup/chess_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
-0 2 * * * docker exec microservices-music-db-1 mysqldump -u root -pROOTPASSWORD music | gzip -c > /data/db-backup/music_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
-0 2 * * * docker exec microservices-fitness-db-1 mysqldump -u root -pROOTPASSWORD fitness | gzip -c > /data/db-backup/fitness_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
-0 2 * * * docker exec microservices-usermanagement-db-1 mysqldump -u root -pROOTPASSWORD usermanagement | gzip -c > /data/db-backup/usermanagement_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
-0 2 * * * docker exec microservices-authentication-db-1 mysqldump -u root -pROOTPASSWORD authentication | gzip -c > /data/db-backup/authentication_$(date -d "today" +"\%Y-\%m-\%d_\%H-\%M").sql.gz
+The database backups are managed by k3s CronJobs defined in the `db-backup.yaml` file. These CronJobs:
+- Run at 2:00 AM daily
+- Back up each database (chess, music, fitness, usermanagement, authentication)
+- Compress the backups with gzip
+- Store the backups in the `/data/db-backup` directory
 
-# edit jobs
-crontab -e
+To view the status of the backup jobs:
+```bash
+kubectl get cronjobs -n microservices
+kubectl get jobs -n microservices
+```
 
+To view the logs of a specific backup job:
+```bash
+kubectl logs job/<job-name> -n microservices
 ```

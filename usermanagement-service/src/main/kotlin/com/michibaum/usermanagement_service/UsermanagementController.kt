@@ -14,7 +14,13 @@ class UsermanagementController (
         if(errors.isNotEmpty())
             return null
 
-        val user = userService.findByUsername(loginDto.username) ?: return null
+        val user = userService.findByUsername(loginDto.username)
+        if (user == null) {
+            // Prevent timing to check user exists
+            var sleepTime = (150L..250L).random()
+            Thread.sleep(sleepTime)
+            return null
+        }
         val matching = userService.checkPassword(loginDto.password, user.password)
         if (!matching) return null
 
