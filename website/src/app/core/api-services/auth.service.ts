@@ -71,7 +71,13 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.jwtIsPresent();
+      let present = this.jwtIsPresent();
+      if(!present){
+          return false;
+      }
+      const jwt = this.getJwtTokenFromLocalStorage();
+      this.isTokenExpired(jwt!)
+      return present;
   }
 
   navigate() {
