@@ -23,7 +23,7 @@ class CircuitBreakerConfiguration {
             factory.configureDefault { id ->
                 Resilience4JConfigBuilder(id)
                     .timeLimiterConfig(TimeLimiterConfig.custom()
-                        .timeoutDuration(Duration.ofMillis(400))
+                        .timeoutDuration(Duration.ofMillis(1000))
                         .build())
                     .circuitBreakerConfig(CircuitBreakerConfig.custom()
                         .slidingWindowSize(10)
