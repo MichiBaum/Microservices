@@ -56,14 +56,17 @@
         <jib-maven-plugin.image>eclipse-temurin:24-jre-alpine</jib-maven-plugin.image>
         
         <!-- Plugins -->
+        <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
         <jib-maven-plugin.version>3.4.5</jib-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
 
         <!-- Dependency override due to security risks -->
         <xstream.version>1.4.21</xstream.version>
-        <httpclient.version>4.5.13</httpclient.version>
-        <commons-compress.version>1.26.0</commons-compress.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <commons-compress.version>1.26.2</commons-compress.version>
     </properties>
 
     <dependencies>
