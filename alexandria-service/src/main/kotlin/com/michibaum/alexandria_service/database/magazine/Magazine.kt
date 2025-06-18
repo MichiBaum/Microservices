@@ -1,6 +1,6 @@
 package com.michibaum.alexandria_service.database.magazine
 
-import com.michibaum.alexandria_service.database.ListOfContents
+import com.michibaum.alexandria_service.database.IdNullException
 import jakarta.persistence.*
 import java.util.*
 
@@ -8,11 +8,10 @@ import java.util.*
 @Table(name="magazine")
 class Magazine (
 
-    @ManyToOne(targetEntity = ListOfContents::class, fetch = FetchType.LAZY, optional = false)
-    val listOfContents: ListOfContents,
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
 
-){}
+){
+    fun idOrThrow(): UUID = id ?: throw IdNullException()
+}
