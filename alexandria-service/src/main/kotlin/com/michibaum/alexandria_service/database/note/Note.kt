@@ -17,6 +17,9 @@ class Note ( // TODO add Hibernate Envers, Author
     @Column(name="belongs_to")
     val belongsTo: String,
     
+    @Column(name="deleted")
+    val deleted: Boolean = false,
+    
     // TODO Sharing of notes
 
     @Id
