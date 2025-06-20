@@ -10,4 +10,4 @@ export HOSTTECH_API_TOKEN="YOUR_HOSTTECH_API_TOKEN"
 export HOSTTECH_API_URL="https://api.ns1.hosttech.eu/api/user/v1"
 
 # DNS propagation wait time in seconds
-export DNS_WAIT_TIME=60
+export DNS_WAIT_TIME=30

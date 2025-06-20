@@ -30,6 +30,7 @@ The repository includes scripts to automate the DNS verification process using t
 - Both scripts use the configuration in `hosttech-config.sh`
 
 With these scripts, certificate renewal can be automated, and you won't need to manually add DNS records.
+The files can be placed under `/etc/letsencrypt/scripts` else the command has to be changed.
 
 ```Bash
 # Before running this command, make sure to:
@@ -42,8 +43,8 @@ certbot certonly \
   --email security@michibaum.ch \
   --server https://acme-v02.api.letsencrypt.org/directory \
   --agree-tos \
-  --manual-auth-hook /path/to/scripts/certbot-dns-hosttech-auth.sh \
-  --manual-cleanup-hook /path/to/scripts/certbot-dns-hosttech-cleanup.sh \
+  --manual-auth-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-auth.sh \
+  --manual-cleanup-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-cleanup.sh \
   -d michibaum.ch -d *.michibaum.ch \
   -d michibaum.com -d *.michibaum.com \
   -d michibaum.eu -d *.michibaum.eu \
@@ -76,8 +77,8 @@ You can also set up a cron job to automatically renew certificates when they're 
 
 ```Bash
 # Add to crontab (crontab -e)
-# Run twice daily (recommended by Let's Encrypt)
-0 0,12 * * * certbot renew --quiet
+# At minute 30 on day-of-month 1.
+30 * 1 * * certbot renew --quiet
 ```
 
 
