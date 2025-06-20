@@ -54,56 +54,57 @@ The application has been converted from Docker Compose to K3s. The following res
 
 2. Create ConfigMap and Secret:
    ```bash
-   k3s kubectl apply -f configmap.yaml
-   k3s kubectl apply -f secrets.yaml
+   k3s kubectl apply -n microservices -f configmap.yaml
+   k3s kubectl apply -n microservices -f secrets.yaml
    ```
 
    > **Note**: Before applying `secrets.yaml`, update the placeholder values with actual secrets.
 
 3. Create storage resources:
    ```bash
-   k3s kubectl apply -f storage.yaml
+   k3s kubectl apply -n microservices -f storage.yaml
    ```
 
 4. Deploy infrastructure services:
    ```bash
-   k3s kubectl apply -f registry-service.yaml
-   k3s kubectl apply -f zipkin.yaml
-   k3s kubectl apply -f monitoring.yaml
+   k3s kubectl apply -n microservices -f registry-service.yaml
+   k3s kubectl apply -n microservices -f zipkin.yaml
+   k3s kubectl apply -n microservices -f monitoring.yaml
    ```
 
 5. Deploy database services:
    ```bash
-   k3s kubectl apply -f authentication-db.yaml
-   k3s kubectl apply -f usermanagement-db.yaml
-   k3s kubectl apply -f chess-db.yaml
-   k3s kubectl apply -f fitness-db.yaml
-   k3s kubectl apply -f music-db.yaml
+   k3s kubectl apply -n microservices -f authentication-db.yaml
+   k3s kubectl apply -n microservices -f usermanagement-db.yaml
+   k3s kubectl apply -n microservices -f chess-db.yaml
+   k3s kubectl apply -n microservices -f fitness-db.yaml
+   k3s kubectl apply -n microservices -f music-db.yaml
    ```
 
 6. Deploy application services:
    ```bash
-   k3s kubectl apply -f admin-service.yaml
-   k3s kubectl apply -f authentication-service.yaml
-   k3s kubectl apply -f usermanagement-service.yaml
-   k3s kubectl apply -f website-service.yaml
-   k3s kubectl apply -f chess-service.yaml
-   k3s kubectl apply -f fitness-service.yaml
-   k3s kubectl apply -f music-service.yaml
+   k3s kubectl apply -n microservices -f admin-service.yaml
+   k3s kubectl apply -n microservices -f authentication-service.yaml
+   k3s kubectl apply -n microservices -f usermanagement-service.yaml
+   k3s kubectl apply -n microservices -f website-service.yaml
+   k3s kubectl apply -n microservices -f chess-service.yaml
+   k3s kubectl apply -n microservices -f fitness-service.yaml
+   k3s kubectl apply -n microservices -f music-service.yaml
    ```
 
 7. Deploy gateway service with Ingress:
+
+   ### TLS Certificate
+
+   Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace:
+   
    ```bash
-   k3s kubectl apply -f gateway-service.yaml
+   k3s kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
    ```
 
-## TLS Certificate
-
-Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace:
-
-```bash
-k3s kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
-```
+   ```bash
+   k3s kubectl apply -n microservices -f gateway-service.yaml
+   ```
 
 ## Ingress Configuration
 
@@ -111,16 +112,21 @@ K3s comes with Traefik as its built-in ingress controller. If you're using the d
 
 If you've disabled Traefik during K3s installation or want to use a different ingress controller, you'll need to install and configure it separately.
 
-## Monitoring
-
-- Prometheus is available at: `http://prometheus-service.microservices.svc.cluster.local:9090`
-- Grafana is available at: `http://grafana-service.microservices.svc.cluster.local:3000`
-
 ## Notes
 
 - The configuration uses hostPath volumes for simplicity. In a production environment, you should use a more robust storage solution like a cloud provider's persistent disk.
 - K3s comes with Traefik as its built-in ingress controller. The ingress configuration in this guide assumes you're using the default Traefik controller.
 - Secrets contain placeholder values. Replace them with actual values before deployment.
+
+## Port Forward
+
+```yaml
+kubectl port-forward -n microservices svc/authentication-db 3307:3306
+kubectl port-forward -n microservices svc/chess-db 3309:3306
+kubectl port-forward -n microservices svc/fitness-db 3310:3306
+kubectl port-forward -n microservices svc/music-db 3311:3306
+kubectl port-forward -n microservices svc/usermanagement-db 3308:3306
+```
 
 ## Updating the K3s Deployment
 
@@ -152,7 +158,7 @@ containers:
 2. Apply the updated deployment:
 
 ```bash
-k3s kubectl apply -f kubernetes/authentication-service.yaml
+k3s kubectl apply -n microservices  -f authentication-service.yaml
 ```
 
 #### Using kubectl set image
@@ -181,7 +187,7 @@ To update configuration in ConfigMaps:
 2. Apply the updated ConfigMap:
 
 ```bash
-k3s kubectl apply -f kubernetes/configmap.yaml
+k3s kubectl apply -n microservices -f kubernetes/configmap.yaml
 ```
 
 3. Restart the affected deployments to pick up the new configuration:
@@ -198,7 +204,7 @@ To update sensitive configuration in Secrets:
 2. Apply the updated Secret:
 
 ```bash
-k3s kubectl apply -f kubernetes/secrets.yaml
+k3s kubectl apply -n microservices -f kubernetes/secrets.yaml
 ```
 
 3. Restart the affected deployments:

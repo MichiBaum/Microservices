@@ -171,10 +171,10 @@
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>jib-maven-plugin</artifactId>
-                        <version>3.4.5</version>
+                        <version>${jib-maven-plugin.version}</version>
                         <configuration>
                             <from>
-                                <image>eclipse-temurin:24-jre-alpine</image>
+                                <image>${jib-maven-plugin.image}</image>
                                 <auth>
                                     <!--suppress UnresolvedMavenProperty -->
                                     <username>${dockerHub.username}</username>

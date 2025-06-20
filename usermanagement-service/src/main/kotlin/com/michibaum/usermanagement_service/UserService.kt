@@ -2,6 +2,7 @@ package com.michibaum.usermanagement_service
 
 import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.CreateUserDto
+import io.micrometer.observation.annotation.Observed
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
@@ -27,6 +28,7 @@ class UserService(
         return userRepository.findByUsername(username)
     }
 
+    @Observed(name = "password-check")
     fun checkPassword(dtoPassword: String, passwordHash: String): Boolean {
         return passwordEncoder.matches(dtoPassword, passwordHash)
     }
