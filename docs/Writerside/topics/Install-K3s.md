@@ -54,7 +54,7 @@ sudo systemctl status k3s
 Verify that the node is ready:
 
 ```bash
-sudo k3s kubectl get nodes
+sudo kubectl get nodes
 ```
 
 The output should show your server node with status `Ready`.
@@ -88,17 +88,17 @@ Replace `<server-ip>` with the IP address of your K3s server and `<node-token>` 
 On the server node, check that the agent node has joined the cluster:
 
 ```bash
-sudo k3s kubectl get nodes
+sudo kubectl get nodes
 ```
 
 All nodes should show as `Ready`.
 
 ## Using kubectl
 
-K3s comes with its own version of kubectl that is installed as `k3s kubectl`. You can use it directly:
+K3s comes with its own version of kubectl that is installed as `kubectl`. You can use it directly:
 
 ```bash
-sudo k3s kubectl get pods --all-namespaces
+sudo kubectl get pods --all-namespaces
 ```
 
 ### Configure kubectl for Regular User

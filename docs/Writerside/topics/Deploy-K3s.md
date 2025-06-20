@@ -16,7 +16,7 @@ The application has been converted from Docker Compose to K3s. The following res
 ## Prerequisites
 
 - K3s cluster (set up using the [Install K3s](Install-K3s.md) guide)
-- kubectl CLI tool (K3s comes with its own version as `k3s kubectl`)
+- kubectl CLI tool (K3s comes with its own version as `kubectl`)
 - TLS certificate for the domain (stored as a Kubernetes Secret)
 
 ## Directory Structure
@@ -47,49 +47,49 @@ The application has been converted from Docker Compose to K3s. The following res
 
 1. Create the namespace:
    ```bash
-   k3s kubectl apply -f namespace.yaml
+   kubectl apply -f namespace.yaml
    ```
 
-   > **Note**: You can use either `k3s kubectl` or just `kubectl` if you've configured kubectl as described in the [Install K3s](Install-K3s.md) guide.
+   > **Note**: You can use either `kubectl` or just `kubectl` if you've configured kubectl as described in the [Install K3s](Install-K3s.md) guide.
 
 2. Create ConfigMap and Secret:
    ```bash
-   k3s kubectl apply -n microservices -f configmap.yaml
-   k3s kubectl apply -n microservices -f secrets.yaml
+   kubectl apply -n microservices -f configmap.yaml
+   kubectl apply -n microservices -f secrets.yaml
    ```
 
    > **Note**: Before applying `secrets.yaml`, update the placeholder values with actual secrets.
 
 3. Create storage resources:
    ```bash
-   k3s kubectl apply -n microservices -f storage.yaml
+   kubectl apply -n microservices -f storage.yaml
    ```
 
 4. Deploy infrastructure services:
    ```bash
-   k3s kubectl apply -n microservices -f registry-service.yaml
-   k3s kubectl apply -n microservices -f zipkin.yaml
-   k3s kubectl apply -n microservices -f monitoring.yaml
+   kubectl apply -n microservices -f registry-service.yaml
+   kubectl apply -n microservices -f zipkin.yaml
+   kubectl apply -n microservices -f monitoring.yaml
    ```
 
 5. Deploy database services:
    ```bash
-   k3s kubectl apply -n microservices -f authentication-db.yaml
-   k3s kubectl apply -n microservices -f usermanagement-db.yaml
-   k3s kubectl apply -n microservices -f chess-db.yaml
-   k3s kubectl apply -n microservices -f fitness-db.yaml
-   k3s kubectl apply -n microservices -f music-db.yaml
+   kubectl apply -n microservices -f authentication-db.yaml
+   kubectl apply -n microservices -f usermanagement-db.yaml
+   kubectl apply -n microservices -f chess-db.yaml
+   kubectl apply -n microservices -f fitness-db.yaml
+   kubectl apply -n microservices -f music-db.yaml
    ```
 
 6. Deploy application services:
    ```bash
-   k3s kubectl apply -n microservices -f admin-service.yaml
-   k3s kubectl apply -n microservices -f authentication-service.yaml
-   k3s kubectl apply -n microservices -f usermanagement-service.yaml
-   k3s kubectl apply -n microservices -f website-service.yaml
-   k3s kubectl apply -n microservices -f chess-service.yaml
-   k3s kubectl apply -n microservices -f fitness-service.yaml
-   k3s kubectl apply -n microservices -f music-service.yaml
+   kubectl apply -n microservices -f admin-service.yaml
+   kubectl apply -n microservices -f authentication-service.yaml
+   kubectl apply -n microservices -f usermanagement-service.yaml
+   kubectl apply -n microservices -f website-service.yaml
+   kubectl apply -n microservices -f chess-service.yaml
+   kubectl apply -n microservices -f fitness-service.yaml
+   kubectl apply -n microservices -f music-service.yaml
    ```
 
 7. Deploy gateway service with Ingress:
@@ -99,11 +99,11 @@ The application has been converted from Docker Compose to K3s. The following res
    Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace:
    
    ```bash
-   k3s kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
+   kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
    ```
 
    ```bash
-   k3s kubectl apply -n microservices -f gateway-service.yaml
+   kubectl apply -n microservices -f gateway-service.yaml
    ```
 
 ## Ingress Configuration
@@ -158,7 +158,7 @@ containers:
 2. Apply the updated deployment:
 
 ```bash
-k3s kubectl apply -n microservices  -f authentication-service.yaml
+kubectl apply -n microservices  -f authentication-service.yaml
 ```
 
 #### Using kubectl set image
@@ -166,7 +166,7 @@ k3s kubectl apply -n microservices  -f authentication-service.yaml
 For quick updates without modifying YAML files, you can use the `kubectl set image` command:
 
 ```bash
-k3s kubectl set image deployment/authentication-service authentication-service=70131370/authentication-service:1.2.3 -n microservices
+kubectl set image deployment/authentication-service authentication-service=70131370/authentication-service:1.2.3 -n microservices
 ```
 
 #### Monitoring the Update
@@ -174,7 +174,7 @@ k3s kubectl set image deployment/authentication-service authentication-service=7
 Monitor the rollout status to ensure the update is proceeding as expected:
 
 ```bash
-k3s kubectl rollout status deployment/authentication-service -n microservices
+kubectl rollout status deployment/authentication-service -n microservices
 ```
 
 ### Updating Configuration
@@ -187,13 +187,13 @@ To update configuration in ConfigMaps:
 2. Apply the updated ConfigMap:
 
 ```bash
-k3s kubectl apply -n microservices -f kubernetes/configmap.yaml
+kubectl apply -n microservices -f kubernetes/configmap.yaml
 ```
 
 3. Restart the affected deployments to pick up the new configuration:
 
 ```bash
-k3s kubectl rollout restart deployment/authentication-service -n microservices
+kubectl rollout restart deployment/authentication-service -n microservices
 ```
 
 #### Secret Updates
@@ -204,13 +204,13 @@ To update sensitive configuration in Secrets:
 2. Apply the updated Secret:
 
 ```bash
-k3s kubectl apply -n microservices -f kubernetes/secrets.yaml
+kubectl apply -n microservices -f kubernetes/secrets.yaml
 ```
 
 3. Restart the affected deployments:
 
 ```bash
-k3s kubectl rollout restart deployment/authentication-service -n microservices
+kubectl rollout restart deployment/authentication-service -n microservices
 ```
 
 ### Database Schema Changes
@@ -228,7 +228,7 @@ Database schema changes require careful handling to avoid data loss or service d
 1. Create a database backup:
 
 ```bash
-k3s kubectl exec -it <database-pod-name> -n microservices -- mysqldump -u root -p<password> <database-name> > backup.sql
+kubectl exec -it <database-pod-name> -n microservices -- mysqldump -u root -p<password> <database-name> > backup.sql
 ```
 
 2. Apply schema changes using a migration tool or script
@@ -274,17 +274,17 @@ If an update causes issues, you can rollback to a previous version.
 #### Rolling Back a Deployment
 
 ```bash
-k3s kubectl rollout undo deployment/authentication-service -n microservices
+kubectl rollout undo deployment/authentication-service -n microservices
 ```
 
 To rollback to a specific revision:
 
 ```bash
 # List revisions
-k3s kubectl rollout history deployment/authentication-service -n microservices
+kubectl rollout history deployment/authentication-service -n microservices
 
 # Rollback to a specific revision
-k3s kubectl rollout undo deployment/authentication-service --to-revision=2 -n microservices
+kubectl rollout undo deployment/authentication-service --to-revision=2 -n microservices
 ```
 
 #### Rolling Back Configuration Changes
@@ -295,7 +295,7 @@ If a ConfigMap or Secret update causes issues:
 2. Restart the affected deployments:
 
 ```bash
-k3s kubectl rollout restart deployment/authentication-service -n microservices
+kubectl rollout restart deployment/authentication-service -n microservices
 ```
 
 ### Best Practices
