@@ -57,7 +57,7 @@ CREATE_RESPONSE=$(curl -s -X POST "${API_URL}/zones/${ZONE_ID}/records" \
         "type": "TXT",
         "name": "_acme-challenge",
         "text": "'"${VALIDATION}"'",
-        "ttl": 300
+        "ttl": 600
     }')
 
 # Check if the record was created successfully
