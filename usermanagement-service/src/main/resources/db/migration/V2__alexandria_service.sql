@@ -1,0 +1,1 @@
+INSERT INTO permission (permission) VALUES ('ALEXANDRIA_SERVICE');

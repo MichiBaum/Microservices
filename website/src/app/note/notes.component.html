@@ -1,1 +1,12 @@
-<h1>Notes</h1>
+<div class="container mx-auto">
+    <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
+
+        <app-note
+            *ngFor="let note of notes.value() ?? []"
+            [note]="note">
+        </app-note>
+
+        <app-edit-note></app-edit-note>
+
+    </div>
+</div>

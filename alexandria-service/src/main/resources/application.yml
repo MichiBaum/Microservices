@@ -16,6 +16,8 @@ public-endpoints:
   endpoints:
     - raw-path: /actuator/health/readiness
       request-method: GET
+    - raw-path: /actuator/health/liveness
+      request-method: GET
 
 spring:
   threads:
@@ -34,6 +36,8 @@ spring:
       lazy-attributes-resolution: true
       httpclient:
         disable-ssl-validation: true
+      http2client:
+        enabled: true
   main:
     allow-bean-definition-overriding: true
   jpa:
@@ -65,6 +69,14 @@ eureka:
       enable: true
 
 management:
+  metrics:
+    data:
+      repository:
+        autotime:
+          percentiles-histogram: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
   observations:
     annotations:
       enabled: true

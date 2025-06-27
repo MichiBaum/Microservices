@@ -1,0 +1,17 @@
+<form [formGroup]="noteForm">
+
+    <p-floatlabel class="w-full" variant="in">
+        <input id="title" formControlName="title" class="w-full" type="text" pInputText />
+        <label for="title">{{ "note.title" | translate }}</label>
+    </p-floatlabel>
+
+    <p-editor formControlName="text" [style]="{ height: '320px' }" />
+
+</form>
+
+
+<ng-template #footer>
+    <div class="flex gap-6 mt-1">
+        <p-button label='{{ "note.save" | translate }}' class="w-full" styleClass="w-full" (onClick)="save()"></p-button>
+    </div>
+</ng-template>
