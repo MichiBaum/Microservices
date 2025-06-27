@@ -1,0 +1,5 @@
+<div *ngIf="note() as note">
+    <p-card header="{{note.id}}">
+        <div class="m-0" [innerHTML]="note.text"></div>
+    </p-card>
+</div>
