@@ -2,6 +2,8 @@ server:
   port: 80
 
 spring:
+  main:
+    cloud-platform: kubernetes
   datasource:
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
