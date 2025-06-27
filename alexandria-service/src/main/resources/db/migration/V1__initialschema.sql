@@ -1,6 +1,6 @@
 create table magazine
 (
-    id uuid not null primary key,
+    id uuid not null primary key
 );
 
 create table magazine_article
@@ -27,32 +27,32 @@ create table book_review
 
 create table news_article
 (
-    id uuid not null primary key,
+    id uuid not null primary key
 );
 
 create table author
 (
-    id uuid not null primary key,
+    id uuid not null primary key
 );
 
 create table news_category
 (
-    id uuid not null primary key,
+    id uuid not null primary key
 );
 
 create table news_paper
 (
-    id uuid not null primary key,
+    id uuid not null primary key
 );
 
 create table news_tag
 (
-    id uuid not null primary key,
+    id uuid not null primary key
 );
 
 create table note
 (
-    id uuid not null primary key,
+    id uuid not null primary key
 );
 
 

@@ -1,7 +1,7 @@
 <div class="flex justify-center items-center">
 
   <p-card pFocusTrap class="max-w-xl mt-4 w-full">
-    <form [formGroup]="loginForm" class="*:mb-6" (ngSubmit)="login()">
+    <form [formGroup]="loginForm" class="*:mb-6">
         <p-floatlabel class="w-full" variant="in">
           <input id="username" formControlName="username" class="w-full" type="text" pInputText />
           <label for="username">{{ "login.username" | translate }}</label>

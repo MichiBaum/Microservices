@@ -28,21 +28,21 @@ class NoteCategoryMapping(
 
 class NoteCategoryMappingId(
     var note: UUID? = null,
-    var category: UUID? = null
+    var noteCategory: UUID? = null
 ) : java.io.Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is NoteCategoryMappingId) return false
 
         if (note != other.note) return false
-        if (category != other.category) return false
+        if (noteCategory != other.noteCategory) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = note?.hashCode() ?: 0
-        result = 31 * result + (category?.hashCode() ?: 0)
+        result = 31 * result + (noteCategory?.hashCode() ?: 0)
         return result
     }
 }

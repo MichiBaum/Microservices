@@ -11,5 +11,6 @@ enum class Service(val cbId: String, val id: String) {
     FITNESS("fitness-circuit-breaker", "fitness-service"),
     REGISTRY("registry-circuit-breaker", "registry-service"),
     MUSIC("music-circuit-breaker", "music-service"),
+    ALEXANDRIA("alexandria-circuit-breaker", "alexandria-service"),
     WEBSITE("website-circuit-breaker", "website-service");
 }

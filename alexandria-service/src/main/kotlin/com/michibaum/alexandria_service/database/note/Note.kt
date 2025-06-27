@@ -2,12 +2,18 @@ package com.michibaum.alexandria_service.database.note
 
 import com.michibaum.alexandria_service.database.IdNullException
 import jakarta.persistence.*
+import org.hibernate.envers.Audited
+import org.hibernate.proxy.HibernateProxy
 import java.util.*
 
 @Entity
 @Table(name="note")
-class Note ( // TODO add Hibernate Envers, Author
+@Audited
+data class Note ( // TODO add Hibernate Envers, Author
 
+    @Column(name="title")
+    val title: String,
+    
     @Column(name="text")
     val text: String,
 
@@ -28,4 +34,25 @@ class Note ( // TODO add Hibernate Envers, Author
 
 ){
     fun idOrThrow(): UUID = id ?: throw IdNullException()
+    
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        val oEffectiveClass =
+            if (other is HibernateProxy) other.hibernateLazyInitializer.persistentClass else other.javaClass
+        val thisEffectiveClass =
+            if (this is HibernateProxy) this.hibernateLazyInitializer.persistentClass else this.javaClass
+        if (thisEffectiveClass != oEffectiveClass) return false
+        other as Note
+
+        return id != null && id == other.id
+    }
+
+    override fun hashCode(): Int =
+        if (this is HibernateProxy) this.hibernateLazyInitializer.persistentClass.hashCode() else javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(  id = $id )"
+    }
 }
