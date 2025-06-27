@@ -6,6 +6,7 @@ This document provides guidelines for using Junie, the AI assistant in JetBrains
 ## Project Description
 This is a microservices-based application written primarily in Kotlin. The project consists of multiple services including:
 - Chess service
+- Admin service
 - Authentication service
 - User management service
 - Gateway service
@@ -14,7 +15,7 @@ This is a microservices-based application written primarily in Kotlin. The proje
 - Music service
 - Registry service
 - Website service
-- Admin service
+- Website ([Angular Guidelines](./guidelines-angular.md))
 
 ## Code Style and Conventions
 - Follow Kotlin coding conventions
@@ -62,6 +63,7 @@ This is a microservices-based application written primarily in Kotlin. The proje
 - Spring Cloud framework
 - MariaDB for database
 - K3S for containerization
+- [Angular](./guidelines-angular.md)
 
 ## Additional Resources
 - Project documentation: Documentation written with Writerside in docs directory
