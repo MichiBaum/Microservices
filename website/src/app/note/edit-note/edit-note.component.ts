@@ -44,6 +44,6 @@ export class EditNoteComponent {
     });
 
     save() {
-        this.noteService.saveNote(this.noteForm.value)
+        this.noteService.update(this.noteForm.value)
     }
 }
