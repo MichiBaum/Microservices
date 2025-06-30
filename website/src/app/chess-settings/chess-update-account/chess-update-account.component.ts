@@ -10,7 +10,6 @@ import {TableModule} from "primeng/table";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {CheckboxModule} from "primeng/checkbox";
-import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-chess-update-account',
@@ -24,7 +23,6 @@ import {NgIf} from "@angular/common";
     TableModule,
     InputGroupAddonModule,
     CheckboxModule,
-    NgIf
   ],
   templateUrl: './chess-update-account.component.html',
   styleUrl: './chess-update-account.component.css'

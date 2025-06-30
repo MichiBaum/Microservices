@@ -175,6 +175,10 @@
             "content": "Music speaks what words cannot, touching hearts beyond measure.",
             "title": "Music"
         },
+        "notes": {
+            "title": "Notes",
+            "content": "Thoughts and ideas are fleeting. Write them down."
+        },
         "tab-title": "Home - MichiBaum",
         "title": "Home"
     },

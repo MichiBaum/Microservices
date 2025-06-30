@@ -175,6 +175,10 @@
             "content": "Musik spricht, was Worte nicht können, berührt Herzen grenzenlos.",
             "title": "Musik"
         },
+        "notes": {
+            "title": "Notizen",
+            "content": "Gedanken und Ideen sind flüchtig. Schreibt sie auf."
+        },
         "tab-title": "Startseite - MichiBaum",
         "title": "Startseite"
     },

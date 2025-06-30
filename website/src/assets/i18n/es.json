@@ -175,6 +175,10 @@
             "content": "La música expresa lo que las palabras no pueden, tocando corazones más allá de toda medida.",
             "title": "Música"
         },
+        "notes": {
+            "title": "Notas",
+            "content": "Los pensamientos y las ideas son fugaces. Escríbelos."
+        },
         "tab-title": "Inicio - MichiBaum",
         "title": "Inicio"
     },

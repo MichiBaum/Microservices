@@ -7,6 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ScrollTopModule} from "primeng/scrolltop";
 import {HomeCardComponent} from "./home-card/home-card.component";
 import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-placeholder.component";
+import {IfAuthenticatedElsePipe} from "../core/pipes/if-authenticated-else.pipe";
 
 @Component({
   selector: 'app-home',
@@ -14,31 +15,44 @@ import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-place
     TranslateModule,
     ScrollTopModule,
     HomeCardComponent,
-    DeferPlaceholderComponent
+    DeferPlaceholderComponent,
+    IfAuthenticatedElsePipe
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  protected routerNavigationService = inject(RouterNavigationService);
-  private readonly permissionService = inject(PermissionService);
+    protected routerNavigationService = inject(RouterNavigationService);
+    private readonly permissionService = inject(PermissionService);
 
+    canLogin() {
+        return Sides.login.canActivate(this.permissionService)
+    }
 
-  canActivateChess() {
-    return Sides.chess.canActivate(this.permissionService)
-  }
+    isAuthenticated() {
+        return this.permissionService.isAuthenticated()
+    }
 
-  canLogin() {
-    return Sides.login.canActivate(this.permissionService)
-  }
+    goToNotes() {
+        if (!this.isAuthenticated()) {
+            return this.routerNavigationService.login()
+        }
+        return this.routerNavigationService.notes()
+    }
 
-  canActivateFitness() {
-    return Sides.fitness.canActivate(this.permissionService)
-  }
+    goToFitness(){
+        if (!this.isAuthenticated()) {
+            return this.routerNavigationService.login()
+        }
+        return this.routerNavigationService.fitness()
+    }
 
-  canActivateMusic() {
-    return Sides.music.canActivate(this.permissionService)
-  }
+    goToMusic(){
+        if (!this.isAuthenticated()) {
+            return this.routerNavigationService.login()
+        }
+        return this.routerNavigationService.music()
+    }
 
 }
 

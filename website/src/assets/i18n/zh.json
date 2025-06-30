@@ -175,6 +175,10 @@
             "content": "音乐表达了言语无法表达的内容，超越一切地触动人心。",
             "title": "音乐"
         },
+        "notes": {
+            "title": "笔记",
+            "content": "想法和灵感转瞬即逝。把它们写下来。"
+        },
         "tab-title": "首页 - MichiBaum",
         "title": "首页"
     },
