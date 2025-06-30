@@ -21,10 +21,15 @@ class NoteController(
 
     @PostMapping("/api/notes")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createNote(@RequestBody noteRequest: NoteRequestDto, principal: JwtAuthentication): NoteDto {
-        val note = noteConverter.convertToEntity(noteRequest, null, principal.getUserId())
-        val savedNote = noteService.createNote(note)
-        return noteConverter.convert(savedNote)
+    fun createNote(@RequestBody noteRequest: NoteRequestDto, principal: JwtAuthentication): ResponseEntity<NoteDto> {
+        return try{
+            val note = noteConverter.convertToEntity(noteRequest, null, principal.getUserId())
+            val savedNote = noteService.createNote(note)
+            val dto = noteConverter.convert(savedNote)
+            ResponseEntity.ok(dto)
+        } catch (e: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
     }
 
     @PutMapping("/api/notes/{id}")
@@ -33,16 +38,16 @@ class NoteController(
         @RequestBody noteRequest: NoteRequestDto,
         principal: JwtAuthentication
     ): ResponseEntity<NoteDto> {
-        try {
+        return try {
             val note = noteConverter.convertToEntity(noteRequest, id, principal.getUserId())
             val updatedNote = noteService.updateNote(note, principal.getUserId())
-            return ResponseEntity.ok(noteConverter.convert(updatedNote))
+            ResponseEntity.ok(noteConverter.convert(updatedNote))
         } catch (e: ForbiddenException) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
         } catch (e: NoSuchElementException) {
-            return ResponseEntity.notFound().build()
+            ResponseEntity.notFound().build()
         } catch (e: IllegalAccessException) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+            ResponseEntity.status(HttpStatus.FORBIDDEN).build()
         }
     }
 }

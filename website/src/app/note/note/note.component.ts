@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {Note} from "../../core/models/alexandria/note.model";
+import {NoteResponse} from "../../core/models/alexandria/note.model";
 import {NgIf} from "@angular/common";
 import {Card} from "primeng/card";
 
@@ -13,5 +13,5 @@ import {Card} from "primeng/card";
   styleUrl: './note.component.css'
 })
 export class NoteComponent {
-    note = input.required<Note>();
+    note = input.required<NoteResponse>();
 }
