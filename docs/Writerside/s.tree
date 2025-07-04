@@ -19,6 +19,8 @@
         <toc-element topic="ssl.md"/>
         <toc-element topic="Install-K3s.md"/>
         <toc-element topic="Deploy-K3s.md"/>
+        <toc-element topic="k0s-and-k0sctl.md"/>
+        <toc-element topic="ssh.md"/>
     </toc-element>
     <toc-element topic="Database.md">
         <toc-element topic="Flyway.md"/>
