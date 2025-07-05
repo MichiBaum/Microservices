@@ -6,7 +6,7 @@ documentation:
 kubernetes:
   - any:
     - changed-files:
-      - any-glob-to-any-file: [ 'k3s/**' ]
+      - any-glob-to-any-file: [ 'kubernetes/**' ]
 
 dependencies:
   - any:

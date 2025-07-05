@@ -1,10 +1,8 @@
 # Deploy Kubernetes definitions
 
-This document provides information about deploying and updating the microservices application on K3s, a lightweight Kubernetes distribution.
+This document provides information about deploying and updating the microservices application on K0s, a lightweight Kubernetes distribution.
 
 ## Overview
-
-The application has been converted from Docker Compose to K3s. The following resources have been created:
 
 - **Namespace**: A dedicated namespace `microservices` for all resources
 - **ConfigMap**: For non-sensitive configuration values
@@ -47,8 +45,6 @@ The application has been converted from Docker Compose to K3s. The following res
    ```bash
    kubectl apply -f namespace.yaml
    ```
-
-   > **Note**: You can use either `kubectl` or just `kubectl` if you've configured kubectl as described in the [Install K3s](Install-K3s.md) guide.
 
 2. Create ConfigMap and Secret:
    ```bash
@@ -116,14 +112,10 @@ The application has been converted from Docker Compose to K3s. The following res
 
 ## Ingress Configuration
 
-K3s comes with Traefik as its built-in ingress controller. If you're using the default Traefik ingress controller, your ingress resources should work without additional configuration.
-
-If you've disabled Traefik during K3s installation or want to use a different ingress controller, you'll need to install and configure it separately.
 
 ## Notes
 
 - The configuration uses hostPath volumes for simplicity. In a production environment, you should use a more robust storage solution like a cloud provider's persistent disk.
-- K3s comes with Traefik as its built-in ingress controller. The ingress configuration in this guide assumes you're using the default Traefik controller.
 - Secrets contain placeholder values. Replace them with actual values before deployment.
 
 ## Port Forward
@@ -136,7 +128,7 @@ kubectl port-forward -n microservices svc/music-db 3311:3306
 kubectl port-forward -n microservices svc/usermanagement-db 3308:3306
 ```
 
-## Updating the K3s Deployment
+## Updating the Kubernetes Deployment
 
 ### Update Types
 
@@ -145,7 +137,7 @@ Updates to the microservices application can be categorized into several types:
 1. **Service Image Updates**: Deploying new versions of service containers
 2. **Configuration Updates**: Changes to ConfigMaps or Secrets
 3. **Database Schema Changes**: Updates that require database migrations
-4. **Infrastructure Updates**: Changes to the underlying K3s resources
+4. **Infrastructure Updates**: Changes to the underlying Kubernetes resources
 
 ### Updating Service Images
 
@@ -246,7 +238,7 @@ kubectl exec -it <database-pod-name> -n microservices -- mysqldump -u root -p<pa
 
 ### Rolling Updates
 
-K3s performs rolling updates by default when you apply changes to a deployment. This ensures that there is no downtime during the update process.
+Kubernetes performs rolling updates by default when you apply changes to a deployment. This ensures that there is no downtime during the update process.
 
 #### Customizing Rolling Update Strategy
 
@@ -309,7 +301,6 @@ kubectl rollout restart deployment/authentication-service -n microservices
 ### Best Practices
 
 1. **Use Specific Image Tags**: Avoid using `latest` tag in production
-2. **Version Control Configuration**: Keep all K3s YAML files in version control
 3. **Test Updates in Staging**: Always test updates in a staging environment before applying to production
 4. **Implement Health Checks**: Ensure all services have proper readiness and liveness probes
 5. **Monitor During Updates**: Closely monitor application metrics and logs during updates
@@ -318,8 +309,3 @@ kubectl rollout restart deployment/authentication-service -n microservices
 8. **Regular Backups**: Maintain regular backups of all databases and configuration
 9. **Update Strategy**: Define an update strategy for each service based on its criticality
 10. **Communication**: Inform all stakeholders before performing updates that might affect service availability
-11. **K3s-Specific Considerations**: Be aware of K3s built-in components and their configuration options
-
-## Conclusion
-
-You now have a functioning microservices application deployed on K3s. This guide covered the deployment process, configuration, and update procedures. For information on installing K3s, refer to the [Install K3s](Install-K3s.md) documentation.

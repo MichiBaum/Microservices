@@ -4,7 +4,7 @@ This document provides information about k0s, a lightweight Kubernetes distribut
 
 ## Overview
 
-k0s is a complete Kubernetes distribution packaged as a single binary, designed to be simple to install and operate. It's a lightweight alternative to full Kubernetes distributions, similar to K3s but with some different design choices.
+k0s is a complete Kubernetes distribution packaged as a single binary, designed to be simple to install and operate.
 
 k0sctl is a command-line tool that helps deploy and manage k0s clusters across multiple nodes. It uses SSH to connect to the target hosts and automates the installation and configuration of k0s.
 
