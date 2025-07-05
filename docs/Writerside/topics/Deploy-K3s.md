@@ -1,4 +1,4 @@
-# Deploy on K3s
+# Deploy Kubernetes definitions
 
 This document provides information about deploying and updating the microservices application on K3s, a lightweight Kubernetes distribution.
 
@@ -15,8 +15,6 @@ The application has been converted from Docker Compose to K3s. The following res
 
 ## Prerequisites
 
-- K3s cluster (set up using the [Install K3s](Install-K3s.md) guide)
-- kubectl CLI tool (K3s comes with its own version as `kubectl`)
 - TLS certificate for the domain (stored as a Kubernetes Secret)
 
 ## Directory Structure
@@ -67,9 +65,8 @@ The application has been converted from Docker Compose to K3s. The following res
 
 4. Deploy infrastructure services:
    ```bash
-   kubectl apply -n microservices -f registry-service.yaml
    kubectl apply -n microservices -f zipkin.yaml
-   kubectl apply -n microservices -f monitoring.yaml
+   kubectl apply -n microservices -f registry-service.yaml
    ```
 
 5. Deploy database services:
@@ -91,6 +88,10 @@ The application has been converted from Docker Compose to K3s. The following res
    kubectl apply -n microservices -f fitness-service.yaml
    kubectl apply -n microservices -f music-service.yaml
    ```
+```bash
+   kubectl apply -n microservices -f prometheus.yaml
+   kubectl apply -n microservices -f grafana.yaml
+```
 
 7. Deploy gateway service with Ingress:
 
@@ -105,6 +106,13 @@ The application has been converted from Docker Compose to K3s. The following res
    ```bash
    kubectl apply -n microservices -f gateway-service.yaml
    ```
+   
+8. Deploy DB backups
+
+   ```bash
+   kubectl apply -n microservices -f db-backup.yaml
+   ```
+
 
 ## Ingress Configuration
 

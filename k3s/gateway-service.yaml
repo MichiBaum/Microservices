@@ -101,6 +101,7 @@ metadata:
   namespace: microservices
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
+    kubernetes.io/ingress.class: "traefik"
 spec:
   ingressClassName: "traefik"
   tls:
@@ -125,3 +126,13 @@ spec:
                 port:
                   number: 80
             pathType: Prefix
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: microservices-redirect-https
+  namespace: microservices
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true

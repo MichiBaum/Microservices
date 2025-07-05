@@ -1,4 +1,4 @@
-# Install K3s on Ubuntu
+# [Archived] Install K3s on Ubuntu
 
 This document provides step-by-step instructions for installing K3s (a lightweight Kubernetes distribution) on Ubuntu 22.04 LTS, setting up a server, and joining agent nodes to the cluster.
 

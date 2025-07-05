@@ -59,7 +59,8 @@ k0sctl apply --config k0sctl.yaml
 3. Verify the cluster status:
 
 ```bash
-k0sctl status --config k0sctl.yaml
+kubectl get nodes
+kubectl get pods -A
 ```
 
 ## Accessing the Cluster
@@ -67,13 +68,14 @@ k0sctl status --config k0sctl.yaml
 After deploying the cluster, k0sctl can generate a kubeconfig file for accessing it:
 
 ```bash
-k0sctl kubeconfig --config k0sctl.yaml > ~/.kube/config
+k0sctl kubeconfig --config k0sctl.yaml > ~/.kube/microservices-config
 ```
 
 Now you can use kubectl to interact with your cluster:
 
 ```bash
 kubectl get nodes
+kubectl get pods -A
 ```
 
 ## Upgrading the Cluster
