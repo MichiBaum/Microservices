@@ -59,8 +59,8 @@ k0sctl apply --config k0sctl.yaml
 3. Verify the cluster status:
 
 ```bash
-kubectl get nodes
-kubectl get pods -A
+k0sctl kubectl get nodes
+k0sctl kubectl get pods -A
 ```
 
 ## Accessing the Cluster
@@ -69,6 +69,8 @@ After deploying the cluster, k0sctl can generate a kubeconfig file for accessing
 
 ```bash
 k0sctl kubeconfig --config k0sctl.yaml > ~/.kube/microservices-config
+kubectl get nodes
+kubectl get pods -A
 ```
 
 Now you can use kubectl to interact with your cluster:
@@ -104,30 +106,3 @@ k0sctl reset --config k0sctl.yaml
 ```
 
 This will uninstall k0s from all hosts defined in the configuration.
-
-## Troubleshooting
-
-### Connection Issues
-
-If you encounter SSH connection issues:
-- Verify that the SSH key paths are correct
-- Ensure the target hosts are reachable
-- Check that the SSH user has sufficient permissions
-
-### Cluster Status Issues
-
-If nodes are not joining the cluster:
-- Check the k0s logs on the problematic nodes:
-  ```bash
-  ssh user@node-address "sudo journalctl -u k0scontroller.service"
-  ```
-  or
-  ```bash
-  ssh user@node-address "sudo journalctl -u k0sworker.service"
-  ```
-
-## Conclusion
-
-k0s with k0sctl provides a lightweight and easy-to-manage Kubernetes distribution for running the microservices application. The configuration used in this project sets up a three-node cluster with high availability (multiple controllers) and worker nodes for running workloads.
-
-For more information on deploying applications to your k0s cluster, refer to the Kubernetes documentation or the k0s project documentation at [k0sproject.io](https://k0sproject.io/).
