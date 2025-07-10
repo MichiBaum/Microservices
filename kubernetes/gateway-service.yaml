@@ -101,7 +101,6 @@ metadata:
   namespace: microservices
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
-    kubernetes.io/ingress.class: "traefik"
 spec:
   ingressClassName: "traefik"
   tls:

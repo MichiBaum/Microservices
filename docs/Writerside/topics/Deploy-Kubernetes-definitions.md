@@ -41,7 +41,13 @@ This document provides information about deploying and updating the microservice
 
 ## Deployment Instructions
 
-1. Create the namespace:
+
+1. Prepare metallb:
+```bash
+   kubectl apply -n metallb-system -f metallb-config.yaml
+   ```
+
+2. Create the namespace:
    ```bash
    kubectl apply -f namespace.yaml
    ```
@@ -96,7 +102,7 @@ This document provides information about deploying and updating the microservice
    Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace:
    
    ```bash
-   kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
+   k0s kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
    ```
 
    ```bash

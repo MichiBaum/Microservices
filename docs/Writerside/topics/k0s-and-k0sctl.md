@@ -68,7 +68,7 @@ k0sctl kubectl get pods -A
 After deploying the cluster, k0sctl can generate a kubeconfig file for accessing it:
 
 ```bash
-k0sctl kubeconfig --config k0sctl.yaml > ~/.kube/microservices-config
+k0sctl kubeconfig --config k0sctl.yaml > ~/.kube/config
 kubectl get nodes
 kubectl get pods -A
 ```
