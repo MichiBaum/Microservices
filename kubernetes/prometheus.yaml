@@ -13,6 +13,8 @@ spec:
       labels:
         app: prometheus
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
       initContainers:
         - name: config-init
           image: busybox

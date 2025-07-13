@@ -62,7 +62,7 @@ This is a microservices-based application written primarily in Kotlin. The proje
 - Spring Boot framework
 - Spring Cloud framework
 - MariaDB for database
-- K3S for containerization
+- K0S for containerization
 - [Angular](./guidelines-angular.md)
 
 ## Additional Resources

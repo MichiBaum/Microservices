@@ -1,21 +1,23 @@
-# Authentication Database
+# User Management Database
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authentication-db
+  name: usermanagement-db
   namespace: microservices
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: authentication-db
+      app: usermanagement-db
   template:
     metadata:
       labels:
-        app: authentication-db
+        app: usermanagement-db
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
       containers:
-      - name: authentication-db
+      - name: usermanagement-db
         image: mariadb:10.11
         ports:
         - containerPort: 3306
@@ -24,24 +26,24 @@ spec:
           valueFrom:
             secretKeyRef:
               name: microservices-secrets
-              key: AUTHENTICATION_DB_USERNAME
+              key: USERMANAGEMENT_DB_USERNAME
         - name: MARIADB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: microservices-secrets
-              key: AUTHENTICATION_DB_PASSWORD
+              key: USERMANAGEMENT_DB_PASSWORD
         - name: MARIADB_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: microservices-secrets
-              key: AUTHENTICATION_DB_ROOT_PASSWORD
+              key: USERMANAGEMENT_DB_ROOT_PASSWORD
         - name: MARIADB_DATABASE
           valueFrom:
             configMapKeyRef:
               name: microservices-config
-              key: AUTHENTICATION_DB
+              key: USERMANAGEMENT_DB
         volumeMounts:
-        - name: authentication-db-data
+        - name: usermanagement-db-data
           mountPath: /var/lib/mysql
         livenessProbe:
           exec:
@@ -51,18 +53,18 @@ spec:
           timeoutSeconds: 5
           failureThreshold: 3
       volumes:
-      - name: authentication-db-data
+      - name: usermanagement-db-data
         persistentVolumeClaim:
-          claimName: authentication-db-pvc
+          claimName: usermanagement-db-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: authentication-db
+  name: usermanagement-db
   namespace: microservices
 spec:
   selector:
-    app: authentication-db
+    app: usermanagement-db
   ports:
   - port: 3306
     targetPort: 3306

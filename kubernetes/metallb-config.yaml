@@ -1,0 +1,16 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: public-ips
+  namespace: metallb-system
+spec:
+  addresses:
+    - 185.229.90.248/32
+#    - 5.75.129.76/32
+#    - 91.99.143.250/32
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: public-ips-advertisement
+  namespace: metallb-system

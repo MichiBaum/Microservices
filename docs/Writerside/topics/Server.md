@@ -19,7 +19,7 @@ Ssl certificates are saved in ``/data/ssl``
 
 
 ## Running
-Every service is running in Kubernetes. You can find them in the folder k3s.
+Every service is running in Kubernetes. You can find them in the folder kubernetes.
 
 
 # Backup
