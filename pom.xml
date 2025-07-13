@@ -27,11 +27,11 @@
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>3.5.0</spring-boot-admin.version>
+        <spring-boot-admin.version>3.5.1</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
-        <datasource-micrometer-spring-boot.version>1.1.1</datasource-micrometer-spring-boot.version>
+        <datasource-micrometer-spring-boot.version>1.1.2</datasource-micrometer-spring-boot.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
@@ -42,14 +42,14 @@
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.1.21</kotlin.version>
+        <kotlin.version>2.2.0</kotlin.version>
         <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 
         <!--
         https://mockk.io/
         https://mvnrepository.com/artifact/io.mockk/mockk-jvm
         -->
-        <mockk.version>1.14.2</mockk.version>
+        <mockk.version>1.14.4</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
@@ -57,7 +57,7 @@
         
         <!-- Plugins -->
         <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
-        <jib-maven-plugin.version>3.4.5</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
