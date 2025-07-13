@@ -13,6 +13,8 @@ spec:
       labels:
         app: grafana
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
       containers:
       - name: grafana
         image: grafana/grafana:11.6.2
@@ -108,7 +110,7 @@ metadata:
   name: grafana-dashboards-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
@@ -126,11 +128,14 @@ metadata:
     type: local
     app: grafana
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 2Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/grafana-dashboards"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -139,5 +144,3 @@ spec:
               operator: In
               values:
                 - 35591.hostserv.eu
-  hostPath:
-    path: "/data/grafana-dashboards"

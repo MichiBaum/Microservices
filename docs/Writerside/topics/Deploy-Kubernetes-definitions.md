@@ -51,6 +51,11 @@ This document provides information about deploying and updating the microservice
    ```bash
    kubectl apply -f namespace.yaml
    ```
+   
+3. Create local-storage clas
+   ```bash
+   kubectl apply -n microservices -f local-storageclass.yaml
+   ```
 
 2. Create ConfigMap and Secret:
    ```bash

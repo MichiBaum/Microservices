@@ -6,11 +6,14 @@ metadata:
     type: local
     app: db-backup
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 10Gi
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/db-backup"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -19,8 +22,6 @@ spec:
               operator: In
               values:
                 - 35591.hostserv.eu
-  hostPath:
-    path: "/data/db-backup"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -28,7 +29,7 @@ metadata:
   name: db-backup-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteMany
   resources:

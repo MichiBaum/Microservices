@@ -14,6 +14,8 @@ spec:
       labels:
         app: chess-db
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
       containers:
       - name: chess-db
         image: mariadb:10.11

@@ -6,11 +6,14 @@ metadata:
     type: local
     app: authentication-db
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/authentication-db"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -19,8 +22,6 @@ spec:
           operator: In
           values:
           - 35591.hostserv.eu
-  hostPath:
-    path: "/data/authentication-db"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -28,7 +29,7 @@ metadata:
   name: authentication-db-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
@@ -46,11 +47,14 @@ metadata:
     type: local
     app: usermanagement-db
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/usermanagement-db"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -59,8 +63,6 @@ spec:
           operator: In
           values:
           - 35591.hostserv.eu
-  hostPath:
-    path: "/data/usermanagement-db"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -68,7 +70,7 @@ metadata:
   name: usermanagement-db-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
@@ -86,11 +88,14 @@ metadata:
     type: local
     app: chess-db
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/chess-db"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -99,8 +104,6 @@ spec:
           operator: In
           values:
           - 35591.hostserv.eu
-  hostPath:
-    path: "/data/chess-db"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -108,7 +111,7 @@ metadata:
   name: chess-db-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
@@ -126,11 +129,14 @@ metadata:
     type: local
     app: fitness-db
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/fitness-db"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -139,8 +145,6 @@ spec:
           operator: In
           values:
           - 35591.hostserv.eu
-  hostPath:
-    path: "/data/fitness-db"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -148,7 +152,7 @@ metadata:
   name: fitness-db-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
@@ -166,11 +170,14 @@ metadata:
     type: local
     app: music-db
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/music-db"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -179,8 +186,6 @@ spec:
           operator: In
           values:
           - 35591.hostserv.eu
-  hostPath:
-    path: "/data/music-db"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -188,7 +193,7 @@ metadata:
   name: music-db-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
@@ -206,11 +211,14 @@ metadata:
     type: local
     app: zipkin-storage
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   capacity:
     storage: 2Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/zipkin-storage"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -219,8 +227,6 @@ spec:
           operator: In
           values:
           - 35591.hostserv.eu
-  hostPath:
-    path: "/data/zipkin-storage"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -228,7 +234,7 @@ metadata:
   name: zipkin-storage-pvc
   namespace: microservices
 spec:
-  storageClassName: manual
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:

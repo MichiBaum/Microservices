@@ -13,6 +13,8 @@ spec:
       labels:
         app: zipkin-storage
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
       containers:
       - name: zipkin-storage
         image: ghcr.io/openzipkin/zipkin-elasticsearch8:3.5
