@@ -1,0 +1,50 @@
+<p-card>
+    <ng-template #title>{{'general.search' | translate}}</ng-template>
+
+    <form [formGroup]="searchForm" class="*:mb-6" (ngSubmit)="search()">
+        <p-floatlabel class="w-full" variant="in">
+            <input id="firstname" formControlName="firstname" class="w-full" type="text" pInputText />
+            <label for="firstname">{{ "general.firstname" | translate }}</label>
+        </p-floatlabel>
+        <p-floatlabel class="w-full" variant="in">
+            <input id="lastname" formControlName="lastname" class="w-full" type="text" pInputText />
+            <label for="lastname">{{ "general.lastname" | translate }}</label>
+        </p-floatlabel>
+    </form>
+
+    <ng-template #footer>
+        <div class="flex gap-6 mt-1">
+            <p-button label='{{ "general.searching" | translate }}' class="w-full" styleClass="w-full" (onClick)="search()"></p-button>
+        </div>
+    </ng-template>
+
+</p-card>
+
+<p-table
+    styleClass="mt-4"
+    stripedRows
+    [value]="persons()"
+    selectionMode="single"
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]"
+>
+    <ng-template #header>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Federation</th>
+            <th>Birthday</th>
+            <th>Gender</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-person let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="person" [pSelectableRowIndex]="rowIndex" [routerLink]="['/chess/persons', person.id]">
+            <td>{{ person.firstname }}</td>
+            <td>{{ person.lastname }}</td>
+            <td>{{ person.federation }}</td>
+            <td>{{ person.birthday }}</td>
+            <td><fa-icon *ngIf="person?.gender as gender" [icon]="gender | genderIcon"></fa-icon></td>
+        </tr>
+    </ng-template>
+</p-table>

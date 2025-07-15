@@ -4,7 +4,7 @@ import {
     RouterStateSnapshot
 } from "@angular/router";
 import {ChessService} from "../api-services/chess.service";
-import {catchError, EMPTY, map} from "rxjs";
+import {catchError, EMPTY} from "rxjs";
 import {inject} from "@angular/core";
 
 export const chessEventRouteResolver: ResolveFn<any> = (
