@@ -6,17 +6,19 @@ import {TableModule} from "primeng/table";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 import {NgIf} from "@angular/common";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-select-chess-person',
-  imports: [
-    InputTextModule,
-    PaginatorModule,
-    TableModule,
-    FaIconComponent,
-    EventIconPipe,
-    NgIf
-  ],
+    imports: [
+        InputTextModule,
+        PaginatorModule,
+        TableModule,
+        FaIconComponent,
+        EventIconPipe,
+        NgIf,
+        TranslatePipe
+    ],
   templateUrl: './select-chess-person.component.html',
   styleUrl: './select-chess-person.component.css'
 })
