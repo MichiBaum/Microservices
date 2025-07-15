@@ -217,4 +217,7 @@ export class ChessService {
         else
             return this.http.put<OpeningEvaluation>(this.environment.chessService() + `/openings/moves/${moveId}/evaluations/${id}`, evaluation)
     }
+
+
+
 }
