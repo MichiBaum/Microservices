@@ -4,7 +4,7 @@ import {
     faCalendarDays, faChess, faChessKing,
     faGears,
     faHouse,
-    faNewspaper
+    faNewspaper, faPerson
 } from "@fortawesome/free-solid-svg-icons";
 import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
@@ -99,6 +99,11 @@ export class ChessNavigationComponent {
         label: 'chess.navigation.events',
         customIcon: faCalendarDays,
         items: menuEvents,
+      },
+      {
+          label: 'chess.navigation.persons',
+          customIcon: faPerson,
+          routerLink: '/chess/persons/search'
       },
         {
             label: 'chess.navigation.openings',
