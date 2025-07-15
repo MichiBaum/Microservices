@@ -113,6 +113,7 @@
         },
         "player": {
             "firstname": "名",
+            "gender": "性别",
             "lastname": "姓",
             "search-person": "搜索人员"
         },
@@ -141,6 +142,10 @@
         "title": "健身设置"
     },
     "general": {
+        "firstname": "名",
+        "lastname": "姓",
+        "search": "搜索",
+        "searching": "搜索中",
         "sort": "排序"
     },
     "home": {

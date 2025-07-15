@@ -31,11 +31,11 @@
 >
     <ng-template #header>
         <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Federation</th>
-            <th>Birthday</th>
-            <th>Gender</th>
+            <th>{{ "chess.player.firstname" | translate }}</th>
+            <th>{{ "chess.player.lastname" | translate }}</th>
+            <th>{{ "chess.event.federation" | translate }}</th>
+            <th>{{ "chess.event.birthday" | translate }}</th>
+            <th>{{ "chess.player.gender" | translate }}</th>
         </tr>
     </ng-template>
     <ng-template #body let-person let-rowIndex="rowIndex">
