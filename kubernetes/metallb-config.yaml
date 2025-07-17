@@ -14,3 +14,7 @@ kind: L2Advertisement
 metadata:
   name: public-ips-advertisement
   namespace: metallb-system
+spec:
+    nodeSelectors:
+    - matchLabels:
+        kubernetes.io/hostname: 35591.hostserv.eu
