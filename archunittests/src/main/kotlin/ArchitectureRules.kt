@@ -1,12 +1,15 @@
 package com.michibaum
 
+import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchRule
+import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
 
 class ArchitectureRules {
 
     companion object {
-        
+
+        @ArchTest
         val databaseNotDependingOnAnythingElse: ArchRule =
             noClasses().that().resideInAPackage("..database..")
                 .should().dependOnClassesThat()
@@ -20,7 +23,18 @@ class ArchitectureRules {
                     "kotlin.."
                 )
                 .allowEmptyShould(true)
-        
+
+        @ArchTest
+        val entityClassesLocation: ArchRule =
+            classes().that().areAnnotatedWith("jakarta.persistence.Entity")
+            .should().resideInAPackage("..database..")
+            .allowEmptyShould(true)
+
+        @ArchTest
+        val repositoryLocation: ArchRule =
+            classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
+            .or().areAssignableTo("org.springframework.data.repository.Repository")
+            .should().resideInAPackage("..database..")
     }
 
 }

@@ -5,23 +5,18 @@ import com.michibaum.NamingRules
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.michibaum.StandardRules
+import com.tngtech.archunit.junit.ArchTests
 
 @AnalyzeClasses(packages = ["com.michibaum"])
 class ArchitectureTests {
 
     @ArchTest
-    val noAccessToStandardStreams = StandardRules.forbiddenStandardStreamsAccess
+    val standardRules = ArchTests.`in`(StandardRules::class.java)
     
     @ArchTest
-    val architectureRules = ArchitectureRules.databaseNotDependingOnAnythingElse
+    val namingRules = ArchTests.`in`(NamingRules::class.java)
     
     @ArchTest
-    val namingRules = NamingRules.controllerNaming
-    
-    @ArchTest
-    val repositoryNaming = NamingRules.repositoryNaming
-
-    @ArchTest
-    val repositoryNaming2 = NamingRules.repositoryNaming2
+    val architectureRules = ArchTests.`in`(ArchitectureRules::class.java)
     
 }
