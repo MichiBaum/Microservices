@@ -1,6 +1,5 @@
 package com.michibaum.chess_service.database
 
-import com.michibaum.chess_service.apis.dtos.PieceColor
 import jakarta.persistence.*
 import java.util.*
 

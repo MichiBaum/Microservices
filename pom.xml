@@ -153,6 +153,7 @@
     </repositories>
 
     <modules>
+        <module>archunittests</module>
         <module>permission-library</module>
         <module>usermanagement-library</module>
         <module>authentication-library</module>

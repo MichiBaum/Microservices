@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ProfileService(
-    private val profileRepository: ProfileRespository
+    private val profileRepository: ProfileRepository
 ) {
 
     fun findByUser(principal: JwtAuthentication): Profile? =
