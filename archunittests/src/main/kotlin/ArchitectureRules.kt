@@ -20,6 +20,7 @@ class ArchitectureRules {
                     "org.jetbrains.annotations..", // TODO replace jetbrains annotations with jspecify (https://jspecify.dev/docs/user-guide/) when spring release Spring Framework 7 / Spring Boot 4.0
                     "org.springframework.data.jpa.repository..",
                     "org.springframework.data.repository..",
+                    "org.springframework.stereotype..", // Repository annotation
                     "..database..", 
                     "kotlin.."
                 )
