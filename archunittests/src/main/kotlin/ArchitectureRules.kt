@@ -4,6 +4,7 @@ import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchRule
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
+import com.tngtech.archunit.library.GeneralCodingRules
 
 class ArchitectureRules {
 
@@ -35,6 +36,10 @@ class ArchitectureRules {
             classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
             .or().areAssignableTo("org.springframework.data.repository.Repository")
             .should().resideInAPackage("..database..")
+
+        @ArchTest
+        val testLocation = GeneralCodingRules.testClassesShouldResideInTheSamePackageAsImplementation()
+        
     }
 
 }

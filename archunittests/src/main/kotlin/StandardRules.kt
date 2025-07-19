@@ -11,6 +11,9 @@ class StandardRules {
         val forbiddenStandardStreamsAccess = GeneralCodingRules.NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS
             .allowEmptyShould(true)
         
+        @ArchTest
+        val forbiddenFieldInjection = GeneralCodingRules.NO_CLASSES_SHOULD_USE_FIELD_INJECTION
+        
     }
     
 }
