@@ -1,5 +1,8 @@
 package com.michibaum.authentication_service.authentication
 
+import com.michibaum.authentication_service.app.authentication.AuthenticationController
+import com.michibaum.authentication_service.app.authentication.AuthenticationDto
+import com.michibaum.authentication_service.app.authentication.AuthenticationService
 import com.michibaum.usermanagement_library.UserDetailsDto
 import com.michibaum.usermanagement_library.UsermanagementClient
 import io.mockk.every

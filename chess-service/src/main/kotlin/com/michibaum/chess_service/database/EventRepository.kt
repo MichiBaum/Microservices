@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
+import org.springframework.stereotype.Repository
 import java.time.LocalDate
 import java.util.*
 
+@Repository
 interface EventRepository: JpaRepository<Event, UUID>, JpaSpecificationExecutor<Event> {
     @Query(value = "select e from Event e left join fetch e.categories categories")
     fun findAllEagerCategories(): List<Event>
