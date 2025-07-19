@@ -10,9 +10,14 @@ class ArchitectureRules {
 
     companion object {
 
+        val databasePackage = "..database.."
+        val appPackage = "..app.."
+        val apiPackage = "..apis.."
+        val configPackage = "..config.."
+
         @ArchTest
         val databaseNotDependingOnAnythingElse: ArchRule =
-            noClasses().that().resideInAPackage("..database..")
+            noClasses().that().resideInAPackage(databasePackage)
                 .should().dependOnClassesThat()
                 .resideOutsideOfPackages(
                     "java..", 
@@ -21,7 +26,7 @@ class ArchitectureRules {
                     "org.springframework.data.jpa.repository..",
                     "org.springframework.data.repository..",
                     "org.springframework.stereotype..", // Repository annotation
-                    "..database..", 
+                    databasePackage, 
                     "kotlin.."
                 )
                 .allowEmptyShould(true)
@@ -29,14 +34,14 @@ class ArchitectureRules {
         @ArchTest
         val entityClassesLocation: ArchRule =
             classes().that().areAnnotatedWith("jakarta.persistence.Entity")
-            .should().resideInAPackage("..database..")
+            .should().resideInAPackage(databasePackage)
             .allowEmptyShould(true)
 
         @ArchTest
         val repositoryLocation: ArchRule =
             classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
             .or().areAssignableTo("org.springframework.data.repository.Repository")
-            .should().resideInAPackage("..database..")
+            .should().resideInAPackage(databasePackage)
 
         @ArchTest
         val testLocation = GeneralCodingRules.testClassesShouldResideInTheSamePackageAsImplementation()
