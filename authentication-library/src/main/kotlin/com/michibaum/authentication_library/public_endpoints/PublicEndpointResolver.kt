@@ -74,7 +74,7 @@ class PublicEndpointResolver(
             PublicPattern.ANT
         }
 
-        logger.debug("Using pattern type: $patternType for method: ${method.name}")
+        logger.debug("Using pattern type: {} for method: {}", patternType, method.name)
 
         getEndpointsFromRequestMapping(method, patternType).also {
             mappings.addAll(it)
@@ -110,7 +110,7 @@ class PublicEndpointResolver(
             mappings.addAll(result)
         }
 
-        logger.debug("Found mapping: $mappings")
+        logger.debug("Found mapping: {}", mappings)
         return mappings
     }
 
@@ -141,7 +141,7 @@ class PublicEndpointResolver(
             .filterNotNull()
 
         logger.debug("Found ${beanDefinitions.size} RestController")
-        val classes = beanDefinitions.map { Class.forName(it.beanClassName) }.filterNotNull().toList()
+        val classes = beanDefinitions.mapNotNull { Class.forName(it.beanClassName) }.toList()
         logger.debug("Resolved ${classes.size} classes of RestController")
         return classes
     }
