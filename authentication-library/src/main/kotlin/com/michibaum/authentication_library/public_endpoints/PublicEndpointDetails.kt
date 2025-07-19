@@ -1,7 +1,7 @@
 package com.michibaum.authentication_library.public_endpoints
 
 import org.springframework.http.HttpMethod
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher
 import org.springframework.security.web.util.matcher.RegexRequestMatcher
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.web.bind.annotation.RequestMethod
@@ -24,7 +24,7 @@ class PublicEndpointDetails(
 
     private fun createRequestMatcher(): RequestMatcher {
         return when (patternType) {
-            PublicPattern.ANT -> AntPathRequestMatcher.antMatcher(httpMethod, path)
+            PublicPattern.ANT -> PathPatternRequestMatcher.withDefaults().matcher(httpMethod, path)
             PublicPattern.UUID -> RegexRequestMatcher.regexMatcher(httpMethod, path)
         }
     }

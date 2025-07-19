@@ -19,7 +19,7 @@ data class SearchEventDto(
 ){
     fun getSpecification(): Specification<Event> =
         Specification {
-                root: Root<Event>, query: CriteriaQuery<*>?, builder: CriteriaBuilder ->
+                root: Root<Event>, _: CriteriaQuery<*>?, builder: CriteriaBuilder ->
                 builder.and(*getPredicates(root, builder).toTypedArray())
         }
 

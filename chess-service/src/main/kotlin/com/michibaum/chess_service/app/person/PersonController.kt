@@ -2,8 +2,6 @@ package com.michibaum.chess_service.app.person
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import jakarta.validation.Valid
-import org.springframework.core.io.buffer.DataBuffer
-import org.springframework.core.io.buffer.DataBufferUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation

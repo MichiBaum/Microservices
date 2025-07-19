@@ -1,7 +1,6 @@
 package com.michibaum.chess_service.apis.fide
 
 import com.michibaum.chess_service.apis.dtos.AccountDto
-import com.michibaum.chess_service.apis.dtos.FidePersonDto
 import org.springframework.stereotype.Component
 import java.io.InputStream
 
