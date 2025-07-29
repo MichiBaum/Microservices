@@ -2,6 +2,7 @@ package com.michibaum.chess_service.apis.dtos
 
 import com.michibaum.chess_service.database.ChessPlatform
 import com.michibaum.chess_service.database.GameType
+import com.michibaum.chess_service.database.PieceColor
 
 
 data class GameDto(
@@ -19,7 +20,3 @@ data class PlayerDto(
     val pieceColor: PieceColor
 )
 
-enum class PieceColor{
-    WHITE,
-    BLACK
-}

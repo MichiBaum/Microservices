@@ -16,7 +16,7 @@ docker exec microservices-chess-db-1 mysqldump -u root -pROOTPASSWORD chess | gz
 ## Automatic backup
 The backup described [above](#backup) is executed every day at 02:00 for all databases using Kubernetes CronJobs.
 
-The database backups are managed by k3s CronJobs defined in the `db-backup.yaml` file. These CronJobs:
+The database backups are managed by kubernetes CronJobs defined in the `db-backup.yaml` file. These CronJobs:
 - Run at 2:00 AM daily
 - Back up each database (chess, music, fitness, usermanagement, authentication)
 - Compress the backups with gzip

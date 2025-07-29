@@ -1,0 +1,71 @@
+# Chess Database
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chess-db
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chess-db
+  template:
+    metadata:
+      labels:
+        app: chess-db
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
+      containers:
+      - name: chess-db
+        image: mariadb:10.11
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: CHESS_DB_USERNAME
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: CHESS_DB_PASSWORD
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: CHESS_DB_ROOT_PASSWORD
+        - name: MARIADB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: CHESS_DB
+        volumeMounts:
+        - name: chess-db-data
+          mountPath: /var/lib/mysql
+        livenessProbe:
+          exec:
+            command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: chess-db-data
+        persistentVolumeClaim:
+          claimName: chess-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chess-db
+  namespace: microservices
+spec:
+  selector:
+    app: chess-db
+  ports:
+  - port: 3306
+    targetPort: 3306
+  type: ClusterIP

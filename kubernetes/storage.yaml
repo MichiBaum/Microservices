@@ -1,0 +1,245 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: authentication-db-pv
+  labels:
+    type: local
+    app: authentication-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/authentication-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: authentication-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: authentication-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: usermanagement-db-pv
+  labels:
+    type: local
+    app: usermanagement-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/usermanagement-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: usermanagement-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: usermanagement-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: chess-db-pv
+  labels:
+    type: local
+    app: chess-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/chess-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: chess-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: chess-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: fitness-db-pv
+  labels:
+    type: local
+    app: fitness-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/fitness-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fitness-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: fitness-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: music-db-pv
+  labels:
+    type: local
+    app: music-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/music-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: music-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: music-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zipkin-storage-pv
+  labels:
+    type: local
+    app: zipkin-storage
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/zipkin-storage"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zipkin-storage-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  selector:
+    matchLabels:
+      app: zipkin-storage

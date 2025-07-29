@@ -98,6 +98,12 @@
             <artifactId>spring-boot-starter-discord</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>archunittests</artifactId>
+            <scope>test</scope>
+            <version>1.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>com.michibaum</groupId>

@@ -1,0 +1,71 @@
+# User Management Database
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usermanagement-db
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usermanagement-db
+  template:
+    metadata:
+      labels:
+        app: usermanagement-db
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
+      containers:
+      - name: usermanagement-db
+        image: mariadb:10.11
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: USERMANAGEMENT_DB_USERNAME
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: USERMANAGEMENT_DB_PASSWORD
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: microservices-secrets
+              key: USERMANAGEMENT_DB_ROOT_PASSWORD
+        - name: MARIADB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: USERMANAGEMENT_DB
+        volumeMounts:
+        - name: usermanagement-db-data
+          mountPath: /var/lib/mysql
+        livenessProbe:
+          exec:
+            command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: usermanagement-db-data
+        persistentVolumeClaim:
+          claimName: usermanagement-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: usermanagement-db
+  namespace: microservices
+spec:
+  selector:
+    app: usermanagement-db
+  ports:
+  - port: 3306
+    targetPort: 3306
+  type: ClusterIP

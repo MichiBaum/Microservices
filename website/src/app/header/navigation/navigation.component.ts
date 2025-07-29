@@ -247,6 +247,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.navItems.set(this.getNavItems())
     });
 
+    anyItemsVisible(items: MenuItem[]): boolean {
+        return items.some(item => item.visible);
+    }
 }
 
 
