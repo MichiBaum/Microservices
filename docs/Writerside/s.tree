@@ -53,6 +53,7 @@
     <toc-element topic="JMeter.md"/>
     <toc-element topic="Maven.md"/>
     <toc-element topic="Decisions.md">
+        <toc-element topic="2025-07-04-k3s-k0s.md"/>
         <toc-element topic="2025-05-25-Docker-Compose-Kubernetes.md"/>
         <toc-element topic="2024-12-30-testcontainers.md"/>
         <toc-element topic="2024-12-24_Documentation.md"/>

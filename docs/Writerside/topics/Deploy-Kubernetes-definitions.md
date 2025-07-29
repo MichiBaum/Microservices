@@ -17,27 +17,32 @@ This document provides information about deploying and updating the microservice
 
 ## Directory Structure
 
-- `namespace.yaml`: Defines the microservices namespace
-- `configmap.yaml`: Contains non-sensitive configuration
-- `secrets.yaml`: Contains sensitive configuration (passwords, API keys)
-- `storage.yaml`: Defines PersistentVolumes and PersistentVolumeClaims for databases
-- `registry-service.yaml`: Service registry (Eureka)
-- `zipkin.yaml`: Distributed tracing (Zipkin, Zipkin Storage, Zipkin Dependencies)
-- `monitoring.yaml`: Monitoring tools (Prometheus, Grafana)
-- `traefik-middleware.yaml`: Defines Traefik middleware for HTTP to HTTPS redirection
-- `authentication-db.yaml`: Authentication database (MariaDB)
-- `usermanagement-db.yaml`: User Management database (MariaDB)
-- `chess-db.yaml`: Chess database (MariaDB)
-- `fitness-db.yaml`: Fitness database (MariaDB)
-- `music-db.yaml`: Music database (MariaDB)
-- `admin-service.yaml`: Admin dashboard
-- `authentication-service.yaml`: Authentication service
-- `usermanagement-service.yaml`: User management service
-- `gateway-service.yaml`: API gateway with Ingress configuration
-- `website-service.yaml`: Website service
-- `chess-service.yaml`: Chess service
-- `fitness-service.yaml`: Fitness service
-- `music-service.yaml`: Music service
+- **`k0sctl.yaml`**: Definition for k0s cluster
+- **`metallb`**: Configuration for MetalLB
+  - `metallb-config.yaml`: Configuration for MetalLB
+- **`secrets`**: Secrets for microservices
+  - `secrets.yaml`: Contains sensitive configuration (passwords, API keys)
+- **`microservices`**
+  - `namespace.yaml`: Defines the microservices namespace
+  - `configmap.yaml`: Contains non-sensitive configuration
+  - `storage.yaml`: Defines PersistentVolumes and PersistentVolumeClaims for databases
+  - `registry-service.yaml`: Service registry (Eureka)
+  - `zipkin.yaml`: Distributed tracing (Zipkin, Zipkin Storage, Zipkin Dependencies)
+  - `monitoring.yaml`: Monitoring tools (Prometheus, Grafana)
+  - `traefik-middleware.yaml`: Defines Traefik middleware for HTTP to HTTPS redirection
+  - `authentication-db.yaml`: Authentication database (MariaDB)
+  - `usermanagement-db.yaml`: User Management database (MariaDB)
+  - `chess-db.yaml`: Chess database (MariaDB)
+  - `fitness-db.yaml`: Fitness database (MariaDB)
+  - `music-db.yaml`: Music database (MariaDB)
+  - `admin-service.yaml`: Admin dashboard
+  - `authentication-service.yaml`: Authentication service
+  - `usermanagement-service.yaml`: User management service
+  - `gateway-service.yaml`: API gateway with Ingress configuration
+  - `website-service.yaml`: Website service
+  - `chess-service.yaml`: Chess service
+  - `fitness-service.yaml`: Fitness service
+  - `music-service.yaml`: Music service
 
 ## Deployment Instructions
 
@@ -120,6 +125,11 @@ This document provides information about deploying and updating the microservice
    kubectl apply -n microservices -f db-backup.yaml
    ```
 
+## Deploy everithing in folder
+
+```bash
+   kubectl apply -f <folder>
+```
 
 ## Ingress Configuration
 

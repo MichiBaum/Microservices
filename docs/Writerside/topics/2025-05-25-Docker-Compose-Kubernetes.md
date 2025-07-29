@@ -1,3 +1,3 @@
-# 2025-05-25 Docker Compose -&gt; Kubernetes
+# 2025-05-25 Migration from Docker Compose to Kubernetes
 
 Start typing here...
