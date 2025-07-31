@@ -16,7 +16,7 @@ export class MsApplicationsComponent {
   private readonly adminService = inject(AdminService);
 
   applications = rxResource({
-    loader: () => this.adminService.applications()
+      stream: () => this.adminService.applications()
   })
 }
 

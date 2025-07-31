@@ -39,14 +39,14 @@ export class ChessUpdateGameComponent {
   private readonly chessService = inject(ChessService);
 
   events = rxResource({
-    loader: () => this.chessService.events()
+    stream: () => this.chessService.events()
   })
   selectedEvent = signal<ChessEvent | undefined>(undefined)
 
   persons = rxResource({
-    request: () => ({eventId: this.selectedEvent()?.id}),
-    loader: (params) => {
-      const eventId = params.request.eventId
+    params: () => ({eventId: this.selectedEvent()?.id}),
+    stream: (params) => {
+      const eventId = params.params.eventId
       if(eventId == undefined)
         return of([])
       return this.chessService.eventParticipants(eventId)

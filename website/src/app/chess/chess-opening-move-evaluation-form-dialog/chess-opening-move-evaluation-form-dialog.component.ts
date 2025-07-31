@@ -30,12 +30,12 @@ export class ChessOpeningMoveEvaluationFormDialogComponent {
     visibleChange = output<boolean>();
 
     availableEngines = rxResource({
-        loader: () => this.chessService.engines()
+        stream: () => this.chessService.engines()
     })
     evaluations = rxResource({
-        request: () => ({moveId: this.openingMove()?.id}),
-        loader: (params) => {
-            const moveId = params.request.moveId
+        params: () => ({moveId: this.openingMove()?.id}),
+        stream: (params) => {
+            const moveId = params.params.moveId
             if(moveId == undefined) return of([])
             return this.chessService.openingEvaluations(moveId)
         }

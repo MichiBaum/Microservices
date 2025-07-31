@@ -15,7 +15,7 @@ export class ChessPopularOpeningsListComponent {
     private readonly chessService = inject(ChessService);
 
     openings = rxResource({
-        loader: () =>  this.chessService.popularOpenings()
+        stream: () =>  this.chessService.popularOpenings()
     })
 
     sortedOpenings = computed(() => {

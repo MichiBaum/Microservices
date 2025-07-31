@@ -37,7 +37,7 @@ export class ChessEventsListComponent {
   private readonly chessService = inject(ChessService);
 
   categories = rxResource({
-    loader: () => this.chessService.eventCategoriesWithEvents(),
+    stream: () => this.chessService.eventCategoriesWithEvents(),
     defaultValue: []
   })
   categoriesFilteredAndSorted = computed(() => {

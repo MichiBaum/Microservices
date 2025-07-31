@@ -53,13 +53,13 @@ export class ChessNavigationComponent {
 
 
   events = rxResource({
-    loader: () => this.chessService.eventsRecentUpcoming()
+    stream: () => this.chessService.eventsRecentUpcoming()
   })
   startOpenings = rxResource({
-    loader: () =>  this.chessService.startingOpenings()
+    stream: () =>  this.chessService.startingOpenings()
   })
   popularOpenings = rxResource({
-    loader: () =>  this.chessService.popularOpenings()
+    stream: () =>  this.chessService.popularOpenings()
   })
   sortedEvents = computed(() => {
     const events = this.events.value()

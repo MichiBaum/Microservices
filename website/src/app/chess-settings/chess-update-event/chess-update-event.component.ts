@@ -52,9 +52,9 @@ export class ChessUpdateEventComponent implements OnInit{
   events = signal<ChessEvent[]>([])
   selectedEvent = signal<ChessEvent | undefined>(undefined)
   selectedParticipants = rxResource({
-    request: () => ({eventId: this.selectedEvent()?.id}),
-    loader: (params) => {
-      const eventId = params.request.eventId
+    params: () => ({eventId: this.selectedEvent()?.id}),
+    stream: (params) => {
+      const eventId = params.params.eventId
       if (eventId == undefined)
         return of([])
       return this.chessService.eventParticipants(eventId)
@@ -62,7 +62,7 @@ export class ChessUpdateEventComponent implements OnInit{
   })
 
   categories = rxResource({
-    loader: () => this.chessService.eventCategories(),
+      stream: () => this.chessService.eventCategories(),
   })
 
   allPersonsS = signal<Person[]>([])

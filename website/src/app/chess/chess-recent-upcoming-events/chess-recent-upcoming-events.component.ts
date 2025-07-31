@@ -26,7 +26,7 @@ export class ChessRecentUpcomingEventsComponent {
   private readonly chessService = inject(ChessService);
 
   events = rxResource({
-    loader: () => this.chessService.eventsRecentUpcoming()
+    stream: () => this.chessService.eventsRecentUpcoming()
   })
   eventsSorted = computed(() => {
     const events = this.events.value()
