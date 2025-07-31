@@ -19,7 +19,7 @@ export class NotesComponent {
     notesService = inject(AlexandriaNoteService)
 
     notes = rxResource({
-        loader: () => this.notesService.notes()
+        stream: () => this.notesService.notes()
     })
 
     constructor() {
