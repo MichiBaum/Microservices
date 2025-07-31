@@ -1,7 +1,6 @@
 import {Component, inject, OnDestroy, signal} from '@angular/core';
 import {NavigationComponent} from "./navigation/navigation.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {LanguageConfig} from "../core/config/language.config";
 import {HeaderService, TranslationHolder} from "../core/services/header.service";
@@ -14,7 +13,6 @@ import {Subscription} from "rxjs";
   imports: [
     NavigationComponent,
     TranslateModule,
-    DropdownModule,
     FormsModule,
     LogoutComponent,
     MenubarModule

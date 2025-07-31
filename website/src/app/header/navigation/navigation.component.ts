@@ -3,7 +3,6 @@ import {MenubarModule} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
-import {SidebarModule} from "primeng/sidebar";
 import {Button, ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
@@ -38,7 +37,6 @@ import {Subscription} from "rxjs";
     selector: 'app-navigation',
     imports: [
     MenubarModule,
-    SidebarModule,
     MenuModule,
     Ripple,
     FaIconComponent,

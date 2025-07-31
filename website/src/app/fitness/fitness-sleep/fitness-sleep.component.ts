@@ -2,7 +2,6 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FitnessService} from "../../core/api-services/fitness.service";
 import {Sleep} from "../../core/models/fitness/sleep.model";
 import {SleepStagesChartComponent} from "./sleep-stages-chart/sleep-stages-chart.component";
-import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import {SecondsPipe} from "../../core/pipes/seconds.pipe";
@@ -12,7 +11,6 @@ import {Select} from "primeng/select";
   selector: 'app-fitness-sleep',
   imports: [
     SleepStagesChartComponent,
-    DropdownModule,
     FormsModule,
     DatePipe,
     SecondsPipe,

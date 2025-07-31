@@ -2,7 +2,6 @@ import {Component, computed, inject} from '@angular/core';
 import {
     faAngleDown,
     faCalendarDays, faChess, faChessKing,
-    faChessQueen,
     faGears,
     faHouse,
     faNewspaper
