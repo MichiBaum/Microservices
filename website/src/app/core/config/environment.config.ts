@@ -1,6 +1,6 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, DOCUMENT} from "@angular/core";
 import {environment} from "../../../environments/environment";
-import {DOCUMENT} from "@angular/common";
+
 
 @Injectable({ providedIn: 'root' })
 export class EnvironmentConfig {

@@ -11,7 +11,7 @@ import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {Menubar} from "primeng/menubar";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import { NgClass } from "@angular/common";
 import {Ripple} from "primeng/ripple";
 import {Tag} from "primeng/tag";
 import {RouterLink} from "@angular/router";
@@ -33,13 +33,12 @@ import {rxResource} from "@angular/core/rxjs-interop";
     Divider,
     FaIconComponent,
     Menubar,
-    NgIf,
     Ripple,
     Tag,
     RouterLink,
     NgClass,
     TranslatePipe
-  ],
+],
   templateUrl: './chess-navigation.component.html',
   styleUrl: './chess-navigation.component.css'
 })

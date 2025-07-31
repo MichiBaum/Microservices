@@ -6,7 +6,7 @@ import {
 } from "primeng/organizationchart";
 import {ChessOpeningMove} from "../../core/models/chess/chess.models";
 import {PrimeTemplate, TreeNode} from "primeng/api";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {Tooltip} from "primeng/tooltip";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
@@ -16,14 +16,12 @@ import {TranslatePipe} from "@ngx-translate/core";
 @Component({
   selector: 'app-chess-move-tree',
     imports: [
-        OrganizationChart,
-        PrimeTemplate,
-        NgIf,
-        NgForOf,
-        Tooltip,
-        FaIconComponent,
-        TranslatePipe,
-    ],
+    OrganizationChart,
+    PrimeTemplate,
+    Tooltip,
+    FaIconComponent,
+    TranslatePipe
+],
   templateUrl: './chess-move-tree.component.html',
   styleUrl: './chess-move-tree.component.css'
 })

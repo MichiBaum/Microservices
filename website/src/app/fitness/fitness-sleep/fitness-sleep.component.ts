@@ -4,7 +4,7 @@ import {Sleep} from "../../core/models/fitness/sleep.model";
 import {SleepStagesChartComponent} from "./sleep-stages-chart/sleep-stages-chart.component";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
-import {DatePipe, NgIf} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import {SecondsPipe} from "../../core/pipes/seconds.pipe";
 import {Select} from "primeng/select";
 
@@ -14,11 +14,10 @@ import {Select} from "primeng/select";
     SleepStagesChartComponent,
     DropdownModule,
     FormsModule,
-    NgIf,
     DatePipe,
     SecondsPipe,
     Select
-  ],
+],
   templateUrl: './fitness-sleep.component.html',
   styleUrl: './fitness-sleep.component.css'
 })

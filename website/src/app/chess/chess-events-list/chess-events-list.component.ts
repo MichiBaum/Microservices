@@ -1,7 +1,7 @@
 import {Component, computed, inject, signal, Signal} from '@angular/core';
 import {ChessService} from "../../core/api-services/chess.service";
 import {CardModule} from "primeng/card";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {RouterLink} from "@angular/router";
 import {TimelineModule} from "primeng/timeline";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -18,20 +18,18 @@ import {ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models
 @Component({
   selector: 'app-chess-events-list',
     imports: [
-        CardModule,
-        NgForOf,
-        RouterLink,
-        TimelineModule,
-        FaIconComponent,
-        ScrollTopModule,
-        NgIf,
-        EventIconPipe,
-        EventIconColorPipe,
-        Fieldset,
-        TranslatePipe,
-        MultiSelect,
-        FormsModule
-    ],
+    CardModule,
+    RouterLink,
+    TimelineModule,
+    FaIconComponent,
+    ScrollTopModule,
+    EventIconPipe,
+    EventIconColorPipe,
+    Fieldset,
+    TranslatePipe,
+    MultiSelect,
+    FormsModule
+],
   templateUrl: './chess-events-list.component.html',
   styleUrl: './chess-events-list.component.css'
 })

@@ -1,8 +1,9 @@
-<p-button
-  pButton pRipple
-  (click)="logout()"
-  *ngIf="visible()"
-  aria-label="Logout Button"
->
-  <fa-icon [icon]="buttonIcon"></fa-icon>
-</p-button>
+@if (visible()) {
+  <p-button
+    pButton pRipple
+    (click)="logout()"
+    aria-label="Logout Button"
+    >
+    <fa-icon [icon]="buttonIcon"></fa-icon>
+  </p-button>
+}

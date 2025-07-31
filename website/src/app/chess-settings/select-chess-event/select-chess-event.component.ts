@@ -5,7 +5,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
-import {NgForOf} from "@angular/common";
+
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {FilterService, SelectItem} from "primeng/api";
 
@@ -16,9 +16,8 @@ import {FilterService, SelectItem} from "primeng/api";
     InputTextModule,
     FormsModule,
     FaIconComponent,
-    NgForOf,
     ConfirmDialogModule
-  ],
+],
   templateUrl: './select-chess-event.component.html',
   styleUrl: './select-chess-event.component.css'
 })

@@ -11,7 +11,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {InputText} from "primeng/inputtext";
 import {ChessEngine, OpeningEvaluation, WriteOpeningEvaluation} from "../../core/models/chess/chess.models";
 import {Select} from "primeng/select";
-import {NgIf} from "@angular/common";
+
 import {Button} from "primeng/button";
 import {ChessService} from "../../core/api-services/chess.service";
 import {SelectedMove} from "../chess-move-tree/selected-move.model";
@@ -19,14 +19,13 @@ import {SelectedMove} from "../chess-move-tree/selected-move.model";
 @Component({
   selector: 'app-chess-opening-move-evaluation-form',
     imports: [
-        FloatLabel,
-        FormsModule,
-        InputText,
-        ReactiveFormsModule,
-        Select,
-        NgIf,
-        Button
-    ],
+    FloatLabel,
+    FormsModule,
+    InputText,
+    ReactiveFormsModule,
+    Select,
+    Button
+],
   templateUrl: './chess-opening-move-evaluation-form.component.html',
   styleUrl: './chess-opening-move-evaluation-form.component.css'
 })

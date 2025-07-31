@@ -31,25 +31,24 @@ import {ImageModule} from "primeng/image";
 import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
 import {Drawer} from "primeng/drawer";
-import {NgIf} from "@angular/common";
+
 import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-navigation',
     imports: [
-        MenubarModule,
-        SidebarModule,
-        MenuModule,
-        Ripple,
-        FaIconComponent,
-        ImageModule,
-        TranslateModule,
-        LanguageSelectComponent,
-        Drawer,
-        NgIf,
-        ButtonDirective,
-        Button
-    ],
+    MenubarModule,
+    SidebarModule,
+    MenuModule,
+    Ripple,
+    FaIconComponent,
+    ImageModule,
+    TranslateModule,
+    LanguageSelectComponent,
+    Drawer,
+    ButtonDirective,
+    Button
+],
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.css'
 })

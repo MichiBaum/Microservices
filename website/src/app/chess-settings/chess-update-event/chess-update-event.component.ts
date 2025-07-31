@@ -16,7 +16,7 @@ import {MultiSelect} from "primeng/multiselect";
 import {Button} from "primeng/button";
 import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgIf} from "@angular/common";
+
 import {PickList} from "primeng/picklist";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
@@ -36,13 +36,12 @@ import {Select} from "primeng/select";
     Button,
     InputText,
     FaIconComponent,
-    NgIf,
     PickList,
     FormsModule,
     EventIconPipe,
     Textarea,
     Select
-  ],
+],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.css'
 })

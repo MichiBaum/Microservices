@@ -1,6 +1,6 @@
 import {Component, computed, inject, input, signal} from '@angular/core';
 import {CardModule} from "primeng/card";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {TranslateModule} from "@ngx-translate/core";
 import {Account, ChessEvent, Person} from "../../../core/models/chess/chess.models";
 import {rxResource} from "@angular/core/rxjs-interop";
@@ -15,14 +15,12 @@ import {Fieldset} from "primeng/fieldset";
   selector: 'app-chess-event-participants',
   imports: [
     CardModule,
-    NgIf,
     TranslateModule,
-    NgForOf,
     ChessPlayerCardComponent,
     FormsModule,
     RadioButton,
     Fieldset
-  ],
+],
   templateUrl: './chess-event-participants.component.html',
   styleUrl: './chess-event-participants.component.css'
 })

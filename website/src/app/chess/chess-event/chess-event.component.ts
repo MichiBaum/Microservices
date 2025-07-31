@@ -5,7 +5,7 @@ import {Button} from "primeng/button";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {TableModule} from "primeng/table";
-import {NgIf} from "@angular/common";
+
 import {ChessEventParticipantsComponent} from "./chess-event-participants/chess-event-participants.component";
 import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.component";
 import {DividerModule} from "primeng/divider";
@@ -19,12 +19,11 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
     Button,
     TranslateModule,
     TableModule,
-    NgIf,
     ChessEventParticipantsComponent,
     ChessEventGamesComponent,
     DividerModule,
-    TabsModule,
-  ],
+    TabsModule
+],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.css'
 })

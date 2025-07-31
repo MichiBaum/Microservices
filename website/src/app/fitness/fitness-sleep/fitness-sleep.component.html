@@ -6,11 +6,13 @@
       optionLabel="startTime"
       [filter]="true"
       [filterMatchMode]="'contains'"
-    >
+      >
       <ng-template pTemplate="selectedItem">
-        <div class="flex items-center gap-2" *ngIf="selectedSleep">
-          <div>{{ selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
-        </div>
+        @if (selectedSleep) {
+          <div class="flex items-center gap-2">
+            <div>{{ selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
+          </div>
+        }
       </ng-template>
       <ng-template let-sleep pTemplate="item">
         <div class="flex items-center gap-2">
@@ -19,15 +21,17 @@
       </ng-template>
     </p-select>
 
-    <div *ngIf="selectedSleep">
-      <p>Start: {{selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm'}}</p>
-      <p>End: {{selectedSleep.endTime | date: 'dd/MM/yyyy HH:mm'}}</p>
-      <p>Duration: {{ selectedSleep.duration / 1000 | seconds }}</p>
-      <p>Wake: {{ sumStage(selectedSleep, 'WAKE') | seconds }}</p>
-      <p>Rem: {{ sumStage(selectedSleep, 'REM') | seconds }}</p>
-      <p>Light: {{ sumStage(selectedSleep, 'LIGHT') | seconds }}</p>
-      <p>Deep: {{ sumStage(selectedSleep, 'DEEP') | seconds }}</p>
-    </div>
+    @if (selectedSleep) {
+      <div>
+        <p>Start: {{selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm'}}</p>
+        <p>End: {{selectedSleep.endTime | date: 'dd/MM/yyyy HH:mm'}}</p>
+        <p>Duration: {{ selectedSleep.duration / 1000 | seconds }}</p>
+        <p>Wake: {{ sumStage(selectedSleep, 'WAKE') | seconds }}</p>
+        <p>Rem: {{ sumStage(selectedSleep, 'REM') | seconds }}</p>
+        <p>Light: {{ sumStage(selectedSleep, 'LIGHT') | seconds }}</p>
+        <p>Deep: {{ sumStage(selectedSleep, 'DEEP') | seconds }}</p>
+      </div>
+    }
 
   </div>
 
