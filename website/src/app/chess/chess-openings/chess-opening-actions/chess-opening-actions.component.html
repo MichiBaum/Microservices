@@ -1,15 +1,15 @@
 <p-menubar [model]="items()">
 
-    <ng-template #end>
-        <div class="flex items-center gap-2">
-            <ng-content select="[ending]"></ng-content>
-        </div>
-    </ng-template>
+  <ng-template #end>
+    <div class="flex items-center gap-2">
+      <ng-content select="[ending]"></ng-content>
+    </div>
+  </ng-template>
 
 </p-menubar>
 
 <app-chess-opening-move-form-dialog [(visible)]="moveDialogVisible" [openingMove]="moveInput()" (saved)="reload()" (deleted)="reload()"></app-chess-opening-move-form-dialog>
 <app-chess-opening-form-dialog [(visible)]="openingDialogVisible" [opening]="openingInput()" (saved)="reload()" (deleted)="reload()"></app-chess-opening-form-dialog>
-<ng-container *ngIf="evaluationInput() as evaluationInput">
-    <app-chess-opening-move-evaluation-form-dialog  [(visible)]="evaluationDialogVisible" [openingMove]="evaluationInput" (visibleChange)="reload()"></app-chess-opening-move-evaluation-form-dialog>
-</ng-container>
+@if (evaluationInput(); as evaluationInput) {
+  <app-chess-opening-move-evaluation-form-dialog  [(visible)]="evaluationDialogVisible" [openingMove]="evaluationInput" (visibleChange)="reload()"></app-chess-opening-move-evaluation-form-dialog>
+}

@@ -1,6 +1,6 @@
 import {Component, input} from '@angular/core';
 import {Card} from "primeng/card";
-import {KeyValuePipe, NgForOf} from "@angular/common";
+import { KeyValuePipe } from "@angular/common";
 import {Application} from "../../core/models/admin/admin.model";
 import {MsStatusIconPipe} from "../pipes/ms-status-icon.pipe";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -11,7 +11,6 @@ import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from "prim
   selector: 'app-ms-application',
   imports: [
     Card,
-    NgForOf,
     MsStatusIconPipe,
     FaIconComponent,
     MsStatusStylePipe,
@@ -20,7 +19,7 @@ import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from "prim
     AccordionHeader,
     AccordionContent,
     Accordion
-  ],
+],
   templateUrl: './ms-application.component.html',
   styleUrl: './ms-application.component.css'
 })

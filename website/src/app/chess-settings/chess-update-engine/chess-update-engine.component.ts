@@ -27,7 +27,7 @@ export class ChessUpdateEngineComponent {
   private readonly chessService = inject(ChessService);
 
   engines = rxResource({
-    loader:() => this.chessService.engines(),
+    stream:() => this.chessService.engines(),
   })
   selectedEngine = signal<ChessEngine | undefined>(undefined);
 

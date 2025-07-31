@@ -1,48 +1,61 @@
 <p-tabs value="0">
-    <p-tablist>
-      <p-tab value="0">
-        {{'chess.event.details' | translate}}
-      </p-tab>
-      <p-tab value="1" [disabled]="gamesTabDisabled()">
-        {{'chess.event.games' | translate}}
-      </p-tab>
-    </p-tablist>
-    <p-tabpanels>
-      <p-tabpanel value="0">
+  <p-tablist>
+    <p-tab value="0">
+      {{'chess.event.details' | translate}}
+    </p-tab>
+    <p-tab value="1" [disabled]="gamesTabDisabled()">
+      {{'chess.event.games' | translate}}
+    </p-tab>
+  </p-tablist>
+  <p-tabpanels>
+    <p-tabpanel value="0">
 
-          <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
+      <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
-            <div *ngIf="event() as _event" class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
-              <p-card>
-                <ng-template #title>{{_event.title}}</ng-template>
-                <ng-template #subtitle>{{categories()}}</ng-template>
-
-                <p *ngIf="_event.platform as platform"><strong>{{'chess.event.organizer' | translate}}: </strong>{{'chess.platform.' + platform | translate}}</p>
-                <p *ngIf="_event.location as location"><strong>{{'chess.event.location' | translate}}: </strong>{{ location }}</p>
-                <p *ngIf="_event.dateFrom as dateFrom"><strong>{{'chess.event.date-from' | translate}}: </strong>{{ dateFrom }}</p>
-                <p *ngIf="_event.dateTo as dateTo"><strong>{{'chess.event.date-to' | translate}}: </strong>{{ dateTo }}</p>
-
-                <ng-template #footer>
-                  <div *ngIf="event()?.url && event()?.url !== ''" >
+        @if (event(); as _event) {
+          <div class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
+            <p-card>
+              <ng-template #title>{{_event.title}}</ng-template>
+              <ng-template #subtitle>{{categories()}}</ng-template>
+              @if (_event.platform; as platform) {
+                <p><strong>{{'chess.event.organizer' | translate}}: </strong>{{'chess.platform.' + platform | translate}}</p>
+              }
+              @if (_event.location; as location) {
+                <p><strong>{{'chess.event.location' | translate}}: </strong>{{ location }}</p>
+              }
+              @if (_event.dateFrom; as dateFrom) {
+                <p><strong>{{'chess.event.date-from' | translate}}: </strong>{{ dateFrom }}</p>
+              }
+              @if (_event.dateTo; as dateTo) {
+                <p><strong>{{'chess.event.date-to' | translate}}: </strong>{{ dateTo }}</p>
+              }
+              <ng-template #footer>
+                @if (event()?.url && event()?.url !== '') {
+                  <div >
                     <p-button [label]="'chess.event.open-official-website' | translate" class="w-full" styleClass="w-full" (onClick)="openEvent()" />
                   </div>
-                </ng-template>
-              </p-card>
-            </div>
-
-            <app-chess-event-participants
-              class="4k:col-span-3 xlScreen:col-span-2 lScreen:col-span-2 desktop:col-span-2 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1"
-              *ngIf="event()"
-              [event]="event()"
-            ></app-chess-event-participants>
+                }
+              </ng-template>
+            </p-card>
           </div>
+        }
+
+        @if (event()) {
+          <app-chess-event-participants
+            class="4k:col-span-3 xlScreen:col-span-2 lScreen:col-span-2 desktop:col-span-2 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1"
+            [event]="event()"
+          ></app-chess-event-participants>
+        }
+      </div>
 
 
-      </p-tabpanel>
-      <p-tabpanel value="1">
+    </p-tabpanel>
+    <p-tabpanel value="1">
 
-        <app-chess-event-games *ngIf="event()" [event]="event()" (haveContent)="gamesTabDisabled.set(!$event)"></app-chess-event-games>
+      @if (event()) {
+        <app-chess-event-games [event]="event()" (haveContent)="gamesTabDisabled.set(!$event)"></app-chess-event-games>
+      }
 
-      </p-tabpanel>
-    </p-tabpanels>
+    </p-tabpanel>
+  </p-tabpanels>
 </p-tabs>

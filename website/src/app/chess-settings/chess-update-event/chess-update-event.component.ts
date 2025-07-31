@@ -16,7 +16,7 @@ import {MultiSelect} from "primeng/multiselect";
 import {Button} from "primeng/button";
 import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgIf} from "@angular/common";
+
 import {PickList} from "primeng/picklist";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
@@ -36,13 +36,12 @@ import {Select} from "primeng/select";
     Button,
     InputText,
     FaIconComponent,
-    NgIf,
     PickList,
     FormsModule,
     EventIconPipe,
     Textarea,
     Select
-  ],
+],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.css'
 })
@@ -53,9 +52,9 @@ export class ChessUpdateEventComponent implements OnInit{
   events = signal<ChessEvent[]>([])
   selectedEvent = signal<ChessEvent | undefined>(undefined)
   selectedParticipants = rxResource({
-    request: () => ({eventId: this.selectedEvent()?.id}),
-    loader: (params) => {
-      const eventId = params.request.eventId
+    params: () => ({eventId: this.selectedEvent()?.id}),
+    stream: (params) => {
+      const eventId = params.params.eventId
       if (eventId == undefined)
         return of([])
       return this.chessService.eventParticipants(eventId)
@@ -63,7 +62,7 @@ export class ChessUpdateEventComponent implements OnInit{
   })
 
   categories = rxResource({
-    loader: () => this.chessService.eventCategories(),
+      stream: () => this.chessService.eventCategories(),
   })
 
   allPersonsS = signal<Person[]>([])

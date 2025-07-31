@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {
     Account,
-    ChessEngine, ChessEvaluation,
+    ChessEngine,
     ChessEvent,
     ChessEventCategory,
     ChessEventCategoryWithEvents,
@@ -21,7 +21,6 @@ import {catchError, Observable, throwError} from "rxjs";
 import {HttpErrorHandler} from "../config/http-error-handler.service";
 import {UserInfoService} from "../services/user-info.service";
 import {EnvironmentConfig} from "../config/environment.config";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Injectable({providedIn: 'root'})
 export class ChessService {

@@ -31,7 +31,7 @@ export class ChessUpdateEventCategoryComponent {
   private readonly chessService = inject(ChessService);
 
   categories = rxResource({
-    loader: () => this.chessService.eventCategories(),
+      stream: () => this.chessService.eventCategories(),
   })
   selectedCategory = signal<ChessEventCategory | undefined>(undefined)
 

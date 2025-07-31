@@ -3,14 +3,14 @@
   aria-label="Toggle Sidebar"
   [ariaLabel]="'Toggle Sidebar'"
   (click)="sidebarVisible.set(!sidebarVisible())"
->
+  >
   <fa-icon [icon]="buttonIcon"></fa-icon>
 </p-button>
 
 <p-drawer
   [(visible)]="sidebarVisible"
   [position]="'left'"
->
+  >
   <ng-template #header>
     <div class="flex items-center gap-2">
       <span class="font-bold"> {{"navigation.navigation" | translate}} </span>
@@ -20,15 +20,19 @@
   <p-menu
     [model]="navItems()"
     [dt]="menuStyle"
-  >
+    >
     <ng-template #submenuheader let-item>
-      <span class="text-primary font-bold" *ngIf="anyItemsVisible(item.items)">{{ item.label | translate }}</span>
+      @if (anyItemsVisible(item.items)) {
+        <span class="text-primary font-bold">{{ item.label | translate }}</span>
+      }
     </ng-template>
     <ng-template #item let-item>
-      <a pRipple class="flex items-center p-menu-item-link" *ngIf="item.visible">
-        <fa-icon [icon]="item.customIcon"></fa-icon>
-        <span class="ml-2">{{ item.label | translate }}</span>
-      </a>
+      @if (item.visible) {
+        <a pRipple class="flex items-center p-menu-item-link">
+          <fa-icon [icon]="item.customIcon"></fa-icon>
+          <span class="ml-2">{{ item.label | translate }}</span>
+        </a>
+      }
     </ng-template>
   </p-menu>
 
@@ -38,9 +42,9 @@
 
   <div class="mt-2">
     <p-image src="https://hosttech.eu/affiliate/logos/ch-location/ch-location-234x60px-red.svg"
-             alt="Hosttech Schweizer Serverstandort"
-             onclick="window.open('https://www.hosttech.ch/?promocode=31886957', '_blank')"
-    />
-  </div>
+      alt="Hosttech Schweizer Serverstandort"
+      onclick="window.open('https://www.hosttech.ch/?promocode=31886957', '_blank')"
+      />
+    </div>
 
-</p-drawer>
+  </p-drawer>

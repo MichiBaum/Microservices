@@ -4,7 +4,29 @@
   "newProjectRoot": "projects",
   "schematics": {
     "@schematics/angular:component": {
-      "style": "css"
+      "style": "css",
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "projects": {
@@ -16,7 +38,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
             "outputPath": {
               "base": "../website-service/src/main/resources/static",
@@ -87,8 +109,21 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
+          "builder": "@angular/build:dev-server",
+            "options": {
+              "allowedHosts": [
+                "michibaum.ch",
+                  "michibaum.com",
+                  "michibaum.eu",
+                  "michibaum.org",
+                  "michibaum.app",
+                  "michibaum.me",
+                  "michibaum.net",
+                  "michibaum.info",
+                  "michibaum.xyz"
+              ]
+            },
+            "configurations": {
             "production": {
               "buildTarget": "website:build:production"
             },
@@ -99,7 +134,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "website:build"
           }

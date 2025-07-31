@@ -2,7 +2,6 @@ import {Component, computed, inject} from '@angular/core';
 import {
     faAngleDown,
     faCalendarDays, faChess, faChessKing,
-    faChessQueen,
     faGears,
     faHouse,
     faNewspaper
@@ -11,7 +10,7 @@ import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {Menubar} from "primeng/menubar";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import { NgClass } from "@angular/common";
 import {Ripple} from "primeng/ripple";
 import {Tag} from "primeng/tag";
 import {RouterLink} from "@angular/router";
@@ -33,13 +32,12 @@ import {rxResource} from "@angular/core/rxjs-interop";
     Divider,
     FaIconComponent,
     Menubar,
-    NgIf,
     Ripple,
     Tag,
     RouterLink,
     NgClass,
     TranslatePipe
-  ],
+],
   templateUrl: './chess-navigation.component.html',
   styleUrl: './chess-navigation.component.css'
 })
@@ -54,13 +52,13 @@ export class ChessNavigationComponent {
 
 
   events = rxResource({
-    loader: () => this.chessService.eventsRecentUpcoming()
+    stream: () => this.chessService.eventsRecentUpcoming()
   })
   startOpenings = rxResource({
-    loader: () =>  this.chessService.startingOpenings()
+    stream: () =>  this.chessService.startingOpenings()
   })
   popularOpenings = rxResource({
-    loader: () =>  this.chessService.popularOpenings()
+    stream: () =>  this.chessService.popularOpenings()
   })
   sortedEvents = computed(() => {
     const events = this.events.value()

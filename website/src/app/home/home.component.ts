@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {Sides} from "../core/config/sides";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
-import {NgIf} from "@angular/common";
+
 import {PermissionService} from "../core/services/permission.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {ScrollTopModule} from "primeng/scrolltop";
@@ -11,12 +11,11 @@ import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-place
 @Component({
   selector: 'app-home',
   imports: [
-    NgIf,
     TranslateModule,
     ScrollTopModule,
     HomeCardComponent,
     DeferPlaceholderComponent
-  ],
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

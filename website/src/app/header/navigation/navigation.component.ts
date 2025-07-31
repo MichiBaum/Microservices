@@ -3,7 +3,6 @@ import {MenubarModule} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
-import {SidebarModule} from "primeng/sidebar";
 import {Button, ButtonDirective} from "primeng/button";
 import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
@@ -31,25 +30,23 @@ import {ImageModule} from "primeng/image";
 import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
 import {Drawer} from "primeng/drawer";
-import {NgIf} from "@angular/common";
+
 import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-navigation',
     imports: [
-        MenubarModule,
-        SidebarModule,
-        MenuModule,
-        Ripple,
-        FaIconComponent,
-        ImageModule,
-        TranslateModule,
-        LanguageSelectComponent,
-        Drawer,
-        NgIf,
-        ButtonDirective,
-        Button
-    ],
+    MenubarModule,
+    MenuModule,
+    Ripple,
+    FaIconComponent,
+    ImageModule,
+    TranslateModule,
+    LanguageSelectComponent,
+    Drawer,
+    ButtonDirective,
+    Button
+],
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.css'
 })
