@@ -4,47 +4,51 @@
       <app-select-chess-event [events]="events.value() ?? []" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
 
-    <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons.value()?.length !== 0 && persons.value() as _persons">
-      <app-select-chess-person [persons]="_persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
-    </p-fieldset>
+    @if (persons.value()?.length !== 0 && persons.value(); as _persons) {
+        <p-fieldset legend="Select Persons" [toggleable]="true">
+          <app-select-chess-person [persons]="_persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
+        </p-fieldset>
+    }
 
-    <p-fieldset [toggleable]="true" *ngIf="selectedPersons().length == 2">
-      <ng-template #header>
-        Select Accounts
-      </ng-template>
+    @if (selectedPersons().length == 2) {
+        <p-fieldset [toggleable]="true">
+          <ng-template #header>
+            Select Accounts
+          </ng-template>
 
-      <p-table
-        #table
-        [value]="accounts()"
-        [(selection)]="selectedAccounts"
-        selectionMode="multiple"
-        [paginator]="true"
-        [rows]="5"
-        [globalFilterFields]="['username', 'platform']"
-        (onRowSelect)="onSelectedAccountsChange()"
-      >
-        <ng-template #caption>
-          <div class="flex">
-            <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(table)" />
-            <span class="p-input-icon-left ml-auto">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" [(ngModel)]="accountTableSearch" (input)="table.filterGlobal(accountTableSearch, 'contains')" placeholder="Search" />
-            </span>
-          </div>
-        </ng-template>
-        <ng-template #header>
-          <tr>
-            <th>Username</th>
-            <th>Platform</th>
-          </tr>
-        </ng-template>
-        <ng-template #body let-account let-rowIndex="rowIndex">
-          <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
-            <td>{{ account.username }}</td>
-            <td>{{ account.platform }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-fieldset>
+          <p-table
+            #table
+            [value]="accounts()"
+            [(selection)]="selectedAccounts"
+            selectionMode="multiple"
+            [paginator]="true"
+            [rows]="5"
+            [globalFilterFields]="['username', 'platform']"
+            (onRowSelect)="onSelectedAccountsChange()"
+          >
+            <ng-template #caption>
+              <div class="flex">
+                <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(table)" />
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" [(ngModel)]="accountTableSearch" (input)="table.filterGlobal(accountTableSearch, 'contains')" placeholder="Search" />
+                </span>
+              </div>
+            </ng-template>
+            <ng-template #header>
+              <tr>
+                <th>Username</th>
+                <th>Platform</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-account let-rowIndex="rowIndex">
+              <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
+                <td>{{ account.username }}</td>
+                <td>{{ account.platform }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-fieldset>
+    }
 
 </div>

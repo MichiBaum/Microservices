@@ -4,7 +4,6 @@ import {ChessService} from "../../core/api-services/chess.service";
 import {Account, ChessEvent, Person} from "../../core/models/chess/chess.models";
 import {MultiSelectModule} from "primeng/multiselect";
 import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
 import {Table, TableModule} from "primeng/table";
 import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
@@ -22,7 +21,6 @@ import {of} from "rxjs";
     FieldsetModule,
     MultiSelectModule,
     FormsModule,
-    NgIf,
     TableModule,
     IconFieldModule,
     InputIconModule,

@@ -1,12 +1,10 @@
 import {Component, input} from '@angular/core';
 import {NoteResponse} from "../../core/models/alexandria/note.model";
-import {NgIf} from "@angular/common";
 import {Card} from "primeng/card";
 
 @Component({
   selector: 'app-note',
     imports: [
-        NgIf,
         Card
     ],
   templateUrl: './note.component.html',
