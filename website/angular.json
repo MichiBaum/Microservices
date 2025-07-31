@@ -110,7 +110,20 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "configurations": {
+            "options": {
+              "allowedHosts": [
+                "michibaum.ch",
+                  "michibaum.com",
+                  "michibaum.eu",
+                  "michibaum.org",
+                  "michibaum.app",
+                  "michibaum.me",
+                  "michibaum.net",
+                  "michibaum.info",
+                  "michibaum.xyz"
+              ]
+            },
+            "configurations": {
             "production": {
               "buildTarget": "website:build:production"
             },
