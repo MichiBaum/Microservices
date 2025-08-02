@@ -12,14 +12,14 @@
 
   @for (category of categoriesAndEventsSorted(); track category) {
     @if (category.events && category.events.length > 0) {
-      <p-card styleClass="h-full">
+      <p-card class="h-full">
         <ng-template #title>{{category.title}}</ng-template>
         <ng-template #subtitle>{{category.description}}</ng-template>
         <p-timeline [value]="category.events">
-          <ng-template pTemplate="marker" let-event>
+          <ng-template #marker let-event>
             <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
           </ng-template>
-          <ng-template pTemplate="content" let-event>
+          <ng-template #content let-event>
             <div class="cursor-pointer">
               <p class="text-xs">{{ event.dateFrom }} - {{event.dateTo}}</p>
               <p [routerLink]="['/chess/events', event.id]">{{ event.title }}</p>
