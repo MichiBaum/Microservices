@@ -23,7 +23,7 @@
         [globalFilterFields]="['username', 'platform']"
         (onRowSelect)="onSelectedAccountsChange()"
       >
-        <ng-template pTemplate="caption">
+        <ng-template #caption>
           <div class="flex">
             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(table)" />
             <span class="p-input-icon-left ml-auto">
