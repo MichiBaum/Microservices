@@ -46,7 +46,7 @@ class AdminClientServletApplicationFactory(
 
         if (isManagementPortEqual) {
             logger.info("ManagementPort is configured to match ServerPort. Using server.port as management.port")
-            return UriComponentsBuilder.fromHttpUrl(getServiceUrl())
+            return UriComponentsBuilder.fromUriString(getServiceUrl())
                 .path("/")
                 .path(dispatcherServletPrefix)
                 .path(managementContextPath)
