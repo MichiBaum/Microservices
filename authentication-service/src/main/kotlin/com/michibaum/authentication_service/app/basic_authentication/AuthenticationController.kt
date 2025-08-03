@@ -1,9 +1,11 @@
-package com.michibaum.authentication_service.app.authentication
+package com.michibaum.authentication_service.app.basic_authentication
 
 import com.michibaum.authentication_library.AuthenticationEndpoints
 import com.michibaum.authentication_library.PublicKeyDto
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
+import com.michibaum.authentication_service.app.authentication.AuthenticationService
 import com.michibaum.usermanagement_library.*
+import io.micrometer.observation.annotation.Observed
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
 import org.springframework.http.*
@@ -13,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class AuthenticationController (
-    private val authenticationService: AuthenticationService
+    private val authenticationService: AuthenticationService,
+    private val authenticationAttemptService: AuthenticationAttemptService
 ) : AuthenticationEndpoints {
 
     @Autowired
     @Lazy
     lateinit var usermanagementClient: UsermanagementClient
 
+    @Observed(name = "basic-authentication")
     @PublicEndpoint
     @PostMapping(value = ["/api/authenticate"])
     fun authenticate(@RequestBody authenticationDto: AuthenticationDto): ResponseEntity<AuthenticationResponse> {
@@ -28,36 +32,19 @@ class AuthenticationController (
         if(errors.isNotEmpty())
             return ResponseEntity.badRequest().build()
 
-        val userDetailsDto: UserDetailsDto = usermanagementClient.checkUserDetails(loginDto)
-            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        val authenticationResult = authenticationAttemptService.createAttempt(loginDto.username)
+        val userDetailsDto: UserDetailsDto? = usermanagementClient.checkUserDetails(loginDto)
+        if(userDetailsDto == null){
+            authenticationAttemptService.attemptFailed(authenticationResult)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
 
         val jws = authenticationService.generateJWS(userDetailsDto)!!
 
+        authenticationAttemptService.attemptSuccessful(authenticationResult, userDetailsDto.id, jws)
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
         return ResponseEntity.ok()
             .body(responseBody)
-    }
-
-    @PublicEndpoint
-    @PostMapping(value = ["/api/register"])
-    fun register(@RequestBody registerDto: RegisterDto): ResponseEntity<RegisterResponse> {
-        val createUserDto = CreateUserDto(registerDto.username, registerDto.email, registerDto.password)
-        val errors = CreateUserDtoValidator.validate(createUserDto)
-        if(errors.isNotEmpty())
-            return ResponseEntity.badRequest().build()
-
-        val result = try {
-            usermanagementClient.create(createUserDto)
-        } catch (e: Exception) {
-            null
-        }
-
-        if(result != null) {
-            val responseBody = RegisterResponse(RegisterState.SUCCESS, registerDto.username, registerDto.email)
-            return ResponseEntity.status(HttpStatus.CREATED).body(responseBody)
-        }
-        val responseBody = RegisterResponse(RegisterState.ERROR, registerDto.username, registerDto.email)
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(responseBody)
     }
 
     override fun publicKey(): PublicKeyDto {
