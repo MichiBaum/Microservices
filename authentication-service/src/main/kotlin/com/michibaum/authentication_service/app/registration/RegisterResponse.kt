@@ -1,4 +1,4 @@
-package com.michibaum.authentication_service.app.authentication
+package com.michibaum.authentication_service.app.registration
 
 data class RegisterResponse(
     val state: RegisterState,

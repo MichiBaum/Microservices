@@ -35,4 +35,5 @@ class AuthenticationService (
     private fun jwsHeaders(): Map<String, String?> {
         return mapOf(Pair("alg", keyPair.public.algorithm))
     }
+
 }

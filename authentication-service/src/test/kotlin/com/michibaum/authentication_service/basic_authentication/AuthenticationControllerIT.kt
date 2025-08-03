@@ -1,4 +1,4 @@
-package com.michibaum.authentication_service.authentication
+package com.michibaum.authentication_service.basic_authentication
 
 import com.michibaum.authentication_service.TestcontainersConfiguration
 import org.junit.jupiter.api.Test
