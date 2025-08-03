@@ -1,4 +1,4 @@
-package com.michibaum.authentication_service
+package com.michibaum.usermanagement_service
 
 import com.michibaum.ArchitectureRules
 import com.michibaum.NamingRules
@@ -8,7 +8,7 @@ import com.michibaum.StandardRules
 import com.tngtech.archunit.junit.ArchTests
 
 @AnalyzeClasses(packages = ["com.michibaum"])
-class ArchitectureTests {
+class ArchitectureUT {
 
     @ArchTest
     val standardRules = ArchTests.`in`(StandardRules::class.java)
@@ -18,5 +18,5 @@ class ArchitectureTests {
 
     @ArchTest
     val architectureRules = ArchTests.`in`(ArchitectureRules::class.java)
-
+    
 }

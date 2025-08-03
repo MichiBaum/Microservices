@@ -21,7 +21,7 @@
       <value defaultName="wholeProject" />
     </option>
     <patterns>
-      <pattern testClass="com\.michibaum\..*ArchitectureTests" />
+      <pattern testClass="com\.michibaum\..*ArchitectureUT" />
     </patterns>
     <method v="2">
       <option name="Make" enabled="true" />
