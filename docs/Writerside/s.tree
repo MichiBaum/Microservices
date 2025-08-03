@@ -58,4 +58,7 @@
         <toc-element topic="2024-12-30-testcontainers.md"/>
         <toc-element topic="2024-12-24_Documentation.md"/>
     </toc-element>
+    <toc-element topic="Improvements.md">
+        <toc-element topic="2025-06-07.md"/>
+    </toc-element>
 </instance-profile>
