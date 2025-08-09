@@ -5,7 +5,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.client.RestClient
 
-open class AbstractSpotifyApiClient(restClientBuilder: RestClient.Builder, private val apisProperties: ApisProperties) {
+abstract class AbstractSpotifyApiClient(restClientBuilder: RestClient.Builder, private val apisProperties: ApisProperties) {
 
     val client = restClientBuilder
         .baseUrl("https://api.spotify.com/v1")

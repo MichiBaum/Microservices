@@ -1,5 +1,6 @@
-package com.michibaum.music_service.database
+package com.michibaum.music_service.database.spotify
 
+import com.michibaum.music_service.database.Track
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp

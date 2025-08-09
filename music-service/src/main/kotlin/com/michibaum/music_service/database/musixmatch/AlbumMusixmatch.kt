@@ -1,25 +1,22 @@
-package com.michibaum.music_service.database
+package com.michibaum.music_service.database.musixmatch
 
+import com.michibaum.music_service.database.Album
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
-import java.time.LocalDate
 import java.util.*
 
 @Entity
-@Table(name="album")
-data class Album(
+@Table(name="album_musixmatch")
+data class AlbumMusixmatch(
 
-    @Column(nullable = false)
-    val name: String,
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="album_id", nullable=false)
+    val album: Album,
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Artist::class)
-    @JoinTable(name = "ALBUM_ARTIST_MAPPING", joinColumns = [JoinColumn(name = "album_id")], inverseJoinColumns = [JoinColumn(name = "artist_id")])
-    val artists: List<Artist>,
-
-    @Column(nullable = true)
-    val releaseDate: LocalDate? = null,
+    @Column(nullable = false, unique = true)
+    val musixmatchId: String,
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,7 +27,7 @@ data class Album(
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated", nullable = false)
     val updated: Instant? = null,
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
