@@ -13,7 +13,7 @@ class MusixmatchApiImpl(
     apisProperties: ApisProperties
 ): MusixmatchApi, AbstractMusixmatchApiClient(restClientBuilder, apisProperties) { // https://docs.musixmatch.com/lyrics-api/introduction
 
-    fun getTrackByIsrc(isrc: String){
+    override fun getTrackByIsrc(isrc: String){
         client.get()
             .uri("/track.get")
             .attributes {
