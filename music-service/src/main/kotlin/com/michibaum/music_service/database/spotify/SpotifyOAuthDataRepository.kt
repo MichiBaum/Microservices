@@ -1,4 +1,4 @@
-package com.michibaum.music_service.database
+package com.michibaum.music_service.database.spotify
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
