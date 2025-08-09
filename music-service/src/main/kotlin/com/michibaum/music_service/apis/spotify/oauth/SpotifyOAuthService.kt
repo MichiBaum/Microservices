@@ -1,10 +1,10 @@
 package com.michibaum.music_service.apis.spotify.oauth
 
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
-import com.michibaum.music_service.database.SpotifyOAuthCredentials
-import com.michibaum.music_service.database.SpotifyOAuthCredentialsRepository
-import com.michibaum.music_service.database.SpotifyOAuthData
-import com.michibaum.music_service.database.SpotifyOAuthDataRepository
+import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
+import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentialsRepository
+import com.michibaum.music_service.database.spotify.SpotifyOAuthData
+import com.michibaum.music_service.database.spotify.SpotifyOAuthDataRepository
 import org.springframework.stereotype.Service
 import java.security.SecureRandom
 import java.time.Instant

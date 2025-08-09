@@ -18,7 +18,7 @@ class ArtistController(
 ) {
 
     @PublicEndpoint
-    @GetMapping("/api/artists")
+    @GetMapping("/api/artists/search")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun searchArtist(@RequestParam name: String): List<ArtistDto> {
         return artistService.find(name)
@@ -40,6 +40,16 @@ class ArtistController(
         } catch (ex: Exception) {
             ResponseEntity.internalServerError().build()
         }
+    }
+
+    @GetMapping("/api/artists/top")
+    fun getTopArtists(){
+        
+    }
+
+    @GetMapping("/api/artists/my-top")
+    fun getMyTopArtists(){
+        
     }
 
 }

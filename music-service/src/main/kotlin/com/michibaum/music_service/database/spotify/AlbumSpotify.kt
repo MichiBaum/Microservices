@@ -1,5 +1,6 @@
-package com.michibaum.music_service.database
+package com.michibaum.music_service.database.spotify
 
+import com.michibaum.music_service.database.Album
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
@@ -7,15 +8,15 @@ import java.time.Instant
 import java.util.*
 
 @Entity
-@Table(name="artist_musixmatch")
-data class ArtistMusixmatch(
+@Table(name="album_spotify")
+data class AlbumSpotify(
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="artist_id", nullable=false)
-    val artist: Artist,
+    @JoinColumn(name="album_id", nullable=false)
+    val album: Album,
 
     @Column(nullable = false, unique = true)
-    val musixmatchId: String,
+    val spotifyId: String,
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

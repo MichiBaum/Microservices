@@ -99,3 +99,11 @@ CREATE TABLE album_artist_mapping (
     CONSTRAINT fk_albumartistmapping_album FOREIGN KEY (album_id) REFERENCES album (id),
     CONSTRAINT fk_albumartistmapping_artist FOREIGN KEY (artist_id) REFERENCES artist (id)
 );
+
+CREATE TABLE spotify_account_activated (
+    id UUID NOT NULL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    CONSTRAINT uk_user_id UNIQUE (user_id),
+    CONSTRAINT uk_email UNIQUE (email)
+)
