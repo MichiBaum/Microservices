@@ -7,14 +7,14 @@
       [filter]="true"
       [filterMatchMode]="'contains'"
       >
-      <ng-template pTemplate="selectedItem">
+      <ng-template #selectedItem let-selectedOption>
         @if (selectedSleep) {
           <div class="flex items-center gap-2">
             <div>{{ selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
           </div>
         }
       </ng-template>
-      <ng-template let-sleep pTemplate="item">
+      <ng-template #item let-sleep>
         <div class="flex items-center gap-2">
           <div>{{ sleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
         </div>

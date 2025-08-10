@@ -2,12 +2,11 @@
   <p-organization-chart
     [value]="moveTree()"
     [collapsible]="true"
-    [preserveSpace]="false"
     [selectionMode]="'single'"
     (onNodeSelect)="onNodeSelect($event)"
     (onNodeUnselect)="onNodeUnselect($event)"
     >
-    <ng-template let-move pTemplate="default">
+    <ng-template let-move pTemplate="default"> <!-- TODO deprecated pTemplate -->
       <div class="flex flex-col items-center" >
         <div class="font-bold">{{ move.label }}</div>
         @if (move.data.openingName && move.data.openingName !== '' && move.data.openingName; as openingName) {
@@ -31,4 +30,3 @@
     </ng-template>
   </p-organization-chart>
 </div>
-

@@ -1,8 +1,8 @@
 <p-timeline [value]="eventsSorted()">
-  <ng-template pTemplate="marker" let-event>
+  <ng-template #marker let-event>
     <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
   </ng-template>
-  <ng-template pTemplate="content" let-event>
+  <ng-template #content let-event>
     <div class="cursor-pointer">
       <p class="text-xs">{{ event.dateFrom }} - {{event.dateTo}}</p>
       <p class="text-xs text-muted-color">{{ joinEventCategories(event) }}</p>

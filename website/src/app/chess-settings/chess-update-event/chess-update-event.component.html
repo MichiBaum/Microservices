@@ -24,12 +24,12 @@
         </p-floatlabel>
 
         <p-floatlabel variant="in" class="mb-2">
-          <p-datePicker id="dateFrom" formControlName="dateFrom" dateFormat="dd.mm.yy" styleClass="w-full"></p-datePicker>
+          <p-datePicker id="dateFrom" formControlName="dateFrom" dateFormat="dd.mm.yy" class="w-full"></p-datePicker>
           <label for="dateFrom">Start</label>
         </p-floatlabel>
 
         <p-floatlabel variant="in" class="mb-2">
-          <p-datePicker id="dateTo" formControlName="dateTo" dateFormat="dd.mm.yy" styleClass="w-full"></p-datePicker>
+          <p-datePicker id="dateTo" formControlName="dateTo" dateFormat="dd.mm.yy" class="w-full"></p-datePicker>
           <label for="dateTo">End</label>
         </p-floatlabel>
 
@@ -49,12 +49,12 @@
         </p-floatlabel>
 
         <p-floatlabel variant="in" class="mb-2">
-          <p-select id="platform" formControlName="platform" [options]="platforms" styleClass="w-full" variant="filled" />
+          <p-select id="platform" formControlName="platform" [options]="platforms" class="w-full" variant="filled" />
           <label for="platform">Platform</label>
         </p-floatlabel>
 
         <p-floatlabel variant="in" class="w-full">
-          <p-multiSelect id="category" [options]="categories.value()" optionLabel="title" formControlName="categories" styleClass="w-full"/>
+          <p-multiSelect id="category" [options]="categories.value()" optionLabel="title" formControlName="categories" class="w-full"/>
           <label for="category">Categories</label>
         </p-floatlabel>
 
