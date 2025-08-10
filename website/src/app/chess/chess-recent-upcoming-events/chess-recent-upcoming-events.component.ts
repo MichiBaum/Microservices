@@ -13,7 +13,6 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
   selector: 'app-chess-recent-upcoming-events',
   imports: [
     FaIconComponent,
-    PrimeTemplate,
     Timeline,
     RouterLink,
     EventIconPipe,
