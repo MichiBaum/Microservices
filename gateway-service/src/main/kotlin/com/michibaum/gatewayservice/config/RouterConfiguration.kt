@@ -33,12 +33,8 @@ class RouterConfiguration {
         circuitBreakerFactory: CircuitBreakerFactory<*, *>
     ): RouterFunction<ServerResponse> {
         return route()
-            .route(host("babymetal.ch")) { _ -> // TODO implement custom fansite for babymetal.ch
-//                val path = req.uri().path
-//                val query = req.uri().rawQuery?.let { "?$it" } ?: ""
-//                val uriString = "https://babymetal.com$path$query"
-                ServerResponse.temporaryRedirect(URI.create("https://babymetal.com")).build()
-            }
+            .route(host("babymetal.ch"), applyCircuitBreaker(lb(BABYMETAL.id).apply(http()),
+                BABYMETAL, circuitBreakerFactory))
 
             .route(host("hanabie.ch")) { _ -> // TODO implement custom fansite for hanabie.ch
                 ServerResponse.temporaryRedirect(URI.create("https://hanabie.jp/en")).build()
