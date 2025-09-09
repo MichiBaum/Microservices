@@ -12,8 +12,8 @@ This handbook explains how we manage versions and publish releases using the Git
 
 - master: production-ready history (only releases and hotfixes are merged here)
 - develop: next release integration branch
-- feature/<name>: branches from develop, merged back into develop
-- hotfix/<x.y.z>: branches from master to quickly patch production
+- feature/name: branches from develop, merged back into develop
+- hotfix/x.y.z: branches from master to quickly patch production
 
 We follow Semantic Versioning (SemVer): MAJOR.MINOR.PATCH
 - MAJOR: incompatible changes
