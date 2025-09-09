@@ -5,6 +5,7 @@
 <instance-profile id="s" name="Microservices Docs" start-page="Overview.md">
     <toc-element topic="Overview.md"/>
     <toc-element topic="Development.md">
+        <toc-element topic="Git-Version-and-Release.md"/>
         <toc-element topic="Project-structure.md"/>
         <toc-element topic="Local-Database.md"/>
         <toc-element topic="Local-docker-compose.md"/>

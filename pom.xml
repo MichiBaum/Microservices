@@ -61,7 +61,7 @@
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
-        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+        <gitflow-plugin.version>1.21.0</gitflow-plugin.version>
 
         <!-- Dependency override due to security risks -->
         <xstream.version>1.4.21</xstream.version>
@@ -295,9 +295,34 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven-release-plugin.version}</version>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>${gitflow-plugin.version}</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <installProject>false</installProject>
+                    <mvnExecutable>mvnw</mvnExecutable>
+                    <pushRemote>true</pushRemote>
+                    <gitFlowConfig>
+                        <productionBranch>master</productionBranch>
+                        <developmentBranch>develop</developmentBranch>
+
+                        <featureBranchPrefix>feature/</featureBranchPrefix>
+                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+                    </gitFlowConfig>
+                    <argLine>-DprocessAllModules</argLine>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>gitflow-feature-finish</id>
+                        <goals>
+                            <goal>feature-finish</goal>
+                        </goals>
+                        <configuration>
+                            <keepBranch>false</keepBranch>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
 		</plugins>
