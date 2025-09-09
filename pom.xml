@@ -310,6 +310,7 @@
                         <featureBranchPrefix>feature/</featureBranchPrefix>
                         <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
                     </gitFlowConfig>
+                    <argLine>-DprocessAllModules</argLine>
                 </configuration>
                 <executions>
                     <execution>
