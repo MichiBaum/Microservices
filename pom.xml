@@ -60,7 +60,7 @@
         <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+        <!-- https://github.com/aleksandr-m/gitflow-maven-plugin -->
         <gitflow-plugin.version>1.21.0</gitflow-plugin.version>
 
         <!-- Dependency override due to security risks -->
@@ -324,7 +324,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 		</plugins>
     </build>
 
