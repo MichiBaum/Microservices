@@ -100,7 +100,7 @@ class ApiServiceImpl(
         if (result == null)
             return Error("")
 
-        val gameDtos = result.mapNotNull { converter.convert(it) }
+        val gameDtos = result.map { converter.convert(it) }
         return Success(gameDtos)
     }
 

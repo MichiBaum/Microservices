@@ -38,8 +38,6 @@ spring:
         password: admin_password
 
 eureka:
-  dashboard:
-    enabled: true
   instance:
     prefer-ip-address: true
   client:

@@ -1,7 +1,6 @@
 package com.michibaum.fitness_service.fitbit.api.sleep
 
 import com.michibaum.fitness_service.api.sleep.Sleep
-import com.michibaum.fitness_service.api.sleep.SleepStage
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Inheritance

@@ -21,7 +21,7 @@ class UsermanagementController (
         val user = userService.findByUsername(loginDto.username)
         if (user == null) {
             // Prevent timing to check user exists
-            var sleepTime = (150L..250L).random()
+            val sleepTime = (150L..250L).random()
             Thread.sleep(sleepTime)
             return null
         }
