@@ -1,7 +1,6 @@
-package com.michibaum.usermanagement_service
+package com.michibaum.usermanagement_service.database
 
 import jakarta.persistence.*
-import jakarta.persistence.FetchType.EAGER
 import java.util.*
 
 @Entity
@@ -14,10 +13,6 @@ class User (
 
     @Column(nullable = false)
     val password: String,
-
-    @ManyToMany(fetch = EAGER, targetEntity = Permission::class)
-    @JoinTable(name = "USER_PERMISSION_MAPPING", joinColumns = [JoinColumn(name = "user_id")], inverseJoinColumns = [JoinColumn(name = "permission_id")])
-    val permissions: Set<Permission>,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

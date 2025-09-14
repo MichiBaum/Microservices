@@ -19,10 +19,6 @@ open class Sleep(
     @Column(nullable = false)
     val duration: Long,
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = SleepStage::class, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "sleep_id", referencedColumnName = "id")
-    val stages: Set<SleepStage>,
-
     @Column(nullable = false, unique = false)
     val userId: String,
 

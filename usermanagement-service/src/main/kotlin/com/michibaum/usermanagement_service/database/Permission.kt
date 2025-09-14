@@ -1,4 +1,4 @@
-package com.michibaum.usermanagement_service
+package com.michibaum.usermanagement_service.database
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
