@@ -34,25 +34,25 @@ class PublicEndpointResolver(
 
         val endpoints = staticPublicEndpoints + mappings
 
-        logger.info("Found ${endpoints.size} public endpoints")
+        logger.info("Found {} public endpoints", endpoints.size)
         for (endpoint in endpoints) {
-            logger.info("Mapping: ${endpoint.httpMethod} '${endpoint.rawPath}' converted to: '${endpoint.path}'")
+            logger.info("Mapping: {} '{}' converted to: '{}'", endpoint.httpMethod, endpoint.rawPath, endpoint.path)
         }
         return endpoints
     }
 
 
     private fun getMethodsAnnotatedWith(type: Class<*>): List<Method> {
-        logger.debug("Searching for methods annotated with ${publicAnnotation.name} in class: ${type.name}")
+        logger.debug("Searching for methods annotated with {} in class: {}", publicAnnotation.name, type.name)
         val methods: Array<Method> = type.methods
-        logger.debug("Found ${methods.size} methods")
+        logger.debug("Found {} methods", methods.size)
         val annotatedMethods: MutableList<Method> = ArrayList(methods.size)
         for (method in methods) {
             if (method.isAnnotationPresent(publicAnnotation)) {
                 annotatedMethods.add(method)
             }
         }
-        logger.debug("Found ${annotatedMethods.size} annotated methods")
+        logger.debug("Found {} annotated methods", annotatedMethods.size)
         return annotatedMethods
     }
 
@@ -63,7 +63,7 @@ class PublicEndpointResolver(
     }
 
     private fun getMappingValue(method: Method): List<PublicEndpointDetails> {
-        logger.debug("Searching for mapping annotation on method: ${method.name}")
+        logger.debug("Searching for mapping annotation on method: {}", method.name)
 
         val mappings = ArrayList<PublicEndpointDetails>()
 
@@ -132,7 +132,7 @@ class PublicEndpointResolver(
     }
 
     private fun getAllRestController(): List<Class<*>> {
-        logger.debug("Searching for all RestController in packages: ${packageName.joinToString(", ")}")
+        logger.debug("Searching for all RestController in packages: {}", packageName.joinToString(", "))
         val scanner = ClassPathScanningCandidateComponentProvider(false)
         scanner.addIncludeFilter(AnnotationTypeFilter(RestController::class.java))
         val beanDefinitions = packageName
@@ -140,9 +140,9 @@ class PublicEndpointResolver(
             .flatten()
             .filterNotNull()
 
-        logger.debug("Found ${beanDefinitions.size} RestController")
+        logger.debug("Found {} RestController", beanDefinitions.size)
         val classes = beanDefinitions.mapNotNull { Class.forName(it.beanClassName) }.toList()
-        logger.debug("Resolved ${classes.size} classes of RestController")
+        logger.debug("Resolved {} classes of RestController", classes.size)
         return classes
     }
 
