@@ -262,12 +262,36 @@ export const routes: Routes = [
         path: 'music',
         loadComponent: () => import("./music/music.component").then((c) => c.MusicComponent),
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
-        data: {"permissions": [Permissions.MUSIC_SERVICE]}
+        data: {"permissions": [Permissions.MUSIC_SERVICE]},
+        children: [
+            {
+                path: "library",
+
+            },
+            {
+                path: "spotify",
+                loadComponent: () => import("./music/music-spotify/music-spotify.component").then((c) => c.MusicSpotifyComponent),
+                canActivate: [isAuthenticatedGuard, isPermittedGuard],
+                data: {"permissions": [Permissions.MUSIC_SERVICE]},
+            },
+            {
+                path: "settings",
+                loadComponent: () => import("./music/music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
+                canActivate: [isAuthenticatedGuard, isPermittedGuard],
+                data: {"permissions": [Permissions.MUSIC_SERVICE]},
+            }
+        ]
     },
     {
-        path: Sides.music_settings.navigation, // TODO remove like chess settings
-        loadComponent: () => import("./music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
+        path: 'vpn',
+        loadComponent: () => import("./vpn/vpn.component").then((c) => c.VpnComponent),
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
-        data: {"permissions": [Permissions.MUSIC_SERVICE]}
+        title: titleResolver,
+        data: {
+            "tabTitle": (translate: TranslateService) => translate.get("vpn.tab-title"),
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("vpn.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("vpn.meta-description"),
+            "permissions": [Permissions.VPN_SERVICE_OWN_USER, Permissions.VPN_SERVICE_ALL_USERS]
+        }
     }
 ];
