@@ -5,7 +5,9 @@ import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.music_service.config.properties.ApisProperties
 import com.michibaum.music_service.config.properties.SpotifyOAuthProperties
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.client.RestClient
+import java.net.URI
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -44,7 +47,10 @@ class SpotifyOAuthController(
 
     @GetMapping("/api/spotify/token")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun token(principal: JwtAuthentication): SpotifyLoginDto {
+    fun token(principal: JwtAuthentication): ResponseEntity<SpotifyLoginDto> {
+        // TODO check if user is allowed to login. Spotify app needs email of user
+        //  return ResponseEntity.status(HttpStatus.FORBIDDEN)
+        
         val oAuthData = spotifyOAuthService.generateData(principal)
 
         val redirectUri = URLEncoder.encode("https://music.michibaum.ch/api/spotify/auth", StandardCharsets.UTF_8)
@@ -66,18 +72,20 @@ class SpotifyOAuthController(
             "&redirect_uri=$redirectUri" +
             "&state=${oAuthData.state}"
 
-        return SpotifyLoginDto(
+        val spotifyLoginDto = SpotifyLoginDto(
             clientId = spotifyOAuthProperties.clientId,
             state = oAuthData.state,
             url = url
         )
+        return ResponseEntity.ok(spotifyLoginDto)
     }
 
     @PublicEndpoint
     @GetMapping("/api/spotify/auth")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun authorizationCode(@RequestParam code: String, @RequestParam state: String) {
-        val oAuthData = spotifyOAuthService.findByState(state) ?: throw Exception("No oAuthData found by state $state")
+    fun authorizationCode(@RequestParam code: String, @RequestParam state: String): ResponseEntity<Void> {
+        val oAuthData = spotifyOAuthService.findByState(state)
+            ?: throw Exception("No oAuthData found by state $state")
 
         val data = SpotifyOAuthDto(
             code,
@@ -90,16 +98,24 @@ class SpotifyOAuthController(
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .body(data)// TODO needs testing
             .retrieve()
-            .onStatus({ t -> t.is4xxClientError }, { _, _ -> })
-            .body(SpotifyOAuthCredentialsDto::class.java)
+            .toEntity(SpotifyOAuthCredentialsDto::class.java)
 
-        if(response == null){
-            throw Exception("Spotify OAuth exchange for access token returned null")
+        if(response.statusCode != HttpStatus.OK){
+            return redirectResponse()
         }
+        val body = response.body 
+            ?: return redirectResponse()
 
-        val credentials = spotifyOAuthService.save(response, oAuthData)
-
-        // TODO redirect to (host)/music
+        val credentials = spotifyOAuthService.save(body, oAuthData)
+        
+        return redirectResponse()
     }
+
+    private fun redirectResponse(): ResponseEntity<Void> = 
+        ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
+        .headers { headers ->
+            headers.location = URI("https://michibaum.ch/music")
+        }
+        .build()
 
 }

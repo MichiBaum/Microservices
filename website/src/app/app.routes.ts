@@ -262,9 +262,12 @@ export const routes: Routes = [
     {
         path: 'music',
         loadComponent: () => import("./music/music.component").then((c) => c.MusicComponent),
-        canActivate: [isAuthenticatedGuard, isPermittedGuard],
         data: {"permissions": [Permissions.MUSIC_SERVICE]},
         children: [
+            {
+                path: "library",
+
+            },
             {
                 path: "spotify",
                 loadComponent: () => import("./music/music-spotify/music-spotify.component").then((c) => c.MusicSpotifyComponent),

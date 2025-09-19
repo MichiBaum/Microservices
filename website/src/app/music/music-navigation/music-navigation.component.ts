@@ -1,4 +1,4 @@
-import {Component, computed, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {Menubar} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
 import {TranslatePipe} from "@ngx-translate/core";
@@ -11,6 +11,7 @@ import {Tag} from "primeng/tag";
 import {faAngleDown, faGears, faHouse, faMusic} from "@fortawesome/free-solid-svg-icons";
 import {RouterLink} from "@angular/router";
 import {faSpotify} from "@fortawesome/free-brands-svg-icons";
+import {PermissionService} from "../../core/services/permission.service";
 
 @Component({
   selector: 'app-music-navigation',
@@ -33,6 +34,8 @@ export class MusicNavigationComponent {
     protected readonly faAngleDown = faAngleDown;
     protected readonly faMusic = faMusic;
 
+    private readonly permissionService = inject(PermissionService);
+
     spotifyAuthenticated = signal(true) // TODO
 
     menuItems = computed<MenuItem[]>(() => {
@@ -46,6 +49,26 @@ export class MusicNavigationComponent {
                 label: 'music.navigation.home',
                 customIcon: faHouse,
                 routerLink: '/music'
+            },
+            {
+                label: 'music.navigation.library',
+                customIcon: faMusic,
+                routerLink: '/music/library',
+                visible: this.permissionService.isAuthenticated(),
+                items: [
+                    {
+                        label: 'music.navigation.artists',
+                        routerLink: '/music/library/artists'
+                    },
+                    {
+                        label: 'music.navigation.albums',
+                        routerLink: '/music/library/albums'
+                    },
+                    {
+                        label: 'music.navigation.tracks',
+                        routerLink: '/music/library/tracks'
+                    }
+                ]
             },
             {
                 label: 'music.navigation.spotify',
