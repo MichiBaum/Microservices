@@ -16,7 +16,7 @@ data class Album(
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Artist::class)
     @JoinTable(name = "ALBUM_ARTIST_MAPPING", joinColumns = [JoinColumn(name = "album_id")], inverseJoinColumns = [JoinColumn(name = "artist_id")])
-    val artists: List<Artist>,
+    val artists: MutableSet<Artist>,
 
     @Column(nullable = true)
     val releaseDate: LocalDate? = null,
