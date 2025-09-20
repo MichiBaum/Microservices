@@ -1,6 +1,7 @@
 package com.michibaum.music_service.apis.spotify.oauth
 
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
+import com.michibaum.music_service.database.spotify.SpotifyAccountActivatedRepository
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentialsRepository
 import com.michibaum.music_service.database.spotify.SpotifyOAuthData
@@ -14,6 +15,7 @@ import java.util.*
 class SpotifyOAuthService(
     private val spotifyOAuthDataRepository: SpotifyOAuthDataRepository,
     private val spotifyOAuthCredentialsRepository: SpotifyOAuthCredentialsRepository,
+    private val spotifyAccountActivatedRepository: SpotifyAccountActivatedRepository,
 ) {
 
     fun generateData(principal: JwtAuthentication): SpotifyOAuthData {
@@ -61,4 +63,7 @@ class SpotifyOAuthService(
     fun activeCredentialsByUser(userId: String): SpotifyOAuthCredentials? =
         spotifyOAuthCredentialsRepository.findByUserIdAndDeactivatedFalse(userId)
 
+    
+    fun isSpotifyAccountEnabled(userId: String): Boolean =
+        spotifyAccountActivatedRepository.existsByUserId(userId)
 }
