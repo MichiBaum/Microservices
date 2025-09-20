@@ -12,6 +12,8 @@ import {faAngleDown, faGears, faHouse, faMusic} from "@fortawesome/free-solid-sv
 import {RouterLink} from "@angular/router";
 import {faSpotify} from "@fortawesome/free-brands-svg-icons";
 import {PermissionService} from "../../core/services/permission.service";
+import {rxResource} from "@angular/core/rxjs-interop";
+import {MusicService} from "../../core/api-services/music.service";
 
 @Component({
   selector: 'app-music-navigation',
@@ -35,11 +37,15 @@ export class MusicNavigationComponent {
     protected readonly faMusic = faMusic;
 
     private readonly permissionService = inject(PermissionService);
+    private readonly musicSerivce = inject(MusicService);
 
-    spotifyAuthenticated = signal(true) // TODO
+    spotifyAuthenticated = rxResource({
+        stream: () => this.musicSerivce.usageAllowed(),
+        defaultValue: false
+    })
 
     menuItems = computed<MenuItem[]>(() => {
-        const spotifyAuthenticated = this.spotifyAuthenticated()
+        const spotifyAuthenticated = this.spotifyAuthenticated.value()
         return this.createMenuItems(spotifyAuthenticated)
     })
 
@@ -77,7 +83,7 @@ export class MusicNavigationComponent {
                 routerLink: '/music/spotify'
             },
             {
-                label: 'chess.navigation.settings',
+                label: 'music.navigation.settings',
                 customIcon: faGears,
                 routerLink: '/music/settings'
             }

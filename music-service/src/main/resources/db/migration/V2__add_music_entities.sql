@@ -106,4 +106,19 @@ CREATE TABLE spotify_account_activated (
     email VARCHAR(255) NOT NULL,
     CONSTRAINT uk_user_id UNIQUE (user_id),
     CONSTRAINT uk_email UNIQUE (email)
-)
+);
+
+CREATE TABLE record_label (
+    id UUID NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    created DATETIME(6) NOT NULL,
+    updated DATETIME(6) NOT NULL,
+);
+
+CREATE TABLE record_label_artist_mapping (
+    record_label_id UUID NOT NULL,
+    artist_id UUID NOT NULL,
+    PRIMARY KEY (record_label_id, artist_id),
+    CONSTRAINT fk_recordlabelartistmapping_record_label FOREIGN KEY (record_label_id) REFERENCES record_label (id),
+    CONSTRAINT fk_recordlabelartistmapping_artist FOREIGN KEY (artist_id) REFERENCES artist (id)
+);
