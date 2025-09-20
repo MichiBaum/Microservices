@@ -37,23 +37,7 @@ The files can be placed under `/etc/letsencrypt/scripts` else the command has to
 # 1. Set your API token in scripts/hosttech-config.sh
 # 2. Make the scripts executable: chmod +x scripts/certbot-dns-hosttech-*.sh
 
-certbot certonly \
-  --manual \
-  --preferred-challenges=dns \
-  --email security@michibaum.ch \
-  --server https://acme-v02.api.letsencrypt.org/directory \
-  --agree-tos \
-  --manual-auth-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-auth.sh \
-  --manual-cleanup-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-cleanup.sh \
-  -d michibaum.ch -d *.michibaum.ch \
-  -d michibaum.com -d *.michibaum.com \
-  -d michibaum.eu -d *.michibaum.eu \
-  -d michibaum.org -d *.michibaum.org \
-  -d michibaum.app -d *.michibaum.app \
-  -d michibaum.me -d *.michibaum.me \
-  -d michibaum.net -d *.michibaum.net \
-  -d michibaum.info -d *.michibaum.info \
-  -d michibaum.xyz -d *.michibaum.xyz
+certbot certonly --manual --preferred-challenges=dns --email security@michibaum.ch --server https://acme-v02.api.letsencrypt.org/directory --agree-tos --manual-auth-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-auth.sh --manual-cleanup-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-cleanup.sh -d michibaum.ch -d *.michibaum.ch -d michibaum.com -d *.michibaum.com -d michibaum.eu -d *.michibaum.eu -d michibaum.org -d *.michibaum.org -d michibaum.app -d *.michibaum.app -d michibaum.me -d *.michibaum.me -d michibaum.net -d *.michibaum.net -d michibaum.info -d *.michibaum.info -d michibaum.xyz -d *.michibaum.xyz -d baumberger-software.ch -d *.baumberger-software.ch -d baumberger-software.com -d *.baumberger-software.com -d babymetal.ch -d *.babymetal.ch -d bb-einsiedeln.ch -d *.bb-einsiedeln.ch -d einsiedeln.beer -d *.einsiedeln.beer -d einsiedeln.shop -d *.einsiedeln.shop -d einsiedeln.store -d *.einsiedeln.store 
 ```
 
 ## Result
