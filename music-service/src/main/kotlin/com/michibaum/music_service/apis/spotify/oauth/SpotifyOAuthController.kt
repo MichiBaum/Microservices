@@ -4,6 +4,7 @@ import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.music_service.config.properties.ApisProperties
 import com.michibaum.music_service.config.properties.SpotifyOAuthProperties
+import com.michibaum.music_service.database.spotify.SpotifyAccountActivatedRepository
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -44,13 +45,22 @@ class SpotifyOAuthController(
             }
             .build()
     }
+    
+    @GetMapping("/api/spotify/usage-allowed")
+    fun usageAllowed(principal: JwtAuthentication): Boolean = 
+        spotifyOAuthService.isSpotifyAccountEnabled(principal.getUserId())
 
     @GetMapping("/api/spotify/token")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun token(principal: JwtAuthentication): ResponseEntity<SpotifyLoginDto> {
-        // TODO check if user is allowed to login. Spotify app needs email of user
-        //  return ResponseEntity.status(HttpStatus.FORBIDDEN)
+        if (principal.getUserId().isBlank()){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+        }
         
+        if(!spotifyOAuthService.isSpotifyAccountEnabled(principal.getUserId())){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+        }
+       
         val oAuthData = spotifyOAuthService.generateData(principal)
 
         val redirectUri = URLEncoder.encode("https://music.michibaum.ch/api/spotify/auth", StandardCharsets.UTF_8)

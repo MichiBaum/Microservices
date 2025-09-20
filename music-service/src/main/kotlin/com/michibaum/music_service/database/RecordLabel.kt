@@ -17,6 +17,9 @@ import java.util.UUID
 @Table(name="record_label")
 data class RecordLabel(
 
+    @Column(name = "name", nullable = false)
+    val name: String,
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
