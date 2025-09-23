@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.michibaum</groupId>
         <artifactId>microservice</artifactId>
-        <version>1.0.0-version-updates</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>music-service</artifactId>
@@ -93,18 +93,18 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-discord</artifactId>
-            <version>1.0.0-version-updates</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-authentication</artifactId>
-            <version>1.0.0-version-updates</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>archunittests</artifactId>
             <scope>test</scope>
-            <version>1.0.0-version-updates</version>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>
