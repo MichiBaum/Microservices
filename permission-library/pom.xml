@@ -5,7 +5,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.0.0</version>
+        <version>1.0.0-version-updates</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
