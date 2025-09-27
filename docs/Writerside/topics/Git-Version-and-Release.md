@@ -48,9 +48,9 @@ Tip: use the Maven Wrapper
 - Finish a feature (merges to develop):
   - ./mvnw -B gitflow:feature-finish -DfeatureName=MY_FEATURE
 - Run a release (start and finish in one step):
-  - ./mvnw -B gitflow:release -DreleaseVersion=1.4.0 -DdevelopmentVersion=1.5.0-SNAPSHOT
+  - ./mvnw -B gitflow:release -DreleaseVersion="1.4.0" -DdevelopmentVersion="1.5.0-SNAPSHOT"
 - Start a hotfix from master:
-  - ./mvnw -B gitflow:hotfix-start -DhotfixVersion=1.4.1
+  - ./mvnw -B gitflow:hotfix-start -DhotfixVersion="1.4.1"
 - Finish a hotfix (merges to master and develop, creates tag):
   - ./mvnw -B gitflow:hotfix-finish
 
@@ -68,7 +68,7 @@ Tip: use the Maven Wrapper
 ### 2) Prepare a release
 1. Ensure develop is green and all features are merged.
 2. Run a release with explicit versions:
-   - ./mvnw -B gitflow:release -DreleaseVersion=1.4.0 -DdevelopmentVersion=1.5.0-SNAPSHOT
+   - ./mvnw -B gitflow:release -DreleaseVersion="1.4.0" -DdevelopmentVersion="1.5.0-SNAPSHOT"
    - By default: pushes to origin. Override with -DpushRemote=false if needed.
    - Actions performed by the plugin:
      - Merge release/1.4.0 into master, tag the release (e.g., 1.4.0)
@@ -77,7 +77,7 @@ Tip: use the Maven Wrapper
 
 ### 3) Emergency hotfix
 1. Start from master:
-   - ./mvnw -B gitflow:hotfix-start -DhotfixVersion=1.4.1
+   - ./mvnw -B gitflow:hotfix-start -DhotfixVersion="1.4.1"
    - Versions across modules are set to 1.4.1 on hotfix/1.4.1.
 2. Commit the fix, verify tests.
 3. Finish and push:
