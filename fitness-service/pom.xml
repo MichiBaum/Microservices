@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.michibaum</groupId>
         <artifactId>microservice</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.1.1</version>
     </parent>
 
     <artifactId>fitness-service</artifactId>
@@ -93,18 +93,18 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-discord</artifactId>
-            <version>1.2.0-SNAPSHOT</version>
+            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-authentication</artifactId>
-            <version>1.2.0-SNAPSHOT</version>
+            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>archunittests</artifactId>
             <scope>test</scope>
-            <version>1.2.0-SNAPSHOT</version>
+            <version>1.1.1</version>
         </dependency>
 
         <dependency>
