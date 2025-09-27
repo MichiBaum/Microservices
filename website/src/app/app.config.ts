@@ -12,7 +12,7 @@ import {providePrimeNG} from "primeng/config";
 import {MyPreset} from "./mytheme";
 import {EnvironmentConfig} from "./core/config/environment.config";
 
-export function imageLoaderFactory(environment: EnvironmentConfig){
+export function imageLoaderFactory(environment: EnvironmentConfig): (config: ImageLoaderConfig) => string {
   return (config: ImageLoaderConfig) => {
     if(config.isPlaceholder){
       return `${environment.fe_images() + 'placeholder/' + config.src}`;
