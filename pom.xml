@@ -34,16 +34,16 @@
         <datasource-micrometer-spring-boot.version>1.1.2</datasource-micrometer-spring-boot.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>24</java.version>
-        <maven.compiler.source>24</maven.compiler.source>
-        <maven.compiler.target>24</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
 
         <!--
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
         <kotlin.version>2.2.0</kotlin.version>
-        <kotlin.compiler.jvmTarget>24</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 
         <!--
         https://mockk.io/
