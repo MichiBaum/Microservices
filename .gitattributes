@@ -1,0 +1,70 @@
+# Git Attributes for Microservices monorepo
+# Reference: https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes
+
+# Default to automatic text normalization
+* text=auto
+
+# --- Line endings ---
+# Unix scripts and source files should use LF
+*.sh        text eol=lf
+*.bash      text eol=lf
+mvnw        text eol=lf
+Dockerfile  text eol=lf
+docker-compose.* text eol=lf
+*.kts       text eol=lf
+*.kt        text eol=lf
+*.java      text eol=lf
+*.gradle    text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.json      text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.md        text eol=lf
+*.html      text eol=lf
+*.css       text eol=lf
+*.scss      text eol=lf
+*.xml       text eol=lf
+
+# Windows scripts should use CRLF
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+*.ps1       text eol=crlf
+mvnw.cmd    text eol=crlf
+
+# --- Binary files (prevent EOL normalization and diffs) ---
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.bmp   binary
+*.pdf   binary
+*.zip   binary
+*.tar   binary
+*.gz    binary
+*.7z    binary
+*.jar   binary
+*.war   binary
+*.exe   binary
+*.dll   binary
+*.so    binary
+*.dylib binary
+*.otf   binary
+*.ttf   binary
+*.woff  binary
+*.woff2 binary
+*.mp3   binary
+*.wav   binary
+*.mp4   binary
+*.mov   binary
+
+# --- Diff settings for better readability ---
+*.java diff=java
+*.kt   diff=java
+*.kts  diff=java
+*.xml  text diff=xml
+*.md   text
+*.sql  text

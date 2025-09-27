@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -15,8 +15,8 @@
     <name>chess-service</name>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>24</maven.compiler.source>
+        <maven.compiler.target>24</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -34,7 +34,6 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- TODO needed?? -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -98,23 +97,23 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>usermanagement-library</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-authentication</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-discord</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>archunittests</artifactId>
             <scope>test</scope>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
 
         <dependency>

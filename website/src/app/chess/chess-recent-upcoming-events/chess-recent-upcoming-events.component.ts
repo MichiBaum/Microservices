@@ -13,7 +13,6 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
   selector: 'app-chess-recent-upcoming-events',
   imports: [
     FaIconComponent,
-    PrimeTemplate,
     Timeline,
     RouterLink,
     EventIconPipe,
@@ -26,7 +25,7 @@ export class ChessRecentUpcomingEventsComponent {
   private readonly chessService = inject(ChessService);
 
   events = rxResource({
-    loader: () => this.chessService.eventsRecentUpcoming()
+    stream: () => this.chessService.eventsRecentUpcoming()
   })
   eventsSorted = computed(() => {
     const events = this.events.value()

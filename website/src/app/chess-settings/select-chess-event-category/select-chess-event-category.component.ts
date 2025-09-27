@@ -12,7 +12,6 @@ import {InputIcon} from "primeng/inputicon";
   imports: [
     FormsModule,
     InputTextModule,
-    PrimeTemplate,
     TableModule,
     IconField,
     InputIcon

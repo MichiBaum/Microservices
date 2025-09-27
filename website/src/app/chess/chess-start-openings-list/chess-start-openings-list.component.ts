@@ -15,7 +15,7 @@ export class ChessStartOpeningsListComponent {
     private readonly chessService = inject(ChessService);
 
     openings = rxResource({
-        loader: () =>  this.chessService.startingOpenings()
+        stream: () =>  this.chessService.startingOpenings()
     })
 
 }

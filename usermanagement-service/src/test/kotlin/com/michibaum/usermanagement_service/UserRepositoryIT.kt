@@ -1,5 +1,6 @@
 package com.michibaum.usermanagement_service
 
+import com.michibaum.usermanagement_service.database.UserRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

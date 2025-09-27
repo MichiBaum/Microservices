@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface ChessEngineRepository: JpaRepository<ChessEngine, UUID> {
-}
+interface ChessEngineRepository: JpaRepository<ChessEngine, UUID> 

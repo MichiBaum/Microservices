@@ -1,29 +1,32 @@
 <div class="overflow-x-auto">
-    <p-organization-chart
-        [value]="moveTree()"
-        [collapsible]="true"
-        [preserveSpace]="false"
-        [selectionMode]="'single'"
-        (onNodeSelect)="onNodeSelect($event)"
-        (onNodeUnselect)="onNodeUnselect($event)"
+  <p-organization-chart
+    [value]="moveTree()"
+    [collapsible]="true"
+    [selectionMode]="'single'"
+    (onNodeSelect)="onNodeSelect($event)"
+    (onNodeUnselect)="onNodeUnselect($event)"
     >
-        <ng-template let-move pTemplate="default">
-            <div class="flex flex-col items-center" >
-                <div class="font-bold">{{ move.label }}</div>
-                <div
-                    *ngIf="move.data.openingName && move.data.openingName !== '' && move.data.openingName as openingName"
-                    class="text-sm"
-                >{{ openingName }}</div>
-                <fa-icon [pTooltip]="tooltipContent" *ngIf="move.data.evaluations.length != 0" [icon]="faCircleInfo"></fa-icon>
-                <ng-template #tooltipContent>
-                    <div class="block">
-                        <span class="text-sm block" *ngFor="let eval of move.data.evaluations">
-                            {{'chess.opening.engine-evaluation' | translate: {engine: eval.engineName, version: eval.engineVersion, depth: eval.depth, evaluation: eval.evaluation} }}
-                        </span>
-                    </div>
-                </ng-template>
-            </div>
+    <ng-template let-move pTemplate="default"> <!-- TODO deprecated pTemplate -->
+      <div class="flex flex-col items-center" >
+        <div class="font-bold">{{ move.label }}</div>
+        @if (move.data.openingName && move.data.openingName !== '' && move.data.openingName; as openingName) {
+          <div
+            class="text-sm"
+          >{{ openingName }}</div>
+        }
+        @if (move.data.evaluations.length != 0) {
+          <fa-icon [pTooltip]="tooltipContent" [icon]="faCircleInfo"></fa-icon>
+        }
+        <ng-template #tooltipContent>
+          <div class="block">
+            @for (eval of move.data.evaluations; track eval) {
+              <span class="text-sm block">
+                {{'chess.opening.engine-evaluation' | translate: {engine: eval.engineName, version: eval.engineVersion, depth: eval.depth, evaluation: eval.evaluation} }}
+              </span>
+            }
+          </div>
         </ng-template>
-    </p-organization-chart>
+      </div>
+    </ng-template>
+  </p-organization-chart>
 </div>
-

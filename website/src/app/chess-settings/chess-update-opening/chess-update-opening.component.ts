@@ -26,13 +26,13 @@ export class ChessUpdateOpeningComponent {
     chessService = inject(ChessService);
 
     openings = rxResource({
-      loader: () => this.chessService.openings()
+      stream: () => this.chessService.openings()
     });
     selectedOpening = signal<ChessOpening | undefined>(undefined);
     openingMoves = rxResource({
-        request: () => ({openingId: this.selectedOpening()?.id}),
-        loader: (params) => {
-            const openingId = params.request.openingId
+        params: () => ({openingId: this.selectedOpening()?.id}),
+        stream: (params) => {
+            const openingId = params.params.openingId
             if (openingId == undefined)
                 return of(undefined)
             return this.chessService.openingMoves(openingId)

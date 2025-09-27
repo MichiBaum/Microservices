@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
@@ -15,7 +15,7 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <spring-boot.version>3.5.4</spring-boot.version>
+        <spring-boot.version>3.5.6</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
@@ -27,23 +27,23 @@
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>3.5.1</spring-boot-admin.version>
+        <spring-boot-admin.version>3.5.5</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
         <datasource-micrometer-spring-boot.version>1.1.2</datasource-micrometer-spring-boot.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>21</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <java.version>24</java.version>
+        <maven.compiler.source>24</maven.compiler.source>
+        <maven.compiler.target>24</maven.compiler.target>
 
         <!--
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
         <kotlin.version>2.2.0</kotlin.version>
-        <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.jvmTarget>24</kotlin.compiler.jvmTarget>
 
         <!--
         https://mockk.io/
@@ -60,8 +60,8 @@
         <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
-        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+        <!-- https://github.com/aleksandr-m/gitflow-maven-plugin -->
+        <gitflow-plugin.version>1.21.0</gitflow-plugin.version>
 
         <!-- Dependency override due to security risks -->
         <xstream.version>1.4.21</xstream.version>
@@ -295,11 +295,35 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven-release-plugin.version}</version>
-            </plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>${gitflow-plugin.version}</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <installProject>false</installProject>
+                    <mvnExecutable>mvnw</mvnExecutable>
+                    <pushRemote>true</pushRemote>
+                    <gitFlowConfig>
+                        <productionBranch>master</productionBranch>
+                        <developmentBranch>develop</developmentBranch>
 
+                        <featureBranchPrefix>feature/</featureBranchPrefix>
+                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+                    </gitFlowConfig>
+                    <argLine>-DprocessAllModules</argLine>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>gitflow-feature-finish</id>
+                        <goals>
+                            <goal>feature-finish</goal>
+                        </goals>
+                        <configuration>
+                            <keepBranch>false</keepBranch>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
     </build>
 

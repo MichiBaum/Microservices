@@ -1,7 +1,9 @@
-<div *ngIf="profile">
-  <p>Name: {{profile.fullName}}</p>
-  <p>Country: {{profile.country}}</p>
-  <p>Age: {{profile.age}}</p>
-  <p>Gender: {{profile.gender}}</p>
-  <p>Height: {{profile.height}}</p>
-</div>
+@if (profile) {
+  <div>
+    <p>Name: {{profile.fullName}}</p>
+    <p>Country: {{profile.country}}</p>
+    <p>Age: {{profile.age}}</p>
+    <p>Gender: {{profile.gender}}</p>
+    <p>Height: {{profile.height}}</p>
+  </div>
+}

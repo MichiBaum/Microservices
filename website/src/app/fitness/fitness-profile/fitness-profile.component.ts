@@ -1,13 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FitnessService} from "../../core/api-services/fitness.service";
 import {Profile} from "../../core/models/fitness/profile.model";
-import {NgIf} from "@angular/common";
+
 
 @Component({
   selector: 'app-fitness-profile',
-  imports: [
-    NgIf
-  ],
+  imports: [],
   templateUrl: './fitness-profile.component.html',
   styleUrl: './fitness-profile.component.css'
 })

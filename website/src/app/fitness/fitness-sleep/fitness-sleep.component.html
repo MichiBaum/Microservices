@@ -2,37 +2,37 @@
   <div class="col-span-2">
     <p-select
       [(ngModel)]="selectedSleep"
-      [options]="sleeps"
+      [options]="sleeps.value() ?? []"
       optionLabel="startTime"
       [filter]="true"
       [filterMatchMode]="'contains'"
-    >
-      <ng-template pTemplate="selectedItem">
-        <div class="flex items-center gap-2" *ngIf="selectedSleep">
-          <div>{{ selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
-        </div>
+      >
+      <ng-template #selectedItem let-selectedOption>
+        @if (selectedSleep(); as _selectedSleep) {
+          <div class="flex items-center gap-2">
+            <div>{{ _selectedSleep?.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
+          </div>
+        }
       </ng-template>
-      <ng-template let-sleep pTemplate="item">
+      <ng-template #item let-sleep>
         <div class="flex items-center gap-2">
           <div>{{ sleep.startTime | date: 'dd/MM/yyyy HH:mm' }}</div>
         </div>
       </ng-template>
     </p-select>
 
-    <div *ngIf="selectedSleep">
-      <p>Start: {{selectedSleep.startTime | date: 'dd/MM/yyyy HH:mm'}}</p>
-      <p>End: {{selectedSleep.endTime | date: 'dd/MM/yyyy HH:mm'}}</p>
-      <p>Duration: {{ selectedSleep.duration / 1000 | seconds }}</p>
-      <p>Wake: {{ sumStage(selectedSleep, 'WAKE') | seconds }}</p>
-      <p>Rem: {{ sumStage(selectedSleep, 'REM') | seconds }}</p>
-      <p>Light: {{ sumStage(selectedSleep, 'LIGHT') | seconds }}</p>
-      <p>Deep: {{ sumStage(selectedSleep, 'DEEP') | seconds }}</p>
-    </div>
+    @if (selectedSleep(); as _selectedSleep) {
+        <div>
+          <p>Start: {{_selectedSleep?.startTime | date: 'dd/MM/yyyy HH:mm'}}</p>
+          <p>End: {{_selectedSleep?.endTime | date: 'dd/MM/yyyy HH:mm'}}</p>
+          <p>Duration: {{ (_selectedSleep?.duration ?? 0) / 1000 | seconds }}</p>
+        </div>
+    }
 
   </div>
 
   <div class="col-span-10">
-    <app-sleep-stages-chart [sleepStages]="selectedSleep?.stages"></app-sleep-stages-chart>
+    <app-sleep-stages-chart [sleepStages]="stages.value() ?? []"></app-sleep-stages-chart>
   </div>
 
 </div>

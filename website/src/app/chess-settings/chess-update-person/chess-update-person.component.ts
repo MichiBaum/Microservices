@@ -1,5 +1,4 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
-import {DropdownModule} from "primeng/dropdown";
 import {DividerModule} from "primeng/divider";
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
@@ -19,7 +18,6 @@ import {FloatLabel} from "primeng/floatlabel";
 @Component({
   selector: 'app-chess-update-person',
   imports: [
-    DropdownModule,
     DividerModule,
     FieldsetModule,
     SelectChessPersonComponent,

@@ -2,8 +2,8 @@ import {ApplicationConfig, isDevMode} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {provideTranslateService, TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {provideTranslateHttpLoader, TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AuthJwtInterceptor} from "./core/interceptors/auth-jwt.interceptor";
 import {provideServiceWorker} from '@angular/service-worker';
 import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
@@ -12,18 +12,7 @@ import {providePrimeNG} from "primeng/config";
 import {MyPreset} from "./mytheme";
 import {EnvironmentConfig} from "./core/config/environment.config";
 
-/**
- * Creates a new instance of TranslateHttpLoader with the specified HttpClient.
- *
- * @param {HttpClient} http - The HttpClient instance to be used for loading translations.
- *
- * @return {TranslateHttpLoader} A new instance of TranslateHttpLoader configured with the provided HttpClient.
- */
-export function translateLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-export function imageLoaderFactory(environment: EnvironmentConfig){
+export function imageLoaderFactory(environment: EnvironmentConfig): (config: ImageLoaderConfig) => string {
   return (config: ImageLoaderConfig) => {
     if(config.isPlaceholder){
       return `${environment.fe_images() + 'placeholder/' + config.src}`;
@@ -58,14 +47,14 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthJwtInterceptor,
       multi   : true,
     },
-    TranslateModule.forRoot({
-      defaultLanguage: localStorage.getItem('languageIso') ?? 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (translateLoaderFactory),
-        deps: [HttpClient]
-      }
-    }).providers!,
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+          prefix:"./assets/i18n/"
+          ,suffix: ".json"
+      }),
+      fallbackLang: 'en',
+      lang: 'en'
+    }),
     provideServiceWorker(
       'ngsw-worker.js',
       {

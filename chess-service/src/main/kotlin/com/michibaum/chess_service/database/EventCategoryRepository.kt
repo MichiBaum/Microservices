@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface EventCategoryRepository: JpaRepository<EventCategory, UUID> {
-}
+interface EventCategoryRepository: JpaRepository<EventCategory, UUID> 

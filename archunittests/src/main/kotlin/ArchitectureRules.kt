@@ -10,10 +10,10 @@ class ArchitectureRules {
 
     companion object {
 
-        val databasePackage = "..database.."
-        val appPackage = "..app.."
-        val apiPackage = "..apis.."
-        val configPackage = "..config.."
+        const val databasePackage = "..database.."
+        const val appPackage = "..app.."
+        const val apiPackage = "..apis.."
+        const val configPackage = "..config.."
 
         @ArchTest
         val databaseNotDependingOnAnythingElse: ArchRule =

@@ -5,7 +5,7 @@ import {PaginatorModule} from "primeng/paginator";
 import {TableModule} from "primeng/table";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
-import {NgIf} from "@angular/common";
+
 
 @Component({
   selector: 'app-select-chess-person',
@@ -14,9 +14,8 @@ import {NgIf} from "@angular/common";
     PaginatorModule,
     TableModule,
     FaIconComponent,
-    EventIconPipe,
-    NgIf
-  ],
+    EventIconPipe
+],
   templateUrl: './select-chess-person.component.html',
   styleUrl: './select-chess-person.component.css'
 })

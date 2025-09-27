@@ -1,84 +1,84 @@
 <div class="container mx-auto">
   <div class="grid grid-cols-1 4k:grid-cols-7 xlScreen:grid-cols-6 lScreen:grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
 
-    <ng-container *ngIf="canLogin()">
+    @if (canLogin()) {
       @defer{
-        <app-home-card
-          [headerImage]="'home_login.jpeg'"
-          [titleText]="'home.login.title' | translate"
-          [content]="'home.login.content' | translate"
-          [buttonLabel]="'home.login.button' | translate"
-          (navigate)="routerNavigationService.login()"
-        ></app-home-card>
-      } @placeholder {
-        <app-defer-placeholder height="35rem"></app-defer-placeholder>
-      }
-    </ng-container>
-
-    @defer{
       <app-home-card
-        [headerImage]="'home_chess.jpeg'"
-        [titleText]="'home.chess.title' | translate"
-        [content]="'home.chess.content' | translate"
-        [buttonLabel]="'home.chess.button' | translate"
-        (navigate)="routerNavigationService.chess()"
+        [headerImage]="'home_login.webp'"
+        [titleText]="'home.login.title' | translate"
+        [content]="'home.login.content' | translate"
+        [buttonLabel]="'home.login.button' | translate"
+        (navigate)="routerNavigationService.login()"
       ></app-home-card>
-    } @placeholder {
+      } @placeholder {
       <app-defer-placeholder height="35rem"></app-defer-placeholder>
     }
+  }
 
-    <ng-container *ngIf="canActivateFitness()">
-      @defer{
-        <app-home-card
-          [headerImage]="'home_fitness.jpeg'"
-          [titleText]="'home.fitness.title' | translate"
-          [content]="'home.fitness.content' | translate"
-          [buttonLabel]="'home.fitness.button' | translate"
-          (navigate)="routerNavigationService.fitness()"
-        ></app-home-card>
-      } @placeholder {
-        <app-defer-placeholder height="35rem"></app-defer-placeholder>
-      }
-    </ng-container>
+  @defer{
+  <app-home-card
+    [headerImage]="'home_chess.webp'"
+    [titleText]="'home.chess.title' | translate"
+    [content]="'home.chess.content' | translate"
+    [buttonLabel]="'home.chess.button' | translate"
+    (navigate)="routerNavigationService.chess()"
+  ></app-home-card>
+  } @placeholder {
+  <app-defer-placeholder height="35rem"></app-defer-placeholder>
+}
 
-    <ng-container *ngIf="canActivateMusic()">
-      @defer{
-        <app-home-card
-          [headerImage]="'home_music.jpeg'"
-          [titleText]="'home.music.title' | translate"
-          [content]="'home.music.content' | translate"
-          [buttonLabel]="'home.music.button' | translate"
-          (navigate)="routerNavigationService.music()"
-        ></app-home-card>
-      } @placeholder {
-        <app-defer-placeholder height="35rem"></app-defer-placeholder>
-      }
-    </ng-container>
+@if (canActivateFitness()) {
+  @defer{
+  <app-home-card
+    [headerImage]="'home_fitness.webp'"
+    [titleText]="'home.fitness.title' | translate"
+    [content]="'home.fitness.content' | translate"
+    [buttonLabel]="'home.fitness.button' | translate"
+    (navigate)="routerNavigationService.fitness()"
+  ></app-home-card>
+  } @placeholder {
+  <app-defer-placeholder height="35rem"></app-defer-placeholder>
+}
+}
 
-    @defer{
-      <app-home-card
-        [headerImage]="'home_about-me.jpeg'"
-        [titleText]="'home.about-me.title' | translate"
-        [content]="'home.about-me.content' | translate"
-        [buttonLabel]="'home.about-me.button' | translate"
-        (navigate)="routerNavigationService.about_me()"
-      ></app-home-card>
-    } @placeholder {
-      <app-defer-placeholder height="35rem"></app-defer-placeholder>
-    }
+@if (canActivateMusic()) {
+  @defer{
+  <app-home-card
+    [headerImage]="'home_music.webp'"
+    [titleText]="'home.music.title' | translate"
+    [content]="'home.music.content' | translate"
+    [buttonLabel]="'home.music.button' | translate"
+    (navigate)="routerNavigationService.music()"
+  ></app-home-card>
+  } @placeholder {
+  <app-defer-placeholder height="35rem"></app-defer-placeholder>
+}
+}
 
-    @defer{
-      <app-home-card
-        [headerImage]="'home_donate.jpeg'"
-        [titleText]="'home.donate.title' | translate"
-        [content]="'home.donate.content' | translate"
-        [buttonLabel]="'home.donate.button' | translate"
-        (navigate)="routerNavigationService.donate()"
-      ></app-home-card>
-    } @placeholder {
-      <app-defer-placeholder height="35rem"></app-defer-placeholder>
-    }
+@defer{
+<app-home-card
+  [headerImage]="'home_about-me.webp'"
+  [titleText]="'home.about-me.title' | translate"
+  [content]="'home.about-me.content' | translate"
+  [buttonLabel]="'home.about-me.button' | translate"
+  (navigate)="routerNavigationService.about_me()"
+></app-home-card>
+} @placeholder {
+<app-defer-placeholder height="35rem"></app-defer-placeholder>
+}
 
-  </div>
+@defer{
+<app-home-card
+  [headerImage]="'home_donate.webp'"
+  [titleText]="'home.donate.title' | translate"
+  [content]="'home.donate.content' | translate"
+  [buttonLabel]="'home.donate.button' | translate"
+  (navigate)="routerNavigationService.donate()"
+></app-home-card>
+} @placeholder {
+<app-defer-placeholder height="35rem"></app-defer-placeholder>
+}
+
+</div>
 </div>
 <p-scrollTop />

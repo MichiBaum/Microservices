@@ -7,5 +7,4 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @EnableConfigurationProperties(value = [RobotsTxtProperties::class, SitemapXmlProperties::class])
-class CrawlerConfiguration {
-}
+class CrawlerConfiguration 

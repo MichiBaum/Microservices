@@ -15,9 +15,9 @@ export class ChessEventGamesComponent {
 
   readonly event = input<ChessEvent>();
   games = rxResource({
-    request: () => ({eventId: this.event()?.id}),
-    loader: (params) => {
-      let eventId = params.request.eventId;
+    params: () => ({eventId: this.event()?.id}),
+    stream: (params) => {
+      let eventId = params.params.eventId;
       if(eventId == undefined)
         return of([])
       return this.chessService.eventGames(eventId)

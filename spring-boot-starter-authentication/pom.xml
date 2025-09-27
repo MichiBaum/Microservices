@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.michibaum</groupId>
         <artifactId>microservice</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -15,8 +15,8 @@
     <name>spring-boot-starter-authentication</name>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>24</maven.compiler.source>
+        <maven.compiler.target>24</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>authentication-library</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
 
         <dependency>
