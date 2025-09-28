@@ -79,6 +79,29 @@ class RouterConfiguration {
             .route(host("music.michibaum.*"), applyCircuitBreaker(lb(MUSIC.id).apply(http()),
                 MUSIC, circuitBreakerFactory))
 
+            .route(host("babymetal.ch")) { _ -> // TODO implement custom fansite for babymetal.ch
+//                val path = req.uri().path
+//                val query = req.uri().rawQuery?.let { "?$it" } ?: ""
+//                val uriString = "https://babymetal.com$path$query"
+                ServerResponse.temporaryRedirect(URI.create("https://babymetal.com")).build()
+            }
+
+            .route(host("hanabie.ch")) { _ -> // TODO implement custom fansite for hanabie.ch
+                ServerResponse.temporaryRedirect(URI.create("https://hanabie.jp/en")).build()
+            }
+
+            .route(host("baumberger-software.ch", "baumberger-software.com")) { _ -> // TODO implement custom service
+                ServerResponse.temporaryRedirect(URI.create("https://michibaum.ch")).build()
+            }
+
+            .route(host("einsiedeln.beer")) { _ -> // TODO implement custom service
+                ServerResponse.noContent().build()
+            }
+
+            .route(host("einsiedeln.shop", "einsiedeln.store")) { _ -> // TODO implement custom service
+                ServerResponse.noContent().build()
+            }
+
             // Catch-all for main website (Lowest priority, must come last)
             .route(host("michibaum.*"), applyCircuitBreaker(lb(WEBSITE.id).apply(http()),
                 WEBSITE, circuitBreakerFactory))
