@@ -2,8 +2,7 @@
     <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
         @for (note of notes.value() ?? []; track note){
-            <app-note
-                [note]="note">
+            <app-note [note]="note">
             </app-note>
         }
 

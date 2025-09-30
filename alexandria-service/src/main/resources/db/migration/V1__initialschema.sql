@@ -121,7 +121,7 @@ create table note
     encrypted  bit          null,
     id         uuid         not null primary key,
     belongs_to varchar(255) null,
-    text       varchar(255) null,
+    text       MEDIUMTEXT null,
     title      varchar(255) null
 );
 
@@ -139,7 +139,7 @@ create table note_aud
     revtype    tinyint      null,
     id         uuid         not null,
     belongs_to varchar(255) null,
-    text       varchar(255) null,
+    text       MEDIUMTEXT null,
     title      varchar(255) null,
     
     primary key (rev, id),
