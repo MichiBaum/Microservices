@@ -1,7 +1,13 @@
 @if (note(); as note){
     <div>
-        <p-card header="{{note.id}}">
-            <div class="m-0" [innerHTML]="note.text"></div>
+
+        <p-card header="{{note.title}}">
+            @if (!note.encrypted) {
+                <div class="m-0" [innerHTML]="note.content"></div>
+            } @else {
+                <div class="m-0" [innerHTML]="'Encrypted'"></div>
+            }
         </p-card>
+
     </div>
 }

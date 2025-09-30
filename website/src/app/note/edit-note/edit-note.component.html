@@ -5,7 +5,8 @@
         <label for="title">{{ "note.title" | translate }}</label>
     </p-floatlabel>
 
-    <p-editor formControlName="text" [style]="{ height: '320px' }" />
+    <textarea formControlName="content" rows="5" cols="30" pTextarea [autoResize]="true">
+    </textarea>
 
 </form>
 

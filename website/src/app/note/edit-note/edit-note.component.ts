@@ -3,9 +3,9 @@ import {FloatLabel} from "primeng/floatlabel";
 import {InputText} from "primeng/inputtext";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TranslatePipe} from "@ngx-translate/core";
-import {Editor} from "primeng/editor";
 import {Button} from "primeng/button";
 import {AlexandriaNoteService} from "../../core/api-services/alexandria-note.service";
+import {Textarea} from "primeng/textarea";
 
 @Component({
   selector: 'app-edit-note',
@@ -14,8 +14,8 @@ import {AlexandriaNoteService} from "../../core/api-services/alexandria-note.ser
         InputText,
         ReactiveFormsModule,
         TranslatePipe,
-        Editor,
-        Button
+        Button,
+        Textarea
     ],
   templateUrl: './edit-note.component.html',
   styleUrl: './edit-note.component.css'
@@ -35,7 +35,7 @@ export class EditNoteComponent {
         }, [
             Validators.required,
         ]),
-        text: new FormControl<string>({
+        content: new FormControl<string>({
             value: '',
             disabled: false
         }, [
