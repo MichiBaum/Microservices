@@ -91,7 +91,7 @@ class RouterConfiguration {
             }
 
             .route(host("baumberger-software.ch", "baumberger-software.com")) { _ -> // TODO implement custom service
-                ServerResponse.temporaryRedirect(URI.create("https://michibaum.ch")).build()
+                ServerResponse.temporaryRedirect(URI.create("https://michibaum.ch/about-me")).build()
             }
 
             .route(host("einsiedeln.beer")) { _ -> // TODO implement custom service
