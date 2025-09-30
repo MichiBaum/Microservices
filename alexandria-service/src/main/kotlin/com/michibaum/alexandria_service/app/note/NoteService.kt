@@ -17,14 +17,14 @@ class NoteService(
     }
 
     fun createNote(note: Note): Note {
-        val sanitized = textSanitizer.sanitize(note.text)
-        val sanitizedNote = note.copy(text = sanitized)
+        val sanitized = textSanitizer.sanitize(note.content)
+        val sanitizedNote = note.copy(content = sanitized)
         return noteRepository.save(sanitizedNote)
     }
 
     fun updateNote(note: Note, userId: String): Note {
-        val sanitized = textSanitizer.sanitize(note.text)
-        val sanitizedNote = note.copy(text = sanitized)
+        val sanitized = textSanitizer.sanitize(note.content)
+        val sanitizedNote = note.copy(content = sanitized)
         
         val existingNote = noteRepository.findById(sanitizedNote.idOrThrow())
             .orElseThrow { NoSuchElementException("Note not found") }

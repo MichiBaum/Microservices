@@ -10,7 +10,7 @@ class NoteConverter {
         return NoteDto(
             id = it.idOrThrow(),
             title = it.title,
-            text = it.text,
+            content = it.content,
             encrypted = it.encryped
         )
     }
@@ -18,7 +18,7 @@ class NoteConverter {
     fun convertToEntity(dto: NoteRequestDto, id: UUID?, userId: String): Note {
         return Note(
             title = dto.title,
-            text = dto.text,
+            content = dto.content,
             encryped = dto.encrypted,
             belongsTo = userId,
             id = id

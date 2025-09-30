@@ -11,9 +11,6 @@ class MagazineArticle(
     @Column(name="title", nullable = false)
     val title: String,
     
-    @ManyToOne(targetEntity = Magazine::class, fetch = FetchType.LAZY, optional = false)
-    val magazine: Magazine,
-    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null

@@ -9,13 +9,13 @@ import java.util.*
 @Entity
 @Table(name="note")
 @Audited
-data class Note ( // TODO add Hibernate Envers, Author
+data class Note (
 
     @Column(name="title")
     val title: String,
     
     @Column(name="text")
-    val text: String,
+    val content: String,
 
     @Column(name="encrypted")
     val encryped: Boolean,
@@ -26,8 +26,6 @@ data class Note ( // TODO add Hibernate Envers, Author
     @Column(name="deleted")
     val deleted: Boolean = false,
     
-    // TODO Sharing of notes
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,

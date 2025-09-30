@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.michibaum</groupId>
         <artifactId>microservice</artifactId>
-        <version>1.0.0</version>
+        <version>1.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -128,6 +128,12 @@
             <artifactId>spring-boot-starter-discord</artifactId>
             <version>1.2.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>archunittests</artifactId>
+            <scope>test</scope>
+            <version>1.2.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -201,10 +207,10 @@
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>jib-maven-plugin</artifactId>
-                        <version>3.4.5</version>
+                        <version>${jib-maven-plugin.version}</version>
                         <configuration>
                             <from>
-                                <image>eclipse-temurin:21-jre-alpine</image>
+                                <image>${jib-maven-plugin.image}</image>
                                 <auth>
                                     <!--suppress UnresolvedMavenProperty -->
                                     <username>${dockerHub.username}</username>
@@ -251,6 +257,8 @@
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
                 <configuration>
+                    <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
                     <failOnNoGitDirectory>false</failOnNoGitDirectory>
                 </configuration>
             </plugin>
