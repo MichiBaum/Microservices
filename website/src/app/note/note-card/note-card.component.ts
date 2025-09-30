@@ -7,9 +7,9 @@ import {Card} from "primeng/card";
     imports: [
         Card
     ],
-  templateUrl: './note.component.html',
-  styleUrl: './note.component.css'
+  templateUrl: './note-card.component.html',
+  styleUrl: './note-card.component.css'
 })
-export class NoteComponent {
+export class NoteCardComponent {
     note = input.required<NoteResponse>();
 }
