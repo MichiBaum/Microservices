@@ -168,6 +168,7 @@
         <module>chess-service</module>
         <module>fitness-service</module>
         <module>music-service</module>
+        <module>spring-boot-starter-cache</module>
     </modules>
 
     <profiles>
