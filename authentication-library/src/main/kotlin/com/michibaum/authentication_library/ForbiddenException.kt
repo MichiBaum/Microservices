@@ -1,4 +1,6 @@
 package com.michibaum.authentication_library
 
-class ForbiddenException(message: String): RuntimeException(message) {
+class ForbiddenException: RuntimeException {
+    constructor() : super()
+    constructor(message: String) : super(message)
 }

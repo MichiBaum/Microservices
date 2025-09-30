@@ -40,6 +40,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+            <version>1.2.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
@@ -110,17 +116,17 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>usermanagement-library</artifactId>
-            <version>1.0.0</version>
+            <version>1.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-authentication</artifactId>
-            <version>1.0.0</version>
+            <version>1.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-discord</artifactId>
-            <version>1.0.0</version>
+            <version>1.2.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
