@@ -1,37 +1,18 @@
-import {inject, Injectable} from "@angular/core";
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {inject} from "@angular/core";
+import {HttpEvent, HttpHandlerFn, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AuthService} from "../api-services/auth.service";
 
-/**
- * AuthInterceptor class that implements the HttpInterceptor.
- * This class intercepts outgoing HTTP requests and adds an Authorization header
- * if a JWT token is present.
- */
-@Injectable()
-export class AuthJwtInterceptor implements HttpInterceptor {
-  private authService = inject(AuthService);
+export function authJwtInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+    const authService = inject(AuthService);
 
-  /**
-   * Intercepts HTTP requests to add an Authorization header if a JWT token is present.
-   *
-   * @param {HttpRequest<any>} request - The outgoing HTTP request.
-   * @param {HttpHandler} next - The next interceptor in the chain.
-   * @return {Observable<HttpEvent<any>>} An Observable of the HTTP event.
-   */
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if(!this.authService.jwtIsPresent()){
-      return next.handle(request);
+    if(!authService.jwtIsPresent()){
+        return next(req);
     }
 
-    request = request.clone({
-      setHeaders: {
-        // 'Content-Type' : 'application/json; charset=utf-8',
-        // 'Accept'       : 'application/json',
-        'Authorization': `Bearer ${this.authService.getJwtTokenFromLocalStorage()}`,
-      },
+    const newRequest = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${authService.getJwtTokenFromLocalStorage()}`)
     });
 
-    return next.handle(request);
-  }
+    return next(newRequest);
 }
