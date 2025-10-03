@@ -93,4 +93,7 @@ export class RouterNavigationService {
         this.router.navigate(['/music']);
     }
 
+    donateGithub() {
+        open('https://github.com/sponsors/MichiBaum')
+    }
 }
