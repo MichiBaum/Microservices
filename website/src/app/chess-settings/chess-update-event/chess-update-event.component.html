@@ -101,7 +101,7 @@
   <p-fieldset legend="Action">
     <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
     <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-    <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent" />
+    <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent()" />
   </p-fieldset>
 
 </div>
