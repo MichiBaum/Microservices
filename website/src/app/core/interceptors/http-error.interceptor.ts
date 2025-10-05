@@ -9,9 +9,9 @@ import {Observable, tap} from "rxjs";
 import {UserInfoService} from "../services/user-info.service";
 
 export function httpErrorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+    const userInfoService = inject(UserInfoService);
 
     return next(req).pipe(tap(event => {
-        const userInfoService = inject(UserInfoService);
 
         if (event.type !== HttpEventType.Response) {
             return event;

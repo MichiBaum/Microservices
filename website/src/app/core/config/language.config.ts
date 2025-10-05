@@ -47,7 +47,6 @@ export class LanguageConfig {
   setLanguage = (language: Language) => {
     this.current = language;
     this.translate.use(language.isoCode);
-    this.translate.setDefaultLang(language.isoCode);
     localStorage.setItem(this.localStorageKey, language.isoCode);
     this.languageChanged.next(language);
   }
