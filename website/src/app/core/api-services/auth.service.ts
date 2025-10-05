@@ -24,7 +24,6 @@ export class AuthService {
   login(username:string, password:string ) {
     let autentication = {username: username, password: password} as Authentication
     this.http.post<AuthenticationResponse>(this.environment.authenticationService() + '/authenticate', autentication)
-      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)))
       .subscribe(value => {
         if(value.jwt != null && value.jwt !== ""){
           localStorage.setItem(this.jwtName, value.jwt);
@@ -34,7 +33,7 @@ export class AuthService {
       })
   }
 
-  register(registerUser: Register, customErrorMatching: CustomErrorMatching | undefined): Observable<RegisterResponse> {
+  register(registerUser: Register, customErrorMatching: CustomErrorMatching): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(this.environment.authenticationService() + '/register', registerUser)
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService, customErrorMatching)))
   }

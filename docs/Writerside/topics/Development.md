@@ -27,10 +27,18 @@ In ``C:\Windows\System32\drivers\etc`` find file *hosts* and add those lines (ad
 127.0.0.1 authentication.michibaum.ch
 127.0.0.1 fitness.michibaum.ch
 127.0.0.1 music.michibaum.ch
+127.0.0.1 alexandria.michibaum.ch
 127.0.0.1 zipkin.michibaum.ch
 127.0.0.1 grafana.michibaum.ch
 127.0.0.1 prometheus.michibaum.ch
 127.0.0.1 michibaum.ch
+127.0.0.1 babymetal.ch
+127.0.0.1 hanabie.ch
+127.0.0.1 baumberger-software.ch
+127.0.0.1 baumberger-software.com
+127.0.0.1 einsiedeln.beer
+127.0.0.1 einsiedeln.shop
+127.0.0.1 einsiedeln.store
 ```
 
 ### Linux

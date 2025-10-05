@@ -114,6 +114,13 @@ spec:
     - michibaum.me
     - michibaum.info
     - michibaum.xyz
+    - babymetal.ch
+    - hanabie.ch
+    - baumberger-software.ch
+    - baumberger-software.com
+    - einsiedeln.beer
+    - einsiedeln.shop
+    - einsiedeln.store
     secretName: michibaum-tls
   rules:
     - http:

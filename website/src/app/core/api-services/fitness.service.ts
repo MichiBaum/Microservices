@@ -1,11 +1,9 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {catchError, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {Token} from "../models/fitness/token.model";
 import {Weight} from "../models/fitness/weight.model";
 import {Profile} from "../models/fitness/profile.model";
-import {HttpErrorHandler} from "../config/http-error-handler.service";
-import {UserInfoService} from "../services/user-info.service";
 import {Sleep, SleepStage} from "../models/fitness/sleep.model";
 import {EnvironmentConfig} from "../config/environment.config";
 
@@ -13,32 +11,25 @@ import {EnvironmentConfig} from "../config/environment.config";
 export class FitnessService {
   private http = inject(HttpClient);
   private readonly environment = inject(EnvironmentConfig);
-  private httpErrorConfig = inject(HttpErrorHandler);
-  private userInfoService = inject(UserInfoService);
 
 
   getToken(): Observable<Token> {
     return this.http.get<Token>(this.environment.fitnessService() + '/fitbit/token')
-      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
   getWeight(): Observable<Weight[]> {
     return this.http.get<Weight[]>(this.environment.fitnessService() + '/weight')
-      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
   getProfile(): Observable<Profile> {
     return this.http.get<Profile>(this.environment.fitnessService() + '/profile')
-      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
   getSleep(): Observable<Sleep[]> {
     return this.http.get<Sleep[]>(this.environment.fitnessService() + '/sleeps')
-      .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
   }
 
     getSleepStages(sleepId: string) {
         return this.http.get<SleepStage[]>(this.environment.fitnessService() + '/sleeps/' + sleepId + '/stages')
-            .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService)));
     }
 }

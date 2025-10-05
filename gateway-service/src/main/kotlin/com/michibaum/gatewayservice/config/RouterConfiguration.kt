@@ -33,6 +33,29 @@ class RouterConfiguration {
         circuitBreakerFactory: CircuitBreakerFactory<*, *>
     ): RouterFunction<ServerResponse> {
         return route()
+            .route(host("babymetal.ch")) { _ -> // TODO implement custom fansite for babymetal.ch
+//                val path = req.uri().path
+//                val query = req.uri().rawQuery?.let { "?$it" } ?: ""
+//                val uriString = "https://babymetal.com$path$query"
+                ServerResponse.temporaryRedirect(URI.create("https://babymetal.com")).build()
+            }
+
+            .route(host("hanabie.ch")) { _ -> // TODO implement custom fansite for hanabie.ch
+                ServerResponse.temporaryRedirect(URI.create("https://hanabie.jp/en")).build()
+            }
+
+            .route(host("baumberger-software.ch", "baumberger-software.com")) { _ -> // TODO implement custom service
+                ServerResponse.temporaryRedirect(URI.create("https://michibaum.ch/about-me")).build()
+            }
+
+            .route(host("einsiedeln.beer")) { _ -> // TODO implement custom service
+                ServerResponse.noContent().build()
+            }
+
+            .route(host("einsiedeln.shop", "einsiedeln.store")) { _ -> // TODO implement custom service
+                ServerResponse.noContent().build()
+            }
+            
             // Add a redirect for "www.michibaum.*"
             // First because all www should be redirected even robots.txt sitemap.xml
             .route(host("www.michibaum.{tld}")) { req ->
@@ -52,8 +75,6 @@ class RouterConfiguration {
             .GET("/sitemap.xml", sitemapXmlController.sitemapXml())
 
             // Specific services (Higher priority)
-            .route(host("admin.michibaum.*"), applyCircuitBreaker(lb(ADMIN.id).apply(http()),
-                ADMIN, circuitBreakerFactory))
             .route(host("zipkin.michibaum.*")){request -> 
                 request.authenticateWithCircuitBreaker(servicesProperties.zipkinUrl, authFilter, circuitBreakerFactory,
                     ZIPKIN, Permissions.ADMIN_SERVICE)
@@ -66,6 +87,8 @@ class RouterConfiguration {
                 request.authenticateWithCircuitBreaker(servicesProperties.prometheusUrl, authFilter, circuitBreakerFactory,
                     PROMETHEUS, Permissions.ADMIN_SERVICE)
             }
+            .route(host("admin.michibaum.*"), applyCircuitBreaker(lb(ADMIN.id).apply(http()),
+                ADMIN, circuitBreakerFactory))
             .route(host("registry.michibaum.*"), applyCircuitBreaker(lb(REGISTRY.id).apply(http()),
                 REGISTRY, circuitBreakerFactory))
             .route(host("authentication.michibaum.*"), applyCircuitBreaker(lb(AUTHENTICATION.id).apply(http()),
