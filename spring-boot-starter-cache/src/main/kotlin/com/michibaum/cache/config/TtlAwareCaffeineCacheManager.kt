@@ -31,6 +31,7 @@ class TtlAwareCaffeineCacheManager (
      */
     override fun createCaffeineCache(name: String): Cache {
         val builder = Caffeine.newBuilder()
+            .recordStats() // TODO define in annotation that stats are enabled by default but can be disabled
         val ttl = ttlByCacheName[name]
         if (ttl != null && !ttl.isZero && !ttl.isNegative) {
             builder.expireAfterWrite(ttl)
