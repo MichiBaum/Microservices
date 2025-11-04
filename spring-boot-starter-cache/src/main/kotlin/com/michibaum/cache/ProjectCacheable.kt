@@ -44,5 +44,7 @@ annotation class ProjectCacheable(
     val unless: String = "",
 
     val ttl: Long = -1,
-    val ttlUnit: TimeUnit = TimeUnit.MINUTES
+    val ttlUnit: TimeUnit = TimeUnit.MINUTES,
+    
+    val statsEnabled: Boolean = true
 )
