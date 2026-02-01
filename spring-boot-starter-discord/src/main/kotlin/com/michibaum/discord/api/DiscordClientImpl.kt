@@ -79,7 +79,7 @@ open class DiscordClientImpl(
     override fun getGuild() = httpClient.get()
         .uri("/guilds/${properties.guildId}")
         .retrieve()
-        .body(GetGuildeDto::class.java)!! // TODO maybe nullable
+        .body(object : ParameterizedTypeReference<GetGuildeDto>() {})!! // TODO maybe nullable
 
     /**
      * Retrieves a list of channels for the configured guild from the Discord API.
@@ -96,7 +96,7 @@ open class DiscordClientImpl(
     override fun getChannels() = httpClient.get()
         .uri("/guilds/${properties.guildId}/channels")
         .retrieve()
-        .body(object:ParameterizedTypeReference<List<GetChannelDto>>(){})!! // TODO maybe nullable
+        .body(object : ParameterizedTypeReference<List<GetChannelDto>>() {})!! // TODO maybe nullable
 
     /**
      * Creates a new Discord channel in the configured guild by making a POST request to the Discord API.
@@ -108,7 +108,7 @@ open class DiscordClientImpl(
         .uri("/guilds/${properties.guildId}/channels")
         .bodyWithType(channelDto)
         .retrieve()
-        .body(GetChannelDto::class.java)!! // TODO maybe nullable
+        .body(object : ParameterizedTypeReference<GetChannelDto>() {})!! // TODO maybe nullable
 
     /**
      * Sends a message to a specified Discord channel.
@@ -121,7 +121,7 @@ open class DiscordClientImpl(
         .uri("/channels/$channelId/messages")
         .bodyWithType(messageDto)
         .retrieve()
-        .body(GetMessageDto::class.java)!! // TODO maybe nullable
+        .body(object : ParameterizedTypeReference<GetMessageDto>() {})!! // TODO maybe nullable
 
 
     // Get Channel

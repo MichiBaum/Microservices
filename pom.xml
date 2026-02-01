@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
@@ -15,23 +15,23 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <spring-boot.version>3.5.6</spring-boot.version>
+        <spring-boot.version>3.5.10</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
         -->
-        <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <spring-cloud.version>2025.0.1</spring-cloud.version>
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>3.5.5</spring-boot-admin.version>
+        <spring-boot-admin.version>3.5.7</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
-        <datasource-micrometer-spring-boot.version>1.1.2</datasource-micrometer-spring-boot.version>
+        <datasource-micrometer-spring-boot.version>1.3.0</datasource-micrometer-spring-boot.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
@@ -49,7 +49,7 @@
         https://mockk.io/
         https://mvnrepository.com/artifact/io.mockk/mockk-jvm
         -->
-        <mockk.version>1.14.5</mockk.version>
+        <mockk.version>1.14.6</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
@@ -57,9 +57,9 @@
         
         <!-- Plugins -->
         <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
-        <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
-        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <!-- https://github.com/aleksandr-m/gitflow-maven-plugin -->
         <gitflow-plugin.version>1.21.0</gitflow-plugin.version>
     </properties>
