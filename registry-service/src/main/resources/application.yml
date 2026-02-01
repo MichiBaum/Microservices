@@ -56,10 +56,6 @@ eureka:
     registry-sync-retries: 5
 
 management:
-  metrics:
-    distribution:
-      percentiles-histogram:
-        http.server.requests: true
   observations:
     annotations:
       enabled: true
