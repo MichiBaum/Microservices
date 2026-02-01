@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.3.0-SNAPSHOT</version>
+        <version>1.3.0-remove-failing-registered-prometheus-meter-SNAPSHOT</version>
     </parent>
 
     <artifactId>authentication-service</artifactId>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
-            <version>1.3.0-SNAPSHOT</version>
+            <version>1.3.0-remove-failing-registered-prometheus-meter-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -107,23 +107,23 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-authentication</artifactId>
-            <version>1.3.0-SNAPSHOT</version>
+            <version>1.3.0-remove-failing-registered-prometheus-meter-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>usermanagement-library</artifactId>
-            <version>1.3.0-SNAPSHOT</version>
+            <version>1.3.0-remove-failing-registered-prometheus-meter-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-discord</artifactId>
-            <version>1.3.0-SNAPSHOT</version>
+            <version>1.3.0-remove-failing-registered-prometheus-meter-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>archunittests</artifactId>
             <scope>test</scope>
-            <version>1.3.0-SNAPSHOT</version>
+            <version>1.3.0-remove-failing-registered-prometheus-meter-SNAPSHOT</version>
         </dependency>
 
         <dependency>

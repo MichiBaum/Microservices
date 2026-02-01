@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.michibaum</groupId>
         <artifactId>microservice</artifactId>
-        <version>1.3.0-SNAPSHOT</version>
+        <version>1.3.0-remove-failing-registered-prometheus-meter-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
