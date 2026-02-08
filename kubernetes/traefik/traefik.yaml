@@ -10,7 +10,8 @@ spec:
   namespace: traefik-system
   values: |
     hostNetwork: true
-    dnsPolicy: ClusterFirstWithHostNet
+    deployment:
+      dnsPolicy: ClusterFirstWithHostNet
     securityContext:
       capabilities:
         drop: [ALL]
@@ -24,6 +25,8 @@ spec:
     service:
       type: ClusterIP
     ports:
+      traefik:
+        port: 9000
       metrics:
         port: 9100
         expose:
@@ -46,6 +49,9 @@ spec:
         entryPoint: metrics
         addRouters: true
     tracing:
+      addInternals: true
       otlp:
+        enabled: true
         http:
-          endpoint: "http://zipkin.microservices.svc.cluster.local:9411/api/v2/spans"
+          enabled: true
+          endpoint: http://zipkin.microservices.svc.cluster.local:9411/api/v2/spans
