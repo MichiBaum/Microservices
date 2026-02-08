@@ -21,6 +21,8 @@
         <toc-element topic="ssl.md"/>
         <toc-element topic="k0s-and-k0sctl.md"/>
         <toc-element topic="Deploy-Kubernetes-definitions.md"/>
+        <toc-element topic="Kubernetes-commands.md"/>
+        <toc-element topic="k0s-etcd-member-list-bug.md"/>
     </toc-element>
     <toc-element topic="Database.md">
         <toc-element topic="Flyway.md"/>

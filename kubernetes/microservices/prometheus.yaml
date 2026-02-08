@@ -132,3 +132,7 @@ data:
             regex: '^response_(.*)$'
             replacement: 'http_request_duration_milliseconds'
             target_label: __name__
+      - job_name: 'traefik'
+        scrape_interval: 5s
+        static_configs:
+          - targets: [ 'traefik.traefik-system.svc.cluster.local:9100' ]

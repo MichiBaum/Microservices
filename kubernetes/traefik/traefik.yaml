@@ -1,0 +1,51 @@
+apiVersion: helm.k0sproject.io/v1beta1
+kind: Chart
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  chartName: traefik/traefik
+  releaseName: traefik
+  version: "35.3.0"
+  namespace: traefik-system
+  values: |
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    securityContext:
+      capabilities:
+        drop: [ALL]
+        add: [NET_BIND_SERVICE]
+      readOnlyRootFilesystem: true
+      runAsGroup: 0
+      runAsNonRoot: false
+      runAsUser: 0
+    nodeSelector:
+      kubernetes.io/hostname: 35591.hostserv.eu
+    service:
+      type: ClusterIP
+    ports:
+      metrics:
+        port: 9100
+        expose:
+          default: true
+        exposedPort: 9100
+      web:
+        port: 80
+        expose:
+          default: true
+        exposedPort: 80
+        protocol: TCP
+      websecure:
+        port: 443
+        expose:
+          default: true
+        exposedPort: 443
+        protocol: TCP
+    metrics:
+      prometheus:
+        entryPoint: metrics
+        addRouters: true
+    tracing:
+      otlp:
+        http:
+          endpoint: "http://zipkin.microservices.svc.cluster.local:9411/api/v2/spans"
