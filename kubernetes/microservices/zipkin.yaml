@@ -63,6 +63,8 @@ spec:
         ports:
         - containerPort: 9200
         env:
+        - name: discovery.type
+          value: "single-node"
         - name: ES_JAVA_OPTS
           valueFrom:
             configMapKeyRef:
@@ -88,6 +90,7 @@ spec:
   - port: 9200
     targetPort: 9200
   type: ClusterIP
+  clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -113,7 +116,7 @@ spec:
         - name: STORAGE_TYPE
           value: "elasticsearch"
         - name: ES_HOSTS
-          value: "zipkin-storage:9200"
+          value: "http://zipkin-storage:9200"
       initContainers:
       - name: wait-for-elasticsearch
         image: busybox
@@ -131,35 +134,30 @@ spec:
   - port: 9411
     targetPort: 9411
   type: ClusterIP
-  clusterIP: None
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: CronJob
 metadata:
   name: zipkin-dependencies
   namespace: microservices
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: zipkin-dependencies
-  template:
-    metadata:
-      labels:
-        app: zipkin-dependencies
+  schedule: "0 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
     spec:
-      containers:
-      - name: zipkin-dependencies
-        image: ghcr.io/openzipkin/zipkin-dependencies:3.2
-        env:
-        - name: STORAGE_TYPE
-          value: "elasticsearch"
-        - name: ES_HOSTS
-          value: "zipkin-storage:9200"
-        command: ["/usr/sbin/crond", "-f"]
-        securityContext:
-          runAsUser: 0
-      initContainers:
-      - name: wait-for-elasticsearch
-        image: busybox
-        command: ['sh', '-c', 'until nc -z zipkin-storage 9200; do echo waiting for zipkin-storage; sleep 2; done;']
+      template:
+        spec:
+          initContainers:
+            - name: wait-for-elasticsearch
+              image: busybox
+              command: [ 'sh', '-c', 'until nc -z zipkin-storage 9200; do echo waiting for zipkin-storage; sleep 2; done;' ]
+          containers:
+            - name: zipkin-dependencies
+              image: ghcr.io/openzipkin/zipkin-dependencies:3.2
+              env:
+                - name: STORAGE_TYPE
+                  value: "elasticsearch"
+                - name: ES_HOSTS
+                  value: "http://zipkin-storage:9200"
+          restartPolicy: OnFailure
