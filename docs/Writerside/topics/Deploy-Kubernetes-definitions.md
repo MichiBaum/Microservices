@@ -25,7 +25,6 @@ This document provides information about deploying and updating the microservice
 - **`microservices`**
   - `namespace.yaml`: Defines the microservices namespace
   - `configmap.yaml`: Contains non-sensitive configuration
-  - `storage.yaml`: Defines PersistentVolumes and PersistentVolumeClaims for databases
   - `registry-service.yaml`: Service registry (Eureka)
   - `zipkin.yaml`: Distributed tracing (Zipkin, Zipkin Storage, Zipkin Dependencies)
   - `monitoring.yaml`: Monitoring tools (Prometheus, Grafana)
@@ -62,7 +61,7 @@ This document provides information about deploying and updating the microservice
    kubectl apply -n microservices -f local-storageclass.yaml
    ```
 
-2. Create ConfigMap and Secret:
+4. Create ConfigMap and Secret:
    ```bash
    kubectl apply -n microservices -f configmap.yaml
    kubectl apply -n microservices -f secrets.yaml
@@ -70,18 +69,13 @@ This document provides information about deploying and updating the microservice
 
    > **Note**: Before applying `secrets.yaml`, update the placeholder values with actual secrets.
 
-3. Create storage resources:
-   ```bash
-   kubectl apply -n microservices -f storage.yaml
-   ```
-
-4. Deploy infrastructure services:
+5. Deploy infrastructure services:
    ```bash
    kubectl apply -n microservices -f zipkin.yaml
    kubectl apply -n microservices -f registry-service.yaml
    ```
 
-5. Deploy database services:
+6. Deploy database services:
    ```bash
    kubectl apply -n microservices -f authentication-db.yaml
    kubectl apply -n microservices -f usermanagement-db.yaml
@@ -90,7 +84,7 @@ This document provides information about deploying and updating the microservice
    kubectl apply -n microservices -f music-db.yaml
    ```
 
-6. Deploy application services:
+7. Deploy application services:
    ```bash
    kubectl apply -n microservices -f admin-service.yaml
    kubectl apply -n microservices -f authentication-service.yaml
@@ -105,7 +99,7 @@ This document provides information about deploying and updating the microservice
    kubectl apply -n microservices -f grafana.yaml
 ```
 
-7. Deploy gateway service with Ingress:
+8. Deploy gateway service with Ingress:
 
    ### TLS Certificate
 
@@ -121,7 +115,7 @@ This document provides information about deploying and updating the microservice
    kubectl apply -n microservices -f gateway-service.yaml
    ```
    
-8. Deploy DB backups
+9. Deploy DB backups
 
    ```bash
    kubectl apply -n microservices -f db-backup.yaml
