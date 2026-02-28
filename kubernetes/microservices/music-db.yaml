@@ -1,4 +1,44 @@
-# Music Database
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: music-db-pv
+  labels:
+    type: local
+    app: music-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/music-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: music-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: music-db
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

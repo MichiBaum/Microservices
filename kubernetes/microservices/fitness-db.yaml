@@ -1,4 +1,44 @@
-# Fitness Database
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: fitness-db-pv
+  labels:
+    type: local
+    app: fitness-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/fitness-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fitness-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: fitness-db
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
