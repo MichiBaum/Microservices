@@ -40,11 +40,12 @@ spec:
       app: zipkin-storage
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: zipkin-storage
   namespace: microservices
 spec:
+  serviceName: "zipkin-storage"
   replicas: 1
   selector:
     matchLabels:
@@ -130,6 +131,7 @@ spec:
   - port: 9411
     targetPort: 9411
   type: ClusterIP
+  clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment
