@@ -11,11 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationConverter
 import java.util.*
 
 class BasicAuthenticationConverter: AuthenticationConverter {
-    override fun convert(request: HttpServletRequest?): Authentication? {
-        if (request == null) {
-            return null
-        }
-
+    override fun convert(request: HttpServletRequest): Authentication? {
         val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
 
         if (authHeader == null || !authHeader.startsWith("Basic ")) {
