@@ -1,4 +1,44 @@
-# User Management Database
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: usermanagement-db-pv
+  labels:
+    type: local
+    app: usermanagement-db
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/usermanagement-db"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: usermanagement-db-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      app: usermanagement-db
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
