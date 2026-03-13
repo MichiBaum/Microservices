@@ -212,7 +212,11 @@
         "register": "前往注册",
         "tab-title": "登录 - MichiBaum",
         "title": "登录",
-        "username": "用户名"
+        "username": "用户名",
+        "error": {
+          "summary": "登录失败",
+          "details": "请检查您的输入内容并重试。"
+        }
     },
     "microservices": {
         "meta-description": "探索我们使用微服务构建灵活、可扩展应用程序的模块化方法。了解各个服务如何无缝通信，同时保持强大的性能。",

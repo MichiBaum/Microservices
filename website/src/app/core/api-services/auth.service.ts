@@ -1,13 +1,14 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Authentication, AuthenticationResponse, Register, RegisterResponse} from "../models/authentication.model";
 import {RouterNavigationService} from "../services/router-navigation.service";
-import {catchError, Observable, Subject} from "rxjs";
+import {catchError, Observable, Subject, tap} from "rxjs";
 import {CustomErrorMatching, HttpErrorHandler} from "../config/http-error-handler.service";
 import {UserInfoService} from "../services/user-info.service";
 import {EnvironmentConfig} from "../config/environment.config";
 import {JwtPayload} from "../models/jwtPayload.model";
 import {jwtDecode} from "jwt-decode";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -21,16 +22,21 @@ export class AuthService {
   successLoginEmitter = new Subject<void>();
   logoutEmitter = new Subject<void>()
 
-  login(username:string, password:string ) {
+  login(username:string, password:string, customErrorMatching: CustomErrorMatching) {
     let autentication = {username: username, password: password} as Authentication
     this.http.post<AuthenticationResponse>(this.environment.authenticationService() + '/authenticate', autentication)
-      .subscribe(value => {
-        if(value.jwt != null && value.jwt !== ""){
-          localStorage.setItem(this.jwtName, value.jwt);
-          this.successLoginEmitter.next()
-          this.router.home()
+      .subscribe({
+        next: (value) => {
+          if(value.jwt != null && value.jwt !== ""){
+            localStorage.setItem(this.jwtName, value.jwt);
+            this.successLoginEmitter.next()
+            this.router.home()
+          }
+        },
+        error: (err) => {
+          this.httpErrorConfig.handleError(err, this.userInfoService, customErrorMatching)
         }
-      })
+      });
   }
 
   register(registerUser: Register, customErrorMatching: CustomErrorMatching): Observable<RegisterResponse> {
@@ -54,10 +60,12 @@ export class AuthService {
     }
   }
 
-  logout(){
+  logout(navigate: boolean = true){
     localStorage.removeItem(this.jwtName);
     this.logoutEmitter.next();
-    this.router.home()
+    if(navigate){
+        this.router.home()
+    }
   }
 
   getJwtTokenFromLocalStorage(){

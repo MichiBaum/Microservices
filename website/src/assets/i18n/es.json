@@ -212,7 +212,11 @@
         "register": "Ir a registro",
         "tab-title": "Iniciar sesión - MichiBaum",
         "title": "Iniciar sesión",
-        "username": "Nombre de usuario"
+        "username": "Nombre de usuario",
+        "error": {
+          "summary": "Error de inicio de sesion",
+          "details": "Por favor, revise sus datos e inténtelo de nuevo."
+        }
     },
     "microservices": {
         "meta-description": "Descubre nuestro enfoque modular para construir aplicaciones flexibles y escalables utilizando microservicios. Aprende cómo los servicios individuales se comunican sin problemas mientras mantienen un rendimiento robusto.",
