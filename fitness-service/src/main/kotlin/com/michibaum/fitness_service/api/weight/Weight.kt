@@ -18,7 +18,6 @@ open class Weight(
     val fatPercentage: Int?,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     val date: LocalDateTime,
 
     @Column(nullable = false, unique = false)

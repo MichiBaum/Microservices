@@ -21,7 +21,6 @@ class Account(
     val platform: ChessPlatform,
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
     val createdAt: LocalDate?,
 
     @ManyToOne(targetEntity = Person::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])

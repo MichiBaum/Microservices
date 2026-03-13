@@ -17,7 +17,6 @@ class Person(
     val federation: String?,
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
     val birthday: LocalDate?,
 
     @Enumerated(EnumType.STRING)

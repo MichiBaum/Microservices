@@ -21,11 +21,9 @@ class Event(
     val embedUrl: String?,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     val dateFrom: LocalDate,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     val dateTo: LocalDate,
 
     @Column(nullable = false, columnDefinition = "TEXT")
