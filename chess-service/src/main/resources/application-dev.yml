@@ -7,6 +7,9 @@ eureka:
       defaultZone: http://admin_username:admin_password@localhost:8761/eureka
 
 spring:
+  devtools:
+    livereload:
+      enabled: true
   datasource:
     username: root
     password: someRootPass
