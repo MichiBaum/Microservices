@@ -19,9 +19,6 @@ management:
       enabled: true
 
 spring:
-  devtools:
-    livereload:
-      enabled: true
   datasource:
     username: root
     password: someRootPass

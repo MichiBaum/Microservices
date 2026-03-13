@@ -1,7 +1,4 @@
 spring:
-  devtools:
-    livereload:
-      enabled: true
   boot:
     admin:
       service:
