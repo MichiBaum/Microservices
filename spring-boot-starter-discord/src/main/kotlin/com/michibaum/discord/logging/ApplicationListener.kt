@@ -22,7 +22,7 @@ import org.springframework.context.event.EventListener
  */
 class ApplicationStartedListener(private val discordClient: DiscordClient, private val discordLoggingProperties: DiscordLoggingProperties): ApplicationListener<ApplicationStartedEvent> {
     override fun onApplicationEvent(event: ApplicationStartedEvent) {
-        val message = CreateMessageDto("Application started, took ${event.timeTaken.toMillis()} ms")
+        val message = CreateMessageDto("Application started, took ${event.timeTaken?.toMillis()} ms")
         discordClient.sendMessage(discordLoggingProperties.channelId, message)
     }
 }
@@ -38,7 +38,7 @@ class ApplicationStartedListener(private val discordClient: DiscordClient, priva
  */
 class ApplicationReadyListener(private val discordClient: DiscordClient, private val discordLoggingProperties: DiscordLoggingProperties): ApplicationListener<ApplicationReadyEvent> {
     override fun onApplicationEvent(event: ApplicationReadyEvent) {
-        val message = CreateMessageDto("Application ready, took ${event.timeTaken.toMillis()} ms")
+        val message = CreateMessageDto("Application ready, took ${event.timeTaken?.toMillis()} ms")
         discordClient.sendMessage(discordLoggingProperties.channelId, message)
     }
 }

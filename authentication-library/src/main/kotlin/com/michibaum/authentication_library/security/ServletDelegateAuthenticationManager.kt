@@ -15,11 +15,7 @@ class ServletDelegateAuthenticationManager(private val authenticationManagers: L
     }
 
     @Throws(AuthenticationException::class)
-    override fun authenticate(authentication: Authentication?): Authentication {
-        if (authentication == null) {
-            throw EmptyAuthenticationException("Empty authentication")
-        }
-
+    override fun authenticate(authentication: Authentication): Authentication {
         val auths = mutableListOf<Authentication>()
         for(authManager in authenticationManagers){
             if(authManager.supports(authentication.javaClass)){
@@ -37,4 +33,5 @@ class ServletDelegateAuthenticationManager(private val authenticationManagers: L
         Security.authentication = authenticated[0]
         return authenticated[0]
     }
+
 }

@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails
 
 class BasicAuthentication(private val userDetails: UserDetails) : AbstractAuthenticationToken(userDetails.authorities) {
 
-    override fun getCredentials(): String {
+    override fun getCredentials(): String? {
         return userDetails.password
     }
 
@@ -16,7 +16,7 @@ class BasicAuthentication(private val userDetails: UserDetails) : AbstractAuthen
     fun getUsername(): String =
         userDetails.username
 
-    fun getPassword(): String =
+    fun getPassword(): String? =
         userDetails.password
 
 }

@@ -3,6 +3,7 @@ package com.michibaum.gatewayservice.config
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
+import org.springframework.cloud.gateway.server.mvc.common.MvcUtils.GATEWAY_REQUEST_URL_ATTR
 import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.Authentication
@@ -23,10 +24,14 @@ fun ServerRequest.authenticateWithCircuitBreaker(
         return ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
     }
 
+    val requestWithRedirect = ServerRequest.from(this)
+        .attribute(GATEWAY_REQUEST_URL_ATTR, redirect)
+        .build()
+    
     val circuitBreaker = createCircuitBreaker(service, circuitBreakerFactory)
     return try {
         circuitBreaker.run(
-            { http(redirect).handle(this) },
+            { http().handle(requestWithRedirect) },
             createCircuitBreakerServiceUnavailableResponse(service)
         )
     } catch (e: Exception) {
@@ -36,10 +41,18 @@ fun ServerRequest.authenticateWithCircuitBreaker(
 
 fun ServerRequest.authenticate(redirect: URI, authFilter: ServletAuthenticationFilter, vararg requiredPermissions: Permissions): ServerResponse {
     val authentication = authFilter.getAuthentication(servletRequest())
-    return if (authentication == null || !authentication.isAuthenticated || !authentication.authorities.map { it.authority }.containsAll(requiredPermissions.toList().map { it.name })) {
+    return if (
+        authentication == null || 
+        !authentication.isAuthenticated || 
+        !authentication.authorities.map { it.authority }
+            .containsAll(requiredPermissions.toList().map { it.name })
+    ) {
         ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
     } else {
-        http(redirect).handle(this)
+        val requestWithRedirect = ServerRequest.from(this)
+            .attribute(GATEWAY_REQUEST_URL_ATTR, redirect)
+            .build()
+        http().handle(requestWithRedirect)
     }
 }
 

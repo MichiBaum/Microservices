@@ -58,7 +58,7 @@ class AuthenticationControllerUT {
 
         // THEN
         assertEquals(HttpStatus.UNAUTHORIZED, result.statusCode)
-        assertEquals(0, result.headers.size)
+        assertEquals(0, result.headers.size())
     }
 
 }

@@ -8,7 +8,7 @@ class JwtAuthentication(val token: String, private val userDetails: UserDetails)
 
     private val jwsWrapper = JwsWrapper(token)
 
-    override fun getCredentials(): String {
+    override fun getCredentials(): String? {
         return userDetails.password
     }
 

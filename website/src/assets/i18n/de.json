@@ -212,7 +212,11 @@
         "register": "Zum Registrieren",
         "tab-title": "Anmelden - MichiBaum",
         "title": "Anmelden",
-        "username": "Benutzername"
+        "username": "Benutzername",
+        "error": {
+          "summary": "Anmeldung fehlgeschlagen",
+          "details": "Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut."
+        }
     },
     "microservices": {
         "meta-description": "Entdecken Sie unseren modularen Ansatz zur Entwicklung flexibler und skalierbarer Anwendungen mit Microservices. Erfahren Sie, wie einzelne Dienste zuverlässig miteinander kommunizieren und gleichzeitig eine hohe Leistungsfähigkeit beibehalten.",

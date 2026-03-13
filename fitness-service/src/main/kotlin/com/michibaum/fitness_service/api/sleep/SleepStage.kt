@@ -9,11 +9,9 @@ import java.util.*
 class SleepStage(
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     val start: LocalDateTime,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     val end: LocalDateTime,
 
     @Enumerated(EnumType.STRING)

@@ -212,7 +212,11 @@
         "register": "Go to register",
         "tab-title": "Login - MichiBaum",
         "title": "Login",
-        "username": "Username"
+        "username": "Username",
+        "error": {
+          "summary": "Login failed",
+          "details": "Please check your credentials and try again."
+        }
     },
     "microservices": {
         "meta-description": "Discover our modular approach to building flexible, scalable applications using microservices. Learn how individual services communicate seamlessly while maintaining robust performance.",

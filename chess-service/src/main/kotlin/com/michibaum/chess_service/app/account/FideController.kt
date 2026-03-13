@@ -45,12 +45,12 @@ class FideController(
         return ResponseEntity.ok(FileImportResult("To Import = ${x.size}", true))
     }
 
-    private fun <T> processFilePart(content: Flux<DataBuffer>, processFn: (InputStream) -> T): Mono<T> {
+    private fun <T : Any> processFilePart(content: Flux<DataBuffer>, processFn: (InputStream) -> T): Mono<T> {
         return DataBufferUtils.join(content).map { dataBuffer ->
             val byteArray = ByteArray(dataBuffer.readableByteCount()).apply {
                 dataBuffer.read(this)
             }
-            DataBufferUtils.release(dataBuffer) // Release the buffer after use
+            DataBufferUtils.release(dataBuffer)
             val inputStream = ByteArrayInputStream(byteArray)
             processFn(inputStream)
         }
