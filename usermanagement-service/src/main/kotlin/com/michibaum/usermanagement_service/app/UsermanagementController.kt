@@ -77,9 +77,9 @@ class UsermanagementController (
             ReturnUserDto(user.id.toString(), user.username, user.email)
         }
 
-    fun <T> toResponseEntity(nullableEntity: T?): ResponseEntity<T> =
-        nullableEntity?.let {
-            ResponseEntity.ok(it)
+    fun <T : Any> toResponseEntity(nullableEntity: T?): ResponseEntity<T> =
+        nullableEntity?.let { entity ->
+            ResponseEntity.ok(entity)
         } ?: ResponseEntity.badRequest().build()
 }
 

@@ -47,7 +47,7 @@ class UserService(
         val user = User(
             username = createUserDto.username,
             email = createUserDto.email,
-            password = passwordEncoder.encode(createUserDto.password),
+            password = passwordEncoder.encode(createUserDto.password)!!,
         )
         return userRepository.save(user)
     }
