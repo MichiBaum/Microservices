@@ -61,7 +61,8 @@ management:
       export:
         enabled: false
   tracing:
-    enabled: false
+    export:
+      enabled: false
   endpoints:
     access:
       default: unrestricted
