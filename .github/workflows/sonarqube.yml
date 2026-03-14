@@ -21,6 +21,8 @@ jobs:
           distribution: 'zulu'
           java-version: '25'
           cache: 'maven'
+          cache-dependency-path: |
+            **/pom.xml
           check-latest: true
       
       # TODO maybe step to use Testcontainers Cloud but github actions env has docker already therefore no explicit docker installation is needed

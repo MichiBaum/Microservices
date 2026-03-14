@@ -169,11 +169,37 @@
             <properties>
                 <sonar.organization>michibaum</sonar.organization>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-                <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-                <sonar.language>kotlin</sonar.language>
             </properties>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.5.5</version>
+                        <configuration>
+                            <includes>
+                                <include>%regex[.*UT.class]</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.5.5</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <includes>
+                                <include>%regex[.*IT.class]</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
@@ -197,48 +223,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>
-                                @{argLine} --illegal-access=permit
-                            </argLine>
-                            <testSourceDirectory>
-                                ${project.basedir}/src/test/kotlin
-                            </testSourceDirectory>
-                            <includes>
-                                <include>**/*UT.java</include>
-                                <include>**/*UT.kt</include>
-                                <include>**/*UT.class</include>
-                            </includes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <argLine>
-                                @{argLine} --illegal-access=permit
-                            </argLine>
-                            <testSourceDirectory>
-                                ${project.basedir}/src/test/kotlin
-                            </testSourceDirectory>
-                            <includes>
-                                <include>**/*IT.java</include>
-                                <include>**/*IT.kt</include>
-                                <include>**/*IT.class</include>
-                            </includes>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -271,9 +255,6 @@
                         <plugin>spring</plugin>
                         <plugin>jpa</plugin>
                     </compilerPlugins>
-                    <sourceDirs>
-                        <source>src/main/kotlin</source>
-                    </sourceDirs>
                 </configuration>
                 <dependencies>
                     <dependency>
