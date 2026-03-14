@@ -1,7 +1,11 @@
 <div class="grid grid-cols-1 gap-4">
 
   <p-fieldset legend="Event Select" [toggleable]="true">
-    <app-select-chess-event [events]="events()" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
+    <app-select-chess-event
+      [events]="events.value()"
+      [(selectedEvent)]="selectedEvent"
+    >
+    </app-select-chess-event>
   </p-fieldset>
 
   <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
@@ -63,8 +67,10 @@
 
     <p-fieldset legend="Event Players" styleClass="h-full">
       <p-pickList
-        [source]="personsToSelectS()"
-        [target]="participantsS()"
+        [source]="personsToSelect()"
+        [target]="selectedParticipants()"
+        (onMoveToTarget)="addParticipant($event)"
+        (onMoveToSource)="removeParticipant($event)"
         [dragdrop]="true"
         [responsive]="true"
         filterBy="firstname,lastname,fideId"

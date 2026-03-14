@@ -1,10 +1,9 @@
 <p-table
   stripedRows
   [value]="events()"
-  [(selection)]="selectedEvent"
+  [selection]="selectedEvent()"
+  (selectionChange)="selectedEventChange.emit($event)"
   selectionMode="single"
-  (onRowSelect)="onSelectionChange()"
-  (onRowUnselect)="onSelectionChange()"
   [paginator]="true"
   [rows]="10"
   >
