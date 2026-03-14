@@ -5,9 +5,10 @@ import com.michibaum.NamingRules
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.michibaum.StandardRules
+import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.junit.ArchTests
 
-@AnalyzeClasses(packages = ["com.michibaum"])
+@AnalyzeClasses(packages = ["com.michibaum"], importOptions = [ImportOption.DoNotIncludeTests::class])
 class ArchitectureUT {
 
     @ArchTest

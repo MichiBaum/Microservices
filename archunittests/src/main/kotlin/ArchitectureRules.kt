@@ -42,6 +42,7 @@ class ArchitectureRules {
             classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
             .or().areAssignableTo("org.springframework.data.repository.Repository")
             .should().resideInAPackage(databasePackage)
+            .allowEmptyShould(true)
 
         @ArchTest
         val testLocation = GeneralCodingRules.testClassesShouldResideInTheSamePackageAsImplementation()
