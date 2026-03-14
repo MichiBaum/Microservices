@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class AuthenticationController (
-    private val authenticationService: AuthenticationService
+    private val authenticationService: AuthenticationService,
+    @Lazy private val usermanagementClient: UsermanagementClient
 ) : AuthenticationEndpoints {
-
-    @Autowired
-    @Lazy
-    lateinit var usermanagementClient: UsermanagementClient
 
     @PublicEndpoint
     @PostMapping(value = ["/api/authenticate"])

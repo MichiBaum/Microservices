@@ -19,10 +19,7 @@ class AuthenticationControllerUT {
     private val authenticationService: AuthenticationService = mockk()
     private val usermanagementClient: UsermanagementClient = mockk()
 
-    private val authenticationController: AuthenticationController = AuthenticationController(authenticationService)
-    init {
-        authenticationController.usermanagementClient = usermanagementClient
-    }
+    private val authenticationController: AuthenticationController = AuthenticationController(authenticationService, usermanagementClient)
 
     @Test
     fun `Authentication successful`(){
