@@ -19,6 +19,7 @@ import org.springframework.boot.web.server.autoconfigure.ServerProperties
 import org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Lazy
 import org.springframework.context.annotation.Primary
 
 @Configuration
@@ -35,7 +36,7 @@ class AdminClientServletApplicationFactoryConfiguration {
         management: ManagementServerProperties,
         server: ServerProperties,
         servletContext: ServletContext,
-        pathMappedEndpoints: PathMappedEndpoints,
+        @Lazy pathMappedEndpoints: PathMappedEndpoints,
         webEndpoint: WebEndpointProperties,
         metadataContributors: ObjectProvider<List<MetadataContributor>>,
         dispatcherServletPath: DispatcherServletPath
