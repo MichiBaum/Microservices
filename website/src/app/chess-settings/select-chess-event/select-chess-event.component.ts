@@ -25,9 +25,10 @@ export class SelectChessEventComponent implements OnInit{
   private readonly filterService = inject(FilterService);
 
   readonly events = input<ChessEvent[]>([]);
-  readonly selectedEventEmitter = output<ChessEvent | undefined>();
 
-  selectedEvent = signal<ChessEvent | undefined>(undefined);
+  readonly selectedEvent = input<ChessEvent | undefined>();
+  readonly selectedEventChange = output<ChessEvent | undefined>();
+
 
   matchModeOptions: SelectItem[] = [];
   eventCategoryFilterName = 'anyEventCategoryLike';
@@ -59,10 +60,6 @@ export class SelectChessEventComponent implements OnInit{
       { label: 'Any Event Category Like', value: this.eventCategoryFilterName },
       { label: 'Event Url Present', value: this.eventUrlFilterName }
     ];
-  }
-
-  onSelectionChange() {
-    this.selectedEventEmitter.emit(this.selectedEvent())
   }
 
   getIcon(url: string) {

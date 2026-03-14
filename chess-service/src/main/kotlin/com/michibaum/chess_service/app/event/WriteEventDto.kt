@@ -23,7 +23,7 @@ class WriteEventDto(
 
     val embedUrl: String? = null,
 
-    val internalComment: String = "",
+    val internalComment: String? = "",
 
     @field:NotNull
     val platform: ChessPlatform,

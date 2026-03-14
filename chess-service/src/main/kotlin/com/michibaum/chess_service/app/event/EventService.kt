@@ -45,7 +45,7 @@ class EventService(
 
         val authentication = Security.authentication
         val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
-            dto.internalComment
+            dto.internalComment ?: ""
         else
             ""
 
@@ -70,7 +70,7 @@ class EventService(
 
         val authentication = Security.authentication
         val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
-            dto.internalComment
+            dto.internalComment ?: ""
         else
             event.internalComment
 

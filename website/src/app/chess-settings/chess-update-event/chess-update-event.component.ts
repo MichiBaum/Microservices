@@ -1,4 +1,4 @@
-import {Component, inject, linkedSignal, OnInit, signal} from '@angular/core';
+import {Component, effect, inject, linkedSignal, OnInit, signal} from '@angular/core';
 import {ChessService} from "../../core/api-services/chess.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
@@ -17,7 +17,7 @@ import {Button} from "primeng/button";
 import {InputText} from "primeng/inputtext";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
-import {PickList} from "primeng/picklist";
+import {PickList, PickListMoveToSourceEvent, PickListMoveToTargetEvent} from "primeng/picklist";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 import {Textarea} from "primeng/textarea";
@@ -45,33 +45,38 @@ import {Select} from "primeng/select";
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.css'
 })
-export class ChessUpdateEventComponent implements OnInit{
+export class ChessUpdateEventComponent {
   private readonly chessService = inject(ChessService);
 
-
-  events = signal<ChessEvent[]>([])
+  events = rxResource({
+    stream: () => this.chessService.events(),
+    defaultValue: []
+  })
   selectedEvent = signal<ChessEvent | undefined>(undefined)
-  selectedParticipants = rxResource({
+  preselectedParticipants = rxResource({
     params: () => ({eventId: this.selectedEvent()?.id}),
     stream: (params) => {
       const eventId = params.params.eventId
       if (eventId == undefined)
         return of([])
       return this.chessService.eventParticipants(eventId)
-    }
+    },
+    defaultValue: []
   })
 
   categories = rxResource({
-      stream: () => this.chessService.eventCategories(),
+    stream: () => this.chessService.eventCategories(),
+    defaultValue: []
   })
 
-  allPersonsS = signal<Person[]>([])
-  participantsS = linkedSignal(() => {
-    return this.selectedParticipants.value() ?? []
-  })
-  personsToSelectS = linkedSignal(() => {
-    const eventParticipants = this.selectedParticipants.value() ?? [];
-    return this.allPersonsS().filter(person => !eventParticipants?.some(participant => participant.id == person.id))
+  allPersons = rxResource({
+    stream: () => this.chessService.persons(),
+    defaultValue: []
+  });
+  selectedParticipants = signal<Person[]>([])
+  personsToSelect = linkedSignal(() => {
+    const eventParticipants = this.preselectedParticipants.value() ?? [];
+    return this.allPersons.value().filter(person => !eventParticipants?.some(participant => participant.id == person.id))
   })
 
   platforms = [
@@ -130,29 +135,18 @@ export class ChessUpdateEventComponent implements OnInit{
     ]),
   });
 
-
-  ngOnInit(): void {
-    this.chessService.persons().subscribe(persons => {
-      this.allPersonsS.set(persons)
-    })
-    this.loadEvents()
-  }
-
-  loadEvents() {
-    this.chessService.events().subscribe(events => {
-      this.events.set(events)
+  constructor() {
+    effect(() => {
+      const selectedEvent = this.selectedEvent();
+      this.patchForm(selectedEvent);
+    });
+    effect(() => {
+      const preselectedParticipants = this.preselectedParticipants.value();
+      this.selectedParticipants.set(preselectedParticipants);
     })
   }
 
-  onEventSelect(event: ChessEvent | undefined){
-    this.selectedEvent.set(event);
-    this.patchForm()
-  }
-
-
-  patchForm(){
-    const selectedEvent = this.selectedEvent();
-
+  patchForm(selectedEvent: ChessEvent | undefined){
     if(selectedEvent == undefined){
       this.clear()
       return;
@@ -199,13 +193,13 @@ export class ChessUpdateEventComponent implements OnInit{
       internalComment: this.formGroup.controls['internalComment'].value,
       platform: this.formGroup.controls['platform'].value,
       categoryIds: (this.formGroup.controls['categories'].value as ChessEventCategory[]).map(value => value.id),
-      participantsIds: this.participantsS().map(value => value.id)
+      participantsIds: this.selectedParticipants().map(value => value.id)
     };
 
     const id = this.formGroup.controls['id'].value ?? ""
     this.chessService.saveEvent(id, event).subscribe(newEvent => {
       this.clear()
-      this.loadEvents()
+      this.events.reload()
     })
   }
 
@@ -228,6 +222,15 @@ export class ChessUpdateEventComponent implements OnInit{
 
   }
 
+  protected addParticipant(event: PickListMoveToTargetEvent) {
+    const items = event.items as Person[];
+    this.selectedParticipants().push(...items)
+  }
+
+  protected removeParticipant(event: PickListMoveToSourceEvent) {
+    const items = event.items as Person[];
+    this.selectedParticipants.update(value => value.filter(person => !items.some(item => item.id == person.id)))
+  }
 }
 
 
