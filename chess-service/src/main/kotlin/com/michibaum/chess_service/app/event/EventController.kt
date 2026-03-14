@@ -32,6 +32,7 @@ class EventController(
         eventService.findAllEagerCategories()
             .map { eventConverter.toDto(it) }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ) // TODO Only quick fix
     @GetMapping("/api/events/search")
     fun searchEvents(@ModelAttribute param: SearchEventDto): List<EventDto> {
         return eventService.findAllBy(param.getSpecification(), param.getPageable()).content

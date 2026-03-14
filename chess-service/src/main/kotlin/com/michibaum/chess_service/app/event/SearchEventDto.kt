@@ -1,6 +1,7 @@
 package com.michibaum.chess_service.app.event
 
 import com.michibaum.chess_service.database.Event
+import com.michibaum.chess_service.database.EventCategory
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Predicate
@@ -30,7 +31,7 @@ data class SearchEventDto(
             specifications.add(builder.like(root.get("title"), title))
         }
         if (!category.isNullOrEmpty()) {
-            specifications.add(builder.like(root.get("categories.name"), category))
+            specifications.add(builder.like(root.join<Event, EventCategory>("categories").get("name"), category))
         }
         if (!location.isNullOrEmpty()) {
             specifications.add(builder.like(root.get("location"), location))
