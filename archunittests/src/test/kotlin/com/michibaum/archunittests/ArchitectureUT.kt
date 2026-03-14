@@ -1,12 +1,8 @@
-package com.michibaum.music_service
+package com.michibaum.archunittests
 
-import com.michibaum.ArchitectureRules
-import com.michibaum.NamingRules
+import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
-import com.michibaum.StandardRules
-import com.michibaum.TestRules
-import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.junit.ArchTests
 
 @AnalyzeClasses(packages = ["com.michibaum"], importOptions = [ImportOption.DoNotIncludeTests::class])

@@ -1,9 +1,8 @@
-package com.michibaum
+package com.michibaum.archunittests
 
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchRule
-import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes
-import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
+import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import com.tngtech.archunit.library.GeneralCodingRules
 
 class ArchitectureRules {
@@ -17,7 +16,7 @@ class ArchitectureRules {
 
         @ArchTest
         val databaseNotDependingOnAnythingElse: ArchRule =
-            noClasses().that().resideInAPackage(databasePackage)
+            ArchRuleDefinition.noClasses().that().resideInAPackage(databasePackage)
                 .should().dependOnClassesThat()
                 .resideOutsideOfPackages(
                     "java..", 
@@ -33,13 +32,13 @@ class ArchitectureRules {
 
         @ArchTest
         val entityClassesLocation: ArchRule =
-            classes().that().areAnnotatedWith("jakarta.persistence.Entity")
+            ArchRuleDefinition.classes().that().areAnnotatedWith("jakarta.persistence.Entity")
             .should().resideInAPackage(databasePackage)
             .allowEmptyShould(true)
 
         @ArchTest
         val repositoryLocation: ArchRule =
-            classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
+            ArchRuleDefinition.classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
             .or().areAssignableTo("org.springframework.data.repository.Repository")
             .should().resideInAPackage(databasePackage)
             .allowEmptyShould(true)

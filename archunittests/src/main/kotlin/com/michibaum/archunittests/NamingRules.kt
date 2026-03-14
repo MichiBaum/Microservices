@@ -1,4 +1,4 @@
-package com.michibaum
+package com.michibaum.archunittests
 
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchRule
