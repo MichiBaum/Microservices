@@ -1,5 +1,25 @@
 <p-toast position="bottom-right"/>
-<p-confirmDialog />
+<p-confirmdialog #cd>
+  <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
+    <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+      <div
+        class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
+      >
+        <fa-icon [icon]="message.faIcon" size="2xl"></fa-icon>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex items-center gap-2 mt-6">
+        @if (message.accept) {
+          <p-button [label]="message.acceptLabel" (onClick)="onAccept()" styleClass="w-32"></p-button>
+        }
+        @if (message.reject) {
+          <p-button [label]="message.rejectLabel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+        }
+      </div>
+    </div>
+  </ng-template>
+</p-confirmdialog>
 
 <div class="grid grid-cols-1">
 

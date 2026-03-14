@@ -23,6 +23,7 @@ import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 import {Textarea} from "primeng/textarea";
 import {of} from "rxjs";
 import {Select} from "primeng/select";
+import {UserConfirmationService} from "../../core/services/user-confirmation.service";
 
 @Component({
   selector: 'app-chess-update-event',
@@ -41,12 +42,13 @@ import {Select} from "primeng/select";
     EventIconPipe,
     Textarea,
     Select
-],
+  ],
   templateUrl: './chess-update-event.component.html',
   styleUrl: './chess-update-event.component.css'
 })
 export class ChessUpdateEventComponent {
   private readonly chessService = inject(ChessService);
+  private readonly confirmationService = inject(UserConfirmationService);
 
   events = rxResource({
     stream: () => this.chessService.events(),
@@ -218,8 +220,23 @@ export class ChessUpdateEventComponent {
     this.selectedEvent.set(undefined);
   }
 
-  confirmDelete() {
+  delete() {
+    this.confirmationService.deleteConfirm({
+      message: 'Are you sure you want to delete this event?',
+      header: 'Delete Confirmation',
+      accept: () => {
+        const id = this.selectedEvent()?.id;
+        if (id) {
+          this.chessService.deleteEvent(id).subscribe(() => {
+            this.clear();
+            this.events.reload();
+          });
+        }
+      },
+      reject: () => {
 
+      }
+    });
   }
 
   protected addParticipant(event: PickListMoveToTargetEvent) {
