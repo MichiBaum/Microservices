@@ -130,4 +130,19 @@ class EventController(
         }
     }
 
+    @DeleteMapping("/api/events/{id}")
+    fun deleteEvent(@PathVariable id: String): ResponseEntity<Void> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val event = eventService.find(uuid) ?:
+                return ResponseEntity.notFound().build()
+            eventService.delete(event)
+            ResponseEntity.noContent().build()
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
 }

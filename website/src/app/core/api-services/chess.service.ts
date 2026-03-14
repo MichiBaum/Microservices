@@ -91,6 +91,10 @@ export class ChessService {
     return this.http.put<ChessEvent>(this.environment.chessService() + endPoint, event)
   }
 
+  deleteEvent(id: string): Observable<void> {
+    return this.http.delete<void>(this.environment.chessService() + '/events/' + id)
+  }
+
   savePerson(id: string, person: WritePerson): Observable<Person>{
     let endPoint = "/persons"
     if(id !== undefined && id !== '')
