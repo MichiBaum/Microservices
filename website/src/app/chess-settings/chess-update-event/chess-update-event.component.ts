@@ -221,10 +221,9 @@ export class ChessUpdateEventComponent {
   }
 
   delete() {
-    this.confirmationService.confirm({
+    this.confirmationService.deleteConfirm({
       message: 'Are you sure you want to delete this event?',
       header: 'Delete Confirmation',
-      icon: 'pi pi-exclamation-triangle',
       accept: () => {
         const id = this.selectedEvent()?.id;
         if (id) {
@@ -233,6 +232,9 @@ export class ChessUpdateEventComponent {
             this.events.reload();
           });
         }
+      },
+      reject: () => {
+
       }
     });
   }
