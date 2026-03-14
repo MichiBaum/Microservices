@@ -5,6 +5,7 @@ import com.michibaum.NamingRules
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.michibaum.StandardRules
+import com.michibaum.TestRules
 import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.junit.ArchTests
 
@@ -20,4 +21,11 @@ class ArchitectureUT {
     @ArchTest
     val architectureRules = ArchTests.`in`(ArchitectureRules::class.java)
 
+}
+
+@AnalyzeClasses(packages = ["com.michibaum"])
+class TestUT {
+
+    @ArchTest
+    val testRules = ArchTests.`in`(TestRules::class.java)
 }
