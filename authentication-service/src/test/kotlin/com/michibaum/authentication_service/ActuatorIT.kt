@@ -5,6 +5,8 @@ import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -42,6 +44,19 @@ class ActuatorIT {
                 .header("Authorization", "Basic $basicAuthEncoded")
         )
             .andExpect(status().isOk)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    fun `actuator endpoints with not enough authorities return 403`(endpoint: String){
+        // GIVEN
+
+        // WHEN
+        mockMvc.perform(
+            get(endpoint)
+                .with(user("user").authorities(SimpleGrantedAuthority("SOME_OTHER_PERMISSION")))
+        )
+            .andExpect(status().isForbidden)
     }
 
 }
