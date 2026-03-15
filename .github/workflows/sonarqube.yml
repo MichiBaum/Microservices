@@ -1,10 +1,12 @@
 name: SonarQube Analysis
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_dispatch:
   pull_request:
-    branches: [ "master" ]
+  push:
+    branches:
+      - master
+      - develop
 
 jobs:
   build:
