@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>microservice</artifactId>
 		<groupId>com.michibaum</groupId>
-		<version>1.4.0</version>
+		<version>1.5.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
         </dependency>
         
 		<dependency>
@@ -88,29 +88,39 @@
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>permission-library</artifactId>
-			<version>1.4.0</version>
+			<version>1.5.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>spring-boot-starter-authentication</artifactId>
-			<version>1.4.0</version>
+			<version>1.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>spring-boot-starter-discord</artifactId>
-			<version>1.4.0</version>
+			<version>1.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>archunittests</artifactId>
 			<scope>test</scope>
-			<version>1.4.0</version>
+			<version>1.5.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -136,14 +146,6 @@
 					<value>dev</value>
 				</property>
 			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-devtools</artifactId>
-					<scope>runtime</scope>
-					<optional>true</optional>
-				</dependency>
-			</dependencies>
 		</profile>
 
 		<profile>

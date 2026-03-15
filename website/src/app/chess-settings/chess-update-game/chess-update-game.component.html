@@ -1,14 +1,15 @@
 <div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Select Event" [toggleable]="true">
-      <app-select-chess-event [events]="events.value() ?? []" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
+      <app-select-chess-event [events]="events.value() ?? []" (selectedEventChange)="onEventSelect($event)"></app-select-chess-event>
     </p-fieldset>
 
     <p-fieldset legend="Select Persons" [toggleable]="true" *ngIf="persons.value()?.length !== 0 && persons.value() as _persons">
-      <app-select-chess-person [persons]="_persons" (selectedPersonsEmitter)="onPersonsSelect($event)"></app-select-chess-person>
+      <app-select-chess-person [persons]="_persons" (selectedPersonsEmitter)="onPersonsSelect($event)" [selectionMode]="'multiple'"></app-select-chess-person>
     </p-fieldset>
 
-    <p-fieldset [toggleable]="true" *ngIf="selectedPersons().length == 2">
+  @if (selectedPersons().length == 2) {
+    <p-fieldset [toggleable]="true">
       <ng-template #header>
         Select Accounts
       </ng-template>
@@ -46,5 +47,6 @@
         </ng-template>
       </p-table>
     </p-fieldset>
+  }
 
 </div>

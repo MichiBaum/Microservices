@@ -9,11 +9,9 @@ import java.util.*
 open class Sleep(
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     val startTime: LocalDateTime,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     val endTime: LocalDateTime,
 
     @Column(nullable = false)

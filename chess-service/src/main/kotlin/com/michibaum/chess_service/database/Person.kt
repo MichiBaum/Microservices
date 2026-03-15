@@ -17,7 +17,6 @@ class Person(
     val federation: String?,
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
     val birthday: LocalDate?,
 
     @Enumerated(EnumType.STRING)
@@ -32,4 +31,7 @@ class Person(
     val id: UUID? = null,
 ){
     fun idOrThrow(): UUID = id ?: throw IdNullException()
+
+    fun fullName(): String = "$firstname $lastname"
+    
 }

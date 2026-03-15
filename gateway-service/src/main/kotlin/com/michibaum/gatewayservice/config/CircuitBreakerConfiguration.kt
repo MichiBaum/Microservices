@@ -59,7 +59,7 @@ class CircuitBreakerConfiguration {
     }
 }
 
-typealias CircuitBreakerResponse = (Throwable) -> ServerResponse
+typealias CircuitBreakerResponse = (Throwable?) -> ServerResponse
 
 fun createCircuitBreaker(
     service: Service,

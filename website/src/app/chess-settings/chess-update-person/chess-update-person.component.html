@@ -44,14 +44,14 @@
 
 
       <p-fieldset legend="Account Connect">
-        TODO
+        <app-select-chess-account [accounts]="selectedPerson()?.accounts ?? []"></app-select-chess-account>
       </p-fieldset>
     </div>
 
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-      <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="selectedPersonS() == undefined" />
+      <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="selectedPerson() == undefined" />
     </p-fieldset>
 
 </div>

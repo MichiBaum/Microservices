@@ -7,12 +7,16 @@ import com.michibaum.chess_service.database.PersonRepository
 import com.michibaum.chess_service.database.Event
 import com.michibaum.chess_service.database.EventCategory
 import com.michibaum.chess_service.database.EventRepository
+import com.michibaum.chess_service.database.GameRepository
 import com.michibaum.chess_service.database.Person
 import com.michibaum.permission_library.Permissions
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
@@ -21,7 +25,8 @@ import kotlin.jvm.optionals.getOrNull
 class EventService(
     private val eventRepository: EventRepository,
     private val eventCategoryService: EventCategoryService,
-    private val personRepository: PersonRepository
+    private val personRepository: PersonRepository,
+    private val gameRepository: GameRepository
 ) {
 
     fun findAllEagerCategories(): List<Event> =
@@ -45,7 +50,7 @@ class EventService(
 
         val authentication = Security.authentication
         val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
-            dto.internalComment
+            dto.internalComment ?: ""
         else
             ""
 
@@ -70,7 +75,7 @@ class EventService(
 
         val authentication = Security.authentication
         val internalComment = if (authentication != null && authentication.anyOf(Permissions.CHESS_SERVICE_ADMIN))
-            dto.internalComment
+            dto.internalComment ?: ""
         else
             event.internalComment
 
@@ -106,6 +111,12 @@ class EventService(
 
     fun findAllBy(specification: Specification<Event>, pageable: PageRequest): Page<Event> {
         return eventRepository.findAll(specification, pageable)
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    fun delete(event: Event) {
+        gameRepository.nullifyEvent(event)
+        eventRepository.delete(event)
     }
 
 }

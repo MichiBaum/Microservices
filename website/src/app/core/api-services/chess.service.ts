@@ -1,21 +1,22 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {
-    Account,
-    ChessEngine,
-    ChessEvent,
-    ChessEventCategory,
-    ChessEventCategoryWithEvents,
-    ChessGame,
-    ChessOpening, ChessOpeningMove, OpeningEvaluation,
-    Person,
-    PopularChessOpening,
-    SearchChessEvent,
-    SearchPerson,
-    WriteChessEngine,
-    WriteChessEvent,
-    WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
-    WritePerson
+  Account,
+  ChessEngine,
+  ChessEvent,
+  ChessEventCategory,
+  ChessEventCategoryWithEvents,
+  ChessGame,
+  ChessOpening, ChessOpeningMove, OpeningEvaluation,
+  Person,
+  PopularChessOpening,
+  SearchAccount,
+  SearchChessEvent, SearchLocation,
+  SearchPerson, WriteAccount,
+  WriteChessEngine,
+  WriteChessEvent,
+  WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
+  WritePerson
 } from "../models/chess/chess.models";
 import {Observable, throwError} from "rxjs";
 import {EnvironmentConfig} from "../config/environment.config";
@@ -65,12 +66,28 @@ export class ChessService {
     return this.http.get<ChessGame[]>(this.environment.chessService() + '/events/' + id + "/games")
   }
 
-  accountsSearch(name: string, local: boolean): Observable<Account[]> {
-    return this.http.get<Account[]>(this.environment.chessService() + '/accounts/search/' + name + '?local=' + local)
+  accountsSearch(search: SearchAccount): Observable<Account[]> {
+    return this.http.get<Account[]>(this.environment.chessService() + '/accounts/search', { params: {...search} });
+  }
+
+  personsAccounts(id: string): Observable<Account[]> {
+    return this.http.get<Account[]>(this.environment.chessService() + `/persons/${id}/accounts`)
   }
 
   accounts(): Observable<Account[]> {
     return this.http.get<Account[]>(this.environment.chessService() + '/accounts')
+  }
+
+  saveAccount(id: string, account: WriteAccount): Observable<Account> {
+    if(id !== undefined && id !== ''){
+      return this.http.put<Account>(this.environment.chessService() + "/accounts/" + id, account)
+    } else {
+      return this.http.post<Account>(this.environment.chessService() + "/accounts", account)
+    }
+  }
+
+  deleteAccount(id: string): Observable<void> {
+    return this.http.delete<void>(this.environment.chessService() + '/accounts/' + id)
   }
 
   importGames(id: string): Observable<void> {
@@ -89,6 +106,10 @@ export class ChessService {
     if(id !== undefined && id !== '')
       endPoint = endPoint + "/" + id
     return this.http.put<ChessEvent>(this.environment.chessService() + endPoint, event)
+  }
+
+  deleteEvent(id: string): Observable<void> {
+    return this.http.delete<void>(this.environment.chessService() + '/events/' + id)
   }
 
   savePerson(id: string, person: WritePerson): Observable<Person>{

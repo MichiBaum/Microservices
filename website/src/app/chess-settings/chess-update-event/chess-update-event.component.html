@@ -1,7 +1,11 @@
 <div class="grid grid-cols-1 gap-4">
 
   <p-fieldset legend="Event Select" [toggleable]="true">
-    <app-select-chess-event [events]="events()" (selectedEventEmitter)="onEventSelect($event)"></app-select-chess-event>
+    <app-select-chess-event
+      [events]="events.value()"
+      [(selectedEvent)]="selectedEvent"
+    >
+    </app-select-chess-event>
   </p-fieldset>
 
   <div class="grid grid-cols-1 4k:grid-cols-2 xlScreen:grid-cols-2 lScreen:grid-cols-2 desktop:grid-cols-2 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
@@ -63,8 +67,10 @@
 
     <p-fieldset legend="Event Players" styleClass="h-full">
       <p-pickList
-        [source]="personsToSelectS()"
-        [target]="participantsS()"
+        [source]="personsToSelect()"
+        [target]="selectedParticipants()"
+        (onMoveToTarget)="addParticipant($event)"
+        (onMoveToSource)="removeParticipant($event)"
         [dragdrop]="true"
         [responsive]="true"
         filterBy="firstname,lastname,fideId"
@@ -101,7 +107,7 @@
   <p-fieldset legend="Action">
     <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
     <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-    <p-button (onClick)="confirmDelete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent()" />
+    <p-button (onClick)="delete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedEvent()" />
   </p-fieldset>
 
 </div>

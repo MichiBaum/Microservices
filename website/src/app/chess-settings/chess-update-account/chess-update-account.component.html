@@ -1,47 +1,72 @@
 <div class="grid grid-cols-1 gap-4">
 
-    <p-fieldset>
-      <ng-template #header>
-        Account search
-      </ng-template>
+    <p-fieldset legend="Account Select" [toggleable]="true">
 
-      <p-inputgroup class="mb-6">
-        <input pInputText placeholder="Username" [(ngModel)]="username" />
-        <p-inputGroupAddon>
-        <p-checkbox [(ngModel)]="localSearch" [binary]="true" id="localSearch" />
-        <label for="localSearch" class="ml-2">Only Local search</label>
-        </p-inputGroupAddon>
-        <p-button pButton label="Search" (click)="search()" />
-      </p-inputgroup>
+      <app-search-chess-account
+        (accountsFound)="foundAccounts.set($event)"
+        #accountSearch
+      >
+      </app-search-chess-account>
 
-      <p-table [value]="importedAccounts()">
-        <ng-template #header>
-          <tr>
-            <th>Username</th>
-            <th>Platform</th>
-            <th>Number of games</th>
-            <th>Person</th>
-            <th>Url</th>
-            <th>Import Games</th>
-            <th>Delete</th>
-          </tr>
-        </ng-template>
-        <ng-template #body let-account>
-          <tr>
-            <td>{{ account.username }}</td>
-            <td>{{ account.platform }}</td>
-            <td>TODO</td>
-            <td>TODO</td>
-            <td><p-button (click)="open(account.url)" label="Open {{account.platform}}" /></td>
-            <td><p-button *ngIf="showImportGameButton(account)" (click)="importGames(account.id)" label="Import Games" /></td>
-            <td><p-button (click)="delete(account.id)" label="Delete" severity="danger" /></td>
-          </tr>
-        </ng-template>
-      </p-table>
+      <app-select-chess-account
+        [accounts]="foundAccounts()"
+        [(selectedAccount)]="selectedAccount"
+      >
+      </app-select-chess-account>
     </p-fieldset>
 
-    <p-fieldset legend="Create Account">
+    <div class="grid grid-cols-1 gap-4">
+      <p-fieldset legend="Account Data">
+        <form [formGroup]="formGroup">
 
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+            <label for="id">ID</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="platformId" formControlName="platformId" autocomplete="off" />
+            <label for="platformId">Platform ID</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="name" formControlName="name" autocomplete="off" />
+            <label for="name">Name</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="username" formControlName="username" autocomplete="off" />
+            <label for="username">Username</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <p-datePicker id="createdAt" formControlName="createdAt" dateFormat="dd.mm.yy" class="w-full"></p-datePicker>
+            <label for="createdAt">Created At</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <p-select id="platform" formControlName="platform" [options]="platforms" class="w-full" variant="filled" />
+            <label for="platform">Platform</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <p-select id="personId" formControlName="personId" [options]="allPersons.value()" optionLabel="lastname" optionValue="id" class="w-full" variant="filled" [filter]="true" filterBy="firstname,lastname" >
+              <ng-template let-person #item>
+                {{ person.firstname }} {{ person.lastname }}
+              </ng-template>
+            </p-select>
+            <label for="personId">Person</label>
+          </p-floatlabel>
+
+        </form>
+      </p-fieldset>
+    </div>
+
+    <p-fieldset legend="Action">
+      <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+      <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+      <p-button type="button" class="mr-12" label="Import Games" (click)="importGames()" [disabled]="selectedAccount() !== undefined && showImportGameButton()"/>
+      <p-button type="button" class="mr-12" label="Delete" (onClick)="delete()"  severity="danger" [outlined]="true" [disabled]="selectedAccount() !== undefined" />
     </p-fieldset>
 
 </div>

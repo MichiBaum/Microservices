@@ -32,6 +32,7 @@ class EventController(
         eventService.findAllEagerCategories()
             .map { eventConverter.toDto(it) }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ) // TODO Only quick fix
     @GetMapping("/api/events/search")
     fun searchEvents(@ModelAttribute param: SearchEventDto): List<EventDto> {
         return eventService.findAllBy(param.getSpecification(), param.getPageable()).content
@@ -122,6 +123,21 @@ class EventController(
             val newEvent = eventService.update(event, eventDto)
             val newEventDto = eventConverter.toDto(newEvent)
             ResponseEntity.ok(newEventDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @DeleteMapping("/api/events/{id}")
+    fun deleteEvent(@PathVariable id: String): ResponseEntity<Void> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val event = eventService.find(uuid) ?:
+                return ResponseEntity.notFound().build()
+            eventService.delete(event)
+            ResponseEntity.noContent().build()
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()
         } catch (ex: Exception) {

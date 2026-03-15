@@ -1,6 +1,8 @@
 package com.michibaum.chess_service.database
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import java.util.*
 
@@ -8,5 +10,9 @@ import java.util.*
 interface GameRepository: JpaRepository<Game, UUID> {
     fun existsByChessPlatformAndPlatformId(chessPlatform: ChessPlatform, id: String): Boolean
     fun findByEvent(event: Event): List<Game>
+
+    @Modifying
+    @Query("update Game g set g.event = null where g.event = :event")
+    fun nullifyEvent(event: Event)
 
 }

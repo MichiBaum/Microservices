@@ -6,9 +6,11 @@ import {PasswordModule} from "primeng/password";
 import {FloatLabelModule} from "primeng/floatlabel";
 import {AuthService} from "../core/api-services/auth.service";
 import {CardModule} from "primeng/card";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 import {FocusTrapModule} from "primeng/focustrap";
+import {CustomErrorMatching} from "../core/config/http-error-handler.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-authentication',
@@ -29,6 +31,7 @@ import {FocusTrapModule} from "primeng/focustrap";
 export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(RouterNavigationService);
+  private readonly translate = inject(TranslateService);
 
   loginForm: FormGroup = new FormGroup({
     username: new FormControl<string>({
@@ -55,8 +58,15 @@ export class LoginComponent {
     if(username == "" || password == "")
       return;
 
-    this.authService.logout();
-    this.authService.login(username, password)
+    this.authService.logout(false);
+
+    const customErrorMatching: CustomErrorMatching =  {
+      matcher: (error: HttpErrorResponse) => error.status == 401,
+      summary: this.translate.instant("login.error.summary"),
+      details: this.translate.instant("login.error.details")
+    }
+
+    this.authService.login(username, password, customErrorMatching)
   }
 
   register() {

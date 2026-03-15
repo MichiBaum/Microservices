@@ -24,15 +24,43 @@ export enum Gender {
 }
 
 export interface SearchPerson {
-  firstname:string
-  lastname:string
+  firstname: string
+  lastname: string
+}
+
+export interface SearchAccount {
+  accountName: string;
+  searchLocation?: SearchLocation;
+}
+
+export interface AccountPerson {
+  id: string
+  name: string
 }
 
 export interface Account {
-  id: string
+  id?: string
+  platformId: string
+  name: string
   username: string
-  platform: ChessPlatform,
+  platform: ChessPlatform
   url: string
+  person?: AccountPerson
+  createdAt?: string
+}
+
+export interface WriteAccount {
+  platformId: string;
+  name: string;
+  username: string;
+  platform: ChessPlatform;
+  createdAt?: string;
+  personId?: string;
+}
+
+export enum SearchLocation {
+  LOCAL = "LOCAL",
+  ONLINE = "ONLINE",
 }
 
 export enum ChessPlatform{

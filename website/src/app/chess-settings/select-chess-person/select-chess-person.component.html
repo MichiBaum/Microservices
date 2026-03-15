@@ -2,7 +2,7 @@
   stripedRows
   [value]="persons()"
   [(selection)]="selectedPersons"
-  selectionMode="multiple"
+  [selectionMode]="selectionMode()"
   [paginator]="true"
   [rows]="5"
   (onRowSelect)="onSelectionChange()"

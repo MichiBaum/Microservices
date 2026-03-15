@@ -23,6 +23,7 @@ management:
       export:
         enabled: true
   tracing:
-    enabled: true
     sampling:
       probability: 1.0
+    export:
+      enabled: true

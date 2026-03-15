@@ -14,6 +14,10 @@ import {Button} from "primeng/button";
 import {DatePicker} from "primeng/datepicker";
 import {Select} from "primeng/select";
 import {FloatLabel} from "primeng/floatlabel";
+import {rxResource} from "@angular/core/rxjs-interop";
+import {of} from "rxjs";
+import {TableModule} from "primeng/table";
+import {SelectChessAccountComponent} from "../select-chess-account/select-chess-account.component";
 
 @Component({
   selector: 'app-chess-update-person',
@@ -30,7 +34,9 @@ import {FloatLabel} from "primeng/floatlabel";
     Button,
     DatePicker,
     Select,
-    FloatLabel
+    FloatLabel,
+    TableModule,
+    SelectChessAccountComponent
   ],
   templateUrl: './chess-update-person.component.html',
   styleUrl: './chess-update-person.component.css'
@@ -39,7 +45,7 @@ export class ChessUpdatePersonComponent implements OnInit{
   private readonly chessService = inject(ChessService);
 
   persons: Person[] = [];
-  selectedPersonS = signal<Person | undefined>(undefined);
+  selectedPerson = signal<Person | undefined>(undefined);
   genders = signal<Gender[]>([Gender.MALE, Gender.FEMALE]);
 
   formGroup: FormGroup = new FormGroup({
@@ -77,23 +83,23 @@ export class ChessUpdatePersonComponent implements OnInit{
     ]),
   })
 
-
   ngOnInit(): void {
     this.chessService.persons().subscribe(persons => this.persons = [...persons]);
   }
 
-  selectedPersonsChange(persons: Person[]) {
-    if(persons.length == 0 || persons.length > 1){
-      this.selectedPersonS.set(undefined);
+  selectedPersonsChange(persons: Person | Person[] | undefined) {
+    if(persons == undefined){
+      this.selectedPerson.set(undefined);
       this.resetForm();
       return;
     }
-    this.selectedPersonS.set(persons[0]);
+    const selectedPerson = Array.isArray(persons) ? persons[0] : persons;
+    this.selectedPerson.set(selectedPerson);
     this.patchForm();
   }
 
   private patchForm() {
-    const selectedPerson = this.selectedPersonS();
+    const selectedPerson = this.selectedPerson();
     let birthday;
     if(selectedPerson?.birthday){
       birthday = new Date(selectedPerson?.birthday)
@@ -150,7 +156,7 @@ export class ChessUpdatePersonComponent implements OnInit{
 
   clear() {
     this.formGroup.reset();
-    this.selectedPersonS.set(undefined);
+    this.selectedPerson.set(undefined);
   }
 
   confirmDelete() {

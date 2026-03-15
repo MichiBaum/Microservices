@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
@@ -15,23 +15,23 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <spring-boot.version>3.5.10</spring-boot.version>
+        <spring-boot.version>4.0.3</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
         -->
-        <spring-cloud.version>2025.0.1</spring-cloud.version>
+        <spring-cloud.version>2025.1.1</spring-cloud.version>
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>3.5.7</spring-boot-admin.version>
+        <spring-boot-admin.version>4.0.2</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
-        <datasource-micrometer-spring-boot.version>1.3.0</datasource-micrometer-spring-boot.version>
+        <datasource-micrometer-spring-boot.version>2.1.1</datasource-micrometer-spring-boot.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>25</java.version>
@@ -77,6 +77,16 @@
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+
+        <!-- https://github.com/spring-projects-experimental/spring-boot-migrator -->
+        <!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-properties-migrator -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-properties-migrator</artifactId>-->
+<!--            <version>${spring-boot.version}</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+        
     </dependencies>
 
     <dependencyManagement>
@@ -159,11 +169,37 @@
             <properties>
                 <sonar.organization>michibaum</sonar.organization>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-                <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-                <sonar.language>kotlin</sonar.language>
             </properties>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.5.5</version>
+                        <configuration>
+                            <includes>
+                                <include>%regex[.*UT.class]</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.5.5</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <includes>
+                                <include>%regex[.*IT.class]</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
@@ -187,48 +223,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>
-                                @{argLine} --illegal-access=permit
-                            </argLine>
-                            <testSourceDirectory>
-                                ${project.basedir}/src/test/kotlin
-                            </testSourceDirectory>
-                            <includes>
-                                <include>**/*UT.java</include>
-                                <include>**/*UT.kt</include>
-                                <include>**/*UT.class</include>
-                            </includes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <argLine>
-                                @{argLine} --illegal-access=permit
-                            </argLine>
-                            <testSourceDirectory>
-                                ${project.basedir}/src/test/kotlin
-                            </testSourceDirectory>
-                            <includes>
-                                <include>**/*IT.java</include>
-                                <include>**/*IT.kt</include>
-                                <include>**/*IT.class</include>
-                            </includes>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -255,14 +249,12 @@
                     <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
                     <args>
                         <arg>-Xjsr305=strict</arg>
+                        <arg>-java-parameters</arg>
                     </args>
                     <compilerPlugins>
                         <plugin>spring</plugin>
                         <plugin>jpa</plugin>
                     </compilerPlugins>
-                    <sourceDirs>
-                        <source>src/main/kotlin</source>
-                    </sourceDirs>
                 </configuration>
                 <dependencies>
                     <dependency>

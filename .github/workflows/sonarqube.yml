@@ -1,10 +1,12 @@
 name: SonarQube Analysis
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_dispatch:
   pull_request:
-    branches: [ "master" ]
+  push:
+    branches:
+      - master
+      - develop
 
 jobs:
   build:
@@ -21,6 +23,8 @@ jobs:
           distribution: 'zulu'
           java-version: '25'
           cache: 'maven'
+          cache-dependency-path: |
+            **/pom.xml
           check-latest: true
       
       # TODO maybe step to use Testcontainers Cloud but github actions env has docker already therefore no explicit docker installation is needed

@@ -10,11 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.AuthenticationConverter
 
 class JwtAuthenticationConverter: AuthenticationConverter {
-    override fun convert(request: HttpServletRequest?): Authentication? {
-        if(request == null){
-            return null
-        }
-
+    override fun convert(request: HttpServletRequest): Authentication? {
         val token = getToken(request) ?: return null
         return JwtAuthentication(token, createUserDetails(token))
     }
@@ -46,7 +42,8 @@ class JwtAuthenticationConverter: AuthenticationConverter {
     private fun createAuthorities(token: String): List<SimpleGrantedAuthority> {
         return JwsWrapper(token).getPermissions().stream()
             .map { permission -> "$permission" }
-            .map { permission: String? -> SimpleGrantedAuthority(permission) }
+            .distinct()
+            .map { permission: String -> SimpleGrantedAuthority(permission) }
             .toList()
     }
 
