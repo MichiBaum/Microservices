@@ -20,8 +20,9 @@ class OnlineAccountSearch(
         return searchLocation == SearchLocation.ONLINE
     }
 
-    override fun search(query: String): List<Account> {
-        val apiResults = apiService.findAccount(query)
+    override fun search(searchAccountDto: SearchAccountDto): List<Account> {
+        val accountName = searchAccountDto.accountName ?: return emptyList()
+        val apiResults = apiService.findAccount(accountName)
 
         val foundAccounts = apiResults
             .doIfIsInstance<ApiResult<AccountDto>, Loggable> { it.log() }

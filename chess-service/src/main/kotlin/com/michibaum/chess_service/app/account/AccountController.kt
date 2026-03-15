@@ -19,7 +19,7 @@ class AccountController(
     @GetMapping("/api/accounts/search")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun searchAccount(@ModelAttribute searchAccountDto: SearchAccountDto): List<GetAccountDto> {
-        return accountService.getAccounts(searchAccountDto.accountName, searchAccountDto.searchLocation)
+        return accountService.getAccounts(searchAccountDto)
             .map { account: Account -> accountConverter.convert(account) }
     }
 

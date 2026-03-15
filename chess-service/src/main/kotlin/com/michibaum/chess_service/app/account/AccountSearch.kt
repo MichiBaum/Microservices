@@ -6,6 +6,6 @@ interface AccountSearch {
     
     fun responsibleFor(searchLocation: SearchLocation): Boolean
     
-    fun search(query: String): List<Account>
+    fun search(searchAccountDto: SearchAccountDto): List<Account>
     
 }

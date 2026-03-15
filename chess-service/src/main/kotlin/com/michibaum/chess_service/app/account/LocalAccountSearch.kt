@@ -13,7 +13,7 @@ class LocalAccountSearch(
         return searchLocation == SearchLocation.LOCAL
     }
 
-    override fun search(query: String): List<Account> {
-        return accountRepository.findByUsernameContainingIgnoreCase(query)
+    override fun search(searchAccountDto: SearchAccountDto): List<Account> {
+        return accountRepository.findAll(searchAccountDto.getSpecification())
     }
 }

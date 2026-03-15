@@ -24,9 +24,9 @@ class AccountService(
         return accountRepository.saveAll(accounts)
     }
 
-    fun getAccounts(username: String, searchLocation: SearchLocation): List<Account> {
-        return accountSearches.filter { it.responsibleFor(searchLocation) }
-            .flatMap { it.search(username) }
+    fun getAccounts(searchAccountDto: SearchAccountDto): List<Account> {
+        return accountSearches.filter { it.responsibleFor(searchAccountDto.searchLocation) }
+            .flatMap { it.search(searchAccountDto) }
     }
 
     fun findByAccountId(accountId: UUID): Account? {
