@@ -1,21 +1,21 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {
-    Account,
-    ChessEngine,
-    ChessEvent,
-    ChessEventCategory,
-    ChessEventCategoryWithEvents,
-    ChessGame,
-    ChessOpening, ChessOpeningMove, OpeningEvaluation,
-    Person,
-    PopularChessOpening,
-    SearchChessEvent,
-    SearchPerson,
-    WriteChessEngine,
-    WriteChessEvent,
-    WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
-    WritePerson
+  Account,
+  ChessEngine,
+  ChessEvent,
+  ChessEventCategory,
+  ChessEventCategoryWithEvents,
+  ChessGame,
+  ChessOpening, ChessOpeningMove, OpeningEvaluation,
+  Person,
+  PopularChessOpening,
+  SearchChessEvent, SearchLocation,
+  SearchPerson,
+  WriteChessEngine,
+  WriteChessEvent,
+  WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
+  WritePerson
 } from "../models/chess/chess.models";
 import {Observable, throwError} from "rxjs";
 import {EnvironmentConfig} from "../config/environment.config";
@@ -65,8 +65,15 @@ export class ChessService {
     return this.http.get<ChessGame[]>(this.environment.chessService() + '/events/' + id + "/games")
   }
 
-  accountsSearch(name: string, local: boolean): Observable<Account[]> {
-    return this.http.get<Account[]>(this.environment.chessService() + '/accounts/search/' + name + '?local=' + local)
+  accountsSearch(name: string, searchLocation?: SearchLocation): Observable<Account[]> {
+    const url = `${this.environment.chessService()}/accounts/search/${encodeURIComponent(name)}`;
+
+    let params = new HttpParams();
+    if (searchLocation) {
+      params = params.set('search-location', searchLocation);
+    }
+
+    return this.http.get<Account[]>(url, { params });
   }
 
   accounts(): Observable<Account[]> {

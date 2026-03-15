@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component
 @Component
 class AccountConverter {
 
-    fun convert(account: Account): AccountDto {
-        return AccountDto(
-            id = account.idOrThrow(),
+    fun convert(account: Account): GetAccountDto {
+        return GetAccountDto(
+            id = account.id,
             name = account.name,
             username = account.username,
             platform = account.platform,
             url = url(account),
-            personName = account.person?.fullName()
+            person = account.person?.let { GetAccountPersonDto(it.id!!, it.fullName()) }
         )
     }
     fun url(account: Account): String {

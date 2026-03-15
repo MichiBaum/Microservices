@@ -19,14 +19,14 @@ class AccountController(
 
     @GetMapping("/api/accounts/search/{accountName}")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun searchAccount(@PathVariable accountName: String, @RequestParam(required = false) local: Boolean = true): List<AccountDto> {
-        return accountService.getAccounts(accountName, local)
+    fun searchAccount(@PathVariable accountName: String, @RequestParam(name = "search-location", required = false) searchLocation: SearchLocation = SearchLocation.LOCAL): List<GetAccountDto> {
+        return accountService.getAccounts(accountName, searchLocation)
             .map { account: Account -> accountConverter.convert(account) }
     }
 
     @GetMapping("/api/accounts/{id}")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    fun getAccount(@PathVariable id: String): ResponseEntity<AccountDto> {
+    fun getAccount(@PathVariable id: String): ResponseEntity<GetAccountDto> {
         return try {
             val uuid = UUID.fromString(id)
             val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()

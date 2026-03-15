@@ -81,12 +81,7 @@ export class ChessUpdateEventComponent {
     return this.allPersons.value().filter(person => !eventParticipants?.some(participant => participant.id == person.id))
   })
 
-  platforms = [
-    ChessPlatform.FIDE,
-    ChessPlatform.CHESSCOM,
-    ChessPlatform.FREESTYLE,
-    ChessPlatform.LICHESS
-  ]
+  platforms = Object.values(ChessPlatform)
 
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({

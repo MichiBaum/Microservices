@@ -16,8 +16,8 @@ class OnlineAccountSearch(
     private val accountRepository: AccountRepository,
     private val apiService: ApiService,
 ): AccountSearch {
-    override fun responsibleFor(local: Boolean): Boolean {
-        return !local
+    override fun responsibleFor(searchLocation: SearchLocation): Boolean {
+        return searchLocation == SearchLocation.ONLINE
     }
 
     override fun search(query: String): List<Account> {

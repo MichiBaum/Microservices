@@ -21,25 +21,10 @@ class AccountService(
         return accountRepository.saveAll(accounts)
     }
 
-    fun getAccounts(username: String, local: Boolean): List<Account> {
-        return accountSearches.filter { it.responsibleFor(local) }
+    fun getAccounts(username: String, searchLocation: SearchLocation): List<Account> {
+        return accountSearches.filter { it.responsibleFor(searchLocation) }
             .flatMap { it.search(username) }
     }
-
-//    fun getTopAccounts(): List<Account>{
-//        val apiResults = apiService.getTopAccounts()
-//
-//        // Handle errors
-//        apiResults.filterIsInstance<Loggable>()
-//            .forEach { it.log() }
-//
-//        val accounts = apiResults.filterIsInstance<Success<AccountDto>>()
-//            .map { it.result }
-//            .filter { !accountRepository.existsByPlatformIdAndUsername(it.id, it.username) }
-//            .map { it.toAccount() }
-//        return accountRepository.saveAll(accounts)
-//
-//    }
 
     fun findByAccountId(accountId: UUID): Account? {
         return accountRepository.findById(accountId).getOrNull()

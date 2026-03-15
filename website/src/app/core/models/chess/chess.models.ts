@@ -28,13 +28,23 @@ export interface SearchPerson {
   lastname: string
 }
 
+export interface AccountPerson {
+  id: string
+  name: string
+}
+
 export interface Account {
   id?: string
   name: string
   username: string
   platform: ChessPlatform
   url: string
-  personName?: string
+  person?: AccountPerson
+}
+
+export enum SearchLocation {
+  LOCAL = "LOCAL",
+  ONLINE = "ONLINE",
 }
 
 export enum ChessPlatform{

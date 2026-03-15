@@ -4,7 +4,7 @@ import com.michibaum.chess_service.database.Account
 
 interface AccountSearch {
     
-    fun responsibleFor(local: Boolean): Boolean
+    fun responsibleFor(searchLocation: SearchLocation): Boolean
     
     fun search(query: String): List<Account>
     
