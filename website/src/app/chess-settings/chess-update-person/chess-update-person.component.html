@@ -44,7 +44,7 @@
 
 
       <p-fieldset legend="Account Connect">
-        <app-select-chess-account [accounts]="accounts.value()"></app-select-chess-account>
+        <app-select-chess-account [accounts]="selectedPerson()?.accounts ?? []"></app-select-chess-account>
       </p-fieldset>
     </div>
 

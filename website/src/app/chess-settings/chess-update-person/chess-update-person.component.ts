@@ -48,18 +48,6 @@ export class ChessUpdatePersonComponent implements OnInit{
   selectedPerson = signal<Person | undefined>(undefined);
   genders = signal<Gender[]>([Gender.MALE, Gender.FEMALE]);
 
-  protected readonly accounts = rxResource({
-    params: () => ({id: this.selectedPerson()?.id}),
-    stream: (params) => {
-      const personId = params.params.id;
-      if (!personId) {
-        return of([]);
-      }
-      return this.chessService.personsAccounts(personId)
-    },
-    defaultValue: []
-  });
-
   formGroup: FormGroup = new FormGroup({
     id: new FormControl<string | null>({
       value: '',
