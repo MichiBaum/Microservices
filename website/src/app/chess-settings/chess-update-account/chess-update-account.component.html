@@ -1,9 +1,6 @@
 <div class="grid grid-cols-1 gap-4">
 
-    <p-fieldset>
-      <ng-template #header>
-        Account search
-      </ng-template>
+    <p-fieldset legend="Account Select" [toggleable]="true">
 
       <p-inputgroup class="mb-6">
         <input pInputText placeholder="Username" [(ngModel)]="searchTerm" />
@@ -11,36 +8,12 @@
         <p-button pButton label="Search" (click)="accounts.reload()" />
       </p-inputgroup>
 
-      <p-table [value]="accounts.value()">
-        <ng-template #header>
-          <tr>
-            <th>Saved?</th>
-            <th>Username</th>
-            <th>Platform</th>
-            <th>Number of games</th>
-            <th>Person</th>
-            <th>Url</th>
-            <th>Edit</th>
-          </tr>
-        </ng-template>
-        <ng-template #body let-account>
-          <tr>
-            <td>
-              <fa-icon [icon]="account.id !== undefined ? faCheck : faXmark"></fa-icon>
-            </td>
-            <td>{{ account.username }}</td>
-            <td>{{ account.platform }}</td>
-            <td>TODO</td>
-            <td>{{ account.person?.name }}</td>
-            <td>
-              <p-button (click)="open(account.url)" label="Open {{account.platform}}" />
-            </td>
-            <td>
-              <p-button (click)="selectAccount(account)" label="Edit" />
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+
+      <app-select-chess-account
+        [accounts]="accounts.value()"
+        [(selectedAccount)]="selectedAccount"
+      >
+      </app-select-chess-account>
     </p-fieldset>
 
     <div class="grid grid-cols-1 gap-4">
@@ -93,8 +66,8 @@
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
-      <p-button (click)="importGames()" label="Import Games" [disabled]="!selectedAccount()"/>
-      <p-button (onClick)="delete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedAccount()" />
+      <p-button type="button" class="mr-12" label="Import Games" (click)="importGames()" [disabled]="selectedAccount() !== undefined && showImportGameButton()"/>
+      <p-button type="button" class="mr-12" label="Delete" (onClick)="delete()"  severity="danger" [outlined]="true" [disabled]="selectedAccount() !== undefined" />
     </p-fieldset>
 
 </div>

@@ -1,24 +1,19 @@
 import {Component, effect, inject, signal} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
+import {SelectChessAccountComponent} from "../select-chess-account/select-chess-account.component";
 import {ChessService} from "../../core/api-services/chess.service";
 import {InputTextModule} from "primeng/inputtext";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Button, ButtonDirective} from "primeng/button";
-import {InputGroupModule} from "primeng/inputgroup";
 import {Account, ChessPlatform, SearchLocation, WriteAccount} from "../../core/models/chess/chess.models";
-import {TableModule} from "primeng/table";
-import {RouterNavigationService} from "../../core/services/router-navigation.service";
-import {InputGroupAddonModule} from "primeng/inputgroupaddon";
-import {CheckboxModule} from "primeng/checkbox";
 import {FloatLabel} from "primeng/floatlabel";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from "rxjs";
-import {SelectButton} from "primeng/selectbutton";
 import {Select} from "primeng/select";
 import {DatePicker} from "primeng/datepicker";
 import {UserConfirmationService} from "../../core/services/user-confirmation.service";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {InputGroup} from "primeng/inputgroup";
+import {SelectButton} from "primeng/selectbutton";
 
 @Component({
   selector: 'app-chess-update-account',
@@ -27,24 +22,20 @@ import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
     InputTextModule,
     FormsModule,
     Button,
-    InputGroupModule,
-    ButtonDirective,
-    TableModule,
-    InputGroupAddonModule,
-    CheckboxModule,
     FloatLabel,
     ReactiveFormsModule,
-    SelectButton,
     Select,
     DatePicker,
-    FaIconComponent
+    SelectChessAccountComponent,
+    ButtonDirective,
+    InputGroup,
+    SelectButton
   ],
   templateUrl: './chess-update-account.component.html',
   styleUrl: './chess-update-account.component.css'
 })
 export class ChessUpdateAccountComponent{
   private readonly chessService = inject(ChessService);
-  private readonly routerService = inject(RouterNavigationService);
   private readonly confirmationService = inject(UserConfirmationService);
 
   searchTerm = signal('');
@@ -169,9 +160,6 @@ export class ChessUpdateAccountComponent{
     });
   }
 
-  open(url: string) {
-    this.routerService.open(url)
-  }
 
   importGames() {
     const id = this.selectedAccount()?.id;
@@ -183,7 +171,11 @@ export class ChessUpdateAccountComponent{
     })
   }
 
-  showImportGameButton(account: Account) {
+  showImportGameButton() {
+    const account = this.selectedAccount()
+    if (!account)
+      return false
+
     let isOverTheBoard = account.platform === ChessPlatform.FIDE;
     return !isOverTheBoard
   }
@@ -192,12 +184,6 @@ export class ChessUpdateAccountComponent{
     return Object.values(SearchLocation);
   }
 
-  selectAccount(account: Account) {
-    this.selectedAccount.set(account);
-  }
-
-  protected readonly faCheck = faCheck;
-  protected readonly faXmark = faXmark;
 }
 
 
