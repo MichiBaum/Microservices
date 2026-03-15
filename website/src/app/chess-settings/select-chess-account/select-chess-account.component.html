@@ -1,0 +1,34 @@
+<p-table
+  stripedRows
+  [value]="accounts()"
+  [selection]="selectedAccount()"
+  (selectionChange)="selectedAccountChange.emit($event)"
+  selectionMode="single"
+  [paginator]="true"
+  [rows]="10"
+>
+  <ng-template #header>
+    <tr>
+      <th>Saved?</th>
+      <th>Username</th>
+      <th>Platform</th>
+      <th>Number of games</th>
+      <th>Person</th>
+      <th>Url</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-account let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="account" [pSelectableRowIndex]="rowIndex">
+      <td>
+        <fa-icon [icon]="account.id !== undefined ? faCheck : faXmark"></fa-icon>
+      </td>
+      <td>{{ account.username }}</td>
+      <td>{{ account.platform }}</td>
+      <td>TODO</td>
+      <td>{{ account.person?.name }}</td>
+      <td>
+        <p-button (click)="$event.stopPropagation(); open(account.url)" label="Open {{account.platform}}" />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

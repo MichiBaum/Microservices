@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.person
 
-import com.michibaum.chess_service.app.account.AccountDto
+import com.michibaum.chess_service.app.account.GetAccountDto
 import com.michibaum.chess_service.database.Gender
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
@@ -26,7 +26,7 @@ data class PersonDto(
     val federation: String? = null,
     val birthday: String? = null,
     val gender: Gender,
-    val accounts: Set<AccountDto> = emptySet(),
+    val accounts: Set<GetAccountDto> = emptySet(),
 )
 
 data class PersonSearchDto(

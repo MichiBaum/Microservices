@@ -3,7 +3,7 @@ import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {LightDarkModeService} from "./core/services/light-dark-mode.service";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {TranslateService} from "@ngx-translate/core";
 import {ToastModule} from "primeng/toast";
 import {UserInfoService} from "./core/services/user-info.service";
 import {SwUpdate} from "@angular/service-worker";
@@ -18,7 +18,7 @@ import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule, Button, FaIconComponent, TranslatePipe],
+  imports: [RouterOutlet, HeaderComponent, ToastModule, ConfirmDialogModule, Button, FaIconComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [MessageService, ConfirmationService]

@@ -67,7 +67,12 @@ export class ChessUpdateGameComponent {
     this.selectedEvent.set(event)
   }
 
-  onPersonsSelect(persons: Person[]) {
+  onPersonsSelect(person: Person[] | Person | undefined) {
+    if(person === undefined) {
+      this.selectedPersons.set([])
+      return
+    }
+    const persons = Array.isArray(person) ? person : [person]
     this.selectedPersons.set(persons)
   }
 

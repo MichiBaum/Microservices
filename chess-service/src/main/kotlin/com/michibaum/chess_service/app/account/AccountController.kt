@@ -1,37 +1,98 @@
 package com.michibaum.chess_service.app.account
 
+import com.michibaum.chess_service.app.person.PersonConverter
+import com.michibaum.chess_service.app.person.PersonService
 import com.michibaum.chess_service.database.Account
+import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
 class AccountController(
     private val accountService: AccountService,
-    private val accountConverter: AccountConverter
+    private val accountConverter: AccountConverter,
+    private val personService: PersonService
 ) {
 
-    @GetMapping("/api/accounts/search/{accountName}")
+    @GetMapping("/api/accounts/search")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun searchAccount(@PathVariable accountName: String, @RequestParam(required = false) local: Boolean = true): List<AccountDto> {
-        return accountService.getAccounts(accountName, local)
+    fun searchAccount(@ModelAttribute searchAccountDto: SearchAccountDto): List<GetAccountDto> {
+        return accountService.getAccounts(searchAccountDto)
             .map { account: Account -> accountConverter.convert(account) }
     }
 
     @GetMapping("/api/accounts/{id}")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    fun getAccount(@PathVariable id: String): ResponseEntity<AccountDto> {
+    fun getAccount(@PathVariable id: String): ResponseEntity<GetAccountDto> {
         return try {
             val uuid = UUID.fromString(id)
             val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()
             val dto = accountConverter.convert(account)
             ResponseEntity.ok(dto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    @PostMapping("/api/accounts")
+    fun createAccount(@Valid @RequestBody accountDto: WriteAccountDto): ResponseEntity<GetAccountDto> {
+        return try {
+            val account = accountService.create(accountDto)
+            val newAccountDto = accountConverter.convert(account)
+            ResponseEntity(newAccountDto, HttpStatus.CREATED)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    @PutMapping("/api/accounts/{id}")
+    fun updateAccount(@PathVariable id: String, @Valid @RequestBody accountDto: WriteAccountDto): ResponseEntity<GetAccountDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()
+            val newAccount = accountService.update(account, accountDto)
+            val newAccountDto = accountConverter.convert(newAccount)
+            ResponseEntity.ok(newAccountDto)
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @DeleteMapping("/api/accounts/{id}")
+    fun deleteAccount(@PathVariable id: String): ResponseEntity<Void> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()
+            accountService.delete(account)
+            ResponseEntity.noContent().build()
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+    
+    @GetMapping("/api/persons/{id}/accounts")
+    fun getAccounts(@PathVariable id: String): ResponseEntity<List<GetAccountDto>> {
+        return try {
+            val uuid = UUID.fromString(id)
+            var person = personService.find(uuid) ?: return ResponseEntity.notFound().build()
+            var accounts = accountService.findAllByPerson(person)
+            val dtos = accounts.map { account: Account -> accountConverter.convert(account) }
+            ResponseEntity.ok(dtos)
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()
         } catch (ex: Exception) {
