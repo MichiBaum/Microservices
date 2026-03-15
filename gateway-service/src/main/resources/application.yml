@@ -54,6 +54,8 @@ eureka:
       enable: true
     restclient:
       enabled: true
+    eureka-service-url-poll-interval-seconds: 30
+    registry-fetch-interval-seconds: 10
 
 management:
   server:
