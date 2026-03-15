@@ -20,7 +20,6 @@
             <th>Number of games</th>
             <th>Person</th>
             <th>Url</th>
-            <th>Import Games</th>
             <th>Edit</th>
           </tr>
         </ng-template>
@@ -35,11 +34,6 @@
             <td>{{ account.person?.name }}</td>
             <td>
               <p-button (click)="open(account.url)" label="Open {{account.platform}}" />
-            </td>
-            <td>
-              @if (showImportGameButton(account)) {
-                <p-button (click)="importGames(account.id)" label="Import Games" />
-              }
             </td>
             <td>
               <p-button (click)="selectAccount(account)" label="Edit" />
@@ -99,6 +93,7 @@
     <p-fieldset legend="Action">
       <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
       <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+      <p-button (click)="importGames()" label="Import Games" [disabled]="!selectedAccount()"/>
       <p-button (onClick)="delete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedAccount()" />
     </p-fieldset>
 

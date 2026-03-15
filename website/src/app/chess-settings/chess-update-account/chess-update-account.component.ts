@@ -152,16 +152,16 @@ export class ChessUpdateAccountComponent{
     this.formGroup.reset();
   }
 
-  delete(id?: string) {
-    const accountId = id ?? this.selectedAccount()?.id;
-    if (!accountId)
+  delete() {
+    const id = this.selectedAccount()?.id;
+    if (!id)
       return;
 
     this.confirmationService.deleteConfirm({
       message: 'Are you sure you want to delete this account?',
       header: 'Delete Confirmation',
       accept: () => {
-          this.chessService.deleteAccount(accountId).subscribe(() => {
+          this.chessService.deleteAccount(id).subscribe(() => {
             this.clear();
             this.accounts.reload();
           });
@@ -173,7 +173,11 @@ export class ChessUpdateAccountComponent{
     this.routerService.open(url)
   }
 
-  importGames(id: string) {
+  importGames() {
+    const id = this.selectedAccount()?.id;
+    if (!id)
+      return;
+
     this.chessService.importGames(id).subscribe(nothing => {
 
     })
