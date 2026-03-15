@@ -10,6 +10,7 @@ import {
   ChessOpening, ChessOpeningMove, OpeningEvaluation,
   Person,
   PopularChessOpening,
+  SearchAccount,
   SearchChessEvent, SearchLocation,
   SearchPerson, WriteAccount,
   WriteChessEngine,
@@ -65,15 +66,8 @@ export class ChessService {
     return this.http.get<ChessGame[]>(this.environment.chessService() + '/events/' + id + "/games")
   }
 
-  accountsSearch(name: string, searchLocation?: SearchLocation): Observable<Account[]> {
-    const url = `${this.environment.chessService()}/accounts/search/${encodeURIComponent(name)}`;
-
-    let params = new HttpParams();
-    if (searchLocation) {
-      params = params.set('search-location', searchLocation);
-    }
-
-    return this.http.get<Account[]>(url, { params });
+  accountsSearch(search: SearchAccount): Observable<Account[]> {
+    return this.http.get<Account[]>(this.environment.chessService() + '/accounts/search', { params: {...search} });
   }
 
   accounts(): Observable<Account[]> {

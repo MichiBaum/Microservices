@@ -1,6 +1,6 @@
 import {Component, effect, inject, output, signal} from '@angular/core';
 import {ChessService} from "../../core/api-services/chess.service";
-import {Account, SearchLocation} from "../../core/models/chess/chess.models";
+import {Account, SearchAccount, SearchLocation} from "../../core/models/chess/chess.models";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from "rxjs";
 import {FormsModule} from "@angular/forms";
@@ -31,10 +31,15 @@ export class SearchChessAccountComponent {
   accounts = rxResource({
     stream: () => {
       const searchTerm = this.searchTerm()
-      const localSearch = this.searchLocation()
+      const searchLocation = this.searchLocation()
       if (searchTerm === undefined || searchTerm.length < 1)
         return of([]);
-      return this.chessService.accountsSearch(searchTerm, localSearch)
+
+      const search: SearchAccount = {
+        accountName: searchTerm,
+        searchLocation: searchLocation
+      }
+      return this.chessService.accountsSearch(search)
     },
     defaultValue: []
   })

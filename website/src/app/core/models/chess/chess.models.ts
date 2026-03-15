@@ -28,6 +28,11 @@ export interface SearchPerson {
   lastname: string
 }
 
+export interface SearchAccount {
+  accountName: string;
+  searchLocation?: SearchLocation;
+}
+
 export interface AccountPerson {
   id: string
   name: string

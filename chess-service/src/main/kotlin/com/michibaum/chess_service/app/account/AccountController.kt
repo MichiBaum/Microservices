@@ -16,10 +16,10 @@ class AccountController(
     private val accountConverter: AccountConverter
 ) {
 
-    @GetMapping("/api/accounts/search/{accountName}")
+    @GetMapping("/api/accounts/search")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun searchAccount(@PathVariable accountName: String, @RequestParam(name = "search-location", required = false) searchLocation: SearchLocation = SearchLocation.LOCAL): List<GetAccountDto> {
-        return accountService.getAccounts(accountName, searchLocation)
+    fun searchAccount(@ModelAttribute searchAccountDto: SearchAccountDto): List<GetAccountDto> {
+        return accountService.getAccounts(searchAccountDto.accountName, searchAccountDto.searchLocation)
             .map { account: Account -> accountConverter.convert(account) }
     }
 
