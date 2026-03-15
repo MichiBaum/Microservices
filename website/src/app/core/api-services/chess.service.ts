@@ -11,7 +11,7 @@ import {
   Person,
   PopularChessOpening,
   SearchChessEvent, SearchLocation,
-  SearchPerson,
+  SearchPerson, WriteAccount,
   WriteChessEngine,
   WriteChessEvent,
   WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
@@ -78,6 +78,18 @@ export class ChessService {
 
   accounts(): Observable<Account[]> {
     return this.http.get<Account[]>(this.environment.chessService() + '/accounts')
+  }
+
+  saveAccount(id: string, account: WriteAccount): Observable<Account> {
+    if(id !== undefined && id !== ''){
+      return this.http.put<Account>(this.environment.chessService() + "/accounts/" + id, account)
+    } else {
+      return this.http.post<Account>(this.environment.chessService() + "/accounts", account)
+    }
+  }
+
+  deleteAccount(id: string): Observable<void> {
+    return this.http.delete<void>(this.environment.chessService() + '/accounts/' + id)
   }
 
   importGames(id: string): Observable<void> {

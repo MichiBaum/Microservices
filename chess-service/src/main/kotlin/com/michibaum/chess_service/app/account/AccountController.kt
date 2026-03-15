@@ -68,4 +68,18 @@ class AccountController(
         }
     }
 
+    @DeleteMapping("/api/accounts/{id}")
+    fun deleteAccount(@PathVariable id: String): ResponseEntity<Void> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()
+            accountService.delete(account)
+            ResponseEntity.noContent().build()
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
 }

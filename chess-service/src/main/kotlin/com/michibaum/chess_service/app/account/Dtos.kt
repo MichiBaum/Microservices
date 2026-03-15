@@ -5,11 +5,13 @@ import java.util.*
 
 data class GetAccountDto(
     val id: UUID?,
+    val platformId: String,
     val name: String,
     val username: String,
     val platform: ChessPlatform,
     val url: String,
     val person: GetAccountPersonDto?,
+    val createdAt: String?,
 )
 
 data class GetAccountPersonDto(

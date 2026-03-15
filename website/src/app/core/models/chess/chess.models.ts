@@ -35,11 +35,22 @@ export interface AccountPerson {
 
 export interface Account {
   id?: string
+  platformId: string
   name: string
   username: string
   platform: ChessPlatform
   url: string
   person?: AccountPerson
+  createdAt?: string
+}
+
+export interface WriteAccount {
+  platformId: string;
+  name: string;
+  username: string;
+  platform: ChessPlatform;
+  createdAt?: string;
+  personId?: string;
 }
 
 export enum SearchLocation {

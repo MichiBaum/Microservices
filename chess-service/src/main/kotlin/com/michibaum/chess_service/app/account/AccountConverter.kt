@@ -10,11 +10,13 @@ class AccountConverter {
     fun convert(account: Account): GetAccountDto {
         return GetAccountDto(
             id = account.id,
+            platformId = account.platformId,
             name = account.name,
             username = account.username,
             platform = account.platform,
             url = url(account),
-            person = account.person?.let { GetAccountPersonDto(it.id!!, it.fullName()) }
+            person = account.person?.let { GetAccountPersonDto(it.id!!, it.fullName()) },
+            createdAt = account.createdAt?.toString()
         )
     }
     fun url(account: Account): String {

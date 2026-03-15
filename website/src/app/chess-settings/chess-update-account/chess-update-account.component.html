@@ -21,12 +21,14 @@
             <th>Person</th>
             <th>Url</th>
             <th>Import Games</th>
-            <th>Delete</th>
+            <th>Edit</th>
           </tr>
         </ng-template>
         <ng-template #body let-account>
           <tr>
-            <td>{{ account.id !== undefined }}</td>
+            <td>
+              <fa-icon [icon]="account.id !== undefined ? faCheck : faXmark"></fa-icon>
+            </td>
             <td>{{ account.username }}</td>
             <td>{{ account.platform }}</td>
             <td>TODO</td>
@@ -40,22 +42,64 @@
               }
             </td>
             <td>
-              @if (account.id !== undefined) {
-                <p-button (click)="delete(account.id)" label="Delete" severity="danger" />
-              }
+              <p-button (click)="selectAccount(account)" label="Edit" />
             </td>
           </tr>
         </ng-template>
       </p-table>
     </p-fieldset>
 
-    <p-fieldset legend="Create Account">
-      <form [formGroup]="formGroup">
-        <p-floatlabel variant="in" class="mb-2">
-          <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
-          <label for="id">ID</label>
-        </p-floatlabel>
-      </form>
+    <div class="grid grid-cols-1 gap-4">
+      <p-fieldset legend="Account Data">
+        <form [formGroup]="formGroup">
+
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="id" formControlName="id" autocomplete="off" />
+            <label for="id">ID</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="platformId" formControlName="platformId" autocomplete="off" />
+            <label for="platformId">Platform ID</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="name" formControlName="name" autocomplete="off" />
+            <label for="name">Name</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <input class="w-full" pInputText id="username" formControlName="username" autocomplete="off" />
+            <label for="username">Username</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <p-datePicker id="createdAt" formControlName="createdAt" dateFormat="dd.mm.yy" class="w-full"></p-datePicker>
+            <label for="createdAt">Created At</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <p-select id="platform" formControlName="platform" [options]="platforms" class="w-full" variant="filled" />
+            <label for="platform">Platform</label>
+          </p-floatlabel>
+
+          <p-floatlabel variant="in" class="mb-2">
+            <p-select id="personId" formControlName="personId" [options]="allPersons.value()" optionLabel="lastname" optionValue="id" class="w-full" variant="filled" [filter]="true" filterBy="firstname,lastname" >
+              <ng-template let-person #item>
+                {{ person.firstname }} {{ person.lastname }}
+              </ng-template>
+            </p-select>
+            <label for="personId">Person</label>
+          </p-floatlabel>
+
+        </form>
+      </p-fieldset>
+    </div>
+
+    <p-fieldset legend="Action">
+      <p-button type="button" class="mr-12" label="Save" (click)="save()" [disabled]="!formGroup.valid"></p-button>
+      <p-button type="button" class="mr-12" label="Clear Data" (click)="clear()"></p-button>
+      <p-button (onClick)="delete()" label="Delete" severity="danger" [outlined]="true" [disabled]="!selectedAccount()" />
     </p-fieldset>
 
 </div>

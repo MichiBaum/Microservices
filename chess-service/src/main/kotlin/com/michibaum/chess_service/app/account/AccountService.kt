@@ -60,6 +60,11 @@ class AccountService(
         return accountRepository.save(newAccount)
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
+    fun delete(account: Account) {
+        accountRepository.delete(account)
+    }
+
 }
 
 
