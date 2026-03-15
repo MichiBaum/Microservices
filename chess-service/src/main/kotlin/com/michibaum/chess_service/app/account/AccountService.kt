@@ -2,6 +2,7 @@ package com.michibaum.chess_service.app.account
 
 import com.michibaum.chess_service.database.Account
 import com.michibaum.chess_service.database.AccountRepository
+import com.michibaum.chess_service.database.Person
 import com.michibaum.chess_service.database.PersonRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Isolation
@@ -63,6 +64,10 @@ class AccountService(
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun delete(account: Account) {
         accountRepository.delete(account)
+    }
+
+    fun findAllByPerson(person: Person): List<Account> {
+        return accountRepository.findAllByPerson(person.idOrThrow())
     }
 
 }

@@ -7,6 +7,8 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
 
 
+export type SelectionMode = 'single' | 'multiple';
+
 @Component({
   selector: 'app-select-chess-person',
   imports: [
@@ -20,10 +22,12 @@ import {EventIconPipe} from "../../core/pipes/gender-icon.pipe";
   styleUrl: './select-chess-person.component.css'
 })
 export class SelectChessPersonComponent {
-  readonly persons = input<Person[]>([]);
-  readonly selectedPersonsEmitter = output<Person[]>();
 
-  selectedPersons = signal<Person[]>([]);
+  readonly selectionMode = input<SelectionMode>('single');
+  readonly persons = input<Person[]>([]);
+
+  selectedPersons = signal<Person[] | Person | undefined>([]);
+  readonly selectedPersonsEmitter = output<Person[] | Person | undefined>();
 
 
   onSelectionChange() {

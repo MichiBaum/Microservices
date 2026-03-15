@@ -70,6 +70,10 @@ export class ChessService {
     return this.http.get<Account[]>(this.environment.chessService() + '/accounts/search', { params: {...search} });
   }
 
+  personsAccounts(id: string): Observable<Account[]> {
+    return this.http.get<Account[]>(this.environment.chessService() + `/persons/${id}/accounts`)
+  }
+
   accounts(): Observable<Account[]> {
     return this.http.get<Account[]>(this.environment.chessService() + '/accounts')
   }

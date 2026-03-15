@@ -1,5 +1,7 @@
 package com.michibaum.chess_service.app.account
 
+import com.michibaum.chess_service.app.person.PersonConverter
+import com.michibaum.chess_service.app.person.PersonService
 import com.michibaum.chess_service.database.Account
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -13,7 +15,8 @@ import java.util.*
 @RestController
 class AccountController(
     private val accountService: AccountService,
-    private val accountConverter: AccountConverter
+    private val accountConverter: AccountConverter,
+    private val personService: PersonService
 ) {
 
     @GetMapping("/api/accounts/search")
@@ -75,6 +78,21 @@ class AccountController(
             val account = accountService.findByAccountId(uuid) ?: return ResponseEntity.notFound().build()
             accountService.delete(account)
             ResponseEntity.noContent().build()
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+    
+    @GetMapping("/api/persons/{id}/accounts")
+    fun getAccounts(@PathVariable id: String): ResponseEntity<List<GetAccountDto>> {
+        return try {
+            val uuid = UUID.fromString(id)
+            var person = personService.find(uuid) ?: return ResponseEntity.notFound().build()
+            var accounts = accountService.findAllByPerson(person)
+            val dtos = accounts.map { account: Account -> accountConverter.convert(account) }
+            ResponseEntity.ok(dtos)
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()
         } catch (ex: Exception) {
