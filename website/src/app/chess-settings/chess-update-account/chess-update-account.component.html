@@ -17,6 +17,7 @@
       <p-table [value]="importedAccounts()">
         <ng-template #header>
           <tr>
+            <th>Saved?</th>
             <th>Username</th>
             <th>Platform</th>
             <th>Number of games</th>
@@ -28,13 +29,20 @@
         </ng-template>
         <ng-template #body let-account>
           <tr>
+            <td>{{ account.id !== undefined }}</td>
             <td>{{ account.username }}</td>
             <td>{{ account.platform }}</td>
             <td>TODO</td>
             <td>TODO</td>
-            <td><p-button (click)="open(account.url)" label="Open {{account.platform}}" /></td>
-            <td><p-button *ngIf="showImportGameButton(account)" (click)="importGames(account.id)" label="Import Games" /></td>
-            <td><p-button (click)="delete(account.id)" label="Delete" severity="danger" /></td>
+            <td>
+              <p-button (click)="open(account.url)" label="Open {{account.platform}}" />
+            </td>
+            <td>
+              <p-button *ngIf="showImportGameButton(account)" (click)="importGames(account.id)" label="Import Games" />
+            </td>
+            <td>
+              <p-button (click)="delete(account.id)" label="Delete" severity="danger" />
+            </td>
           </tr>
         </ng-template>
       </p-table>

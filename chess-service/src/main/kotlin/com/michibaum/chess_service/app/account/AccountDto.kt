@@ -5,7 +5,9 @@ import java.util.*
 
 data class AccountDto(
     val id: UUID,
+    val name: String,
     val username: String,
     val platform: ChessPlatform,
     val url: String,
+    val personName: String?,
 )

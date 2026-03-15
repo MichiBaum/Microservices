@@ -24,15 +24,17 @@ export enum Gender {
 }
 
 export interface SearchPerson {
-  firstname:string
-  lastname:string
+  firstname: string
+  lastname: string
 }
 
 export interface Account {
-  id: string
+  id?: string
+  name: string
   username: string
-  platform: ChessPlatform,
+  platform: ChessPlatform
   url: string
+  personName?: string
 }
 
 export enum ChessPlatform{

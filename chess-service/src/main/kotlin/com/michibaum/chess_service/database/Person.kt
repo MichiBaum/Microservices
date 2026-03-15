@@ -31,4 +31,7 @@ class Person(
     val id: UUID? = null,
 ){
     fun idOrThrow(): UUID = id ?: throw IdNullException()
+
+    fun fullName(): String = "$firstname $lastname"
+    
 }
