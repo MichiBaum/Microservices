@@ -1,0 +1,5 @@
+<p-inputgroup class="mb-6">
+  <input pInputText placeholder="Username" [(ngModel)]="searchTerm" />
+  <p-selectbutton [options]="searchLocationOptions()" [(ngModel)]="searchLocation" aria-labelledby="basic" />
+  <p-button pButton label="Search" (click)="accounts.reload()" />
+</p-inputgroup>

@@ -2,15 +2,14 @@
 
     <p-fieldset legend="Account Select" [toggleable]="true">
 
-      <p-inputgroup class="mb-6">
-        <input pInputText placeholder="Username" [(ngModel)]="searchTerm" />
-        <p-selectbutton [options]="searchLocationOptions()" [(ngModel)]="searchLocation" aria-labelledby="basic" />
-        <p-button pButton label="Search" (click)="accounts.reload()" />
-      </p-inputgroup>
-
+      <app-search-chess-account
+        (accountsFound)="foundAccounts.set($event)"
+        #accountSearch
+      >
+      </app-search-chess-account>
 
       <app-select-chess-account
-        [accounts]="accounts.value()"
+        [accounts]="foundAccounts()"
         [(selectedAccount)]="selectedAccount"
       >
       </app-select-chess-account>

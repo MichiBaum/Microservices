@@ -1,35 +1,31 @@
-import {Component, effect, inject, signal} from '@angular/core';
+import {Component, effect, inject, signal, ViewChild} from '@angular/core';
 import {FieldsetModule} from "primeng/fieldset";
 import {SelectChessAccountComponent} from "../select-chess-account/select-chess-account.component";
+import {SearchChessAccountComponent} from "../search-chess-account/search-chess-account.component";
 import {ChessService} from "../../core/api-services/chess.service";
 import {InputTextModule} from "primeng/inputtext";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Button, ButtonDirective} from "primeng/button";
-import {Account, ChessPlatform, SearchLocation, WriteAccount} from "../../core/models/chess/chess.models";
+import {Account, ChessPlatform, WriteAccount} from "../../core/models/chess/chess.models";
 import {FloatLabel} from "primeng/floatlabel";
 import {rxResource} from "@angular/core/rxjs-interop";
-import {of} from "rxjs";
 import {Select} from "primeng/select";
 import {DatePicker} from "primeng/datepicker";
 import {UserConfirmationService} from "../../core/services/user-confirmation.service";
-import {InputGroup} from "primeng/inputgroup";
-import {SelectButton} from "primeng/selectbutton";
 
 @Component({
   selector: 'app-chess-update-account',
   imports: [
     FieldsetModule,
     InputTextModule,
-    FormsModule,
     Button,
     FloatLabel,
     ReactiveFormsModule,
     Select,
     DatePicker,
     SelectChessAccountComponent,
-    ButtonDirective,
-    InputGroup,
-    SelectButton
+    SearchChessAccountComponent,
+    ButtonDirective
   ],
   templateUrl: './chess-update-account.component.html',
   styleUrl: './chess-update-account.component.css'
@@ -38,19 +34,9 @@ export class ChessUpdateAccountComponent{
   private readonly chessService = inject(ChessService);
   private readonly confirmationService = inject(UserConfirmationService);
 
-  searchTerm = signal('');
-  searchLocation = signal<SearchLocation>(SearchLocation.LOCAL);
+  @ViewChild('accountSearch') accountSearch!: SearchChessAccountComponent;
 
-  accounts = rxResource({
-    stream: () => {
-      const searchTerm = this.searchTerm()
-      const localSearch = this.searchLocation()
-      if (searchTerm === undefined || searchTerm.length < 1)
-        return of([]);
-      return this.chessService.accountsSearch(searchTerm, localSearch)
-    },
-    defaultValue: []
-  })
+  foundAccounts = signal<Account[]>([])
 
   allPersons = rxResource({
     stream: () => this.chessService.persons(),
@@ -121,7 +107,7 @@ export class ChessUpdateAccountComponent{
     const id = this.formGroup.getRawValue().id ?? ""
     this.chessService.saveAccount(id, account).subscribe(newAccount => {
       this.clear()
-      this.accounts.reload()
+      this.accountSearch.reload()
     })
   }
 
@@ -154,7 +140,7 @@ export class ChessUpdateAccountComponent{
       accept: () => {
           this.chessService.deleteAccount(id).subscribe(() => {
             this.clear();
-            this.accounts.reload();
+            this.accountSearch.reload();
           });
       }
     });
@@ -178,10 +164,6 @@ export class ChessUpdateAccountComponent{
 
     let isOverTheBoard = account.platform === ChessPlatform.FIDE;
     return !isOverTheBoard
-  }
-
-  protected searchLocationOptions(): SearchLocation[] {
-    return Object.values(SearchLocation);
   }
 
 }
