@@ -5,11 +5,16 @@ import java.util.*
 
 @Entity
 @Table(name = "popular_opening")
-@NamedEntityGraph(
-    name = "with-opening",
-    attributeNodes = [
-        NamedAttributeNode("opening")
-    ]
+@NamedEntityGraphs(
+    value = [
+        NamedEntityGraph(
+            name = "with-opening",
+            attributeNodes = [
+                NamedAttributeNode("opening")
+            ]
+        ),
+    
+    ]   
 )
 data class PopularOpening(
 

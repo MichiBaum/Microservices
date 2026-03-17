@@ -13,8 +13,8 @@ class OpeningService(
     private val evaluationRepository: OpeningMoveEvaluationRepository
 ) {
 
-    fun getPopularOpenings(): List<PopularOpening> {
-        return popularOpeningRepository.findAllByOrderByRankingAsc()
+    fun getPopularOpeningsProjection(): List<PopularOpeningMoveProjection> {
+        return popularOpeningRepository.findAllProjectionOrderByRankingAsc()
     }
 
     fun getOpeningByIdEagerLastMove(openingId: UUID): Opening? {
