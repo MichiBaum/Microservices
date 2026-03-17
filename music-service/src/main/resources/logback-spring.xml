@@ -13,6 +13,9 @@
         <root level="INFO">
             <appender-ref ref="Console" />
         </root>
+
+        <logger name="org.hibernate.session.metrics" level="DEBUG" />
+        
     </springProfile>
 
     <springProfile name="prod">

@@ -44,6 +44,7 @@ spring:
     show-sql: true
     properties:
       hibernate.hibernate.generate_statistics: true
+      hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS: 1
       hibernate:
         format_sql: true
 
