@@ -18,13 +18,20 @@ class OpeningConverter {
             name = opening.name,
             moveId = opening.lastMove.id?.toString() ?: ""
         )
-
-    fun toDto(opening: PopularOpening) =
+    
+    fun toDto(opening: OpeningWithLastMoveProjection) =
+        OpeningResponseDto(
+            id = opening.getId().toString(),
+            name = opening.getName(),
+            moveId = opening.getLastMoveId()?.toString() ?: ""
+        )
+    
+    fun toDto(opening: PopularOpeningMoveProjection) =
         PopularOpeningResponseDto(
-            id = opening.opening.id?.toString() ?: "",
-            name = opening.opening.name,
-            moveId = opening.opening.lastMove.id?.toString() ?: "",
-            ranking = opening.ranking
+            id = opening.getOpeningId().toString(),
+            name = opening.getOpeningName(),
+            moveId = opening.getLastMoveId().toString(),
+            ranking = opening.getRanking()
         )
 
     fun toDto(evaluation: OpeningMoveEvaluation): OpeningMoveEvaluationDto{

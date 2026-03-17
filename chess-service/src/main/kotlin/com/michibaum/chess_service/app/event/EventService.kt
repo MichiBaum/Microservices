@@ -39,10 +39,10 @@ class EventService(
         eventRepository.findByIdEagerCategories(id)
 
     fun findEagerParticipants(id: UUID): Event? =
-        eventRepository.findByIdEagerParticipants(id)
+        eventRepository.findByIdEagerParticipantsAndAccounts(id)
 
     fun findRecentAndUpcoming(recent: LocalDate, upcoming: LocalDate): List<Event> =
-        eventRepository.findByDateFromGreaterThanAndDateToLessThan(recent, upcoming)
+        eventRepository.findByDateToGreaterThanAndDateFromLessThan(recent, upcoming)
 
     fun create(dto: WriteEventDto): Event {
         val categories = getCategories(dto.categoryIds)
@@ -105,9 +105,6 @@ class EventService(
         val categoryIds = ids.map { UUID.fromString(it) }
         return eventCategoryService.findAllById(categoryIds).toSet()
     }
-
-    fun findByCategoryId(id: UUID): Set<Event> =
-        eventRepository.findByCategoriesId(id)
 
     fun findAllBy(specification: Specification<Event>, pageable: PageRequest): Page<Event> {
         return eventRepository.findAll(specification, pageable)

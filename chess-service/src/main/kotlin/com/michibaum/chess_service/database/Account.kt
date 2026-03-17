@@ -6,6 +6,10 @@ import java.util.*
 
 @Entity
 @Table(name="account")
+@NamedEntityGraph(
+    name = "with-person",
+    attributeNodes = [NamedAttributeNode("person")]
+)
 class Account(
     @Column(nullable = false)
     val platformId: String,

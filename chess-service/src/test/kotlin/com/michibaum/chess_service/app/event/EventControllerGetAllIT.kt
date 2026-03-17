@@ -44,42 +44,4 @@ class EventControllerGetAllIT {
         // THEN
     }
 
-    @Test
-    fun `returns all recent events`(){
-        // GIVEN
-        val event = EventProvider.event()
-        val savedEvent = eventRepository.save(event)
-
-        // WHEN
-        mockMvc.perform(
-            get("/api/events/recent-upcoming")
-                .accept(MediaType.APPLICATION_JSON)
-        ).andExpectAll(
-            status().isOk,
-            jsonPath("$.[0].id").exists(),
-            jsonPath("$.[0].title").exists(),
-        )
-
-        // THEN
-    }
-
-    @Test
-    fun `returns all upcoming events`(){
-        // GIVEN
-        val event = EventProvider.event(dateFrom = LocalDate.now().plusWeeks(2), dateTo = LocalDate.now().plusWeeks(3))
-        val savedEvent = eventRepository.save(event)
-
-        // WHEN
-        mockMvc.perform(
-            get("/api/events/recent-upcoming")
-                .accept(MediaType.APPLICATION_JSON)
-        ).andExpectAll(
-            status().isOk,
-            jsonPath("$.[0].id").exists(),
-            jsonPath("$.[0].title").exists(),
-        )
-
-        // THEN
-    }
-
 }

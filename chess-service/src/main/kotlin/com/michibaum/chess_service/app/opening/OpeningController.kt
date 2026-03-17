@@ -36,7 +36,7 @@ class OpeningController(
     @PublicEndpoint
     @GetMapping("/api/openings/popular")
     fun getAllPopularOpenings(): ResponseEntity<List<PopularOpeningResponseDto>> {
-        val popularOpenings = openingService.getPopularOpenings()
+        val popularOpenings = openingService.getPopularOpeningsProjection()
         val dtos = popularOpenings.map { opening -> openingConverter.toDto(opening) }
         return ResponseEntity.ok(dtos)
     }
@@ -124,7 +124,7 @@ class OpeningController(
         }
     }
 
-    @PublicEndpoint // TODO pattern = PublicPattern.UUID
+    @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/openings/{id}/children")
     fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
         return try {

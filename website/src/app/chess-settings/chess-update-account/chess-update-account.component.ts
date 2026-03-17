@@ -5,7 +5,7 @@ import {SearchChessAccountComponent} from "../search-chess-account/search-chess-
 import {ChessService} from "../../core/api-services/chess.service";
 import {InputTextModule} from "primeng/inputtext";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Button, ButtonDirective} from "primeng/button";
+import {Button} from "primeng/button";
 import {Account, ChessPlatform, WriteAccount} from "../../core/models/chess/chess.models";
 import {FloatLabel} from "primeng/floatlabel";
 import {rxResource} from "@angular/core/rxjs-interop";
@@ -24,8 +24,7 @@ import {UserConfirmationService} from "../../core/services/user-confirmation.ser
     Select,
     DatePicker,
     SelectChessAccountComponent,
-    SearchChessAccountComponent,
-    ButtonDirective
+    SearchChessAccountComponent
   ],
   templateUrl: './chess-update-account.component.html',
   styleUrl: './chess-update-account.component.css'
