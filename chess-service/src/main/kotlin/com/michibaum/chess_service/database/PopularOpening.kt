@@ -5,6 +5,12 @@ import java.util.*
 
 @Entity
 @Table(name = "popular_opening")
+@NamedEntityGraph(
+    name = "with-opening",
+    attributeNodes = [
+        NamedAttributeNode("opening")
+    ]
+)
 data class PopularOpening(
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = false)

@@ -5,6 +5,20 @@ import java.util.*
 
 @Entity
 @Table(name = "opening_move")
+@NamedEntityGraph(
+    name = "OpeningMoveFull",
+    attributeNodes = [
+        NamedAttributeNode("parent"),
+        NamedAttributeNode("moveEvaluations", subgraph = "MoveEvaluationWithEngine")
+    ],
+    subgraphs = [
+        NamedSubgraph(
+            name = "MoveEvaluationWithEngine",
+            type = OpeningMoveEvaluation::class,
+            attributeNodes = [NamedAttributeNode("engine")]
+        )
+    ]
+)
 data class OpeningMove(
 
     @Column(nullable = false)

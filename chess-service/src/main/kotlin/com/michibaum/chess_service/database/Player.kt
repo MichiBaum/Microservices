@@ -5,6 +5,14 @@ import java.util.*
 
 @Entity
 @Table(name="player")
+@NamedEntityGraph(
+    name = "with-game",
+    attributeNodes = [NamedAttributeNode(value = "game")]
+)
+@NamedEntityGraph(
+    name = "with-account",
+    attributeNodes = [NamedAttributeNode(value = "account")]
+)
 class Player(
 
     @Column(nullable = false)
@@ -16,11 +24,11 @@ class Player(
     @Enumerated(EnumType.STRING)
     val pieceColor: PieceColor,
 
-    @ManyToOne(targetEntity = Game::class, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(targetEntity = Game::class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="game_id", nullable=false)
     val game: Game,
 
-    @ManyToOne(targetEntity = Account::class, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(targetEntity = Account::class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="account_id", nullable=false, foreignKey = ForeignKey(name = "fk_player_account"))
     val account: Account,
 

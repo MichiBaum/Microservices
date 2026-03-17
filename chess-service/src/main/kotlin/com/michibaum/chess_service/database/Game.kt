@@ -5,6 +5,18 @@ import java.util.*
 
 @Entity
 @Table(name="game")
+@NamedEntityGraphs(
+    value = [
+        NamedEntityGraph(
+            name = "with-event",
+            attributeNodes = [NamedAttributeNode("event")]
+        ),
+        NamedEntityGraph(
+            name = "with-players",
+            attributeNodes = [NamedAttributeNode("players")]
+        )
+    ]
+)
 class Game(
     @Enumerated(EnumType.STRING)
     val chessPlatform: ChessPlatform,
@@ -22,7 +34,7 @@ class Game(
     @Enumerated(EnumType.STRING)
     val gameType: GameType,
 
-    @OneToMany(mappedBy="game", fetch = FetchType.EAGER, targetEntity = Player::class, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy="game", fetch = FetchType.LAZY, targetEntity = Player::class, cascade = [CascadeType.ALL])
     val players: Set<Player>,
 
     @ManyToOne(targetEntity = Event::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
