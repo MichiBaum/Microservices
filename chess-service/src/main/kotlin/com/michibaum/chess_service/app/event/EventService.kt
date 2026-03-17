@@ -42,7 +42,7 @@ class EventService(
         eventRepository.findByIdEagerParticipants(id)
 
     fun findRecentAndUpcoming(recent: LocalDate, upcoming: LocalDate): List<Event> =
-        eventRepository.findByDateFromGreaterThanAndDateToLessThan(recent, upcoming)
+        eventRepository.findByDateToGreaterThanAndDateFromLessThan(recent, upcoming)
 
     fun create(dto: WriteEventDto): Event {
         val categories = getCategories(dto.categoryIds)

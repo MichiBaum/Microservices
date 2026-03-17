@@ -14,7 +14,7 @@ interface EventRepository: JpaRepository<Event, UUID>, JpaSpecificationExecutor<
     fun findAllEagerCategories(): List<Event>
 
     @EntityGraph(attributePaths = ["categories"])
-    fun findByDateFromGreaterThanAndDateToLessThan(recent: LocalDate, upcoming: LocalDate): List<Event> // TODO maybe OR????
+    fun findByDateToGreaterThanAndDateFromLessThan(recent: LocalDate, upcoming: LocalDate): List<Event>
 
     fun findByCategoriesId(id: UUID): Set<Event>
 
