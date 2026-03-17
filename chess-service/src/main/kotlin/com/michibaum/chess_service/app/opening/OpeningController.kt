@@ -124,7 +124,7 @@ class OpeningController(
         }
     }
 
-    @PublicEndpoint // TODO pattern = PublicPattern.UUID
+    @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/openings/{id}/children")
     fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
         return try {
