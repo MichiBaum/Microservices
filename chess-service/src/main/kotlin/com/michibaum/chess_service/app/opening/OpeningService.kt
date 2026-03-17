@@ -49,7 +49,7 @@ class OpeningService(
         return openingRepository.save(updatedOpening)
     }
 
-    fun getAllEagerLastMove(deleted: Boolean): List<Opening> {
+    fun getAllEagerLastMove(deleted: Boolean): List<OpeningWithLastMoveProjection> {
         return openingRepository.findAllByDeletedFalseEagerLastMove(deleted)
     }
 
@@ -65,7 +65,7 @@ class OpeningService(
         return openingMoveRepository.findById(uuid).getOrNull()
     }
 
-    fun findOpeningByParentMoveAndDeleted(id: UUID?, deleted: Boolean): List<Opening> {
+    fun findOpeningByParentMoveAndDeleted(id: UUID?, deleted: Boolean): List<OpeningWithLastMoveProjection> {
         return openingRepository.findOpeningByParentMoveAndDeleted(id, deleted)
     }
 
