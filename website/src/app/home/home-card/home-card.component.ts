@@ -15,6 +15,7 @@ import { NgOptimizedImage } from "@angular/common";
 })
 export class HomeCardComponent {
 
+  readonly priority = input<boolean>(false);
   readonly headerImage = input<string>();
   readonly titleText = input<string>();
   readonly content = input<string>();

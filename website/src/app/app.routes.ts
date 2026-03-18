@@ -1,5 +1,4 @@
 import {ActivatedRouteSnapshot, Routes} from '@angular/router';
-import {HomeComponent} from "./home/home.component";
 import {Sides} from "./core/config/sides";
 import {Permissions} from "./core/config/permissions";
 import {isAuthenticatedGuard, isPermittedGuard} from "./core/guards/auth.guard";
@@ -19,7 +18,7 @@ import {ChessEvent} from "./core/models/chess/chess.models";
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent,
+        loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
         canActivate: [],
         title: titleResolver,
         data: {
@@ -30,7 +29,7 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: HomeComponent,
+        loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
         canActivate: [],
         title: titleResolver,
         data: {

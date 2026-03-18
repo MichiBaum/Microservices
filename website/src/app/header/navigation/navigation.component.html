@@ -1,4 +1,5 @@
 <p-button
+  #toggleButton
   aria-label="Toggle Sidebar"
   [ariaLabel]="'Toggle Sidebar'"
   (onClick)="sidebarVisible.set(!sidebarVisible())"
@@ -6,6 +7,7 @@
   <fa-icon [icon]="buttonIcon"></fa-icon>
 </p-button>
 
+@defer (on interaction(toggleButton)) {
 <p-drawer
   [(visible)]="sidebarVisible"
   [position]="'left'"
@@ -48,3 +50,4 @@
   </div>
 
 </p-drawer>
+}
