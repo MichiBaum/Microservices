@@ -1,12 +1,10 @@
 import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
-import {MenubarModule} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterNavigationService} from "../../core/services/router-navigation.service";
-import {Button, ButtonDirective} from "primeng/button";
+import {Button} from "primeng/button";
 import {MenuModule} from "primeng/menu";
 import {LightDarkModeService} from "../../core/services/light-dark-mode.service";
-import {Ripple} from "primeng/ripple";
 import {
     faBars, faChartLine,
     faChess,
@@ -29,26 +27,24 @@ import {AuthService} from "../../core/api-services/auth.service";
 import {ImageModule} from "primeng/image";
 import {Permissions} from "../../core/config/permissions";
 import {LanguageSelectComponent} from "../../language-select/language-select.component";
-import {Drawer} from "primeng/drawer";
+import {Drawer, DrawerModule} from "primeng/drawer";
 
 import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-navigation',
-    imports: [
-    MenubarModule,
+  imports: [
     MenuModule,
-    Ripple,
     FaIconComponent,
     ImageModule,
     TranslateModule,
     LanguageSelectComponent,
     Drawer,
-    ButtonDirective,
-    Button
-],
+    DrawerModule,
+    Button,
+  ],
     templateUrl: './navigation.component.html',
-    styleUrl: './navigation.component.css'
+    styleUrl: './navigation.component.css',
 })
 export class NavigationComponent implements OnInit, OnDestroy {
     navItems = signal<MenuItem[]>([]);

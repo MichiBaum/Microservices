@@ -1,4 +1,4 @@
-import {ApplicationConfig, isDevMode} from '@angular/core';
+import {ApplicationConfig, isDevMode, provideZonelessChangeDetection} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
@@ -30,6 +30,7 @@ export function imageLoaderFactory(environment: EnvironmentConfig): (config: Ima
  */
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZonelessChangeDetection(),
     provideRouter(routes), // TODO preload strategy, but with linking routes? Possible? https://medium.com/@adrianfaciu/custom-preloading-strategy-for-angular-modules-b3b5c873681a
     provideHttpClient(
         withInterceptors([
@@ -41,7 +42,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       inputStyle: 'outlined',
-      ripple: true,
       theme: {
         preset: MyPreset,
         options: {

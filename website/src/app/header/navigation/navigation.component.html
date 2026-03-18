@@ -1,8 +1,7 @@
 <p-button
-  pButton pRipple
   aria-label="Toggle Sidebar"
   [ariaLabel]="'Toggle Sidebar'"
-  (click)="sidebarVisible.set(!sidebarVisible())"
+  (onClick)="sidebarVisible.set(!sidebarVisible())"
   >
   <fa-icon [icon]="buttonIcon"></fa-icon>
 </p-button>
@@ -10,6 +9,7 @@
 <p-drawer
   [(visible)]="sidebarVisible"
   [position]="'left'"
+  appendTo="body"
   >
   <ng-template #header>
     <div class="flex items-center gap-2">
@@ -28,7 +28,7 @@
     </ng-template>
     <ng-template #item let-item>
       @if (item.visible) {
-        <a pRipple class="flex items-center p-menu-item-link">
+        <a class="flex items-center p-menu-item-link">
           <fa-icon [icon]="item.customIcon"></fa-icon>
           <span class="ml-2">{{ item.label | translate }}</span>
         </a>
@@ -45,6 +45,6 @@
       alt="Hosttech Schweizer Serverstandort"
       onclick="window.open('https://www.hosttech.ch/?promocode=31886957', '_blank')"
       />
-    </div>
+  </div>
 
-  </p-drawer>
+</p-drawer>

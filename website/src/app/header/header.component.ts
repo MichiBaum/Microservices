@@ -5,7 +5,6 @@ import {FormsModule} from "@angular/forms";
 import {LanguageConfig} from "../core/config/language.config";
 import {HeaderService, TranslationHolder} from "../core/services/header.service";
 import {LogoutComponent} from "../logout/logout.component";
-import {MenubarModule} from "primeng/menubar";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -14,11 +13,10 @@ import {Subscription} from "rxjs";
     NavigationComponent,
     TranslateModule,
     FormsModule,
-    LogoutComponent,
-    MenubarModule
+    LogoutComponent
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnDestroy{
   private readonly languageConfig = inject(LanguageConfig);
