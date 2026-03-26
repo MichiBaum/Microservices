@@ -6,13 +6,11 @@
             "title": "Über das Codieren hinaus"
         },
         "experience": {
-            "experience": "Erfahrung",
             "intro": "Hier ist eine Liste mit meinen Erfahrungen.",
             "platforms-and-tools": "Plattformen & Tools",
             "programming-languages-and-databases": "Programmiersprachen & Datenbanken",
-            "rating": "Bewertung (über mich selbst)",
             "softskills": "Soziale Kompetenzen",
-            "years": "Jahre"
+            "usage-time": "{{years}} Jahre genutzt"
         },
         "introduction": {
             "s1": "Hallo! Mein Name ist Michael Baumberger. Ich bin ein leidenschaftlicher Softwareentwickler aus der Schweiz mit einem starken Hintergrund in Webentwicklung und Backend-Engineering. Meine Reise in die Welt der IT begann mit einer Ausbildung bei Würth ITensis von 2017 bis 2021, wo ich praktische Erfahrung im Erstellen, Warten und Optimieren von Softwarelösungen sammelte. Nach Abschluss meiner Ausbildung arbeitete ich dort bis 2024 weiter, verfeinerte meine Fähigkeiten weiter und arbeitete an verschiedenen Projekten."
