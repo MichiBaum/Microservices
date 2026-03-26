@@ -1,7 +1,7 @@
 @if (visible()) {
   <p-button
     (onClick)="logout()"
-    aria-label="Logout Button"
+    [ariaLabel]="'Logout Button'"
     >
     <fa-icon [icon]="buttonIcon"></fa-icon>
   </p-button>

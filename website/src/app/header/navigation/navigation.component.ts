@@ -30,6 +30,7 @@ import {LanguageSelectComponent} from "../../language-select/language-select.com
 import {Drawer, DrawerModule} from "primeng/drawer";
 
 import {Subscription} from "rxjs";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
     selector: 'app-navigation',
@@ -42,6 +43,7 @@ import {Subscription} from "rxjs";
     Drawer,
     DrawerModule,
     Button,
+    NgOptimizedImage,
   ],
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.css',
