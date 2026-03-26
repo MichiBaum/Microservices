@@ -2,33 +2,26 @@
   <div class="grid grid-cols-1 4k:grid-cols-7 xlScreen:grid-cols-6 lScreen:grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
 
     @if (canLogin()) {
-      @defer{
       <app-home-card
         [headerImage]="'home_login.webp'"
         [titleText]="'home.login.title' | translate"
         [content]="'home.login.content' | translate"
         [buttonLabel]="'home.login.button' | translate"
+        [priority]="true"
         (navigate)="routerNavigationService.login()"
       ></app-home-card>
-      } @placeholder {
-      <app-defer-placeholder height="35rem"></app-defer-placeholder>
-    }
   }
 
-  @defer{
   <app-home-card
     [headerImage]="'home_chess.webp'"
     [titleText]="'home.chess.title' | translate"
     [content]="'home.chess.content' | translate"
     [buttonLabel]="'home.chess.button' | translate"
+    [priority]="true"
     (navigate)="routerNavigationService.chess()"
   ></app-home-card>
-  } @placeholder {
-  <app-defer-placeholder height="35rem"></app-defer-placeholder>
-}
 
 @if (canActivateFitness()) {
-  @defer{
   <app-home-card
     [headerImage]="'home_fitness.webp'"
     [titleText]="'home.fitness.title' | translate"
@@ -36,9 +29,6 @@
     [buttonLabel]="'home.fitness.button' | translate"
     (navigate)="routerNavigationService.fitness()"
   ></app-home-card>
-  } @placeholder {
-  <app-defer-placeholder height="35rem"></app-defer-placeholder>
-}
 }
 
 @if (canActivateMusic()) {

@@ -1,7 +1,7 @@
 <p-card class="h-full">
   @if (headerImage()) {
     <ng-template #header>
-      <img alt="Card Image" class="w-full h-full" ngSrc="{{headerImage()}}" width="1024" height="1024" priority placeholder/>
+      <img alt="Card Image" class="w-full h-full" [ngSrc]="headerImage()!" width="1024" height="1024" [priority]="priority()" placeholder/>
     </ng-template>
   }
   @if (titleText()) {

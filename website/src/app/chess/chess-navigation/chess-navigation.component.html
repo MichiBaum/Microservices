@@ -4,7 +4,7 @@
     <p-divider layout="vertical" />
   </ng-template>
   <ng-template #item let-item let-root="root">
-    <a pRipple class="flex items-center p-menubar-item-link" [routerLink]="item.routerLink">
+    <a class="flex items-center p-menubar-item-link" [routerLink]="item.routerLink">
       @if (item.customIcon) {
         <fa-icon [icon]="item.customIcon"></fa-icon>
       }

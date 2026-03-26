@@ -1,8 +1,7 @@
 @if (visible()) {
   <p-button
-    pButton pRipple
-    (click)="logout()"
-    aria-label="Logout Button"
+    (onClick)="logout()"
+    [ariaLabel]="'Logout Button'"
     >
     <fa-icon [icon]="buttonIcon"></fa-icon>
   </p-button>

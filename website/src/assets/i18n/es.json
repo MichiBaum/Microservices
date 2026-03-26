@@ -6,13 +6,11 @@
             "title": "Más allá de la codificación"
         },
         "experience": {
-            "experience": "Experiencia",
             "intro": "Aquí hay una lista de mis experiencias.",
             "platforms-and-tools": "Plataformas y herramientas",
             "programming-languages-and-databases": "Lenguajes de programación y bases de datos",
-            "rating": "Calificación (sobre mí)",
             "softskills": "Habilidades sociales",
-            "years": "Años"
+            "usage-time": "{{years}} años de uso"
         },
         "introduction": {
             "s1": "¡Hola! Mi nombre es Michael Baumberger. Soy un desarrollador de software apasionado de Suiza con una sólida experiencia en desarrollo web e ingeniería de backend. Mi viaje hacia el mundo de las TI comenzó con una formación en Würth ITensis de 2017 a 2021, donde adquirí experiencia práctica en la creación, el mantenimiento y la optimización de soluciones de software. Tras finalizar mi formación, continué trabajando allí hasta 2024, perfeccionando aún más mis habilidades y trabajando en diversos proyectos."

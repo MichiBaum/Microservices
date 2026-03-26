@@ -4,8 +4,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {AuthService} from "../core/api-services/auth.service";
 import {RouterNavigationService} from "../core/services/router-navigation.service";
 
-import {Button, ButtonDirective} from "primeng/button";
-import {Ripple} from "primeng/ripple";
+import {Button} from "primeng/button";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -13,9 +12,7 @@ import {Subscription} from "rxjs";
   imports: [
     FaIconComponent,
     Button,
-    ButtonDirective,
-    Ripple
-],
+  ],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css'
 })
