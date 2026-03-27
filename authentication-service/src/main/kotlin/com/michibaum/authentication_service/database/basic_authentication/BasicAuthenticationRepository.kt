@@ -1,4 +1,4 @@
-package com.michibaum.authentication_service.database
+package com.michibaum.authentication_service.database.basic_authentication
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

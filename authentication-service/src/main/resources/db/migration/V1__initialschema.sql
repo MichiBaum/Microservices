@@ -1,27 +1,28 @@
-create table authentication_attempt
-(
+create table authentication_attempt (
+    id uuid not null,
     date datetime(6) not null,
-    id uuid not null primary key
+    primary key (id)
 );
 
-create table basic_authentication_attempt
-(
-    id uuid not null primary key,
-    user_name varchar(255) not null,
-    constraint fk_basic_authentication_attempt_authentication_attempt_id foreign key (id) references authentication_attempt (id)
+create table jwt (
+    id uuid not null,
+    jwt MEDIUMTEXT not null,
+    primary key (id)
 );
 
-create table authentication_success
-(
-    id uuid not null primary key,
-    jwt mediumtext not null,
-    user_id varchar(255) not null,
-    constraint fk_authentication_success_basic_authentication_attempt_id foreign key (id) references basic_authentication_attempt (id)
+create table basic_authentication_attempt (
+    authentication_attempt_id uuid not null,
+    jwt_id uuid,
+    dtype varchar(31) not null,
+    user_id varchar(255) not null default '',
+    user_name_input varchar(255) not null,
+    primary key (authentication_attempt_id),
+    constraint fk_basic_auth_attempt_auth_attempt
+        foreign key (authentication_attempt_id)
+        references authentication_attempt (id),
+    constraint fk_basic_auth_attempt_jwt
+        foreign key (jwt_id)
+        references jwt (id),
+    constraint chk_basic_auth_attempt_dtype
+        check (dtype in ('BasicAuthenticationAttempt', 'failure', 'success'))
 );
-
-create table basic_authentication_failure
-(
-    id uuid not null primary key,
-    constraint fk_basic_authentication_failure_basic_authentication_attempt_id foreign key (id) references basic_authentication_attempt (id)
-);
-

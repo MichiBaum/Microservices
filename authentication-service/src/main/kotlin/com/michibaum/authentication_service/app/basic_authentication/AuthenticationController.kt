@@ -21,23 +21,24 @@ class AuthenticationController (
 
     @Observed(name = "basic-authentication")
     @PublicEndpoint
-    @PostMapping(value = ["/api/authenticate"])
+    @PostMapping(value = ["/api/basic-authentication/authenticate"])
     fun authenticate(@RequestBody authenticationDto: AuthenticationDto): ResponseEntity<AuthenticationResponse> {
         val loginDto = LoginDto(authenticationDto.username, authenticationDto.password)
         val errors = LoginDtoValidator.validate(loginDto)
         if(errors.isNotEmpty())
             return ResponseEntity.badRequest().build()
 
-        val authenticationResult = authenticationAttemptService.createAttempt(loginDto.username)
+        val authenticationAttempt = authenticationAttemptService.createAttempt(loginDto.username)
+        
         val userDetailsDto: UserDetailsDto? = usermanagementClient.checkUserDetails(loginDto)
         if(userDetailsDto == null){
-            authenticationAttemptService.attemptFailed(authenticationResult)
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
         val jws = authenticationService.generateJWS(userDetailsDto)!!
 
-        authenticationAttemptService.attemptSuccessful(authenticationResult, userDetailsDto.id, jws)
+        authenticationAttemptService.attemptSuccessful(authenticationAttempt, userDetailsDto.id, jws)
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
         return ResponseEntity.ok()
             .body(responseBody)
