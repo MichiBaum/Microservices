@@ -165,6 +165,7 @@
         <module>authentication-service</module>
         <module>usermanagement-service</module>
         <module>website-service</module>
+        <module>chess-play-library</module>
         <module>chess-service</module>
         <module>fitness-service</module>
         <module>music-service</module>

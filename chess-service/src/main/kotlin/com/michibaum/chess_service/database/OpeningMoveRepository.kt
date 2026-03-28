@@ -1,5 +1,6 @@
 package com.michibaum.chess_service.database
 
+import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -75,4 +76,12 @@ interface OpeningMoveRepository: JpaRepository<OpeningMove, UUID> {
             left join fetch e.engine
         WHERE o.id = :uuid""")
     fun findByIdEagerEvaluations(uuid: UUID): OpeningMove?
+
+    @EntityGraph(value = "OpeningMoveParent")
+    @Query("""
+        SELECT o FROM OpeningMove o 
+        WHERE o.id = :uuid
+    """
+    )
+    fun findMoveWithParentBy(uuid: UUID): OpeningMove?
 }

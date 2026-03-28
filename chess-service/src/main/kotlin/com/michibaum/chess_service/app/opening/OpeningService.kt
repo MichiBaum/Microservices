@@ -1,5 +1,7 @@
 package com.michibaum.chess_service.app.opening
 
+import com.michibaum.chess_play_library.Board
+import com.michibaum.chess_play_library.FenString
 import com.michibaum.chess_service.database.*
 import org.springframework.stereotype.Service
 import java.util.*
@@ -65,24 +67,30 @@ class OpeningService(
         return openingMoveRepository.findById(uuid).getOrNull()
     }
 
+    fun findMoveWithParentBy(uuid: UUID): OpeningMove? {
+        return openingMoveRepository.findMoveWithParentBy(uuid)
+    }
+
     fun findOpeningByParentMoveAndDeleted(id: UUID?, deleted: Boolean): List<OpeningWithLastMoveProjection> {
         return openingRepository.findOpeningByParentMoveAndDeleted(id, deleted)
     }
 
     fun createMove(dto: WriteOpeningMoveDto, parentMove: OpeningMove): OpeningMove {
+        val newFen = createFenFromParentMoveWithSanMove(parentMove, dto.move)
         val newMove = OpeningMove(
             move = dto.move,
-            fen = dto.fen,
+            fen = newFen.toString(),
             parent = parentMove
         )
         return openingMoveRepository.save(newMove)
     }
 
     fun updateMove(dto: WriteOpeningMoveDto, move: OpeningMove): OpeningMove {
+        val newFen = createFenFromParentMoveWithSanMove(move.parent, dto.move)
         val newMove = OpeningMove(
             id = move.id,
             move = dto.move,
-            fen = dto.fen,
+            fen = newFen.toString(),
             parent = move.parent,
             moveEvaluations = move.moveEvaluations
         )
@@ -95,8 +103,8 @@ class OpeningService(
     }
 
     fun deleteMove(move: OpeningMove): OpeningMove {
-        val toSave = move.copy( deleted = true )
-        return openingMoveRepository.save(toSave)
+        move.deleted = true
+        return openingMoveRepository.save(move)
     }
 
     fun findMoveEagerEvaluations(uuid: UUID): OpeningMove? {
@@ -130,6 +138,16 @@ class OpeningService(
             id = evolution.id
         )
         return evaluationRepository.save(newEvaluation)
+    }
+    
+    fun createFenFromParentMoveWithSanMove(parentMove: OpeningMove?, move: String): FenString {
+        if (parentMove == null) {
+            return Board.createDefault().move(move).toFen()
+        }
+        if (parentMove.fen.isBlank()) {
+            return FenString("")
+        }
+        return Board.fromFen(parentMove.fen).move(move).toFen()
     }
 
 }

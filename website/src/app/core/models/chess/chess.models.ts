@@ -184,7 +184,6 @@ export interface ChessOpeningMove{
 export interface WriteOpeningMove{
     id: string;
     move: string;
-    fen: string;
     parentMoveId: string;
 }
 

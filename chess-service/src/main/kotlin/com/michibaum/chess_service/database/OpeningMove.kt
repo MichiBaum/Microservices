@@ -5,21 +5,31 @@ import java.util.*
 
 @Entity
 @Table(name = "opening_move")
-@NamedEntityGraph(
-    name = "OpeningMoveFull",
-    attributeNodes = [
-        NamedAttributeNode("parent"),
-        NamedAttributeNode("moveEvaluations", subgraph = "MoveEvaluationWithEngine")
-    ],
-    subgraphs = [
-        NamedSubgraph(
-            name = "MoveEvaluationWithEngine",
-            type = OpeningMoveEvaluation::class,
-            attributeNodes = [NamedAttributeNode("engine")]
+@NamedEntityGraphs(
+    value = [
+        NamedEntityGraph(
+            name = "OpeningMoveFull",
+            attributeNodes = [
+                NamedAttributeNode("parent"),
+                NamedAttributeNode("moveEvaluations", subgraph = "MoveEvaluationWithEngine")
+            ],
+            subgraphs = [
+                NamedSubgraph(
+                    name = "MoveEvaluationWithEngine",
+                    type = OpeningMoveEvaluation::class,
+                    attributeNodes = [NamedAttributeNode("engine")]
+                )
+            ]
+        ),
+        NamedEntityGraph(
+            name = "OpeningMoveParent",
+            attributeNodes = [
+                NamedAttributeNode("parent")
+            ]
         )
     ]
 )
-data class OpeningMove(
+class OpeningMove(
 
     @Column(nullable = false)
     val move: String,
@@ -34,7 +44,7 @@ data class OpeningMove(
     val moveEvaluations: Set<OpeningMoveEvaluation> = emptySet(),
 
     @Column(nullable = false)
-    val deleted: Boolean = false,
+    var deleted: Boolean = false,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

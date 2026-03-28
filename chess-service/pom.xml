@@ -121,6 +121,11 @@
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
+            <artifactId>chess-play-library</artifactId>
+            <version>1.6.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
             <artifactId>archunittests</artifactId>
             <scope>test</scope>
             <version>1.6.0-SNAPSHOT</version>

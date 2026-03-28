@@ -1,23 +1,23 @@
 package com.michibaum.chess_service.app.opening
 
-data class SimpleOpeningMoveDto(
+data class SimpleOpeningMoveResponseDto(
     val id: String,
     val move: String,
     val fen: String,
     val parentMoveId: String
 )
 
-data class OpeningMoveDto(
+data class OpeningMoveResponseDto(
     val id: String,
     val move: String,
     val fen: String,
-    var nextMoves: List<OpeningMoveDto>,
-    var evaluations: List<EvaluationDto> = listOf(),
+    var nextMoves: List<OpeningMoveResponseDto>,
+    var evaluations: List<EvaluationResponseDto> = listOf(),
     val openingName: String?,
     val openingId: String?
 )
 
-data class EvaluationDto(
+data class EvaluationResponseDto(
     val id: String,
     val engineId: String,
     val engineName: String,
@@ -26,7 +26,7 @@ data class EvaluationDto(
     val evaluation: String
 )
 
-data class OpeningMoveEvaluationDto(
+data class OpeningMoveEvaluationResponseDto(
     val id: String,
     val engineId: String,
     val depth: Int,
