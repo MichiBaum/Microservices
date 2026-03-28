@@ -45,6 +45,7 @@
         <toc-element topic="Admin-Service.md"/>
     </toc-element>
     <toc-element topic="Libraries.md">
+        <toc-element topic="Chess-Play-Library.md"/>
         <toc-element topic="Usermanagement-library.md"/>
         <toc-element topic="permission-library.md"/>
         <toc-element topic="authentication-library.md">
