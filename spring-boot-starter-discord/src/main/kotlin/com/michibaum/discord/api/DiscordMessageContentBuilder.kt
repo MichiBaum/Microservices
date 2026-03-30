@@ -159,6 +159,13 @@ class DiscordMessageContentBuilder {
         }
         content.append("\n").append(text).append("\n```")
     }
+    
+    fun mapAsJson(map: Map<String, Any>): DiscordMessageContentBuilder = apply {
+        val text = map.entries.joinToString("\n", prefix = "{\n", postfix = "\n}") { (key, value) ->
+            """  "$key": "$value""""
+        }
+        codeBlock(text, "json")
+    }
 
     /**
      * Appends a block quote (> text).
