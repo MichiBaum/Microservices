@@ -9,47 +9,46 @@ import de.codecentric.boot.admin.server.domain.events.InstanceStatusChangedEvent
 import de.codecentric.boot.admin.server.notify.AbstractEventNotifier
 import reactor.core.publisher.Mono
 
-class CustomDiscordNotifier(private val discordClient: DiscordClient, private val adminDiscordProperties: AdminDiscordProperties, instanceRepository: InstanceRepository) : AbstractEventNotifier(instanceRepository) {
+class CustomDiscordNotifier(
+    private val discordClient: DiscordClient,
+    private val adminDiscordProperties: AdminDiscordProperties,
+    instanceRepository: InstanceRepository
+) : AbstractEventNotifier(instanceRepository) {
 
-    init {
-        isEnabled = adminDiscordProperties.enabled
-    }
-    
     override fun shouldNotify(event: InstanceEvent, instance: Instance): Boolean {
-        if(!adminDiscordProperties.enabled)
+        if(!adminDiscordProperties.enabled) {
             return false
+        }
         
-        if (event is InstanceStatusChangedEvent) {
+        if(event is InstanceStatusChangedEvent) {
             return true
         }
         
-        return true
+        return false
     }
-    
-    override fun doNotify(event: InstanceEvent, instance: Instance): Mono<Void> {
-        return Mono.fromRunnable {
+
+    override fun doNotify(event: InstanceEvent, instance: Instance): Mono<Void> =
+        Mono.fromRunnable {
             val createMessageDto = CreateMessageDto(createContent(event, instance))
             discordClient.sendMessage(adminDiscordProperties.channelId, createMessageDto)
         }
 
-    }
+    protected fun createContent(event: InstanceEvent, instance: Instance): String {
+        val appName = instance.registration.name
 
-    protected fun createContent(event: InstanceEvent, instance: Instance?): String {
-        if (event is InstanceStatusChangedEvent) {
-            return """
-                Instance: ${event.instance.value}
-                Version: ${event.version}
+        return if (event is InstanceStatusChangedEvent) {
+            """
+                Application: $appName
+                Status changed: ${event.statusInfo.status}
                 Timestamp: ${event.timestamp}
-                State: ${event.type}
-                New State: ${event.statusInfo.status}
+            """.trimIndent()
+        } else {
+            """
+                Application: $appName
+                Event: ${event.type}
+                Timestamp: ${event.timestamp}
             """.trimIndent()
         }
-        return """
-            Instance: ${event.instance.value}
-            Version: ${event.version}
-            Timestamp: ${event.timestamp}
-            State: ${event.type}
-        """.trimIndent()
     }
 
 }
