@@ -47,7 +47,9 @@ class CustomDiscordNotifierTest {
         assert(channelId == "123")
         assertTrue(message.contains("### Application: TestApp"))
         assertTrue(message.contains("**Status changed: **UP"))
-        assertTrue(message.contains("**Timestamp: **$timestamp"))
+        val formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(java.time.ZoneId.of("UTC"))
+        val expectedTimestamp = formatter.format(timestamp)
+        assertTrue(message.contains("**Timestamp: **$expectedTimestamp"))
     }
 
     class TestDiscordClient : DiscordClient {

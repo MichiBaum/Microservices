@@ -2,6 +2,7 @@ package com.michibaum.discord.api
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.time.Instant
 
 class DiscordMessageContentBuilderTest {
 
@@ -106,4 +107,22 @@ class DiscordMessageContentBuilderTest {
             .build()
         assertEquals("***Bold Italic***", content)
     }
+    @Test
+    fun `timestamp with instant and ISO_LIKE_DATE_TIME`() {
+        val instant = Instant.parse("2026-03-30T09:56:55Z")
+        val result = DiscordMessageContentBuilder.build {
+            timestamp(instant, TimestampStyle.ISO_LIKE_DATE_TIME)
+        }
+        assertEquals("2026-03-30 09:56:55", result)
+    }
+
+    @Test
+    fun `timestamp with instant and style`() {
+        val instant = Instant.ofEpochSecond(1625050890)
+        val result = DiscordMessageContentBuilder.build {
+            timestamp(instant, TimestampStyle.SHORT_TIME)
+        }
+        assertEquals("<t:1625050890:t>", result)
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.michibaum.admin_service.config
 
 import com.michibaum.discord.api.DiscordClient
+import com.michibaum.discord.api.TimestampStyle
 import com.michibaum.discord.api.dtos.CreateMessageDto
 import de.codecentric.boot.admin.server.domain.entities.Instance
 import de.codecentric.boot.admin.server.domain.entities.InstanceRepository
@@ -41,7 +42,7 @@ class CustomDiscordNotifier(
                 }
                 newLine()
 
-                bold("Timestamp: "); append(event.timestamp.toString())
+                bold("Timestamp: "); timestamp(event.timestamp, TimestampStyle.ISO_LIKE_DATE_TIME)
             }
             discordClient.sendMessage(adminDiscordProperties.channelId, createMessageDto)
         }

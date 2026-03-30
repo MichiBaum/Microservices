@@ -1,5 +1,9 @@
 package com.michibaum.discord.api
 
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
 /**
  * Fluent API for creating Discord message content with markdown formatting.
  * Based on Discord's markdown documentation: https://docs.discord.com/developers/reference#message-formatting
@@ -223,12 +227,24 @@ class DiscordMessageContentBuilder {
      * Appends a timestamp (<t:unixTimestamp:style>).
      */
     fun timestamp(unixTimestamp: Long, style: TimestampStyle? = null): DiscordMessageContentBuilder = apply {
-        content.append("<t:").append(unixTimestamp)
-        if (style != null) {
-            content.append(":").append(style.code)
+        if (style == TimestampStyle.ISO_LIKE_DATE_TIME) {
+            val instant = Instant.ofEpochSecond(unixTimestamp)
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of("UTC"))
+            content.append(formatter.format(instant))
+        } else {
+            content.append("<t:").append(unixTimestamp)
+            if (style != null) {
+                content.append(":").append(style.code)
+            }
+            content.append(">")
         }
-        content.append(">")
     }
+
+    /**
+     * Appends a timestamp using an [Instant].
+     */
+    fun timestamp(instant: Instant, style: TimestampStyle? = null): DiscordMessageContentBuilder =
+        timestamp(instant.epochSecond, style)
 
     /**
      * Builds and returns the final message content as a string.
@@ -278,5 +294,9 @@ enum class TimestampStyle(val code: String) {
     /**
      * Relative Time (e.g., 2 months ago)
      */
-    RELATIVE_TIME("R")
+    RELATIVE_TIME("R"),
+    /**
+     * ISO-like date and time (e.g., 2026-03-30 09:56:55) - formatted by the builder, not Discord.
+     */
+    ISO_LIKE_DATE_TIME("iso_like")
 }
