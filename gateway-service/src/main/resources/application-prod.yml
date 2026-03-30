@@ -41,7 +41,7 @@ management:
       probability: 1.0
     export:
       enabled: true
-      
+
 cors:
   allowed-origin-patterns:
     - https://michibaum.ch

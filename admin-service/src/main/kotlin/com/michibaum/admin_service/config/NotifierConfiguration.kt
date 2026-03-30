@@ -20,7 +20,7 @@ class NotifierConfiguration {
     // TODO doesnt work yet
     @Bean
     @ConditionalOnBean(value = [DiscordClient::class])
-    fun customDiscordNotifier(discordClient: DiscordClient, adminDiscordProperties: AdminDiscordProperties, instanceRepository: InstanceRepository): Notifier =
+    fun customDiscordNotifier(discordClient: DiscordClient, adminDiscordProperties: AdminDiscordProperties, instanceRepository: InstanceRepository): CustomDiscordNotifier =
         CustomDiscordNotifier(discordClient, adminDiscordProperties, instanceRepository)
 
 }

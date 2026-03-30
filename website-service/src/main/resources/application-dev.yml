@@ -1,11 +1,6 @@
 server:
   port: 8081
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
-
 spring:
   boot:
     admin:
@@ -15,6 +10,19 @@ spring:
       client:
         username: admin_username
         password: admin_password
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_WEBSITE_SERVICE_LOG_CHANNEL}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
 
 management:
   zipkin:

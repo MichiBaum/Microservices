@@ -32,3 +32,6 @@ build/
 .vscode/
 
 .local-env
+
+### Env Files ###
+discord.env

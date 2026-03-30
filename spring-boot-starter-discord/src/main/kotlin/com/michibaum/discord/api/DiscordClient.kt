@@ -43,4 +43,40 @@ interface DiscordClient {
      * including its ID, name, type, and associated guild ID.
      */
     fun createChannel(channelDto: CreateChannelDto): GetChannelDto
+
+    /**
+     * Retrieves details of a specific Discord channel.
+     *
+     * @param channelId The unique identifier of the Discord channel to be retrieved.
+     * @return A `GetChannelDto` object containing details of the requested channel.
+     */
+    fun getChannel(channelId: String): GetChannelDto
+
+    /**
+     * Retrieves a list of messages from a specific Discord channel.
+     *
+     * @param channelId The unique identifier of the Discord channel from which messages will be retrieved.
+     * @param limit The maximum number of messages to retrieve, default is 50, range is 1-100.
+     * @return A list of `GetMessageDto` objects representing the messages in the channel.
+     *         The list is non-null but could be empty if the channel has no messages.
+     */
+    fun getMessages(channelId: String, limit: Int = 50): List<GetMessageDto>
+
+    /**
+     * Retrieves details of a specific Discord message.
+     *
+     * @param channelId The unique identifier of the Discord channel where the message is located.
+     * @param messageId The unique identifier of the Discord message to be retrieved.
+     * @return A `GetMessageDto` object containing details of the requested message.
+     */
+    fun getMessage(channelId: String, messageId: String): GetMessageDto
+
+    /**
+     * Adds a reaction to a specific Discord message.
+     *
+     * @param channelId The unique identifier of the Discord channel where the message is located.
+     * @param messageId The unique identifier of the Discord message to be reacted to.
+     * @param emoji The emoji to be added as a reaction, must be URL encoded if it's a custom emoji.
+     */
+    fun addReaction(channelId: String, messageId: String, emoji: String)
 }
