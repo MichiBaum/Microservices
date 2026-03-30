@@ -76,7 +76,7 @@ open class DiscordClientImpl(
      * @return A `GetGuildeDto` object containing information about the guild. The result is non-null
      * but may require additional checks if the guild information cannot be successfully retrieved.
      */
-    override fun getGuild() = httpClient.get()
+    override fun getGuild() = httpClient.get() // https://docs.discord.com/developers/resources/guild#get-guild
         .uri("/guilds/${properties.guildId}")
         .retrieve()
         .body(object : ParameterizedTypeReference<GetGuildeDto>() {})!! // TODO maybe nullable
@@ -93,22 +93,62 @@ open class DiscordClientImpl(
      * @return A list of `GetChannelDto` objects representing the channels of the guild.
      *         The result is non-null but may be empty if the guild has no channels.
      */
-    override fun getChannels() = httpClient.get()
+    override fun getChannels() = httpClient.get() // https://docs.discord.com/developers/resources/guild#get-guild-channels
         .uri("/guilds/${properties.guildId}/channels")
         .retrieve()
         .body(object : ParameterizedTypeReference<List<GetChannelDto>>() {})!! // TODO maybe nullable
 
+    /**
+     * Retrieves details of a specific Discord channel.
+     *
+     * @param channelId The unique identifier of the Discord channel to be retrieved.
+     * @return A `GetChannelDto` object containing details of the requested channel.
+     */
+    override fun getChannel(channelId: String) = httpClient.get() // https://docs.discord.com/developers/resources/channel#get-channel
+        .uri("/channels/$channelId")
+        .retrieve()
+        .body(object : ParameterizedTypeReference<GetChannelDto>() {})!! // TODO maybe nullable
+    
     /**
      * Creates a new Discord channel in the configured guild by making a POST request to the Discord API.
      *
      * @param channelDto The data transfer object containing the details required to create a new channel,
      * including properties such as the channel name, type, and optional parent category ID.
      */
-    override fun createChannel(channelDto: CreateChannelDto) = httpClient.post()
+    override fun createChannel(channelDto: CreateChannelDto) = httpClient.post() // https://docs.discord.com/developers/resources/guild#create-guild-channel
         .uri("/guilds/${properties.guildId}/channels")
         .bodyWithType(channelDto)
         .retrieve()
         .body(object : ParameterizedTypeReference<GetChannelDto>() {})!! // TODO maybe nullable
+
+    /**
+     * Retrieves a list of messages from a specific Discord channel.
+     *
+     * @param channelId The unique identifier of the Discord channel from which messages will be retrieved.
+     * @param limit The maximum number of messages to retrieve, default is 50, range is 1-100.
+     * @return A list of `GetMessageDto` objects representing the messages in the channel.
+     */
+    override fun getMessages(channelId: String, limit: Int) = httpClient.get() // https://docs.discord.com/developers/resources/message#get-channel-messages
+        .uri { builder ->
+            require(limit in 1..100) { "limit must be between 1 and 100" }
+            builder.path("/channels/$channelId/messages")
+                .queryParam("limit", limit)
+                .build()
+        }
+        .retrieve()
+        .body(object : ParameterizedTypeReference<List<GetMessageDto>>() {})!! // TODO maybe nullable
+
+    /**
+     * Retrieves details of a specific Discord message.
+     *
+     * @param channelId The unique identifier of the Discord channel where the message is located.
+     * @param messageId The unique identifier of the Discord message to be retrieved.
+     * @return A `GetMessageDto` object containing details of the requested message.
+     */
+    override fun getMessage(channelId: String, messageId: String) = httpClient.get() // https://docs.discord.com/developers/resources/message#get-channel-message
+        .uri("/channels/$channelId/messages/$messageId")
+        .retrieve()
+        .body(object : ParameterizedTypeReference<GetMessageDto>() {})!! // TODO maybe nullable
 
     /**
      * Sends a message to a specified Discord channel.
@@ -117,13 +157,23 @@ open class DiscordClientImpl(
      * @param messageDto A data transfer object containing the content of the message to be sent.
      * @return A `GetMessageDto` object containing details of the sent message, including its ID and content.
      */
-    override fun sendMessage(channelId: String, messageDto: CreateMessageDto) = httpClient.post()
+    override fun sendMessage(channelId: String, messageDto: CreateMessageDto) = httpClient.post() // https://docs.discord.com/developers/resources/message#create-message
         .uri("/channels/$channelId/messages")
         .bodyWithType(messageDto)
         .retrieve()
         .body(object : ParameterizedTypeReference<GetMessageDto>() {})!! // TODO maybe nullable
 
-
-    // Get Channel
-    // https://discord.com/developers/docs/resources/channel#get-channel
+    /**
+     * Adds a reaction to a specific Discord message.
+     *
+     * @param channelId The unique identifier of the Discord channel where the message is located.
+     * @param messageId The unique identifier of the Discord message to be reacted to.
+     * @param emoji The emoji to be added as a reaction, must be URL encoded if it's a custom emoji.
+     */
+    override fun addReaction(channelId: String, messageId: String, emoji: String) { // https://docs.discord.com/developers/resources/message#create-reaction
+        httpClient.put()
+            .uri("/channels/{channelId}/messages/{messageId}/reactions/{emoji}/@me", channelId, messageId, emoji)
+            .retrieve()
+            .toBodilessEntity()
+    }
 }

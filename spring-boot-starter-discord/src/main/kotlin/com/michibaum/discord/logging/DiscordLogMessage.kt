@@ -11,37 +11,16 @@ import com.michibaum.discord.api.dtos.CreateMessageDto
  */
 class DiscordLogMessage(logEvent: ILoggingEvent) {
 
-    val discordMessage: CreateMessageDto
+    val discordMessage: CreateMessageDto = CreateMessageDto.from {
+        header3(logEvent.level.toString())
+        newLine()
+        append(logEvent.formattedMessage)
 
-    init {
-        val stacktrace = getStackTrace(logEvent)
-
-        val message = """
-            ### ${logEvent.level}
-            ${logEvent.formattedMessage}
-            $stacktrace
-        """.trimIndent()
-        this.discordMessage = CreateMessageDto(message)
-    }
-
-    /**
-     * Extracts and formats the stack trace from a given logging event if available.
-     *
-     * @param logEvent The logging event containing details of the log and possibly a stack trace.
-     * @return A formatted stack trace enclosed in code block quotes, or an empty string if no stack trace is available.
-     */
-    private fun getStackTrace(logEvent: ILoggingEvent): String {
         val throwableStr = ThrowableProxyUtil.asString(logEvent.throwableProxy)
-        val messageStacktrace = if (throwableStr.isBlank()) {
-            ""
-        } else {
-            """
-                ```
-                $throwableStr
-                ```
-                """.trimIndent()
+        if (throwableStr.isNotBlank()) {
+            newLine()
+            codeBlock(throwableStr)
         }
-        return messageStacktrace
     }
 
 }
