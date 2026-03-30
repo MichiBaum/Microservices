@@ -8,6 +8,27 @@ class DiscordMessageContentBuilder {
     private val content = StringBuilder()
 
     /**
+     * Appends a header (level 1, # text).
+     */
+    fun header1(text: String): DiscordMessageContentBuilder = apply {
+        content.append("# ").append(text)
+    }
+
+    /**
+     * Appends a header (level 2, ## text).
+     */
+    fun header2(text: String): DiscordMessageContentBuilder = apply {
+        content.append("## ").append(text)
+    }
+
+    /**
+     * Appends a header (level 3, ### text).
+     */
+    fun header3(text: String): DiscordMessageContentBuilder = apply {
+        content.append("### ").append(text)
+    }
+
+    /**
      * Appends plain text to the message.
      */
     fun append(text: String): DiscordMessageContentBuilder = apply {

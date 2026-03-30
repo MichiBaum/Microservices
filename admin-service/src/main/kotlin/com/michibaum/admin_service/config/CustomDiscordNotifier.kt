@@ -29,26 +29,22 @@ class CustomDiscordNotifier(
 
     override fun doNotify(event: InstanceEvent, instance: Instance): Mono<Void> =
         Mono.fromRunnable {
-            val createMessageDto = CreateMessageDto(createContent(event, instance))
+            val createMessageDto = CreateMessageDto.from {
+                val appName = instance.registration.name
+                header3("Application: $appName")
+                newLine()
+
+                if (event is InstanceStatusChangedEvent) {
+                    bold("Status changed: "); append(event.statusInfo.status.toString())
+                } else {
+                    bold("Event: "); append(event.type)
+                }
+                newLine()
+
+                bold("Timestamp: "); append(event.timestamp.toString())
+            }
             discordClient.sendMessage(adminDiscordProperties.channelId, createMessageDto)
         }
 
-    protected fun createContent(event: InstanceEvent, instance: Instance): String {
-        val appName = instance.registration.name
-
-        return if (event is InstanceStatusChangedEvent) {
-            """
-                Application: $appName
-                Status changed: ${event.statusInfo.status}
-                Timestamp: ${event.timestamp}
-            """.trimIndent()
-        } else {
-            """
-                Application: $appName
-                Event: ${event.type}
-                Timestamp: ${event.timestamp}
-            """.trimIndent()
-        }
-    }
 
 }
