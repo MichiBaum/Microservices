@@ -18,6 +18,22 @@ class GameController(
     private val gameConverter: GameConverter
 ) {
 
+    @GetMapping(value = ["/api/games/{id}"])
+    fun getGame(@PathVariable id: String): ResponseEntity<GameResponseDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+
+            val game = gameService.findById(uuid) ?:
+                return ResponseEntity.notFound().build()
+
+            ResponseEntity.ok(gameConverter.convert(game))
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
     @GetMapping(value = ["/api/accounts/{id}/load-games"])
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun loadGamesFor(@PathVariable id: String): ResponseEntity<Nothing>{
@@ -36,7 +52,7 @@ class GameController(
 
     @GetMapping(value = ["/api/accounts/{id}/games"])
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    fun getGamesFor(@PathVariable id: String): ResponseEntity<Set<GameDto>>{
+    fun getGamesFor(@PathVariable id: String): ResponseEntity<Set<GameResponseDto>>{
         return try {
             val uuid = UUID.fromString(id)
             val games = emptySet<Game>() // TODO get all player for user and therefore all games

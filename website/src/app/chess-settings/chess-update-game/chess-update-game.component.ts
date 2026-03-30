@@ -39,7 +39,8 @@ export class ChessUpdateGameComponent {
   private readonly chessService = inject(ChessService);
 
   events = rxResource({
-    stream: () => this.chessService.events()
+    stream: () => this.chessService.events(),
+    defaultValue: []
   })
   selectedEvent = signal<ChessEvent | undefined>(undefined)
 
@@ -50,7 +51,8 @@ export class ChessUpdateGameComponent {
       if(eventId == undefined)
         return of([])
       return this.chessService.eventParticipants(eventId)
-    }
+    },
+    defaultValue: []
   })
   selectedPersons = signal<Person[]>([]);
 
@@ -61,10 +63,6 @@ export class ChessUpdateGameComponent {
 
   clear(table: Table) {
     table.clear();
-  }
-
-  onEventSelect(event: ChessEvent | undefined) {
-    this.selectedEvent.set(event)
   }
 
   onPersonsSelect(person: Person[] | Person | undefined) {

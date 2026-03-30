@@ -5,6 +5,8 @@ import com.michibaum.chess_service.apis.dtos.GameDto
 import com.michibaum.chess_service.database.*
 import com.michibaum.chess_service.get
 import org.springframework.stereotype.Service
+import java.util.UUID
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class GameService(
@@ -70,5 +72,7 @@ class GameService(
 
     fun getByEvent(event: Event): List<Game> =
         gameRepository.findByEvent(event)
+
+    fun findById(uuid: UUID) = gameRepository.findById(uuid).getOrNull()
 
 }

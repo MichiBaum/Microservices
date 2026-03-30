@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component
 @Component
 class GameConverter {
 
-    fun convert(game: Game): GameDto {
-        return GameDto(
+    fun convert(game: Game): GameResponseDto {
+        return GameResponseDto(
             id = game.idOrThrow(),
             chessPlatform = game.chessPlatform,
             platformId = game.platformId,

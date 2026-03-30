@@ -4,7 +4,7 @@ import com.michibaum.chess_service.database.ChessPlatform
 import com.michibaum.chess_service.database.GameType
 import java.util.*
 
-data class GameDto(
+data class GameResponseDto(
     val id: UUID,
     val chessPlatform: ChessPlatform,
     val platformId: String,
