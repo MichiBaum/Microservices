@@ -265,6 +265,12 @@ export const routes: Routes = [
         data: {"permissions": [Permissions.MUSIC_SERVICE]}
     },
     {
+      path: 'usermanagement',
+      loadComponent: () => import("./usermanagement/usermanagement/usermanagement.component").then((c) => c.UsermanagementComponent),
+      canActivate: [isAuthenticatedGuard, isPermittedGuard],
+      data: {"permissions": [Permissions.USERMANAGEMENT_SERVICE]}
+    },
+    {
         path: Sides.music_settings.navigation, // TODO remove like chess settings
         loadComponent: () => import("./music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
         canActivate: [isAuthenticatedGuard, isPermittedGuard],

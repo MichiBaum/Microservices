@@ -21,6 +21,7 @@ class UserService(
 ) {
 
     fun getUser(id: UUID) = userRepository.findById(id).orElseNull()
+    fun getAllUsers() = userRepository.findAll()
 
     fun update(id: UUID, updateUserDto: UpdateUserDto): User? {
         val foundUser = userRepository.findById(id).orElseNull()
@@ -54,8 +55,9 @@ class UserService(
 
     fun addDefaultPermissions(user: User): List<UserPermissionMapping> {
         val defaultPermissions = listOf(
+            Permissions.CHESS_SERVICE.name,
+            Permissions.USERMANAGEMENT_SERVICE.name,
             Permissions.USERMANAGEMENT_SERVICE_EDIT_OWN_USER.name,
-            Permissions.CHESS_SERVICE.name
         )
         val permissions = permissionRepository.findAllById(defaultPermissions)
         val x = permissions.map { UserPermissionMapping(user, it) }
