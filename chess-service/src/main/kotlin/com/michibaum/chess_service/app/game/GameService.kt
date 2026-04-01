@@ -20,18 +20,10 @@ class GameService(
 
         val gamesToSave = mutableListOf<Game>()
         for (game in games){
-            val exists = gameRepository.existsByChessPlatformAndPlatformId(game.chessPlatform, game.id)
+            val exists = gameRepository.existsByPlatformAndExternalGameId(game.platform, game.id)
             if(exists) continue
 
-            val accounts = game.players.mapNotNull { // TODO doesnt work for chess.com playerId = UUID and accountId something like 3889224. Can not do with username because lower and upercase change somtimes
-                accountRepository.findByPlatformAndPlatformIdAndUsername(
-                    game.chessPlatform,
-                    it.id,
-                    it.username
-                )
-            }.toSet()
-
-            val gameToSave = convertGame(game, accounts)
+            val gameToSave = convertGame(game)
             gamesToSave.add(gameToSave)
             if (gamesToSave.size == 100) {
                 gameRepository.saveAll(gamesToSave)
@@ -44,30 +36,38 @@ class GameService(
         }
     }
 
-    private fun convertGame(gameDto: GameDto, accounts: Set<Account>): Game {
-        val game = Game(
-            chessPlatform = gameDto.chessPlatform,
-            platformId = gameDto.id,
-            pgn = gameDto.pgn,
-            gameType = gameDto.gameType,
-            players = mutableSetOf()
+    private fun convertGame(gameDto: GameDto): Game {
+        val whitePlayerDto = gameDto.players.find { it.pieceColor == PieceColor.WHITE }!!
+        val blackPlayerDto = gameDto.players.find { it.pieceColor == PieceColor.BLACK }!!
+
+        val whiteAccount = accountRepository.findByPlatformAndPlatformId(gameDto.platform, whitePlayerDto.id)
+        val blackAccount = accountRepository.findByPlatformAndPlatformId(gameDto.platform, blackPlayerDto.id)
+
+        val whitePlayer = Player(
+            username = whitePlayerDto.username,
+            rating = whitePlayerDto.rating,
+            pieceColor = PieceColor.WHITE,
+            account = whiteAccount
         )
 
+        val blackPlayer = Player(
+            username = blackPlayerDto.username,
+            rating = blackPlayerDto.rating,
+            pieceColor = PieceColor.BLACK,
+            account = blackAccount
+        )
 
-        val players = gameDto.players.map { // TODO mapping
-            Player(
-                username = it.username,
-                rating = it.rating,
-                pieceColor = it.pieceColor,
-                account = accounts[0],
-                game = game
-            )
-        }.toSet()
-
-        (game.players as MutableSet<Player>).addAll(players) // TODO fuck immutable
-
-        return game
-
+        return Game(
+            sourceType = SourceType.ONLINE_PLATFORM,
+            platform = gameDto.platform,
+            externalGameId = gameDto.id,
+            pgn = gameDto.pgn,
+            gameResult = gameDto.gameResult,
+            playedAt = gameDto.playedAt,
+            timeControlCategory = gameDto.timeControlCategory,
+            whitePlayer = whitePlayer,
+            blackPlayer = blackPlayer
+        )
     }
 
     fun getByEvent(event: Event): List<Game> =

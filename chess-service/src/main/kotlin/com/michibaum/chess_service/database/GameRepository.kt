@@ -8,7 +8,7 @@ import java.util.*
 
 @Repository
 interface GameRepository: JpaRepository<Game, UUID> {
-    fun existsByChessPlatformAndPlatformId(chessPlatform: ChessPlatform, id: String): Boolean
+    fun existsByPlatformAndExternalGameId(platform: ChessPlatform, externalGameId: String): Boolean
     fun findByEvent(event: Event): List<Game>
 
     @Modifying

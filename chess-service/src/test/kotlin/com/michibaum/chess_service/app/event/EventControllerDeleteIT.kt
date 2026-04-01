@@ -92,14 +92,7 @@ class EventControllerDeleteIT {
         val event = EventProvider.event(title = "Title to be deleted")
         // No eventRepository.save(event) here, let cascade handle it or save it before and then find it again to be attached
 
-        val game = Game(
-            chessPlatform = GameProvider.game().chessPlatform,
-            platformId = GameProvider.game().platformId,
-            pgn = GameProvider.game().pgn,
-            gameType = GameProvider.game().gameType,
-            players = emptySet(),
-            event = event
-        )
+        val game = GameProvider.game(event = event)
         val savedGame = gameRepository.save(game)
         val savedEvent = savedGame.event!!
         val id = savedEvent.id!!
