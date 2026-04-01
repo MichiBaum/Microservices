@@ -3,6 +3,7 @@ package com.michibaum.authentication_library.security.jwt
 import com.michibaum.authentication_library.JwsWrapper
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
+import java.util.UUID
 
 class JwtAuthentication(val token: String, private val userDetails: UserDetails): AbstractAuthenticationToken(userDetails.authorities) {
 
@@ -21,5 +22,8 @@ class JwtAuthentication(val token: String, private val userDetails: UserDetails)
 
     fun getUserId(): String =
         jwsWrapper.getUserId()
+
+    fun getUserUuid(): UUID? =
+        UUID.fromString(jwsWrapper.getUserId())
 
 }
