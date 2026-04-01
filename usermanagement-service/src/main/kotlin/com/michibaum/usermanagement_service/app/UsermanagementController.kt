@@ -1,8 +1,10 @@
 package com.michibaum.usermanagement_service.app
 
+import com.michibaum.authentication_library.security.jwt.JwtAuthentication
+import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.*
 import com.michibaum.usermanagement_service.database.PermissionRepository
-import com.michibaum.usermanagement_service.database.User
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -10,7 +12,8 @@ import java.util.*
 @RestController
 class UsermanagementController (
     private val userService: UserService,
-    private val permiRepository: PermissionRepository
+    private val permissionRepository: PermissionRepository,
+    private val userConverter: UserConverter
 ) : UserManagementEndpoints {
 
     override fun checkUserDetails(loginDto: LoginDto): UserDetailsDto? {
@@ -29,7 +32,7 @@ class UsermanagementController (
         if (!matching)
             return null
         
-        val permissions = permiRepository.findByUser(user)
+        val permissions = permissionRepository.findByUser(user)
         return UserDetailsDto(
             id = user.id.toString(),
             username = user.username,
@@ -56,30 +59,49 @@ class UsermanagementController (
         return dto
     }
 
-    @GetMapping("/api/user/{id}")
-    fun get(@PathVariable id: String): ResponseEntity<ReturnUserDto>{
-        val userId = UUID.fromString(id)
+    @GetMapping("/api/users/me")
+    fun get(principal: JwtAuthentication): ResponseEntity<ReturnUserDto>{
+        val userId = principal.getUserUuid() ?: return ResponseEntity.badRequest().build()
         return userService.getUser(userId)
-            .let { convertUserToDto(it) }
+            .let { userConverter.toDto(it) }
             .let { toResponseEntity(it) }
     }
 
-    @PostMapping("/api/user/{id}")
-    fun update(@PathVariable id: String, @RequestBody updateUserDto: UpdateUserDto): ResponseEntity<ReturnUserDto>{
-        val userId = UUID.fromString(id)
-        return userService.update(userId, updateUserDto)
-            .let { convertUserToDto(it) }
+    @GetMapping("/api/users")
+    fun getAll(principal: JwtAuthentication): ResponseEntity<List<ReturnUserDto>>{
+        val hasAuthorityEditAll = principal.authorities.map { it.authority }.contains(Permissions.SERMANAGEMENT_SERVICE_EDIT_ALL_USER.name)
+        if(!hasAuthorityEditAll)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+        
+        return userService.getAllUsers()
+            .map { userConverter.toDto(it) }
             .let { toResponseEntity(it) }
+        
     }
 
-    fun convertUserToDto(user: User?): ReturnUserDto? =
-        user?.let {
-            ReturnUserDto(user.id.toString(), user.username, user.email)
+    @PostMapping("/api/users/{id}")
+    fun update(@PathVariable id: String, @RequestBody updateUserDto: UpdateUserDto, principal: JwtAuthentication): ResponseEntity<ReturnUserDto>{
+        val userId = try{
+            UUID.fromString(id)
+        } catch (ex: IllegalArgumentException) {
+            return ResponseEntity.badRequest().build()
         }
+
+        val hasAuthorityEditAll = principal.authorities.map { it.authority }.contains(Permissions.SERMANAGEMENT_SERVICE_EDIT_ALL_USER.name)
+        val hasAuthorityEditOwn = principal.authorities.map { it.authority }.contains(Permissions.SERMANAGEMENT_SERVICE_EDIT_ALL_USER.name)
+        if(!hasAuthorityEditAll || (hasAuthorityEditOwn && principal.getUserUuid() == userId))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
+        
+        return userService.update(userId, updateUserDto)
+            .let { userConverter.toDto(it) }
+            .let { toResponseEntity(it) }
+    }
+
 
     fun <T : Any> toResponseEntity(nullableEntity: T?): ResponseEntity<T> =
         nullableEntity?.let { entity ->
             ResponseEntity.ok(entity)
         } ?: ResponseEntity.badRequest().build()
+
 }
 

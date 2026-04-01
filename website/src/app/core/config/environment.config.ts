@@ -46,6 +46,10 @@ export class EnvironmentConfig {
     return environment.vpnService(this.protocol, this.hostname);
   }
 
+  usermanagementService(): string {
+    return environment.usermanagementService(this.protocol, this.hostname);
+  }
+
   jaeger(): string {
       return environment.jaegerService(this.protocol, this.hostname);
   }

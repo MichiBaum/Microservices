@@ -298,6 +298,12 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'usermanagement',
+        loadComponent: () => import("./usermanagement/usermanagement/usermanagement.component").then((c) => c.UsermanagementComponent),
+        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+        data: {"permissions": [Permissions.USERMANAGEMENT_SERVICE]}
+    },
+    {
         path: 'vpn',
         loadComponent: () => import("./vpn/vpn.component").then((c) => c.VpnComponent),
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
