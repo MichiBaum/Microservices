@@ -10,7 +10,7 @@
           <tr>
             <th>{{'chess.game.white' | translate}}</th>
             <th>{{'chess.game.black' | translate}}</th>
-            <th>{{'chess.game.result' | translate}}</th>
+            <th>{{'chess.game.result.title' | translate}}</th>
             <th>{{'chess.game.playedAt' | translate}}</th>
             <th>{{'chess.game.opening' | translate}}</th>
           </tr>
@@ -18,13 +18,21 @@
         <ng-template #body let-game>
           <tr>
             <td>
-              {{game.whitePlayer.username}}
+              @if (game.gameResult === GameResult.WHITE_WIN) {
+                <strong>{{game.whitePlayer.username}}</strong>
+              } @else {
+                {{game.whitePlayer.username}}
+              }
               @if (game.whitePlayer.rating) {
                 ({{game.whitePlayer.rating}})
               }
             </td>
             <td>
-              {{game.blackPlayer.username}}
+              @if (game.gameResult === GameResult.BLACK_WIN) {
+                <strong>{{game.blackPlayer.username}}</strong>
+              } @else {
+                {{game.blackPlayer.username}}
+              }
               @if (game.blackPlayer.rating) {
                 ({{game.blackPlayer.rating}})
               }

@@ -1,5 +1,5 @@
-import {Component, computed, inject, input, output, effect} from '@angular/core';
-import {ChessEvent} from "../../../core/models/chess/chess.models";
+import {Component, inject, input, output, effect} from '@angular/core';
+import {ChessEvent, GameResult} from "../../../core/models/chess/chess.models";
 import {ChessService} from "../../../core/api-services/chess.service";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from 'rxjs';
@@ -20,6 +20,7 @@ import {DatePipe} from "@angular/common";
   styleUrl: './chess-event-games.component.css'
 })
 export class ChessEventGamesComponent {
+  protected readonly GameResult = GameResult;
   private readonly chessService = inject(ChessService);
 
   readonly event = input<ChessEvent>();
