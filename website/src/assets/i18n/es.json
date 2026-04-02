@@ -70,6 +70,19 @@
             "tab-title": "Eventos de Ajedrez",
             "title": "Eventos de Ajedrez"
         },
+        "game": {
+          "opening": "Apertura",
+          "playedAt": "Jugado el",
+          "result": {
+            "title": "Resultado",
+            "BLACK_WIN": "Las negras ganaron",
+            "DRAW": "Tablas",
+            "ONGOING": "En curso",
+            "WHITE_WIN": "Las blancas ganaron"
+          },
+          "black": "Negras",
+          "white": "Blancas"
+        },
         "home": {
             "popular-openings": "Aperturas Populares",
             "recent-upcoming": "Eventos recientes, en curso y próximos",
