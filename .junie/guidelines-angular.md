@@ -58,6 +58,9 @@ https://angular.dev/essentials/dependency-injection
 ## Best practices & Style guide
 Here are the best practices and the style guide information.
 
+### UI & Accessibility
+For all UI-related changes, follow the [UI Style and Accessibility Guidelines](./ui-style-accessibility-guidelines.md).
+
 ### Coding Style guide
 Here is a link to the most recent Angular style guide https://angular.dev/style-guide
 

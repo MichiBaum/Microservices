@@ -15,7 +15,13 @@ This is a microservices-based application written primarily in Kotlin. The proje
 - Music service
 - Registry service
 - Website service
-- Website ([Angular Guidelines](./guidelines-angular.md))
+- Website ([Angular Guidelines](./guidelines-angular.md) | [UI & Accessibility Guidelines](./ui-style-accessibility-guidelines.md))
+
+## UI & Accessibility Guidelines
+For all frontend development, follow the [UI Style and Accessibility Guidelines](./ui-style-accessibility-guidelines.md). Key points include:
+- Mobile-first approach (Never use `hover:`).
+- Accessible components (ARIA labels, semantic HTML).
+- Responsive grid layouts using project-specific breakpoints.
 
 ## Code Style and Conventions
 - Follow Kotlin coding conventions
@@ -75,4 +81,5 @@ When assisting with this project:
 - Suggest solutions that maintain service independence
 - Recommend patterns consistent with existing code
 - Prioritize maintainability and readability
+- Prioritize accessibility and mobile-first responsiveness (no `hover:`)
 - Consider security implications of suggested changes
