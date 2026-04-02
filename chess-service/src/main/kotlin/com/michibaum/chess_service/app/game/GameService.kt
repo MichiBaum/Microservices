@@ -12,8 +12,81 @@ import kotlin.jvm.optionals.getOrNull
 class GameService(
     private val gameRepository: GameRepository,
     private val apiService: ApiService,
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val eventRepository: EventRepository
 ) {
+
+    fun create(gameRequestDto: GameRequestDto): Game {
+        val event = gameRequestDto.eventId.let { eventRepository.findById(it).getOrNull() }
+        val whitePlayerAccount =
+            gameRequestDto.whitePlayer.accountId.let { accountRepository.findById(it).getOrNull() }
+        val blackPlayerAccount =
+            gameRequestDto.blackPlayer.accountId.let { accountRepository.findById(it).getOrNull() }
+
+        val game = Game(
+            sourceType = gameRequestDto.sourceType,
+            platform = gameRequestDto.platform,
+            externalGameId = gameRequestDto.externalGameId,
+            pgn = gameRequestDto.pgn ?: "",
+            openingName = gameRequestDto.openingName,
+            gameResult = gameRequestDto.gameResult,
+            termination = gameRequestDto.termination,
+            playedAt = gameRequestDto.playedAt,
+            timeControl = gameRequestDto.timeControl,
+            timeControlCategory = gameRequestDto.timeControlCategory,
+            variant = gameRequestDto.variant,
+            whitePlayer = Player(
+                username = gameRequestDto.whitePlayer.username,
+                rating = gameRequestDto.whitePlayer.rating,
+                pieceColor = PieceColor.WHITE,
+                account = whitePlayerAccount
+            ),
+            blackPlayer = Player(
+                username = gameRequestDto.blackPlayer.username,
+                rating = gameRequestDto.blackPlayer.rating,
+                pieceColor = PieceColor.BLACK,
+                account = blackPlayerAccount
+            ),
+            event = event
+        )
+        return gameRepository.save(game)
+    }
+
+    fun update(id: UUID, gameRequestDto: GameRequestDto): Game? {
+        val game = findById(id) ?: return null
+
+        val event = gameRequestDto.eventId.let { eventRepository.findById(it).getOrNull() }
+        val whitePlayerAccount =
+            gameRequestDto.whitePlayer.accountId.let { accountRepository.findById(it).getOrNull() }
+        val blackPlayerAccount =
+            gameRequestDto.blackPlayer.accountId.let { accountRepository.findById(it).getOrNull() }
+
+        game.sourceType = gameRequestDto.sourceType
+        game.platform = gameRequestDto.platform
+        game.externalGameId = gameRequestDto.externalGameId
+        game.pgn = gameRequestDto.pgn ?: ""
+        game.openingName = gameRequestDto.openingName
+        game.gameResult = gameRequestDto.gameResult
+        game.termination = gameRequestDto.termination
+        game.playedAt = gameRequestDto.playedAt
+        game.timeControl = gameRequestDto.timeControl
+        game.timeControlCategory = gameRequestDto.timeControlCategory
+        game.variant = gameRequestDto.variant
+
+        game.whitePlayer.username = gameRequestDto.whitePlayer.username
+        game.whitePlayer.rating = gameRequestDto.whitePlayer.rating
+        game.whitePlayer.account = whitePlayerAccount
+        game.whitePlayer.pieceColor = PieceColor.WHITE
+
+        game.blackPlayer.username = gameRequestDto.blackPlayer.username
+        game.blackPlayer.rating = gameRequestDto.blackPlayer.rating
+        game.blackPlayer.account = blackPlayerAccount
+        game.blackPlayer.pieceColor = PieceColor.BLACK
+
+        game.event = event
+
+        return gameRepository.save(game)
+    }
 
     fun loadGamesFor(account: Account){
         val games = apiService.getGames(account)

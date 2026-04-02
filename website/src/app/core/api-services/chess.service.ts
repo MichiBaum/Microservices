@@ -15,6 +15,7 @@ import {
   SearchPerson, WriteAccount,
   WriteChessEngine,
   WriteChessEvent,
+  WriteChessGame,
   WriteChessEventCategory, WriteOpeningEvaluation, WriteOpeningMove,
   WritePerson
 } from "../models/chess/chess.models";
@@ -110,6 +111,18 @@ export class ChessService {
 
   deleteEvent(id: string): Observable<void> {
     return this.http.delete<void>(this.environment.chessService() + '/events/' + id)
+  }
+
+  saveGame(id: string | undefined, game: WriteChessGame): Observable<ChessGame> {
+    if(id !== undefined && id !== ''){
+      return this.http.put<ChessGame>(this.environment.chessService() + "/games/" + id, game)
+    } else {
+      return this.http.post<ChessGame>(this.environment.chessService() + "/games", game)
+    }
+  }
+
+  getGame(id: string): Observable<ChessGame> {
+    return this.http.get<ChessGame>(this.environment.chessService() + '/games/' + id)
   }
 
   savePerson(id: string, person: WritePerson): Observable<Person>{

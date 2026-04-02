@@ -17,25 +17,20 @@ class GameConverter {
             gameResult = game.gameResult,
             termination = game.termination,
             playedAt = game.playedAt,
-            importedAt = game.importedAt,
             timeControl = game.timeControl,
             timeControlCategory = game.timeControlCategory,
             variant = game.variant,
             whitePlayer = convertPlayer(game.whitePlayer),
-            blackPlayer = convertPlayer(game.blackPlayer),
-            fen = game.fen,
-            round = game.round,
-            boardNumber = game.boardNumber
+            blackPlayer = convertPlayer(game.blackPlayer)
         )
     }
 
     private fun convertPlayer(player: com.michibaum.chess_service.database.Player): PlayerResponseDto {
         return PlayerResponseDto(
             id = player.idOrThrow(),
+            accountId = player.account?.id,
             username = player.username,
             rating = player.rating,
-            pieceColor = player.pieceColor,
-            accountId = player.account?.id
         )
     }
 

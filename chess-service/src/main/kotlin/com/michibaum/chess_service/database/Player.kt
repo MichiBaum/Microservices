@@ -11,19 +11,19 @@ import java.util.*
 )
 class Player(
 
-    @Column(nullable = true)
-    val username: String? = null,
+    @Column(nullable = false)
+    var username: String,
 
     @Column(nullable = true)
-    val rating: Long? = null,
+    var rating: Long? = null,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val pieceColor: PieceColor,
+    var pieceColor: PieceColor,
 
     @ManyToOne(targetEntity = Account::class, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name="account_id", nullable=true, foreignKey = ForeignKey(name = "fk_player_account"))
-    val account: Account? = null,
+    var account: Account? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

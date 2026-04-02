@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
@@ -26,6 +29,29 @@ class GameController(
             val game = gameService.findById(uuid) ?:
                 return ResponseEntity.notFound().build()
 
+            ResponseEntity.ok(gameConverter.convert(game))
+        } catch (ex: IllegalArgumentException) {
+            ResponseEntity.badRequest().build()
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @PostMapping(value = ["/api/games"])
+    fun create(@RequestBody gameRequestDto: GameRequestDto): ResponseEntity<GameResponseDto> {
+        return try {
+            val game = gameService.create(gameRequestDto)
+            ResponseEntity.ok(gameConverter.convert(game))
+        } catch (ex: Exception) {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @PutMapping(value = ["/api/games/{id}"])
+    fun update(@PathVariable id: String, @RequestBody gameRequestDto: GameRequestDto): ResponseEntity<GameResponseDto> {
+        return try {
+            val uuid = UUID.fromString(id)
+            val game = gameService.update(uuid, gameRequestDto) ?: return ResponseEntity.notFound().build()
             ResponseEntity.ok(gameConverter.convert(game))
         } catch (ex: IllegalArgumentException) {
             ResponseEntity.badRequest().build()

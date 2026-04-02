@@ -74,7 +74,8 @@ export enum GameResult {
   WHITE_WIN = "WHITE_WIN",
   BLACK_WIN = "BLACK_WIN",
   DRAW = "DRAW",
-  ONGOING = "ONGOING"
+  ONGOING = "ONGOING",
+  NOT_STARTED = "NOT_STARTED"
 }
 
 export enum TerminationType {
@@ -180,6 +181,12 @@ export interface ChessPlayer {
   accountId: string | null;
 }
 
+export interface WriteChessPlayer {
+  accountId: string | null;
+  username: string | null;
+  rating: number | null;
+}
+
 export interface ChessGame {
   id: string;
   sourceType: SourceType;
@@ -190,15 +197,28 @@ export interface ChessGame {
   gameResult: GameResult;
   termination: TerminationType | null;
   playedAt: string;
-  importedAt: string;
   timeControl: string | null;
   timeControlCategory: TimeControlCategory | null;
   variant: GameVariant;
   whitePlayer: ChessPlayer;
   blackPlayer: ChessPlayer;
-  fen: string | null;
-  round: string | null;
-  boardNumber: number | null;
+}
+
+export interface WriteChessGame {
+  sourceType: SourceType;
+  platform: ChessPlatform | null;
+  externalGameId: string | null;
+  pgn: string;
+  openingName: string | null;
+  gameResult: GameResult;
+  termination: TerminationType | null;
+  playedAt: string;
+  timeControl: string | null;
+  timeControlCategory: TimeControlCategory | null;
+  variant: GameVariant;
+  whitePlayer: WriteChessPlayer;
+  blackPlayer: WriteChessPlayer;
+  eventId: string | null;
 }
 
 export interface ChessEngine {

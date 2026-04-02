@@ -14,21 +14,16 @@ data class GameResponseDto(
     val gameResult: GameResult,
     val termination: TerminationType?,
     val playedAt: LocalDateTime,
-    val importedAt: LocalDateTime,
     val timeControl: String?,
     val timeControlCategory: TimeControlCategory?,
     val variant: GameVariant,
     val whitePlayer: PlayerResponseDto,
     val blackPlayer: PlayerResponseDto,
-    val fen: String?,
-    val round: String?,
-    val boardNumber: Int?
 )
 
 data class PlayerResponseDto(
     val id: UUID,
     val username: String?,
     val rating: Long?,
-    val pieceColor: PieceColor,
     val accountId: UUID?
 )

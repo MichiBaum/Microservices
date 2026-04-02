@@ -1,12 +1,12 @@
 <div class="grid grid-cols-1 gap-4">
 
     <p-fieldset legend="Select Event" [toggleable]="true">
-      <app-select-chess-event [events]="events.value() ?? []" (selectedEventChange)="selectedEvent.set($event)"></app-select-chess-event>
+      <app-select-chess-event [events]="events.value()" (selectedEventChange)="selectedEvent.set($event)"></app-select-chess-event>
     </p-fieldset>
 
-  @if (persons.value()?.length !== 0 && persons.value()) {
+  @if (persons.value().length !== 0 && persons.value()) {
     <p-fieldset legend="Select Persons" [toggleable]="true">
-      <app-select-chess-person [persons]="persons.value() ?? []" (selectedPersonsEmitter)="onPersonsSelect($event)" [selectionMode]="'multiple'"></app-select-chess-person>
+      <app-select-chess-person [persons]="persons.value()" (selectedPersonsEmitter)="onPersonsSelect($event)" [selectionMode]="'multiple'"></app-select-chess-person>
     </p-fieldset>
   }
 
@@ -22,7 +22,7 @@
         [(selection)]="selectedAccounts"
         selectionMode="multiple"
         [paginator]="true"
-        [rows]="5"
+        [rows]="accounts().length > 10 ? 10 : accounts().length"
         [globalFilterFields]="['username', 'platform']"
         (onRowSelect)="onSelectedAccountsChange()"
       >
@@ -52,13 +52,7 @@
   }
 
   @if (selectedAccounts().length == 2) {
-    <p-fieldset>
-      <ng-template #header>
-        Select Accounts
-      </ng-template>
-
-
-    </p-fieldset>
+      <app-chess-game-form [selectedEvent]="selectedEvent()" [selectedAccounts]="selectedAccounts()"></app-chess-game-form>
   }
 
 </div>

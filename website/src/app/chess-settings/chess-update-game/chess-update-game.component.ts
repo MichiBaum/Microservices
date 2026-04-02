@@ -4,7 +4,6 @@ import {ChessService} from "../../core/api-services/chess.service";
 import {Account, ChessEvent, Person} from "../../core/models/chess/chess.models";
 import {MultiSelectModule} from "primeng/multiselect";
 import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
 import {Table, TableModule} from "primeng/table";
 import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
@@ -15,6 +14,7 @@ import {SelectChessEventComponent} from "../select-chess-event/select-chess-even
 import {SelectChessPersonComponent} from "../select-chess-person/select-chess-person.component";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from "rxjs";
+import {ChessGameFormComponent} from "../chess-game-form/chess-game-form.component";
 
 @Component({
   selector: 'app-chess-update-game',
@@ -22,7 +22,6 @@ import {of} from "rxjs";
     FieldsetModule,
     MultiSelectModule,
     FormsModule,
-    NgIf,
     TableModule,
     IconFieldModule,
     InputIconModule,
@@ -30,7 +29,8 @@ import {of} from "rxjs";
     Button,
     CardModule,
     SelectChessEventComponent,
-    SelectChessPersonComponent
+    SelectChessPersonComponent,
+    ChessGameFormComponent
   ],
   templateUrl: './chess-update-game.component.html',
   styleUrl: './chess-update-game.component.css'

@@ -4,5 +4,6 @@ enum class GameResult {
     WHITE_WIN,
     BLACK_WIN,
     DRAW,
-    ONGOING
+    ONGOING,
+    NOT_STARTED
 }
