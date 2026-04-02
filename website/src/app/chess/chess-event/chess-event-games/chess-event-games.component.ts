@@ -3,7 +3,6 @@ import {ChessEvent, GameResult} from "../../../core/models/chess/chess.models";
 import {ChessService} from "../../../core/api-services/chess.service";
 import {rxResource} from "@angular/core/rxjs-interop";
 import {of} from 'rxjs';
-import {TableModule} from "primeng/table";
 import {TranslateModule} from "@ngx-translate/core";
 import {CardModule} from "primeng/card";
 import {DatePipe} from "@angular/common";
@@ -11,7 +10,6 @@ import {DatePipe} from "@angular/common";
 @Component({
   selector: 'app-chess-event-games',
   imports: [
-    TableModule,
     TranslateModule,
     CardModule,
     DatePipe

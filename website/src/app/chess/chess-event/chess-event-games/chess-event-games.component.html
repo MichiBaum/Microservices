@@ -2,53 +2,52 @@
   @if (_games.length > 0) {
     <p-card>
       <ng-template #title>{{'chess.event.games' | translate}}</ng-template>
-      <p-table
-        [value]="_games"
-        class="p-datatable-striped"
-      >
-        <ng-template #header>
-          <tr>
-            <th>{{'chess.game.playedAt' | translate}}</th>
-            <th>{{'chess.game.white' | translate}}</th>
-            <th>{{'chess.game.black' | translate}}</th>
-            <th>{{'chess.game.result.title' | translate}}</th>
-            <th>{{'chess.game.termination' | translate}}</th>
-            <th>{{'chess.game.opening' | translate}}</th>
-          </tr>
-        </ng-template>
-        <ng-template #body let-game>
-          <tr>
-            <td>{{game.playedAt | date:'medium'}}</td>
-            <td>
-              @if (game.gameResult === GameResult.WHITE_WIN) {
-                <strong>{{game.whitePlayer.username}}</strong>
-              } @else {
-                {{game.whitePlayer.username}}
-              }
-              @if (game.whitePlayer.rating) {
-                ({{game.whitePlayer.rating}})
-              }
-            </td>
-            <td>
-              @if (game.gameResult === GameResult.BLACK_WIN) {
-                <strong>{{game.blackPlayer.username}}</strong>
-              } @else {
-                {{game.blackPlayer.username}}
-              }
-              @if (game.blackPlayer.rating) {
-                ({{game.blackPlayer.rating}})
-              }
-            </td>
-            <td>{{'chess.game.result.' + game.gameResult | translate}}</td>
-            <td>
+      <div class="grid grid-cols-1 mobile:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-3 lScreen:grid-cols-3 xlScreen:grid-cols-4 4k:grid-cols-5 gap-4">
+        @for (game of _games; track game.id) {
+          <p-card class="h-full">
+            <ng-template #title>
+              <div class="flex justify-between">
+                <span [class.font-bold]="game.gameResult === GameResult.WHITE_WIN">
+                  {{game.whitePlayer.username}}
+                  @if (game.whitePlayer.rating) {
+                    <span class="text-sm font-normal text-slate-500 ml-1">({{game.whitePlayer.rating}})</span>
+                  }
+                </span>
+                <span class="text-xs text-slate-400">W</span>
+              </div>
+              <div class="flex justify-between">
+                <span [class.font-bold]="game.gameResult === GameResult.BLACK_WIN">
+                  {{game.blackPlayer.username}}
+                  @if (game.blackPlayer.rating) {
+                    <span class="text-sm font-normal text-slate-500 ml-1">({{game.blackPlayer.rating}})</span>
+                  }
+                </span>
+                <span class="text-xs text-slate-400">B</span>
+              </div>
+            </ng-template>
+            <ng-template #subtitle>
+              <div class="flex flex-col gap-1 mt-2">
+                <span class="text-sm">{{game.playedAt | date:'medium'}}</span>
+                <span class="text-primary font-medium">{{'chess.game.result.' + game.gameResult | translate}}</span>
+              </div>
+            </ng-template>
+            <div class="flex flex-col gap-2 mt-2">
               @if (game.termination) {
-                {{'chess.game.terminationType.' + game.termination | translate}}
+                <div class="flex justify-between text-xs">
+                  <span class="text-slate-500">{{'chess.game.termination' | translate}}:</span>
+                  <span>{{'chess.game.terminationType.' + game.termination | translate}}</span>
+                </div>
               }
-            </td>
-            <td>{{game.openingName}}</td>
-          </tr>
-        </ng-template>
-      </p-table>
+              @if (game.openingName) {
+                <div class="flex flex-col text-xs mt-1 border-t pt-2">
+                  <span class="text-slate-500">{{'chess.game.opening' | translate}}:</span>
+                  <span class="italic">{{game.openingName}}</span>
+                </div>
+              }
+            </div>
+          </p-card>
+        }
+      </div>
     </p-card>
   }
 }
