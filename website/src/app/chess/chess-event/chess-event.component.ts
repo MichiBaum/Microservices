@@ -11,6 +11,8 @@ import {ChessEventGamesComponent} from "./chess-event-games/chess-event-games.co
 import {DividerModule} from "primeng/divider";
 import {TabsModule} from "primeng/tabs";
 import {ChessEvent} from "../../core/models/chess/chess.models";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faCalendarAlt, faLocationDot, faBuilding, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-chess-events',
@@ -22,12 +24,18 @@ import {ChessEvent} from "../../core/models/chess/chess.models";
     ChessEventParticipantsComponent,
     ChessEventGamesComponent,
     DividerModule,
-    TabsModule
+    TabsModule,
+    FaIconComponent
 ],
   templateUrl: './chess-event.component.html',
   styleUrl: './chess-event.component.css'
 })
 export class ChessEventComponent implements OnInit {
+  protected readonly faCalendarAlt = faCalendarAlt;
+  protected readonly faLocationDot = faLocationDot;
+  protected readonly faBuilding = faBuilding;
+  protected readonly faExternalLinkAlt = faExternalLinkAlt;
+
   private readonly route = inject(ActivatedRoute);
   private readonly navigationService = inject(RouterNavigationService);
 
