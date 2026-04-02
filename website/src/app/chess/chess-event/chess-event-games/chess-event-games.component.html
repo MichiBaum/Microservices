@@ -1,0 +1,40 @@
+@if (games.value(); as _games) {
+  @if (_games.length > 0) {
+    <p-card>
+      <ng-template #title>{{'chess.event.games' | translate}}</ng-template>
+      <p-table
+        [value]="_games"
+        class="p-datatable-striped"
+      >
+        <ng-template #header>
+          <tr>
+            <th>{{'chess.game.white' | translate}}</th>
+            <th>{{'chess.game.black' | translate}}</th>
+            <th>{{'chess.game.result' | translate}}</th>
+            <th>{{'chess.game.playedAt' | translate}}</th>
+            <th>{{'chess.game.opening' | translate}}</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-game>
+          <tr>
+            <td>
+              {{game.whitePlayer.username}}
+              @if (game.whitePlayer.rating) {
+                ({{game.whitePlayer.rating}})
+              }
+            </td>
+            <td>
+              {{game.blackPlayer.username}}
+              @if (game.blackPlayer.rating) {
+                ({{game.blackPlayer.rating}})
+              }
+            </td>
+            <td>{{'chess.game.result.' + game.gameResult | translate}}</td>
+            <td>{{game.playedAt | date:'medium'}}</td>
+            <td>{{game.openingName}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  }
+}

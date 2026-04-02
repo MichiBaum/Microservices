@@ -70,6 +70,18 @@
             "tab-title": "Schach Veranstaltungen",
             "title": "Schach Veranstaltungen"
         },
+        "game": {
+            "opening": "Eröffnung",
+            "playedAt": "Gespielt am",
+            "result": {
+                "BLACK_WIN": "Schwarz hat gewonnen",
+                "DRAW": "Remis",
+                "ONGOING": "Laufend",
+                "WHITE_WIN": "Weiss hat gewonnen"
+            },
+            "black": "Schwarz",
+            "white": "Weiss"
+        },
         "home": {
             "popular-openings": "Beliebte Eröffnungen",
             "recent-upcoming": "Vergangene, laufende und zukünftige Veranstaltungen",

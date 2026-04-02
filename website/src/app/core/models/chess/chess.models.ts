@@ -70,12 +70,54 @@ export enum ChessPlatform{
   FREESTYLE="FREESTYLE"
 }
 
-export enum ChessGameType{
-  BULLET="BULLET",
-  BLITZ="BLITZ",
-  RAPID="RAPID",
-  CLASSICAL="CLASSICAL",
-  UNKNOWN="UNKNOWN"
+export enum GameResult {
+  WHITE_WIN = "WHITE_WIN",
+  BLACK_WIN = "BLACK_WIN",
+  DRAW = "DRAW",
+  ONGOING = "ONGOING"
+}
+
+export enum TerminationType {
+  CHECKMATE = "CHECKMATE",
+  RESIGNATION = "RESIGNATION",
+  TIMEOUT = "TIMEOUT",
+  STALEMATE = "STALEMATE",
+  DRAW_AGREEMENT = "DRAW_AGREEMENT",
+  REPETITION = "REPETITION",
+  FIFTY_MOVE_RULE = "FIFTY_MOVE_RULE",
+  INSUFFICIENT_MATERIAL = "INSUFFICIENT_MATERIAL",
+  ABANDONMENT = "ABANDONMENT",
+  TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL = "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL"
+}
+
+export enum TimeControlCategory {
+  BULLET = "BULLET",
+  BLITZ = "BLITZ",
+  RAPID = "RAPID",
+  CLASSICAL = "CLASSICAL",
+  CORRESPONDENCE = "CORRESPONDENCE"
+}
+
+export enum SourceType {
+  ONLINE_PLATFORM = "ONLINE_PLATFORM",
+  OTB = "OTB",
+  IMPORTED = "IMPORTED"
+}
+
+export enum GameVariant {
+  STANDARD = "STANDARD",
+  CHESS960 = "CHESS960",
+  KING_OF_THE_HILL = "KING_OF_THE_HILL",
+  THREE_CHECK = "THREE_CHECK",
+  CRAZYHOUSE = "CRAZYHOUSE",
+  ATOMIC = "ATOMIC",
+  HORDE = "HORDE",
+  RACING_KINGS = "RACING_KINGS"
+}
+
+export enum PieceColor {
+  WHITE = "WHITE",
+  BLACK = "BLACK"
 }
 
 export interface ChessEvent {
@@ -130,12 +172,33 @@ export interface ChessEventCategoryWithEvents{
   events: ChessEvent[];
 }
 
+export interface ChessPlayer {
+  id: string;
+  username: string | null;
+  rating: number | null;
+  pieceColor: PieceColor;
+  accountId: string | null;
+}
+
 export interface ChessGame {
   id: string;
-  chessPlatform: ChessPlatform;
-  platformId: string;
+  sourceType: SourceType;
+  platform: ChessPlatform | null;
+  externalGameId: string | null;
   pgn: string;
-  gameType: ChessGameType;
+  openingName: string | null;
+  gameResult: GameResult;
+  termination: TerminationType | null;
+  playedAt: string;
+  importedAt: string;
+  timeControl: string | null;
+  timeControlCategory: TimeControlCategory | null;
+  variant: GameVariant;
+  whitePlayer: ChessPlayer;
+  blackPlayer: ChessPlayer;
+  fen: string | null;
+  round: string | null;
+  boardNumber: number | null;
 }
 
 export interface ChessEngine {
