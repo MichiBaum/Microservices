@@ -8,15 +8,17 @@
       >
         <ng-template #header>
           <tr>
+            <th>{{'chess.game.playedAt' | translate}}</th>
             <th>{{'chess.game.white' | translate}}</th>
             <th>{{'chess.game.black' | translate}}</th>
             <th>{{'chess.game.result.title' | translate}}</th>
-            <th>{{'chess.game.playedAt' | translate}}</th>
+            <th>{{'chess.game.termination' | translate}}</th>
             <th>{{'chess.game.opening' | translate}}</th>
           </tr>
         </ng-template>
         <ng-template #body let-game>
           <tr>
+            <td>{{game.playedAt | date:'medium'}}</td>
             <td>
               @if (game.gameResult === GameResult.WHITE_WIN) {
                 <strong>{{game.whitePlayer.username}}</strong>
@@ -38,7 +40,11 @@
               }
             </td>
             <td>{{'chess.game.result.' + game.gameResult | translate}}</td>
-            <td>{{game.playedAt | date:'medium'}}</td>
+            <td>
+              @if (game.termination) {
+                {{'chess.game.terminationType.' + game.termination | translate}}
+              }
+            </td>
             <td>{{game.openingName}}</td>
           </tr>
         </ng-template>

@@ -73,12 +73,25 @@
         "game": {
             "opening": "Eröffnung",
             "playedAt": "Gespielt am",
+            "termination": "Beendigung",
             "result": {
                 "title": "Resultat",
                 "BLACK_WIN": "Schwarz hat gewonnen",
                 "DRAW": "Remis",
                 "ONGOING": "Laufend",
                 "WHITE_WIN": "Weiss hat gewonnen"
+            },
+            "terminationType": {
+                "CHECKMATE": "Schachmatt",
+                "RESIGNATION": "Aufgabe",
+                "TIMEOUT": "Zeitüberschreitung",
+                "STALEMATE": "Patt",
+                "DRAW_AGREEMENT": "Remisvereinbarung",
+                "REPETITION": "Stellungswiederholung",
+                "FIFTY_MOVE_RULE": "50-Züge-Regel",
+                "INSUFFICIENT_MATERIAL": "Unzureichendes Material",
+                "ABANDONMENT": "Verlassen der Partie",
+                "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL": "Zeit abgelaufen gegen unzureichendes Material"
             },
             "black": "Schwarz",
             "white": "Weiss"

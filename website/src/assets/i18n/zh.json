@@ -73,12 +73,25 @@
         "game": {
           "opening": "开局",
           "playedAt": "对弈于",
+          "termination": "终局方式",
           "result": {
             "title": "结果",
             "BLACK_WIN": "黑方胜",
             "DRAW": "和棋",
             "ONGOING": "进行中",
             "WHITE_WIN": "白方胜"
+          },
+          "terminationType": {
+            "CHECKMATE": "杀棋 (将死)",
+            "RESIGNATION": "认输",
+            "TIMEOUT": "超时",
+            "STALEMATE": "逼和 (僵局)",
+            "DRAW_AGREEMENT": "协议和棋",
+            "REPETITION": "三次重复局面",
+            "FIFTY_MOVE_RULE": "50步规则",
+            "INSUFFICIENT_MATERIAL": "子力不足",
+            "ABANDONMENT": "放弃比赛",
+            "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL": "超时但对手子力不足"
           },
           "black": "黑方",
           "white": "白方"
