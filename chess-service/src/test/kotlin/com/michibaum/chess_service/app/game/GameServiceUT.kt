@@ -22,7 +22,8 @@ class GameServiceUT {
     private val gameRepository: GameRepository = mockk()
     private val apiService: ApiService = mockk()
     private val accountRepository: AccountRepository = mockk()
-    private val gameService = GameService(gameRepository, apiService, accountRepository)
+    private val eventRepository: EventRepository = mockk()
+    private val gameService = GameService(gameRepository, apiService, accountRepository, eventRepository)
 
     @Test
     fun `should load games for account and save new games`() {

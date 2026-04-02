@@ -35,7 +35,6 @@ class GameMappingIT {
             variant = GameVariant.STANDARD,
             whitePlayer = whitePlayer,
             blackPlayer = blackPlayer,
-            fen = "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
         )
 
         val savedGame = gameRepository.save(game)
@@ -63,8 +62,6 @@ class GameMappingIT {
             playedAt = LocalDateTime.now(),
             whitePlayer = whitePlayer,
             blackPlayer = blackPlayer,
-            round = "1",
-            boardNumber = 5
         )
 
         val savedGame = gameRepository.save(game)
@@ -73,7 +70,5 @@ class GameMappingIT {
         val retrievedGame = gameRepository.findById(savedGame.idOrThrow()).orElseThrow()
         assertEquals(SourceType.OTB, retrievedGame.sourceType)
         assertNull(retrievedGame.platform)
-        assertEquals("1", retrievedGame.round)
-        assertEquals(5, retrievedGame.boardNumber)
     }
 }

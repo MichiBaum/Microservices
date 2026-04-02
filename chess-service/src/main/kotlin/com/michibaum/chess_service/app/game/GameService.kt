@@ -3,9 +3,9 @@ package com.michibaum.chess_service.app.game
 import com.michibaum.chess_service.apis.ApiService
 import com.michibaum.chess_service.apis.dtos.GameDto
 import com.michibaum.chess_service.database.*
-import com.michibaum.chess_service.get
 import org.springframework.stereotype.Service
-import java.util.UUID
+import org.springframework.transaction.annotation.Transactional
+import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 @Service
@@ -16,6 +16,7 @@ class GameService(
     private val eventRepository: EventRepository
 ) {
 
+    @Transactional
     fun create(gameRequestDto: GameRequestDto): Game {
         val event = gameRequestDto.eventId.let { eventRepository.findById(it).getOrNull() }
         val whitePlayerAccount =
@@ -52,6 +53,7 @@ class GameService(
         return gameRepository.save(game)
     }
 
+    @Transactional
     fun update(id: UUID, gameRequestDto: GameRequestDto): Game? {
         val game = findById(id) ?: return null
 
@@ -88,6 +90,7 @@ class GameService(
         return gameRepository.save(game)
     }
 
+    @Transactional
     fun loadGamesFor(account: Account){
         val games = apiService.getGames(account)
 

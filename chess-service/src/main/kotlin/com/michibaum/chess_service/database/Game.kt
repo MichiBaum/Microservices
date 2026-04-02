@@ -109,7 +109,7 @@ class Game(
     @JoinColumn(name = "black_player_id", referencedColumnName = "id")
     var blackPlayer: Player,
 
-    @ManyToOne(targetEntity = Event::class, fetch = FetchType.LAZY, optional = true, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @ManyToOne(targetEntity = Event::class, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name="event_id", nullable=true)
     var event: Event? = null,
 
