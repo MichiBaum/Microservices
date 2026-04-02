@@ -1,23 +1,23 @@
-<div class="flex bg-primary text-primary-contrast items-center justify-center shadow-md h-full" aria-label="Header">
-
-  <div class="basis-1/4 flex-none text-left">
+<div class="flex bg-primary text-primary-contrast items-center justify-between shadow-md h-full px-4 overflow-hidden" aria-label="Header">
+  <div class="flex-none basis-1/4">
     @defer () {
       <app-navigation></app-navigation>
     } @placeholder {
-      <p>&#9776;</p>
+      <p class="text-xl">&#9776;</p>
     }
   </div>
 
-  <div class="grow text-center">
-    <h1 class="font-bold text-2xl">{{ title().key | translate: title().params}}</h1>
+  <div class="grow text-center overflow-hidden px-2">
+    <h1 class="font-bold text-lg mobile:text-2xl truncate" [title]="title().key | translate: title().params">
+      {{ title().key | translate: title().params}}
+    </h1>
   </div>
 
-  <div class="basis-1/4 flex-none text-right">
+  <div class="flex-none basis-1/4 text-right">
     @defer () {
       <app-logout></app-logout>
     } @placeholder {
-      <p>&#9755;</p>
+      <p class="text-xl">&#9755;</p>
     }
   </div>
-
 </div>

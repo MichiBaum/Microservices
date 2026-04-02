@@ -79,7 +79,7 @@
                 "BLACK_WIN": "Schwarz hat gewonnen",
                 "DRAW": "Remis",
                 "ONGOING": "Laufend",
-                "WHITE_WIN": "Weiss hat gewonnen"
+                "WHITE_WIN": "Weiß hat gewonnen"
             },
             "terminationType": {
                 "CHECKMATE": "Schachmatt",
@@ -94,7 +94,7 @@
                 "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL": "Zeit abgelaufen gegen unzureichendes Material"
             },
             "black": "Schwarz",
-            "white": "Weiss"
+            "white": "Weiß"
         },
         "home": {
             "popular-openings": "Beliebte Eröffnungen",
