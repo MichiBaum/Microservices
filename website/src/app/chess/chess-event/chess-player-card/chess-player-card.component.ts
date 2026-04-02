@@ -8,6 +8,8 @@ import {RouterNavigationService} from "../../../core/services/router-navigation.
 import {EventIconPipe} from "../../../core/pipes/gender-icon.pipe";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
+import {faBirthdayCake, faGlobe} from "@fortawesome/free-solid-svg-icons";
+
 @Component({
   selector: 'app-chess-player-card',
   imports: [
@@ -21,6 +23,9 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
   styleUrl: './chess-player-card.component.css'
 })
 export class ChessPlayerCardComponent {
+  protected readonly faGlobe = faGlobe;
+  protected readonly faBirthdayCake = faBirthdayCake;
+
   private readonly navigationService = inject(RouterNavigationService);
 
   player = input<Person>()
@@ -30,7 +35,6 @@ export class ChessPlayerCardComponent {
     this.navigationService.open(account.url)
   }
 
-  protected readonly length = length;
 }
 
 
