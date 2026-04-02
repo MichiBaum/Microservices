@@ -54,6 +54,12 @@ And these databases:
 - Fitness DB
 - Music DB
 
+## Documentation & Guidelines
+Detailed documentation and development guidelines can be found in the [docs/Writerside/topics](docs/Writerside/topics) directory:
+- [General Guidelines](docs/Writerside/topics/Guidelines.md)
+- [Angular Guidelines](docs/Writerside/topics/Guidelines-Angular.md)
+- [UI & Accessibility Guidelines](docs/Writerside/topics/UI-Style-Accessibility-Guidelines.md)
+
 ## License
 
 [![GitHub license](https://badgen.net/github/license/MichiBaum/Microservices)](https://github.com/MichiBaum/Microservices/blob/master/LICENSE)
