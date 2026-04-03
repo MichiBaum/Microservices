@@ -3,7 +3,9 @@
     @defer () {
       <app-navigation></app-navigation>
     } @placeholder {
-      <p class="text-xl">&#9776;</p>
+      <div class="p-2">
+        <fa-icon [icon]="faBars" size="lg"></fa-icon>
+      </div>
     }
   </div>
 
@@ -17,7 +19,9 @@
     @defer () {
       <app-logout></app-logout>
     } @placeholder {
-      <p class="text-xl">&#9755;</p>
+      <div class="p-2">
+        <fa-icon [icon]="faSignOutAlt" size="lg"></fa-icon>
+      </div>
     }
   </div>
 </div>
