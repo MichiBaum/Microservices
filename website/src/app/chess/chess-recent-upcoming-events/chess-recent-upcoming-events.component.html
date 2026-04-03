@@ -3,10 +3,10 @@
     <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
   </ng-template>
   <ng-template #content let-event>
-    <div class="cursor-pointer">
-      <p class="text-xs">{{ event.dateFrom }} - {{event.dateTo}}</p>
-      <p class="text-xs text-muted-color">{{ joinEventCategories(event) }}</p>
-      <p [routerLink]="['/chess/events', event.id]">{{ event.title }}</p>
+    <div class="cursor-pointer" [routerLink]="['/chess/events', event.id]">
+      <p class="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">{{ event.dateFrom }} - {{event.dateTo}}</p>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">{{ joinEventCategories(event) }}</p>
+      <p class="font-medium text-surface-700 dark:text-surface-200 leading-tight">{{ event.title }}</p>
     </div>
   </ng-template>
 </p-timeline>

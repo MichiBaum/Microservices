@@ -5,7 +5,9 @@
     </ng-template>
   }
   @if (titleText()) {
-    <ng-template #title>{{ titleText() }}</ng-template>
+    <ng-template #title>
+        <span class="text-surface-900 dark:text-surface-0">{{ titleText() }}</span>
+    </ng-template>
   }
 
   <div class="h-20">

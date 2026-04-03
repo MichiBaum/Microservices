@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-4">
-  <div class="flex flex-col desktop:flex-row desktop:items-center justify-between gap-4 p-4 rounded-xl border">
+  <div class="flex flex-col desktop:flex-row desktop:items-center justify-between gap-4 p-4 rounded-xl border bg-surface-50 dark:bg-surface-900/50">
     <div class="flex items-center gap-2">
-      <h2 class="text-xl font-bold">{{'chess.events.title' | translate}}</h2>
+      <h2 class="text-xl font-bold text-surface-900 dark:text-surface-0">{{'chess.events.title' | translate}}</h2>
       <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full">{{totalEvents()}}</span>
     </div>
     <p-fieldset [toggleable]="true" [collapsed]="true" class="w-full desktop:w-auto">
@@ -30,7 +30,8 @@
           <ng-template #title>
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0">
-                <span class="truncate" [title]="category.title">{{category.title}}</span>
+                <fa-icon [icon]="faFolder" class="text-primary w-4"></fa-icon>
+                <span class="truncate text-surface-900 dark:text-surface-0" [title]="category.title">{{category.title}}</span>
               </div>
               <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full shrink-0">
                 {{category.events.length}}
@@ -43,20 +44,20 @@
           <div class="mt-4">
             <p-timeline [value]="category.events">
               <ng-template #marker let-event>
-                <div class="flex items-center justify-center w-8 h-8 rounded-full border shadow-sm">
+                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
                   <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
                 </div>
               </ng-template>
               <ng-template #content let-event>
-                <div class="flex flex-col mb-4 p-2 rounded-lg cursor-pointer transition-colors" [routerLink]="['/chess/events', event.id]">
-                  <div class="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider mb-1">
+                <div class="flex flex-col mb-4 p-2 rounded-lg cursor-pointer active:bg-slate-100 dark:active:bg-slate-800 transition-colors" [routerLink]="['/chess/events', event.id]">
+                  <div class="flex items-center gap-1 text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
                     <fa-icon [icon]="faCalendarAlt" class="w-3"></fa-icon>
                     <span>{{ event.dateFrom }}</span>
                     @if (event.dateTo && event.dateTo !== event.dateFrom) {
                        <span>- {{event.dateTo}}</span>
                     }
                   </div>
-                  <span class="font-medium leading-tight" [title]="event.title">{{ event.title }}</span>
+                  <span class="font-medium text-surface-700 dark:text-surface-200 leading-tight" [title]="event.title">{{ event.title }}</span>
                 </div>
               </ng-template>
             </p-timeline>

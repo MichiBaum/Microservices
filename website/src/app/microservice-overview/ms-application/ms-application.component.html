@@ -1,6 +1,6 @@
 <p-card class="h-full">
   <ng-template #title>
-    {{application()?.name}}
+    <span class="text-surface-900 dark:text-surface-0">{{application()?.name}}</span>
     <fa-icon [icon]="application()?.status | msStatusIcon" [style]="application()?.status | msStatusStyle"></fa-icon>
   </ng-template>
 

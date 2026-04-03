@@ -1,8 +1,8 @@
 @if (participants.value()?.length !== 0) {
   <div class="flex flex-col gap-4">
-    <div class="flex flex-col desktop:flex-row desktop:items-center justify-between gap-4 p-4 rounded-xl border">
+    <div class="flex flex-col desktop:flex-row desktop:items-center justify-between gap-4 p-4 rounded-xl border bg-surface-50 dark:bg-surface-900/50">
       <div class="flex items-center gap-2">
-        <h2 class="text-xl font-bold">{{'chess.event.participants' | translate}}</h2>
+        <h2 class="text-xl font-bold text-surface-900 dark:text-surface-0">{{'chess.event.participants' | translate}}</h2>
         <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full">{{participants.value()?.length}}</span>
       </div>
       <p-fieldset [toggleable]="true" [collapsed]="true" class="w-full desktop:w-auto">
