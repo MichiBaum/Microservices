@@ -78,6 +78,7 @@
                 "title": "Result",
                 "BLACK_WIN": "Black won",
                 "DRAW": "Draw",
+                "NOT_STARTED": "Not started",
                 "ONGOING": "Ongoing",
                 "WHITE_WIN": "White won"
             },

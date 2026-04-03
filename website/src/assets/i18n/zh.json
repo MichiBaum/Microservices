@@ -78,6 +78,7 @@
             "title": "结果",
             "BLACK_WIN": "黑方胜",
             "DRAW": "和棋",
+            "NOT_STARTED": "未开始",
             "ONGOING": "进行中",
             "WHITE_WIN": "白方胜"
           },

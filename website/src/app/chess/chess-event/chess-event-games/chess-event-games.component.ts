@@ -1,4 +1,4 @@
-import {Component, inject, input, output, effect} from '@angular/core';
+import {Component, inject, input, output, effect, computed, ChangeDetectionStrategy} from '@angular/core';
 import {ChessEvent, GameResult} from "../../../core/models/chess/chess.models";
 import {ChessService} from "../../../core/api-services/chess.service";
 import {rxResource} from "@angular/core/rxjs-interop";
@@ -18,7 +18,8 @@ import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
     FaIconComponent
   ],
   templateUrl: './chess-event-games.component.html',
-  styleUrl: './chess-event-games.component.css'
+  styleUrl: './chess-event-games.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChessEventGamesComponent {
   protected readonly faCalendarAlt = faCalendarAlt;
@@ -34,6 +35,11 @@ export class ChessEventGamesComponent {
         return of([])
       return this.chessService.eventGames(eventId)
     }
+  })
+
+  sortedGames = computed(() => {
+    const games = this.games.value() ?? [];
+    return [...games].sort((a, b) => new Date(b.playedAt).getTime() - new Date(a.playedAt).getTime());
   })
 
   readonly haveContent = output<boolean>();

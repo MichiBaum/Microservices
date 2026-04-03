@@ -78,6 +78,7 @@
             "title": "Resultado",
             "BLACK_WIN": "Las negras ganaron",
             "DRAW": "Tablas",
+            "NOT_STARTED": "No comenzado",
             "ONGOING": "En curso",
             "WHITE_WIN": "Las blancas ganaron"
           },

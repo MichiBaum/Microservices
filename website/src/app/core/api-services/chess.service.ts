@@ -125,6 +125,18 @@ export class ChessService {
     return this.http.get<ChessGame>(this.environment.chessService() + '/games/' + id)
   }
 
+  deleteGame(id: string): Observable<void> {
+    return this.http.delete<void>(this.environment.chessService() + '/games/' + id)
+  }
+
+  getGamesBetweenAccounts(ids: string[]): Observable<ChessGame[]> {
+    let params = new HttpParams();
+    ids.forEach(id => {
+      params = params.append('ids', id);
+    });
+    return this.http.get<ChessGame[]>(this.environment.chessService() + '/games/by-accounts', { params });
+  }
+
   savePerson(id: string, person: WritePerson): Observable<Person>{
     let endPoint = "/persons"
     if(id !== undefined && id !== '')

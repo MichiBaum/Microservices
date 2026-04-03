@@ -1,5 +1,6 @@
-import {Component, effect, inject, input, signal} from '@angular/core';
+import {Component, effect, inject, input, model, output, signal} from '@angular/core';
 import {ChessService} from "../../core/api-services/chess.service";
+import {MessageService} from "primeng/api";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   Account,
@@ -44,6 +45,7 @@ import {Card} from "primeng/card";
 })
 export class ChessGameFormComponent {
   private readonly chessService = inject(ChessService);
+  private readonly messageService = inject(MessageService);
 
   sourceTypes = Object.values(SourceType);
   platforms = Object.values(ChessPlatform);
@@ -55,7 +57,8 @@ export class ChessGameFormComponent {
   selectedEvent = input.required<ChessEvent | undefined>();
   selectedAccounts = input.required<Account[]>();
 
-  selectedGame = signal<ChessGame | undefined>(undefined);
+  selectedGame = model<ChessGame | undefined>(undefined);
+  saved = output<void>();
 
   formGroup = new FormGroup({
     id: new FormControl<string | null>({value: '', disabled: true}),
@@ -117,7 +120,7 @@ export class ChessGameFormComponent {
 
   patchForm(game: ChessGame | undefined) {
     if (game == undefined) {
-      this.clear();
+      this.resetForm();
       return;
     }
 
@@ -185,18 +188,46 @@ export class ChessGameFormComponent {
 
     const id = this.formGroup.controls['id'].value ?? "";
     this.chessService.saveGame(id, game).subscribe(() => {
+      this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game saved successfully'});
+      this.saved.emit();
       this.clear();
     });
   }
 
   clear() {
+    this.selectedGame.set(undefined);
+    this.resetForm();
+  }
+
+  resetForm() {
     this.formGroup.reset({
       sourceType: SourceType.OTB,
       gameResult: GameResult.NOT_STARTED,
       playedAt: new Date(),
       variant: GameVariant.STANDARD
     });
-    this.selectedGame.set(undefined);
+
+    const event = this.selectedEvent();
+    if (event) {
+      this.formGroup.patchValue({eventId: event.id});
+    }
+
+    const accounts = this.selectedAccounts();
+    if (accounts.length === 2) {
+      this.formGroup.patchValue({
+        whitePlayer: {
+          accountId: accounts[0].id,
+          username: accounts[0].username
+        },
+        blackPlayer: {
+          accountId: accounts[1].id,
+          username: accounts[1].username
+        }
+      });
+      if (accounts[0].platform === accounts[1].platform) {
+        this.formGroup.patchValue({platform: accounts[0].platform});
+      }
+    }
   }
 
   getDate(date: Date): string | undefined {

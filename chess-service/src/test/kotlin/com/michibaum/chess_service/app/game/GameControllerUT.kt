@@ -116,13 +116,47 @@ class GameControllerUT {
     fun `should get games for account`() {
         // given
         val uuid = UUID.randomUUID()
+        val game = GameProvider.game()
+        val responseDto = mockk<GameResponseDto>()
+
+        every { gameService.getByAccount(uuid) } returns listOf(game)
+        every { gameConverter.convert(game) } returns responseDto
 
         // when
         val response = gameController.getGamesFor(uuid.toString())
 
         // then
         assertEquals(HttpStatus.OK, response.statusCode)
-        assertEquals(emptySet<GameResponseDto>(), response.body)
+        assertEquals(listOf(responseDto), response.body)
+    }
+
+    @Test
+    fun `should get games between two accounts`() {
+        // given
+        val uuid1 = UUID.randomUUID()
+        val uuid2 = UUID.randomUUID()
+        val ids = listOf(uuid1.toString(), uuid2.toString())
+        val game = GameProvider.game()
+        val responseDto = mockk<GameResponseDto>()
+
+        every { gameService.getByAccounts(uuid1, uuid2) } returns listOf(game)
+        every { gameConverter.convert(game) } returns responseDto
+
+        // when
+        val response = gameController.getGamesBetween(ids)
+
+        // then
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals(listOf(responseDto), response.body)
+    }
+
+    @Test
+    fun `should return bad request when getting games between with invalid number of accounts`() {
+        // when
+        val response = gameController.getGamesBetween(listOf("id1"))
+
+        // then
+        assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
     }
 
     @Test
@@ -220,26 +254,39 @@ class GameControllerUT {
     }
 
     @Test
-    fun `should return internal server error on exception in getGamesFor`() {
+    fun `should delete game`() {
         // given
         val uuid = UUID.randomUUID()
-        // The implementation has a TODO and currently returns empty set, but it can still throw if UUID.fromString fails (handled) or if something else happens.
-        // Let's mock UUID.fromString to fail is hard, but we can make something else fail if it was there.
-        // Actually, the current implementation of getGamesFor is:
-        /*
-        return try {
-            val uuid = UUID.fromString(id)
-            val games = emptySet<Game>() // TODO get all player for user and therefore all games
-            val dtos = games.map(gameConverter::convert).toSet()
-            ResponseEntity.ok(dtos)
-        } catch (ex: IllegalArgumentException) {
-            ResponseEntity.badRequest().build()
-        } catch (ex: Exception) {
-            ResponseEntity.internalServerError().build()
-        }
-        */
-        // If we want to trigger Exception, we can't easily as it's very simple now.
-        // But for completeness, if it were calling a service, we'd mock it to throw.
+        every { gameService.delete(uuid) } returns Unit
+
+        // when
+        val response = gameController.delete(uuid.toString())
+
+        // then
+        assertEquals(HttpStatus.OK, response.statusCode)
+        verify(exactly = 1) { gameService.delete(uuid) }
+    }
+
+    @Test
+    fun `should return bad request when deleting with invalid uuid`() {
+        // when
+        val response = gameController.delete("invalid-uuid")
+
+        // then
+        assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
+    }
+
+    @Test
+    fun `should return internal server error on exception in delete`() {
+        // given
+        val uuid = UUID.randomUUID()
+        every { gameService.delete(uuid) } throws RuntimeException("Error")
+
+        // when
+        val response = gameController.delete(uuid.toString())
+
+        // then
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.statusCode)
     }
 
 }

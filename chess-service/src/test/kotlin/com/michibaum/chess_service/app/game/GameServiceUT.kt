@@ -294,4 +294,45 @@ class GameServiceUT {
         // then
         assertEquals(games, result)
     }
+    @Test
+    fun `should get games by accounts`() {
+        // given
+        val uuid1 = UUID.randomUUID()
+        val uuid2 = UUID.randomUUID()
+        val games = listOf(GameProvider.game())
+        every { gameRepository.findByAccounts(uuid1, uuid2) } returns games
+
+        // when
+        val result = gameService.getByAccounts(uuid1, uuid2)
+
+        // then
+        assertEquals(games, result)
+    }
+
+    @Test
+    fun `should get games by account`() {
+        // given
+        val uuid = UUID.randomUUID()
+        val games = listOf(GameProvider.game())
+        every { gameRepository.findByAccount(uuid) } returns games
+
+        // when
+        val result = gameService.getByAccount(uuid)
+
+        // then
+        assertEquals(games, result)
+    }
+
+    @Test
+    fun `should delete a game`() {
+        // given
+        val gameId = UUID.randomUUID()
+        every { gameRepository.deleteById(gameId) } returns Unit
+
+        // when
+        gameService.delete(gameId)
+
+        // then
+        verify(exactly = 1) { gameRepository.deleteById(gameId) }
+    }
 }

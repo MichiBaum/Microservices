@@ -149,6 +149,17 @@ class GameService(
     fun getByEvent(event: Event): List<Game> =
         gameRepository.findByEvent(event)
 
+    fun getByAccounts(id1: UUID, id2: UUID): List<Game> =
+        gameRepository.findByAccounts(id1, id2)
+
+    fun getByAccount(id: UUID): List<Game> =
+        gameRepository.findByAccount(id)
+
     fun findById(uuid: UUID) = gameRepository.findById(uuid).getOrNull()
+    
+    @Transactional
+    fun delete(uuid: UUID) {
+        gameRepository.deleteById(uuid)
+    }
 
 }

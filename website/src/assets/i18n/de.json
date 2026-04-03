@@ -78,6 +78,7 @@
                 "title": "Resultat",
                 "BLACK_WIN": "Schwarz hat gewonnen",
                 "DRAW": "Remis",
+                "NOT_STARTED": "Noch nicht begonnen",
                 "ONGOING": "Laufend",
                 "WHITE_WIN": "Weiß hat gewonnen"
             },
