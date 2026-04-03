@@ -11,6 +11,8 @@ import {RouterNavigationService} from "../core/services/router-navigation.servic
 import {FocusTrapModule} from "primeng/focustrap";
 import {CustomErrorMatching} from "../core/config/http-error-handler.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faSignInAlt, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-authentication',
@@ -23,15 +25,19 @@ import {HttpErrorResponse} from "@angular/common/http";
     FormsModule,
     CardModule,
     TranslateModule,
-    FocusTrapModule
+    FocusTrapModule,
+    FaIconComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   private readonly authService = inject(AuthService);
-  private readonly router = inject(RouterNavigationService);
+  protected readonly router = inject(RouterNavigationService);
   private readonly translate = inject(TranslateService);
+
+  protected readonly faSignInAlt = faSignInAlt;
+  protected readonly faUserPlus = faUserPlus;
 
   loginForm: FormGroup = new FormGroup({
     username: new FormControl<string>({
