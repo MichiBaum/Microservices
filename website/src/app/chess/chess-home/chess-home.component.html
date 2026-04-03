@@ -1,27 +1,49 @@
 <div class="grid grid-cols-1 4k:grid-cols-6 xlScreen:grid-cols-5 lScreen:grid-cols-4 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
-
     <p-card class="h-full">
-        <ng-template #title>{{"chess.home.recent-upcoming" | translate}}</ng-template>
+        <ng-template #title>
+            <div class="flex items-center gap-2">
+                <fa-icon [icon]="faCalendarAlt" class="text-primary"></fa-icon>
+                <span>{{"chess.home.recent-upcoming" | translate}}</span>
+            </div>
+        </ng-template>
 
         <app-chess-recent-upcoming-events></app-chess-recent-upcoming-events>
 
         <ng-template #footer>
-            <div class="gap-6 mt-1">
-                <p-button [label]='"chess.home.to-all-events" | translate' class="w-full" styleClass="w-full" [routerLink]="['/chess/events']" />
+            <div class="mt-1">
+                <p-button
+                    [label]='"chess.home.to-all-events" | translate'
+                    class="w-full"
+                    styleClass="w-full"
+                    [routerLink]="['/chess/events']"
+                    variant="outlined"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                />
             </div>
         </ng-template>
     </p-card>
 
     <p-card class="h-full">
-        <ng-template #title>{{"chess.home.start-openings" | translate}}</ng-template>
+        <ng-template #title>
+            <div class="flex items-center gap-2">
+                <fa-icon [icon]="faChessBoard" class="text-primary"></fa-icon>
+                <span>{{"chess.home.start-openings" | translate}}</span>
+            </div>
+        </ng-template>
 
         <app-chess-start-openings-list></app-chess-start-openings-list>
 
     </p-card>
 
     <p-card class="h-full">
-        <ng-template #title>{{"chess.home.popular-openings" | translate}}</ng-template>
+        <ng-template #title>
+            <div class="flex items-center gap-2">
+                <fa-icon [icon]="faFire" class="text-primary"></fa-icon>
+                <span>{{"chess.home.popular-openings" | translate}}</span>
+            </div>
+        </ng-template>
 
         <app-chess-popular-openings-list></app-chess-popular-openings-list>
 
