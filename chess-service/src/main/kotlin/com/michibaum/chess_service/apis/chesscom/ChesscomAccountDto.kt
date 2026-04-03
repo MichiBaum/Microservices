@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ChesscomAccountDto(
-    val avatar: String,
     @JsonProperty("player_id")
     val playerId: Long,
     @JsonProperty("@id")

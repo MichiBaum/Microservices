@@ -4,7 +4,7 @@
   [(selection)]="selectedPersons"
   [selectionMode]="selectionMode()"
   [paginator]="true"
-  [rows]="5"
+  [rows]="persons().length > 10 ? 10 : persons().length"
   (onRowSelect)="onSelectionChange()"
   (onRowUnselect)="onSelectionChange()"
   >

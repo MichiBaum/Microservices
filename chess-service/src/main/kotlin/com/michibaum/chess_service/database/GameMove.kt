@@ -13,6 +13,9 @@ class GameMove(
     @Column(nullable = false)
     val isWhite: Boolean,
 
+    /**
+     * Move in SAN format
+     */
     @Column(nullable = false)
     val move: String,
 

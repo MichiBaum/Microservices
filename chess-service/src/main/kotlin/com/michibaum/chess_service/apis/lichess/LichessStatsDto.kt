@@ -1,13 +1,15 @@
 package com.michibaum.chess_service.apis.lichess
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class LichessStatsDto(
     @JsonProperty("user")
     val user: User,
     val perf: Perf,
-    val rank: Long,
-    val percentile: Double,
+    val rank: Long?,
+    val percentile: Double?,
     val stat: Stat
 )
 
@@ -25,7 +27,7 @@ data class Perf(
 data class Glicko(
     val rating: Double,
     val deviation: Double,
-    val provisional: Boolean
+    val provisional: Boolean?
 )
 
 data class Stat(
@@ -71,7 +73,8 @@ data class Result(
 
 data class OpId(
     val id: String,
-    val name: String
+    val name: String,
+    val title: String?
 )
 
 data class WorstLosses(

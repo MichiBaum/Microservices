@@ -4,6 +4,8 @@ import com.michibaum.chess_service.database.Account
 import com.michibaum.chess_service.database.ChessPlatform
 import com.michibaum.chess_service.database.Person
 
+import java.time.LocalDate
+
 class AccountProvider {
     companion object {
         fun account(username: String = "Michi1", person: Person? = null): Account {
@@ -13,7 +15,7 @@ class AccountProvider {
                 username = username,
                 platform = ChessPlatform.CHESSCOM,
                 person = person,
-                createdAt = null,
+                createdAt = LocalDate.of(2024, 1, 1),
             )
         }
     }

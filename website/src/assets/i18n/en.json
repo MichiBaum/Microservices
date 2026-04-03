@@ -70,6 +70,34 @@
             "tab-title": "Chess Events",
             "title": "Chess Events"
         },
+        "game": {
+            "opening": "Opening",
+            "playedAt": "Played at",
+            "termination": "Termination",
+            "timeControl": "Time control",
+            "result": {
+                "title": "Result",
+                "BLACK_WIN": "Black won",
+                "DRAW": "Draw",
+                "NOT_STARTED": "Not started",
+                "ONGOING": "Ongoing",
+                "WHITE_WIN": "White won"
+            },
+            "terminationType": {
+                "CHECKMATE": "Checkmate",
+                "RESIGNATION": "Resignation",
+                "TIMEOUT": "Timeout",
+                "STALEMATE": "Stalemate",
+                "DRAW_AGREEMENT": "Draw agreement",
+                "REPETITION": "Repetition",
+                "FIFTY_MOVE_RULE": "50-move rule",
+                "INSUFFICIENT_MATERIAL": "Insufficient material",
+                "ABANDONMENT": "Abandonment",
+                "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL": "Time expired vs. insufficient material"
+            },
+            "black": "Black",
+            "white": "White"
+        },
         "home": {
             "popular-openings": "Popular Openings",
             "recent-upcoming": "Recent, running and upcoming Events",

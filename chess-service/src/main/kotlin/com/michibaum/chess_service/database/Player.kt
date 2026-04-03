@@ -6,31 +6,24 @@ import java.util.*
 @Entity
 @Table(name="player")
 @NamedEntityGraph(
-    name = "with-game",
-    attributeNodes = [NamedAttributeNode(value = "game")]
-)
-@NamedEntityGraph(
     name = "with-account",
     attributeNodes = [NamedAttributeNode(value = "account")]
 )
 class Player(
 
     @Column(nullable = false)
-    val username: String,
+    var username: String,
 
-    @Column(nullable = false)
-    val rating: Long,
+    @Column(nullable = true)
+    var rating: Long? = null,
 
     @Enumerated(EnumType.STRING)
-    val pieceColor: PieceColor,
+    @Column(nullable = false)
+    var pieceColor: PieceColor,
 
-    @ManyToOne(targetEntity = Game::class, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="game_id", nullable=false)
-    val game: Game,
-
-    @ManyToOne(targetEntity = Account::class, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="account_id", nullable=false, foreignKey = ForeignKey(name = "fk_player_account"))
-    val account: Account,
+    @ManyToOne(targetEntity = Account::class, fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name="account_id", nullable=true, foreignKey = ForeignKey(name = "fk_player_account"))
+    var account: Account? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

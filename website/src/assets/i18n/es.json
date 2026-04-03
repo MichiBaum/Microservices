@@ -70,6 +70,34 @@
             "tab-title": "Eventos de Ajedrez",
             "title": "Eventos de Ajedrez"
         },
+        "game": {
+          "opening": "Apertura",
+          "playedAt": "Jugado el",
+          "termination": "Finalización",
+          "timeControl": "Control de tiempo",
+          "result": {
+            "title": "Resultado",
+            "BLACK_WIN": "Las negras ganaron",
+            "DRAW": "Tablas",
+            "NOT_STARTED": "No comenzado",
+            "ONGOING": "En curso",
+            "WHITE_WIN": "Las blancas ganaron"
+          },
+          "terminationType": {
+            "CHECKMATE": "Jaque mate",
+            "RESIGNATION": "Abandono",
+            "TIMEOUT": "Tiempo agotado",
+            "STALEMATE": "Tablas por ahogado",
+            "DRAW_AGREEMENT": "Tablas por acuerdo",
+            "REPETITION": "Repetición",
+            "FIFTY_MOVE_RULE": "Regla de los 50 movimientos",
+            "INSUFFICIENT_MATERIAL": "Material insuficiente",
+            "ABANDONMENT": "Abandono (partida dejada)",
+            "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL": "Tiempo agotado contra material insuficiente"
+          },
+          "black": "Negras",
+          "white": "Blancas"
+        },
         "home": {
             "popular-openings": "Aperturas Populares",
             "recent-upcoming": "Eventos recientes, en curso y próximos",
