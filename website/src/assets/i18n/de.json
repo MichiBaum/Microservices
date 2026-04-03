@@ -74,6 +74,7 @@
             "opening": "Eröffnung",
             "playedAt": "Gespielt am",
             "termination": "Beendigung",
+            "timeControl": "Zeitkontrolle",
             "result": {
                 "title": "Resultat",
                 "BLACK_WIN": "Schwarz hat gewonnen",

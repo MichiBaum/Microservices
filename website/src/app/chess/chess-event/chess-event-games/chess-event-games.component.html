@@ -39,6 +39,12 @@
                 <fa-icon [icon]="faCalendarAlt" class="w-3 text-slate-400"></fa-icon>
                 <span>{{game.playedAt | date:'medium'}}</span>
               </div>
+              @if (game.timeControl) {
+                <div class="flex items-center gap-1 text-xs text-slate-500">
+                  <fa-icon [icon]="faStopwatch" class="w-3 text-slate-400"></fa-icon>
+                  <span>{{game.timeControl}}</span>
+                </div>
+              }
               <span class="text-primary font-bold text-sm">{{'chess.game.result.' + game.gameResult | translate}}</span>
             </div>
           </ng-template>

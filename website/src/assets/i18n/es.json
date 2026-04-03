@@ -74,6 +74,7 @@
           "opening": "Apertura",
           "playedAt": "Jugado el",
           "termination": "Finalización",
+          "timeControl": "Control de tiempo",
           "result": {
             "title": "Resultado",
             "BLACK_WIN": "Las negras ganaron",

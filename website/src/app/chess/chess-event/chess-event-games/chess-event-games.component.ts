@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {CardModule} from "primeng/card";
 import {DatePipe} from "@angular/common";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
+import {faCalendarAlt, faStopwatch} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-chess-event-games',
@@ -23,6 +23,7 @@ import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
 })
 export class ChessEventGamesComponent {
   protected readonly faCalendarAlt = faCalendarAlt;
+  protected readonly faStopwatch = faStopwatch;
   protected readonly GameResult = GameResult;
   private readonly chessService = inject(ChessService);
 
@@ -34,7 +35,8 @@ export class ChessEventGamesComponent {
       if(eventId == undefined)
         return of([])
       return this.chessService.eventGames(eventId)
-    }
+    },
+    defaultValue: []
   })
 
   sortedGames = computed(() => {

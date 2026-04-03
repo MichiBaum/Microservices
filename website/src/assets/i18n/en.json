@@ -74,6 +74,7 @@
             "opening": "Opening",
             "playedAt": "Played at",
             "termination": "Termination",
+            "timeControl": "Time control",
             "result": {
                 "title": "Result",
                 "BLACK_WIN": "Black won",
