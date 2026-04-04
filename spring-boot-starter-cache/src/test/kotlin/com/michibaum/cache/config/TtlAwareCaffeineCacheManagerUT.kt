@@ -1,12 +1,11 @@
 package com.michibaum.cache.config
 
-import com.github.benmanes.caffeine.cache.Caffeine
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.cache.caffeine.CaffeineCache
 import java.time.Duration
 
-class TtlAwareCaffeineCacheManagerTest {
+class TtlAwareCaffeineCacheManagerUT {
 
     @Test
     fun `should create cache with TTL and stats enabled`() {

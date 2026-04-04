@@ -15,8 +15,8 @@ import org.springframework.cache.annotation.EnableCaching
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
 
-@SpringBootTest(classes = [CacheAutoConfigurationIntegrationTest.TestApp::class])
-class CacheAutoConfigurationIntegrationTest {
+@SpringBootTest(classes = [CacheAutoConfigurationIT.TestApp::class])
+class CacheAutoConfigurationIT {
 
     @Autowired
     lateinit var cacheManager: CacheManager
