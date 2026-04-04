@@ -2,9 +2,10 @@
     [options]="languages()"
     [(ngModel)]="selectedLanguage"
     (onChange)="selectLanguage()"
-    class="w-full md:w-56"
+    class="w-full"
+    styleClass="w-full border-none bg-transparent"
 >
     <ng-template #item let-item>
-        <span>{{ item.name | translate }}</span>
+        <span class="text-surface-600 dark:text-surface-400 font-medium">{{ item.name | translate }}</span>
     </ng-template>
 </p-listbox>

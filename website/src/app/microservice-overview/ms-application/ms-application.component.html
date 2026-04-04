@@ -1,23 +1,42 @@
 <p-card class="h-full">
   <ng-template #title>
-    <span class="text-surface-900 dark:text-surface-0">{{application()?.name}}</span>
-    <fa-icon [icon]="application()?.status | msStatusIcon" [style]="application()?.status | msStatusStyle"></fa-icon>
+    <div class="flex items-center justify-between">
+      <span class="text-surface-900 dark:text-surface-0 font-bold truncate">{{application()?.name}}</span>
+      <fa-icon [icon]="application()?.status | msStatusIcon" [style]="application()?.status | msStatusStyle"></fa-icon>
+    </div>
   </ng-template>
 
-  @for (instance of application()?.instances; track instance) {
-    {{instance.id}}
-    <fa-icon [icon]="instance.statusInfo.status | msStatusIcon" [style]="instance.statusInfo.status | msStatusStyle"></fa-icon>
-    <p-accordion [value]="0">
-      @for (detail of instance.statusInfo.details | keyvalue; track detail; let i = $index) {
-        <p-accordion-panel [value]="i">
-          <p-accordion-header>{{ detail.key }} <fa-icon [icon]="detail.value?.status | msStatusIcon" [style]="detail.value?.status | msStatusStyle"></fa-icon></p-accordion-header>
-          <p-accordion-content>
-            @for (detail2 of detail.value?.details ?? {} | keyvalue; track detail2) {
-              <p class="m-0">{{detail2.key}}: {{detail2.value}}</p>
-            }
-          </p-accordion-content>
-        </p-accordion-panel>
-      }
-    </p-accordion>
-  }
+  <div class="flex flex-col gap-4">
+    @for (instance of application()?.instances; track instance) {
+      <div class="border border-surface-200 dark:border-surface-700 rounded-lg p-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-mono text-surface-500 dark:text-surface-400 truncate mr-2" [title]="instance.id">{{instance.id}}</span>
+          <fa-icon [icon]="instance.statusInfo.status | msStatusIcon" [style]="instance.statusInfo.status | msStatusStyle"></fa-icon>
+        </div>
+
+        <p-accordion [value]="null">
+          @for (detail of instance.statusInfo.details | keyvalue; track detail; let i = $index) {
+            <p-accordion-panel [value]="i">
+              <p-accordion-header>
+                <div class="flex items-center justify-between w-full pr-4">
+                  <span class="text-sm font-semibold">{{ detail.key }}</span>
+                  <fa-icon [icon]="detail.value?.status | msStatusIcon" [style]="detail.value?.status | msStatusStyle"></fa-icon>
+                </div>
+              </p-accordion-header>
+              <p-accordion-content>
+                <div class="flex flex-col gap-1">
+                  @for (detail2 of detail.value?.details ?? {} | keyvalue; track detail2) {
+                    <div class="flex justify-between text-xs">
+                      <span class="text-surface-500 dark:text-surface-400">{{detail2.key}}:</span>
+                      <span class="text-surface-900 dark:text-surface-0 font-medium ml-2 text-right">{{detail2.value}}</span>
+                    </div>
+                  }
+                </div>
+              </p-accordion-content>
+            </p-accordion-panel>
+          }
+        </p-accordion>
+      </div>
+    }
+  </div>
 </p-card>

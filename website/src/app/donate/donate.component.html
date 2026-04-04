@@ -1,10 +1,17 @@
 <div class="container mx-auto 4k:max-w-screen-lScreen xlScreen:max-w-screen-lScreen">
-  <p-card header="{{'donate.title' | translate}}" class="rounded-border">
+  <p-card class="rounded-border">
     <ng-template #header>
-      <img alt="Donate 415 Teapot image" ngSrc="donate.webp" height="1024" width="1792" priority placeholder/>
+      <img alt="Donate 415 Teapot image" ngSrc="donate.webp" height="1024" width="1792" priority placeholder class="w-full rounded-t-border" />
     </ng-template>
 
-    <div class="grid gap-6">
+    <ng-template #title>
+      <div class="flex items-center gap-2">
+        <fa-icon [icon]="faHeart" class="text-primary"></fa-icon>
+        <span class="text-surface-900 dark:text-surface-0">{{ 'donate.title' | translate }}</span>
+      </div>
+    </ng-template>
+
+    <div class="grid gap-6 text-surface-600 dark:text-surface-400">
       <div>
         <p>{{ "donate.s1" | translate }}</p>
       </div>
@@ -20,10 +27,40 @@
     </div>
 
     <ng-template #footer>
-      <div class="flex gap-6 mt-1">
-        <p-button label='{{ "donate.buy-me-a-coffee" | translate }}' class="w-full" styleClass="w-full" (onClick)="router.buymeacoffee()" />
-        <p-button label='{{ "donate.github" | translate }}' class="w-full" styleClass="w-full" (onClick)="router.donateGithub()" />
-        <p-button label='{{ "donate.hosttech" | translate }}' class="w-full" styleClass="w-full" (onClick)="router.hosttech()" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-1">
+        <p-button
+          [label]='"donate.buy-me-a-coffee" | translate'
+          class="w-full"
+          styleClass="w-full"
+          (onClick)="router.buymeacoffee()"
+          variant="outlined"
+        >
+          <ng-template #icon>
+            <fa-icon [icon]="faCoffee" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
+        <p-button
+          [label]='"donate.github" | translate'
+          class="w-full"
+          styleClass="w-full"
+          (onClick)="router.donateGithub()"
+          variant="outlined"
+        >
+          <ng-template #icon>
+            <fa-icon [icon]="faGithub" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
+        <p-button
+          [label]='"donate.hosttech" | translate'
+          class="w-full"
+          styleClass="w-full"
+          (onClick)="router.hosttech()"
+          variant="outlined"
+        >
+          <ng-template #icon>
+            <fa-icon [icon]="faServer" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
       </div>
     </ng-template>
   </p-card>

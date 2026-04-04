@@ -11,6 +11,9 @@ import {FormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
 import {Skeleton} from "primeng/skeleton";
 import {AboutMeExperienceComponent} from "./about-me-experience/about-me-experience.component";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faHeart, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-about-me',
@@ -25,13 +28,19 @@ import {AboutMeExperienceComponent} from "./about-me-experience/about-me-experie
     FormsModule,
     NgOptimizedImage,
     Skeleton,
-    AboutMeExperienceComponent
+    AboutMeExperienceComponent,
+    FaIconComponent
   ],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.css'
 })
 export class AboutMeComponent {
   private readonly routerNavigationService = inject(RouterNavigationService);
+
+  protected readonly faUser = faUser;
+  protected readonly faLinkedin = faLinkedin;
+  protected readonly faGithub = faGithub;
+  protected readonly faHeart = faHeart;
 
   /**
    * Navigates to the LinkedIn page using the router navigation service.
