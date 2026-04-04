@@ -35,14 +35,6 @@ spring:
         enabled: true
         channel-id: ${DISCORD_AUTHENTICATION_SERVICE_LOG_CHANNEL}
 
-management:
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-      export:
-        enabled: true
   tracing:
     sampling:
       probability: 1.0
-    export:
-      enabled: true

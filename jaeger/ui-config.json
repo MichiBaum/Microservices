@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "menuEnabled": true
+  },
+  "monitor": {
+    "menuEnabled": true
+  },
+  "themes": {
+    "enabled": true
+  },
+  "archiveEnabled": true,
+  "menu": [
+    {
+      "label": "About Jaeger",
+      "items": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/jaegertracing/jaeger"
+        },
+        {
+          "label": "Docs",
+          "url": "https://www.jaegertracing.io/docs/2.17/"
+        }
+      ]
+    }
+  ]
+}

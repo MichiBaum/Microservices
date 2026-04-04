@@ -54,7 +54,7 @@
       }
     ]
   },
-  "description": "Visualize Prometheus metrics exported by OpenZipkin (http://zipkin.io/).",
+  "description": "Visualize Prometheus metrics exported by Openjaeger (http://jaeger.io/).",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -131,7 +131,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(level)(rate(log4j2_events_total{job=\"zipkin\",level=\"trace\",instance=~\"$instances\"}[5m]))",
+          "expr": "sum by(level)(rate(log4j2_events_total{job=\"jaeger\",level=\"trace\",instance=~\"$instances\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -210,7 +210,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(level)(rate(log4j2_events_total{job=\"zipkin\",level=\"debug\",instance=~\"$instances\"}[5m]))",
+          "expr": "sum by(level)(rate(log4j2_events_total{job=\"jaeger\",level=\"debug\",instance=~\"$instances\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -289,7 +289,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(level)(rate(log4j2_events_total{job=\"zipkin\",level=\"info\",instance=~\"$instances\"}[5m]))",
+          "expr": "sum by(level)(rate(log4j2_events_total{job=\"jaeger\",level=\"info\",instance=~\"$instances\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -368,7 +368,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(level)(rate(log4j2_events_total{job=\"zipkin\",level=\"warn\",instance=~\"$instances\"}[5m]))",
+          "expr": "sum by(level)(rate(log4j2_events_total{job=\"jaeger\",level=\"warn\",instance=~\"$instances\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -447,7 +447,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(level)(rate(log4j2_events_total{job=\"zipkin\",level=\"error\",instance=~\"$instances\"}[5m]))",
+          "expr": "sum by(level)(rate(log4j2_events_total{job=\"jaeger\",level=\"error\",instance=~\"$instances\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -526,7 +526,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(level)(rate(log4j2_events_total{job=\"zipkin\",level=\"fatal\",instance=~\"$instances\"}[5m]))",
+          "expr": "sum by(level)(rate(log4j2_events_total{job=\"jaeger\",level=\"fatal\",instance=~\"$instances\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -681,7 +681,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(transport)(rate(zipkin_collector_messages_total{job=\"zipkin\",instance=~\"$instances\"}[$__interval]))\n",
+          "expr": "sum by(transport)(rate(jaeger_collector_messages_total{job=\"jaeger\",instance=~\"$instances\"}[$__interval]))\n",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{transport}} messages",
@@ -820,7 +820,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(transport)(rate(zipkin_collector_spans_total{instance=~\"$instances\"}[$__interval]))\n",
+          "expr": "sum by(transport)(rate(jaeger_collector_spans_total{instance=~\"$instances\"}[$__interval]))\n",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{transport}} spans",
@@ -959,7 +959,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(transport)(rate(zipkin_collector_messages_dropped_total{job=\"zipkin\",instance=~\"$instances\"}[$__interval]))",
+          "expr": "sum by(transport)(rate(jaeger_collector_messages_dropped_total{job=\"jaeger\",instance=~\"$instances\"}[$__interval]))",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{transport}} dropped messages",
@@ -1098,7 +1098,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(transport)(rate(zipkin_collector_spans_dropped_total{instance=~\"$instances\"}[$__interval]))\n",
+          "expr": "sum by(transport)(rate(jaeger_collector_spans_dropped_total{instance=~\"$instances\"}[$__interval]))\n",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{transport}} dropped spans",
@@ -1235,7 +1235,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by (transport)(rate(zipkin_collector_bytes_total{job=\"zipkin\",instance=~\"$instances\"}[$__interval]))",
+          "expr": "sum by (transport)(rate(jaeger_collector_bytes_total{job=\"jaeger\",instance=~\"$instances\"}[$__interval]))",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{transport}}",
@@ -1350,7 +1350,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "rate(http_server_requests_seconds_count{job=\"zipkin\",instance=~\"$instances\",uri=\"/api/v2/spans\"}[$__interval])",
+          "expr": "rate(http_server_requests_seconds_count{job=\"jaeger\",instance=~\"$instances\",uri=\"/api/v2/spans\"}[$__interval])",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{method}} {{uri}}  {{status}} ",
@@ -1448,7 +1448,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "histogram_quantile(0.9, http_server_requests_seconds_bucket{job=\"zipkin\",method=\"GET\",status=\"200\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
+          "expr": "histogram_quantile(0.9, http_server_requests_seconds_bucket{job=\"jaeger\",method=\"GET\",status=\"200\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "0.9",
@@ -1461,7 +1461,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "histogram_quantile(0.5, http_server_requests_seconds_bucket{job=\"zipkin\",method=\"GET\",status=\"200\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
+          "expr": "histogram_quantile(0.5, http_server_requests_seconds_bucket{job=\"jaeger\",method=\"GET\",status=\"200\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "0.5",
@@ -1560,7 +1560,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "histogram_quantile(0.9, http_server_requests_seconds_bucket{job=\"zipkin\",method=\"POST\",status=\"202\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
+          "expr": "histogram_quantile(0.9, http_server_requests_seconds_bucket{job=\"jaeger\",method=\"POST\",status=\"202\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -1575,7 +1575,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "histogram_quantile(0.5, http_server_requests_seconds_bucket{job=\"zipkin\",method=\"POST\",status=\"202\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
+          "expr": "histogram_quantile(0.5, http_server_requests_seconds_bucket{job=\"jaeger\",method=\"POST\",status=\"202\",uri=\"/api/v2/spans\",instance=~\"$instances\"})",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -1693,7 +1693,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "system_cpu_count{job=\"zipkin\",instance=~\"$instances\"}",
+          "expr": "system_cpu_count{job=\"jaeger\",instance=~\"$instances\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}} CPUs",
@@ -1706,7 +1706,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "system_load_average_1m{job=\"zipkin\",instance=~\"$instances\"}",
+          "expr": "system_load_average_1m{job=\"jaeger\",instance=~\"$instances\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}} load",
@@ -1845,7 +1845,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(area,instance)(jvm_memory_used_bytes{job=\"zipkin\",instance=~\"$instances\"})",
+          "expr": "sum by(area,instance)(jvm_memory_used_bytes{job=\"jaeger\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}} {{area}} used",
@@ -1857,7 +1857,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(area,instance)(jvm_memory_max_bytes{job=\"zipkin\",instance=~\"$instances\"})",
+          "expr": "sum by(area,instance)(jvm_memory_max_bytes{job=\"jaeger\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}} {{area}} max",
@@ -1869,7 +1869,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(instance,id)(jvm_buffer_total_capacity_bytes{job=\"zipkin\",instance=~\"$instances\"})",
+          "expr": "sum by(instance,id)(jvm_buffer_total_capacity_bytes{job=\"jaeger\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{id}} max",
@@ -1988,7 +1988,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "delta(jvm_gc_pause_seconds_sum{job=\"zipkin\",instance=~\"$instances\"}[$__interval])",
+          "expr": "delta(jvm_gc_pause_seconds_sum{job=\"jaeger\",instance=~\"$instances\"}[$__interval])",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{cause}} {{action}} duration",
@@ -2001,7 +2001,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "delta(jvm_gc_pause_seconds_count{job=\"zipkin\",instance=~\"$instances\"}[$__interval])",
+          "expr": "delta(jvm_gc_pause_seconds_count{job=\"jaeger\",instance=~\"$instances\"}[$__interval])",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{cause}} {{action}} count",
@@ -2099,7 +2099,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(instance)(jvm_threads_live_threads{job=\"zipkin\",instance=~\"$instances\"})",
+          "expr": "sum by(instance)(jvm_threads_live_threads{job=\"jaeger\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": " {{instance}} live",
@@ -2112,7 +2112,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(instance)(jvm_threads_daemon_threads{job=\"zipkin\",instance=~\"$instances\"})",
+          "expr": "sum by(instance)(jvm_threads_daemon_threads{job=\"jaeger\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}} daemon",
@@ -2125,7 +2125,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(instance)(jvm_threads_peak_threads{job=\"zipkin\",instance=~\"$instances\"})",
+          "expr": "sum by(instance)(jvm_threads_peak_threads{job=\"jaeger\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}} peak",
@@ -2138,7 +2138,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum by(instance)(jvm_threads_states_threads{job=\"zipkin\",instance=~\"$instances\"})",
+          "expr": "sum by(instance)(jvm_threads_states_threads{job=\"jaeger\",instance=~\"$instances\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}}-{{state}}",
@@ -2236,7 +2236,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "jvm_classes_loaded_classes{job=\"zipkin\",instance=~\"$instances\"}",
+          "expr": "jvm_classes_loaded_classes{job=\"jaeger\",instance=~\"$instances\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}} current",
@@ -2249,7 +2249,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "jvm_classes_unloaded_classes_total{job=\"zipkin\",instance=~\"$instances\"}",
+          "expr": "jvm_classes_unloaded_classes_total{job=\"jaeger\",instance=~\"$instances\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -2266,7 +2266,7 @@
   "refresh": "1m",
   "schemaVersion": 41,
   "tags": [
-    "zipkin",
+    "jaeger",
     "tracing"
   ],
   "templating": {
@@ -2277,13 +2277,13 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(http_server_requests_seconds_bucket{job=\"zipkin\"}, instance)",
+        "definition": "label_values(http_server_requests_seconds_bucket{job=\"jaeger\"}, instance)",
         "includeAll": true,
-        "label": "Zipkin instances",
+        "label": "jaeger instances",
         "multi": true,
         "name": "instances",
         "options": [],
-        "query": "label_values(http_server_requests_seconds_bucket{job=\"zipkin\"}, instance)",
+        "query": "label_values(http_server_requests_seconds_bucket{job=\"jaeger\"}, instance)",
         "refresh": 1,
         "regex": "",
         "type": "query"
@@ -2296,7 +2296,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Zipkin",
+  "title": "jaeger",
   "uid": "JtTrgFVZz",
   "version": 4,
   "weekStart": ""

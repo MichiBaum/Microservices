@@ -179,13 +179,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
                         },
                     } as MenuItem,
                     {
-                        label: "Zipkin",
+                        label: "Jaeger",
                         customIcon: faMap,
                         visible: Sides.microservices.canActivate(this.permissionService),
                         command: () => {
                             this.sidebarVisible.set(false)
                             this.authService.setJwtAsCookie();
-                            this.routerNavigationService.zipkin();
+                            this.routerNavigationService.jaeger();
                         },
                     } as MenuItem,
                     {

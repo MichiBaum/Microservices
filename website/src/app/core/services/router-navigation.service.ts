@@ -41,8 +41,8 @@ export class RouterNavigationService {
         this.router.navigate(['/microservices'])
     }
 
-    zipkin() {
-        open(this.environment.zipkin())
+    jaeger() {
+        open(this.environment.jaeger())
     }
 
     admin() {

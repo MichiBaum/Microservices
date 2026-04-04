@@ -75,9 +75,9 @@ class RouterConfiguration {
             .GET("/sitemap.xml", sitemapXmlController.sitemapXml())
 
             // Specific services (Higher priority)
-            .route(host("zipkin.michibaum.*")){request -> 
-                request.authenticateWithCircuitBreaker(servicesProperties.zipkinUrl, authFilter, circuitBreakerFactory,
-                    ZIPKIN, Permissions.ADMIN_SERVICE)
+            .route(host("jaeger.michibaum.*")){request ->
+                request.authenticateWithCircuitBreaker(servicesProperties.jaegerUrl, authFilter, circuitBreakerFactory,
+                    JAEGER, Permissions.ADMIN_SERVICE)
             }
             .route(host("grafana.michibaum.*")){request ->
                 request.authenticateWithCircuitBreaker(servicesProperties.grafanaUrl, authFilter, circuitBreakerFactory,
