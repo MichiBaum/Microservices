@@ -33,6 +33,8 @@
         <root level="WARN">
             <appender-ref ref="Discord" />
         </root>
+        
+        <logger name="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" level="ERROR" />
     </springProfile>
 
 </configuration>

@@ -6,6 +6,30 @@ import java.util.*
 
 @Entity
 @Table(name="event")
+@NamedEntityGraphs(
+    value = [
+        NamedEntityGraph(
+            name = "with-categories",
+            attributeNodes = [NamedAttributeNode("categories")]
+        ),
+        NamedEntityGraph(
+            name = "with-participants",
+            attributeNodes = [NamedAttributeNode("participants")]
+        ),
+        NamedEntityGraph(
+            name = "with-participants-and-accounts",
+            attributeNodes = [
+                NamedAttributeNode(value = "participants", subgraph = "participants-with-accounts")
+            ],
+            subgraphs = [
+                NamedSubgraph(
+                    name = "participants-with-accounts",
+                    attributeNodes = [NamedAttributeNode("accounts")]
+                )
+            ]
+        ),
+    ],
+)
 class Event(
 
     @Column(nullable = false)

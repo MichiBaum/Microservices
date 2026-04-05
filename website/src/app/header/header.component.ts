@@ -5,8 +5,9 @@ import {FormsModule} from "@angular/forms";
 import {LanguageConfig} from "../core/config/language.config";
 import {HeaderService, TranslationHolder} from "../core/services/header.service";
 import {LogoutComponent} from "../logout/logout.component";
-import {MenubarModule} from "primeng/menubar";
 import {Subscription} from "rxjs";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faBars, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-header',
@@ -15,14 +16,17 @@ import {Subscription} from "rxjs";
     TranslateModule,
     FormsModule,
     LogoutComponent,
-    MenubarModule
+    FaIconComponent
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnDestroy{
   private readonly languageConfig = inject(LanguageConfig);
   private readonly headerService = inject(HeaderService);
+
+  protected readonly faBars = faBars;
+  protected readonly faSignOutAlt = faSignOutAlt;
 
   title = signal<TranslationHolder>({key: "application.title", params: undefined})
 

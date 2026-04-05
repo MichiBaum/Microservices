@@ -21,7 +21,8 @@ class SitemapXmlService(
         observationRegistry.currentObservation?.highCardinalityKeyValue("host", host)
         
         // Sitemap size limits: All formats limit a single sitemap to 50MB (uncompressed) or 50,000 URLs.
-        val baseUrl = "https://$host"
+        val protocol = if (sitemapXmlProperties.https) "https://" else "http://"
+        val baseUrl = "$protocol$host"
         val xmlBuilder = StringBuilder()
 
         // Start building the XML

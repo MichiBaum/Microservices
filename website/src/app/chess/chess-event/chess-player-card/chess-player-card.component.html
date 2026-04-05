@@ -1,25 +1,48 @@
 <p-card class="h-full">
 
   <ng-template #title>
-    {{player()?.firstname}} {{player()?.lastname}}
-    @if (player()?.gender; as gender) {
-      <fa-icon [icon]="gender | genderIcon" class="text-slate-500"></fa-icon>
-    }
+    <div class="flex items-center justify-between">
+      <span class="truncate pr-2 text-surface-900 dark:text-surface-0" title="{{player()?.firstname}} {{player()?.lastname}}">
+        {{player()?.firstname}} {{player()?.lastname}}
+      </span>
+      @if (player()?.gender; as gender) {
+        <fa-icon [icon]="gender | genderIcon" class="text-slate-400 dark:text-slate-500"></fa-icon>
+      }
+    </div>
   </ng-template>
 
-  @if (player()?.federation; as federation) {
-    <p><strong>{{'chess.event.federation' | translate}}: </strong>{{ federation }}</p>
-  }
-  @if (player()?.birthday; as birthday) {
-    <p><strong>{{'chess.event.birthday' | translate}}: </strong>{{ birthday }}</p>
-  }
+  <div class="flex flex-col gap-2 mt-2">
+    @if (player()?.federation; as federation) {
+      <div class="flex items-center gap-2 text-sm">
+        <fa-icon [icon]="faGlobe" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+        <span class="text-slate-500 dark:text-slate-400">{{'chess.event.federation' | translate}}:</span>
+        <span class="font-medium text-surface-900 dark:text-surface-0">{{ federation }}</span>
+      </div>
+    }
+    @if (player()?.birthday; as birthday) {
+      <div class="flex items-center gap-2 text-sm">
+        <fa-icon [icon]="faBirthdayCake" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+        <span class="text-slate-500 dark:text-slate-400">{{'chess.event.birthday' | translate}}:</span>
+        <span class="font-medium text-surface-900 dark:text-surface-0">{{ birthday }}</span>
+      </div>
+    }
+  </div>
 
   @if (accounts(); as _accounts) {
     <ng-template #footer>
       @if (_accounts.length > 0) {
-        <div class="flex gap-4 mt-1">
+        <div class="flex flex-col gap-2 mt-1">
           @for (account of _accounts; track account) {
-            <p-button label="{{'chess.platform.'+account.platform | translate}}" (onClick)="openAccount(account)" class="w-full" styleClass="w-full"/>
+            <p-button
+              (onClick)="openAccount(account)"
+              class="w-full"
+              styleClass="w-full"
+              variant="outlined"
+              size="small"
+              icon="pi pi-external-link"
+              iconPos="right"
+              label="{{'chess.platform.'+account.platform | translate}}"
+            />
           }
         </div>
       }

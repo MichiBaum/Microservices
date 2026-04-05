@@ -40,7 +40,7 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
         ]),
         fen: new FormControl<string>({
             value: '',
-            disabled: false
+            disabled: true
         })
     })
 
@@ -54,7 +54,6 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
             this.formGroup?.patchValue({
                 id: openingMove.id ?? '',
                 move: openingMove.move ?? '',
-                fen: openingMove.fen ?? '',
             })
         }
     }
@@ -63,7 +62,6 @@ export class ChessOpeningMoveFormComponent implements OnChanges {
         const newMove: WriteOpeningMove = {
             id: this.formGroup.controls['id'].value ?? '',
             move: this.formGroup.controls['move'].value ?? '',
-            fen: this.formGroup.controls['fen'].value ?? '',
             parentMoveId: this.openingMove()?.parentMoveId ?? '',
         }
         this.chessService.openingMove(newMove).subscribe( savedMove => {

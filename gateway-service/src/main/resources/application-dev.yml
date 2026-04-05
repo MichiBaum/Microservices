@@ -1,27 +1,6 @@
 server:
   port: 80
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
-
-management:
-  services:
-    zipkin-url: http://localhost:9411
-    prometheus-url: http://localhost:9090
-    grafana-url: http://localhost:3000
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-      export:
-        enabled: true
-  tracing:
-    sampling:
-      probability: 1.0
-    export:
-      enabled: true
-
 spring:
   boot:
     admin:
@@ -31,24 +10,64 @@ spring:
       client:
         username: admin_username
         password: admin_password
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_GATEWAY_SERVICE_LOG_CHANNEL}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
+
+management:
+  services:
+    jaeger-url: http://localhost:16686
+    prometheus-url: http://localhost:9090
+    grafana-url: http://localhost:3000
 
 cors:
   allowed-origin-patterns:
-    - http://michibaum.ch:[80,4200]
-    - http://*.michibaum.ch:[80,4200]
-    - http://michibaum.com:[80,4200]
-    - http://*.michibaum.com:[80,4200]
-    - http://michibaum.eu:[80,4200]
-    - http://*.michibaum.eu:[80,4200]
-    - http://michibaum.org:[80,4200]
-    - http://*.michibaum.org:[80,4200]
-    - http://michibaum.app:[80,4200]
-    - http://*.michibaum.app:[80,4200]
-    - http://michibaum.me:[80,4200]
-    - http://*.michibaum.me:[80,4200]
-    - http://michibaum.net:[80,4200]
-    - http://*.michibaum.net:[80,4200]
-    - http://michibaum.info:[80,4200]
-    - http://*.michibaum.info:[80,4200]
-    - http://michibaum.xyz:[80,4200]
-    - http://*.michibaum.xyz:[80,4200]
+    - http://michibaum.ch
+    - http://*.michibaum.ch
+    - http://michibaum.ch:4200
+    - http://*.michibaum.ch:4200
+    - http://michibaum.com
+    - http://*.michibaum.com
+    - http://michibaum.com:4200
+    - http://*.michibaum.com:4200
+    - http://michibaum.eu
+    - http://*.michibaum.eu
+    - http://michibaum.eu:4200
+    - http://*.michibaum.eu:4200
+    - http://michibaum.org
+    - http://*.michibaum.org
+    - http://michibaum.org:4200
+    - http://*.michibaum.org:4200
+    - http://michibaum.app
+    - http://*.michibaum.app
+    - http://michibaum.app:4200
+    - http://*.michibaum.app:4200
+    - http://michibaum.me
+    - http://*.michibaum.me
+    - http://michibaum.me:4200
+    - http://*.michibaum.me:4200
+    - http://michibaum.net
+    - http://*.michibaum.net
+    - http://michibaum.net:4200
+    - http://*.michibaum.net:4200
+    - http://michibaum.info
+    - http://*.michibaum.info
+    - http://michibaum.info:4200
+    - http://*.michibaum.info:4200
+    - http://michibaum.xyz
+    - http://*.michibaum.xyz
+    - http://michibaum.xyz:4200
+    - http://*.michibaum.xyz:4200
+
+sitemap-xml:
+  https: false

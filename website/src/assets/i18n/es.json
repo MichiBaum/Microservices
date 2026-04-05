@@ -6,13 +6,11 @@
             "title": "Más allá de la codificación"
         },
         "experience": {
-            "experience": "Experiencia",
             "intro": "Aquí hay una lista de mis experiencias.",
             "platforms-and-tools": "Plataformas y herramientas",
             "programming-languages-and-databases": "Lenguajes de programación y bases de datos",
-            "rating": "Calificación (sobre mí)",
             "softskills": "Habilidades sociales",
-            "years": "Años"
+            "usage-time": "{{years}} años de uso"
         },
         "introduction": {
             "s1": "¡Hola! Mi nombre es Michael Baumberger. Soy un desarrollador de software apasionado de Suiza con una sólida experiencia en desarrollo web e ingeniería de backend. Mi viaje hacia el mundo de las TI comenzó con una formación en Würth ITensis de 2017 a 2021, donde adquirí experiencia práctica en la creación, el mantenimiento y la optimización de soluciones de software. Tras finalizar mi formación, continué trabajando allí hasta 2024, perfeccionando aún más mis habilidades y trabajando en diversos proyectos."
@@ -70,7 +68,36 @@
         "events": {
             "meta-description": "Explora próximos torneos de ajedrez, encuentros de clubes y exhibiciones abiertas a aficionados de todos los niveles. Conéctate con otros entusiastas, aprende nuevas estrategias y sumérgete en el juego competitivo.",
             "tab-title": "Eventos de Ajedrez",
-            "title": "Eventos de Ajedrez"
+            "title": "Eventos de Ajedrez",
+            "select-year": "Seleccionar año"
+        },
+        "game": {
+          "opening": "Apertura",
+          "playedAt": "Jugado el",
+          "termination": "Finalización",
+          "timeControl": "Control de tiempo",
+          "result": {
+            "title": "Resultado",
+            "BLACK_WIN": "Las negras ganaron",
+            "DRAW": "Tablas",
+            "NOT_STARTED": "No comenzado",
+            "ONGOING": "En curso",
+            "WHITE_WIN": "Las blancas ganaron"
+          },
+          "terminationType": {
+            "CHECKMATE": "Jaque mate",
+            "RESIGNATION": "Abandono",
+            "TIMEOUT": "Tiempo agotado",
+            "STALEMATE": "Tablas por ahogado",
+            "DRAW_AGREEMENT": "Tablas por acuerdo",
+            "REPETITION": "Repetición",
+            "FIFTY_MOVE_RULE": "Regla de los 50 movimientos",
+            "INSUFFICIENT_MATERIAL": "Material insuficiente",
+            "ABANDONMENT": "Abandono (partida dejada)",
+            "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL": "Tiempo agotado contra material insuficiente"
+          },
+          "black": "Negras",
+          "white": "Blancas"
         },
         "home": {
             "popular-openings": "Aperturas Populares",
@@ -141,7 +168,8 @@
         "title": "Configuración de Fitness"
     },
     "general": {
-        "sort": "Ordenar"
+        "sort": "Ordenar",
+        "filter": "Filtrar"
     },
     "home": {
         "about-me": {

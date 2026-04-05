@@ -28,7 +28,7 @@ In ``C:\Windows\System32\drivers\etc`` find file *hosts* and add those lines (ad
 127.0.0.1 fitness.michibaum.ch
 127.0.0.1 music.michibaum.ch
 127.0.0.1 alexandria.michibaum.ch
-127.0.0.1 zipkin.michibaum.ch
+127.0.0.1 jaeger.michibaum.ch
 127.0.0.1 grafana.michibaum.ch
 127.0.0.1 prometheus.michibaum.ch
 127.0.0.1 michibaum.ch

@@ -24,7 +24,7 @@ export class AuthService {
 
   login(username:string, password:string, customErrorMatching: CustomErrorMatching) {
     let autentication = {username: username, password: password} as Authentication
-    this.http.post<AuthenticationResponse>(this.environment.authenticationService() + '/authenticate', autentication)
+    this.http.post<AuthenticationResponse>(this.environment.authenticationService() + '/basic-authentication/authenticate', autentication)
       .subscribe({
         next: (value) => {
           if(value.jwt != null && value.jwt !== ""){

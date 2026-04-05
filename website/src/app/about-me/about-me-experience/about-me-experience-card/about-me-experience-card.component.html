@@ -1,0 +1,15 @@
+<p-card>
+  <ng-template #title>
+    <p class="text-base text-surface-900 dark:text-surface-0">{{ this.title() }}</p>
+  </ng-template>
+
+  @if(subtitle() != null){
+    <ng-template #subtitle>
+      <p class="text-sm text-slate-500 dark:text-slate-400">{{this.subtitle()}}</p>
+    </ng-template>
+  }
+
+  @if(description() != null){
+    <p class="text-sm text-surface-600 dark:text-surface-400">{{this.description()}}</p>
+  }
+</p-card>

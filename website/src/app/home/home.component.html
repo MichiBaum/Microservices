@@ -2,43 +2,36 @@
   <div class="grid grid-cols-1 4k:grid-cols-7 xlScreen:grid-cols-6 lScreen:grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-4">
 
     @if (canLogin()) {
-      @defer{
       <app-home-card
         [headerImage]="'home_login.webp'"
         [titleText]="'home.login.title' | translate"
+        [icon]="faSignInAlt"
         [content]="'home.login.content' | translate"
         [buttonLabel]="'home.login.button' | translate"
+        [priority]="true"
         (navigate)="routerNavigationService.login()"
       ></app-home-card>
-      } @placeholder {
-      <app-defer-placeholder height="35rem"></app-defer-placeholder>
-    }
   }
 
-  @defer{
   <app-home-card
     [headerImage]="'home_chess.webp'"
     [titleText]="'home.chess.title' | translate"
+    [icon]="faChess"
     [content]="'home.chess.content' | translate"
     [buttonLabel]="'home.chess.button' | translate"
+    [priority]="true"
     (navigate)="routerNavigationService.chess()"
   ></app-home-card>
-  } @placeholder {
-  <app-defer-placeholder height="35rem"></app-defer-placeholder>
-}
 
 @if (canActivateFitness()) {
-  @defer{
   <app-home-card
     [headerImage]="'home_fitness.webp'"
     [titleText]="'home.fitness.title' | translate"
+    [icon]="faDumbbell"
     [content]="'home.fitness.content' | translate"
     [buttonLabel]="'home.fitness.button' | translate"
     (navigate)="routerNavigationService.fitness()"
   ></app-home-card>
-  } @placeholder {
-  <app-defer-placeholder height="35rem"></app-defer-placeholder>
-}
 }
 
 @if (canActivateMusic()) {
@@ -46,6 +39,7 @@
   <app-home-card
     [headerImage]="'home_music.webp'"
     [titleText]="'home.music.title' | translate"
+    [icon]="faMusic"
     [content]="'home.music.content' | translate"
     [buttonLabel]="'home.music.button' | translate"
     (navigate)="routerNavigationService.music()"
@@ -59,6 +53,7 @@
 <app-home-card
   [headerImage]="'home_about-me.webp'"
   [titleText]="'home.about-me.title' | translate"
+  [icon]="faUser"
   [content]="'home.about-me.content' | translate"
   [buttonLabel]="'home.about-me.button' | translate"
   (navigate)="routerNavigationService.about_me()"
@@ -71,6 +66,7 @@
 <app-home-card
   [headerImage]="'home_donate.webp'"
   [titleText]="'home.donate.title' | translate"
+  [icon]="faHeart"
   [content]="'home.donate.content' | translate"
   [buttonLabel]="'home.donate.button' | translate"
   (navigate)="routerNavigationService.donate()"

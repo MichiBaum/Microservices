@@ -1,21 +1,48 @@
-<div class="flex justify-center items-center">
+<div class="flex justify-center items-center px-4">
 
   <p-card pFocusTrap class="max-w-xl mt-4 w-full">
-    <form [formGroup]="loginForm" class="*:mb-6" (ngSubmit)="login()">
+    <ng-template #title>
+      <div class="flex items-center gap-2">
+        <fa-icon [icon]="faSignInAlt" class="text-primary"></fa-icon>
+        <span class="text-surface-900 dark:text-surface-0">{{ 'login.login' | translate }}</span>
+      </div>
+    </ng-template>
+
+    <form [formGroup]="loginForm" class="*:mb-8 pt-4" (ngSubmit)="login()">
         <p-floatlabel class="w-full" variant="in">
           <input id="username" formControlName="username" class="w-full" type="text" pInputText />
-          <label for="username">{{ "login.username" | translate }}</label>
+          <label for="username" class="text-surface-600 dark:text-surface-400">{{ "login.username" | translate }}</label>
         </p-floatlabel>
         <p-floatlabel class="w-full" variant="in">
-          <p-password id="password" formControlName="password" [feedback]="false" [toggleMask]="true" class="w-full"/>
-          <label for="password">{{ "login.password" | translate }}</label>
+          <p-password id="password" formControlName="password" [feedback]="false" [toggleMask]="true" class="w-full" styleClass="w-full" (keydown.enter)="login()"/>
+          <label for="password" class="text-surface-600 dark:text-surface-400">{{ "login.password" | translate }}</label>
         </p-floatlabel>
     </form>
 
     <ng-template #footer>
-      <div class="flex gap-6 mt-1">
-        <p-button label='{{ "login.register" | translate }}' class="w-full" styleClass="w-full" (onClick)="register()"></p-button>
-        <p-button label='{{ "login.login" | translate }}' class="w-full" [disabled]="!loginForm.valid" styleClass="w-full" (onClick)="login()"></p-button>
+      <div class="flex flex-col sm:flex-row gap-4 mt-1">
+        <p-button
+          [label]='"login.register" | translate'
+          class="w-full"
+          styleClass="w-full"
+          (onClick)="register()"
+          variant="outlined"
+        >
+          <ng-template #icon>
+            <fa-icon [icon]="faUserPlus" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
+        <p-button
+          [label]='"login.login" | translate'
+          class="w-full"
+          [disabled]="!loginForm.valid"
+          styleClass="w-full"
+          (onClick)="login()"
+        >
+          <ng-template #icon>
+            <fa-icon [icon]="faSignInAlt" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
       </div>
     </ng-template>
   </p-card>

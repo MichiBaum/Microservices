@@ -6,13 +6,11 @@
             "title": "Beyond Coding"
         },
         "experience": {
-            "experience": "Experience",
             "intro": "Here you see a List of my experiences.",
             "platforms-and-tools": "Platforms & tools",
             "programming-languages-and-databases": "Programming Languages & Databases",
-            "rating": "Rating (about myself)",
             "softskills": "Softskills",
-            "years": "Years"
+            "usage-time": "Used for {{years}} years"
         },
         "introduction": {
             "s1": "Hello! My Name is Michael Baumberger. I’m a passionate software developer from Switzerland with a strong background in web development and backend engineering. My journey in the world of IT started with an apprenticeship at Würth ITensis from 2017 to 2021, where I gained hands-on experience in building, maintaining, and optimizing software solutions. After completing my apprenticeship, I continued working there until 2024, further refining my skills and working on various projects."
@@ -70,7 +68,36 @@
         "events": {
             "meta-description": "Explore upcoming chess tournaments, club meetups, and exhibitions open to fans of every level. Connect with fellow enthusiasts, learn new strategies, and immerse yourself in competitive play.",
             "tab-title": "Chess Events",
-            "title": "Chess Events"
+            "title": "Chess Events",
+            "select-year": "Select Year"
+        },
+        "game": {
+            "opening": "Opening",
+            "playedAt": "Played at",
+            "termination": "Termination",
+            "timeControl": "Time control",
+            "result": {
+                "title": "Result",
+                "BLACK_WIN": "Black won",
+                "DRAW": "Draw",
+                "NOT_STARTED": "Not started",
+                "ONGOING": "Ongoing",
+                "WHITE_WIN": "White won"
+            },
+            "terminationType": {
+                "CHECKMATE": "Checkmate",
+                "RESIGNATION": "Resignation",
+                "TIMEOUT": "Timeout",
+                "STALEMATE": "Stalemate",
+                "DRAW_AGREEMENT": "Draw agreement",
+                "REPETITION": "Repetition",
+                "FIFTY_MOVE_RULE": "50-move rule",
+                "INSUFFICIENT_MATERIAL": "Insufficient material",
+                "ABANDONMENT": "Abandonment",
+                "TIME_EXPIRED_VS_INSUFFICIENT_MATERIAL": "Time expired vs. insufficient material"
+            },
+            "black": "Black",
+            "white": "White"
         },
         "home": {
             "popular-openings": "Popular Openings",
@@ -141,7 +168,8 @@
         "title": "Fitness Settings"
     },
     "general": {
-        "sort": "Sort"
+        "sort": "Sort",
+        "filter": "Filter"
     },
     "home": {
         "about-me": {

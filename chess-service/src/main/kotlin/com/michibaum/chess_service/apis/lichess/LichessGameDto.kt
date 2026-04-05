@@ -1,5 +1,8 @@
 package com.michibaum.chess_service.apis.lichess
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class LichessGameDto(
     val id: String,
     val rated: Boolean,
@@ -18,6 +21,7 @@ data class LichessGameDto(
     val clock: Clock? // Can be null for some reason
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Players(
     val white: Player,
     val black: Player,
@@ -31,6 +35,7 @@ data class GamesUser(
 /**
  * All fields can be null, because a bot is also a player
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Player(
     val user: GamesUser?,
     val rating: Long?,

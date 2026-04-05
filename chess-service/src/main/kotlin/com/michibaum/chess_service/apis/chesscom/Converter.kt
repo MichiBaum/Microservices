@@ -1,12 +1,11 @@
 package com.michibaum.chess_service.apis.chesscom
 
 import com.michibaum.chess_service.apis.dtos.*
-import com.michibaum.chess_service.database.ChessPlatform
-import com.michibaum.chess_service.database.GameType
-import com.michibaum.chess_service.database.PieceColor
+import com.michibaum.chess_service.database.*
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 
 @Component(value = "chesscomConverter")
@@ -31,19 +30,28 @@ class Converter {
             PlayerDto(id = it.uuid, username = it.username, rating = it.rating, pieceColor = PieceColor.BLACK)
         }
 
-        val gametype = when(gameDto.timeClass){
-            "bullet" -> GameType.BULLET
-            "blitz" -> GameType.BLITZ
-            "rapid" -> GameType.RAPID
-            else -> GameType.UNKNOWN
+        val timeControlCategory = when(gameDto.timeClass){
+            "bullet" -> TimeControlCategory.BULLET
+            "blitz" -> TimeControlCategory.BLITZ
+            "rapid" -> TimeControlCategory.RAPID
+            "daily" -> TimeControlCategory.CORRESPONDENCE
+            else -> TimeControlCategory.RAPID // Default
+        }
+
+        val result = when {
+            gameDto.white?.result == "win" -> GameResult.WHITE_WIN
+            gameDto.black?.result == "win" -> GameResult.BLACK_WIN
+            else -> GameResult.DRAW
         }
 
         return GameDto(
-            chessPlatform = ChessPlatform.CHESSCOM,
+            platform = ChessPlatform.CHESSCOM,
             id = gameDto.uuid ?: "",
             players = listOfNotNull(player1, player2),
             pgn = gameDto.pgn ?: "",
-            gameType = gametype
+            timeControlCategory = timeControlCategory,
+            gameResult = result,
+            playedAt = LocalDateTime.ofInstant(Instant.ofEpochSecond(gameDto.endTime), ZoneId.systemDefault())
         )
     }
 

@@ -14,6 +14,8 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {Register, RegisterState} from "../core/models/authentication.model";
 import {CustomErrorMatching} from "../core/config/http-error-handler.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faSignInAlt, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-register',
@@ -27,16 +29,20 @@ import {HttpErrorResponse} from "@angular/common/http";
     TranslateModule,
     FocusTrapModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FaIconComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   private readonly authService = inject(AuthService);
-  private readonly router = inject(RouterNavigationService);
+  protected readonly router = inject(RouterNavigationService);
   private readonly userInfoService = inject(UserInfoService);
   private readonly translate = inject(TranslateService);
+
+  protected readonly faUserPlus = faUserPlus;
+  protected readonly faSignInAlt = faSignInAlt;
 
   registerForm: FormGroup = new FormGroup({
     username: new FormControl<string>({

@@ -10,30 +10,62 @@
   <p-tabpanels>
     <p-tabpanel value="0">
 
-      <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-1 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
+      <div class="grid grid-cols-1 4k:grid-cols-4 xlScreen:grid-cols-3 lScreen:grid-cols-3 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
 
         @if (event(); as _event) {
           <div class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
-            <p-card>
-              <ng-template #title>{{_event.title}}</ng-template>
-              <ng-template #subtitle>{{categories()}}</ng-template>
-              @if (_event.platform; as platform) {
-                <p><strong>{{'chess.event.organizer' | translate}}: </strong>{{'chess.platform.' + platform | translate}}</p>
-              }
-              @if (_event.location; as location) {
-                <p><strong>{{'chess.event.location' | translate}}: </strong>{{ location }}</p>
-              }
-              @if (_event.dateFrom; as dateFrom) {
-                <p><strong>{{'chess.event.date-from' | translate}}: </strong>{{ dateFrom }}</p>
-              }
-              @if (_event.dateTo; as dateTo) {
-                <p><strong>{{'chess.event.date-to' | translate}}: </strong>{{ dateTo }}</p>
-              }
+            <p-card class="h-full">
+              <ng-template #title>
+                <span class="text-surface-900 dark:text-surface-0">{{_event.title}}</span>
+              </ng-template>
+              <ng-template #subtitle>
+                <span class="text-slate-500 dark:text-slate-400">{{categories()}}</span>
+              </ng-template>
+
+              <div class="flex flex-col gap-3 mt-2">
+                @if (_event.platform; as platform) {
+                  <div class="flex items-center gap-2 text-sm">
+                    <fa-icon [icon]="faBuilding" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+                    <span class="text-slate-500 dark:text-slate-400">{{'chess.event.organizer' | translate}}:</span>
+                    <span class="font-medium text-surface-900 dark:text-surface-0">{{'chess.platform.' + platform | translate}}</span>
+                  </div>
+                }
+                @if (_event.location; as location) {
+                  <div class="flex items-center gap-2 text-sm">
+                    <fa-icon [icon]="faLocationDot" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+                    <span class="text-slate-500 dark:text-slate-400">{{'chess.event.location' | translate}}:</span>
+                    <span class="font-medium text-surface-900 dark:text-surface-0">{{ location }}</span>
+                  </div>
+                }
+                <div class="flex flex-col gap-1 border-t pt-2">
+                  @if (_event.dateFrom; as dateFrom) {
+                    <div class="flex items-center gap-2 text-sm">
+                      <fa-icon [icon]="faCalendarAlt" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+                      <span class="text-slate-500 dark:text-slate-400">{{'chess.event.date-from' | translate}}:</span>
+                      <span class="font-medium text-surface-900 dark:text-surface-0">{{ dateFrom }}</span>
+                    </div>
+                  }
+                  @if (_event.dateTo; as dateTo) {
+                    <div class="flex items-center gap-2 text-sm">
+                      <fa-icon [icon]="faCalendarAlt" class="text-slate-400 dark:text-slate-500 w-4 opacity-0"></fa-icon>
+                      <span class="text-slate-500 dark:text-slate-400">{{'chess.event.date-to' | translate}}:</span>
+                      <span class="font-medium text-surface-900 dark:text-surface-0">{{ dateTo }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+
               <ng-template #footer>
                 @if (event()?.url && event()?.url !== '') {
-                  <div >
-                    <p-button [label]="'chess.event.open-official-website' | translate" class="w-full" styleClass="w-full" (onClick)="openEvent()" />
-                  </div>
+                  <p-button
+                    [label]="'chess.event.open-official-website' | translate"
+                    class="w-full"
+                    styleClass="w-full"
+                    (onClick)="openEvent()"
+                    icon="pi pi-external-link"
+                    iconPos="right"
+                    variant="outlined"
+                  />
                 }
               </ng-template>
             </p-card>

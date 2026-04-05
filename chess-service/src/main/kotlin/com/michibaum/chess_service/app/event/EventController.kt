@@ -3,7 +3,7 @@ package com.michibaum.chess_service.app.event
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.public_endpoints.PublicPattern
 import com.michibaum.chess_service.app.game.GameConverter
-import com.michibaum.chess_service.app.game.GameDto
+import com.michibaum.chess_service.app.game.GameResponseDto
 import com.michibaum.chess_service.app.game.GameService
 import com.michibaum.chess_service.app.person.PersonConverter
 import com.michibaum.chess_service.app.person.PersonDto
@@ -84,7 +84,7 @@ class EventController(
     @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/events/{id}/games")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    fun getEventGames(@PathVariable id: String): ResponseEntity<List<GameDto>> {
+    fun getEventGames(@PathVariable id: String): ResponseEntity<List<GameResponseDto>> {
         return try {
             val uuid = UUID.fromString(id)
             val event = eventService.find(uuid) ?:

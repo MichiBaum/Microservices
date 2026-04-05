@@ -8,6 +8,8 @@ import {ChessStartOpeningsListComponent} from "../chess-start-openings-list/ches
 import {TranslatePipe} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {ChessPopularOpeningsListComponent} from "../chess-popular-openings-list/chess-popular-openings-list.component";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faCalendarAlt, faChessBoard, faFire} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-chess-home',
@@ -18,13 +20,16 @@ import {ChessPopularOpeningsListComponent} from "../chess-popular-openings-list/
         ChessStartOpeningsListComponent,
         TranslatePipe,
         RouterLink,
-        ChessPopularOpeningsListComponent
+        ChessPopularOpeningsListComponent,
+        FaIconComponent
     ],
   templateUrl: './chess-home.component.html',
   styleUrl: './chess-home.component.css'
 })
 export class ChessHomeComponent {
-
+    protected readonly faCalendarAlt = faCalendarAlt;
+    protected readonly faChessBoard = faChessBoard;
+    protected readonly faFire = faFire;
 }
 
 

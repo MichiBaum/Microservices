@@ -12,6 +12,7 @@ import {
     ChessOpeningMoveEvaluationFormDialogComponent
 } from "../../chess-opening-move-evaluation-form-dialog/chess-opening-move-evaluation-form-dialog.component";
 import {SelectedMove} from "../../chess-move-tree/selected-move.model";
+import {UserInfoService} from "../../../core/services/user-info.service";
 
 
 @Component({
@@ -27,6 +28,7 @@ import {SelectedMove} from "../../chess-move-tree/selected-move.model";
 })
 export class ChessOpeningActionsComponent {
     private readonly permissionService = inject(PermissionService);
+    private readonly userInfoService = inject(UserInfoService);
 
     selectedMove = input<SelectedMove | undefined>(undefined);
     items = computed<MenuItem[]>(() => {
@@ -78,7 +80,28 @@ export class ChessOpeningActionsComponent {
                     if(selectedMove == undefined) return
                     this.openEvaluationDialog(selectedMove)
                 }
-            }
+            },
+            {
+                label: 'Copy FEN',
+                visible: selectedMove != undefined,
+                command: () => {
+                    const selectedMove = this.selectedMove()
+                    if(selectedMove == undefined) return
+                    const clipboard = navigator.clipboard;
+                    if (!clipboard) {
+                        console.log('FEN movement not supported in this browser. FEN is ' + selectedMove.fen)
+                        this.userInfoService.error('Copy FEN', 'Clipboard API not supported in this browser.')
+                        return;
+                    }
+                    clipboard.writeText(selectedMove.fen)
+                        .then(() => {
+                            this.userInfoService.info('Copy FEN', 'FEN copied to clipboard successfully.')
+                        })
+                        .catch(() => {
+                            this.userInfoService.error('Copy FEN', 'Failed to copy FEN to clipboard.')
+                        })
+                }
+            },
         ];
     });
 
@@ -88,7 +111,6 @@ export class ChessOpeningActionsComponent {
         const newMove: WriteOpeningMove = {
             id: '',
             move: '',
-            fen: '',
             parentMoveId: move.id,
         }
         this.moveInput.set(newMove)
@@ -98,7 +120,6 @@ export class ChessOpeningActionsComponent {
         const newMove: WriteOpeningMove = {
             id: move.id,
             move: move.move,
-            fen: move.fen,
             parentMoveId: move.parentId,
         }
         this.moveInput.set(newMove)

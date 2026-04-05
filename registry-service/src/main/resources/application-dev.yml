@@ -7,6 +7,14 @@ spring:
       client:
         username: admin_username
         password: admin_password
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_REGISTRY_SERVICE_LOG_CHANNEL}
 
 eureka:
   client:
@@ -15,13 +23,6 @@ eureka:
   environment: dev
 
 management:
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-      export:
-        enabled: true
   tracing:
     sampling:
       probability: 1.0
-    export:
-      enabled: true

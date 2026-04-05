@@ -4,14 +4,6 @@ server:
 spring:
   main:
     cloud-platform: kubernetes
-  microservices:
-    discord:
-      enabled: true
-      bot-token: ${DISCORD_BOT_TOKEN}
-      guild-id: ${DISCORD_GUILD_ID}
-      logging:
-        enabled: true
-        channel-id: ${DISCORD_ADMIN_SERVICE_LOG_CHANNEL}
   boot:
     admin:
       service:
@@ -27,19 +19,27 @@ spring:
         custom-discord:
           enabled: true
           channel-id: ${ADMIN_SERVICE_NOTIFY_DISCORD_CHANNEL}
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_ADMIN_SERVICE_LOG_CHANNEL}
+
 eureka:
   client:
     service-url:
       defaultZone: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
 
 management:
-  zipkin:
+  opentelemetry:
     tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
       export:
-        enabled: true
+        otlp:
+          endpoint: http://jaeger:4318/v1/traces
+          transport: http
   tracing:
     sampling:
       probability: 1.0
-    export:
-      enabled: true

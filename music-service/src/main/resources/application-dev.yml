@@ -6,23 +6,6 @@ spotify:
     client-id: ${SPOTIFY_CLIENT_ID:}
     client-secret: ${SPOTIFY_CLIENT_SECRET:}
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
-
-management:
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-      export:
-        enabled: true
-  tracing:
-    sampling:
-      probability: 1.0
-    export:
-      enabled: true
-
 spring:
   datasource:
     username: root
@@ -33,6 +16,7 @@ spring:
     show-sql: true
     properties:
       hibernate.hibernate.generate_statistics: true
+      hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS: 1
       hibernate:
         format_sql: true
   boot:
@@ -43,3 +27,21 @@ spring:
       client:
         username: admin_username
         password: admin_password
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_MUSIC_SERVICE_LOG_CHANNEL}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

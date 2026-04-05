@@ -14,6 +14,7 @@ import {TranslatePipe} from "@ngx-translate/core";
 import {MultiSelect} from "primeng/multiselect";
 import {FormsModule} from "@angular/forms";
 import {ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models";
+import {faCalendarAlt, faFilter, faFolder} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-chess-events-list',
@@ -34,6 +35,9 @@ import {ChessEventCategoryWithEvents} from "../../core/models/chess/chess.models
   styleUrl: './chess-events-list.component.css'
 })
 export class ChessEventsListComponent {
+  protected readonly faFilter = faFilter;
+  protected readonly faCalendarAlt = faCalendarAlt;
+
   private readonly chessService = inject(ChessService);
 
   categories = rxResource({
@@ -62,6 +66,9 @@ export class ChessEventsListComponent {
       }
       return category
     })
+  })
+  totalEvents = computed(() => {
+    return this.categoriesAndEventsSorted().flatMap(c => c.events ?? []).length
   })
   years: Signal<string[]> = computed(() => {
       const categories = this.categories.value()

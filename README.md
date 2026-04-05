@@ -38,7 +38,7 @@ There are these microservices:
 - Music Service
 - Grafana Service
 - Prometheus Service
-- Zipkin Service
+- Jaeger Service
 
 And these libraries:
 - Authentication Library
@@ -53,6 +53,12 @@ And these databases:
 - Chess DB
 - Fitness DB
 - Music DB
+
+## Documentation & Guidelines
+Detailed documentation and development guidelines can be found in the [docs/Writerside/topics](docs/Writerside/topics) directory:
+- [General Guidelines](docs/Writerside/topics/Guidelines.md)
+- [Angular Guidelines](docs/Writerside/topics/Guidelines-Angular.md)
+- [UI & Accessibility Guidelines](docs/Writerside/topics/UI-Style-Accessibility-Guidelines.md)
 
 ## License
 

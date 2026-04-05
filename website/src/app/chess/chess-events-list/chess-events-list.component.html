@@ -1,34 +1,70 @@
-<p-fieldset [toggleable]="true" [collapsed]="true">
-  <ng-template #header>
-    <p class="text-sm">{{'general.sort' | translate}}</p>
-  </ng-template>
-  <div class="flex flex-wrap gap-4">
-    <p-multiSelect [options]="years()" [(ngModel)]="selectedYears" placeholder="Select Year" class="w-full">
-    </p-multiSelect>
+<div class="flex flex-col gap-4">
+  <div class="flex flex-col desktop:flex-row desktop:items-center justify-between gap-4 p-4 rounded-xl border bg-surface-50 dark:bg-surface-900/50">
+    <div class="flex items-center gap-2">
+      <h2 class="text-xl font-bold text-surface-900 dark:text-surface-0">{{'chess.events.title' | translate}}</h2>
+      <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full">{{totalEvents()}}</span>
+    </div>
+    <p-fieldset [toggleable]="true" [collapsed]="true" class="w-full desktop:w-auto">
+      <ng-template #header>
+        <div class="flex items-center gap-2">
+          <fa-icon [icon]="faFilter" class="text-primary"></fa-icon>
+          <span class="text-sm font-semibold">{{'general.filter' | translate}}</span>
+        </div>
+      </ng-template>
+      <div class="flex flex-wrap gap-4 p-1">
+        <p-multiSelect
+          [options]="years()"
+          [(ngModel)]="selectedYears"
+          [placeholder]="'chess.events.select-year' | translate"
+          class="w-full min-w-[200px]"
+          variant="filled"
+        />
+      </div>
+    </p-fieldset>
   </div>
-</p-fieldset>
 
-<div class="grid grid-cols-1 4k:grid-cols-6 xlScreen:grid-cols-5 lScreen:grid-cols-4 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
-
-  @for (category of categoriesAndEventsSorted(); track category) {
-    @if (category.events && category.events.length > 0) {
-      <p-card class="h-full">
-        <ng-template #title>{{category.title}}</ng-template>
-        <ng-template #subtitle>{{category.description}}</ng-template>
-        <p-timeline [value]="category.events">
-          <ng-template #marker let-event>
-            <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
-          </ng-template>
-          <ng-template #content let-event>
-            <div class="cursor-pointer">
-              <p class="text-xs">{{ event.dateFrom }} - {{event.dateTo}}</p>
-              <p [routerLink]="['/chess/events', event.id]">{{ event.title }}</p>
+  <div class="grid grid-cols-1 4k:grid-cols-6 xlScreen:grid-cols-5 lScreen:grid-cols-4 desktop:grid-cols-3 laptop:grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 gap-4">
+    @for (category of categoriesAndEventsSorted(); track category) {
+      @if (category.events && category.events.length > 0) {
+        <p-card class="h-full">
+          <ng-template #title>
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="truncate text-surface-900 dark:text-surface-0" [title]="category.title">{{category.title}}</span>
+              </div>
+              <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full shrink-0">
+                {{category.events.length}}
+              </span>
             </div>
           </ng-template>
-        </p-timeline>
-      </p-card>
+          <ng-template #subtitle>
+            <span class="text-slate-500 text-sm block min-h-[1.5em]">{{category.description}}</span>
+          </ng-template>
+          <div class="mt-4">
+            <p-timeline [value]="category.events">
+              <ng-template #marker let-event>
+                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <fa-icon [icon]="event | eventIcon" [style]="event | eventIconColor"></fa-icon>
+                </div>
+              </ng-template>
+              <ng-template #content let-event>
+                <div class="flex flex-col mb-4 p-2 rounded-lg cursor-pointer active:bg-slate-100 dark:active:bg-slate-800 transition-colors" [routerLink]="['/chess/events', event.id]">
+                  <div class="flex items-center gap-1 text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
+                    <fa-icon [icon]="faCalendarAlt" class="w-3"></fa-icon>
+                    <span>{{ event.dateFrom }}</span>
+                    @if (event.dateTo && event.dateTo !== event.dateFrom) {
+                       <span>- {{event.dateTo}}</span>
+                    }
+                  </div>
+                  <span class="font-medium text-surface-700 dark:text-surface-200 leading-tight" [title]="event.title">{{ event.title }}</span>
+                </div>
+              </ng-template>
+            </p-timeline>
+          </div>
+        </p-card>
+      }
     }
-  }
+  </div>
 </div>
 
 <p-scrollTop />

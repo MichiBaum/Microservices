@@ -70,7 +70,7 @@ class IApiServiceImplIT{
         val account = AccountProvider.account(username)
         val json = lichessJson("api_games_user_$username.json")
         wireMockServer.stubFor(
-            WireMock.get("/api/games/user/$username")
+            WireMock.get(WireMock.urlPathEqualTo("/api/games/user/$username"))
                 .willReturn(WireMock.okJson(json))
         )
 
@@ -78,6 +78,14 @@ class IApiServiceImplIT{
         val result = lichessApiService.getGames(account)
 
         // THEN
+        if(result !is Success){
+            if(result is Exception){
+                println("[DEBUG_LOG] Lichess getGames Exception: ${result.message}")
+                result.throwable.printStackTrace()
+            } else if (result is com.michibaum.chess_service.apis.Error){
+                println("[DEBUG_LOG] Lichess getGames Error: ${result.error}")
+            }
+        }
         assertTrue(result is Success)
         assertTrue((result as Success).result.size > 1)
     }
@@ -87,7 +95,7 @@ class IApiServiceImplIT{
     fun `get games handles exception`(username: String){
         val account = AccountProvider.account(username)
         wireMockServer.stubFor(
-            WireMock.get("/api/games/user/$username")
+            WireMock.get(WireMock.urlPathEqualTo("/api/games/user/$username"))
                 .willReturn(WireMock.serverError())
         )
         val errorResult = lichessApiService.getGames(account)

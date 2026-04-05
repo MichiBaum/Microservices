@@ -5,6 +5,10 @@
 <instance-profile id="s" name="Microservices Docs" start-page="Overview.md">
     <toc-element topic="Overview.md"/>
     <toc-element topic="Development.md">
+        <toc-element topic="Guidelines.md">
+            <toc-element topic="Guidelines-Angular.md"/>
+            <toc-element topic="UI-Style-Accessibility-Guidelines.md"/>
+        </toc-element>
         <toc-element topic="Git-Version-and-Release.md"/>
         <toc-element topic="Project-structure.md"/>
         <toc-element topic="Local-Database.md"/>
@@ -22,6 +26,7 @@
         <toc-element topic="k0s-and-k0sctl.md"/>
         <toc-element topic="Deploy-Kubernetes-definitions.md"/>
         <toc-element topic="Kubernetes-commands.md"/>
+        <toc-element topic="Spring-Boot-Actuator-Probes.md"/>
         <toc-element topic="k0s-etcd-member-list-bug.md"/>
     </toc-element>
     <toc-element topic="Database.md">
@@ -45,12 +50,14 @@
         <toc-element topic="Admin-Service.md"/>
     </toc-element>
     <toc-element topic="Libraries.md">
+        <toc-element topic="Chess-Play-Library.md"/>
         <toc-element topic="Usermanagement-library.md"/>
         <toc-element topic="permission-library.md"/>
         <toc-element topic="authentication-library.md">
             <toc-element topic="spring-boot-starter-authentication.md"/>
         </toc-element>
         <toc-element topic="spring-boot-starter-discord.md"/>
+        <toc-element topic="spring-boot-starter-cache.md"/>
     </toc-element>
     <toc-element topic="Website.md"/>
     <toc-element topic="Performance-Testing.md">
@@ -59,6 +66,8 @@
     </toc-element>
     <toc-element topic="Maven.md"/>
     <toc-element topic="Decisions.md">
+        <toc-element topic="2026-04-04-zipkin-to-jaeger.md"/>
+        <toc-element topic="2026-04-03-DB-Containers-migration-StatefulSet.md"/>
         <toc-element topic="2025-07-04-k3s-k0s.md"/>
         <toc-element topic="2025-05-25-Docker-Compose-Kubernetes.md"/>
         <toc-element topic="2024-12-30-testcontainers.md"/>

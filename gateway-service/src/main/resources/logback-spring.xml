@@ -33,6 +33,10 @@
         <root level="WARN">
             <appender-ref ref="Discord" />
         </root>
+        
+        <logger name="org.springframework.web.servlet.PageNotFound" level="ERROR" />
+        <logger name="org.springframework.web.servlet.handler.AbstractHandlerMapping" level="ERROR" />
+        <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="ERROR" />
     </springProfile>
 
 </configuration>

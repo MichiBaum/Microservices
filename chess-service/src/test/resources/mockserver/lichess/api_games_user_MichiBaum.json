@@ -1,4 +1,4 @@
-{
+[{
   "id": "dY36TFmf",
   "rated": true,
   "variant": "standard",
@@ -35,7 +35,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "6hMPfSc4",
   "rated": true,
@@ -73,7 +73,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "sEcOKrh8",
   "rated": false,
@@ -101,7 +101,7 @@
   "winner": "white",
   "moves": "Qxe4 Rae8 Rg2 Re7 Rdg1 Qc6 Qd3 Rc8 Rxg7+ Kh8 Qh7#",
   "pgn": "[Event \"Casual correspondence game\"]\n[Site \"https://lichess.org/sEcOKrh8\"]\n[Date \"2020.07.26\"]\n[White \"MichiBaum\"]\n[Black \"lichess AI level 1\"]\n[Result \"1-0\"]\n[UTCDate \"2020.07.26\"]\n[UTCTime \"19:42:53\"]\n[WhiteElo \"1500\"]\n[BlackElo \"?\"]\n[Variant \"From Position\"]\n[TimeControl \"-\"]\n[ECO \"?\"]\n[Termination \"Normal\"]\n[FEN \"r4rk1/ppq3p1/4pp2/8/3Qp3/P3P2P/1PP2P1P/2KR2R1 w - - 2 21\"]\n[SetUp \"1\"]\n\n21. Qxe4 Rae8 22. Rg2 Re7 23. Rdg1 Qc6 24. Qd3 Rc8 25. Rxg7+ Kh8 26. Qh7# 1-0\n\n\n"
-}
+},
 {
   "id": "Ri8ukCTa",
   "rated": true,
@@ -139,7 +139,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "Kd91o5wr",
   "rated": true,
@@ -177,7 +177,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "CVelMHnl",
   "rated": true,
@@ -215,7 +215,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "FNlxZxFT",
   "rated": true,
@@ -253,7 +253,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "SBDdN3Li",
   "rated": false,
@@ -280,7 +280,7 @@
   "winner": "white",
   "moves": "d4 e6 Bf4 d5 Nc3 Nd7 e3 Ngf6 Bb5 Bb4 Nf3 O-O O-O c6 Bd3 b5 Bg5 Be7 Ne5 Qb6 Ne2 Bd6 Qd2 h6 Bxf6 Bxe5 Bxe5 Qd8 Bd6 Bb7 Bxf8 Ne5 f3 Nxf3+ gxf3 a5 e4 a4 b3 dxe4 fxe4 Qd7 e5 Rd8 Qf4 axb3 axb3 f6 Bc5 b4 Qe4 Kf7 Qg6+ Kg8 Qh7+ Kf7 Bg6#",
   "pgn": "[Event \"Casual correspondence game\"]\n[Site \"https://lichess.org/SBDdN3Li\"]\n[Date \"2020.07.26\"]\n[White \"MichiBaum\"]\n[Black \"lichess AI level 1\"]\n[Result \"1-0\"]\n[UTCDate \"2020.07.26\"]\n[UTCTime \"18:57:10\"]\n[WhiteElo \"1500\"]\n[BlackElo \"?\"]\n[Variant \"Standard\"]\n[TimeControl \"-\"]\n[ECO \"D01\"]\n[Termination \"Normal\"]\n\n1. d4 e6 2. Bf4 d5 3. Nc3 Nd7 4. e3 Ngf6 5. Bb5 Bb4 6. Nf3 O-O 7. O-O c6 8. Bd3 b5 9. Bg5 Be7 10. Ne5 Qb6 11. Ne2 Bd6 12. Qd2 h6 13. Bxf6 Bxe5 14. Bxe5 Qd8 15. Bd6 Bb7 16. Bxf8 Ne5 17. f3 Nxf3+ 18. gxf3 a5 19. e4 a4 20. b3 dxe4 21. fxe4 Qd7 22. e5 Rd8 23. Qf4 axb3 24. axb3 f6 25. Bc5 b4 26. Qe4 Kf7 27. Qg6+ Kg8 28. Qh7+ Kf7 29. Bg6# 1-0\n\n\n"
-}
+},
 {
   "id": "woQg4z3L",
   "rated": true,
@@ -318,7 +318,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "Y73dMo67",
   "rated": true,
@@ -356,7 +356,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "NpEsfQLK",
   "rated": true,
@@ -394,7 +394,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "57747K3F",
   "rated": true,
@@ -432,7 +432,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "wHQF9VEE",
   "rated": true,
@@ -470,7 +470,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "Oo0E9WnE",
   "rated": true,
@@ -508,7 +508,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "0knTacML",
   "rated": true,
@@ -546,7 +546,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "l9jfhAXx",
   "rated": true,
@@ -584,7 +584,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "VVG3I8K1",
   "rated": true,
@@ -622,7 +622,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "FNn7qdHh",
   "rated": true,
@@ -660,7 +660,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "GAZSRexT",
   "rated": true,
@@ -698,7 +698,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "k5aSmv16",
   "rated": true,
@@ -736,7 +736,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "4eFhtbI8",
   "rated": true,
@@ -774,7 +774,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "hos8wtbR",
   "rated": true,
@@ -812,7 +812,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "pHGNePB3",
   "rated": true,
@@ -850,7 +850,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "PIKCdYps",
   "rated": true,
@@ -888,7 +888,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "SMJejVhf",
   "rated": true,
@@ -926,7 +926,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "mFPINT1m",
   "rated": true,
@@ -964,7 +964,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "3M5kZ8L8",
   "rated": true,
@@ -1002,7 +1002,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "5hr8I5Ic",
   "rated": true,
@@ -1040,7 +1040,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "ogpeSVIK",
   "rated": true,
@@ -1078,7 +1078,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "E6VBPqBo",
   "rated": true,
@@ -1116,7 +1116,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "l92eug1F",
   "rated": true,
@@ -1154,7 +1154,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "ZBQyw1qd",
   "rated": true,
@@ -1192,7 +1192,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "YpZu0nZ2",
   "rated": true,
@@ -1230,7 +1230,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "0cwNPd4N",
   "rated": true,
@@ -1267,7 +1267,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "4dtAcxMK",
   "rated": true,
@@ -1305,7 +1305,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "e3XU3cLL",
   "rated": true,
@@ -1343,7 +1343,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "csX2K4h1",
   "rated": true,
@@ -1381,7 +1381,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "k664oBWE",
   "rated": true,
@@ -1419,7 +1419,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "f5BWrlSv",
   "rated": true,
@@ -1457,7 +1457,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "DRifRHtj",
   "rated": true,
@@ -1495,7 +1495,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "VJIWxxQw",
   "rated": true,
@@ -1533,7 +1533,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "BEfa08od",
   "rated": true,
@@ -1571,7 +1571,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "yjA3G2MD",
   "rated": true,
@@ -1609,7 +1609,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "dHAE0R2K",
   "rated": true,
@@ -1647,7 +1647,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "da04X3lQ",
   "rated": true,
@@ -1685,7 +1685,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "KmMeVuiC",
   "rated": true,
@@ -1723,7 +1723,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "16QLC402",
   "rated": true,
@@ -1761,7 +1761,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "DBFN2BzO",
   "rated": true,
@@ -1799,7 +1799,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "HjXPDvpn",
   "rated": true,
@@ -1837,7 +1837,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "UzXs8ZeM",
   "rated": true,
@@ -1875,7 +1875,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "FGdOPfKx",
   "rated": true,
@@ -1913,7 +1913,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "1cPchCWU",
   "rated": true,
@@ -1951,7 +1951,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "qTqiivqC",
   "rated": true,
@@ -1989,7 +1989,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "r0NiTzmd",
   "rated": true,
@@ -2027,7 +2027,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "Gs0tJzqu",
   "rated": true,
@@ -2065,7 +2065,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "gh6H07CN",
   "rated": true,
@@ -2103,7 +2103,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "TTxAE3ig",
   "rated": true,
@@ -2141,7 +2141,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "hE2OyboV",
   "rated": true,
@@ -2179,7 +2179,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "ryMEaHNw",
   "rated": true,
@@ -2217,7 +2217,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "eypCDg5s",
   "rated": true,
@@ -2255,7 +2255,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "EgUM6F0z",
   "rated": true,
@@ -2293,7 +2293,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "IlalSVbO",
   "rated": true,
@@ -2331,7 +2331,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "eWBZlaKT",
   "rated": true,
@@ -2369,7 +2369,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "M84iFDd2",
   "rated": true,
@@ -2407,7 +2407,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "CvNym4Pe",
   "rated": true,
@@ -2445,7 +2445,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "yMqpMcGe",
   "rated": true,
@@ -2483,7 +2483,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "hbcLiSPn",
   "rated": true,
@@ -2521,7 +2521,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "RIsrp2oK",
   "rated": true,
@@ -2559,7 +2559,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "JREICJ0s",
   "rated": true,
@@ -2597,7 +2597,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "bUSazc9I",
   "rated": true,
@@ -2635,7 +2635,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "pFa3R3f0",
   "rated": true,
@@ -2673,7 +2673,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "ixflgWDC",
   "rated": true,
@@ -2711,7 +2711,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "zdD4s9rK",
   "rated": true,
@@ -2749,7 +2749,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "78v3m4hg",
   "rated": true,
@@ -2786,7 +2786,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "LrRqUsK8",
   "rated": true,
@@ -2824,7 +2824,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "YWzlTzGS",
   "rated": true,
@@ -2862,7 +2862,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "yciowKS0",
   "rated": true,
@@ -2900,7 +2900,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "sboGqNlL",
   "rated": true,
@@ -2938,7 +2938,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "r1IEx9pz",
   "rated": true,
@@ -2976,7 +2976,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "EXOiyyNu",
   "rated": true,
@@ -3014,7 +3014,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "Mjt3C4aY",
   "rated": true,
@@ -3052,7 +3052,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "qykHCodM",
   "rated": true,
@@ -3090,7 +3090,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "eh05E7KL",
   "rated": true,
@@ -3128,7 +3128,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "GkkE2kxB",
   "rated": true,
@@ -3166,7 +3166,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "s4UTLfzS",
   "rated": true,
@@ -3204,7 +3204,7 @@
     "increment": 0,
     "totalTime": 180
   }
-}
+},
 {
   "id": "TyegZ3DB",
   "rated": true,
@@ -3242,7 +3242,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "E4Yi7KkV",
   "rated": true,
@@ -3280,7 +3280,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "d1rVyhwl",
   "rated": true,
@@ -3318,7 +3318,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "55b7kZoN",
   "rated": true,
@@ -3355,7 +3355,7 @@
     "increment": 3,
     "totalTime": 420
   }
-}
+},
 {
   "id": "bWivfXtT",
   "rated": true,
@@ -3392,7 +3392,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "GHXtLI36",
   "rated": true,
@@ -3429,7 +3429,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "KOHUWex1",
   "rated": true,
@@ -3466,7 +3466,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "LhmmTBth",
   "rated": true,
@@ -3502,7 +3502,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "8ofHxkP7",
   "rated": true,
@@ -3539,7 +3539,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "euQCZUWB",
   "rated": true,
@@ -3576,7 +3576,7 @@
     "increment": 3,
     "totalTime": 420
   }
-}
+},
 {
   "id": "mPrUtOkS",
   "rated": true,
@@ -3613,7 +3613,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "v6Cmhyjf",
   "rated": true,
@@ -3650,7 +3650,7 @@
     "increment": 3,
     "totalTime": 420
   }
-}
+},
 {
   "id": "6ezGBAJ4",
   "rated": true,
@@ -3686,7 +3686,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "aB1C6m4W",
   "rated": true,
@@ -3723,7 +3723,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "SbF9MGgO",
   "rated": false,
@@ -3751,7 +3751,7 @@
   "winner": "white",
   "moves": "Rxe7 Bxf3 gxf3 Rfd8 Nc3 h5 Nb5 Kf8 Rae1 Re8 Nc7 Red8 Nxa8 Rxa8 Qxd6 h4 Re8#",
   "pgn": "[Event \"Casual correspondence game\"]\n[Site \"https://lichess.org/SbF9MGgO\"]\n[Date \"2020.07.19\"]\n[White \"MichiBaum\"]\n[Black \"lichess AI level 2\"]\n[Result \"1-0\"]\n[UTCDate \"2020.07.19\"]\n[UTCTime \"12:23:54\"]\n[WhiteElo \"1500\"]\n[BlackElo \"?\"]\n[Variant \"From Position\"]\n[TimeControl \"-\"]\n[ECO \"?\"]\n[Termination \"Normal\"]\n[FEN \"r4rk1/pb2qppp/1p1p1n2/8/2P5/1P3B2/PB1Q1PPP/RN2R1K1 w - - 4 17\"]\n[SetUp \"1\"]\n\n17. Rxe7 Bxf3 18. gxf3 Rfd8 19. Nc3 h5 20. Nb5 Kf8 21. Rae1 Re8 22. Nc7 Red8 23. Nxa8 Rxa8 24. Qxd6 h4 25. Re8# 1-0\n\n\n"
-}
+},
 {
   "id": "O3lm8OZU",
   "rated": true,
@@ -3788,7 +3788,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "fnQ9YlQQ",
   "rated": true,
@@ -3825,7 +3825,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "3tq9Fxvt",
   "rated": true,
@@ -3863,7 +3863,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "GdRNeV9e",
   "rated": true,
@@ -3901,7 +3901,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "D4gdDZfJ",
   "rated": true,
@@ -3939,7 +3939,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "HkafyYiA",
   "rated": true,
@@ -3977,7 +3977,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "pq5YAEFn",
   "rated": true,
@@ -4015,7 +4015,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "wsZWCKe6",
   "rated": true,
@@ -4053,7 +4053,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "mQHjUJqv",
   "rated": true,
@@ -4091,7 +4091,7 @@
     "increment": 3,
     "totalTime": 420
   }
-}
+},
 {
   "id": "OZg2yc5e",
   "rated": true,
@@ -4129,7 +4129,7 @@
     "increment": 3,
     "totalTime": 420
   }
-}
+},
 {
   "id": "5ms8Hhdi",
   "rated": true,
@@ -4167,7 +4167,7 @@
     "increment": 0,
     "totalTime": 300
   }
-}
+},
 {
   "id": "91zjZ49U",
   "rated": true,
@@ -4205,7 +4205,7 @@
     "increment": 3,
     "totalTime": 420
   }
-}
+},
 {
   "id": "rIItEOsz",
   "rated": false,
@@ -4232,7 +4232,7 @@
   "winner": "white",
   "moves": "e4 d5 exd5 Nf6 c4 Bf5 d3 c6 Nc3 Qd6 Nf3 e5 d4 e4 Ne5 h6 dxc6 Nxc6 Qa4 Bd7 c5 Qxd4 Qxd4 Rd8 Qd1 Bxc5 Bb5 Bxf2+ Kxf2 Ke7 Re1 Rhe8 Kf1 g6 h4 h5 g3 Bh3+ Kf2 e3+ Kxe3 Bg4 Qc2 Nd4 Qa4 Nxb5 Qxb5 Rb8 Kf2 Kf8 Bg5 a6 Qb6 Nd7 Qf6 a5 Qxf7#",
   "pgn": "[Event \"Casual correspondence game\"]\n[Site \"https://lichess.org/rIItEOsz\"]\n[Date \"2020.07.18\"]\n[White \"MichiBaum\"]\n[Black \"lichess AI level 2\"]\n[Result \"1-0\"]\n[UTCDate \"2020.07.18\"]\n[UTCTime \"14:53:00\"]\n[WhiteElo \"1500\"]\n[BlackElo \"?\"]\n[Variant \"Standard\"]\n[TimeControl \"-\"]\n[ECO \"B01\"]\n[Termination \"Normal\"]\n\n1. e4 d5 2. exd5 Nf6 3. c4 Bf5 4. d3 c6 5. Nc3 Qd6 6. Nf3 e5 7. d4 e4 8. Ne5 h6 9. dxc6 Nxc6 10. Qa4 Bd7 11. c5 Qxd4 12. Qxd4 Rd8 13. Qd1 Bxc5 14. Bb5 Bxf2+ 15. Kxf2 Ke7 16. Re1 Rhe8 17. Kf1 g6 18. h4 h5 19. g3 Bh3+ 20. Kf2 e3+ 21. Kxe3 Bg4 22. Qc2 Nd4 23. Qa4 Nxb5 24. Qxb5 Rb8 25. Kf2 Kf8 26. Bg5 a6 27. Qb6 Nd7 28. Qf6 a5 29. Qxf7# 1-0\n\n\n"
-}
+},
 {
   "id": "wZwv5WW9",
   "rated": false,
@@ -4259,7 +4259,7 @@
   "winner": "white",
   "moves": "e4 d5 Nc3 Nf6 d3 Nc6 Nf3 e6 Bg5 Be7 Qd2 d4 e5 Ng4 Qf4 Bxg5 Qxg5 Ncxe5 Nxe5 Nxe5 Qxe5 dxc3 Qxc3 f6 Qb3 c6 d4 Kf7 c3 b6 O-O-O Qc7 Re1 Rd8 h4 Rb8 Qc2 Kg8 Bd3 h6 Bg6 Kh8 Re2 Rb7 Rhe1 b5 g4 c5 dxc5 Qxc5 f4 Qc4 g5 Rc7 gxh6 Qxa2 hxg7+ Kg8 Bh7+ Kxg7 Qg6+ Kh8 h5 Qa1+ Kc2 Qa6 h6 Rf8 Qe4 Qa2 f5 Rxh7 fxe6 Rd8 e7 Rg8 e8=Q Bb7 Q4e7 Qa4+ Kc1 Qh4 Q7f7 Qg5+ Kc2 Qf5+ Kc1 Qc2+ Kxc2 b4 Qfxg8#",
   "pgn": "[Event \"Casual correspondence game\"]\n[Site \"https://lichess.org/wZwv5WW9\"]\n[Date \"2020.07.18\"]\n[White \"MichiBaum\"]\n[Black \"lichess AI level 2\"]\n[Result \"1-0\"]\n[UTCDate \"2020.07.18\"]\n[UTCTime \"13:05:21\"]\n[WhiteElo \"1500\"]\n[BlackElo \"?\"]\n[Variant \"Standard\"]\n[TimeControl \"-\"]\n[ECO \"B02\"]\n[Termination \"Normal\"]\n\n1. e4 d5 2. Nc3 Nf6 3. d3 Nc6 4. Nf3 e6 5. Bg5 Be7 6. Qd2 d4 7. e5 Ng4 8. Qf4 Bxg5 9. Qxg5 Ncxe5 10. Nxe5 Nxe5 11. Qxe5 dxc3 12. Qxc3 f6 13. Qb3 c6 14. d4 Kf7 15. c3 b6 16. O-O-O Qc7 17. Re1 Rd8 18. h4 Rb8 19. Qc2 Kg8 20. Bd3 h6 21. Bg6 Kh8 22. Re2 Rb7 23. Rhe1 b5 24. g4 c5 25. dxc5 Qxc5 26. f4 Qc4 27. g5 Rc7 28. gxh6 Qxa2 29. hxg7+ Kg8 30. Bh7+ Kxg7 31. Qg6+ Kh8 32. h5 Qa1+ 33. Kc2 Qa6 34. h6 Rf8 35. Qe4 Qa2 36. f5 Rxh7 37. fxe6 Rd8 38. e7 Rg8 39. e8=Q Bb7 40. Q4e7 Qa4+ 41. Kc1 Qh4 42. Q7f7 Qg5+ 43. Kc2 Qf5+ 44. Kc1 Qc2+ 45. Kxc2 b4 46. Qfxg8# 1-0\n\n\n"
-}
+},
 {
   "id": "9kK6lS8l",
   "rated": false,
@@ -4286,4 +4286,4 @@
   "winner": "white",
   "moves": "e4 Nc6 Nc3 d6 Nf3 e6 d4 Nge7 e5 a6 exd6 cxd6 Bg5 Qb6 Qd2 Bd7 O-O-O d5 Ne2 Nf5 h4 h5 g3 Rc8 Nf4 Na5 Bh3 Ba4 b3 Bd7 c4 Bb4 Qd3 Rc6 Kb2 f6 Rhe1 fxg5 hxg5 dxc4 bxc4 Nxc4+ Kc2 Ncd6+ Kb2 Ba5+ Ka1 Bxe1 Rxe1 Qb5 Nxe6 Rc4 Qe3 Ke7 Nf4+ Kf8 Qe7+ Kg8 Qe5 Qxe5 Nxe5 h4 Nxc4 Bc6 Nxd6 Nxd4 Re8+ Kh7 Re7 hxg3 fxg3 Kg8 g4 Rh4 Bf1 b5 Rc7 Rh2 Rxc6 Rh1 Rc1 Nc6 g6 Kh8 Nf7+ Kg8 Nh6+ Kf8 Ne6+ Ke7 Rxc6 Rxh6 Nxg7 Rh4 Rxa6 Kd8 Bxb5 Rh2 Ne6+ Kc8 Rc6+ Kd7 Rb6+ Kc8 Rd6 Kb8 g7 Rc2 g8=Q+ Ka7 Qg7+ Ka8 Rd8+ Rc8 Rxc8#",
   "pgn": "[Event \"Casual correspondence game\"]\n[Site \"https://lichess.org/9kK6lS8l\"]\n[Date \"2020.07.18\"]\n[White \"MichiBaum\"]\n[Black \"lichess AI level 1\"]\n[Result \"1-0\"]\n[UTCDate \"2020.07.18\"]\n[UTCTime \"12:50:30\"]\n[WhiteElo \"1500\"]\n[BlackElo \"?\"]\n[Variant \"Standard\"]\n[TimeControl \"-\"]\n[ECO \"B00\"]\n[Termination \"Normal\"]\n\n1. e4 Nc6 2. Nc3 d6 3. Nf3 e6 4. d4 Nge7 5. e5 a6 6. exd6 cxd6 7. Bg5 Qb6 8. Qd2 Bd7 9. O-O-O d5 10. Ne2 Nf5 11. h4 h5 12. g3 Rc8 13. Nf4 Na5 14. Bh3 Ba4 15. b3 Bd7 16. c4 Bb4 17. Qd3 Rc6 18. Kb2 f6 19. Rhe1 fxg5 20. hxg5 dxc4 21. bxc4 Nxc4+ 22. Kc2 Ncd6+ 23. Kb2 Ba5+ 24. Ka1 Bxe1 25. Rxe1 Qb5 26. Nxe6 Rc4 27. Qe3 Ke7 28. Nf4+ Kf8 29. Qe7+ Kg8 30. Qe5 Qxe5 31. Nxe5 h4 32. Nxc4 Bc6 33. Nxd6 Nxd4 34. Re8+ Kh7 35. Re7 hxg3 36. fxg3 Kg8 37. g4 Rh4 38. Bf1 b5 39. Rc7 Rh2 40. Rxc6 Rh1 41. Rc1 Nc6 42. g6 Kh8 43. Nf7+ Kg8 44. Nh6+ Kf8 45. Ne6+ Ke7 46. Rxc6 Rxh6 47. Nxg7 Rh4 48. Rxa6 Kd8 49. Bxb5 Rh2 50. Ne6+ Kc8 51. Rc6+ Kd7 52. Rb6+ Kc8 53. Rd6 Kb8 54. g7 Rc2 55. g8=Q+ Ka7 56. Qg7+ Ka8 57. Rd8+ Rc8 58. Rxc8# 1-0\n\n\n"
-}
+}]

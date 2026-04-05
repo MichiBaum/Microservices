@@ -2,7 +2,9 @@ package com.michibaum.discord.logging
 
 import ch.qos.logback.core.Appender
 import ch.qos.logback.core.UnsynchronizedAppenderBase
-import java.util.*
+import java.util.ArrayList
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 /**
  * A delegator for an appender that initially buffers log events and later delegates them
@@ -15,7 +17,8 @@ import java.util.*
  * @param E The type of log event.
  */
 class DiscordAppenderDelegator<E> : UnsynchronizedAppenderBase<E>() {
-    private val logBuffer: MutableList<E> = Collections.synchronizedList(ArrayList())
+    private val logBuffer: MutableList<E> = ArrayList()
+    private val lock = ReentrantLock()
     private var delegate: Appender<E>? = null
 
     /**
@@ -27,13 +30,15 @@ class DiscordAppenderDelegator<E> : UnsynchronizedAppenderBase<E>() {
      * @param event The log event to be appended.
      */
     override fun append(event: E) {
-        synchronized(logBuffer) {
+        val currentDelegate = lock.withLock {
             if (delegate != null) {
-                delegate!!.doAppend(event)
+                delegate // Grab reference and exit lock
             } else {
                 logBuffer.add(event)
+                null
             }
         }
+        currentDelegate?.doAppend(event) // Network call happens here (No lock held)
     }
 
     /**
@@ -46,12 +51,12 @@ class DiscordAppenderDelegator<E> : UnsynchronizedAppenderBase<E>() {
      * @param delegate The appender that should handle the log events going forward.
      */
     fun setDelegateAndReplayBuffer(delegate: Appender<E>) {
-        synchronized(logBuffer) {
+        val eventsToReplay = lock.withLock {
             this.delegate = delegate
-            for (event in logBuffer) {
-                delegate.doAppend(event)
-            }
+            val bufferCopy = ArrayList(logBuffer)
             logBuffer.clear()
+            bufferCopy
         }
+        eventsToReplay.forEach { delegate.doAppend(it) }
     }
 }

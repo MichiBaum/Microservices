@@ -28,20 +28,19 @@ eureka:
 
 management:
   services:
-    zipkin-url: http://zipkin:9411
+    jaeger-url: http://jaeger:16686
     prometheus-url: http://prometheus:9090
     grafana-url: http://grafana:3000
-  zipkin:
+  opentelemetry:
     tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
       export:
-        enabled: true
+        otlp:
+          endpoint: http://jaeger:4318/v1/traces
+          transport: http
   tracing:
     sampling:
       probability: 1.0
-    export:
-      enabled: true
-      
+
 cors:
   allowed-origin-patterns:
     - https://michibaum.ch
@@ -62,3 +61,6 @@ cors:
     - https://*.michibaum.info
     - https://michibaum.xyz
     - https://*.michibaum.xyz
+
+sitemap-xml:
+  https: true

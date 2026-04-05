@@ -1,0 +1,231 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jaeger-storage-pv
+  labels:
+    type: local
+    app: jaeger-storage
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  local:
+    path: "/data/jaeger-storage"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - 35591.hostserv.eu
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jaeger-storage-pvc
+  namespace: microservices
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  selector:
+    matchLabels:
+      app: jaeger-storage
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jaeger-storage
+  namespace: microservices
+spec:
+  serviceName: "jaeger-storage"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger-storage
+  template:
+    metadata:
+      labels:
+        app: jaeger-storage
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
+      containers:
+      - name: jaeger-storage
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.19.13
+        ports:
+        - containerPort: 9200
+        env:
+        - name: discovery.type
+          value: "single-node"
+        - name: xpack.security.enabled
+          value: "false"
+        - name: ES_JAVA_OPTS
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-config
+              key: JAEGER_DB_JAVA_TOOL_OPTIONS
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "100m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: jaeger-storage-data
+          mountPath: /usr/share/elasticsearch/data
+      volumes:
+      - name: jaeger-storage-data
+        persistentVolumeClaim:
+          claimName: jaeger-storage-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-storage
+  namespace: microservices
+spec:
+  selector:
+    app: jaeger-storage
+  ports:
+  - port: 9200
+    targetPort: 9200
+  type: ClusterIP
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+  namespace: microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+      - name: jaeger
+        image: jaegertracing/all-in-one:1.76.0
+        ports:
+        - containerPort: 16686
+        - containerPort: 4317
+        - containerPort: 4318
+        - containerPort: 14269
+        args:
+        - "--config-file"
+        - "/etc/jaeger/jaeger.yml"
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 14269
+          initialDelaySeconds: 5
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 14269
+          initialDelaySeconds: 1
+          periodSeconds: 10
+        volumeMounts:
+        - name: jaeger-config
+          mountPath: /etc/jaeger/jaeger.yml
+          subPath: jaeger.yml
+        - name: jaeger-config
+          mountPath: /etc/jaeger/ui-config.json
+          subPath: ui-config.json
+      initContainers:
+      - name: wait-for-elasticsearch
+        image: busybox
+        command: ['sh', '-c', 'until nc -z jaeger-storage 9200; do echo waiting for jaeger-storage; sleep 2; done;']
+      volumes:
+      - name: jaeger-config
+        configMap:
+          name: jaeger-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+  namespace: microservices
+spec:
+  selector:
+    app: jaeger
+  ports:
+  - name: ui
+    port: 16686
+    targetPort: 16686
+  - name: otlp-grpc
+    port: 4317
+    targetPort: 4317
+  - name: otlp-http
+    port: 4318
+    targetPort: 4318
+  - name: metrics
+    port: 14269
+    targetPort: 14269
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-config
+  namespace: microservices
+data:
+  jaeger.yml: |
+    span-storage-type: elasticsearch
+    es:
+      server-urls: http://jaeger-storage:9200
+    collector:
+      otlp:
+        enabled: true
+    query:
+      ui-config: /etc/jaeger/ui-config.json
+  ui-config.json: |
+    {
+      "dependencies": {
+        "menuEnabled": true
+      },
+      "monitor": {
+        "menuEnabled": true
+      },
+      "themes": {
+        "enabled": true
+      },
+      "archiveEnabled": true,
+      "menu": [
+        {
+          "label": "About Jaeger",
+          "items": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/jaegertracing/jaeger"
+            },
+            {
+              "label": "Docs",
+              "url": "https://www.jaegertracing.io/docs/2.17/"
+            }
+          ]
+        }
+      ]
+    }
+    

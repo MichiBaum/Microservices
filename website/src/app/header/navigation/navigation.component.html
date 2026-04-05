@@ -1,50 +1,59 @@
 <p-button
-  pButton pRipple
+  #toggleButton
   aria-label="Toggle Sidebar"
   [ariaLabel]="'Toggle Sidebar'"
-  (click)="sidebarVisible.set(!sidebarVisible())"
+  (onClick)="sidebarVisible.set(!sidebarVisible())"
   >
-  <fa-icon [icon]="buttonIcon"></fa-icon>
+  <fa-icon [icon]="buttonIcon" size="lg"></fa-icon>
 </p-button>
 
 <p-drawer
   [(visible)]="sidebarVisible"
   [position]="'left'"
+  appendTo="body"
+  [ariaCloseLabel]="'Close Sidebar'"
+  aria-roledescription="Sidebar"
+  role="navigation"
   >
   <ng-template #header>
     <div class="flex items-center gap-2">
-      <span class="font-bold"> {{"navigation.navigation" | translate}} </span>
+      <fa-icon [icon]="buttonIcon" class="text-primary"></fa-icon>
+      <span class="font-bold text-surface-900 dark:text-surface-0"> {{"navigation.navigation" | translate}} </span>
     </div>
   </ng-template>
 
   <p-menu
     [model]="navItems()"
     [dt]="menuStyle"
+    class="w-full"
+    styleClass="w-full border-none bg-transparent"
     >
     <ng-template #submenuheader let-item>
       @if (anyItemsVisible(item.items)) {
-        <span class="text-primary font-bold">{{ item.label | translate }}</span>
+        <span class="text-primary font-bold uppercase text-xs tracking-wider mb-2 block mt-4">{{ item.label | translate }}</span>
       }
     </ng-template>
     <ng-template #item let-item>
       @if (item.visible) {
-        <a pRipple class="flex items-center p-menu-item-link">
-          <fa-icon [icon]="item.customIcon"></fa-icon>
-          <span class="ml-2">{{ item.label | translate }}</span>
+        <a class="flex items-center p-3 rounded-lg transition-colors duration-200 active:bg-surface-100 dark:active:bg-surface-800 text-surface-600 dark:text-surface-400 no-underline" (click)="sidebarVisible.set(false)">
+          <fa-icon [icon]="item.customIcon" class="w-5"></fa-icon>
+          <span class="ml-3">{{ item.label | translate }}</span>
         </a>
       }
     </ng-template>
   </p-menu>
 
-  <div class="mt-2">
+  <div class="mt-auto pt-4 border-t border-surface-200 dark:border-surface-700">
     <app-language-select></app-language-select>
   </div>
 
-  <div class="mt-2">
-    <p-image src="https://hosttech.eu/affiliate/logos/ch-location/ch-location-234x60px-red.svg"
+  <div class="mt-4 flex justify-center">
+    <img [ngSrc]="'hosttech_affiliate.svg'"
+      width="200" height="51"
       alt="Hosttech Schweizer Serverstandort"
+      class="cursor-pointer hover:opacity-80 transition-opacity"
       onclick="window.open('https://www.hosttech.ch/?promocode=31886957', '_blank')"
       />
-    </div>
+  </div>
 
-  </p-drawer>
+</p-drawer>

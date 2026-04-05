@@ -15,9 +15,9 @@ spring:
   jpa:
     show-sql: true
     properties:
-      hibernate.hibernate.generate_statistics: true
-      hibernate:
-        format_sql: true
+      hibernate.generate_statistics: true
+      hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS: 1
+      hibernate.format_sql: true
   boot:
     admin:
       service:
@@ -26,15 +26,15 @@ spring:
       client:
         username: admin_username
         password: admin_password
-
-management:
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-      export:
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
         enabled: true
+        channel-id: ${DISCORD_CHESS_SERVICE_LOG_CHANNEL}
+
   tracing:
     sampling:
       probability: 1.0
-    export:
-      enabled: true

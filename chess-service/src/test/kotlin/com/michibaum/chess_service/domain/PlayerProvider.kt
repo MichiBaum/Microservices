@@ -1,20 +1,21 @@
 package com.michibaum.chess_service.domain
 
-import com.michibaum.chess_service.database.PieceColor
-import com.michibaum.chess_service.database.Account
-import com.michibaum.chess_service.database.Game
-import com.michibaum.chess_service.database.Player
+import com.michibaum.chess_service.database.*
 
 class PlayerProvider {
 
     companion object {
-        fun player(account: Account, game: Game): Player {
+        fun player(
+            account: Account? = null,
+            pieceColor: PieceColor = PieceColor.WHITE,
+            username: String = "someUsername",
+            rating: Long = 1500
+        ): Player {
             return Player(
-                username = "someUsername",
-                rating = 1459,
-                pieceColor = PieceColor.WHITE,
-                game = game,
-                account = account,
+                username = username,
+                rating = rating,
+                pieceColor = pieceColor,
+                account = account
             )
         }
     }

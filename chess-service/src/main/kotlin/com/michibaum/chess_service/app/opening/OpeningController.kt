@@ -36,7 +36,7 @@ class OpeningController(
     @PublicEndpoint
     @GetMapping("/api/openings/popular")
     fun getAllPopularOpenings(): ResponseEntity<List<PopularOpeningResponseDto>> {
-        val popularOpenings = openingService.getPopularOpenings()
+        val popularOpenings = openingService.getPopularOpeningsProjection()
         val dtos = popularOpenings.map { opening -> openingConverter.toDto(opening) }
         return ResponseEntity.ok(dtos)
     }
@@ -59,7 +59,7 @@ class OpeningController(
 
     @PostMapping("/api/openings/moves")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun createMove(@RequestBody dto: WriteOpeningMoveDto): ResponseEntity<SimpleOpeningMoveDto> {
+    fun createMove(@RequestBody dto: WriteOpeningMoveDto): ResponseEntity<SimpleOpeningMoveResponseDto> {
         return try {
             val uuid = UUID.fromString(dto.parentMoveId)
             val parentMove = openingService.findMoveBy(uuid) ?:
@@ -75,10 +75,10 @@ class OpeningController(
     }
 
     @PostMapping("/api/openings/moves/{id}") // TODO change to PUT
-    fun updateMove(@RequestBody dto: WriteOpeningMoveDto): ResponseEntity<SimpleOpeningMoveDto> {
+    fun updateMove(@RequestBody dto: WriteOpeningMoveDto): ResponseEntity<SimpleOpeningMoveResponseDto> {
         return try {
             val uuid = UUID.fromString(dto.id)
-            val move = openingService.findMoveBy(uuid) ?:
+            val move = openingService.findMoveWithParentBy(uuid) ?:
                 return ResponseEntity.notFound().build()
             val updated = openingService.updateMove(dto, move)
             val newDto = openingConverter.convert(updated)
@@ -109,7 +109,7 @@ class OpeningController(
 
     @DeleteMapping("/api/openings/moves/{id}")
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
-    fun deleteMove(@PathVariable id: String): ResponseEntity<SimpleOpeningMoveDto> {
+    fun deleteMove(@PathVariable id: String): ResponseEntity<SimpleOpeningMoveResponseDto> {
         return try {
             val uuid = UUID.fromString(id)
             val move = openingService.findMoveBy(uuid) ?:
@@ -124,9 +124,9 @@ class OpeningController(
         }
     }
 
-    @PublicEndpoint // TODO pattern = PublicPattern.UUID
+    @PublicEndpoint // TODO pattern = PublicPattern.UUID doesnt work yet
     @GetMapping("/api/openings/{id}/children")
-    fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveDto> {
+    fun getAllChildrenFromOpening(@PathVariable id: String, @RequestParam maxDepth: Int = 10): ResponseEntity<OpeningMoveResponseDto> {
         return try {
             val uuid = UUID.fromString(id)
             val opening = openingService.getOpeningByIdEagerLastMove(uuid) ?:
@@ -145,7 +145,7 @@ class OpeningController(
 
     @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/openings/{id}/moves")
-    fun getAllMovesForOpening(@PathVariable id: String): ResponseEntity<OpeningMoveDto> {
+    fun getAllMovesForOpening(@PathVariable id: String): ResponseEntity<OpeningMoveResponseDto> {
         return try {
             val uuid = UUID.fromString(id)
             val opening = openingService.getOpeningByIdEagerLastMove(uuid) ?:
@@ -164,7 +164,7 @@ class OpeningController(
 
     @PublicEndpoint(PublicPattern.UUID)
     @GetMapping("/api/openings/moves/{id}/evaluations")
-    fun getEvaluation(@PathVariable id: String): ResponseEntity<List<OpeningMoveEvaluationDto>>{
+    fun getEvaluation(@PathVariable id: String): ResponseEntity<List<OpeningMoveEvaluationResponseDto>>{
         return try {
             val uuid = UUID.fromString(id)
             val move = openingService.findMoveEagerEvaluations(uuid) ?:
@@ -193,7 +193,7 @@ class OpeningController(
     }
 
     @PostMapping("/api/openings/moves/{id}/evaluations")
-    fun createEvaluation(@PathVariable id: String, @RequestBody dto: WriteOpeningEvaluationDto): ResponseEntity<OpeningMoveEvaluationDto> {
+    fun createEvaluation(@PathVariable id: String, @RequestBody dto: WriteOpeningEvaluationDto): ResponseEntity<OpeningMoveEvaluationResponseDto> {
         return try {
             val uuid = UUID.fromString(id)
             val openingMove = openingService.findMoveEagerEvaluations(uuid) ?:
@@ -212,7 +212,7 @@ class OpeningController(
     }
 
     @PutMapping("/api/openings/moves/{moveId}/evaluations/{id}")
-    fun updateEvaluation(@PathVariable moveId: String, @PathVariable id: String, @RequestBody dto: WriteOpeningEvaluationDto): ResponseEntity<OpeningMoveEvaluationDto>{
+    fun updateEvaluation(@PathVariable moveId: String, @PathVariable id: String, @RequestBody dto: WriteOpeningEvaluationDto): ResponseEntity<OpeningMoveEvaluationResponseDto>{
         return try {
             val evaluationId = UUID.fromString(id)
             val evolution = openingService.findEvolution(evaluationId) ?:

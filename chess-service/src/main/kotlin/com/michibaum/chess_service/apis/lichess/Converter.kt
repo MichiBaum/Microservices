@@ -1,12 +1,11 @@
 package com.michibaum.chess_service.apis.lichess
 
 import com.michibaum.chess_service.apis.dtos.*
-import com.michibaum.chess_service.database.ChessPlatform
-import com.michibaum.chess_service.database.GameType
-import com.michibaum.chess_service.database.PieceColor
+import com.michibaum.chess_service.database.*
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 
 @Component(value = "lichessConverter")
@@ -27,7 +26,7 @@ class Converter {
             PlayerDto(
                 id = it.user?.id ?: "",
                 username = it.user?.name ?: "",
-                rating = it.rating ?: 0,
+                rating = it.rating,
                 pieceColor = PieceColor.WHITE
             )
         }
@@ -36,24 +35,34 @@ class Converter {
             PlayerDto(
                 id = it.user?.id ?: "",
                 username = it.user?.name ?: "",
-                rating = it.rating ?: 0,
+                rating = it.rating,
                 pieceColor = PieceColor.BLACK
             )
         }
 
-        val gametype = when(gameDto.perf){
-            "bullet" -> GameType.BULLET
-            "blitz" -> GameType.BLITZ
-            "rapid" -> GameType.RAPID
-            else -> GameType.UNKNOWN
+        val timeControlCategory = when(gameDto.perf){
+            "bullet" -> TimeControlCategory.BULLET
+            "blitz" -> TimeControlCategory.BLITZ
+            "rapid" -> TimeControlCategory.RAPID
+            "classical" -> TimeControlCategory.CLASSICAL
+            "correspondence" -> TimeControlCategory.CORRESPONDENCE
+            else -> TimeControlCategory.RAPID // Default
+        }
+
+        val result = when(gameDto.winner){
+            "white" -> GameResult.WHITE_WIN
+            "black" -> GameResult.BLACK_WIN
+            else -> GameResult.DRAW
         }
 
         return GameDto(
-            chessPlatform = ChessPlatform.LICHESS,
+            platform = ChessPlatform.LICHESS,
             id = gameDto.id,
             players = listOfNotNull(player1, player2),
             pgn = gameDto.pgn ?: "",
-            gameType = gametype
+            timeControlCategory = timeControlCategory,
+            gameResult = result,
+            playedAt = LocalDateTime.ofInstant(Instant.ofEpochMilli(gameDto.createdAt), ZoneId.systemDefault())
         )
     }
 

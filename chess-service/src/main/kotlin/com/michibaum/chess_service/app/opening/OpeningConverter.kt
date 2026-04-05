@@ -18,17 +18,24 @@ class OpeningConverter {
             name = opening.name,
             moveId = opening.lastMove.id?.toString() ?: ""
         )
-
-    fun toDto(opening: PopularOpening) =
+    
+    fun toDto(opening: OpeningWithLastMoveProjection) =
+        OpeningResponseDto(
+            id = opening.getId().toString(),
+            name = opening.getName(),
+            moveId = opening.getLastMoveId()?.toString() ?: ""
+        )
+    
+    fun toDto(opening: PopularOpeningMoveProjection) =
         PopularOpeningResponseDto(
-            id = opening.opening.id?.toString() ?: "",
-            name = opening.opening.name,
-            moveId = opening.opening.lastMove.id?.toString() ?: "",
-            ranking = opening.ranking
+            id = opening.getOpeningId().toString(),
+            name = opening.getOpeningName(),
+            moveId = opening.getLastMoveId().toString(),
+            ranking = opening.getRanking()
         )
 
-    fun toDto(evaluation: OpeningMoveEvaluation): OpeningMoveEvaluationDto{
-        return OpeningMoveEvaluationDto(
+    fun toDto(evaluation: OpeningMoveEvaluation): OpeningMoveEvaluationResponseDto{
+        return OpeningMoveEvaluationResponseDto(
             id = evaluation.id!!.toString(),
             engineId = evaluation.engine.id!!.toString(),
             depth = evaluation.depth,
@@ -37,15 +44,15 @@ class OpeningConverter {
     }
 
     @Observed
-    fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveDto? {
+    fun buildMoveHierarchy(moves: List<MoveHierarchyProjection>, engines: List<ChessEngine>, firstMoveId: UUID? = null, ): OpeningMoveResponseDto? {
         // Group evaluations by move ID
-        val evaluationsByMoveId: Map<UUID, List<EvaluationDto>> = moves
+        val evaluationsByMoveId: Map<UUID, List<EvaluationResponseDto>> = moves
             .filter { it.getEngineId() != null && it.getDepth() != null && it.getEvaluation() != null }
             .groupBy(
             keySelector = { it.getMoveId() },
             valueTransform = { move ->
                 val chessEngine = engines.find { engine -> engine.id == move.getEngineId() }
-                EvaluationDto(
+                EvaluationResponseDto(
                     id = move.getEvaluationId()!!,
                     engineId = move.getEngineId()!!.toString(),
                     engineName = chessEngine?.name ?: "",
@@ -57,17 +64,17 @@ class OpeningConverter {
         )
 
         // Map to collect child relationships (parentId -> list of child projections)
-        val childrenMap = mutableMapOf<UUID, MutableList<OpeningMoveDto>>()
+        val childrenMap = mutableMapOf<UUID, MutableList<OpeningMoveResponseDto>>()
 
         // Build a DTO for each move and prepare the children relationship map
-        val moveDtoMap = mutableMapOf<UUID, OpeningMoveDto>() // Map of moveId to DTO
+        val moveDtoMap = mutableMapOf<UUID, OpeningMoveResponseDto>() // Map of moveId to DTO
 
         val moveDtos = moves.map { move ->
             val moveId = move.getMoveId()
 
             // Reuse an existing DTO if it already exists
             val dto = moveDtoMap.getOrPut(moveId) {
-                OpeningMoveDto(
+                OpeningMoveResponseDto(
                     id = moveId.toString(),
                     move = move.getMove(),
                     fen = move.getFen(),
@@ -108,8 +115,8 @@ class OpeningConverter {
         throw NoSuchElementException("No root found (with: $firstMoveId) for moves: $moves")
     }
 
-    fun convert(move: OpeningMove): SimpleOpeningMoveDto {
-        return SimpleOpeningMoveDto(
+    fun convert(move: OpeningMove): SimpleOpeningMoveResponseDto {
+        return SimpleOpeningMoveResponseDto(
             id = move.id?.toString() ?: "",
             move = move.move,
             fen = move.fen,

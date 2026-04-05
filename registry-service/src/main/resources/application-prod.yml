@@ -27,13 +27,12 @@ eureka:
   environment: prod
 
 management:
-  zipkin:
+  opentelemetry:
     tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
       export:
-        enabled: true
+        otlp:
+          endpoint: http://jaeger:4318/v1/traces
+          transport: http
   tracing:
     sampling:
       probability: 1.0
-    export:
-      enabled: true

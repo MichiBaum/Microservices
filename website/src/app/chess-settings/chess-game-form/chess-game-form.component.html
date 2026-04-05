@@ -1,0 +1,103 @@
+<p-card header="Chess Game Form">
+    <div class="flex flex-col gap-4">
+        <form [formGroup]="formGroup" (ngSubmit)="save()" class="flex flex-col gap-4">
+            <p-fieldset legend="General Information">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <p-floatlabel variant="in">
+                        <p-select [options]="sourceTypes" formControlName="sourceType" id="sourceType" class="w-full"></p-select>
+                        <label for="sourceType">Source Type</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <p-select [options]="platforms" formControlName="platform" id="platform" class="w-full" [showClear]="true"></p-select>
+                        <label for="platform">Platform</label>
+                    </p-floatlabel>
+                    <div class="md:col-span-2">
+                        <p-floatlabel variant="in">
+                            <input pInputText formControlName="externalGameId" id="externalGameId" class="w-full" />
+                            <label for="externalGameId">External Game ID</label>
+                        </p-floatlabel>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p-floatlabel variant="in">
+                            <textarea pTextarea formControlName="pgn" id="pgn" class="w-full" rows="5"></textarea>
+                            <label for="pgn">PGN</label>
+                        </p-floatlabel>
+                    </div>
+                    <p-floatlabel variant="in">
+                        <p-select [options]="gameResults" formControlName="gameResult" id="gameResult" class="w-full"></p-select>
+                        <label for="gameResult">Result</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <p-select [options]="terminationTypes" formControlName="termination" id="termination" class="w-full" [showClear]="true"></p-select>
+                        <label for="termination">Termination</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <p-datePicker formControlName="playedAt" id="playedAt" class="w-full" [showTime]="true"></p-datePicker>
+                        <label for="playedAt">Played At</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <p-select [options]="gameVariants" formControlName="variant" id="variant" class="w-full"></p-select>
+                        <label for="variant">Variant</label>
+                    </p-floatlabel>
+                </div>
+            </p-fieldset>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p-fieldset legend="White Player" formGroupName="whitePlayer">
+                    <div class="flex flex-col gap-4">
+                        <p-floatlabel variant="in">
+                            <p-select [options]="selectedAccounts()" (ngModelChange)="onAccountChange(PieceColor.WHITE, $event)" formControlName="accountId" optionLabel="username" optionValue="id" id="whiteAccount" class="w-full" [showClear]="true"></p-select>
+                            <label for="whiteAccount">Account</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="in">
+                            <input pInputText formControlName="username" id="whiteUsername" class="w-full" />
+                            <label for="whiteUsername">Username</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="in">
+                            <p-inputNumber formControlName="rating" id="whiteRating" class="w-full"></p-inputNumber>
+                            <label for="whiteRating">Rating</label>
+                        </p-floatlabel>
+                    </div>
+                </p-fieldset>
+                <p-fieldset legend="Black Player" formGroupName="blackPlayer">
+                    <div class="flex flex-col gap-4">
+                        <p-floatlabel variant="in">
+                            <p-select [options]="selectedAccounts()" (ngModelChange)="onAccountChange(PieceColor.BLACK, $event)" formControlName="accountId" optionLabel="username" optionValue="id" id="blackAccount" class="w-full" [showClear]="true"></p-select>
+                            <label for="blackAccount">Account</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="in">
+                            <input pInputText formControlName="username" id="blackUsername" class="w-full" />
+                            <label for="blackUsername">Username</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="in">
+                            <p-inputNumber formControlName="rating" id="blackRating" class="w-full"></p-inputNumber>
+                            <label for="blackRating">Rating</label>
+                        </p-floatlabel>
+                    </div>
+                </p-fieldset>
+            </div>
+
+            <p-fieldset legend="Additional Details">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <p-floatlabel variant="in">
+                        <input pInputText formControlName="timeControl" id="timeControl" class="w-full" />
+                        <label for="timeControl">Time Control</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <p-select [options]="timeControlCategories" formControlName="timeControlCategory" id="timeControlCategory" class="w-full" [showClear]="true"></p-select>
+                        <label for="timeControlCategory">Time Control Category</label>
+                    </p-floatlabel>
+                    <p-floatlabel variant="in">
+                        <input pInputText formControlName="openingName" id="openingName" class="w-full" />
+                        <label for="openingName">Opening Name</label>
+                    </p-floatlabel>
+                </div>
+            </p-fieldset>
+
+            <div class="flex justify-end gap-2">
+                <p-button label="Clear" (onClick)="clear()" icon="pi pi-times" severity="secondary"></p-button>
+                <p-button label="Save" type="submit" icon="pi pi-check" [disabled]="formGroup.invalid"></p-button>
+            </div>
+        </form>
+    </div>
+</p-card>

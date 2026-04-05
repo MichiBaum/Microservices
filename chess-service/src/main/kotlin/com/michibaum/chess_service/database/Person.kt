@@ -6,6 +6,10 @@ import java.util.*
 
 @Entity
 @Table(name="person")
+@NamedEntityGraph(
+    name = "with-accounts",
+    attributeNodes = [NamedAttributeNode(value = "accounts")]
+)
 class Person(
     @Column(nullable = false)
     val firstname: String,
@@ -23,7 +27,7 @@ class Person(
     @Column(nullable = false)
     val gender: Gender,
 
-    @OneToMany(mappedBy="person", fetch = FetchType.EAGER, targetEntity = Account::class) // Most searches are for persons. Person in Account can be lazy. If searched for a account another request is used to get the person.
+    @OneToMany(mappedBy="person", fetch = FetchType.LAZY, targetEntity = Account::class) // Most searches are for persons. Person in Account can be lazy. If searched for a account another request is used to get the person.
     val accounts: Set<Account>,
 
     @Id

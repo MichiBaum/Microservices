@@ -1,47 +1,72 @@
 <div class="container mx-auto 4k:max-w-screen-lScreen xlScreen:max-w-screen-lScreen">
   <div class="grid gap-6">
 
-      <p-card [header]="'imprint.contact-address-title' | translate">
-        <p>
-          {{"owner.name" | translate}}<br/>
-          {{"owner.address" | translate}}<br/>
-          {{"owner.city" | translate}}<br/>
-          {{"owner.country" | translate}}
-        </p>
-        <p>
-          {{"imprint.email-title" | translate}}<br/>
-          {{"owner.email" | translate}}
-        </p>
+      <p-card>
+        <ng-template #title>
+          <span class="text-surface-900 dark:text-surface-0">{{ 'imprint.contact-address-title' | translate }}</span>
+        </ng-template>
+        <div class="text-surface-600 dark:text-surface-400">
+          <p>
+            {{"owner.name" | translate}}<br/>
+            {{"owner.address" | translate}}<br/>
+            {{"owner.city" | translate}}<br/>
+            {{"owner.country" | translate}}
+          </p>
+          <p class="mt-4">
+            <span class="font-bold text-surface-900 dark:text-surface-0">{{"imprint.email-title" | translate}}</span><br/>
+            {{"owner.email" | translate}}
+          </p>
+        </div>
       </p-card>
 
-      <p-card [header]="'imprint.hosting-provider-title' | translate">
-          <p>{{"imprint.hosting-provider" | translate}}</p>
+      <p-card>
+        <ng-template #title>
+          <span class="text-surface-900 dark:text-surface-0">{{ 'imprint.hosting-provider-title' | translate }}</span>
+        </ng-template>
+        <p class="text-surface-600 dark:text-surface-400">{{"imprint.hosting-provider" | translate}}</p>
       </p-card>
 
-      <p-card [header]="'imprint.disclaimer-of-liability-title' | translate">
-        <p>{{"imprint.disclaimer-of-liability-1" | translate}}</p>
-        <p>{{"imprint.disclaimer-of-liability-2" | translate}}</p>
-        <p>{{"imprint.disclaimer-of-liability-3" | translate}}</p>
+      <p-card>
+        <ng-template #title>
+          <span class="text-surface-900 dark:text-surface-0">{{ 'imprint.disclaimer-of-liability-title' | translate }}</span>
+        </ng-template>
+        <div class="text-surface-600 dark:text-surface-400 flex flex-col gap-2">
+          <p>{{"imprint.disclaimer-of-liability-1" | translate}}</p>
+          <p>{{"imprint.disclaimer-of-liability-2" | translate}}</p>
+          <p>{{"imprint.disclaimer-of-liability-3" | translate}}</p>
+        </div>
       </p-card>
 
-      <p-card [header]="'imprint.disclaimer-of-liability-for-links-title' | translate">
-        <p>{{"imprint.disclaimer-of-liability-for-links" | translate}}</p>
+      <p-card>
+        <ng-template #title>
+          <span class="text-surface-900 dark:text-surface-0">{{ 'imprint.disclaimer-of-liability-for-links-title' | translate }}</span>
+        </ng-template>
+        <p class="text-surface-600 dark:text-surface-400">{{"imprint.disclaimer-of-liability-for-links" | translate}}</p>
       </p-card>
 
-      <p-card [header]="'imprint.copyrights-title' | translate">
-        <p>
+      <p-card>
+        <ng-template #title>
+          <span class="text-surface-900 dark:text-surface-0">{{ 'imprint.copyrights-title' | translate }}</span>
+        </ng-template>
+        <p class="text-surface-600 dark:text-surface-400">
           {{"imprint.copyrights" | translate}}
         </p>
       </p-card>
 
-      <p-card [header]="'imprint.google-analytics-title' | translate">
-          <p>
-              {{"imprint.google-analytics" | translate}}
-          </p>
+      <p-card>
+        <ng-template #title>
+          <span class="text-surface-900 dark:text-surface-0">{{ 'imprint.google-analytics-title' | translate }}</span>
+        </ng-template>
+        <p class="text-surface-600 dark:text-surface-400">
+          {{"imprint.google-analytics" | translate}}
+        </p>
       </p-card>
 
-      <p-card [header]="'imprint.translation-title' | translate">
-        <p>
+      <p-card>
+        <ng-template #title>
+          <span class="text-surface-900 dark:text-surface-0">{{ 'imprint.translation-title' | translate }}</span>
+        </ng-template>
+        <p class="text-surface-600 dark:text-surface-400">
           {{"imprint.translation-description" | translate}}
         </p>
       </p-card>

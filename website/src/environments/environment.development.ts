@@ -1,12 +1,12 @@
 export const environment = {
-    base_url: (domain: string) => `http://${domain}`,
-    fe_images: (domain: string) => `http://${domain}:4200/assets/images/`,
-    authenticationService: (domain: string) => `http://authentication.${domain}/api`,
-    chessService: (domain: string) => `http://chess.${domain}/api`,
-    adminService: (domain: string) => `http://admin.${domain}`,
-    fitnessService: (domain: string) => `http://fitness.${domain}/api`,
-    musicService: (domain: string) => `http://music.${domain}/api`,
-    zipkinService: (domain: string) => `http://zipkin.${domain}/zipkin`,
-    grafanaService: (domain: string) => `http://grafana.${domain}`,
-    prometheusService: (domain: string) => `http://prometheus.${domain}`
+  base_url: (protocol: string, domain: string) => `${protocol}//${domain}`,
+  fe_images: (protocol: string, domain: string) => `${protocol}//${domain}:4200/assets/images/`,
+  authenticationService: (protocol: string, domain: string) => `${protocol}//authentication.${domain}/api`,
+  chessService: (protocol: string, domain: string) => `${protocol}//chess.${domain}/api`,
+  adminService: (protocol: string, domain: string) => `${protocol}//admin.${domain}`,
+  fitnessService: (protocol: string, domain: string) => `${protocol}//fitness.${domain}/api`,
+  musicService: (protocol: string, domain: string) => `${protocol}//music.${domain}/api`,
+  jaegerService: (protocol: string, domain: string) => `${protocol}//jaeger.${domain}`,
+  grafanaService: (protocol: string, domain: string) => `${protocol}//grafana.${domain}`,
+  prometheusService: (protocol: string, domain: string) => `${protocol}//prometheus.${domain}`
 };
