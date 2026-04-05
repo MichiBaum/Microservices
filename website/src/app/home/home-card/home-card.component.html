@@ -5,10 +5,17 @@
     </ng-template>
   }
   @if (titleText()) {
-    <ng-template #title>{{ titleText() }}</ng-template>
+    <ng-template #title>
+      <div class="flex items-center gap-2">
+        @if (icon()) {
+          <fa-icon [icon]="icon()!" class="text-primary"></fa-icon>
+        }
+        <span class="text-surface-900 dark:text-surface-0">{{ titleText() }}</span>
+      </div>
+    </ng-template>
   }
 
-  <div class="h-20">
+  <div class="h-20 text-surface-600 dark:text-surface-400">
     @if (content()) {
       <p>
         {{content()}}
@@ -18,8 +25,16 @@
 
   @if (buttonLabel()) {
     <ng-template #footer>
-      <div class="gap-6 mt-1">
-        <p-button [label]="buttonLabel()" class="w-full" styleClass="w-full" (onClick)="navigate.emit()"/>
+      <div class="mt-1">
+        <p-button
+          [label]="buttonLabel()"
+          class="w-full"
+          styleClass="w-full"
+          (onClick)="navigate.emit()"
+          variant="outlined"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+        />
       </div>
     </ng-template>
   }

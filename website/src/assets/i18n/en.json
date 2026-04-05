@@ -68,7 +68,8 @@
         "events": {
             "meta-description": "Explore upcoming chess tournaments, club meetups, and exhibitions open to fans of every level. Connect with fellow enthusiasts, learn new strategies, and immerse yourself in competitive play.",
             "tab-title": "Chess Events",
-            "title": "Chess Events"
+            "title": "Chess Events",
+            "select-year": "Select Year"
         },
         "game": {
             "opening": "Opening",
@@ -167,7 +168,8 @@
         "title": "Fitness Settings"
     },
     "general": {
-        "sort": "Sort"
+        "sort": "Sort",
+        "filter": "Filter"
     },
     "home": {
         "about-me": {

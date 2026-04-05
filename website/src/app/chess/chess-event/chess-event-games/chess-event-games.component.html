@@ -1,8 +1,8 @@
 @let _games = sortedGames();
 @if (_games.length > 0) {
   <div class="flex flex-col gap-4">
-    <div class="flex items-center gap-2 p-4 rounded-xl border">
-      <h2 class="text-xl font-bold">{{'chess.event.games' | translate}}</h2>
+    <div class="flex items-center gap-2 p-4 rounded-xl border bg-surface-50 dark:bg-surface-900/50">
+      <h2 class="text-xl font-bold text-surface-900 dark:text-surface-0">{{'chess.event.games' | translate}}</h2>
       <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full">{{_games.length}}</span>
     </div>
 
@@ -13,10 +13,10 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2 min-w-0">
                 <div class="w-3 h-3 shrink-0 rounded-full border border-slate-300 bg-white shadow-sm" title="White"></div>
-                <span class="truncate" [class.font-bold]="game.gameResult === GameResult.WHITE_WIN">
+                <span class="truncate text-surface-900 dark:text-surface-0" [class.font-bold]="game.gameResult === GameResult.WHITE_WIN">
                   {{game.whitePlayer.username}}
                   @if (game.whitePlayer.rating) {
-                    <span class="text-sm font-normal text-slate-400 ml-1">({{game.whitePlayer.rating}})</span>
+                    <span class="text-sm font-normal text-slate-400 dark:text-slate-500 ml-1">({{game.whitePlayer.rating}})</span>
                   }
                 </span>
               </div>
@@ -24,10 +24,10 @@
             <div class="flex items-center justify-between mt-1">
               <div class="flex items-center gap-2 min-w-0">
                 <div class="w-3 h-3 shrink-0 rounded-full bg-slate-800 shadow-sm" title="Black"></div>
-                <span class="truncate" [class.font-bold]="game.gameResult === GameResult.BLACK_WIN">
+                <span class="truncate text-surface-900 dark:text-surface-0" [class.font-bold]="game.gameResult === GameResult.BLACK_WIN">
                   {{game.blackPlayer.username}}
                   @if (game.blackPlayer.rating) {
-                    <span class="text-sm font-normal text-slate-400 ml-1">({{game.blackPlayer.rating}})</span>
+                    <span class="text-sm font-normal text-slate-400 dark:text-slate-500 ml-1">({{game.blackPlayer.rating}})</span>
                   }
                 </span>
               </div>

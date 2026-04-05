@@ -68,7 +68,8 @@
         "events": {
             "meta-description": "Explora próximos torneos de ajedrez, encuentros de clubes y exhibiciones abiertas a aficionados de todos los niveles. Conéctate con otros entusiastas, aprende nuevas estrategias y sumérgete en el juego competitivo.",
             "tab-title": "Eventos de Ajedrez",
-            "title": "Eventos de Ajedrez"
+            "title": "Eventos de Ajedrez",
+            "select-year": "Seleccionar año"
         },
         "game": {
           "opening": "Apertura",
@@ -167,7 +168,8 @@
         "title": "Configuración de Fitness"
     },
     "general": {
-        "sort": "Ordenar"
+        "sort": "Ordenar",
+        "filter": "Filtrar"
     },
     "home": {
         "about-me": {

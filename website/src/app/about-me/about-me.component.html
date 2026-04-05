@@ -1,52 +1,71 @@
 <div class="container mx-auto 4k:max-w-screen-lScreen xlScreen:max-w-screen-lScreen">
-  <p-card header="{{'about-me.title' | translate}}" class="rounded-border">
+  <p-card class="rounded-border">
     <ng-template #header>
-      <img alt="About me AI image" ngSrc="about-me.webp" height="887" width="1792" priority placeholder/>
+      <img alt="About me AI image" ngSrc="about-me.webp" height="887" width="1792" priority placeholder class="w-full rounded-t-border" />
     </ng-template>
 
-    <div class="grid gap-6">
+    <ng-template #title>
+      <div class="flex items-center gap-2">
+        <fa-icon [icon]="faUser" class="text-primary"></fa-icon>
+        <span class="text-surface-900 dark:text-surface-0">{{ 'about-me.title' | translate }}</span>
+      </div>
+    </ng-template>
+
+    <div class="grid gap-6 text-surface-600 dark:text-surface-400">
       <div>
           <p>{{"about-me.introduction.s1" | translate}}</p>
       </div>
 
       <div>
-          <p class="text-lg font-bold mb-2">{{"about-me.passion.title" | translate}}</p>
+          <p class="text-lg font-bold mb-2 text-surface-900 dark:text-surface-0">{{"about-me.passion.title" | translate}}</p>
           <p class="mb-2">{{"about-me.passion.s1" | translate}}</p>
           <p class="mb-2">{{"about-me.passion.s2" | translate}}</p>
           <p class="mb-2">{{"about-me.passion.s3" | translate}}</p>
       </div>
 
       <div>
-          <p class="text-lg font-bold mb-2">{{"about-me.beyond-coding.title" | translate}}</p>
+          <p class="text-lg font-bold mb-2 text-surface-900 dark:text-surface-0">{{"about-me.beyond-coding.title" | translate}}</p>
           <p class="mb-2">{{"about-me.beyond-coding.s1" | translate}}</p>
           <p class="mb-2">{{"about-me.beyond-coding.s2" | translate}}</p>
       </div>
 
       <div>
-          <p class="text-lg font-bold mb-2">{{"about-me.lets-contact.title" | translate}}</p>
+          <p class="text-lg font-bold mb-2 text-surface-900 dark:text-surface-0">{{"about-me.lets-contact.title" | translate}}</p>
           <p class="mb-2">{{"about-me.lets-contact.s1" | translate}}</p>
       </div>
 
-        <div>
-            <p class="text-lg font-bold mb-2">{{ "about-me.experience.intro" | translate }}</p>
-        </div>
+      <div>
+          <p class="text-lg font-bold mb-2 text-surface-900 dark:text-surface-0">{{ "about-me.experience.intro" | translate }}</p>
+      </div>
     </div>
 
     @defer {
-      <div>
+      <div class="mt-4">
         <app-about-me-experience></app-about-me-experience>
       </div>
     } @placeholder {
-      <div>
-        <p-skeleton class="mb-2" />
+      <div class="mt-4">
+        <p-skeleton class="mb-2" height="150px" />
       </div>
     }
 
     <ng-template #footer>
-      <div class="flex gap-3 mt-1">
-        <p-button label="LinkedIn" class="w-full" styleClass="w-full" (onClick)="openLinkedIn()" />
-        <p-button label="Github" class="w-full" styleClass="w-full" (onClick)="openGithub()"/>
-        <p-button label="Donate" class="w-full" styleClass="w-full" (onClick)="openDonate()"/>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-1">
+        <p-button [label]="'LinkedIn'" class="w-full" styleClass="w-full" (onClick)="openLinkedIn()" variant="outlined">
+          <ng-template #icon>
+            <fa-icon [icon]="faLinkedin" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
+        <p-button [label]="'Github'" class="w-full" styleClass="w-full" (onClick)="openGithub()" variant="outlined">
+          <ng-template #icon>
+            <fa-icon [icon]="faGithub" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
+        <p-button [label]="'Donate'" class="w-full" styleClass="w-full" (onClick)="openDonate()" variant="outlined">
+          <ng-template #icon>
+            <fa-icon [icon]="faHeart" class="mr-2"></fa-icon>
+          </ng-template>
+        </p-button>
       </div>
     </ng-template>
   </p-card>

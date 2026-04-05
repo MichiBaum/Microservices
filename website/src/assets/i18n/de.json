@@ -68,7 +68,8 @@
         "events": {
             "meta-description": "Informieren Sie sich über bevorstehende Schachturniere, Klubtreffen und Ausstellungen für Spieler aller Spielstärken. Knüpfen Sie Kontakte, lernen Sie neue Strategien und tauchen Sie in den Wettkampfaspekt des Schachs ein.",
             "tab-title": "Schach Veranstaltungen",
-            "title": "Schach Veranstaltungen"
+            "title": "Schach Veranstaltungen",
+            "select-year": "Jahr auswählen"
         },
         "game": {
             "opening": "Eröffnung",
@@ -167,7 +168,8 @@
         "title": "Fitness Einstellungen"
     },
     "general": {
-        "sort": "Sortieren"
+        "sort": "Sortieren",
+        "filter": "Filter"
     },
     "home": {
         "about-me": {

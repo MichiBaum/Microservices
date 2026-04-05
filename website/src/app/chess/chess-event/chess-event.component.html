@@ -15,37 +15,41 @@
         @if (event(); as _event) {
           <div class="4k:col-span-1 xlScreen:col-span-1 lScreen:col-span-1 desktop:col-span-1 laptop:col-span-1 tablet:col-span-1 mobile:col-span-1">
             <p-card class="h-full">
-              <ng-template #title>{{_event.title}}</ng-template>
-              <ng-template #subtitle>{{categories()}}</ng-template>
+              <ng-template #title>
+                <span class="text-surface-900 dark:text-surface-0">{{_event.title}}</span>
+              </ng-template>
+              <ng-template #subtitle>
+                <span class="text-slate-500 dark:text-slate-400">{{categories()}}</span>
+              </ng-template>
 
               <div class="flex flex-col gap-3 mt-2">
                 @if (_event.platform; as platform) {
                   <div class="flex items-center gap-2 text-sm">
-                    <fa-icon [icon]="faBuilding" class="text-slate-400 w-4"></fa-icon>
-                    <span class="text-slate-500">{{'chess.event.organizer' | translate}}:</span>
-                    <span class="font-medium">{{'chess.platform.' + platform | translate}}</span>
+                    <fa-icon [icon]="faBuilding" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+                    <span class="text-slate-500 dark:text-slate-400">{{'chess.event.organizer' | translate}}:</span>
+                    <span class="font-medium text-surface-900 dark:text-surface-0">{{'chess.platform.' + platform | translate}}</span>
                   </div>
                 }
                 @if (_event.location; as location) {
                   <div class="flex items-center gap-2 text-sm">
-                    <fa-icon [icon]="faLocationDot" class="text-slate-400 w-4"></fa-icon>
-                    <span class="text-slate-500">{{'chess.event.location' | translate}}:</span>
-                    <span class="font-medium">{{ location }}</span>
+                    <fa-icon [icon]="faLocationDot" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+                    <span class="text-slate-500 dark:text-slate-400">{{'chess.event.location' | translate}}:</span>
+                    <span class="font-medium text-surface-900 dark:text-surface-0">{{ location }}</span>
                   </div>
                 }
                 <div class="flex flex-col gap-1 border-t pt-2">
                   @if (_event.dateFrom; as dateFrom) {
                     <div class="flex items-center gap-2 text-sm">
-                      <fa-icon [icon]="faCalendarAlt" class="text-slate-400 w-4"></fa-icon>
-                      <span class="text-slate-500">{{'chess.event.date-from' | translate}}:</span>
-                      <span class="font-medium">{{ dateFrom }}</span>
+                      <fa-icon [icon]="faCalendarAlt" class="text-slate-400 dark:text-slate-500 w-4"></fa-icon>
+                      <span class="text-slate-500 dark:text-slate-400">{{'chess.event.date-from' | translate}}:</span>
+                      <span class="font-medium text-surface-900 dark:text-surface-0">{{ dateFrom }}</span>
                     </div>
                   }
                   @if (_event.dateTo; as dateTo) {
                     <div class="flex items-center gap-2 text-sm">
-                      <fa-icon [icon]="faCalendarAlt" class="text-slate-400 w-4 opacity-0"></fa-icon>
-                      <span class="text-slate-500">{{'chess.event.date-to' | translate}}:</span>
-                      <span class="font-medium">{{ dateTo }}</span>
+                      <fa-icon [icon]="faCalendarAlt" class="text-slate-400 dark:text-slate-500 w-4 opacity-0"></fa-icon>
+                      <span class="text-slate-500 dark:text-slate-400">{{'chess.event.date-to' | translate}}:</span>
+                      <span class="font-medium text-surface-900 dark:text-surface-0">{{ dateTo }}</span>
                     </div>
                   }
                 </div>
