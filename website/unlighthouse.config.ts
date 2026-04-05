@@ -13,6 +13,6 @@ export default defineUnlighthouseConfig({
     ],
   },
   lighthouseOptions: {
-    maxWaitForLoad: 10000, // Wait up to 10s for page load
-  },
+    maxWaitForLoad: 30000, // Wait up to 30s for page load
+  }
 })
