@@ -206,11 +206,10 @@ data:
       "monitor": {
         "menuEnabled": true
       },
-      "archiveEnabled": true,
-      "search": {
-        "maxLookback": "0",
-        "maxLimit": 1500
+      "themes": {
+        "enabled": true
       },
+      "archiveEnabled": true,
       "menu": [
         {
           "label": "About Jaeger",
@@ -227,3 +226,4 @@ data:
         }
       ]
     }
+    
