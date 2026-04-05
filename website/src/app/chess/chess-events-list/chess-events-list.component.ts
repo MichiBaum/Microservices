@@ -36,7 +36,6 @@ import {faCalendarAlt, faFilter, faFolder} from "@fortawesome/free-solid-svg-ico
 })
 export class ChessEventsListComponent {
   protected readonly faFilter = faFilter;
-  protected readonly faFolder = faFolder;
   protected readonly faCalendarAlt = faCalendarAlt;
 
   private readonly chessService = inject(ChessService);
