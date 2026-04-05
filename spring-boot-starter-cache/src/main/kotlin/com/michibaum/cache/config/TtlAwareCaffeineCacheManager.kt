@@ -15,23 +15,27 @@ import java.time.Duration
  * flexibility to configure cache behaviors dynamically based on given requirements.
  *
  * @constructor
- * @param ttlByCacheName A map where the keys are cache names and the values are corresponding TTL durations.
+ * @param configsByCacheName A map where the keys are cache names and the values are corresponding cache configurations.
  */
 class TtlAwareCaffeineCacheManager (
-    private val ttlByCacheName: Map<String, Duration>
+    private val configsByCacheName: Map<String, TtlAwareCaffeineCacheManagerConfiguration>
 ) : CaffeineCacheManager() {
 
     /**
      * Creates a new cache instance with the specified name using Caffeine as the underlying cache implementation.
-     * If a time-to-live (TTL) duration is defined for the given cache name in the `ttlByCacheName` map and is positive,
+     * If a time-to-live (TTL) duration is defined for the given cache name in the `configsByCacheName` map and is positive,
      * the cache will expire entries after the defined duration.
      *
      * @param name The name of the cache to be created.
      * @return A Caffeine-based cache instance configured with the specified name and TTL if applicable.
      */
     override fun createCaffeineCache(name: String): Cache {
+        val config = configsByCacheName[name]
         val builder = Caffeine.newBuilder()
-        val ttl = ttlByCacheName[name]
+        if (config?.statsEnabled ?: true) {
+            builder.recordStats()
+        }
+        val ttl = config?.ttl
         if (ttl != null && !ttl.isZero && !ttl.isNegative) {
             builder.expireAfterWrite(ttl)
         }
