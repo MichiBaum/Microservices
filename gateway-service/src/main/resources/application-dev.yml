@@ -42,21 +42,42 @@ management:
 
 cors:
   allowed-origin-patterns:
-    - http://michibaum.ch:[80,4200]
-    - http://*.michibaum.ch:[80,4200]
-    - http://michibaum.com:[80,4200]
-    - http://*.michibaum.com:[80,4200]
-    - http://michibaum.eu:[80,4200]
-    - http://*.michibaum.eu:[80,4200]
-    - http://michibaum.org:[80,4200]
-    - http://*.michibaum.org:[80,4200]
-    - http://michibaum.app:[80,4200]
-    - http://*.michibaum.app:[80,4200]
-    - http://michibaum.me:[80,4200]
-    - http://*.michibaum.me:[80,4200]
-    - http://michibaum.net:[80,4200]
-    - http://*.michibaum.net:[80,4200]
-    - http://michibaum.info:[80,4200]
-    - http://*.michibaum.info:[80,4200]
-    - http://michibaum.xyz:[80,4200]
-    - http://*.michibaum.xyz:[80,4200]
+    - http://michibaum.ch
+    - http://*.michibaum.ch
+    - http://michibaum.ch:4200
+    - http://*.michibaum.ch:4200
+    - http://michibaum.com
+    - http://*.michibaum.com
+    - http://michibaum.com:4200
+    - http://*.michibaum.com:4200
+    - http://michibaum.eu
+    - http://*.michibaum.eu
+    - http://michibaum.eu:4200
+    - http://*.michibaum.eu:4200
+    - http://michibaum.org
+    - http://*.michibaum.org
+    - http://michibaum.org:4200
+    - http://*.michibaum.org:4200
+    - http://michibaum.app
+    - http://*.michibaum.app
+    - http://michibaum.app:4200
+    - http://*.michibaum.app:4200
+    - http://michibaum.me
+    - http://*.michibaum.me
+    - http://michibaum.me:4200
+    - http://*.michibaum.me:4200
+    - http://michibaum.net
+    - http://*.michibaum.net
+    - http://michibaum.net:4200
+    - http://*.michibaum.net:4200
+    - http://michibaum.info
+    - http://*.michibaum.info
+    - http://michibaum.info:4200
+    - http://*.michibaum.info:4200
+    - http://michibaum.xyz
+    - http://*.michibaum.xyz
+    - http://michibaum.xyz:4200
+    - http://*.michibaum.xyz:4200
+
+sitemap-xml:
+  https: false
