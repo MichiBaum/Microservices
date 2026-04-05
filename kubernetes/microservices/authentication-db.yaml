@@ -40,11 +40,12 @@ spec:
       app: authentication-db
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: authentication-db
   namespace: microservices
 spec:
+  serviceName: "authentication-db"
   replicas: 1
   selector:
     matchLabels:
@@ -109,3 +110,4 @@ spec:
   - port: 3306
     targetPort: 3306
   type: ClusterIP
+  clusterIP: None
