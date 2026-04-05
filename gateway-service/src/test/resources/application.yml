@@ -111,6 +111,7 @@ robots-txt:
   sitemaps:
     - "/sitemap.xml"
 sitemap-xml:
+  https: true
   locations:
     - "/"
     - "/home"
