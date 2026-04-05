@@ -38,7 +38,7 @@ There are these microservices:
 - Music Service
 - Grafana Service
 - Prometheus Service
-- Zipkin Service
+- Jaeger Service
 
 And these libraries:
 - Authentication Library

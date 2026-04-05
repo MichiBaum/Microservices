@@ -58,8 +58,20 @@ eureka:
     registry-fetch-interval-seconds: 10
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/traces
+          transport: http
+  otlp:
+    metrics:
+      export:
+        enabled: false
   server:
-    port: 80
     ssl:
       enabled: false
   observations:

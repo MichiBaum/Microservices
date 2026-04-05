@@ -6,7 +6,7 @@ metadata:
 data:
   SPRING_ACTIVE_PROFILES: "prod"
   JAVA_TOOL_OPTIONS: "-Xms256m -Xmx2g -XX:G1HeapRegionSize=8M -XX:+UseG1GC -XX:+UseContainerSupport -XX:MaxGCPauseMillis=100 -XX:+UseStringDeduplication -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+ParallelRefProcEnabled -XX:+ExitOnOutOfMemoryError"
-  ZIPKIN_DB_JAVA_TOOL_OPTIONS: "-Xms256m -Xmx1g -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+UseG1GC -XX:+UseContainerSupport"
+  JAEGER_DB_JAVA_TOOL_OPTIONS: "-Xms256m -Xmx1g -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+UseG1GC -XX:+UseContainerSupport"
   
   # Database names
   AUTHENTICATION_DB: "authentication"

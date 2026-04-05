@@ -26,7 +26,7 @@ This document provides information about deploying and updating the microservice
   - `namespace.yaml`: Defines the microservices namespace
   - `configmap.yaml`: Contains non-sensitive configuration
   - `registry-service.yaml`: Service registry (Eureka)
-  - `zipkin.yaml`: Distributed tracing (Zipkin, Zipkin Storage, Zipkin Dependencies)
+  - `jaeger.yaml`: Distributed tracing (Jaeger, Jaeger Storage)
   - `monitoring.yaml`: Monitoring tools (Prometheus, Grafana)
   - `traefik-middleware.yaml`: Defines Traefik middleware for HTTP to HTTPS redirection
   - `authentication-db.yaml`: Authentication database (MariaDB)
@@ -71,7 +71,7 @@ This document provides information about deploying and updating the microservice
 
 5. Deploy infrastructure services:
    ```bash
-   kubectl apply -n microservices -f zipkin.yaml
+   kubectl apply -n microservices -f jaeger.yaml
    kubectl apply -n microservices -f registry-service.yaml
    ```
 

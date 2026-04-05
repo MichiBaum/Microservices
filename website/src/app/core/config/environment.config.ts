@@ -42,8 +42,8 @@ export class EnvironmentConfig {
     return environment.musicService(this.protocol, this.hostname);
   }
 
-  zipkin(): string {
-      return environment.zipkinService(this.protocol, this.hostname);
+  jaeger(): string {
+      return environment.jaegerService(this.protocol, this.hostname);
   }
 
   grafana(): string {

@@ -42,13 +42,6 @@ eureka:
       defaultZone: http://admin_username:admin_password@localhost:8761/eureka
 
 management:
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-      export:
-        enabled: true
   tracing:
     sampling:
       probability: 1.0
-    export:
-      enabled: true

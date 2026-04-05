@@ -39,7 +39,7 @@ class CircuitBreakerConfiguration {
     }
 
     @Bean
-    fun grafanaAndZipkinCustomizer(): Customizer<Resilience4JCircuitBreakerFactory> {
+    fun grafanaAndJaegerCustomizer(): Customizer<Resilience4JCircuitBreakerFactory> {
         return Customizer { factory ->
             factory.configure({ builder ->
                 builder
@@ -54,7 +54,7 @@ class CircuitBreakerConfiguration {
                         .slowCallRateThreshold(50.0f)
                         .slowCallDurationThreshold(Duration.ofSeconds(2))
                         .build())
-            }, Service.GRAFANA.cbId, Service.ZIPKIN.cbId)
+            }, Service.GRAFANA.cbId, Service.JAEGER.cbId)
         }
     }
 }

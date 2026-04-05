@@ -1,0 +1,8 @@
+span-storage-type: elasticsearch
+es:
+  server-urls: http://jaeger-storage:9200
+collector:
+  otlp:
+    enabled: true
+query:
+  ui-config: /etc/jaeger/ui-config.json
