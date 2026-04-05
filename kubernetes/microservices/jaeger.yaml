@@ -40,11 +40,12 @@ spec:
       app: jaeger-storage
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: jaeger-storage
   namespace: microservices
 spec:
+  serviceName: "jaeger-storage"
   replicas: 1
   selector:
     matchLabels:
@@ -98,6 +99,7 @@ spec:
   - port: 9200
     targetPort: 9200
   type: ClusterIP
+  clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment
