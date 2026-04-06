@@ -15,6 +15,9 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: 35591.hostserv.eu
+      securityContext:
+        runAsUser: 472
+        fsGroup: 472
       containers:
       - name: grafana
         image: grafana/grafana:11.6.2
@@ -35,13 +38,23 @@ spec:
           value: "true"
         - name: GF_AUTH_LOGIN_COOKIE_NAME
           value: "grafana_session"
+        - name: GF_ANALYTICS_CHECK_FOR_UPDATES
+          value: "false"
+        - name: GF_SERVER_ROOT_URL
+          value: "https://grafana.michibaum.ch/"
+        - name: GF_SERVER_SERVE_FROM_SUB_PATH
+          value: "true"
+        - name: GF_DATABASE_WAL
+          value: "false"
+        - name: GF_DATABASE_BUSY_TIMEOUT
+          value: "10000"
         volumeMounts:
           - name: grafana-datasources
             mountPath: /etc/grafana/provisioning/datasources/
           - name: grafana-dashboards
             mountPath: /etc/grafana/provisioning/dashboards/
-          - name: grafana-dashboards-volume
-            mountPath: /var/lib/grafana/dashboards
+          - name: grafana-storage
+            mountPath: /var/lib/grafana
       volumes:
         - name: grafana-datasources
           configMap:
@@ -49,9 +62,9 @@ spec:
         - name: grafana-dashboards
           configMap:
             name: grafana-dashboards
-        - name: grafana-dashboards-volume
+        - name: grafana-storage
           persistentVolumeClaim:
-            claimName: grafana-dashboards-pvc
+            claimName: grafana-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -73,6 +86,7 @@ metadata:
   namespace: microservices
 data:
   datasource.yml: |
+    apiVersion: 1
     datasources:
       - name: Prometheus
         type: prometheus
@@ -82,6 +96,10 @@ data:
         type: jaeger
         access: proxy
         url: http://jaeger:16686
+      - name: Jaeger Storage
+        type: elasticsearch
+        access: proxy
+        url: http://jaeger-storage:9200
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -91,7 +109,6 @@ metadata:
 data:
   default.yml: |
     apiVersion: 1
-
     providers:
       - name: 'Main'
         orgId: 1
@@ -107,7 +124,7 @@ data:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: grafana-dashboards-pvc
+  name: grafana-pvc
   namespace: microservices
 spec:
   storageClassName: local-storage
@@ -123,7 +140,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: grafana-dashboards-pv
+  name: grafana-pv
   labels:
     type: local
     app: grafana
@@ -135,7 +152,7 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   local:
-    path: "/data/grafana-dashboards"
+    path: "/data/grafana"
   nodeAffinity:
     required:
       nodeSelectorTerms:

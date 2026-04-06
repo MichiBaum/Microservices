@@ -27,7 +27,8 @@ This document provides information about deploying and updating the microservice
   - `configmap.yaml`: Contains non-sensitive configuration
   - `registry-service.yaml`: Service registry (Eureka)
   - `jaeger.yaml`: Distributed tracing (Jaeger, Jaeger Storage)
-  - `monitoring.yaml`: Monitoring tools (Prometheus, Grafana)
+  - `prometheus.yaml`: Prometheus monitoring
+  - `grafana.yaml`: Grafana dashboarding
   - `traefik-middleware.yaml`: Defines Traefik middleware for HTTP to HTTPS redirection
   - `authentication-db.yaml`: Authentication database (MariaDB)
   - `usermanagement-db.yaml`: User Management database (MariaDB)
