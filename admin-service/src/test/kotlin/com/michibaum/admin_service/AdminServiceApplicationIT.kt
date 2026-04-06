@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 
 
-@SpringBootTest(properties = ["management.tracing.export.enabled=true", "management.opentelemetry.tracing.export.otlp.endpoint=http://localhost:4318/v1/traces"])
+@SpringBootTest(properties = ["management.tracing.export.enabled=true", "management.opentelemetry.tracing.export.otlp.endpoint=http://localhost:4317", "management.opentelemetry.tracing.export.otlp.transport=grpc"])
 class AdminServiceApplicationIT {
 
     @Autowired
@@ -24,7 +24,7 @@ class AdminServiceApplicationIT {
         val spanExporters = applicationContext.getBeansOfType(SpanExporter::class.java)
         assertNotNull(spanExporters)
         // At least one exporter should be an OTLP exporter if configured correctly
-        // In SB 4.x, it's the OtlpHttpSpanExporter
+        // In SB 4.x, it's the OtlpGrpcSpanExporter
         assert(spanExporters.values.any { it::class.java.simpleName.contains("Otlp") })
     }
 }
