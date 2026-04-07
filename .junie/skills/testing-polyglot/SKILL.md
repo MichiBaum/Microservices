@@ -1,12 +1,16 @@
 ---
 name: "testing-polyglot"
-description: "Proficiency in various testing levels and frameworks (JUnit, Testcontainers, E2E)."
+description: "Proficiency in various testing levels and frameworks (JUnit 5, MockK, Testcontainers, ArchUnit)."
 ---
 # 🧪 Testing Mastery
 
 ## 🧪 Comprehensive Testing
-- **Framework Proficiency**: Expertise in JUnit, Mockito, and AssertJ.
-- **Integration Testing**: Effective use of Testcontainers for reliable integration tests.
-- **Performance Testing**: Proficiency with JMeter, oha, and other benchmarking tools.
-- **Advanced Strategies**: Design and implementation of unit, integration, and E2E tests.
-- **Testability Advocacy**: Recommending refactorings to improve code testability.
+- **Backend Testing**:
+    - **JUnit 5** and **AssertJ** for assertions.
+    - **MockK** for mocking (idiomatic Kotlin).
+    - **Testcontainers** for real-world integration testing (databases, etc.).
+    - **ArchUnit** for enforcing architectural constraints (see `archunittests/`).
+- **Frontend Testing**:
+    - **Jasmine** and **Karma** (standard Angular).
+- **Performance**: Use `oha`, `JMeter`, or `Spring Boot Actuator` for benchmarking.
+- **Standards**: Maintain high test coverage and follow the AAA (Arrange, Act, Assert) pattern.

@@ -1,12 +1,18 @@
 ---
 name: "microservices-architecture"
-description: "Principles and practices for maintaining a robust, independent, and scalable microservices ecosystem."
+description: "Principles and practices for maintaining a robust, independent, and scalable microservices ecosystem using Spring Cloud."
 ---
 # 🏗️ Microservices Architecture Skills
 
 ## 🏗️ Microservices Ecosystem Mastery
-- **Service Independence**: Any change to one service must not break another.
-- **Shared Libraries**: Prefer evolving existing libraries (`*-library`) over duplicating code.
-- **REST First**: Prioritize REST for inter-service communication.
-- **Microservices Principles**: Ensure each service follows the Single Responsibility Principle and maintains its own data store where applicable.
-- **Naming Conventions**: Follow existing patterns (e.g., `*-service`, `*-library`).
+- **Service Independence**: Services must be loosely coupled. Avoid direct dependency between services.
+- **Service Discovery**: Uses **Netflix Eureka** via `registry-service`.
+- **API Gateway**: Uses **Spring Cloud Gateway (WebMVC)** in `gateway-service`.
+- **Inter-service Communication**:
+    - Use **OpenFeign** for synchronous REST calls.
+    - Prefer asynchronous communication where appropriate.
+- **Shared Libraries**: 
+    - `*-library`: General libraries (e.g., `permission-library`, `authentication-library`).
+    - `spring-boot-starter-*`: Reusable Spring Boot starters (e.g., `spring-boot-starter-authentication`, `spring-boot-starter-discord`).
+- **Naming**: services follow `*-service`, libraries follow `*-library` or `spring-boot-starter-*`.
+- **Resilience**: Implement Circuit Breakers using `resilience4j` where needed.
