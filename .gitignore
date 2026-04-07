@@ -35,3 +35,6 @@ build/
 
 ### Env Files ###
 discord.env
+
+### Junie ###
+.junie/memory/
