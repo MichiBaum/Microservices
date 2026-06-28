@@ -8,7 +8,7 @@ apt install fail2ban
 ## Version
 ```Bash
 fail2ban-client version
-0.11.2
+1.0.2
 ```
 
 ## Service Commands
@@ -30,7 +30,7 @@ systemctl status fail2ban
 ```Bash
 # Show overall status (enabled jails, etc.)
 fail2ban-client status
-# Show detailed status for a specific jail
+# Show detailed status for a specific jail, example: fail2ban-client status sshd
 fail2ban-client status <jail-name>
 ```
 

@@ -7,10 +7,30 @@ Server is running Ubuntu and structured the following way:
 - [Backup](#backup)
 
 ## Resources
-Current Server (Ubuntu) has the following resources:
+```
+uname -r
+cat /etc/os-release
+```
+
+### 35591
+OS:
+- Ubuntu 24.04.4 LTS
+- 6.8.0-124-generic
+
+Following resources:
 - 12GB Memory
 - 8 Core
 - ~ 250GB Disk
+
+### nbs1
+OS:
+- Ubuntu 24.04.4 LTS
+- 6.8.0-124-generic
+
+### nbs2
+OS:
+- Ubuntu 24.04.4 LTS
+- 6.8.0-124-generic
 
 ## Paths
 The [git Project](https://github.com/MichiBaum/Microservices) is checked out under ``/git/Microservices``.  
