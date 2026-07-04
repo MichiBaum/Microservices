@@ -46,4 +46,4 @@ jobs:
         run: npm run --prefix website build-production
 
       - name: Maven package and publish
-        run: mvn package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=${{ env.DOCKER_TAG }}
+        run: mvn --batch-mode --no-transfer-progress package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=${{ env.DOCKER_TAG }}
