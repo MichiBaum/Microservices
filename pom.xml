@@ -32,6 +32,8 @@
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
         <datasource-micrometer-spring-boot.version>2.1.1</datasource-micrometer-spring-boot.version>
+        <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-bom -->
+        <micrometer-bom.version>1.16.6</micrometer-bom.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>25</java.version>
@@ -93,6 +95,18 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-bom</artifactId>
+                <version>${micrometer-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aspectj</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
@@ -127,6 +141,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.michibaum</groupId>
+                <artifactId>spring-boot-starter-observability</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -139,11 +158,6 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
-        <repository>
-            <id>repository.spring.release</id>
-            <name>Spring GA Repository</name>
-            <url>https://repo.spring.io/release</url>
         </repository>
         <repository>
             <id>repository.spring.milestone</id>
@@ -170,6 +184,7 @@
         <module>fitness-service</module>
         <module>music-service</module>
         <module>spring-boot-starter-cache</module>
+        <module>spring-boot-starter-observability</module>
     </modules>
 
     <profiles>

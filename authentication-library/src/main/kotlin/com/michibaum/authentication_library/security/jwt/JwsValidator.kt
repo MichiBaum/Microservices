@@ -4,6 +4,7 @@ import com.michibaum.authentication_library.AuthenticationClient
 import com.michibaum.authentication_library.JwsValidationResult
 import com.michibaum.authentication_library.JwsValidator
 import feign.FeignException
+import io.micrometer.observation.annotation.Observed
 import org.slf4j.Logger
 import org.springframework.scheduling.annotation.Scheduled
 import java.security.KeyFactory
@@ -13,7 +14,7 @@ import java.security.spec.X509EncodedKeySpec
 import java.util.concurrent.TimeUnit
 
 
-class JwsValidator(
+open class JwsValidator(
     private val authenticationClient: AuthenticationClient
 ): JwsValidator() {
 
@@ -39,6 +40,7 @@ class JwsValidator(
         return validate(token, publicKey)
     }
 
+    @Observed(name = "jws.validator.update.public.key")
     @Scheduled(fixedRate = 2, timeUnit = TimeUnit.MINUTES)
     fun updatePublicKey(){
         reloadPublicKey()

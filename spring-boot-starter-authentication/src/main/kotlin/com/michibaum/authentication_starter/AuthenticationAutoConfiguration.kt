@@ -10,9 +10,9 @@ import com.michibaum.authentication_library.security.basic.CredentialsValidator
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
-import io.micrometer.observation.ObservationRegistry
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import io.micrometer.observation.ObservationRegistry
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties
