@@ -14,7 +14,7 @@ import java.security.spec.X509EncodedKeySpec
 import java.util.concurrent.TimeUnit
 
 
-class JwsValidator(
+open class JwsValidator(
     private val authenticationClient: AuthenticationClient
 ): JwsValidator() {
 
