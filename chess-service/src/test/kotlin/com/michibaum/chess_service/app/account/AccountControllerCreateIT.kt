@@ -1,6 +1,6 @@
 package com.michibaum.chess_service.app.account
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import com.michibaum.chess_service.TestcontainersConfiguration
 import com.michibaum.chess_service.database.ChessPlatform
 import com.michibaum.chess_service.database.AccountRepository
