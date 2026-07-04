@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.core.task.TaskDecorator
 
@@ -24,6 +25,8 @@ class ObservabilityAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "management.observations.services", name = ["enabled"], havingValue = "true", matchIfMissing = true)
+    @ConditionalOnBean(ObservationRegistry::class)
     fun serviceObservationAspect(observationRegistry: ObservationRegistry): ServiceObservationAspect {
         return ServiceObservationAspect(observationRegistry)
     }
