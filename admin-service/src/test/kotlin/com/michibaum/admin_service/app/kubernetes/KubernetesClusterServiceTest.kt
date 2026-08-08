@@ -107,4 +107,22 @@ class KubernetesClusterServiceTest {
             service.getPods()
         }
     }
+
+    @Test
+    fun `getPods throws 503 when kubernetesClient is null`() {
+        val nullClientService = KubernetesClusterService(null)
+
+        assertThrows<ResponseStatusException> {
+            nullClientService.getPods()
+        }
+    }
+
+    @Test
+    fun `getServices throws 503 when kubernetesClient is null`() {
+        val nullClientService = KubernetesClusterService(null)
+
+        assertThrows<ResponseStatusException> {
+            nullClientService.getServices()
+        }
+    }
 }

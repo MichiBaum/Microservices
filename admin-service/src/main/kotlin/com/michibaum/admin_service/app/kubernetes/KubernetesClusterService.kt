@@ -11,15 +11,18 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class KubernetesClusterService(
-    private val kubernetesClient: KubernetesClient
+    private val kubernetesClient: KubernetesClient? = null
 ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
     fun getPods(namespace: String? = null): List<PodDto> {
+        val client = kubernetesClient ?: throw ResponseStatusException(
+            HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
+        )
         val targetNamespace = resolveNamespace(namespace)
         val podList = try {
-            kubernetesClient.pods().inNamespace(targetNamespace).list().items
+            client.pods().inNamespace(targetNamespace).list().items
         } catch (e: Exception) {
             logger.error("Failed to fetch pods from Kubernetes API server in namespace $targetNamespace", e)
             throw ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Unable to reach Kubernetes API Server", e)
@@ -39,9 +42,12 @@ class KubernetesClusterService(
     }
 
     fun getServices(namespace: String? = null): List<ServiceDto> {
+        val client = kubernetesClient ?: throw ResponseStatusException(
+            HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
+        )
         val targetNamespace = resolveNamespace(namespace)
         val serviceList = try {
-            kubernetesClient.services().inNamespace(targetNamespace).list().items
+            client.services().inNamespace(targetNamespace).list().items
         } catch (e: Exception) {
             logger.error("Failed to fetch services from Kubernetes API server in namespace $targetNamespace", e)
             throw ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Unable to reach Kubernetes API Server", e)
@@ -68,6 +74,6 @@ class KubernetesClusterService(
 
     private fun resolveNamespace(namespace: String?): String =
         namespace?.takeIf { it.isNotBlank() }
-            ?: kubernetesClient.namespace?.takeIf { it.isNotBlank() }
+            ?: kubernetesClient?.namespace?.takeIf { it.isNotBlank() }
             ?: "microservices"
 }
