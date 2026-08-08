@@ -38,3 +38,5 @@ discord.env
 
 ### Junie ###
 .junie/memory/
+/.junie/mcp/
+/.junie/plans/
