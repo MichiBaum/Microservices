@@ -28,7 +28,7 @@ description: "Expertise in Kubernetes (k0s) deployments, orchestration, and cont
 - Define `Service` resources with appropriate port mappings for each microservice.
 
 ## Container Best Practices
-- Use `eclipse-temurin:26-jre-alpine` as the base image for JVM services.
+- Use `eclipse-temurin:25-jre-alpine` as the base image for JVM services.
 - Keep Docker images minimal; use multi-stage builds where appropriate.
 - Do not run containers as root; use a non-root user in Dockerfiles.
 - Tag images with specific versions; avoid `latest` tag in production manifests.

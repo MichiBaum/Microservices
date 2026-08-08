@@ -31,7 +31,7 @@ description: "Proficiency in local development environment, CLI tools, Docker Co
 - `docker-compose.local.yml` defines the local development stack (databases, services).
 - Use `docker-compose -f docker-compose.local.yml up -d` to start all infrastructure.
 - Use `docker-compose -f docker-compose.local.yml down` to stop and clean up.
-- Dockerfiles should use `eclipse-temurin:26-jre-alpine` as the base image for services.
+- Dockerfiles should use `eclipse-temurin:25-jre-alpine` as the base image for services.
 
 ## Terminal Environment
 - This project runs on Windows; use PowerShell syntax for all terminal commands.

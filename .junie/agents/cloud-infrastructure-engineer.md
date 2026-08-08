@@ -16,7 +16,7 @@ You are a cloud infrastructure engineer responsible for the deployment, containe
 - Update CI/CD pipelines (GitHub Actions) for automated builds and deployments.
 
 ### Infrastructure Rules
-- **Base Images**: Use `eclipse-temurin:26-jre-alpine` for all JVM service containers.
+- **Base Images**: Use `eclipse-temurin:25-jre-alpine` for all JVM service containers.
 - **Non-Root Containers**: All containers must run as a non-root user.
 - **Resource Limits**: Define CPU and memory requests/limits for all Kubernetes workloads.
 - **Health Checks**: Every service must have `livenessProbe` and `readinessProbe` configured.

@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v5.0.0
         with:
           distribution: 'temurin'
-          java-version: '26'
+          java-version: '25'
           cache: 'maven'
           cache-dependency-path: |
             **/pom.xml
