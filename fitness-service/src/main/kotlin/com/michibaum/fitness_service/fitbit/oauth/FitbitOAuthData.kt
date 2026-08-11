@@ -23,5 +23,5 @@ class FitbitOAuthData(
 
     @Id
     @UuidGenerator
-    val id: UUID= UUID.randomUUID(),
+    val id: UUID? = null,
 )
