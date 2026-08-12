@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.7.0-283-kubernetes-in-admin-service-SNAPSHOT</version>
+    <version>1.7.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
@@ -27,7 +27,7 @@
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>4.1.1</spring-boot-admin.version>
+        <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
@@ -36,17 +36,18 @@
         <micrometer-bom.version>1.17.0</micrometer-bom.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>25</java.version>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <java.version>26</java.version>
+        <maven.compiler.source>26</maven.compiler.source>
+        <maven.compiler.target>26</maven.compiler.target>
 
         <!--
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.3.21</kotlin.version>
+        <kotlin.version>2.4.10</kotlin.version>
+        <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom -->
         <kotlin-coroutines.version>1.11.0</kotlin-coroutines.version>
-        <kotlin.compiler.jvmTarget>25</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.jvmTarget>26</kotlin.compiler.jvmTarget>
 
         <!--
         https://mockk.io/
@@ -56,11 +57,11 @@
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
-        <jib-maven-plugin.image>eclipse-temurin:25-jre-alpine</jib-maven-plugin.image>
+        <jib-maven-plugin.image>eclipse-temurin:26-jre-alpine</jib-maven-plugin.image>
         
         <!-- Plugins -->
         <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
-        <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.5.2</jib-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
         <!-- https://github.com/aleksandr-m/gitflow-maven-plugin -->

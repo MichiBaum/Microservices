@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.michibaum</groupId>
 		<artifactId>microservice</artifactId>
-		<version>1.7.0-283-kubernetes-in-admin-service-SNAPSHOT</version>
+		<version>1.7.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -13,8 +13,8 @@
 	<name>admin-service</name>
 
 	<properties>
-		<maven.compiler.source>25</maven.compiler.source>
-		<maven.compiler.target>25</maven.compiler.target>
+  <maven.compiler.source>26</maven.compiler.source>
+  <maven.compiler.target>26</maven.compiler.target>
 		<xstream.version>1.4.21</xstream.version>
 	</properties>
 
@@ -84,18 +84,18 @@
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>spring-boot-starter-discord</artifactId>
-			<version>1.7.0-283-kubernetes-in-admin-service-SNAPSHOT</version>
+			<version>1.7.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>spring-boot-starter-authentication</artifactId>
-			<version>1.7.0-283-kubernetes-in-admin-service-SNAPSHOT</version>
+			<version>1.7.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.michibaum</groupId>
 			<artifactId>archunittests</artifactId>
 			<scope>test</scope>
-			<version>1.7.0-283-kubernetes-in-admin-service-SNAPSHOT</version>
+			<version>1.7.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
