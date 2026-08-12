@@ -44,7 +44,8 @@
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.3.21</kotlin.version>
+        <kotlin.version>2.4.10</kotlin.version>
+        <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom -->
         <kotlin-coroutines.version>1.11.0</kotlin-coroutines.version>
         <kotlin.compiler.jvmTarget>25</kotlin.compiler.jvmTarget>
 
