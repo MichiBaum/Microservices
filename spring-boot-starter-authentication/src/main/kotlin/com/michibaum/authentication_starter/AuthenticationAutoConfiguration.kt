@@ -16,6 +16,7 @@ import io.micrometer.observation.ObservationRegistry
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
 import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.AuthenticationManager
@@ -30,9 +31,9 @@ class AuthenticationAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    fun jwsValidator(authenticationClient: AuthenticationClient): JwsValidator {
+    fun jwsValidator(authenticationClient: AuthenticationClient, circuitBreakerFactory: CircuitBreakerFactory<*, *>?): JwsValidator {
         logger.info("Creating JwsValidator in AuthenticationAutoConfiguration")
-        return JwsValidator(authenticationClient)
+        return JwsValidator(authenticationClient, circuitBreakerFactory)
     }
 
     @Bean
