@@ -27,7 +27,7 @@
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>4.1.1</spring-boot-admin.version>
+        <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
@@ -60,7 +60,7 @@
         
         <!-- Plugins -->
         <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
-        <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.5.2</jib-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
         <!-- https://github.com/aleksandr-m/gitflow-maven-plugin -->
