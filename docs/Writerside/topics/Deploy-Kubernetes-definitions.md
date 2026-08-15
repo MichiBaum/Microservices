@@ -103,7 +103,7 @@ This document provides information about deploying and updating the microservice
 
    ### TLS Certificate
 
-   Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace:
+   Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace. For details on how to generate the certificate, see the [SSL documentation](ssl.md).
    
    ```bash
    # Both commands do the same thing, only different path
