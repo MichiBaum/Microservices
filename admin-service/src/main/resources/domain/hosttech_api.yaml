@@ -1,0 +1,1207 @@
+openapi: 3.0.1
+info:
+  title: hosttech DNS API v1
+  description: REST API for the hosttech DNS system
+  version: 1.0.0
+
+servers:
+  - url: 'https://api.ns1.hosttech.eu'
+    description: hosttech DNS API Server
+  - url: 'http://localhost:3101'
+    description: Local
+
+paths:
+  /api/v1/auth/personal-access-tokens:
+    get:
+      tags:
+        - Tokens
+      description: get a list of all active api access tokens
+      responses:
+        200:
+          $ref: '#/components/responses/Tokens'
+    post:
+      tags:
+        - Tokens
+      description: create a new token to access the api
+      requestBody:
+        $ref: '#/components/requestBodies/TokenCreate'
+      responses:
+        201:
+          $ref: '#/components/responses/TokenCreate'
+  /api/v1/auth/personal-access-tokens/{tokenId}:
+    delete:
+      tags:
+        - Tokens
+      description: deletes an api access token
+      parameters:
+        - name: "tokenId"
+          in: "path"
+          description: "Token id to delete"
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: successfully deleted
+
+  /api/v1/auth/personal-access-tokens/credentials:
+    post:
+      tags:
+        - Tokens
+      description: create a new token to access the api by providing user credentials
+      requestBody:
+        $ref: '#/components/requestBodies/TokenCreateWithCredentials'
+      responses:
+        201:
+          $ref: '#/components/responses/TokenCreate'
+
+  /api/user/v1/nameserversets:
+    get:
+      tags:
+        - Nameserversets
+      summary: Get a list of all nameserver sets
+      description: Returns a list of all nameserver sets for the User.
+      responses:
+        200:
+          $ref: '#/components/responses/Nameserversets'
+
+  '/api/user/v1/nameserversets/{nameserversetId}':
+    get:
+      tags:
+        - Nameserversets
+      summary: Get a nameserver set
+      description: Returns a nameserver set with the servers.
+      parameters:
+        - name: nameserversetId
+          in: path
+          description: nameserverset id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/Nameserverset'
+
+  '/api/user/v1/zones/{zoneId}/records':
+    get:
+      tags:
+        - Records
+      summary: Get a list of all records for a zone
+      description: Returns a list of all records for the given zone.
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: only show records of a specific type
+          required: false
+          schema:
+            type: string
+            enum:
+              - A
+              - AAAA
+              - CAA
+              - CNAME
+              - MX
+              - NS
+              - PTR
+              - SRV
+              - TXT
+              - TLSA
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Record'
+                type: object
+    post:
+      tags:
+        - Records
+      summary: Adds a new record to a zone
+      description: Adds a new record to the zone and returns the newly created record
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: all properties for the record to add (except id) <br><br> <b>CNAME records:</b><br> may contain underscore characters in the name property, beside underscores only alphanumeric characters, hyphens and dots (property value may not end in a dot) are allowed.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Record'
+            example:
+              type: A
+              name: www
+              ipv4: 1.2.3.4
+              ttl: 3600
+              comment: my first record
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+                type: object
+  '/api/user/v1/zones/{zoneId}/records/{recordId}':
+    get:
+      tags:
+        - Records
+      summary: Get a single record for a zone
+      description: Returns a single record for the given id.
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          description: id of the record to show
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+                type: object
+    put:
+      tags:
+        - Records
+      summary: Modifies a record of a zone
+      description: Modifies a record of a zone and returns the updated record
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          description: id of the record to delete
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: all properties for the record to modify (except id and type)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Record'
+            example:
+              name: www
+              ipv4: 1.2.3.4
+              ttl: 3600
+              comment: my modified record
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+                type: object
+    delete:
+      tags:
+        - Records
+      summary: Delete a single record for a zone
+      description: Deletes a single record for the given id.
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+        - name: recordId
+          in: path
+          description: id of the record to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: successful operation
+  /api/user/v1/tools/changeip:
+    post:
+      tags:
+        - Tools
+      summary: Replaces IP in all zone records of aser
+      description: 'Replaces an IP address in all zone records (A, AAAA) belonging to zones of the user'
+      requestBody:
+        description: The IP to be changed and the new value for the IP.
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                old_ip:
+                  type: string
+                  example: 1.2.3.4
+                new_ip:
+                  type: string
+                  example: 5.6.7.8
+              type: object
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  records_updated:
+                    type: integer
+                    example: 4
+                type: object
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: The given data was invalid.
+                  errors:
+                    type: object
+                    example: '{''new_ip'' : [''new_ip muss eine gültige IP-Adresse sein.'']}'
+                type: object
+  /api/user/v1/tools/changettl:
+    post:
+      tags:
+        - Tools
+      summary: Changes the TTL of all records with the given IP
+      description: Changes the TTL of all A or AAAA records which have the given IP.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                ip:
+                  description: The IP to filter for
+                  type: string
+                  example: 1.2.3.4
+                ttl:
+                  description: The TTL (Time to live) (must be 300 or higher)
+                  type: integer
+                  example: 3600
+              type: object
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  records_updated:
+                    type: integer
+                    example: 4
+                type: object
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: The given data was invalid.
+                  errors:
+                    type: object
+                    example: '{''ip'' : [''ip muss eine gültige IP-Adresse sein.'']}'
+                type: object
+  /api/user/v1/me:
+    get:
+      tags:
+        - Users
+      summary: Information about the logged in user
+      description: Get information about the logged in user
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                type: object
+  /api/user/v1/zones:
+    get:
+      tags:
+        - Zones
+      summary: Get a list of all zones
+      description: Returns a list of all zones.
+      parameters:
+        - name: query
+          in: query
+          description: 'A search on the name attribute. You may use * as a placeholder. ''*.ch'' returns all CH zones, ''*ch*'' returns all zones that contain ''ch'' at some point.'
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Limit the amount of records returned
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          description: Offset the beginning of the list of Zones to receive.
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ZoneWithoutRecords'
+                type: object
+    post:
+      tags:
+        - Zones
+      summary: Adds a new zone
+      description: Adds a new zone and returns it
+      requestBody:
+        description: All properties for the zone to add. You can add an array of records as well (optional).
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZoneStore'
+            example:
+              name: user1.ch
+              email: test@hosttech.ch
+              ttl: 10600
+              nameserver: ns1.hosttech.ch
+              dnssec: 0
+              dnssec_email: test@hosttech.ch
+              records: '[{''type'':''A'', ''name'':''www'', ''ipv4'':''1.2.3.4'', ''ttl'':3600, ''comment'':''some record''}]'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Zone'
+                type: object
+  '/api/user/v1/zones/{zoneId}':
+    get:
+      tags:
+        - Zones
+      summary: Get a single zone
+      description: Returns a single zone for the given id.
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Zone'
+                type: object
+    put:
+      tags:
+        - Zones
+      summary: Modifies a zone
+      description: Modifies a zone and returns it
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: All properties for the zone to update. You can add an array of records as well (optional).
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZoneUpdate'
+            example:
+              name: user1.ch
+              email: test@hosttech.ch
+              ttl: 10600
+              nameserver: ns1.hosttech.ch
+              dnssec: 0
+              dnssec_email: null
+              records: '[{''type'':''A'', ''name'':''www'', ''ipv4'':''1.2.3.4'', ''ttl'':3600, ''comment'':''some record''}]'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Zone'
+                type: object
+    delete:
+      tags:
+        - Zones
+      summary: Delete a single zone
+      description: Deletes a single zone for the given id.
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful operation
+
+
+
+  '/api/user/v1/zones/{zoneId}/dnssec_status':
+    get:
+      tags:
+        - Zones
+      summary: Get the current dnssec status
+      description: Returns some detailed information if dnssec is configured properly
+      parameters:
+        - name: zoneId
+          in: path
+          description: zone id or name
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: boolean
+                        description: true if dnssec is working properly, otherwise false
+                      status_key:
+                        type: string
+                        description: machine readable status. possible values (\"success\", \"not_enabled\", \"registry_ds_record_missing\", \"registry_ds_record_mismatch\")
+                      status_message:
+                        type: string
+                        description: human readable status message.
+                type: object
+                example:
+                  status: false
+                  status_key: "registry_ds_record_missing"
+                  status_message: "There is no DS record stored at the domain registry."
+
+components:
+  requestBodies:
+    TokenCreate:
+      description: name of the new token to create
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: My first Token
+    TokenCreateWithCredentials:
+      description: name of the new token to create
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: My first Token
+              username:
+                type: string
+                example: user
+              password:
+                type: string
+                example: password
+
+  schemas:
+    Token:
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          readOnly: true
+      type: object
+      example:
+        id: 2a29d2adbeb7ac7e6b06ce631e929f944f729ec7ccdedf400008dafa790b42fbcca6622834f16c60
+        name: My first Token
+        created_at: '2020-10-20T10:20:30.000000Z'
+    NewToken:
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        token:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          readOnly: true
+      type: object
+      example:
+        id: 2a29d2adbeb7ac7e6b06ce631e929f944f729ec7ccdedf400008dafa790b42fbcca6622834f16c60
+        name: My first Token
+        token: eyJ0eXAiOiJKV1QiL[...]lkajseiY
+        created_at: '2020-10-20T10:20:30.000000Z'
+    ZoneStore:
+      required:
+        - name
+        - email
+        - ttl
+        - nameserver
+        - dnssec
+      properties:
+        name:
+          description: unique zone name
+          type: string
+        email:
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        nameserver:
+          description: name of the nameserver
+          type: string
+        dnssec:
+          type: boolean
+        dnssec_email:
+          type: string
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+      type: object
+      example:
+        name: user1.ch
+        email: test@hosttech.ch
+        ttl: 10800
+        nameserver: ns1.hosttech.ch
+        dnssec: 0
+        dnssec_email: test@hosttech.ch
+    ZoneUpdate:
+      allOf:
+        - $ref: '#/components/schemas/ZoneStore'
+        - required: [ ]
+          type: object
+    AAAARecord:
+      description: AAAA record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: AAAA
+          readOnly: true
+        name:
+          description: zone prefix
+          type: string
+        ipv6:
+          description: target IPv6 address
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 11
+        type: AAAA
+        name: www
+        ipv6: '2001:db8:1234::1'
+        ttl: 3600
+        comment: my first record
+    ARecord:
+      description: A record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: A
+          readOnly: true
+        name:
+          description: zone prefix
+          type: string
+        ipv4:
+          description: target IPv4 address
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 10
+        type: A
+        name: www
+        ipv4: 1.2.3.4
+        ttl: 3600
+        comment: my first record
+    CAARecord:
+      description: CAA record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: CAA
+          readOnly: true
+        name:
+          description: zone prefix
+          type: string
+        flag:
+          description: ''
+          type: string
+        tag:
+          description: ''
+          type: string
+        value:
+          description: ''
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 12
+        type: CAA
+        name: ''
+        flag: '0'
+        tag: issue
+        value: letsencrypt.org
+        ttl: 3600
+        comment: my first record
+    CNAMERecord:
+      description: CNAME record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: CNAME
+          readOnly: true
+        name:
+          description: zone prefix
+          type: string
+        cname:
+          description: target name
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 13
+        type: CNAME
+        name: www
+        cname: site.example.com
+        ttl: 3600
+        comment: my first record
+    DsRecord:
+      description: DS record
+      properties:
+        key_tag:
+          description: key tag
+          type: integer
+        algorithm:
+          description: key algorithm
+          type: integer
+        digest_type:
+          description: digest type
+          type: integer
+        digest:
+          description: digest
+          type: string
+        flags:
+          description: flags
+          type: integer
+        protocol:
+          description: protocol
+          type: integer
+        public_key:
+          description: public key
+          type: string
+      type: object
+      example:
+        key_tag: 53290
+        algorithm: 8
+        digest_type: 2
+        digest: 7F061F40445894F2AECBA0E965E44D9FAECD6743334554306276717D189105D5
+        flags: 257
+        protocol: 3
+        public_key: AwEAAcmUTyanXOYDq+xB+3ancGB8bPP5UYn+j5T+NfOofXtXLGmrCIsT jyiEjkWwA0Nzg71WzWVsvar+0CcCJrMk5/KyLfK1tA4XtIhjvLJ2iV7T A19Azrar0WOyPewfO6YPkFXuM6uh6u9eebKufmtrcyhnAd+Icd40yeed FMlL1gzwlkVmYl7yJLa8cxBv5T9QcG0NYN4Z0yQe67jLcGxV/2UphxeB UWoI6exp0VOMJkcVjeKHx3O0TiprETMDysc8750y/V+7Z1SCrP3t0ZB ibYpwN465JZklWy+mudzJgLZlq1tfsqlKV5fbeTDzHJun2GPyl7vWEBlrseZ9KB3O5c=
+    MXRecord:
+      description: MX record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: MX
+          readOnly: true
+        ownername:
+          description: zone prefix
+          type: string
+        name:
+          description: mail server
+          type: string
+        pref:
+          description: preference
+          type: integer
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 14
+        type: MX
+        ownername: ''
+        name: mail.example.com
+        pref: 10
+        ttl: 3600
+        comment: my first record
+    NSRecord:
+      description: NS record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: NS
+          readOnly: true
+        ownername:
+          description: zone prefix
+          type: string
+        targetname:
+          description: target nameserver
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 14
+        type: NS
+        ownername: sub
+        name: ns1.example.com
+        ttl: 3600
+        comment: my first record
+    Nameserverset:
+      description: A Nameserverset
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        servers:
+          type: array
+          items:
+            type: string
+        is_main:
+          description: Determines if it is a main nameserverset
+          type: boolean
+      type: object
+      example:
+        id: 10
+        servers:
+          - ns1.hosttech.ch
+          - ns2.hosttech.ch
+          - ns3.hosttech.ch
+        is_main: true
+    PTRRecord:
+      description: PTR record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: PTR
+          readOnly: true
+        origin:
+          description: ip address (or part of it) in reverse order
+          type: string
+        name:
+          description: name for the ip address
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 15
+        type: PTR
+        origin: 4.3.2.1
+        name: smtp.example.com
+        ttl: 3600
+        comment: my first record
+    Record:
+      type: object
+      example:
+        id: 10
+        type: A
+        name: www
+        ipv4: 1.2.3.4
+        ttl: 3600
+        comment: my first record
+      oneOf:
+        - $ref: '#/components/schemas/ARecord'
+        - $ref: '#/components/schemas/AAAARecord'
+        - $ref: '#/components/schemas/CAARecord'
+        - $ref: '#/components/schemas/CNAMERecord'
+        - $ref: '#/components/schemas/MXRecord'
+        - $ref: '#/components/schemas/NSRecord'
+        - $ref: '#/components/schemas/PTRRecord'
+        - $ref: '#/components/schemas/SRVRecord'
+        - $ref: '#/components/schemas/TXTRecord'
+        - $ref: '#/components/schemas/TLSARecord'
+    SRVRecord:
+      description: SRV record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: SRV
+          readOnly: true
+        service:
+          description: zone service prefix
+          type: string
+        priority:
+          description: priority
+          type: integer
+        weight:
+          description: weight
+          type: integer
+        port:
+          description: port
+          type: integer
+        target:
+          description: target domain
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 16
+        type: SRV
+        service: _autodiscover._tcp
+        priority: 0
+        weight: 0
+        port: 443
+        target: exchange.example.com
+        ttl: 3600
+        comment: my first record
+    TXTRecord:
+      description: TXT record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: TXT
+          readOnly: true
+        name:
+          description: zone prefix
+          type: string
+        text:
+          description: some text
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 17
+        type: TXT
+        name: ''
+        text: 'v=spf1 ip4:1.2.3.4/32 -all'
+        ttl: 3600
+        comment: my first record
+    TLSARecord:
+        description: TLSA record
+        properties:
+            id:
+                type: integer
+                readOnly: true
+            type:
+                description: record type
+                type: string
+                default: TLSA
+                readOnly: true
+            name:
+                description: zone prefix
+                type: string
+            text:
+                description: some text
+                type: string
+            ttl:
+                description: record TTL
+                type: integer
+            comment:
+                description: comment
+                type: string
+        type: object
+        example:
+            id: 17
+            type: TLSA
+            name: ''
+            text: '0 0 1 d2abde240d7cd3ee6b4b28c54df034b97983a1d16e8a410e4561cb106618e971'
+            ttl: 3600
+            comment: my first record
+    User:
+      description: A user
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          description: full name of the user
+          type: string
+        username:
+          description: login name of the user
+          type: string
+        email:
+          description: E-Mail Address of the user
+          type: string
+        zones_count:
+          description: Amount of zones that belong to the user
+          type: integer
+          readOnly: true
+        zones_max:
+          description: The max amount of zones the user can have
+          type: integer
+      type: object
+      example:
+        id: 10
+        name: Johannes Musterovski
+        username: jmusterovski
+        email: jmusterovski@gmail.com
+        zones_count: 15
+        zones_max: 72
+    Zone:
+      title: Zone
+      description: Zone with records
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        email:
+          type: string
+        ttl:
+          description: Time to live
+          type: integer
+        nameserver:
+          type: string
+        dnssec:
+          type: boolean
+        dnssec_email:
+          type: string
+        ds_records:
+          type: array
+          items:
+            $ref: '#/components/schemas/DsRecord'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+      type: object
+      example:
+        id: 10
+        name: user1.ch
+        email: test@hosttech.ch
+        ttl: 10800
+        nameserver: ns1.hosttech.ch
+        dnssec: false
+        dnssec_email: test@hosttech.ch
+        ds_records: '[]'
+        records: '[{''id'': 10, ''type'': ''A'', ''name'': ''www'', ''ipv4'': ''1.2.3.4'', ''ttl'': 3600, ''comment'': ''my first record''}]'
+    ZoneWithoutRecords:
+      title: Zone
+      description: Zone without records
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        email:
+          type: string
+        ttl:
+          description: Time to live
+          type: integer
+        nameserver:
+          type: string
+        dnssec:
+          type: boolean
+        dnssec_email:
+          type: string
+      type: object
+      example:
+        id: 10
+        name: user1.ch
+        email: test@hosttech.ch
+        ttl: 10800
+        nameserver: ns1.hosttech.ch
+        dnssec: false
+        dnssec_email: test@hosttech.ch
+
+  responses:
+    Nameserverset:
+      description: A nameserver set
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/Nameserverset'
+            type: object
+    Nameserversets:
+      description: List of nameserver sets
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Nameserverset'
+            type: object
+    Tokens:
+      description: A list of all active api access tokens
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+            type: object
+    TokenCreate:
+      description: The newly created api token
+      content:
+        application/json:
+          schema:
+            properties:
+              data:
+                $ref: '#/components/schemas/NewToken'
+            type: object
+
+  securitySchemes:
+    api_key:
+      type: http
+      scheme: bearer
+
+security:
+  - api_key: [ ]
+
