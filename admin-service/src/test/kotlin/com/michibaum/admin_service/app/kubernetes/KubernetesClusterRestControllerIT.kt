@@ -28,7 +28,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean
         "spring.boot.admin.service.password=admin_password"
     ]
 )
-class KubernetesClusterControllerIT {
+class KubernetesClusterRestControllerIT {
 
     @Autowired
     lateinit var testRestTemplate: TestRestTemplate

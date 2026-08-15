@@ -15,10 +15,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
-class KubernetesClusterControllerTest {
+class KubernetesClusterRestControllerTest {
 
     private val kubernetesClusterService = mockk<KubernetesClusterService>()
-    private val controller = KubernetesClusterController(kubernetesClusterService)
+    private val controller = KubernetesClusterRestController(kubernetesClusterService)
     private val objectMapper = ObjectMapper()
     private lateinit var mockMvc: MockMvc
 
