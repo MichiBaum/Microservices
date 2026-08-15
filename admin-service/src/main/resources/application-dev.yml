@@ -9,7 +9,7 @@ spring:
         username: admin_username
         password: admin_password
       ui:
-        public-url: http://admin.michibaum.ch:80
+        public-url: http://admin.michibaum.ch:8082
       instance-auth:
         default-user-name: admin_username
         default-password: admin_password
