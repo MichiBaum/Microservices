@@ -168,6 +168,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
                             this.routerNavigationService.microservices();
                         }
                     } as MenuItem,
+                  {
+                    label: Sides.dns.translationKey,
+                    customIcon: faMicrochip,
+                    visible: Sides.dns.canActivate(this.permissionService),
+                    command: () => {
+                      this.sidebarVisible.set(false);
+                      this.routerNavigationService.dns();
+                    }
+                  } as MenuItem,
                     {
                         label: "Admin Service",
                         customIcon: faMicrochip,

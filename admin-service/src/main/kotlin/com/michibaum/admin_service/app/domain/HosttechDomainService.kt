@@ -3,6 +3,7 @@ package com.michibaum.admin_service.app.domain
 import com.michibaum.admin_service.app.domain.api.*
 import com.michibaum.admin_service.app.domain.model.ApiUserV1ZonesGet200Response
 import com.michibaum.admin_service.app.domain.model.TXTRecord
+import com.michibaum.admin_service.app.domain.model.ZoneWithoutRecords
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,9 +16,9 @@ class HosttechDomainService(
     val nameserversetsApi: NameserversetsApi
 ){
     
-    fun getAllZones(token: String): ApiUserV1ZonesGet200Response? {
+    fun getAllZones(token: String): List<ZoneWithoutRecords> {
         return HosttechAuthContext.withToken(token) {
-            zonesApi.apiUserV1ZonesGet("*", 100, 0)
+            zonesApi.apiUserV1ZonesGet("*", 100, 0).data.orEmpty()
         }
     }
 
@@ -25,7 +26,7 @@ class HosttechDomainService(
         HosttechAuthContext.withToken(token) {
             val zones = getAllZones(token)
 
-            zones?.data.orEmpty().forEach { zone ->
+            zones.forEach { zone ->
                 val zoneId = zone.id?.toString() ?: return@forEach
                 val records = recordsApi.apiUserV1ZonesZoneIdRecordsGet(zoneId, "TXT")
 
