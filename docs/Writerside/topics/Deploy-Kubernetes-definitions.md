@@ -107,8 +107,7 @@ This document provides information about deploying and updating the microservice
    
    ```bash
    # Both commands do the same thing, only different path
-   k0s kubectl create secret tls michibaum-tls --cert=/data/ssl/fullchain.pem --key=/data/ssl/privkey.pem -n microservices
-   k0s kubectl create secret tls michibaum-tls --cert=/etc/letsencrypt/live/michibaum.ch/fullchain.pem --key=/etc/letsencrypt/live/michibaum.ch/privkey.pem -n microservices
+   k0s kubectl create secret tls michibaum-tls --cert=/data/ssl/.lego/certificates/multi-wildcard.pem --key=/data/ssl/.lego/certificates/multi-wildcard.key -n microservices
    ```
 
    ```bash
