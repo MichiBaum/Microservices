@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/k8s")
-class KubernetesClusterController(
+class KubernetesClusterRestController(
     private val kubernetesClusterService: KubernetesClusterService
 ) {
 
