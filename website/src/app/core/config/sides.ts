@@ -24,6 +24,13 @@ export const Sides = {
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.ADMIN_SERVICE]),
     neededPermissions: [Permissions.ADMIN_SERVICE]
   } as Side,
+  dns: {
+    name: "dns",
+    translationKey: "dns.title",
+    navigation: "dns",
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.ADMIN_SERVICE]),
+    neededPermissions: [Permissions.ADMIN_SERVICE]
+  } as Side,
   about_me: {
     name: "about-me",
     translationKey: "about-me.title",

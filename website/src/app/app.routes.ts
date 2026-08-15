@@ -106,6 +106,18 @@ export const routes: Routes = [
         }
     },
     {
+      path: 'dns',
+      loadComponent: () => import("./dns/dns.component").then((c) => c.DnsComponent),
+      canActivate: [isAuthenticatedGuard, isPermittedGuard],
+      title: titleResolver,
+      data: {
+        "tabTitle": (translate: TranslateService) => translate.get("dns.tab-title"),
+        "headerTitle": (headerService: HeaderService) => headerService.changeTitle("dns.title"),
+        "metaDescription": (translate: TranslateService) => translate.get("dns.meta-description"),
+        "permissions": [Permissions.ADMIN_SERVICE]
+      }
+    },
+    {
         path: "chess",
         loadComponent: () => import("./chess/chess.component").then((c) => c.ChessComponent),
         children: [
