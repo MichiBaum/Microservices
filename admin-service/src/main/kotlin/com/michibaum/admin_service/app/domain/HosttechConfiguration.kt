@@ -10,8 +10,15 @@ import java.net.http.HttpClient
 class HosttechConfiguration {
 
     @Bean
-    fun hosttechApiClient(objectMapper: ObjectMapper): ApiClient =
-        ApiClient(HttpClient.newBuilder(), objectMapper, "https://api.ns1.hosttech.eu")
+    fun hosttechApiClient(objectMapper: ObjectMapper): ApiClient {
+        val client = ApiClient(HttpClient.newBuilder(), objectMapper, "https://api.ns1.hosttech.eu")
+        client.setRequestInterceptor { builder ->
+            HosttechAuthContext.getToken()?.let { token ->
+                builder.header("Authorization", "Bearer $token")
+            }
+        }
+        return client
+    }
 
     @Bean
     fun zonesApi(hosttechApiClient: ApiClient): ZonesApi =
