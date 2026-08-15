@@ -41,6 +41,10 @@ export class RouterNavigationService {
         this.router.navigate(['/microservices'])
     }
 
+  dns() {
+    this.router.navigate(['/dns'])
+  }
+
     jaeger() {
         open(this.environment.jaeger())
     }
