@@ -96,7 +96,8 @@ spec:
   selector:
     app: jaeger-storage
   ports:
-  - port: 9200
+  - name: elasticsearch
+    port: 9200
     targetPort: 9200
   type: ClusterIP
   clusterIP: None
@@ -173,7 +174,7 @@ spec:
   selector:
     app: jaeger
   ports:
-  - name: ui
+  - name: http
     port: 16686
     targetPort: 16686
   - name: otlp-grpc

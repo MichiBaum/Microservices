@@ -38,15 +38,18 @@ spring:
         enable-toasts: true
         available-languages: en
       monitor:
-        info-interval: 2m
-        info-lifetime: 2m
-        status-interval: 20s
-        status-lifetime: 20s
+        info-interval: 5m
+        info-lifetime: 5m
+        status-interval: 30s
+        status-lifetime: 30s
         default-retries: 3
-        default-timeout: 20s
+        default-timeout: 10s
   application:
     name: admin-service
   cloud:
+    kubernetes:
+      discovery:
+        primary-port-name: http
     discovery:
       client:
         health-indicator:

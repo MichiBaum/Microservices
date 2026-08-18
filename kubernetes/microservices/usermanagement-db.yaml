@@ -107,7 +107,8 @@ spec:
   selector:
     app: usermanagement-db
   ports:
-  - port: 3306
+  - name: mysql
+    port: 3306
     targetPort: 3306
   type: ClusterIP
   clusterIP: None

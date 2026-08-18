@@ -1,0 +1,41 @@
+[2026-08-18  23:04:22]	2026-08-18 21:04:22 [ ] [reactor-http-epoll-4] WARN  d.c.b.a.s.s.e.ProbeEndpointsStrategy - Endpoint probe for instance 9e6b2087a7ff on endpoint 'http://10.244.1.172:3306/actuator/httptrace' failed: executor not accepting a task
+[2026-08-18  23:04:22]	2026-08-18 21:04:22 [ ] [reactor-http-epoll-6] WARN  d.c.b.a.s.s.e.ProbeEndpointsStrategy - Endpoint probe for instance edc5c148dfee on endpoint 'http://10.244.1.185:3306/actuator/health' failed: executor not accepting a task
+[2026-08-18  23:04:22]	2026-08-18 21:04:22 [ ] [reactor-http-epoll-8] WARN  d.c.b.a.s.s.e.QueryIndexEndpointStrategy - Querying actuator-index for instance 0156be364bfc on 'http://10.244.1.173:3306/actuator' failed: executor not accepting a task
+[2026-08-18  23:04:23]	2026-08-18 21:04:23 [ ] [DiscoveryClient-CacheRefreshExecutor-%d] WARN  o.s.c.k.c.d.DiscoveryClientUtils - Could not find a port named 'https' or 'http' for service 'jaeger'.
+[2026-08-18  23:04:27]	2026-08-18 21:04:27 [ ] [main] WARN  o.s.c.s.DefaultLifecycleProcessor - Failed to stop bean 'reactorResourceFactory'
+[2026-08-18  23:04:27]	java.lang.IllegalStateException: LoopResources couldn't be disposed within 15000ms
+[2026-08-18  23:04:27]		at reactor.netty.resources.DefaultLoopResources.lambda$disposeLater$0(DefaultLoopResources.java:136)
+[2026-08-18  23:04:27]		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:46)
+[2026-08-18  23:04:27]		at reactor.core.publisher.Mono.subscribe(Mono.java:4569)
+[2026-08-18  23:04:27]		at reactor.core.publisher.MonoWhen$WhenCoordinator.request(MonoWhen.java:228)
+[2026-08-18  23:04:27]		at reactor.core.publisher.MonoWhen$WhenInner.onSubscribe(MonoWhen.java:399)
+[2026-08-18  23:04:27]		at reactor.core.publisher.MonoWhen.subscribe(MonoWhen.java:101)
+[2026-08-18  23:04:27]		at reactor.core.publisher.Mono.subscribe(Mono.java:4569)
+[2026-08-18  23:04:27]		at reactor.core.publisher.MonoWhen$WhenCoordinator.request(MonoWhen.java:228)
+[2026-08-18  23:04:27]		at reactor.core.publisher.BlockingSingleSubscriber.onSubscribe(BlockingSingleSubscriber.java:55)
+[2026-08-18  23:04:27]		at reactor.core.publisher.MonoWhen.subscribe(MonoWhen.java:101)
+[2026-08-18  23:04:27]		at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:54)
+[2026-08-18  23:04:27]		at reactor.core.publisher.Mono.subscribe(Mono.java:4569)
+[2026-08-18  23:04:27]		at reactor.core.publisher.Mono.block(Mono.java:1772)
+[2026-08-18  23:04:27]		at org.springframework.http.client.ReactorResourceFactory.stop(ReactorResourceFactory.java:296)
+[2026-08-18  23:04:27]		at org.springframework.context.SmartLifecycle.stop(SmartLifecycle.java:143)
+[2026-08-18  23:04:27]		at org.springframework.context.support.DefaultLifecycleProcessor.doStop(DefaultLifecycleProcessor.java:480)
+[2026-08-18  23:04:27]		at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.stop(DefaultLifecycleProcessor.java:645)
+[2026-08-18  23:04:27]		at java.base/java.lang.Iterable.forEach(Unknown Source)
+[2026-08-18  23:04:27]		at org.springframework.context.support.DefaultLifecycleProcessor.stopBeans(DefaultLifecycleProcessor.java:448)
+[2026-08-18  23:04:27]		at org.springframework.context.support.DefaultLifecycleProcessor.onClose(DefaultLifecycleProcessor.java:337)
+[2026-08-18  23:04:27]		at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1199)
+[2026-08-18  23:04:27]		at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:176)
+[2026-08-18  23:04:27]		at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1153)
+[2026-08-18  23:04:27]		at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:818)
+[2026-08-18  23:04:27]		at org.springframework.boot.SpringApplication.run(SpringApplication.java:331)
+[2026-08-18  23:04:27]		at com.michibaum.admin_service.AdminServiceApplicationKt.main(AdminServiceApplication.kt:23)
+[2026-08-18  23:04:27]		Suppressed: java.lang.Exception: #block terminated with an error
+[2026-08-18  23:04:27]			at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:104)
+[2026-08-18  23:04:27]			at reactor.core.publisher.Mono.block(Mono.java:1773)
+[2026-08-18  23:04:27]			... 13 common frames omitted
+[2026-08-18  23:04:28]	2026-08-18 21:04:28 [ ] [DiscoveryClient-CacheRefreshExecutor-%d] WARN  o.s.c.k.c.d.DiscoveryClientUtils - Make sure that either the primary-port-name label has been added to the service,
+[2026-08-18  23:04:28]	or spring.cloud.kubernetes.discovery.primary-port-name has been configured.
+[2026-08-18  23:04:28]	Alternatively name the primary port 'https' or 'http'.
+[2026-08-18  23:04:28]	An incorrect configuration may result in non-deterministic behaviour.
+[2026-08-18  23:04:30]	2026-08-18 21:04:30 [ ] [DiscoveryClient-%d] WARN  c.n.discovery.TimedSupervisorTask - task supervisor shutting down, can't accept the task

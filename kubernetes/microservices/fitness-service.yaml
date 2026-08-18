@@ -117,6 +117,7 @@ spec:
   selector:
     app: fitness-service
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: 80
   type: ClusterIP
