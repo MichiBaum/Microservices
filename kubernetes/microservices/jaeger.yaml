@@ -90,6 +90,8 @@ kind: Service
 metadata:
   name: jaeger-storage
   namespace: microservices
+  labels:
+    sba-check: kubernetes
 spec:
   selector:
     app: jaeger-storage
@@ -165,6 +167,8 @@ kind: Service
 metadata:
   name: jaeger
   namespace: microservices
+  labels:
+    sba-check: kubernetes
 spec:
   selector:
     app: jaeger

@@ -126,4 +126,44 @@ class KubernetesClusterServiceTest {
             nullClientService.getServices()
         }
     }
+
+    @Test
+    fun `getServiceHealth returns UP when all pods are ready`() {
+        val servicesOperation = mockk<MixedOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceNamespaceOperation = mockk<NonNamespaceOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceResource = mockk<ServiceResource<Service>>()
+        val k8sService = Service().apply {
+            spec = ServiceSpec().apply {
+                selector = mapOf("app" to "test-db")
+            }
+        }
+
+        val podsOperation = mockk<MixedOperation<Pod, PodList, PodResource>>()
+        val podNamespaceOperation = mockk<NonNamespaceOperation<Pod, PodList, PodResource>>()
+        val podList = mockk<PodList>()
+        val pod = Pod().apply {
+            metadata = ObjectMeta().apply { name = "pod-1" }
+            status = PodStatus().apply {
+                phase = "Running"
+                containerStatuses = listOf(ContainerStatus().apply { ready = true })
+            }
+        }
+
+        every { kubernetesClient.namespace } returns "microservices"
+        every { kubernetesClient.services() } returns servicesOperation
+        every { servicesOperation.inNamespace("microservices") } returns serviceNamespaceOperation
+        every { serviceNamespaceOperation.withName("test-db") } returns serviceResource
+        every { serviceResource.get() } returns k8sService
+
+        every { kubernetesClient.pods() } returns podsOperation
+        every { podsOperation.inNamespace("microservices") } returns podNamespaceOperation
+        every { podNamespaceOperation.withLabels(mapOf("app" to "test-db")) } returns podNamespaceOperation
+        every { podNamespaceOperation.list() } returns podList
+        every { podList.items } returns listOf(pod)
+
+        val health = service.getServiceHealth("test-db")
+
+        assertEquals("UP", health.status)
+        assertEquals(1, health.details["totalPods"])
+    }
 }
