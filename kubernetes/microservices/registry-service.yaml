@@ -92,6 +92,7 @@ spec:
   selector:
     app: registry-service
   ports:
-  - port: 8761
+  - name: http
+    port: 8761
     targetPort: 8761
   type: ClusterIP
