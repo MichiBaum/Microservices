@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.7.3</version>
+        <version>1.7.4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>permission-library</artifactId>
-            <version>1.7.3</version>
+            <version>1.7.4</version>
         </dependency>
 
         <dependency>
