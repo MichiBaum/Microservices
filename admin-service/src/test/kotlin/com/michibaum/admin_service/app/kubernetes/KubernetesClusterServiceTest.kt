@@ -14,9 +14,10 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.web.server.ResponseStatusException
 
 class KubernetesClusterServiceTest {
-
+    
     private val kubernetesClient = mockk<KubernetesClient>()
-    private val service = KubernetesClusterService(kubernetesClient)
+    private val kubernetesProperties = KubernetesProperties()
+    private val service = KubernetesClusterService(kubernetesClient, kubernetesProperties)
 
     @Test
     fun `getPods returns mapped PodDto list`() {
@@ -110,7 +111,7 @@ class KubernetesClusterServiceTest {
 
     @Test
     fun `getPods throws 503 when kubernetesClient is null`() {
-        val nullClientService = KubernetesClusterService(null)
+        val nullClientService = KubernetesClusterService(null, kubernetesProperties)
 
         assertThrows<ResponseStatusException> {
             nullClientService.getPods()
@@ -119,7 +120,7 @@ class KubernetesClusterServiceTest {
 
     @Test
     fun `getServices throws 503 when kubernetesClient is null`() {
-        val nullClientService = KubernetesClusterService(null)
+        val nullClientService = KubernetesClusterService(null, kubernetesProperties)
 
         assertThrows<ResponseStatusException> {
             nullClientService.getServices()
