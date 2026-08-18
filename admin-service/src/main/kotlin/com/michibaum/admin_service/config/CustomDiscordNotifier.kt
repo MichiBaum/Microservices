@@ -13,6 +13,7 @@ import de.codecentric.boot.admin.server.domain.events.InstanceRegistrationUpdate
 import de.codecentric.boot.admin.server.domain.events.InstanceStatusChangedEvent
 import de.codecentric.boot.admin.server.notify.AbstractEventNotifier
 import reactor.core.publisher.Mono
+import reactor.core.scheduler.Schedulers
 
 class CustomDiscordNotifier(
     private val discordClient: DiscordClient,
@@ -36,7 +37,7 @@ class CustomDiscordNotifier(
     }
 
     override fun doNotify(event: InstanceEvent, instance: Instance): Mono<Void> =
-        Mono.fromRunnable {
+        Mono.fromCallable {
             val message = when(event){
                 is InstanceStatusChangedEvent -> event.discordMessage(instance)
                 is InstanceRegisteredEvent -> event.discordMessage(instance)
@@ -44,9 +45,9 @@ class CustomDiscordNotifier(
                 is InstanceRegistrationUpdatedEvent -> event.discordMessage(instance)
                 else -> event.discordMessage(instance, {})
             }
-            
+
             discordClient.sendMessage(adminDiscordProperties.channelId, message)
-        }
+        }.subscribeOn(Schedulers.boundedElastic()).then()
 
 }
 

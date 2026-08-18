@@ -103,6 +103,8 @@ kind: Service
 metadata:
   name: authentication-db
   namespace: microservices
+  labels:
+    sba-check: kubernetes
 spec:
   selector:
     app: authentication-db

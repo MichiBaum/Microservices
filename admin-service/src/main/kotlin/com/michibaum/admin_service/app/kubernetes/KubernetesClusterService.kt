@@ -2,6 +2,7 @@ package com.michibaum.admin_service.app.kubernetes
 
 import com.michibaum.admin_service.app.kubernetes.dto.PodDto
 import com.michibaum.admin_service.app.kubernetes.dto.ServiceDto
+import com.michibaum.admin_service.app.kubernetes.dto.ServiceHealthDto
 import com.michibaum.admin_service.app.kubernetes.dto.ServicePortDto
 import io.fabric8.kubernetes.client.KubernetesClient
 import org.slf4j.LoggerFactory
@@ -73,25 +74,56 @@ class KubernetesClusterService(
         }
     }
 
-    fun isServiceUp(serviceName: String, namespace: String? = null): Boolean {
-        val client = kubernetesClient ?: return false
+    fun getServiceHealth(serviceName: String, namespace: String? = null): ServiceHealthDto {
+        val client = kubernetesClient ?: return ServiceHealthDto(
+            "OFFLINE",
+            mapOf("error" to "Kubernetes client is not available")
+        )
         val targetNamespace = resolveNamespace(namespace)
-        
+
         return try {
-            val service = client.services().inNamespace(targetNamespace).withName(serviceName).get() 
-                ?: return false
-            
-            val selector = service.spec?.selector ?: return false
-            if (selector.isEmpty()) return false
+            val service = client.services().inNamespace(targetNamespace).withName(serviceName).get()
+                ?: return ServiceHealthDto("OFFLINE", mapOf("error" to "Service $serviceName not found"))
+
+            val selector = service.spec?.selector ?: return ServiceHealthDto(
+                "UNKNOWN",
+                mapOf("error" to "No selector defined for service $serviceName")
+            )
+            if (selector.isEmpty()) return ServiceHealthDto(
+                "UNKNOWN",
+                mapOf("error" to "Empty selector for service $serviceName")
+            )
 
             val pods = client.pods().inNamespace(targetNamespace).withLabels(selector).list().items
-            pods.any { pod ->
-                pod.status?.phase == "Running" && 
-                pod.status?.containerStatuses?.all { it.ready } == true
+            val podDetails = pods.map { pod ->
+                mapOf(
+                    "name" to (pod.metadata?.name ?: "unknown"),
+                    "phase" to (pod.status?.phase ?: "unknown"),
+                    "ready" to (pod.status?.containerStatuses?.all { it.ready } == true),
+                    "podIp" to (pod.status?.podIP ?: "unknown")
+                )
             }
+
+            val isUp = pods.any { pod ->
+                pod.status?.phase == "Running" &&
+                        pod.status?.containerStatuses?.all { it.ready } == true
+            }
+
+            ServiceHealthDto(
+                status = if (isUp) "UP" else "DOWN",
+                details = mapOf(
+                    "pods" to podDetails,
+                    "namespace" to targetNamespace,
+                    "selector" to selector,
+                    "totalPods" to pods.size,
+                    "readyPods" to pods.count { pod ->
+                        pod.status?.containerStatuses?.all { it.ready } == true
+                    }
+                )
+            )
         } catch (e: Exception) {
             logger.error("Failed to check service health for $serviceName in namespace $targetNamespace", e)
-            false
+            ServiceHealthDto("OFFLINE", mapOf("error" to (e.message ?: "Unknown error")))
         }
     }
 
