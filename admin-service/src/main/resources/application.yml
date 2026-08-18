@@ -25,6 +25,8 @@ spring:
       enabled: true
   lifecycle:
     timeout-per-shutdown-phase: 20s
+  thymeleaf:
+    check-template-location: false
   boot:
     admin:
       server:
