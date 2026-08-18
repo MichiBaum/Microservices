@@ -6,6 +6,7 @@ import de.codecentric.boot.admin.server.domain.entities.InstanceRepository
 import de.codecentric.boot.admin.server.domain.values.StatusInfo
 import de.codecentric.boot.admin.server.services.ApiMediaTypeHandler
 import de.codecentric.boot.admin.server.services.HealthGroupsCache
+import de.codecentric.boot.admin.server.services.InfoUpdater
 import de.codecentric.boot.admin.server.services.StatusUpdater
 import de.codecentric.boot.admin.server.web.client.InstanceWebClient
 import org.springframework.context.annotation.Bean
@@ -42,6 +43,35 @@ class ExternalServiceHealthConfiguration(
                     }.subscribeOn(Schedulers.boundedElastic())
                 } else {
                     super.doUpdateStatus(instance)
+                }
+            }
+            
+        }
+    }
+
+    @Bean
+    @Primary
+    fun infoUpdater(
+        repository: InstanceRepository,
+        instanceWebClientBuilder: InstanceWebClient.Builder,
+    ): InfoUpdater {
+        return object : InfoUpdater(repository, instanceWebClientBuilder.build(), ApiMediaTypeHandler()) {
+            override fun doUpdateInfo(instance: Instance): Mono<Instance> {
+
+                val name = instance.registration.name
+                val checkType = instance.registration.metadata["sba-check"]
+
+                val isDatabase = name.endsWith("-db")
+                val isObservability = name in setOf("jaeger", "jaeger-storage", "prometheus")
+
+                return if (checkType == "kubernetes" || isDatabase || isObservability) {
+                    Mono.fromCallable {
+                        val health = kubernetesClusterService.getServiceHealth(name)
+                        val statusInfo = StatusInfo.valueOf(health.status, health.details)
+                        instance.withStatusInfo(statusInfo)
+                    }.subscribeOn(Schedulers.boundedElastic())
+                } else {
+                    super.doUpdateInfo(instance)
                 }
             }
         }
