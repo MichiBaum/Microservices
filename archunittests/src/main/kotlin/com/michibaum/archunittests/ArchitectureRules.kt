@@ -4,6 +4,7 @@ import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.ArchRule
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import com.tngtech.archunit.library.GeneralCodingRules
+import com.tngtech.archunit.library.freeze.FreezingArchRule.freeze
 
 class ArchitectureRules {
 
@@ -16,7 +17,7 @@ class ArchitectureRules {
 
         @ArchTest
         val databaseNotDependingOnAnythingElse: ArchRule =
-            ArchRuleDefinition.noClasses().that().resideInAPackage(databasePackage)
+            freeze(ArchRuleDefinition.noClasses().that().resideInAPackage(databasePackage)
                 .should().dependOnClassesThat()
                 .resideOutsideOfPackages(
                     "java..", 
@@ -28,23 +29,23 @@ class ArchitectureRules {
                     databasePackage, 
                     "kotlin.."
                 )
-                .allowEmptyShould(true)
+                .allowEmptyShould(true))
 
         @ArchTest
         val entityClassesLocation: ArchRule =
-            ArchRuleDefinition.classes().that().areAnnotatedWith("jakarta.persistence.Entity")
+            freeze(ArchRuleDefinition.classes().that().areAnnotatedWith("jakarta.persistence.Entity")
             .should().resideInAPackage(databasePackage)
-            .allowEmptyShould(true)
+            .allowEmptyShould(true))
 
         @ArchTest
         val repositoryLocation: ArchRule =
-            ArchRuleDefinition.classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
+            freeze(ArchRuleDefinition.classes().that().areAnnotatedWith("org.springframework.stereotype.Repository")
             .or().areAssignableTo("org.springframework.data.repository.Repository")
             .should().resideInAPackage(databasePackage)
-            .allowEmptyShould(true)
+            .allowEmptyShould(true))
 
         @ArchTest
-        val testLocation = GeneralCodingRules.testClassesShouldResideInTheSamePackageAsImplementation()
+        val testLocation = freeze(GeneralCodingRules.testClassesShouldResideInTheSamePackageAsImplementation())
         
     }
 

@@ -36,8 +36,18 @@ spring:
       lazy-attributes-resolution: true
       httpclient:
         disable-ssl-validation: true
+        max-connections: 200
+        max-connections-per-route: 50
+        connection-timeout: 5000
+        connection-timer-repeat: 2000
       http2client:
         enabled: true
+      client:
+        config:
+          default:
+            connect-timeout: 5000
+            read-timeout: 5000
+            logger-level: basic
   main:
     allow-bean-definition-overriding: true
 
@@ -59,6 +69,8 @@ eureka:
 
 management:
   tracing:
+    propagation:
+      type: W3C
     sampling:
       probability: 1.0
   opentelemetry:

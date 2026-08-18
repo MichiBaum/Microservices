@@ -2,17 +2,18 @@ package com.michibaum.archunittests
 
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.library.GeneralCodingRules
+import com.tngtech.archunit.library.freeze.FreezingArchRule.freeze
 
 class StandardRules {
     
     companion object{
         
         @ArchTest
-        val forbiddenStandardStreamsAccess = GeneralCodingRules.NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS
-            .allowEmptyShould(true)
+        val forbiddenStandardStreamsAccess = freeze(GeneralCodingRules.NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS
+            .allowEmptyShould(true))
         
         @ArchTest
-        val forbiddenFieldInjection = GeneralCodingRules.NO_CLASSES_SHOULD_USE_FIELD_INJECTION
+        val forbiddenFieldInjection = freeze(GeneralCodingRules.NO_CLASSES_SHOULD_USE_FIELD_INJECTION)
         
     }
     

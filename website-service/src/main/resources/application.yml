@@ -49,6 +49,8 @@ eureka:
 
 management:
   tracing:
+    propagation:
+      type: W3C
     sampling:
       probability: 1.0
   opentelemetry:

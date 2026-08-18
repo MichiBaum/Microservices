@@ -7,7 +7,7 @@
     <parent>
         <artifactId>microservice</artifactId>
         <groupId>com.michibaum</groupId>
-        <version>1.6.0</version>
+        <version>1.7.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -15,14 +15,22 @@
     <name>authentication-library</name>
 
     <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.source>26</maven.compiler.source>
+        <maven.compiler.target>26</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>spring-boot-starter-observability</artifactId>
         </dependency>
 
         <dependency>
@@ -48,7 +56,7 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>permission-library</artifactId>
-            <version>1.6.0</version>
+            <version>1.7.0</version>
         </dependency>
 
         <dependency>

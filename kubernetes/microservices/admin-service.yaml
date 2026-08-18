@@ -13,6 +13,7 @@ spec:
       labels:
         app: admin-service
     spec:
+      serviceAccountName: admin-service-sa
       containers:
       - name: admin-service
         image: 70131370/admin-service:latest

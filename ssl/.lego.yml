@@ -1,0 +1,41 @@
+servers:
+  zerossl:
+    url: https://acme.zerossl.com/v2/DV90
+
+accounts:
+  default:
+    email: YOUR_EMAIL@GMAIL.COM
+    server: zerossl
+
+challenges:
+  hosttech-dns:
+    dns:
+      provider: hosttech
+      envFile: .env.hosttech
+      resolvers:
+        - "1.1.1.1:53"
+
+certificates:
+  multi-wildcard:
+    challenge: hosttech-dns
+    domains:
+      - michibaum.ch
+      - "*.michibaum.ch"
+      - michibaum.com
+      - "*.michibaum.com"
+      - michibaum.eu
+      - "*.michibaum.eu"
+      - michibaum.org
+      - "*.michibaum.org"
+      - michibaum.me
+      - "*.michibaum.me"
+      - michibaum.net
+      - "*.michibaum.net"
+      - michibaum.info
+      - "*.michibaum.info"
+      - michibaum.xyz
+      - "*.michibaum.xyz"
+      - baumberger-software.ch
+      - "*.baumberger-software.ch"
+      - babymetal.ch
+      - "*.babymetal.ch"

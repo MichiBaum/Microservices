@@ -75,10 +75,8 @@ spec:
         resources:
           requests:
             memory: "1Gi"
-            cpu: "100m"
           limits:
             memory: "2Gi"
-            cpu: "1000m"
         volumeMounts:
         - name: jaeger-storage-data
           mountPath: /usr/share/elasticsearch/data

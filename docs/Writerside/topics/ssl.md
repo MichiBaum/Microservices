@@ -1,74 +1,88 @@
 # SSL
 
-An SSL certificate is needed for https.
-This SSL certificate is created with letsencrypt and certbot.
+An SSL certificate is needed for HTTPS. This project uses **ZeroSSL** as the Certificate Authority (CA), managed via **acme.sh** for account registration and **Lego** for certificate issuance and renewal.
 
-## Create certificates
-Because of wildcard certificate you need to verify ownership of the Domain. This is done with adding a TXT record to the DNS entry.
+## Why ZeroSSL?
 
-### Automated DNS verification with hosttech API
-The repository includes scripts to automate the DNS verification process using the hosttech API. These scripts will automatically add and remove the required TXT records for domain verification.
+ZeroSSL is used instead of Let's Encrypt because:
+- **No strict rate limits**: Unlike Let's Encrypt, ZeroSSL does not enforce harsh lockout rules for failed validations or duplicate certificates.
+- **ACME Support**: ZeroSSL supports the ACME protocol, allowing for free and unlimited wildcard certificates via the API.
+- **DNS-01 Validation**: Mandatory for wildcard certificates (\*.domain.ch).
 
-#### Setup
-1. Make sure the scripts are executable:
-   ```Bash
-   chmod +x scripts/certbot-dns-hosttech-*.sh
-   ```
+## Prerequisites
 
-2. Edit the configuration file to add your hosttech API token:
-   ```Bash
-   nano scripts/hosttech-config.sh
-   ```
+- Access to the DNS provider API (this project uses **Hosttech**).
+- `acme.sh` installed for account management.
+- `lego` (v5+) binary installed for certificate issuance.
 
-   Replace `YOUR_HOSTTECH_API_TOKEN` with your actual API token from hosttech.
+## 1. Install & Account Registration (acme.sh)
 
-3. You can also adjust the DNS propagation wait time (default is 60 seconds) if needed.
-
-#### How it works
-- The `certbot-dns-hosttech-auth.sh` script is called by certbot to add the TXT record for verification
-- The `certbot-dns-hosttech-cleanup.sh` script is called by certbot to remove the TXT record after verification
-- Both scripts use the configuration in `hosttech-config.sh`
-
-With these scripts, certificate renewal can be automated, and you won't need to manually add DNS records.
-The files can be placed under `/etc/letsencrypt/scripts` else the command has to be changed.
+Before issuing certificates, register an account with ZeroSSL using `acme.sh`:
 
 ```Bash
-# Before running this command, make sure to:
-# 1. Set your API token in scripts/hosttech-config.sh
-# 2. Make the scripts executable: chmod +x scripts/certbot-dns-hosttech-*.sh
-
-certbot certonly --manual --preferred-challenges=dns --email security@michibaum.ch --server https://acme-v02.api.letsencrypt.org/directory --agree-tos --manual-auth-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-auth.sh --manual-cleanup-hook /etc/letsencrypt/scripts/certbot-dns-hosttech-cleanup.sh -d michibaum.ch -d *.michibaum.ch -d michibaum.com -d *.michibaum.com -d michibaum.eu -d *.michibaum.eu -d michibaum.org -d *.michibaum.org -d michibaum.me -d *.michibaum.me -d michibaum.net -d *.michibaum.net -d michibaum.info -d *.michibaum.info -d michibaum.xyz -d *.michibaum.xyz -d baumberger-software.ch -d *.baumberger-software.ch -d babymetal.ch -d *.babymetal.ch
+curl https://get.acme.sh | sh -s email=YOUR_EMAIL@GMAIL.COM
+acme.sh --register-account -m YOUR_EMAIL@GMAIL.COM --server zerossl
 ```
 
-## Result
-The certificates are exported to `/etc/letsencrypt`
+### Install Lego
+```Bash
+curl -s https://api.github.com/repos/go-acme/lego/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4 | wget -qi -
+tar -xzf lego_*_linux_amd64.tar.gz
+```
+
+## 2. Configuration Files
+
+The configuration files are located in the `./ssl` directory of the project.
+
+### `.lego.yml`
+This file defines the CA server, account details, DNS challenge provider, and the domains to be included in the multi-wildcard certificate.
+
+File can be found under `./ssl/.lego.yml`.
+
+### `.env.hosttech`
+Contains the API credentials and timeout settings for Hosttech DNS.
+
+File can be found under `./ssl/.env.hosttech`.
+
+## 3. Issuing Certificates (Lego)
+
+To issue or renew the certificates, run Lego from the `ssl` directory:
 
 ```Bash
-Successfully received certificate.
-Certificate is saved at: /etc/letsencrypt/live/michibaum.ch/fullchain.pem
-Key is saved at:         /etc/letsencrypt/live/michibaum.ch/privkey.pem
-This certificate expires on 2025-04-04.
-These files will be updated when the certificate renews.
+./lego --config .lego.yml
 ```
 
-With the auth and cleanup hooks in place, the certificate can be renewed automatically using certbot's built-in renewal process:
+Lego will:
+1. Contact ZeroSSL to start the challenge.
+2. Use the Hosttech API to add the required `_acme-challenge` TXT records.
+3. Wait for DNS propagation (using the configured resolvers like `1.1.1.1`).
+4. Validate ownership and download the certificates.
 
-```Bash
-certbot renew
+The generated certificates will be stored in `.lego/certificates/`.
+
+## 4. Kubernetes Integration
+
+Once the certificates are generated, they can be imported into Kubernetes as a Secret:
+
+```bash
+kubectl create secret tls michibaum-tls \
+  --cert=/data/ssl/.lego/certificates/multi-wildcard.pem \
+  --key=/data/ssl/.lego/certificates/multi-wildcard.key \
+  -n microservices
 ```
 
-You can also set up a cron job to automatically renew certificates when they're close to expiration:
+## Troubleshooting
 
-```Bash
-# Add to crontab (crontab -e)
-# At minute 30 on day-of-month 1.
-30 * 1 * * certbot renew --quiet
+### DNS Propagation Timeout
+If Lego fails with a "time limit exceeded" error, increase the `HOSTTECH_PROPAGATION_TIMEOUT` in `.env.hosttech`. Hosttech nameservers can sometimes take several minutes to propagate.
+
+### Local Resolver Caching
+If you see errors pointing to `127.0.0.53`, it means your local DNS cache is serving stale results. The `.lego.yml` is configured to use public resolvers (`1.1.1.1`) to bypass this. You can also flush your local cache:
+
+```bash
+sudo resolvectl flush-caches
 ```
 
+### Stale TXT Records
+If multiple attempts fail, manually log in to the Hosttech DNS editor and delete any leftover `_acme-challenge` TXT records.
 
-## Create pkcs12
-Go into directory from [result](#result) where .pem files are saved and execute following:
-
-```Bash
-openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out keystore.p12 -name michibaum -CAfile chain.pem
-```

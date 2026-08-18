@@ -1,0 +1,11 @@
+#
+#Tue Aug 18 20:05:16 CEST 2026
+classes\ that\ are\ annotated\ with\ @Entity\ should\ reside\ in\ a\ package\ '..database..'=a3878558-4502-4e61-a237-4d6294e4fde7
+classes\ that\ are\ annotated\ with\ @Repository\ or\ are\ assignable\ to\ org.springframework.data.repository.Repository\ should\ reside\ in\ a\ package\ '..database..'=e24613e7-2265-4f6a-b457-2253e389432a
+classes\ that\ are\ annotated\ with\ @RestController\ or\ are\ annotated\ with\ @Controller\ should\ have\ simple\ name\ ending\ with\ 'Controller'=493840e2-7df9-4da9-8f95-f3576e707544
+classes\ that\ are\ assignable\ to\ org.springframework.data.repository.Repository\ or\ are\ annotated\ with\ @Repository\ should\ have\ simple\ name\ ending\ with\ 'Repository'=55687643-ba6d-4ca2-a13d-5d2ed646a79e
+classes\ that\ have\ simple\ name\ ending\ with\ 'Repository'\ should\ be\ assignable\ to\ org.springframework.data.repository.Repository\ and\ should\ be\ annotated\ with\ @Repository=9c8962ca-3b50-4d5d-b5c3-352ee640f28f
+no\ classes\ should\ access\ standard\ streams=3d756fe4-7a7e-48ed-9015-70ba02c8843c
+no\ classes\ should\ use\ field\ injection,\ because\ field\ injection\ is\ considered\ harmful;\ use\ constructor\ injection\ or\ setter\ injection\ instead;\ see\ https\://stackoverflow.com/q/39890849\ for\ detailed\ explanations=8af36b60-01f1-4d53-bc15-fa2f060cc80f
+no\ classes\ that\ reside\ in\ a\ package\ '..database..'\ should\ depend\ on\ classes\ that\ reside\ outside\ of\ packages\ ['java..',\ 'jakarta.persistence..',\ 'org.jetbrains.annotations..',\ 'org.springframework.data.jpa.repository..',\ 'org.springframework.data.repository..',\ 'org.springframework.stereotype..',\ '..database..',\ 'kotlin..']=64945c2b-0402-459c-87db-30fdb75cc2d6
+test\ classes\ should\ reside\ in\ the\ same\ package\ as\ their\ implementation\ classes=e63683ef-40ad-47b2-ac0e-1aa1096e7745

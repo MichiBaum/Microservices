@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
@@ -15,54 +15,59 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <spring-boot.version>4.0.3</spring-boot.version>
+        <spring-boot.version>4.1.0</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
         -->
-        <spring-cloud.version>2025.1.1</spring-cloud.version>
+        <spring-cloud.version>2025.1.2</spring-cloud.version>
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>4.0.2</spring-boot-admin.version>
+        <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
-        <datasource-micrometer-spring-boot.version>2.1.1</datasource-micrometer-spring-boot.version>
+        <datasource-micrometer-spring-boot.version>2.2.1</datasource-micrometer-spring-boot.version>
+        <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-bom -->
+        <micrometer-bom.version>1.17.0</micrometer-bom.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>25</java.version>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <java.version>26</java.version>
+        <maven.compiler.source>26</maven.compiler.source>
+        <maven.compiler.target>26</maven.compiler.target>
 
         <!--
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.3.10</kotlin.version>
-        <kotlin-coroutines.version>1.10.2</kotlin-coroutines.version>
-        <kotlin.compiler.jvmTarget>25</kotlin.compiler.jvmTarget>
+        <kotlin.version>2.4.10</kotlin.version>
+        <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom -->
+        <kotlin-coroutines.version>1.11.0</kotlin-coroutines.version>
+        <kotlin.compiler.jvmTarget>26</kotlin.compiler.jvmTarget>
 
         <!--
         https://mockk.io/
         https://mvnrepository.com/artifact/io.mockk/mockk-jvm
         -->
-        <mockk.version>1.14.6</mockk.version>
+        <mockk.version>1.14.11</mockk.version>
 
         <!-- Docker Hub -->
         <dockerHub.url>https://registry.hub.docker.com</dockerHub.url>
-        <jib-maven-plugin.image>eclipse-temurin:25-jre-alpine</jib-maven-plugin.image>
+        <jib-maven-plugin.image>eclipse-temurin:26-jre-alpine</jib-maven-plugin.image>
         
         <!-- Plugins -->
         <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
-        <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.5.2</jib-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
-        <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
         <!-- https://github.com/aleksandr-m/gitflow-maven-plugin -->
         <gitflow-plugin.version>1.21.0</gitflow-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+        <sonar-maven-plugin.version>5.7.0.6970</sonar-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -92,6 +97,18 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-bom</artifactId>
+                <version>${micrometer-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aspectj</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -126,6 +143,11 @@
                 <version>${kotlin-coroutines.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.michibaum</groupId>
+                <artifactId>spring-boot-starter-observability</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -170,6 +192,7 @@
         <module>fitness-service</module>
         <module>music-service</module>
         <module>spring-boot-starter-cache</module>
+        <module>spring-boot-starter-observability</module>
     </modules>
 
     <profiles>
@@ -272,6 +295,11 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>${sonar-maven-plugin.version}</version>
                     </plugin>
                 </plugins>
             </build>
