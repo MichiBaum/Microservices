@@ -11,7 +11,8 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class KubernetesClusterService(
-    private val kubernetesClient: KubernetesClient? = null
+    private val kubernetesClient: KubernetesClient? = null,
+    private val kubernetesProperties: KubernetesProperties
 ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -72,8 +73,30 @@ class KubernetesClusterService(
         }
     }
 
+    fun isServiceUp(serviceName: String, namespace: String? = null): Boolean {
+        val client = kubernetesClient ?: return false
+        val targetNamespace = resolveNamespace(namespace)
+        
+        return try {
+            val service = client.services().inNamespace(targetNamespace).withName(serviceName).get() 
+                ?: return false
+            
+            val selector = service.spec?.selector ?: return false
+            if (selector.isEmpty()) return false
+
+            val pods = client.pods().inNamespace(targetNamespace).withLabels(selector).list().items
+            pods.any { pod ->
+                pod.status?.phase == "Running" && 
+                pod.status?.containerStatuses?.all { it.ready } == true
+            }
+        } catch (e: Exception) {
+            logger.error("Failed to check service health for $serviceName in namespace $targetNamespace", e)
+            false
+        }
+    }
+
     private fun resolveNamespace(namespace: String?): String =
         namespace?.takeIf { it.isNotBlank() }
             ?: kubernetesClient?.namespace?.takeIf { it.isNotBlank() }
-            ?: "microservices"
+            ?: kubernetesProperties.defaultNamespace
 }

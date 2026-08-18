@@ -3,6 +3,7 @@ package com.michibaum.admin_service
 import de.codecentric.boot.admin.server.config.EnableAdminServer
 import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.scheduling.annotation.EnableScheduling
@@ -11,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableAdminServer
 @EnableDiscoveryClient
 @EnableScheduling
+@ConfigurationPropertiesScan
 class AdminServiceApplication
 
 fun main(args: Array<String>) {

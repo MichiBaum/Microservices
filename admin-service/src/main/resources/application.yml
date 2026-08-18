@@ -60,6 +60,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+kubernetes:
+  default-namespace: microservices
+
 eureka:
   instance:
     metadata-map:
