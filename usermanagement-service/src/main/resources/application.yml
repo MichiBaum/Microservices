@@ -76,6 +76,8 @@ management:
         otlp:
           endpoint: http://localhost:4317
           transport: grpc
+          timeout: 2s
+          connect-timeout: 1s
   otlp:
     metrics:
       export:
