@@ -52,6 +52,7 @@ spec:
       addInternals: true
       otlp:
         enabled: true
-        http:
+        grpc:
           enabled: true
-          endpoint: http://jaeger.microservices.svc.cluster.local:4318/v1/traces
+          insecure: true
+          endpoint: otel-collector.microservices.svc.cluster.local:4317

@@ -41,8 +41,10 @@ management:
     tracing:
       export:
         otlp:
-          endpoint: http://jaeger:4318/v1/traces
-          transport: http
+          endpoint: http://otel-collector:4317
+          transport: grpc
+          timeout: 2s
+          connect-timeout: 1s
   tracing:
     sampling:
       probability: 1.0

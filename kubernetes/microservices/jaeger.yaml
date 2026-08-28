@@ -123,7 +123,6 @@ spec:
         ports:
         - containerPort: 16686
         - containerPort: 4317
-        - containerPort: 4318
         - containerPort: 14269
         args:
         - "--config-file"
@@ -180,9 +179,6 @@ spec:
   - name: otlp-grpc
     port: 4317
     targetPort: 4317
-  - name: otlp-http
-    port: 4318
-    targetPort: 4318
   - name: metrics
     port: 14269
     targetPort: 14269

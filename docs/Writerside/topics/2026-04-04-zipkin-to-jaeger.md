@@ -23,7 +23,7 @@ This document outlines the decision and implementation details for migrating the
 The migration involved significant changes across the entire codebase:
 
 *   **Dependency Management:** In all microservices (e.g., `admin-service`, `gateway-service`, `authentication-service`), the `micrometer-tracing-bridge-otel` was removed in favor of `spring-boot-starter-opentelemetry`.
-*   **Application Configuration:** Properties were refactored from Zipkin-specific settings to native OTLP properties. This included setting `management.opentelemetry.tracing.export.otlp.endpoint` to `http://localhost:4318/v1/traces` (for local dev) or `http://jaeger:4318/v1/traces` (for production).
+*   **Application Configuration:** Properties were refactored from Zipkin-specific settings to native OTLP properties. This included setting `management.opentelemetry.tracing.export.otlp.endpoint` to `http://localhost:4317` (for local dev) or `http://jaeger:4317` (for production) using `transport: grpc`.
 *   **Infrastructure (Docker Compose):** The Zipkin service was replaced with a `jaeger` service (using the `jaegertracing/all-in-one` image) and a `jaeger-storage` service (using Elasticsearch).
 *   **Infrastructure (Kubernetes):**
     *   `zipkin.yaml` was deleted.
@@ -36,7 +36,6 @@ The migration involved significant changes across the entire codebase:
 
 The move to OTLP and Jaeger enables several future enhancements:
 
-*   **Performance Optimization:** We can easily switch from OTLP/HTTP (port 4318) to OTLP/gRPC (port 4317) to reduce overhead and improve trace ingestion performance.
 *   **Observability Correlations:** The standardized format makes it easier to correlate traces with logs and metrics in tools like Grafana, providing a "single pane of glass" view.
 *   **Dynamic Sampling:** We can implement remote sampling in Jaeger to dynamically control the volume of traces collected without needing to redeploy services.
 *   **Infrastructure Scaling:** As the project grows, the Jaeger architecture can be scaled out from "all-in-one" to individual components (collector, query, etc.) thanks to the modular nature of the setup.

@@ -88,8 +88,10 @@ management:
     tracing:
       export:
         otlp:
-          endpoint: http://localhost:4318/v1/traces
-          transport: http
+          endpoint: http://localhost:4317
+          transport: grpc
+          timeout: 2s
+          connect-timeout: 1s
   otlp:
     metrics:
       export:
