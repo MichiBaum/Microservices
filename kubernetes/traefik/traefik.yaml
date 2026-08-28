@@ -55,4 +55,4 @@ spec:
         grpc:
           enabled: true
           insecure: true
-          endpoint: jaeger.microservices.svc.cluster.local:4317
+          endpoint: otel-collector.microservices.svc.cluster.local:4317
