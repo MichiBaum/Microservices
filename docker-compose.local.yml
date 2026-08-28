@@ -33,7 +33,7 @@ services:
     restart: always
     command: ["--config=/etc/otel-collector-config.yaml"]
     volumes:
-      - ./kubernetes/microservices/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+      - ./jaeger/otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
       - "4317:4317"
     depends_on:
