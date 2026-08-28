@@ -27,6 +27,7 @@ This document provides information about deploying and updating the microservice
   - `configmap.yaml`: Contains non-sensitive configuration
   - `registry-service.yaml`: Service registry (Eureka)
   - `jaeger.yaml`: Distributed tracing (Jaeger, Jaeger Storage)
+  - `otel-collector-config.yaml`: OpenTelemetry Collector for trace forwarding
   - `prometheus.yaml`: Prometheus monitoring
   - `grafana.yaml`: Grafana dashboarding
   - `traefik-middleware.yaml`: Defines Traefik middleware for HTTP to HTTPS redirection
@@ -73,6 +74,7 @@ This document provides information about deploying and updating the microservice
 5. Deploy infrastructure services:
    ```bash
    kubectl apply -n microservices -f jaeger.yaml
+   kubectl apply -n microservices -f otel-collector-config.yaml
    kubectl apply -n microservices -f registry-service.yaml
    ```
 
