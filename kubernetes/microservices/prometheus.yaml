@@ -110,7 +110,7 @@ data:
       - job_name: 'jaeger'
         scrape_interval: 5s
         static_configs:
-          - targets: [ 'jaeger:14269' ]
+          - targets: [ 'jaeger:13133' ]
       - job_name: 'traefik'
         scrape_interval: 5s
         static_configs:
