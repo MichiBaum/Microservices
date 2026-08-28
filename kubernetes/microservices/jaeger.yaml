@@ -119,13 +119,13 @@ spec:
     spec:
       containers:
       - name: jaeger
-        image: jaegertracing/all-in-one:1.76.0
+        image: jaegertracing/jaeger:2.20.0
         ports:
         - containerPort: 16686
         - containerPort: 4317
-        - containerPort: 14269
+        - containerPort: 13133
         args:
-        - "--config-file"
+        - "--config"
         - "/etc/jaeger/jaeger.yml"
         resources:
           requests:
@@ -136,14 +136,14 @@ spec:
             cpu: "500m"
         livenessProbe:
           httpGet:
-            path: /
-            port: 14269
+            path: /status
+            port: 13133
           initialDelaySeconds: 5
           periodSeconds: 15
         readinessProbe:
           httpGet:
-            path: /
-            port: 14269
+            path: /status
+            port: 13133
           initialDelaySeconds: 1
           periodSeconds: 10
         volumeMounts:
@@ -179,9 +179,9 @@ spec:
   - name: otlp-grpc
     port: 4317
     targetPort: 4317
-  - name: metrics
-    port: 14269
-    targetPort: 14269
+  - name: health
+    port: 13133
+    targetPort: 13133
   type: ClusterIP
 ---
 apiVersion: v1
@@ -191,14 +191,45 @@ metadata:
   namespace: microservices
 data:
   jaeger.yml: |
-    span-storage-type: elasticsearch
-    es:
-      server-urls: http://jaeger-storage:9200
-    collector:
+    service:
+      extensions: [jaeger_storage, jaeger_query, healthcheckv2]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [jaeger_storage_exporter]
+
+    extensions:
+      healthcheckv2:
+        use_v2: true
+        http:
+          endpoint: 0.0.0.0:13133
+      jaeger_query:
+        storage:
+          traces: primary_store
+        ui:
+          config_file: /etc/jaeger/ui-config.json
+      jaeger_storage:
+        backends:
+          primary_store:
+            elasticsearch:
+              server_urls:
+                - http://jaeger-storage:9200
+
+    receivers:
       otlp:
-        enabled: true
-    query:
-      ui-config: /etc/jaeger/ui-config.json
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+    processors:
+      batch:
+
+    exporters:
+      jaeger_storage_exporter:
+        trace_storage: primary_store
   ui-config.json: |
     {
       "dependencies": {

@@ -1,8 +1,39 @@
-span-storage-type: elasticsearch
-es:
-  server-urls: http://jaeger-storage:9200
-collector:
+service:
+  extensions: [jaeger_storage, jaeger_query, healthcheckv2]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [jaeger_storage_exporter]
+
+extensions:
+  healthcheckv2:
+    use_v2: true
+    http:
+      endpoint: 0.0.0.0:13133
+  jaeger_query:
+    storage:
+      traces: primary_store
+    ui:
+      config_file: /etc/jaeger/ui-config.json
+  jaeger_storage:
+    backends:
+      primary_store:
+        elasticsearch:
+          server_urls:
+            - http://jaeger-storage:9200
+
+receivers:
   otlp:
-    enabled: true
-query:
-  ui-config: /etc/jaeger/ui-config.json
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+
+exporters:
+  jaeger_storage_exporter:
+    trace_storage: primary_store
