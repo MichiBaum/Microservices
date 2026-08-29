@@ -149,6 +149,20 @@
     "chess-settings": {
         "title": "国际象棋设置"
     },
+    "confirm_dialog": {
+        "confirm": {
+            "accept": "确认",
+            "reject": "取消"
+        },
+        "delete": {
+            "accept": "删除",
+            "reject": "取消"
+        },
+        "save": {
+            "accept": "保存",
+            "reject": "取消"
+        }
+    },
     "donate": {
         "buy-me-a-coffee": "请我喝杯咖啡",
         "github": "Github",
@@ -329,9 +343,8 @@
         "deployment": {
             "title": "部署状态",
             "name": "名称",
-            "namespace": "命名空间",
-            "replicas": "副本数",
-            "ready-replicas": "就绪副本数",
+            "port": "端口",
+            "node-port": "节点端口",
             "creation-timestamp": "创建时间",
             "containers": "容器"
         }

@@ -22,7 +22,7 @@ class WireguardController(
     @ResponseStatus(HttpStatus.CREATED)
     fun createDeployment(
         authentication: Authentication?
-    ): DeploymentDto {
+    ): WireguardDeploymentDto {
         val requestedUser = resolveRequestedUser(authentication)
         return wireguardService.createDeployment(requestedUser)
     }
@@ -30,7 +30,7 @@ class WireguardController(
     @GetMapping("/api/wireguard")
     fun getDeployment(
         authentication: Authentication?
-    ): DeploymentDto? {
+    ): WireguardDeploymentDto? {
         val requestedUser = resolveRequestedUser(authentication)
         return wireguardService.getDeployment(requestedUser)
     }

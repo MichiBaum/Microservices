@@ -149,6 +149,20 @@
     "chess-settings": {
         "title": "Configuración de Ajedrez"
     },
+    "confirm_dialog": {
+        "confirm": {
+            "accept": "Sí",
+            "reject": "No"
+        },
+        "delete": {
+            "accept": "Eliminar",
+            "reject": "Cancelar"
+        },
+        "save": {
+            "accept": "Guardar",
+            "reject": "Cancelar"
+        }
+    },
     "donate": {
         "buy-me-a-coffee": "Invítame a un café",
         "github": "Github",
@@ -329,9 +343,8 @@
         "deployment": {
             "title": "Estado del Despliegue",
             "name": "Nombre",
-            "namespace": "Espacio de nombres",
-            "replicas": "Réplicas",
-            "ready-replicas": "Réplicas listas",
+            "port": "Puerto",
+            "node-port": "Puerto del nodo",
             "creation-timestamp": "Creado el",
             "containers": "Contenedores"
         }

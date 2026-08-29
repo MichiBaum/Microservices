@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {Button} from "primeng/button";
@@ -7,16 +7,13 @@ import {Tag} from "primeng/tag";
 import {Textarea} from "primeng/textarea";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {
-  faCheck,
   faCopy,
   faDownload,
   faPlus,
   faShieldHalved,
-  faTrash,
-  faFileCode
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import {VpnService} from "../core/api-services/vpn.service";
-import {DeploymentDto} from "../core/models/vpn/vpn.model";
 import {UserInfoService} from "../core/services/user-info.service";
 import {UserConfirmationService} from "../core/services/user-confirmation.service";
 import {rxResource, toObservable, toSignal} from "@angular/core/rxjs-interop";
@@ -75,7 +72,7 @@ export class VpnComponent {
         if (this.deployment.value !== undefined) {
           this.userInfoService.info(
             this.translateService.instant("vpn.create.success"),
-            dto.name ? `${dto.name} (${dto.namespace})` : ""
+            dto.name || ""
           );
         }
       },
@@ -92,6 +89,8 @@ export class VpnComponent {
     this.userConfirmationService.deleteConfirm({
       header: this.translateService.instant("vpn.delete.confirm-title"),
       message: this.translateService.instant("vpn.delete.confirm-message"),
+      closable: true,
+      closeOnEscape: true,
       accept: () => {
         this.deleteWireguardService();
       }

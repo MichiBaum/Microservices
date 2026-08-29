@@ -24,7 +24,6 @@ export class UserConfirmationService {
     return this._confirmEmitter;
   }
 
-
   confirm(toConfirm: CustomConfirmation) {
     toConfirm.faIcon ??= faQuestion;
     toConfirm.acceptLabel ??= this.translateService.instant("confirm_dialog.confirm.accept");

@@ -50,21 +50,21 @@ class WireguardControllerTest {
 
     @Test
     fun `createDeployment with valid authentication returns created DeploymentDto`() {
-        val deploymentDto = DeploymentDto(
+        val wireguardDeploymentDto = WireguardDeploymentDto(
             name = "wireguard-john-doe",
-            namespace = "microservices",
-            replicas = 1,
-            readyReplicas = 1,
             creationTimestamp = "2026-08-29T10:00:00Z",
-            containers = listOf("wireguard")
+            containers = listOf("wireguard"),
+            port = 51820,
+            nodePort = 31820
         )
 
-        every { wireguardService.createDeployment("john-doe", null) } returns deploymentDto
+        every { wireguardService.createDeployment("john-doe", null) } returns wireguardDeploymentDto
 
         mockMvc.perform(post("/api/wireguard").principal(validAuth))
             .andExpect(status().isCreated)
             .andExpect(jsonPath("$.name").value("wireguard-john-doe"))
-            .andExpect(jsonPath("$.namespace").value("microservices"))
+            .andExpect(jsonPath("$.port").value(51820))
+            .andExpect(jsonPath("$.nodePort").value(31820))
 
         verify(exactly = 1) { wireguardService.createDeployment("john-doe", null) }
     }
@@ -95,21 +95,21 @@ class WireguardControllerTest {
 
     @Test
     fun `getDeployment with valid authentication returns DeploymentDto`() {
-        val deploymentDto = DeploymentDto(
+        val wireguardDeploymentDto = WireguardDeploymentDto(
             name = "wireguard-john-doe",
-            namespace = "microservices",
-            replicas = 1,
-            readyReplicas = 1,
             creationTimestamp = "2026-08-29T10:00:00Z",
-            containers = listOf("wireguard")
+            containers = listOf("wireguard"),
+            port = 51820,
+            nodePort = 31820
         )
 
-        every { wireguardService.getDeployment("john-doe", null) } returns deploymentDto
+        every { wireguardService.getDeployment("john-doe", null) } returns wireguardDeploymentDto
 
         mockMvc.perform(get("/api/wireguard").principal(validAuth))
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.name").value("wireguard-john-doe"))
-            .andExpect(jsonPath("$.namespace").value("microservices"))
+            .andExpect(jsonPath("$.port").value(51820))
+            .andExpect(jsonPath("$.nodePort").value(31820))
 
         verify(exactly = 1) { wireguardService.getDeployment("john-doe", null) }
     }

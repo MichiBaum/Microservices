@@ -77,6 +77,7 @@ class WireguardServiceTest {
             }
             spec = io.fabric8.kubernetes.api.model.ServiceSpec().apply {
                 ports = listOf(io.fabric8.kubernetes.api.model.ServicePort().apply {
+                    port = 51820
                     nodePort = 31820
                 })
             }
@@ -100,10 +101,9 @@ class WireguardServiceTest {
         val result = service.createDeployment("testuser")
 
         assertEquals("wireguard-testuser", result.name)
-        assertEquals("microservices", result.namespace)
-        assertEquals(1, result.replicas)
-        assertEquals(1, result.readyReplicas)
         assertEquals(listOf("wireguard"), result.containers)
+        assertEquals(51820, result.port)
+        assertEquals(31820, result.nodePort)
     }
 
     @Test
@@ -111,6 +111,10 @@ class WireguardServiceTest {
         val deploymentsOperation = mockk<MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
         val deploymentNamespaceOperation = mockk<NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
         val deploymentResource = mockk<RollableScalableResource<Deployment>>()
+
+        val servicesOperation = mockk<MixedOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceNamespaceOperation = mockk<NonNamespaceOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceResource = mockk<ServiceResource<Service>>()
 
         val existingDeployment = Deployment().apply {
             metadata = ObjectMeta().apply {
@@ -129,6 +133,18 @@ class WireguardServiceTest {
                 readyReplicas = 1
             }
         }
+        val existingService = Service().apply {
+            metadata = ObjectMeta().apply {
+                name = "wireguard-testuser-service"
+                namespace = "microservices"
+            }
+            spec = io.fabric8.kubernetes.api.model.ServiceSpec().apply {
+                ports = listOf(io.fabric8.kubernetes.api.model.ServicePort().apply {
+                    port = 51820
+                    nodePort = 31820
+                })
+            }
+        }
 
         every { kubernetesClient.namespace } returns "microservices"
         every { kubernetesClient.apps().deployments() } returns deploymentsOperation
@@ -136,14 +152,18 @@ class WireguardServiceTest {
         every { deploymentNamespaceOperation.withName("wireguard-testuser") } returns deploymentResource
         every { deploymentResource.get() } returns existingDeployment
 
+        every { kubernetesClient.services() } returns servicesOperation
+        every { servicesOperation.inNamespace("microservices") } returns serviceNamespaceOperation
+        every { serviceNamespaceOperation.withName("wireguard-testuser-service") } returns serviceResource
+        every { serviceResource.get() } returns existingService
+
         val result = service.getDeployment("testuser")
 
         org.junit.jupiter.api.Assertions.assertNotNull(result)
         assertEquals("wireguard-testuser", result?.name)
-        assertEquals("microservices", result?.namespace)
-        assertEquals(1, result?.replicas)
-        assertEquals(1, result?.readyReplicas)
         assertEquals(listOf("wireguard"), result?.containers)
+        assertEquals(51820, result?.port)
+        assertEquals(31820, result?.nodePort)
     }
 
     @Test

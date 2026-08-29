@@ -14,7 +14,7 @@ import {AuthService} from "./core/api-services/auth.service";
 import {UserConfirmationService} from "./core/services/user-confirmation.service";
 import {Button} from "primeng/button";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
+import {faSpinner, faXmark} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-root',
@@ -73,6 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
     })
   }
 
+  protected readonly faXmark = faXmark;
 }
 
 

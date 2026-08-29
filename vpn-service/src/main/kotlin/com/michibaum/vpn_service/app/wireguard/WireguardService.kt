@@ -1,6 +1,7 @@
 package com.michibaum.vpn_service.app.wireguard
 
 import com.michibaum.vpn_service.config.kubernetes.KubernetesProperties
+import io.fabric8.kubernetes.api.model.Service as K8sService
 import io.fabric8.kubernetes.api.model.apps.Deployment
 import io.fabric8.kubernetes.client.KubernetesClient
 import org.slf4j.LoggerFactory
@@ -16,7 +17,7 @@ class WireguardService(
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun createDeployment(requestedUser: String, namespace: String? = null): DeploymentDto {
+    fun createDeployment(requestedUser: String, namespace: String? = null): WireguardDeploymentDto {
         val client = kubernetesClient ?: throw ResponseStatusException(
             HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
         )
@@ -31,7 +32,7 @@ class WireguardService(
 
         if (existingDeployment != null || existingService != null) {
             if (existingDeployment != null) {
-                return mapToDeploymentDto(existingDeployment, targetNamespace)
+                return mapToDeploymentDto(existingDeployment, existingService)
             }
             throw ResponseStatusException(HttpStatus.CONFLICT, "WireGuard service already exists for user $sanitizedUser")
         }
@@ -71,10 +72,10 @@ class WireguardService(
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to create WireGuard deployment", e)
         }
 
-        return mapToDeploymentDto(createdDeployment, targetNamespace)
+        return mapToDeploymentDto(createdDeployment, createdService)
     }
 
-    fun getDeployment(requestedUser: String, namespace: String? = null): DeploymentDto? {
+    fun getDeployment(requestedUser: String, namespace: String? = null): WireguardDeploymentDto? {
         val client = kubernetesClient ?: throw ResponseStatusException(
             HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
         )
@@ -82,11 +83,14 @@ class WireguardService(
         val sanitizedUser = sanitizeKubernetesName(requestedUser)
 
         val deploymentName = "wireguard-$sanitizedUser"
+        val serviceName = "wireguard-$sanitizedUser-service"
 
         val deployment = client.apps().deployments().inNamespace(targetNamespace).withName(deploymentName).get()
             ?: return null
 
-        return mapToDeploymentDto(deployment, targetNamespace)
+        val service = client.services().inNamespace(targetNamespace).withName(serviceName).get()
+
+        return mapToDeploymentDto(deployment, service)
     }
 
     fun deleteDeployment(requestedUser: String, namespace: String? = null) {
@@ -148,15 +152,16 @@ class WireguardService(
         return if (sanitized.isBlank()) "user" else sanitized.take(50)
     }
 
-    private fun mapToDeploymentDto(deployment: Deployment, targetNamespace: String): DeploymentDto =
-        DeploymentDto(
+    private fun mapToDeploymentDto(deployment: Deployment, service: K8sService?): WireguardDeploymentDto {
+        val servicePort = service?.spec?.ports?.firstOrNull()
+        return WireguardDeploymentDto(
             name = deployment.metadata?.name ?: "",
-            namespace = deployment.metadata?.namespace ?: targetNamespace,
-            replicas = deployment.spec?.replicas ?: deployment.status?.replicas,
-            readyReplicas = deployment.status?.readyReplicas ?: 0,
             creationTimestamp = deployment.metadata?.creationTimestamp,
-            containers = deployment.spec?.template?.spec?.containers?.mapNotNull { it.name } ?: emptyList()
+            containers = deployment.spec?.template?.spec?.containers?.mapNotNull { it.name } ?: emptyList(),
+            port = servicePort?.port,
+            nodePort = servicePort?.nodePort
         )
+    }
 
     private fun resolveNamespace(namespace: String?): String =
         namespace?.takeIf { it.isNotBlank() }

@@ -149,6 +149,20 @@
     "chess-settings": {
         "title": "Schach Einstellungen"
     },
+    "confirm_dialog": {
+        "confirm": {
+            "accept": "Ja",
+            "reject": "Nein"
+        },
+        "delete": {
+            "accept": "Löschen",
+            "reject": "Abbrechen"
+        },
+        "save": {
+            "accept": "Speichern",
+            "reject": "Abbrechen"
+        }
+    },
     "donate": {
         "buy-me-a-coffee": "Spende einen Kaffee",
         "github": "Github",
@@ -329,9 +343,8 @@
         "deployment": {
             "title": "Deployment Status",
             "name": "Name",
-            "namespace": "Namespace",
-            "replicas": "Replikate",
-            "ready-replicas": "Bereite Replikate",
+            "port": "Port",
+            "node-port": "NodePort",
             "creation-timestamp": "Erstellt am",
             "containers": "Container"
         }

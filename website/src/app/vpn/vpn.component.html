@@ -51,10 +51,16 @@
               <span class="font-bold text-surface-600 dark:text-surface-400">{{ 'vpn.deployment.name' | translate }}:</span>
               <span class="ml-2 font-mono text-surface-900 dark:text-surface-0">{{ dep.name }}</span>
             </div>
-            @if (dep.replicas !== undefined) {
+            @if (dep.port !== undefined && dep.port !== null) {
               <div>
-                <span class="font-bold text-surface-600 dark:text-surface-400">{{ 'vpn.deployment.replicas' | translate }}:</span>
-                <span class="ml-2 text-surface-900 dark:text-surface-0">{{ dep.readyReplicas ?? 0 }} / {{ dep.replicas }}</span>
+                <span class="font-bold text-surface-600 dark:text-surface-400">{{ 'vpn.deployment.port' | translate }}:</span>
+                <span class="ml-2 text-surface-900 dark:text-surface-0">{{ dep.port }}</span>
+              </div>
+            }
+            @if (dep.nodePort !== undefined && dep.nodePort !== null) {
+              <div>
+                <span class="font-bold text-surface-600 dark:text-surface-400">{{ 'vpn.deployment.node-port' | translate }}:</span>
+                <span class="ml-2 text-surface-900 dark:text-surface-0">{{ dep.nodePort }}</span>
               </div>
             }
             @if (dep.creationTimestamp) {
