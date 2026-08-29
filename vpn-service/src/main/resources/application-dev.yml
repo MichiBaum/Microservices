@@ -1,108 +1,30 @@
 server:
-  shutdown: graceful
-  undertow:
-    url-charset: UTF-8
-  compression:
-    enabled: true
-    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
-    min-response-size: 1024
-
-public-endpoints:
-  package-names:
-    - com.michibaum.vpn_service
-  endpoints:
-    - raw-path: /actuator/health/readiness
-      request-method: GET
-    - raw-path: /actuator/health/liveness
-      request-method: GET
+  port: 8088
 
 spring:
-  threads:
-    virtual:
-      enabled: true
-  lifecycle:
-    timeout-per-shutdown-phase: 20s
-  application:
-    name: vpn-service
-  cloud:
-    kubernetes:
-      discovery:
-        primary-port-name: http
-    discovery:
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
       client:
-        health-indicator:
-          include-description: true
-
-kubernetes:
-  default-namespace: microservices
+        username: admin_username
+        password: admin_password
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_VPN_SERVICE_LOG_CHANNEL}
 
 eureka:
-  instance:
-    metadata-map:
-      prometheus.path: /actuator/prometheus
-    prefer-ip-address: true
   client:
-    enabled: true
-    fetch-registry: true
-    register-with-eureka: true
-    refresh:
-      enable: true
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
 
 management:
   tracing:
-    propagation:
-      type: W3C
     sampling:
       probability: 1.0
-  opentelemetry:
-    tracing:
-      export:
-        otlp:
-          endpoint: http://localhost:4317
-          transport: grpc
-          timeout: 2s
-          connect-timeout: 1s
-  otlp:
-    metrics:
-      export:
-        enabled: false
-  observations:
-    annotations:
-      enabled: true
-  endpoints:
-    access:
-      default: unrestricted
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    env:
-      post:
-        enabled: true
-    health:
-      show-details: always
-      probes:
-        enabled: true
-  health:
-    livenessstate:
-      enabled: true
-    readinessstate:
-      enabled: true
-  info:
-    git:
-      mode: full
-      enabled: true
-    build:
-      enabled: true
-    defaults:
-      enabled: true
-    env:
-      enabled: true
-    java:
-      enabled: true
-    os:
-      enabled: true
-    process:
-      enabled: true
-    ssl:
-      enabled: true

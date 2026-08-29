@@ -6,9 +6,6 @@ server:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
     min-response-size: 1024
-#  TODO Issue: https://github.com/MichiBaum/Microservices/issues/170
-#  http2:
-#    enabled: true
 
 public-endpoints:
   package-names:
@@ -28,26 +25,23 @@ spring:
   application:
     name: vpn-service
   cloud:
-    kubernetes:
-      discovery:
-        primary-port-name: http
     discovery:
       client:
         health-indicator:
           include-description: true
   main:
     allow-bean-definition-overriding: true
-
-kubernetes:
-  default-namespace: microservices
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
 
 eureka:
   instance:
-    metadata-map:
-      prometheus.path: /actuator/prometheus
     prefer-ip-address: true
   client:
-    enabled: true
+    enabled: false
     fetch-registry: true
     register-with-eureka: true
     refresh:
@@ -55,25 +49,8 @@ eureka:
 
 management:
   tracing:
-    propagation:
-      type: W3C
-    sampling:
-      probability: 1.0
-  opentelemetry:
-    tracing:
-      export:
-        otlp:
-          endpoint: http://localhost:4317
-          transport: grpc
-          timeout: 2s
-          connect-timeout: 1s
-  otlp:
-    metrics:
-      export:
-        enabled: false
-  observations:
-    annotations:
-      enabled: true
+    export:
+      enabled: false
   endpoints:
     access:
       default: unrestricted
