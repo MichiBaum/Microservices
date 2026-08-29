@@ -18,6 +18,7 @@ Which microservice(s) are affected by this bug:
 - [ ] Fitness Service
 - [ ] Gateway Service
 - [ ] Music Service
+- [ ] VPN Service
 - [ ] Registry Service
 - [ ] User Management Service
 - [ ] Website Service

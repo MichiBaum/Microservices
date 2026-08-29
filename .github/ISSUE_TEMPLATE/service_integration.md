@@ -17,6 +17,7 @@ Which microservices are involved in this integration:
 - [ ] Fitness Service
 - [ ] Gateway Service
 - [ ] Music Service
+- [ ] VPN Service
 - [ ] Registry Service
 - [ ] User Management Service
 - [ ] Website Service
