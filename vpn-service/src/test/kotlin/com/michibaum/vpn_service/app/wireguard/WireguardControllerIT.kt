@@ -1,4 +1,4 @@
-package com.michibaum.admin_service.app.wireguard
+package com.michibaum.vpn_service.app.wireguard
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
@@ -18,7 +18,6 @@ import io.fabric8.kubernetes.client.dsl.CopyOrReadable
 import io.fabric8.kubernetes.client.dsl.MixedOperation
 import io.fabric8.kubernetes.client.dsl.NonNamespaceOperation
 import io.fabric8.kubernetes.client.dsl.PodResource
-import io.fabric8.kubernetes.client.dsl.Resource
 import io.fabric8.kubernetes.client.dsl.RollableScalableResource
 import io.fabric8.kubernetes.client.dsl.ServiceResource
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -91,7 +90,7 @@ class WireguardControllerIT {
         val token = JWT.create()
             .withSubject("anonymous")
             .withClaim("userId", "123")
-            .withClaim("permissions", listOf(Permissions.ADMIN_SERVICE.name))
+            .withClaim("permissions", listOf(Permissions.VPN_SERVICE_OWN_USER.name))
             .sign(Algorithm.none())
 
         `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationSuccess())
@@ -112,11 +111,11 @@ class WireguardControllerIT {
 
     @Suppress("UNCHECKED_CAST")
     @Test
-    fun `create wireguard deployment with ADMIN_SERVICE permission and valid user creates deployment`() {
+    fun `create wireguard deployment with VPN_SERVICE_OWN_USER permission and valid user creates deployment`() {
         val token = JWT.create()
             .withSubject("john-doe")
             .withClaim("userId", "123")
-            .withClaim("permissions", listOf(Permissions.ADMIN_SERVICE.name))
+            .withClaim("permissions", listOf(Permissions.VPN_SERVICE_OWN_USER.name))
             .sign(Algorithm.none())
 
         `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationSuccess())
@@ -171,11 +170,11 @@ class WireguardControllerIT {
 
     @Suppress("UNCHECKED_CAST")
     @Test
-    fun `get wireguard config with ADMIN_SERVICE permission and valid user returns config`() {
+    fun `get wireguard config with VPN_SERVICE_OWN_USER permission and valid user returns config`() {
         val token = JWT.create()
             .withSubject("john-doe")
             .withClaim("userId", "123")
-            .withClaim("permissions", listOf(Permissions.ADMIN_SERVICE.name))
+            .withClaim("permissions", listOf(Permissions.VPN_SERVICE_OWN_USER.name))
             .sign(Algorithm.none())
 
         `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationSuccess())

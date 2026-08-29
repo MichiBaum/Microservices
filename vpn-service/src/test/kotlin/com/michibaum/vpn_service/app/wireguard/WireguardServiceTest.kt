@@ -1,6 +1,6 @@
-package com.michibaum.admin_service.app.wireguard
+package com.michibaum.vpn_service.app.wireguard
 
-import com.michibaum.admin_service.app.kubernetes.KubernetesProperties
+import com.michibaum.vpn_service.app.kubernetes.KubernetesProperties
 import io.fabric8.kubernetes.api.model.Container
 import io.fabric8.kubernetes.api.model.ObjectMeta
 import io.fabric8.kubernetes.api.model.Pod
@@ -18,7 +18,6 @@ import io.fabric8.kubernetes.client.dsl.CopyOrReadable
 import io.fabric8.kubernetes.client.dsl.MixedOperation
 import io.fabric8.kubernetes.client.dsl.NonNamespaceOperation
 import io.fabric8.kubernetes.client.dsl.PodResource
-import io.fabric8.kubernetes.client.dsl.Resource
 import io.fabric8.kubernetes.client.dsl.RollableScalableResource
 import io.fabric8.kubernetes.client.dsl.ServiceResource
 import io.mockk.every

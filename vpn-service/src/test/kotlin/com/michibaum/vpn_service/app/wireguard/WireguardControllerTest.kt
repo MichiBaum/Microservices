@@ -1,6 +1,6 @@
-package com.michibaum.admin_service.app.wireguard
+package com.michibaum.vpn_service.app.wireguard
 
-import com.michibaum.admin_service.app.kubernetes.dto.DeploymentDto
+import com.michibaum.vpn_service.app.kubernetes.dto.DeploymentDto
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

@@ -6,7 +6,7 @@ metadata:
   labels:
     app: wireguard
     user: ${userName}
-    managed-by: admin-service
+    managed-by: vpn-service
 spec:
   type: NodePort
   selector:

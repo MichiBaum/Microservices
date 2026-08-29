@@ -1,7 +1,7 @@
-package com.michibaum.admin_service.app.wireguard
+package com.michibaum.vpn_service.app.wireguard
 
-import com.michibaum.admin_service.app.kubernetes.KubernetesProperties
-import com.michibaum.admin_service.app.kubernetes.dto.DeploymentDto
+import com.michibaum.vpn_service.app.kubernetes.KubernetesProperties
+import com.michibaum.vpn_service.app.kubernetes.dto.DeploymentDto
 import io.fabric8.kubernetes.api.model.apps.Deployment
 import io.fabric8.kubernetes.client.KubernetesClient
 import org.slf4j.LoggerFactory

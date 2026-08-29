@@ -68,6 +68,11 @@ website-service:
     - changed-files:
       - any-glob-to-any-file: ['website-service/**']
 
+vpn-service:
+  - any:
+    - changed-files:
+      - any-glob-to-any-file: ['vpn-service/**']
+
 website:
   - any:
     - changed-files:

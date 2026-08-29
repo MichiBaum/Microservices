@@ -1,6 +1,8 @@
-package com.michibaum.admin_service.app.wireguard
+package com.michibaum.vpn_service.app.wireguard
 
-import com.michibaum.admin_service.app.kubernetes.dto.DeploymentDto
+import com.michibaum.authentication_library.anyOf
+import com.michibaum.permission_library.Permissions
+import com.michibaum.vpn_service.app.kubernetes.dto.DeploymentDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.core.Authentication
@@ -25,9 +27,7 @@ class WireguardController(
         @RequestParam(required = false) username: String?,
         @RequestParam(required = false) namespace: String?
     ): DeploymentDto {
-        val requestedUser = authentication?.name?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
-            ?: username?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
-            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is not set")
+        val requestedUser = resolveRequestedUser(authentication, username)
         return wireguardService.createWireguardDeployment(requestedUser, namespace)
     }
 
@@ -37,10 +37,29 @@ class WireguardController(
         @RequestParam(required = false) username: String?,
         @RequestParam(required = false) namespace: String?
     ): String {
-        val requestedUser = authentication?.name?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
-            ?: username?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
-            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is not set")
+        val requestedUser = resolveRequestedUser(authentication, username)
         return wireguardService.getPeerConfig(requestedUser, namespace)
+    }
+
+    private fun resolveRequestedUser(authentication: Authentication?, usernameParam: String?): String {
+        val authUser = authentication?.name?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
+        val targetUser = usernameParam?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" } ?: authUser
+        ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is not set")
+
+        if (authentication != null) {
+            val isOtherUser = authUser != null && authUser != targetUser
+            val hasAllUsers = authentication.anyOf(Permissions.VPN_SERVICE_ALL_USERS)
+            val hasOwnUser = authentication.anyOf(Permissions.VPN_SERVICE_OWN_USER)
+
+            if (isOtherUser && !hasAllUsers) {
+                throw ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied")
+            }
+            if (!hasAllUsers && !hasOwnUser) {
+                throw ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied")
+            }
+        }
+
+        return targetUser
     }
 
 }
