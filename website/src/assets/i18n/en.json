@@ -203,6 +203,11 @@
             "content": "Music speaks what words cannot, touching hearts beyond measure.",
             "title": "Music"
         },
+        "vpn": {
+            "button": "Go to VPN",
+            "content": "Create, manage, and retrieve configuration for your WireGuard VPN service.",
+            "title": "WireGuard VPN"
+        },
         "tab-title": "Home - MichiBaum",
         "title": "Home"
     },
@@ -296,5 +301,39 @@
         "update": "Update",
         "update-available": "Update available!",
         "update-available-message": "A new version is available!"
+    },
+    "vpn": {
+        "title": "WireGuard VPN",
+        "tab-title": "WireGuard VPN - MichiBaum",
+        "meta-description": "Manage your WireGuard VPN service, generate client configurations, and view connection status.",
+        "create": {
+            "button": "Create VPN Service",
+            "success": "WireGuard service created successfully",
+            "error": "Failed to create WireGuard service"
+        },
+        "delete": {
+            "button": "Delete VPN Service",
+            "confirm-title": "Delete WireGuard Service",
+            "confirm-message": "Are you sure you want to delete your WireGuard VPN service? This action cannot be undone.",
+            "success": "WireGuard service deleted successfully",
+            "error": "Failed to delete WireGuard service"
+        },
+        "config": {
+            "button": "Get Config",
+            "title": "WireGuard Configuration",
+            "copy": "Copy Config",
+            "copied": "Configuration copied to clipboard",
+            "download": "Download Config File",
+            "error": "Failed to fetch WireGuard configuration"
+        },
+        "deployment": {
+            "title": "Deployment Status",
+            "name": "Name",
+            "namespace": "Namespace",
+            "replicas": "Replicas",
+            "ready-replicas": "Ready Replicas",
+            "creation-timestamp": "Created At",
+            "containers": "Containers"
+        }
     }
 }

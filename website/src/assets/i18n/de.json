@@ -203,6 +203,11 @@
             "content": "Musik spricht, was Worte nicht können, berührt Herzen grenzenlos.",
             "title": "Musik"
         },
+        "vpn": {
+            "button": "Zu VPN",
+            "content": "Erstellen, verwalten und konfigurieren Sie Ihren WireGuard-VPN-Dienst.",
+            "title": "WireGuard VPN"
+        },
         "tab-title": "Startseite - MichiBaum",
         "title": "Startseite"
     },
@@ -296,5 +301,39 @@
         "update": "Update",
         "update-available": "Update verfügbar!",
         "update-available-message": "Eine neue Version ist verfügbar!"
+    },
+    "vpn": {
+        "title": "WireGuard VPN",
+        "tab-title": "WireGuard VPN - MichiBaum",
+        "meta-description": "Verwalten Sie Ihren WireGuard VPN Service, generieren Sie Konfigurationen und verwalten Sie Deployments.",
+        "create": {
+            "button": "VPN Dienst Erstellen",
+            "success": "WireGuard Dienst erfolgreich erstellt",
+            "error": "Fehler beim Erstellen des WireGuard Dienstes"
+        },
+        "delete": {
+            "button": "VPN Dienst Löschen",
+            "confirm-title": "WireGuard Dienst Löschen",
+            "confirm-message": "Sind Sie sicher, dass Sie Ihren WireGuard VPN Dienst löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+            "success": "WireGuard Dienst erfolgreich gelöscht",
+            "error": "Fehler beim Löschen des WireGuard Dienstes"
+        },
+        "config": {
+            "button": "Konfiguration Abrufen",
+            "title": "WireGuard Konfiguration",
+            "copy": "Konfiguration Kopieren",
+            "copied": "Konfiguration in Zwischenablage kopiert",
+            "download": "Konfigurationsdatei Herunterladen",
+            "error": "Fehler beim Abrufen der WireGuard Konfiguration"
+        },
+        "deployment": {
+            "title": "Deployment Status",
+            "name": "Name",
+            "namespace": "Namespace",
+            "replicas": "Replikate",
+            "ready-replicas": "Bereite Replikate",
+            "creation-timestamp": "Erstellt am",
+            "containers": "Container"
+        }
     }
 }

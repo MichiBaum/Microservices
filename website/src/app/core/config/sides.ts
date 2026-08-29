@@ -107,5 +107,12 @@ export const Sides = {
     navigation: "music-settings",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.MUSIC_SERVICE]),
     neededPermissions: [Permissions.MUSIC_SERVICE]
+  } as Side,
+  vpn:{
+    name: "vpn",
+    translationKey: "vpn.title",
+    navigation: "vpn",
+    canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.VPN_SERVICE_OWN_USER, Permissions.VPN_SERVICE_ALL_USERS]),
+    neededPermissions: [Permissions.VPN_SERVICE_OWN_USER]
   } as Side
 }

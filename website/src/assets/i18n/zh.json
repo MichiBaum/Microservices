@@ -203,6 +203,11 @@
             "content": "音乐表达了言语无法表达的内容，超越一切地触动人心。",
             "title": "音乐"
         },
+        "vpn": {
+            "button": "前往 VPN",
+            "content": "创建、管理并获取您的 WireGuard VPN 服务配置。",
+            "title": "WireGuard VPN"
+        },
         "tab-title": "首页 - MichiBaum",
         "title": "首页"
     },
@@ -296,5 +301,39 @@
         "update": "更新",
         "update-available": "更新可用！",
         "update-available-message": "新版本可用！"
+    },
+    "vpn": {
+        "title": "WireGuard VPN",
+        "tab-title": "WireGuard VPN - MichiBaum",
+        "meta-description": "管理您的 WireGuard VPN 服务，生成配置并管理部署。",
+        "create": {
+            "button": "创建 VPN 服务",
+            "success": "成功创建 WireGuard 服务",
+            "error": "创建 WireGuard 服务失败"
+        },
+        "delete": {
+            "button": "删除 VPN 服务",
+            "confirm-title": "删除 WireGuard 服务",
+            "confirm-message": "您确定要删除 WireGuard VPN 服务吗？此操作无法撤销。",
+            "success": "成功删除 WireGuard 服务",
+            "error": "删除 WireGuard 服务失败"
+        },
+        "config": {
+            "button": "获取配置",
+            "title": "WireGuard 配置",
+            "copy": "复制配置",
+            "copied": "配置已复制到剪贴板",
+            "download": "下载配置文件",
+            "error": "获取 WireGuard 配置失败"
+        },
+        "deployment": {
+            "title": "部署状态",
+            "name": "名称",
+            "namespace": "命名空间",
+            "replicas": "副本数",
+            "ready-replicas": "就绪副本数",
+            "creation-timestamp": "创建时间",
+            "containers": "容器"
+        }
     }
 }
