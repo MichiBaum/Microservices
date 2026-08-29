@@ -37,11 +37,18 @@ class WireguardController(
 
     @GetMapping("/api/wireguard/config", produces = [MediaType.TEXT_PLAIN_VALUE])
     fun getPeerConfig(
-        authentication: Authentication?,
-        @RequestParam(required = false) username: String?
+        authentication: Authentication?
     ): String {
         val requestedUser = resolveRequestedUser(authentication)
         return wireguardService.getPeerConfig(requestedUser)
+    }
+
+    @GetMapping("/api/wireguard/qrcode", produces = [MediaType.IMAGE_PNG_VALUE])
+    fun getPeerPng(
+        authentication: Authentication?
+    ): ByteArray {
+        val requestedUser = resolveRequestedUser(authentication)
+        return wireguardService.getPeerPng(requestedUser)
     }
 
     @DeleteMapping("/api/wireguard")

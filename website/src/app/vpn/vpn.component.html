@@ -105,6 +105,12 @@
             </div>
           </div>
 
+          @if (qrCodeUrl(); as qrUrl) {
+            <div class="flex justify-center mb-4">
+              <img [src]="qrUrl" alt="Wireguard QR Code" class="max-w-xs rounded shadow-sm border border-surface-300 dark:border-surface-600" />
+            </div>
+          }
+
           <textarea
             pTextarea
             [rows]="14"

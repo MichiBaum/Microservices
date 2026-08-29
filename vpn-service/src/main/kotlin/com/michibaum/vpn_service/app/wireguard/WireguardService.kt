@@ -119,19 +119,7 @@ class WireguardService(
         val targetNamespace = resolveNamespace(namespace)
         val sanitizedUser = sanitizeKubernetesName(requestedUser)
 
-        val pod = client.pods().inNamespace(targetNamespace)
-            .withLabel("app", "wireguard")
-            .withLabel("user", sanitizedUser)
-            .list()
-            .items
-            .firstOrNull()
-            ?: throw ResponseStatusException(
-                HttpStatus.NOT_FOUND, "WireGuard pod for user $sanitizedUser not found"
-            )
-
-        val podName = pod.metadata?.name
-            ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Pod name is missing")
-
+        val podName = getWireguardPodName(client, targetNamespace, sanitizedUser)
         val filePath = "/config/peer_${sanitizedUser}/peer_${sanitizedUser}.conf"
 
         return try {
@@ -145,6 +133,44 @@ class WireguardService(
             logger.error("Failed to read config file $filePath from pod $podName in namespace $targetNamespace", e)
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to read WireGuard config file", e)
         }
+    }
+
+    fun getPeerPng(requestedUser: String, namespace: String? = null): ByteArray {
+        val client = kubernetesClient ?: throw ResponseStatusException(
+            HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
+        )
+        val targetNamespace = resolveNamespace(namespace)
+        val sanitizedUser = sanitizeKubernetesName(requestedUser)
+
+        val podName = getWireguardPodName(client, targetNamespace, sanitizedUser)
+        val filePath = "/config/peer_${sanitizedUser}/peer_${sanitizedUser}.png"
+
+        return try {
+            val inputStream = client.pods()
+                .inNamespace(targetNamespace)
+                .withName(podName)
+                .file(filePath)
+                .read()
+            inputStream.readBytes()
+        } catch (e: Exception) {
+            logger.error("Failed to read png file $filePath from pod $podName in namespace $targetNamespace", e)
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to read WireGuard png file", e)
+        }
+    }
+
+    private fun getWireguardPodName(client: KubernetesClient, namespace: String, user: String): String {
+        val pod = client.pods().inNamespace(namespace)
+            .withLabel("app", "wireguard")
+            .withLabel("user", user)
+            .list()
+            .items
+            .firstOrNull()
+            ?: throw ResponseStatusException(
+                HttpStatus.NOT_FOUND, "WireGuard pod for user $user not found"
+            )
+
+        return pod.metadata?.name
+            ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Pod name is missing")
     }
 
     private fun sanitizeKubernetesName(name: String): String {
