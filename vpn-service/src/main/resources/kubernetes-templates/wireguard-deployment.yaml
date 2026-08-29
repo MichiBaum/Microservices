@@ -13,6 +13,7 @@ spec:
     matchLabels:
       app: wireguard
       user: ${userName}
+      sba-check: kubernetes
   template:
     metadata:
       labels:
