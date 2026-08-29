@@ -22,6 +22,7 @@ import io.fabric8.kubernetes.client.dsl.RollableScalableResource
 import io.fabric8.kubernetes.client.dsl.ServiceResource
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -84,11 +85,15 @@ class WireguardServiceTest {
         every { kubernetesClient.namespace } returns "microservices"
         every { kubernetesClient.apps().deployments() } returns deploymentsOperation
         every { deploymentsOperation.inNamespace("microservices") } returns deploymentNamespaceOperation
+        every { deploymentNamespaceOperation.withName("wireguard-testuser") } returns deploymentResource
+        every { deploymentResource.get() } returns null
         every { deploymentNamespaceOperation.load(any<java.io.InputStream>()) } returns deploymentResource
         every { deploymentResource.create() } returns createdDeployment
 
         every { kubernetesClient.services() } returns servicesOperation
         every { servicesOperation.inNamespace("microservices") } returns serviceNamespaceOperation
+        every { serviceNamespaceOperation.withName("wireguard-testuser-service") } returns serviceResource
+        every { serviceResource.get() } returns null
         every { serviceNamespaceOperation.load(any<java.io.InputStream>()) } returns serviceResource
         every { serviceResource.create() } returns createdService
 
@@ -99,6 +104,88 @@ class WireguardServiceTest {
         assertEquals(1, result.replicas)
         assertEquals(1, result.readyReplicas)
         assertEquals(listOf("wireguard"), result.containers)
+    }
+
+    @Test
+    fun `createDeployment returns existing deployment if deployment already exists`() {
+        val deploymentsOperation = mockk<MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentNamespaceOperation = mockk<NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentResource = mockk<RollableScalableResource<Deployment>>()
+
+        val servicesOperation = mockk<MixedOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceNamespaceOperation = mockk<NonNamespaceOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceResource = mockk<ServiceResource<Service>>()
+
+        val existingDeployment = Deployment().apply {
+            metadata = ObjectMeta().apply {
+                name = "wireguard-testuser"
+                namespace = "microservices"
+            }
+            spec = DeploymentSpec().apply {
+                replicas = 1
+                template = PodTemplateSpec().apply {
+                    spec = PodSpec().apply {
+                        containers = listOf(Container().apply { name = "wireguard" })
+                    }
+                }
+            }
+            status = DeploymentStatus().apply {
+                readyReplicas = 1
+            }
+        }
+
+        every { kubernetesClient.namespace } returns "microservices"
+        every { kubernetesClient.apps().deployments() } returns deploymentsOperation
+        every { deploymentsOperation.inNamespace("microservices") } returns deploymentNamespaceOperation
+        every { deploymentNamespaceOperation.withName("wireguard-testuser") } returns deploymentResource
+        every { deploymentResource.get() } returns existingDeployment
+
+        every { kubernetesClient.services() } returns servicesOperation
+        every { servicesOperation.inNamespace("microservices") } returns serviceNamespaceOperation
+        every { serviceNamespaceOperation.withName("wireguard-testuser-service") } returns serviceResource
+        every { serviceResource.get() } returns null
+
+        val result = service.createDeployment("testuser")
+
+        assertEquals("wireguard-testuser", result.name)
+        verify(exactly = 0) { deploymentResource.create() }
+        verify(exactly = 0) { serviceResource.create() }
+    }
+
+    @Test
+    fun `deleteDeployment deletes deployment and service successfully`() {
+        val deploymentsOperation = mockk<MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentNamespaceOperation = mockk<NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentResource = mockk<RollableScalableResource<Deployment>>()
+
+        val servicesOperation = mockk<MixedOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceNamespaceOperation = mockk<NonNamespaceOperation<Service, ServiceList, ServiceResource<Service>>>()
+        val serviceResource = mockk<ServiceResource<Service>>()
+
+        every { kubernetesClient.namespace } returns "microservices"
+        every { kubernetesClient.apps().deployments() } returns deploymentsOperation
+        every { deploymentsOperation.inNamespace("microservices") } returns deploymentNamespaceOperation
+        every { deploymentNamespaceOperation.withName("wireguard-testuser") } returns deploymentResource
+        every { deploymentResource.delete() } returns emptyList()
+
+        every { kubernetesClient.services() } returns servicesOperation
+        every { servicesOperation.inNamespace("microservices") } returns serviceNamespaceOperation
+        every { serviceNamespaceOperation.withName("wireguard-testuser-service") } returns serviceResource
+        every { serviceResource.delete() } returns emptyList()
+
+        service.deleteDeployment("testuser")
+
+        verify(exactly = 1) { deploymentResource.delete() }
+        verify(exactly = 1) { serviceResource.delete() }
+    }
+
+    @Test
+    fun `deleteDeployment throws 503 when kubernetesClient is null`() {
+        val nullClientService = WireguardService(null, kubernetesProperties)
+
+        assertThrows<ResponseStatusException> {
+            nullClientService.deleteDeployment("testuser")
+        }
     }
 
     @Test

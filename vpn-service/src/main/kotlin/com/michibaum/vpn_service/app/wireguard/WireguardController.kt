@@ -6,6 +6,7 @@ import com.michibaum.vpn_service.app.kubernetes.dto.DeploymentDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.core.Authentication
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -27,13 +28,22 @@ class WireguardController(
         return wireguardService.createDeployment(requestedUser)
     }
 
-    @GetMapping("/api/wireguard/config", "", produces = [MediaType.TEXT_PLAIN_VALUE])
+    @GetMapping("/api/wireguard/config", produces = [MediaType.TEXT_PLAIN_VALUE])
     fun getPeerConfig(
         authentication: Authentication?,
         @RequestParam(required = false) username: String?
     ): String {
         val requestedUser = resolveRequestedUser(authentication)
         return wireguardService.getPeerConfig(requestedUser)
+    }
+
+    @DeleteMapping("/api/wireguard")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteDeployment(
+        authentication: Authentication?
+    ) {
+        val requestedUser = resolveRequestedUser(authentication)
+        wireguardService.deleteDeployment(requestedUser)
     }
 
     private fun resolveRequestedUser(authentication: Authentication?): String {

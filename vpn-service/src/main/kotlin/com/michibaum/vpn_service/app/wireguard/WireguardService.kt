@@ -24,6 +24,19 @@ class WireguardService(
         val targetNamespace = resolveNamespace(namespace)
         val sanitizedUser = sanitizeKubernetesName(requestedUser)
 
+        val deploymentName = "wireguard-$sanitizedUser"
+        val serviceName = "wireguard-$sanitizedUser-service"
+
+        val existingDeployment = client.apps().deployments().inNamespace(targetNamespace).withName(deploymentName).get()
+        val existingService = client.services().inNamespace(targetNamespace).withName(serviceName).get()
+
+        if (existingDeployment != null || existingService != null) {
+            if (existingDeployment != null) {
+                return mapToDeploymentDto(existingDeployment, targetNamespace)
+            }
+            throw ResponseStatusException(HttpStatus.CONFLICT, "WireGuard service already exists for user $sanitizedUser")
+        }
+
         val serviceTemplateStream = javaClass.classLoader.getResourceAsStream("kubernetes-templates/wireguard-service.yaml")
             ?: throw ResponseStatusException(
                 HttpStatus.INTERNAL_SERVER_ERROR, "Wireguard service template not found"
@@ -60,6 +73,25 @@ class WireguardService(
         }
 
         return mapToDeploymentDto(createdDeployment, targetNamespace)
+    }
+
+    fun deleteDeployment(requestedUser: String, namespace: String? = null) {
+        val client = kubernetesClient ?: throw ResponseStatusException(
+            HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
+        )
+        val targetNamespace = resolveNamespace(namespace)
+        val sanitizedUser = sanitizeKubernetesName(requestedUser)
+
+        val deploymentName = "wireguard-$sanitizedUser"
+        val serviceName = "wireguard-$sanitizedUser-service"
+
+        try {
+            client.apps().deployments().inNamespace(targetNamespace).withName(deploymentName).delete()
+            client.services().inNamespace(targetNamespace).withName(serviceName).delete()
+        } catch (e: Exception) {
+            logger.error("Failed to delete WireGuard deployment or service for user $sanitizedUser in namespace $targetNamespace", e)
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete WireGuard deployment or service", e)
+        }
     }
 
     fun getPeerConfig(requestedUser: String, namespace: String? = null): String {

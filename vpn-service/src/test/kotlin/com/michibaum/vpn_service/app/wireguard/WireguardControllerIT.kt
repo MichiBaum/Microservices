@@ -146,11 +146,15 @@ class WireguardControllerIT {
         `when`(kubernetesClient.apps()).thenReturn(appsApi)
         `when`(appsApi.deployments()).thenReturn(deploymentsOp)
         `when`(deploymentsOp.inNamespace("microservices")).thenReturn(deploymentNamespaceOp)
+        `when`(deploymentNamespaceOp.withName("wireguard-john-doe")).thenReturn(deploymentRes)
+        `when`(deploymentRes.get()).thenReturn(null)
         `when`(deploymentNamespaceOp.load(any(java.io.InputStream::class.java))).thenReturn(deploymentRes)
         `when`(deploymentRes.create()).thenReturn(createdDeployment)
 
         `when`(kubernetesClient.services()).thenReturn(servicesOp)
         `when`(servicesOp.inNamespace("microservices")).thenReturn(serviceNamespaceOp)
+        `when`(serviceNamespaceOp.withName("wireguard-john-doe-service")).thenReturn(serviceRes)
+        `when`(serviceRes.get()).thenReturn(null)
         `when`(serviceNamespaceOp.load(any(java.io.InputStream::class.java))).thenReturn(serviceRes)
         `when`(serviceRes.create()).thenReturn(createdService)
 
@@ -216,5 +220,60 @@ class WireguardControllerIT {
 
         assertEquals(HttpStatus.OK, response.statusCode)
         assertEquals("[Interface]\nAddress = 10.13.13.2/32", response.body)
+    }
+
+    @Test
+    fun `delete wireguard deployment without authentication returns 401`() {
+        val response = testRestTemplate.exchange(
+            "/api/wireguard",
+            HttpMethod.DELETE,
+            null,
+            String::class.java
+        )
+        assertEquals(HttpStatus.UNAUTHORIZED, response.statusCode)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    @Test
+    fun `delete wireguard deployment with VPN_SERVICE_OWN_USER permission and valid user returns 204`() {
+        val token = JWT.create()
+            .withSubject("john-doe")
+            .withClaim("userId", "123")
+            .withClaim("permissions", listOf(Permissions.VPN_SERVICE_OWN_USER.name))
+            .sign(Algorithm.none())
+
+        `when`(jwsValidator.validate(anyString())).thenReturn(JwsValidationSuccess())
+
+        val appsApi = Mockito.mock(AppsAPIGroupDSL::class.java)
+        val deploymentsOp = Mockito.mock(MixedOperation::class.java) as MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>
+        val deploymentNamespaceOp = Mockito.mock(NonNamespaceOperation::class.java) as NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>
+        val deploymentRes = Mockito.mock(RollableScalableResource::class.java) as RollableScalableResource<Deployment>
+
+        val servicesOp = Mockito.mock(MixedOperation::class.java) as MixedOperation<Service, ServiceList, ServiceResource<Service>>
+        val serviceNamespaceOp = Mockito.mock(NonNamespaceOperation::class.java) as NonNamespaceOperation<Service, ServiceList, ServiceResource<Service>>
+        val serviceRes = Mockito.mock(ServiceResource::class.java) as ServiceResource<Service>
+
+        `when`(kubernetesClient.namespace).thenReturn("microservices")
+        `when`(kubernetesClient.apps()).thenReturn(appsApi)
+        `when`(appsApi.deployments()).thenReturn(deploymentsOp)
+        `when`(deploymentsOp.inNamespace("microservices")).thenReturn(deploymentNamespaceOp)
+        `when`(deploymentNamespaceOp.withName("wireguard-john-doe")).thenReturn(deploymentRes)
+
+        `when`(kubernetesClient.services()).thenReturn(servicesOp)
+        `when`(servicesOp.inNamespace("microservices")).thenReturn(serviceNamespaceOp)
+        `when`(serviceNamespaceOp.withName("wireguard-john-doe-service")).thenReturn(serviceRes)
+
+        val headers = HttpHeaders().apply {
+            setBearerAuth(token)
+        }
+
+        val response = testRestTemplate.exchange(
+            "/api/wireguard",
+            HttpMethod.DELETE,
+            HttpEntity<Void>(headers),
+            Void::class.java
+        )
+
+        assertEquals(HttpStatus.NO_CONTENT, response.statusCode)
     }
 }
