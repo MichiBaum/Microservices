@@ -75,6 +75,21 @@ class WireguardService(
         return mapToDeploymentDto(createdDeployment, targetNamespace)
     }
 
+    fun getDeployment(requestedUser: String, namespace: String? = null): DeploymentDto? {
+        val client = kubernetesClient ?: throw ResponseStatusException(
+            HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
+        )
+        val targetNamespace = resolveNamespace(namespace)
+        val sanitizedUser = sanitizeKubernetesName(requestedUser)
+
+        val deploymentName = "wireguard-$sanitizedUser"
+
+        val deployment = client.apps().deployments().inNamespace(targetNamespace).withName(deploymentName).get()
+            ?: return null
+
+        return mapToDeploymentDto(deployment, targetNamespace)
+    }
+
     fun deleteDeployment(requestedUser: String, namespace: String? = null) {
         val client = kubernetesClient ?: throw ResponseStatusException(
             HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"

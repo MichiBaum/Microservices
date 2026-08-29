@@ -95,6 +95,54 @@ class WireguardControllerTest {
     }
 
     @Test
+    fun `getDeployment with valid authentication returns DeploymentDto`() {
+        val deploymentDto = DeploymentDto(
+            name = "wireguard-john-doe",
+            namespace = "microservices",
+            replicas = 1,
+            readyReplicas = 1,
+            creationTimestamp = "2026-08-29T10:00:00Z",
+            containers = listOf("wireguard")
+        )
+
+        every { wireguardService.getDeployment("john-doe", null) } returns deploymentDto
+
+        mockMvc.perform(get("/api/wireguard").principal(validAuth))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.name").value("wireguard-john-doe"))
+            .andExpect(jsonPath("$.namespace").value("microservices"))
+
+        verify(exactly = 1) { wireguardService.getDeployment("john-doe", null) }
+    }
+
+    @Test
+    fun `getDeployment with valid authentication when no deployment exists returns null`() {
+        every { wireguardService.getDeployment("john-doe", null) } returns null
+
+        mockMvc.perform(get("/api/wireguard").principal(validAuth))
+            .andExpect(status().isOk)
+            .andExpect(content().string(""))
+
+        verify(exactly = 1) { wireguardService.getDeployment("john-doe", null) }
+    }
+
+    @Test
+    fun `getDeployment throws bad request when user is not authenticated`() {
+        mockMvc.perform(get("/api/wireguard"))
+            .andExpect(status().isBadRequest)
+
+        verify(exactly = 0) { wireguardService.getDeployment(any(), any()) }
+    }
+
+    @Test
+    fun `getDeployment throws forbidden when user lacks permission`() {
+        mockMvc.perform(get("/api/wireguard").principal(noPermissionAuth))
+            .andExpect(status().isForbidden)
+
+        verify(exactly = 0) { wireguardService.getDeployment(any(), any()) }
+    }
+
+    @Test
     fun `getPeerConfig with valid authentication returns config string`() {
         val configContent = "[Interface]\nPrivateKey = xxx"
         every { wireguardService.getPeerConfig("john-doe", null) } returns configContent

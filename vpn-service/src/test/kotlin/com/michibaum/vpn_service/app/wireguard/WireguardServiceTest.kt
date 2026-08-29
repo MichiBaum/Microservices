@@ -107,6 +107,72 @@ class WireguardServiceTest {
     }
 
     @Test
+    fun `getDeployment returns deployment when it exists`() {
+        val deploymentsOperation = mockk<MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentNamespaceOperation = mockk<NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentResource = mockk<RollableScalableResource<Deployment>>()
+
+        val existingDeployment = Deployment().apply {
+            metadata = ObjectMeta().apply {
+                name = "wireguard-testuser"
+                namespace = "microservices"
+            }
+            spec = DeploymentSpec().apply {
+                replicas = 1
+                template = PodTemplateSpec().apply {
+                    spec = PodSpec().apply {
+                        containers = listOf(Container().apply { name = "wireguard" })
+                    }
+                }
+            }
+            status = DeploymentStatus().apply {
+                readyReplicas = 1
+            }
+        }
+
+        every { kubernetesClient.namespace } returns "microservices"
+        every { kubernetesClient.apps().deployments() } returns deploymentsOperation
+        every { deploymentsOperation.inNamespace("microservices") } returns deploymentNamespaceOperation
+        every { deploymentNamespaceOperation.withName("wireguard-testuser") } returns deploymentResource
+        every { deploymentResource.get() } returns existingDeployment
+
+        val result = service.getDeployment("testuser")
+
+        org.junit.jupiter.api.Assertions.assertNotNull(result)
+        assertEquals("wireguard-testuser", result?.name)
+        assertEquals("microservices", result?.namespace)
+        assertEquals(1, result?.replicas)
+        assertEquals(1, result?.readyReplicas)
+        assertEquals(listOf("wireguard"), result?.containers)
+    }
+
+    @Test
+    fun `getDeployment returns null when deployment does not exist`() {
+        val deploymentsOperation = mockk<MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentNamespaceOperation = mockk<NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
+        val deploymentResource = mockk<RollableScalableResource<Deployment>>()
+
+        every { kubernetesClient.namespace } returns "microservices"
+        every { kubernetesClient.apps().deployments() } returns deploymentsOperation
+        every { deploymentsOperation.inNamespace("microservices") } returns deploymentNamespaceOperation
+        every { deploymentNamespaceOperation.withName("wireguard-testuser") } returns deploymentResource
+        every { deploymentResource.get() } returns null
+
+        val result = service.getDeployment("testuser")
+
+        org.junit.jupiter.api.Assertions.assertNull(result)
+    }
+
+    @Test
+    fun `getDeployment throws 503 when kubernetesClient is null`() {
+        val nullClientService = WireguardService(null, kubernetesProperties)
+
+        assertThrows<ResponseStatusException> {
+            nullClientService.getDeployment("testuser")
+        }
+    }
+
+    @Test
     fun `createDeployment returns existing deployment if deployment already exists`() {
         val deploymentsOperation = mockk<MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
         val deploymentNamespaceOperation = mockk<NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()

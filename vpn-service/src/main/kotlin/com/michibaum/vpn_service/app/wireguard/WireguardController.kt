@@ -28,6 +28,14 @@ class WireguardController(
         return wireguardService.createDeployment(requestedUser)
     }
 
+    @GetMapping("/api/wireguard")
+    fun getDeployment(
+        authentication: Authentication?
+    ): DeploymentDto? {
+        val requestedUser = resolveRequestedUser(authentication)
+        return wireguardService.getDeployment(requestedUser)
+    }
+
     @GetMapping("/api/wireguard/config", produces = [MediaType.TEXT_PLAIN_VALUE])
     fun getPeerConfig(
         authentication: Authentication?,
