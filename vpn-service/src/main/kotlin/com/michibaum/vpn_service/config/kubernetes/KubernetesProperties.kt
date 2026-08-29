@@ -1,4 +1,4 @@
-package com.michibaum.vpn_service.app.kubernetes
+package com.michibaum.vpn_service.config.kubernetes
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

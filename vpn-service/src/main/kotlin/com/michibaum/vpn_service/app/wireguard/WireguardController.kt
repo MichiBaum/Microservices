@@ -2,7 +2,6 @@ package com.michibaum.vpn_service.app.wireguard
 
 import com.michibaum.authentication_library.anyOf
 import com.michibaum.permission_library.Permissions
-import com.michibaum.vpn_service.app.kubernetes.dto.DeploymentDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.core.Authentication

@@ -1,6 +1,6 @@
 package com.michibaum.vpn_service.app.wireguard
 
-import com.michibaum.vpn_service.app.kubernetes.KubernetesProperties
+import com.michibaum.vpn_service.config.kubernetes.KubernetesProperties
 import io.fabric8.kubernetes.api.model.Container
 import io.fabric8.kubernetes.api.model.ObjectMeta
 import io.fabric8.kubernetes.api.model.Pod

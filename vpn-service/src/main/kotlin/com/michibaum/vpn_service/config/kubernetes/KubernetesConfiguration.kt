@@ -1,4 +1,4 @@
-package com.michibaum.vpn_service.app.kubernetes
+package com.michibaum.vpn_service.config.kubernetes
 
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.KubernetesClientBuilder

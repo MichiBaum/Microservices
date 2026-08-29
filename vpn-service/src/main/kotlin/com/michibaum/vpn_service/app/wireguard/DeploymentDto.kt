@@ -1,4 +1,4 @@
-package com.michibaum.vpn_service.app.kubernetes.dto
+package com.michibaum.vpn_service.app.wireguard
 
 data class DeploymentDto(
     val name: String,

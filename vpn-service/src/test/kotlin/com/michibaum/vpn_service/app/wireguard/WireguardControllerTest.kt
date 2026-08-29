@@ -1,7 +1,6 @@
 package com.michibaum.vpn_service.app.wireguard
 
 import com.michibaum.permission_library.Permissions
-import com.michibaum.vpn_service.app.kubernetes.dto.DeploymentDto
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
