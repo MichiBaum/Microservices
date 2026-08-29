@@ -1,0 +1,30 @@
+server:
+  port: 8088
+
+spring:
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
+      client:
+        username: admin_username
+        password: admin_password
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_VPN_SERVICE_LOG_CHANNEL}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

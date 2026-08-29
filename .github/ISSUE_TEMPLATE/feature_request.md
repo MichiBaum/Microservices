@@ -17,6 +17,7 @@ Which microservice(s) would be affected by this feature:
 - [ ] Fitness Service
 - [ ] Gateway Service
 - [ ] Music Service
+- [ ] VPN Service
 - [ ] Registry Service
 - [ ] User Management Service
 - [ ] Website Service

@@ -36,6 +36,7 @@ There are these microservices:
 - Chess Service
 - Fitness Service
 - Music Service
+- VPN Service
 - Grafana Service
 - Prometheus Service
 - Jaeger Service

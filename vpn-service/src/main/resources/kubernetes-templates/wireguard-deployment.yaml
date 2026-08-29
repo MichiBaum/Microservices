@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wireguard-${userName}
+  namespace: ${namespace}
+  labels:
+    app: wireguard
+    user: ${userName}
+    managed-by: vpn-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wireguard
+      user: ${userName}
+  template:
+    metadata:
+      labels:
+        app: wireguard
+        user: ${userName}
+        managed-by: vpn-service
+    spec:
+      containers:
+      - name: wireguard
+        image: lscr.io/linuxserver/wireguard:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Etc/UTC"
+        - name: SERVERURL
+          value: "michibaum.ch"
+        - name: SERVERPORT
+          value: "${serverPort}"
+        - name: PEERS
+          value: "${userName}"
+        - name: PEERDNS
+          value: "auto"
+        - name: ALLOWEDIPS
+          value: "0.0.0.0/0"
+        ports:
+        - containerPort: 51820
+          name: wireguard
+          protocol: UDP
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_MODULE

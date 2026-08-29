@@ -6,7 +6,7 @@ import com.auth0.jwt.exceptions.*
 import java.security.interfaces.RSAPublicKey
 
 open class JwsValidator {
-    fun validate(token: String, publicKey: RSAPublicKey?): JwsValidationResult {
+    open fun validate(token: String, publicKey: RSAPublicKey?): JwsValidationResult {
         try {
             if (publicKey == null)
                 return JwsValidationMissing(Exception("Public Key is missing"))

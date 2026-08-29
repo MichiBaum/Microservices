@@ -14,4 +14,7 @@ export enum Permissions {
 
     FITNESS_SERVICE,
     MUSIC_SERVICE,
+
+    VPN_SERVICE_OWN_USER,
+    VPN_SERVICE_ALL_USERS,
 }

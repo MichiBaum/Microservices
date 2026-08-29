@@ -269,5 +269,17 @@ export const routes: Routes = [
         loadComponent: () => import("./music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
         canActivate: [isAuthenticatedGuard, isPermittedGuard],
         data: {"permissions": [Permissions.MUSIC_SERVICE]}
+    },
+    {
+        path: 'vpn',
+        loadComponent: () => import("./vpn/vpn.component").then((c) => c.VpnComponent),
+        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+        title: titleResolver,
+        data: {
+            "tabTitle": (translate: TranslateService) => translate.get("vpn.tab-title"),
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("vpn.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("vpn.meta-description"),
+            "permissions": [Permissions.VPN_SERVICE_OWN_USER, Permissions.VPN_SERVICE_ALL_USERS]
+        }
     }
 ];

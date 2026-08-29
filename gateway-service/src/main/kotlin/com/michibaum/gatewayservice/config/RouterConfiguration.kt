@@ -101,6 +101,8 @@ class RouterConfiguration {
                 FITNESS, circuitBreakerFactory))
             .route(host("music.michibaum.*"), applyCircuitBreaker(lb(MUSIC.id).apply(http()),
                 MUSIC, circuitBreakerFactory))
+            .route(host("vpn.michibaum.*"), applyCircuitBreaker(lb(VPN.id).apply(http()),
+                VPN, circuitBreakerFactory))
 
             // Catch-all for main website (Lowest priority, must come last)
             .route(host("michibaum.*"), applyCircuitBreaker(lb(WEBSITE.id).apply(http()),

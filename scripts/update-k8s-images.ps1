@@ -27,6 +27,7 @@ $services = @(
   'chess-service',
   'fitness-service',
   'music-service',
+  'vpn-service',
   'gateway-service',
   'website-service',
   'admin-service'

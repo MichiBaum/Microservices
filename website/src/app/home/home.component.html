@@ -49,6 +49,21 @@
 }
 }
 
+@if (canActivateVpn()) {
+  @defer{
+  <app-home-card
+    [headerImage]="'home_vpn.webp'"
+    [titleText]="'home.vpn.title' | translate"
+    [icon]="faShieldHalved"
+    [content]="'home.vpn.content' | translate"
+    [buttonLabel]="'home.vpn.button' | translate"
+    (navigate)="routerNavigationService.vpn()"
+  ></app-home-card>
+  } @placeholder {
+  <app-defer-placeholder height="35rem"></app-defer-placeholder>
+}
+}
+
 @defer{
 <app-home-card
   [headerImage]="'home_about-me.webp'"
