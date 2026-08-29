@@ -16,6 +16,7 @@ import {
     faLightbulb,
     faMap,
     faMicrochip,
+    faShieldHalved,
     faStamp,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
@@ -120,6 +121,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
                             this.sidebarVisible.set(false)
                             this.routerNavigationService.chess();
                         },
+                    } as MenuItem,
+                    {
+                        label: Sides.vpn.translationKey,
+                        customIcon: faShieldHalved,
+                        visible: Sides.vpn.canActivate(this.permissionService),
+                        command: () => {
+                            this.sidebarVisible.set(false)
+                            this.routerNavigationService.vpn();
+                        }
                     } as MenuItem
                 ]
             },

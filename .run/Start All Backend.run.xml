@@ -8,6 +8,7 @@
     <toRun name="Dev Music-Service" type="SpringBootApplicationConfigurationType" />
     <toRun name="Dev Registry-Service" type="SpringBootApplicationConfigurationType" />
     <toRun name="Dev Usermanagement-Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dev VPN-Service" type="SpringBootApplicationConfigurationType" />
     <method v="2" />
   </configuration>
 </component>

@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ScrollTopModule} from "primeng/scrolltop";
 import {HomeCardComponent} from "./home-card/home-card.component";
 import {DeferPlaceholderComponent} from "../shared/defer-placeholder/defer-placeholder.component";
-import {faChess, faDumbbell, faHeart, faMusic, faSignInAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faChess, faDumbbell, faHeart, faMusic, faShieldHalved, faSignInAlt, faUser} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-home',
@@ -30,6 +30,7 @@ export class HomeComponent {
   protected readonly faMusic = faMusic;
   protected readonly faUser = faUser;
   protected readonly faHeart = faHeart;
+  protected readonly faShieldHalved = faShieldHalved;
 
 
   canActivateChess() {
@@ -46,6 +47,10 @@ export class HomeComponent {
 
   canActivateMusic() {
     return Sides.music.canActivate(this.permissionService)
+  }
+
+  canActivateVpn() {
+    return Sides.vpn.canActivate(this.permissionService)
   }
 }
 

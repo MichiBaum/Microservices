@@ -1,0 +1,90 @@
+server:
+  shutdown: graceful
+  undertow:
+    url-charset: UTF-8
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+
+public-endpoints:
+  package-names:
+    - com.michibaum.vpn_service
+  endpoints:
+    - raw-path: /actuator/health/readiness
+      request-method: GET
+    - raw-path: /actuator/health/liveness
+      request-method: GET
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  application:
+    name: vpn-service
+  cloud:
+    discovery:
+      client:
+        health-indicator:
+          include-description: true
+  main:
+    allow-bean-definition-overriding: true
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: false
+    fetch-registry: true
+    register-with-eureka: true
+    refresh:
+      enable: true
+
+management:
+  tracing:
+    export:
+      enabled: false
+  endpoints:
+    access:
+      default: unrestricted
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  info:
+    git:
+      mode: full
+      enabled: true
+    build:
+      enabled: true
+    defaults:
+      enabled: true
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+    process:
+      enabled: true
+    ssl:
+      enabled: true

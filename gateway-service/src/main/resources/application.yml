@@ -36,8 +36,8 @@ spring:
       lazy-attributes-resolution: true
       httpclient:
         disable-ssl-validation: true
-        max-connections: 200
-        max-connections-per-route: 50
+        max-connections: 400
+        max-connections-per-route: 100
         connection-timeout: 5000
         connection-timer-repeat: 2000
       http2client:

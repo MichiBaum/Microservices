@@ -33,6 +33,7 @@ Which microservice(s) are related to this documentation:
 - [ ] Fitness Service
 - [ ] Gateway Service
 - [ ] Music Service
+- [ ] VPN Service
 - [ ] Registry Service
 - [ ] User Management Service
 - [ ] Website Service

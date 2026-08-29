@@ -93,6 +93,10 @@ export class RouterNavigationService {
         this.router.navigate(['/music']);
     }
 
+    vpn() {
+        this.router.navigate(['/vpn']);
+    }
+
     donateGithub() {
         open('https://github.com/sponsors/MichiBaum')
     }

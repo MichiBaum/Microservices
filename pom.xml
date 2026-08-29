@@ -4,7 +4,7 @@
 
     <groupId>com.michibaum</groupId>
     <artifactId>microservice</artifactId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
     <packaging>pom</packaging>
     <name>microservice</name>
 
@@ -191,6 +191,7 @@
         <module>chess-service</module>
         <module>fitness-service</module>
         <module>music-service</module>
+        <module>vpn-service</module>
         <module>spring-boot-starter-cache</module>
         <module>spring-boot-starter-observability</module>
     </modules>
