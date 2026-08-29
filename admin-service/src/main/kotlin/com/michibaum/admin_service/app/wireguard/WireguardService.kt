@@ -24,24 +24,77 @@ class WireguardService(
         val targetNamespace = resolveNamespace(namespace)
         val sanitizedUser = sanitizeKubernetesName(requestedUser)
 
-        val templateStream = javaClass.classLoader.getResourceAsStream("kubernetes-templates/wireguard.yaml")
+        val serviceTemplateStream = javaClass.classLoader.getResourceAsStream("kubernetes-templates/wireguard-service.yaml")
             ?: throw ResponseStatusException(
-                HttpStatus.INTERNAL_SERVER_ERROR, "Wireguard pod template not found"
+                HttpStatus.INTERNAL_SERVER_ERROR, "Wireguard service template not found"
             )
-
-        val templateContent = templateStream.bufferedReader().use { it.readText() }
-        val populatedYaml = templateContent
+        val serviceTemplateContent = serviceTemplateStream.bufferedReader().use { it.readText() }
+        val populatedServiceYaml = serviceTemplateContent
             .replace("\${userName}", sanitizedUser)
             .replace("\${namespace}", targetNamespace)
 
+        val createdService = try {
+            client.services().inNamespace(targetNamespace).load(populatedServiceYaml.byteInputStream()).create()
+        } catch (e: Exception) {
+            logger.error("Failed to create WireGuard service for user $sanitizedUser in namespace $targetNamespace", e)
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to create WireGuard service", e)
+        }
+
+        val externalPort = createdService.spec?.ports?.firstOrNull()?.nodePort?.takeIf { it > 0 }?.toString() ?: "51820"
+
+        val deploymentTemplateStream = javaClass.classLoader.getResourceAsStream("kubernetes-templates/wireguard-deployment.yaml")
+            ?: throw ResponseStatusException(
+                HttpStatus.INTERNAL_SERVER_ERROR, "Wireguard deployment template not found"
+            )
+        val deploymentTemplateContent = deploymentTemplateStream.bufferedReader().use { it.readText() }
+        val populatedDeploymentYaml = deploymentTemplateContent
+            .replace("\${userName}", sanitizedUser)
+            .replace("\${namespace}", targetNamespace)
+            .replace("\${serverPort}", externalPort)
+
         val createdDeployment = try {
-            client.apps().deployments().inNamespace(targetNamespace).load(populatedYaml.byteInputStream()).create()
+            client.apps().deployments().inNamespace(targetNamespace).load(populatedDeploymentYaml.byteInputStream()).create()
         } catch (e: Exception) {
             logger.error("Failed to create WireGuard deployment for user $sanitizedUser in namespace $targetNamespace", e)
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to create WireGuard deployment", e)
         }
 
         return mapToDeploymentDto(createdDeployment, targetNamespace)
+    }
+
+    fun getPeerConfig(requestedUser: String, namespace: String? = null): String {
+        val client = kubernetesClient ?: throw ResponseStatusException(
+            HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
+        )
+        val targetNamespace = resolveNamespace(namespace)
+        val sanitizedUser = sanitizeKubernetesName(requestedUser)
+
+        val pod = client.pods().inNamespace(targetNamespace)
+            .withLabel("app", "wireguard")
+            .withLabel("user", sanitizedUser)
+            .list()
+            .items
+            .firstOrNull()
+            ?: throw ResponseStatusException(
+                HttpStatus.NOT_FOUND, "WireGuard pod for user $sanitizedUser not found"
+            )
+
+        val podName = pod.metadata?.name
+            ?: throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Pod name is missing")
+
+        val filePath = "/config/peer_${sanitizedUser}/peer_${sanitizedUser}.conf"
+
+        return try {
+            val inputStream = client.pods()
+                .inNamespace(targetNamespace)
+                .withName(podName)
+                .file(filePath)
+                .read()
+            inputStream.bufferedReader().use { it.readText() }
+        } catch (e: Exception) {
+            logger.error("Failed to read config file $filePath from pod $podName in namespace $targetNamespace", e)
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to read WireGuard config file", e)
+        }
     }
 
     private fun sanitizeKubernetesName(name: String): String {

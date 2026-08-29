@@ -7,7 +7,9 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -58,5 +60,25 @@ class WireguardControllerTest {
             .andExpect(status().isBadRequest)
 
         verify(exactly = 0) { wireguardService.createWireguardDeployment(any(), any()) }
+    }
+
+    @Test
+    fun `getPeerConfig with username param returns config string`() {
+        val configContent = "[Interface]\nPrivateKey = xxx"
+        every { wireguardService.getPeerConfig("john-doe", null) } returns configContent
+
+        mockMvc.perform(get("/api/wireguard/config").param("username", "john-doe"))
+            .andExpect(status().isOk)
+            .andExpect(content().string(configContent))
+
+        verify(exactly = 1) { wireguardService.getPeerConfig("john-doe", null) }
+    }
+
+    @Test
+    fun `getPeerConfig throws bad request when username is not set`() {
+        mockMvc.perform(get("/api/wireguard/config"))
+            .andExpect(status().isBadRequest)
+
+        verify(exactly = 0) { wireguardService.getPeerConfig(any(), any()) }
     }
 }

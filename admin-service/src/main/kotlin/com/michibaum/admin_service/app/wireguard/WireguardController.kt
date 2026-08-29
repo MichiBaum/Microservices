@@ -2,7 +2,9 @@ package com.michibaum.admin_service.app.wireguard
 
 import com.michibaum.admin_service.app.kubernetes.dto.DeploymentDto
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.security.core.Authentication
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -27,6 +29,18 @@ class WireguardController(
             ?: username?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
             ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is not set")
         return wireguardService.createWireguardDeployment(requestedUser, namespace)
+    }
+
+    @GetMapping("/config", "", produces = [MediaType.TEXT_PLAIN_VALUE])
+    fun getPeerConfig(
+        authentication: Authentication?,
+        @RequestParam(required = false) username: String?,
+        @RequestParam(required = false) namespace: String?
+    ): String {
+        val requestedUser = authentication?.name?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
+            ?: username?.takeIf { it.isNotBlank() && it != "anonymous" && it != "anonymousUser" }
+            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is not set")
+        return wireguardService.getPeerConfig(requestedUser, namespace)
     }
 
 }

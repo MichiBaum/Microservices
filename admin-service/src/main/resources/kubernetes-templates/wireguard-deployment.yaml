@@ -31,9 +31,9 @@ spec:
         - name: TZ
           value: "Etc/UTC"
         - name: SERVERURL
-          value: "auto"
+          value: "michibaum.ch"
         - name: SERVERPORT
-          value: "51820"
+          value: "${serverPort}"
         - name: PEERS
           value: "${userName}"
         - name: PEERDNS
