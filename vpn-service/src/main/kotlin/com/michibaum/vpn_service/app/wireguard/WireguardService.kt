@@ -17,7 +17,7 @@ class WireguardService(
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun createWireguardDeployment(requestedUser: String, namespace: String? = null): DeploymentDto {
+    fun createDeployment(requestedUser: String, namespace: String? = null): DeploymentDto {
         val client = kubernetesClient ?: throw ResponseStatusException(
             HttpStatus.SERVICE_UNAVAILABLE, "Kubernetes client is not available"
         )

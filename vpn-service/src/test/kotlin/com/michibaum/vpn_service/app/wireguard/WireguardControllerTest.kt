@@ -26,7 +26,7 @@ class WireguardControllerTest {
     }
 
     @Test
-    fun `createWireguardDeployment with username param returns created DeploymentDto`() {
+    fun `createDeployment with username param returns created DeploymentDto`() {
         val deploymentDto = DeploymentDto(
             name = "wireguard-john-doe",
             namespace = "microservices",
@@ -36,30 +36,30 @@ class WireguardControllerTest {
             containers = listOf("wireguard")
         )
 
-        every { wireguardService.createWireguardDeployment("john-doe", null) } returns deploymentDto
+        every { wireguardService.createDeployment("john-doe", null) } returns deploymentDto
 
         mockMvc.perform(post("/api/wireguard").param("username", "john-doe"))
             .andExpect(status().isCreated)
             .andExpect(jsonPath("$.name").value("wireguard-john-doe"))
             .andExpect(jsonPath("$.namespace").value("microservices"))
 
-        verify(exactly = 1) { wireguardService.createWireguardDeployment("john-doe", null) }
+        verify(exactly = 1) { wireguardService.createDeployment("john-doe", null) }
     }
 
     @Test
-    fun `createWireguardDeployment throws bad request when username is not set`() {
+    fun `createDeployment throws bad request when username is not set`() {
         mockMvc.perform(post("/api/wireguard"))
             .andExpect(status().isBadRequest)
 
-        verify(exactly = 0) { wireguardService.createWireguardDeployment(any(), any()) }
+        verify(exactly = 0) { wireguardService.createDeployment(any(), any()) }
     }
 
     @Test
-    fun `createWireguardDeployment throws bad request when username is anonymous`() {
+    fun `createDeployment throws bad request when username is anonymous`() {
         mockMvc.perform(post("/api/wireguard").param("username", "anonymous"))
             .andExpect(status().isBadRequest)
 
-        verify(exactly = 0) { wireguardService.createWireguardDeployment(any(), any()) }
+        verify(exactly = 0) { wireguardService.createDeployment(any(), any()) }
     }
 
     @Test

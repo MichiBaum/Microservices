@@ -34,16 +34,16 @@ class WireguardServiceTest {
     private val service = WireguardService(kubernetesClient, kubernetesProperties)
 
     @Test
-    fun `createWireguardDeployment throws 503 when kubernetesClient is null`() {
+    fun `createDeployment throws 503 when kubernetesClient is null`() {
         val nullClientService = WireguardService(null, kubernetesProperties)
 
         assertThrows<ResponseStatusException> {
-            nullClientService.createWireguardDeployment("testuser")
+            nullClientService.createDeployment("testuser")
         }
     }
 
     @Test
-    fun `createWireguardDeployment creates deployment and service successfully`() {
+    fun `createDeployment creates deployment and service successfully`() {
         val deploymentsOperation = mockk<MixedOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
         val deploymentNamespaceOperation = mockk<NonNamespaceOperation<Deployment, DeploymentList, RollableScalableResource<Deployment>>>()
         val deploymentResource = mockk<RollableScalableResource<Deployment>>()
@@ -92,7 +92,7 @@ class WireguardServiceTest {
         every { serviceNamespaceOperation.load(any<java.io.InputStream>()) } returns serviceResource
         every { serviceResource.create() } returns createdService
 
-        val result = service.createWireguardDeployment("testuser")
+        val result = service.createDeployment("testuser")
 
         assertEquals("wireguard-testuser", result.name)
         assertEquals("microservices", result.namespace)
