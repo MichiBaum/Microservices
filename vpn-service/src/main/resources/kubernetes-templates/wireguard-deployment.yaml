@@ -21,6 +21,8 @@ spec:
         user: ${userName}
         managed-by: vpn-service
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 35591.hostserv.eu
       containers:
       - name: wireguard
         image: lscr.io/linuxserver/wireguard:latest
