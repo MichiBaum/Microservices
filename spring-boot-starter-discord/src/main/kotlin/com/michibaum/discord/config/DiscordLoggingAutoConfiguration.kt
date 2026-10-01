@@ -8,8 +8,11 @@ import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
+import com.michibaum.discord.api.DiscordMessagePoller
+import com.michibaum.discord.api.DiscordCommand
 
 /**
  * Auto-configuration class for setting up logging to a Discord channel within a Spring application.
@@ -21,6 +24,16 @@ import org.springframework.context.annotation.Bean
 @AutoConfigureAfter(value = [DiscordAutoConfiguration::class, AutoConfigurationProperties::class])
 @ConditionalOnBean(value = [DiscordClient::class, DiscordLoggingProperties::class])
 class DiscordLoggingAutoConfiguration {
+
+    @Bean
+    @ConditionalOnProperty(prefix = "spring.microservices.discord.logging", name = ["enabled"], havingValue = "true")
+    @ConditionalOnMissingBean
+    fun discordMessagePoller(
+        discordClient: DiscordClient,
+        discordLoggingProperties: DiscordLoggingProperties,
+        commands: List<DiscordCommand>?
+    ): DiscordMessagePoller =
+        DiscordMessagePoller(discordClient, discordLoggingProperties, commands ?: emptyList())
 
     /**
      * Creates a `LoggerContext` bean for managing the logging configuration context.
