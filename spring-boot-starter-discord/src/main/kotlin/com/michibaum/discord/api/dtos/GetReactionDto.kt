@@ -8,9 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @property count The number of times this reaction has been used on the message.
  * @property me Indicates whether the current user has reacted with this emoji.
+ * @property emoji The emoji information representing the reaction.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class GetReactionDto(
     @JsonProperty("count") val count: Int,
     @JsonProperty("me") val me: Boolean,
+    @JsonProperty("emoji") val emoji: GetEmojiDto,
 )
