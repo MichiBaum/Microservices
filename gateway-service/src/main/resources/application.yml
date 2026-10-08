@@ -39,6 +39,19 @@ spring:
       health-check:
         initial-delay: 5s
         interval: 10s
+        path:
+          # Downstream services secure the plain /actuator/health endpoint (ADMIN_SERVICE authority only)
+          # and only expose /actuator/health/liveness and /actuator/health/readiness publicly, so the
+          # gateway's unauthenticated active health-check must target the already-public liveness probe
+          # instead of the default /actuator/health path.
+          admin-service: /actuator/health/liveness
+          authentication-service: /actuator/health/liveness
+          chess-service: /actuator/health/liveness
+          fitness-service: /actuator/health/liveness
+          music-service: /actuator/health/liveness
+          usermanagement-service: /actuator/health/liveness
+          vpn-service: /actuator/health/liveness
+          website-service: /actuator/health/liveness
     openfeign:
       lazy-attributes-resolution: true
       httpclient:

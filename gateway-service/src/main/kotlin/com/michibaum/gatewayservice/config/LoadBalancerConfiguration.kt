@@ -3,6 +3,7 @@ package com.michibaum.gatewayservice.config
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.annotation.Bean
+import org.springframework.web.client.RestTemplate
 
 /**
  * Custom LoadBalancer configuration enabling active health-checking of cached service instances,
@@ -15,13 +16,22 @@ import org.springframework.context.annotation.Bean
  */
 class LoadBalancerConfiguration {
 
+    /**
+     * `withBlockingHealthChecks()` needs a plain (non-load-balanced) `RestTemplate` bean to ping
+     * cached instances. This LoadBalancer client child context does not inherit such a bean from
+     * the main application context (the gateway itself has none, since it uses Feign/WebClient),
+     * so it must be provided here explicitly.
+     */
+    @Bean
+    fun restTemplate(): RestTemplate = RestTemplate()
+
     @Bean
     fun discoveryClientServiceInstanceListSupplier(
         context: ConfigurableApplicationContext
     ): ServiceInstanceListSupplier =
         ServiceInstanceListSupplier.builder()
-            .withDiscoveryClient()
-            .withHealthChecks()
+            .withBlockingDiscoveryClient()
+            .withBlockingHealthChecks()
             .withCaching()
             .build(context)
 
