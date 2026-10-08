@@ -2,51 +2,30 @@ package com.michibaum.gatewayservice.config
 
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
 import org.springframework.cloud.gateway.server.mvc.common.MvcUtils.GATEWAY_REQUEST_URL_ATTR
 import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.Authentication
+import org.springframework.web.servlet.function.HandlerFunction
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
 import java.net.URI
 
-fun ServerRequest.authenticateWithCircuitBreaker(
+fun authenticatedHttp(
     redirect: URI,
     authFilter: ServletAuthenticationFilter,
-    circuitBreakerFactory: CircuitBreakerFactory<*, *>,
-    service: Service,
+    vararg requiredPermissions: Permissions
+): HandlerFunction<ServerResponse> = HandlerFunction { request ->
+    request.authenticate(redirect, authFilter, *requiredPermissions)
+}
+
+fun ServerRequest.authenticate(
+    redirect: URI,
+    authFilter: ServletAuthenticationFilter,
     vararg requiredPermissions: Permissions
 ): ServerResponse {
     val authentication = authFilter.getAuthentication(servletRequest())
-
-    if (!hasRequiredPermissions(authentication, requiredPermissions)) {
-        return ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
-    }
-
-    val requestWithRedirect = ServerRequest.from(this)
-        .attribute(GATEWAY_REQUEST_URL_ATTR, redirect)
-        .build()
-    
-    val circuitBreaker = createCircuitBreaker(service, circuitBreakerFactory)
-    return try {
-        circuitBreaker.run(
-            { http().handle(requestWithRedirect) },
-            createCircuitBreakerServiceUnavailableResponse(service)
-        )
-    } catch (e: Exception) {
-        createCircuitBreakerErrorResponse(e)
-    }
-}
-
-fun ServerRequest.authenticate(redirect: URI, authFilter: ServletAuthenticationFilter, vararg requiredPermissions: Permissions): ServerResponse {
-    val authentication = authFilter.getAuthentication(servletRequest())
-    return if (
-        authentication == null || 
-        !authentication.isAuthenticated || 
-        !authentication.authorities.map { it.authority }
-            .containsAll(requiredPermissions.toList().map { it.name })
-    ) {
+    return if (!hasRequiredPermissions(authentication, requiredPermissions)) {
         ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
     } else {
         val requestWithRedirect = ServerRequest.from(this)

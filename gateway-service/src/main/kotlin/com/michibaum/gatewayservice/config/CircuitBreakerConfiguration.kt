@@ -1,18 +1,23 @@
 package com.michibaum.gatewayservice.config
 
+import io.github.resilience4j.circuitbreaker.CircuitBreaker.State
+import io.github.resilience4j.circuitbreaker.CircuitBreaker as Resilience4jCircuitBreaker
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig
 import io.github.resilience4j.timelimiter.TimeLimiterConfig
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
 import org.springframework.cloud.client.circuitbreaker.Customizer
+import org.springframework.cloud.loadbalancer.cache.LoadBalancerCacheManager
+import org.springframework.cloud.loadbalancer.core.CachingServiceInstanceListSupplier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.function.HandlerFunction
 import org.springframework.web.servlet.function.ServerResponse
 import java.time.Duration
+import java.util.Collections
+import java.util.WeakHashMap
 
 @Configuration
 class CircuitBreakerConfiguration {
@@ -59,12 +64,38 @@ class CircuitBreakerConfiguration {
     }
 }
 
+private val registeredCircuitBreakers = Collections.synchronizedSet(
+    Collections.newSetFromMap(WeakHashMap<Resilience4jCircuitBreaker, Boolean>())
+)
+
 typealias CircuitBreakerResponse = (Throwable?) -> ServerResponse
 
 fun createCircuitBreaker(
     service: Service,
-    circuitBreakerFactory: CircuitBreakerFactory<*, *>
-): CircuitBreaker = circuitBreakerFactory.create(service.cbId)
+    circuitBreakerFactory: Resilience4JCircuitBreakerFactory,
+    loadBalancerCacheManager: LoadBalancerCacheManager? = null
+): CircuitBreaker {
+    val circuitBreaker = circuitBreakerFactory.create(service.cbId)
+
+    if (loadBalancerCacheManager != null) {
+        val resilience4jCircuitBreaker = circuitBreakerFactory.circuitBreakerRegistry
+            .circuitBreaker(service.cbId)
+        synchronized(registeredCircuitBreakers) {
+            if (registeredCircuitBreakers.add(resilience4jCircuitBreaker)) {
+                resilience4jCircuitBreaker.eventPublisher
+                    .onStateTransition { event ->
+                        if (event.stateTransition.toState == State.OPEN) {
+                            loadBalancerCacheManager
+                                .getCache(CachingServiceInstanceListSupplier.SERVICE_INSTANCE_CACHE_NAME)
+                                ?.evict(service.id)
+                        }
+                    }
+            }
+        }
+    }
+
+    return circuitBreaker
+}
 
 fun createCircuitBreakerServiceUnavailableResponse(service: Service): CircuitBreakerResponse = { _ ->
     ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
@@ -78,9 +109,10 @@ fun createCircuitBreakerErrorResponse(error: Exception): ServerResponse =
 fun applyCircuitBreaker(
     handlerFunction: HandlerFunction<ServerResponse>,
     service: Service,
-    circuitBreakerFactory: CircuitBreakerFactory<*, *>
+    circuitBreakerFactory: Resilience4JCircuitBreakerFactory,
+    loadBalancerCacheManager: LoadBalancerCacheManager? = null
 ): HandlerFunction<ServerResponse> {
-    val circuitBreaker = createCircuitBreaker(service, circuitBreakerFactory)
+    val circuitBreaker = createCircuitBreaker(service, circuitBreakerFactory, loadBalancerCacheManager)
 
     return HandlerFunction { request ->
         try {
