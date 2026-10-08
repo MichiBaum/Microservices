@@ -6,8 +6,9 @@ import com.michibaum.gatewayservice.app.sitemapxml.SitemapXmlController
 import com.michibaum.gatewayservice.config.Service.*
 import com.michibaum.permission_library.Permissions
 import org.springframework.boot.context.properties.EnableConfigurationProperties
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory
 import org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb
+import org.springframework.cloud.loadbalancer.cache.LoadBalancerCacheManager
 import org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions.route
 import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http
 import org.springframework.cloud.gateway.server.mvc.predicate.GatewayRequestPredicates.host
@@ -30,7 +31,8 @@ class RouterConfiguration {
         robotsTxtController: RobotsTxtController,
         sitemapXmlController: SitemapXmlController,
         authFilter: ServletAuthenticationFilter,
-        circuitBreakerFactory: CircuitBreakerFactory<*, *>
+        circuitBreakerFactory: Resilience4JCircuitBreakerFactory,
+        loadBalancerCacheManager: LoadBalancerCacheManager?
     ): RouterFunction<ServerResponse> {
         return route()
             .route(host("babymetal.ch")) { _ -> // TODO implement custom fansite for babymetal.ch
@@ -88,25 +90,25 @@ class RouterConfiguration {
                     PROMETHEUS, Permissions.ADMIN_SERVICE)
             }
             .route(host("admin.michibaum.*"), applyCircuitBreaker(lb(ADMIN.id).apply(http()),
-                ADMIN, circuitBreakerFactory))
+                ADMIN, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("registry.michibaum.*"), applyCircuitBreaker(lb(REGISTRY.id).apply(http()),
-                REGISTRY, circuitBreakerFactory))
+                REGISTRY, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("authentication.michibaum.*"), applyCircuitBreaker(lb(AUTHENTICATION.id).apply(http()),
-                AUTHENTICATION, circuitBreakerFactory))
+                AUTHENTICATION, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("usermanagement.michibaum.*"), applyCircuitBreaker(lb(USERMANAGEMENT.id).apply(http()),
-                USERMANAGEMENT, circuitBreakerFactory))
+                USERMANAGEMENT, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("chess.michibaum.*"), applyCircuitBreaker(lb(CHESS.id).apply(http()),
-                CHESS, circuitBreakerFactory))
+                CHESS, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("fitness.michibaum.*"), applyCircuitBreaker(lb(FITNESS.id).apply(http()),
-                FITNESS, circuitBreakerFactory))
+                FITNESS, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("music.michibaum.*"), applyCircuitBreaker(lb(MUSIC.id).apply(http()),
-                MUSIC, circuitBreakerFactory))
+                MUSIC, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("vpn.michibaum.*"), applyCircuitBreaker(lb(VPN.id).apply(http()),
-                VPN, circuitBreakerFactory))
+                VPN, circuitBreakerFactory, loadBalancerCacheManager))
 
             // Catch-all for main website (Lowest priority, must come last)
             .route(host("michibaum.*"), applyCircuitBreaker(lb(WEBSITE.id).apply(http()),
-                WEBSITE, circuitBreakerFactory))
+                WEBSITE, circuitBreakerFactory, loadBalancerCacheManager))
             .build()
     }
 

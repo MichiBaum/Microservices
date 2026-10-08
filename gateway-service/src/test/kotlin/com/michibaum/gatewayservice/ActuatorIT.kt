@@ -6,6 +6,7 @@ import com.michibaum.authentication_library.JwsValidationSuccess
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.permission_library.Permissions
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import org.mockito.ArgumentMatchers.anyString
@@ -92,6 +93,19 @@ class ActuatorIT {
 
         // THEN
         assertEquals(HttpStatus.FORBIDDEN, response.statusCode)
+    }
+
+    @Test
+    fun `discoveryRefresh endpoint is exposed and returns 200 when invoked with basic authentication`(){
+        // GIVEN
+
+        // WHEN
+        val response = testRestTemplate
+            .withBasicAuth("admin_username", "admin_password")
+            .postForEntity("/actuator/discoveryRefresh", null, String::class.java)
+
+        // THEN
+        assertEquals(HttpStatus.OK, response.statusCode)
     }
 
 }

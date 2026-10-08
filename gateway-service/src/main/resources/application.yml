@@ -32,6 +32,13 @@ spring:
       client:
         health-indicator:
           include-description: true
+    loadbalancer:
+      cache:
+        ttl: 5s
+        capacity: 256
+      health-check:
+        initial-delay: 5s
+        interval: 10s
     openfeign:
       lazy-attributes-resolution: true
       httpclient:
@@ -66,6 +73,7 @@ eureka:
       enabled: true
     eureka-service-url-poll-interval-seconds: 30
     registry-fetch-interval-seconds: 10
+    disable-delta: true
 
 management:
   tracing:

@@ -2,7 +2,7 @@ package com.michibaum.gatewayservice.config
 
 import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory
 import org.springframework.cloud.gateway.server.mvc.common.MvcUtils.GATEWAY_REQUEST_URL_ATTR
 import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http
 import org.springframework.http.HttpStatus
@@ -14,7 +14,7 @@ import java.net.URI
 fun ServerRequest.authenticateWithCircuitBreaker(
     redirect: URI,
     authFilter: ServletAuthenticationFilter,
-    circuitBreakerFactory: CircuitBreakerFactory<*, *>,
+    circuitBreakerFactory: Resilience4JCircuitBreakerFactory,
     service: Service,
     vararg requiredPermissions: Permissions
 ): ServerResponse {
