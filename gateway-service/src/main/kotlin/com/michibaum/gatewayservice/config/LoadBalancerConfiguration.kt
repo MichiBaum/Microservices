@@ -1,11 +1,15 @@
 package com.michibaum.gatewayservice.config
 
+import org.springframework.cloud.client.ServiceInstance
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties
+import org.springframework.cloud.client.loadbalancer.Request
+import org.springframework.cloud.loadbalancer.core.DelegatingServiceInstanceListSupplier
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
+import reactor.core.publisher.Flux
 import java.time.Duration
 
 /**
@@ -28,8 +32,8 @@ class LoadBalancerConfiguration {
     @Bean
     fun restTemplate(): RestTemplate {
         val requestFactory = SimpleClientHttpRequestFactory().apply {
-            setConnectTimeout(Duration.ofSeconds(2))
-            setReadTimeout(Duration.ofSeconds(2))
+            setConnectTimeout(Duration.ofSeconds(5))
+            setReadTimeout(Duration.ofSeconds(5))
         }
         return RestTemplate(requestFactory)
     }
@@ -42,11 +46,51 @@ class LoadBalancerConfiguration {
         // Keep this fallback for deployments that omit the shared default from configuration.
         loadBalancerClientsProperties.healthCheck.path.putIfAbsent("default", "/actuator/health/liveness")
 
-        return ServiceInstanceListSupplier.builder()
+        val discoverySupplier = ServiceInstanceListSupplier.builder()
+            .withBlockingDiscoveryClient()
+            .build(context)
+
+        val healthCheckSupplier = ServiceInstanceListSupplier.builder()
             .withBlockingDiscoveryClient()
             .withBlockingHealthChecks()
+            .build(context)
+
+        val fallbackSupplier = DiscoveryFallbackServiceInstanceListSupplier(healthCheckSupplier, discoverySupplier)
+
+        return ServiceInstanceListSupplier.builder()
+            .withBase(fallbackSupplier)
             .withCaching()
             .build(context)
     }
 
+}
+
+class DiscoveryFallbackServiceInstanceListSupplier(
+    delegate: ServiceInstanceListSupplier,
+    private val discoverySupplier: ServiceInstanceListSupplier
+) : DelegatingServiceInstanceListSupplier(delegate) {
+
+    override fun get(): Flux<List<ServiceInstance>> {
+        return delegate.get()
+            .onErrorResume { discoverySupplier.get() }
+            .flatMap { instances ->
+                if (instances.isEmpty()) {
+                    discoverySupplier.get()
+                } else {
+                    Flux.just(instances)
+                }
+            }
+    }
+
+    override fun get(request: Request<*>): Flux<List<ServiceInstance>> {
+        return delegate.get(request)
+            .onErrorResume { discoverySupplier.get(request) }
+            .flatMap { instances ->
+                if (instances.isEmpty()) {
+                    discoverySupplier.get(request)
+                } else {
+                    Flux.just(instances)
+                }
+            }
+    }
 }
