@@ -1,5 +1,6 @@
 package com.michibaum.gatewayservice.config
 
+import org.apache.hc.client5.http.config.ConnectionConfig
 import org.apache.hc.client5.http.config.RequestConfig
 import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder
@@ -17,16 +18,20 @@ class HttpClientConfiguration {
 
     @Bean
     fun httpClientConnectionManager(): HttpClientConnectionManager {
+        val connectionConfig = ConnectionConfig.custom()
+            .setConnectTimeout(Timeout.ofSeconds(5))
+            .build()
+
         return PoolingHttpClientConnectionManagerBuilder.create()
             .setMaxConnTotal(200)
             .setMaxConnPerRoute(50)
+            .setDefaultConnectionConfig(connectionConfig)
             .build()
     }
 
     @Bean
     fun clientHttpRequestFactory(connectionManager: HttpClientConnectionManager): ClientHttpRequestFactory {
         val requestConfig = RequestConfig.custom()
-            .setConnectTimeout(Timeout.ofSeconds(5))
             .setResponseTimeout(Timeout.ofSeconds(10))
             .build()
 

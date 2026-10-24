@@ -72,7 +72,6 @@ class DiscoveryFallbackServiceInstanceListSupplier(
 
     override fun get(): Flux<List<ServiceInstance>> {
         return delegate.get()
-            .onErrorResume { discoverySupplier.get() }
             .flatMap { instances ->
                 if (instances.isEmpty()) {
                     discoverySupplier.get()
@@ -80,11 +79,11 @@ class DiscoveryFallbackServiceInstanceListSupplier(
                     Flux.just(instances)
                 }
             }
+            .onErrorResume { discoverySupplier.get() }
     }
 
     override fun get(request: Request<*>): Flux<List<ServiceInstance>> {
         return delegate.get(request)
-            .onErrorResume { discoverySupplier.get(request) }
             .flatMap { instances ->
                 if (instances.isEmpty()) {
                     discoverySupplier.get(request)
@@ -92,5 +91,6 @@ class DiscoveryFallbackServiceInstanceListSupplier(
                     Flux.just(instances)
                 }
             }
+            .onErrorResume { discoverySupplier.get(request) }
     }
 }

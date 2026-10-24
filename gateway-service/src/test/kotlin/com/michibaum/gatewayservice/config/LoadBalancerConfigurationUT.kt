@@ -100,4 +100,26 @@ class LoadBalancerConfigurationUT {
         val resultWithReq = fallbackSupplier.get(request).blockFirst()
         assertEquals(listOf(instance), resultWithReq)
     }
+
+    @Test
+    fun `DiscoveryFallbackServiceInstanceListSupplier falls back to discovery supplier when delegate errors`() {
+        val instance = mock(ServiceInstance::class.java)
+        val healthCheckSupplier = mock(ServiceInstanceListSupplier::class.java)
+        val discoverySupplier = mock(ServiceInstanceListSupplier::class.java)
+
+        `when`(healthCheckSupplier.get()).thenReturn(Flux.error(RuntimeException("Health check failed")))
+        `when`(discoverySupplier.get()).thenReturn(Flux.just(listOf(instance)))
+
+        val request = DefaultRequest<Any>()
+        `when`(healthCheckSupplier.get(request)).thenReturn(Flux.error(RuntimeException("Health check failed")))
+        `when`(discoverySupplier.get(request)).thenReturn(Flux.just(listOf(instance)))
+
+        val fallbackSupplier = DiscoveryFallbackServiceInstanceListSupplier(healthCheckSupplier, discoverySupplier)
+
+        val resultNoArg = fallbackSupplier.get().blockFirst()
+        assertEquals(listOf(instance), resultNoArg)
+
+        val resultWithReq = fallbackSupplier.get(request).blockFirst()
+        assertEquals(listOf(instance), resultWithReq)
+    }
 }
