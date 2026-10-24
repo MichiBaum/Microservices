@@ -7,7 +7,6 @@ import {Tag} from "primeng/tag";
 import {Textarea} from "primeng/textarea";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {
-  faCopy,
   faDownload,
   faPlus,
   faShieldHalved,
@@ -17,7 +16,7 @@ import {VpnService} from "../core/api-services/vpn.service";
 import {UserInfoService} from "../core/services/user-info.service";
 import {UserConfirmationService} from "../core/services/user-confirmation.service";
 import {rxResource, toObservable, toSignal} from "@angular/core/rxjs-interop";
-import {of, switchMap} from "rxjs";
+import {of, switchMap, Observable, catchError} from "rxjs";
 
 @Component({
   selector: 'app-vpn',
@@ -43,12 +42,14 @@ export class VpnComponent {
     stream: () => this.vpnService.getWireguard(),
     defaultValue: undefined
   })
-  private readonly config$ = computed(() => {
+  private readonly config$ = computed<Observable<string>>(() => {
     const dep = this.deployment.value();
     if (!dep) {
       return of('');
     }
-    return this.vpnService.getWireguardConfig();
+    return this.vpnService.getWireguardConfig().pipe(
+      catchError(() => of(''))
+    );
   });
 
   config = toSignal(
@@ -58,11 +59,41 @@ export class VpnComponent {
     { initialValue: '' }
   );
 
+  private readonly qrCode$ = computed<Observable<Blob | undefined>>(() => {
+    const dep = this.deployment.value();
+    if (!dep) {
+      return of(undefined);
+    }
+    return this.vpnService.getWireguardQrCode().pipe(
+      catchError(() => of(undefined))
+    );
+  });
+
+  qrCodeUrl = toSignal(
+    toObservable(this.qrCode$).pipe(
+      switchMap(obs => obs),
+      switchMap(blob => {
+        if (!blob) return of(undefined);
+        return new Observable<string>(subscriber => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            subscriber.next(reader.result as string);
+            subscriber.complete();
+          };
+          reader.onerror = () => {
+            subscriber.error(reader.error);
+          };
+        });
+      })
+    ),
+    { initialValue: undefined }
+  );
+
 
   protected readonly faPlus = faPlus;
   protected readonly faTrash = faTrash;
   protected readonly faDownload = faDownload;
-  protected readonly faCopy = faCopy;
   protected readonly faShieldHalved = faShieldHalved;
 
   createWireguardService(): void {

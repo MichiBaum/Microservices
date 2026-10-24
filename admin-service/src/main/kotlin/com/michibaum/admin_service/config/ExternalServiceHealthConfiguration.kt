@@ -94,12 +94,12 @@ class ExternalServiceHealthConfiguration(
 
     private fun isExternalService(instance: Instance): Boolean {
         val name = instance.registration.name
-        val checkType = instance.registration.metadata["sba-check"]
 
         val isDatabase = name.endsWith("-db")
         val isObservability = name in setOf("jaeger", "jaeger-storage", "prometheus")
+        val sbaCheckKubernetes = instance.registration.metadata["sba-check"] == "kubernetes"
 
-        return checkType == "kubernetes" || isDatabase || isObservability
+        return sbaCheckKubernetes || isDatabase || isObservability
     }
 
 }
