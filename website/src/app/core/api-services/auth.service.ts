@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Authentication, AuthenticationResponse, Register, RegisterResponse} from "../models/authentication.model";
 import {RouterNavigationService} from "../services/router-navigation.service";
 import {catchError, Observable, Subject, tap} from "rxjs";
@@ -8,7 +8,8 @@ import {UserInfoService} from "../services/user-info.service";
 import {EnvironmentConfig} from "../config/environment.config";
 import {JwtPayload} from "../models/jwtPayload.model";
 import {jwtDecode} from "jwt-decode";
-import {TranslateService} from "@ngx-translate/core";
+
+export const AUTH_JWT_KEY = 'Authentication';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
   private readonly router = inject(RouterNavigationService);
   private readonly httpErrorConfig = inject(HttpErrorHandler);
   private readonly userInfoService = inject(UserInfoService);
-  private readonly jwtName = 'Authentication';
+  private readonly jwtName = AUTH_JWT_KEY;
 
   successLoginEmitter = new Subject<void>();
   logoutEmitter = new Subject<void>()
