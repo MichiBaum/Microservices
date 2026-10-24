@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -97,16 +98,16 @@ class SpotifyOAuthController(
         val oAuthData = spotifyOAuthService.findByState(state)
             ?: throw Exception("No oAuthData found by state $state")
 
-        val data = SpotifyOAuthDto(
-            code,
-            "authorization_code",
-            "https://music.michibaum.ch/api/spotify/auth"
-        )
+        val bodyMap = LinkedMultiValueMap<String, String>().apply {
+            add("code", code)
+            add("grant_type", "authorization_code")
+            add("redirect_uri", "https://music.michibaum.ch/api/spotify/auth")
+        }
         val response = client
             .post()
             .uri("/api/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .body(data)// TODO needs testing
+            .body(bodyMap)
             .retrieve()
             .toEntity(SpotifyOAuthCredentialsDto::class.java)
 
