@@ -31,9 +31,9 @@ class DiscordLoggingAutoConfiguration {
     fun discordMessagePoller(
         discordClient: DiscordClient,
         discordLoggingProperties: DiscordLoggingProperties,
-        commands: List<DiscordCommand>?
+        commands: List<DiscordCommand>
     ): DiscordMessagePoller =
-        DiscordMessagePoller(discordClient, discordLoggingProperties, commands ?: emptyList())
+        DiscordMessagePoller(discordClient, discordLoggingProperties, commands)
 
     /**
      * Creates a `LoggerContext` bean for managing the logging configuration context.
