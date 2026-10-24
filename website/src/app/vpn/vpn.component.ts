@@ -16,7 +16,7 @@ import {VpnService} from "../core/api-services/vpn.service";
 import {UserInfoService} from "../core/services/user-info.service";
 import {UserConfirmationService} from "../core/services/user-confirmation.service";
 import {rxResource, toObservable, toSignal} from "@angular/core/rxjs-interop";
-import {of, switchMap, Observable} from "rxjs";
+import {of, switchMap, Observable, catchError} from "rxjs";
 
 @Component({
   selector: 'app-vpn',
@@ -42,12 +42,14 @@ export class VpnComponent {
     stream: () => this.vpnService.getWireguard(),
     defaultValue: undefined
   })
-  private readonly config$ = computed(() => {
+  private readonly config$ = computed<Observable<string>>(() => {
     const dep = this.deployment.value();
     if (!dep) {
       return of('');
     }
-    return this.vpnService.getWireguardConfig();
+    return this.vpnService.getWireguardConfig().pipe(
+      catchError(() => of(''))
+    );
   });
 
   config = toSignal(
@@ -57,12 +59,14 @@ export class VpnComponent {
     { initialValue: '' }
   );
 
-  private readonly qrCode$ = computed(() => {
+  private readonly qrCode$ = computed<Observable<Blob | undefined>>(() => {
     const dep = this.deployment.value();
     if (!dep) {
       return of(undefined);
     }
-    return this.vpnService.getWireguardQrCode();
+    return this.vpnService.getWireguardQrCode().pipe(
+      catchError(() => of(undefined))
+    );
   });
 
   qrCodeUrl = toSignal(

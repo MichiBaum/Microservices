@@ -7,6 +7,7 @@ metadata:
     app: wireguard
     user: ${userName}
     managed-by: vpn-service
+    sba-check: kubernetes
 spec:
   replicas: 1
   selector:
@@ -20,6 +21,7 @@ spec:
         app: wireguard
         user: ${userName}
         managed-by: vpn-service
+        sba-check: kubernetes
     spec:
       nodeSelector:
         kubernetes.io/hostname: 35591.hostserv.eu

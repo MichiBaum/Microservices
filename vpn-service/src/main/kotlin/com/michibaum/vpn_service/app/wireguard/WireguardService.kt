@@ -151,7 +151,7 @@ class WireguardService(
                 .withName(podName)
                 .file(filePath)
                 .read()
-            inputStream.readBytes()
+            inputStream.use { it.readBytes() }
         } catch (e: Exception) {
             logger.error("Failed to read png file $filePath from pod $podName in namespace $targetNamespace", e)
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to read WireGuard png file", e)
