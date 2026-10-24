@@ -1,0 +1,36 @@
+<p-menubar [model]="menuItems()">
+    <ng-template #start>
+        <fa-icon [icon]="faMusic" size="2x" [routerLink]="'/music/'" class="cursor-pointer"></fa-icon>
+        <p-divider layout="vertical" />
+    </ng-template>
+    <ng-template #item let-item let-root="root">
+        <a pRipple class="flex items-center p-menubar-item-link" [routerLink]="item.routerLink">
+            @if (item.customIcon) {
+                <fa-icon [icon]="item.customIcon"></fa-icon>
+            }
+
+            @if (item.tag) {
+                <p-tag [style]="{ background: 'rgb(0 0 0 / 0%)' }">
+                    <fa-icon [icon]="item.tag" [style]="item.tagColor"></fa-icon>
+                </p-tag>
+            }
+
+            <div class="text-left">
+                @if (item.subText && item.subText !== '') {
+                    <p class="text-xs">{{ item.subText }}</p>
+                }
+                <p>{{ item.label | translate }}</p>
+                @if (item.badge) {
+                    <p-badge [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+                }
+            </div>
+
+            @if (item.shortcut) {
+                <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            }
+            @if (item.items && item.items.length > 0) {
+                <fa-icon [icon]="faAngleDown"></fa-icon>
+            }
+        </a>
+    </ng-template>
+</p-menubar>
