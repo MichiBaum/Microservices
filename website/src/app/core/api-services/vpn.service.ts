@@ -25,6 +25,10 @@ export class VpnService {
     return this.http.get(`${this.environment.vpnService()}/wireguard/config`, {responseType: 'text'});
   }
 
+  getWireguardQrCode(): Observable<Blob> {
+    return this.http.get(`${this.environment.vpnService()}/wireguard/qrcode`, {responseType: 'blob'});
+  }
+
   deleteWireguard(): Observable<void> {
     return this.http.delete<void>(`${this.environment.vpnService()}/wireguard`);
   }

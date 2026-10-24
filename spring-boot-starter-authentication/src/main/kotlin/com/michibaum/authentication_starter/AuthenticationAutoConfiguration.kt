@@ -10,17 +10,23 @@ import com.michibaum.authentication_library.security.basic.CredentialsValidator
 import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationConverter
 import com.michibaum.authentication_library.security.jwt.JwtAuthenticationManager
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig
+import io.github.resilience4j.timelimiter.TimeLimiterConfig
+import io.micrometer.observation.ObservationRegistry
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import io.micrometer.observation.ObservationRegistry
 import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
+import org.springframework.cloud.client.circuitbreaker.Customizer
 import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.web.authentication.AuthenticationConverter
+import java.time.Duration
 
 @AutoConfiguration
 @EnableConfigurationProperties(value = [AdminServiceCredentials::class])
@@ -34,6 +40,33 @@ class AuthenticationAutoConfiguration {
     fun jwsValidator(authenticationClient: AuthenticationClient, circuitBreakerFactory: CircuitBreakerFactory<*, *>?): JwsValidator {
         logger.info("Creating JwsValidator in AuthenticationAutoConfiguration")
         return JwsValidator(authenticationClient, circuitBreakerFactory)
+    }
+
+    @Bean
+    @ConditionalOnClass(Resilience4JCircuitBreakerFactory::class)
+    @ConditionalOnMissingBean(name = ["authenticationPublicKeyCircuitBreakerCustomizer"])
+    fun authenticationPublicKeyCircuitBreakerCustomizer(): Customizer<Resilience4JCircuitBreakerFactory> {
+        logger.info("Creating authenticationPublicKeyCircuitBreakerCustomizer in AuthenticationAutoConfiguration")
+        return Customizer { factory ->
+            factory.configure({ builder ->
+                builder
+                    .timeLimiterConfig(
+                        TimeLimiterConfig.custom()
+                            .timeoutDuration(Duration.ofSeconds(5))
+                            .build()
+                    )
+                    .circuitBreakerConfig(
+                        CircuitBreakerConfig.custom()
+                            .slidingWindowSize(10)
+                            .failureRateThreshold(50.0f)
+                            .waitDurationInOpenState(Duration.ofSeconds(30))
+                            .permittedNumberOfCallsInHalfOpenState(3)
+                            .slowCallRateThreshold(50.0f)
+                            .slowCallDurationThreshold(Duration.ofSeconds(3))
+                            .build()
+                    )
+            }, "authentication-service-public-key")
+        }
     }
 
     @Bean

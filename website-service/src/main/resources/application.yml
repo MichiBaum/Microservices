@@ -46,6 +46,7 @@ eureka:
     register-with-eureka: true
     refresh:
       enable: true
+    disable-delta: true
 
 management:
   tracing:

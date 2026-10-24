@@ -1,0 +1,18 @@
+<div class="flex justify-center items-center px-4 py-6">
+  <p-card class="max-w-xl w-full">
+    <ng-template #title>
+      <div class="flex items-center gap-2">
+        <fa-icon [icon]="faSpotify" class="text-green-500"></fa-icon>
+        <span class="text-surface-900 dark:text-surface-0">{{ 'music-settings.spotify.title' | translate }}</span>
+      </div>
+    </ng-template>
+
+    <div class="flex flex-col items-center justify-center gap-4 py-4 text-center">
+      <p class="text-surface-600 dark:text-surface-400">
+        {{ 'music-settings.spotify.description' | translate }}
+      </p>
+
+      <app-music-spotify-login></app-music-spotify-login>
+    </div>
+  </p-card>
+</div>

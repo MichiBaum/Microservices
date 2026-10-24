@@ -271,10 +271,19 @@
         "title": "Microservices"
     },
     "music": {
+        "navigation": {
+            "home": "Startseite",
+            "spotify": "Spotify"
+        },
         "title": "Musik"
     },
     "music-settings": {
-        "title": "Musik Einstellungen"
+        "title": "Musik Einstellungen",
+        "spotify": {
+            "title": "Spotify Einstellungen",
+            "description": "Verbinden Sie Ihr Spotify-Konto, um Ihre Playlists und Top-Titel zu synchronisieren.",
+            "login-button": "Spotify Anmelden"
+        }
     },
     "navigation": {
         "apps": "Apps",

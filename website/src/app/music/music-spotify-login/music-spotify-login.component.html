@@ -1,0 +1,9 @@
+<p-button
+  (onClick)="getTokenUrl()"
+  [label]="'music-settings.spotify.login-button' | translate"
+  styleClass="w-full sm:w-auto"
+>
+  <ng-template #icon>
+    <fa-icon [icon]="faSpotify" class="text-green-500"></fa-icon>
+  </ng-template>
+</p-button>
