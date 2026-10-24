@@ -27,6 +27,7 @@ class DiscordLoggingAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(prefix = "spring.microservices.discord.logging", name = ["enabled"], havingValue = "true")
+    @ConditionalOnBean(value = [DiscordCommand::class])
     @ConditionalOnMissingBean
     fun discordMessagePoller(
         discordClient: DiscordClient,

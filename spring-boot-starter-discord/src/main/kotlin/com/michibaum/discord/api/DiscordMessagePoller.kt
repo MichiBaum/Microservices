@@ -25,7 +25,7 @@ class DiscordMessagePoller(
 
     @Scheduled(fixedDelay = 5000L)
     fun pollMessages() {
-        if (!loggingProperties.enabled || loggingProperties.channelId.isBlank()) {
+        if (!loggingProperties.enabled || loggingProperties.channelId.isBlank() || commands.isEmpty()) {
             return
         }
         
