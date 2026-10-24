@@ -25,15 +25,6 @@ data class ReleaseResponse(
     val coverArtArchive: CoverArtArchive,
 )
 
-data class TextRepresentation(
-    val language: String,
-    val script: String,
-)
-
-data class Event(
-    val date: String,
-    val area: Area,
-)
 
 
 

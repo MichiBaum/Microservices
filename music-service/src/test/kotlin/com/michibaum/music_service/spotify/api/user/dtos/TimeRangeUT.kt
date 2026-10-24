@@ -1,5 +1,6 @@
 package com.michibaum.music_service.spotify.api.user.dtos
 
+import com.michibaum.music_service.apis.spotify.api.user.dtos.TimeRange
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

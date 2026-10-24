@@ -16,3 +16,15 @@ data class Area(
     val sortName: String,
     val id: String,
 )
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class TextRepresentation(
+    val language: String?,
+    val script: String?,
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Event(
+    val date: String?,
+    val area: Area?,
+)

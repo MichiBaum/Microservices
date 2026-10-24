@@ -9,7 +9,7 @@ import {MusicService} from "../../core/api-services/music.service";
     Button
   ],
   templateUrl: './music-spotify-login.component.html',
-  styleUrl: './music-spotify-login.component.css'
+  styleUrl: './music-spotify-login.component.scss'
 })
 export class MusicSpotifyLoginComponent {
   private readonly musicService = inject(MusicService);

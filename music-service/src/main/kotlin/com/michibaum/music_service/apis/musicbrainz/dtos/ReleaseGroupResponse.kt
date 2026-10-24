@@ -43,15 +43,6 @@ data class Release(
     val artistCredit: List<ArtistCredit>,
 )
 
-data class TextRepresentation(
-    val script: String,
-    val language: String,
-)
-
-data class Event(
-    val date: String,
-    val area: Area?,
-)
 
 
 

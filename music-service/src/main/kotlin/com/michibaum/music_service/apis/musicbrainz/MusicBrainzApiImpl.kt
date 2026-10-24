@@ -2,6 +2,7 @@ package com.michibaum.music_service.apis.musicbrainz
 
 import com.michibaum.music_service.apis.ApiResult
 import com.michibaum.music_service.apis.musicbrainz.dtos.ArtistResponse
+import com.michibaum.music_service.apis.musicbrainz.dtos.ReleaseGroupResponse
 import com.michibaum.music_service.apis.musicbrainz.dtos.ReleaseResponse
 import com.michibaum.music_service.config.properties.ApisProperties
 import org.springframework.web.client.RestClient
@@ -31,7 +32,7 @@ class MusicBrainzApiImpl(
                 .body(ReleaseResponse::class.java)
         }
 
-    override fun getReleaseGroupByMBID(mbId: String): ApiResult<ArtistResponse> =
+    override fun getReleaseGroupByMBID(mbId: String): ApiResult<ReleaseGroupResponse> =
         executeApiCall {
             client.get()
                 .uri("/release-group/$mbId")
@@ -39,7 +40,7 @@ class MusicBrainzApiImpl(
                     it["inc"] = "artists+releases"
                 }
                 .retrieve()
-                .body(ArtistResponse::class.java)
+                .body(ReleaseGroupResponse::class.java)
         }
     
 }

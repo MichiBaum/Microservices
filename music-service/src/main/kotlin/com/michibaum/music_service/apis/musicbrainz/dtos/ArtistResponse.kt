@@ -65,16 +65,4 @@ data class Group(
     val primaryType: String,
 )
 
-data class Area(
-    @JsonProperty("sort-name")
-    val sortName: String,
-    val disambiguation: String,
-    val id: String,
-    val name: String,
-    @JsonProperty("type-id")
-    val typeId: Any?,
-    @JsonProperty("iso-3166-1-codes")
-    val iso31661Codes: List<String>,
-    val type: Any?,
-)
 
