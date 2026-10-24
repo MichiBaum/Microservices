@@ -274,7 +274,12 @@
         "title": "Música"
     },
     "music-settings": {
-        "title": "Configuración de Música"
+        "title": "Configuración de Música",
+        "spotify": {
+            "title": "Configuración de Spotify",
+            "description": "Conecte su cuenta de Spotify para sincronizar sus listas de reproducción y pistas principales.",
+            "login-button": "Iniciar sesión en Spotify"
+        }
     },
     "navigation": {
         "apps": "Aplicaciones",

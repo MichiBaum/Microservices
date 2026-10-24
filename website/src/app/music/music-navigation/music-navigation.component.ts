@@ -1,11 +1,11 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
 import {Menubar} from "primeng/menubar";
 import {MenuItem} from "primeng/api";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Badge} from "primeng/badge";
 import {Divider} from "primeng/divider";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgClass, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {Ripple} from "primeng/ripple";
 import {Tag} from "primeng/tag";
 import {faAngleDown, faGears, faHouse, faMusic} from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +22,6 @@ import {MusicService} from "../../core/api-services/music.service";
         Badge,
         Divider,
         FaIconComponent,
-        NgIf,
         Ripple,
         Tag,
         TranslatePipe,

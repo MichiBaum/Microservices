@@ -278,7 +278,12 @@
         "title": "Music"
     },
     "music-settings": {
-        "title": "Music Settings"
+        "title": "Music Settings",
+        "spotify": {
+            "title": "Spotify Settings",
+            "description": "Connect your Spotify account to sync your playlists and top tracks.",
+            "login-button": "Spotify Login"
+        }
     },
     "navigation": {
         "apps": "Apps",

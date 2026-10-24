@@ -272,9 +272,22 @@ export const routes: Routes = [
             },
             {
                 path: "settings",
-                loadComponent: () => import("./music/music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
                 canActivate: [isAuthenticatedGuard, isPermittedGuard],
                 data: {"permissions": [Permissions.MUSIC_SERVICE]},
+                children: [
+                    {
+                        path: "",
+                        loadComponent: () => import("./music/music-settings/music-settings.component").then((c) => c.MusicSettingsComponent),
+                        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+                        data: {"permissions": [Permissions.MUSIC_SERVICE]},
+                    },
+                    {
+                        path: "spotify",
+                        loadComponent: () => import("./music/music-settings/music-spotify-settings/music-spotify-settings.component").then((c) => c.MusicSpotifySettingsComponent),
+                        canActivate: [isAuthenticatedGuard, isPermittedGuard],
+                        data: {"permissions": [Permissions.MUSIC_SERVICE]},
+                    }
+                ]
             }
         ]
     },
