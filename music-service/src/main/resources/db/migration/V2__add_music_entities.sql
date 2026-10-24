@@ -28,7 +28,10 @@ CREATE TABLE artist_spotify (
 
 CREATE TABLE album (
     id UUID NOT NULL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    release_date DATE,
+    created DATETIME(6) NOT NULL,
+    updated DATETIME(6) NOT NULL
 );
 
 CREATE TABLE album_musixmatch (
@@ -112,7 +115,7 @@ CREATE TABLE record_label (
     id UUID NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
-    updated DATETIME(6) NOT NULL,
+    updated DATETIME(6) NOT NULL
 );
 
 CREATE TABLE record_label_artist_mapping (
