@@ -1,9 +1,11 @@
 package com.michibaum.gatewayservice
 
+import com.michibaum.gatewayservice.config.LoadBalancerConfiguration
 import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
+import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients
 import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.scheduling.annotation.EnableScheduling
 
@@ -11,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableDiscoveryClient
 @EnableScheduling
 @EnableFeignClients(basePackages = ["com.michibaum.gatewayservice.config.feign", "com.michibaum.authentication_library"])
+@LoadBalancerClients(defaultConfiguration = [LoadBalancerConfiguration::class])
 class GatewayServiceApplication
 
 fun main(args: Array<String>) {
