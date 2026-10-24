@@ -20,6 +20,7 @@ CREATE TABLE artist_spotify (
     id UUID NOT NULL PRIMARY KEY,
     artist_id UUID NOT NULL,
     spotify_id VARCHAR(255) NOT NULL,
+    followers BIGINT,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
     CONSTRAINT uk_spotify_id UNIQUE (spotify_id),
@@ -59,6 +60,8 @@ CREATE TABLE track (
     name VARCHAR(255) NOT NULL,
     release_date DATE,
     isrc VARCHAR(255) NOT NULL,
+    created DATETIME(6) NOT NULL,
+    updated DATETIME(6) NOT NULL,
     CONSTRAINT uk_track_isrc UNIQUE (isrc)
 );
 
@@ -121,6 +124,7 @@ CREATE TABLE record_label (
 CREATE TABLE record_label_artist_mapping (
     record_label_id UUID NOT NULL,
     artist_id UUID NOT NULL,
+    created DATETIME(6) NOT NULL,
     PRIMARY KEY (record_label_id, artist_id),
     CONSTRAINT fk_recordlabelartistmapping_record_label FOREIGN KEY (record_label_id) REFERENCES record_label (id),
     CONSTRAINT fk_recordlabelartistmapping_artist FOREIGN KEY (artist_id) REFERENCES artist (id)
