@@ -1,6 +1,7 @@
 package com.michibaum.music_service.apis.spotify.oauth
 
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
+import com.michibaum.cache.ProjectCacheable
 import com.michibaum.music_service.database.spotify.SpotifyAccountActivatedRepository
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentialsRepository
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 @Service
 class SpotifyOAuthService(
@@ -70,5 +72,5 @@ class SpotifyOAuthService(
 
     @Transactional(readOnly = true)
     fun isSpotifyAccountEnabled(userId: String): Boolean =
-        spotifyAccountActivatedRepository.existsByUserId(userId)
+        spotifyAccountActivatedRepository.existsByUserId(userId).size >= 1
 }

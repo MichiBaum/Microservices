@@ -30,9 +30,9 @@ class SpotifyOAuthImpl(
     override fun getCredentials(principal: JwtAuthentication): SpotifyOAuthCredentials? {
         val credentials = spotifyOAuthService.activeCredentialsByUser(principal.getUserId()) ?: return null
 
-        // Now, but with a buffer of 5 minutes, so that there should not occur an error by the access token expiring during the request
-        val now = Instant.now().minusSeconds(300)
-        if(credentials.validUntil.isAfter(now)){
+        // Now with a buffer of 5 minutes, so that there should not occur an error by the access token expiring during the request
+        val nowWithBuffer = Instant.now().plusSeconds(300)
+        if (nowWithBuffer.isAfter(credentials.validUntil)) {
             return refreshToken(principal)
         }
 

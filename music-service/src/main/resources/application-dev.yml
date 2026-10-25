@@ -15,7 +15,7 @@ spring:
     username: root
     password: someRootPass
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/music-db
+    url: jdbc:mariadb://localhost:3306/music-db?connectTimeout=3000&socketTimeout=10000&tcpKeepAlive=true
   jpa:
     show-sql: true
     properties:
