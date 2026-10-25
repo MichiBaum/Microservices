@@ -9,9 +9,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -52,7 +49,6 @@ class SpotifyOAuthController(
         spotifyOAuthService.isSpotifyAccountEnabled(principal.getUserId())
 
     @GetMapping("/api/spotify/token")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun token(principal: JwtAuthentication): ResponseEntity<SpotifyLoginDto> {
         if (principal.getUserId().isBlank()){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
@@ -93,7 +89,6 @@ class SpotifyOAuthController(
 
     @PublicEndpoint
     @GetMapping("/api/spotify/auth")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, isolation = Isolation.REPEATABLE_READ)
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String): ResponseEntity<Void> {
         val oAuthData = spotifyOAuthService.findByState(state)
             ?: throw Exception("No oAuthData found by state $state")

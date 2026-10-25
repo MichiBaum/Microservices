@@ -19,7 +19,6 @@ data class Track (
     val artists: MutableSet<Artist>,
 
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
     val releaseDate: LocalDate?,
 
     @ElementCollection(targetClass = String::class, fetch = FetchType.EAGER)
@@ -28,12 +27,10 @@ data class Track (
     val isrc: Set<String> = setOf(),
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
     val created: Instant? = null,
 
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated", nullable = false)
     val updated: Instant? = null,
     
