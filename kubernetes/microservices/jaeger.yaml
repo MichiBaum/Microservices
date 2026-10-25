@@ -76,7 +76,7 @@ spec:
           requests:
             memory: "1Gi"
           limits:
-            memory: "2Gi"
+            memory: "4Gi"
         volumeMounts:
         - name: jaeger-storage-data
           mountPath: /usr/share/elasticsearch/data
@@ -226,6 +226,9 @@ data:
 
     processors:
       batch:
+        send_batch_size: 1000
+        timeout: 1s
+        send_batch_max_size: 2000
 
     exporters:
       jaeger_storage_exporter:

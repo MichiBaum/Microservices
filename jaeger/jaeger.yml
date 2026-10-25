@@ -33,6 +33,9 @@ receivers:
 
 processors:
   batch:
+    send_batch_size: 1000
+    timeout: 1s
+    send_batch_max_size: 2000
 
 exporters:
   jaeger_storage_exporter:
