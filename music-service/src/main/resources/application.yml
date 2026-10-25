@@ -20,6 +20,9 @@ public-endpoints:
       request-method: GET
 
 spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 20
   threads:
     virtual:
       enabled: true
