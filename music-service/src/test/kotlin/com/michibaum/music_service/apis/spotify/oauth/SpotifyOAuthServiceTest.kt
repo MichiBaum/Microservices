@@ -5,6 +5,7 @@ import com.michibaum.music_service.database.spotify.SpotifyAccountActivatedRepos
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentialsRepository
 import com.michibaum.music_service.database.spotify.SpotifyOAuthData
 import com.michibaum.music_service.database.spotify.SpotifyOAuthDataRepository
+import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
@@ -61,5 +62,28 @@ class SpotifyOAuthServiceTest {
         assertNotNull(result.state)
         assertTrue(result.state.isNotBlank())
         verify(exactly = 1) { spotifyOAuthDataRepository.save(any()) }
+    }
+
+    @Test
+    fun `save creates credentials with long scope`() {
+        val longScope = "user-read-email user-read-private " + "a".repeat(500)
+        val dto = SpotifyOAuthCredentialsDto(
+            accessToken = "access_token_123",
+            tokenType = "Bearer",
+            scope = longScope,
+            expiresIn = 3600,
+            refreshToken = "refresh_token_123"
+        )
+        val oAuthData = SpotifyOAuthData(state = "state_123", userId = "user-789")
+
+        val credsSlot = slot<SpotifyOAuthCredentials>()
+        every { spotifyOAuthCredentialsRepository.save(capture(credsSlot)) } answers { credsSlot.captured }
+
+        val result = service.save(dto, oAuthData)
+
+        assertNotNull(result)
+        assertEquals(longScope, result.scope)
+        assertEquals("user-789", result.userId)
+        verify(exactly = 1) { spotifyOAuthCredentialsRepository.save(any()) }
     }
 }
