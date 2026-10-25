@@ -18,7 +18,7 @@ class SpotifyOAuthCredentials(
     @Column(nullable = false, unique = true)
     val refreshToken: String,
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false, unique = false, length = 2048)
     val scope: String,
 
     @Column(nullable = false, unique = false)
