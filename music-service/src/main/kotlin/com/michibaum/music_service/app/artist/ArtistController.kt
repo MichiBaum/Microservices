@@ -2,9 +2,6 @@ package com.michibaum.music_service.app.artist
 
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import org.springframework.http.ResponseEntity
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
@@ -19,7 +16,6 @@ class ArtistController(
 
     @PublicEndpoint
     @GetMapping("/api/artists/search")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun searchArtist(@RequestParam name: String): List<ArtistDto> {
         return artistService.find(name)
             .map { artist -> artistConverter.toDto(artist) }
@@ -27,7 +23,6 @@ class ArtistController(
 
     @PublicEndpoint
     @GetMapping("/api/artists/{id}")
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     fun get(@PathVariable id: String): ResponseEntity<ArtistDto>{
         return try {
             val uuid = UUID.fromString(id)

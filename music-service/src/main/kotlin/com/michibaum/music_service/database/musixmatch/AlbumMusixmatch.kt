@@ -19,12 +19,10 @@ data class AlbumMusixmatch(
     val musixmatchId: String,
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
     val created: Instant? = null,
 
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated", nullable = false)
     val updated: Instant? = null,
 
