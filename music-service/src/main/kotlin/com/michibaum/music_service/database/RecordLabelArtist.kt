@@ -8,8 +8,6 @@ import jakarta.persistence.IdClass
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
-import jakarta.persistence.Temporal
-import jakarta.persistence.TemporalType
 import org.hibernate.annotations.CreationTimestamp
 import java.io.Serializable
 import java.time.LocalDateTime
@@ -24,7 +22,6 @@ data class RecordLabelArtistMapping(
     // TODO left (date the artist left the record label or null if still active)
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
     val created: LocalDateTime? = null,
 
@@ -39,9 +36,7 @@ data class RecordLabelArtistMapping(
     val artist: Artist
 )
 
-class RecordLabelArtistMappingId(
+data class RecordLabelArtistMappingId(
     var recordLabel: UUID? = null,
     var artist: UUID? = null
-): Serializable {
-    
-}
+): Serializable

@@ -18,12 +18,10 @@ data class Artist(
     val isni: String?,
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
     val created: LocalDateTime? = null,
 
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated", nullable = false)
     val updated: LocalDateTime? = null,
 

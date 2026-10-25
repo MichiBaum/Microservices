@@ -6,8 +6,6 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import jakarta.persistence.Temporal
-import jakarta.persistence.TemporalType
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
@@ -21,12 +19,10 @@ data class RecordLabel(
     val name: String,
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
     val created: LocalDateTime? = null,
 
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated", nullable = false)
     val updated: LocalDateTime? = null,
     
