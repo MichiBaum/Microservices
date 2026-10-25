@@ -4,6 +4,7 @@ import io.github.resilience4j.circuitbreaker.CircuitBreaker.State
 import io.github.resilience4j.circuitbreaker.CircuitBreaker as Resilience4jCircuitBreaker
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig
 import io.github.resilience4j.timelimiter.TimeLimiterConfig
+import org.apache.commons.logging.LogFactory
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker
@@ -19,6 +20,8 @@ import java.time.Duration
 import java.util.Collections
 import java.util.WeakHashMap
 
+private val log = LogFactory.getLog(CircuitBreakerConfiguration::class.java)
+
 @Configuration
 class CircuitBreakerConfiguration {
 
@@ -28,15 +31,16 @@ class CircuitBreakerConfiguration {
             factory.configureDefault { id ->
                 Resilience4JConfigBuilder(id)
                     .timeLimiterConfig(TimeLimiterConfig.custom()
-                        .timeoutDuration(Duration.ofSeconds(4))
+                        .timeoutDuration(Duration.ofSeconds(10))
                         .build())
                     .circuitBreakerConfig(CircuitBreakerConfig.custom()
-                        .slidingWindowSize(20)
+                        .slidingWindowSize(50)
+                        .minimumNumberOfCalls(20)
                         .failureRateThreshold(50.0f)
-                        .waitDurationInOpenState(Duration.ofSeconds(30))
-                        .permittedNumberOfCallsInHalfOpenState(5)
+                        .waitDurationInOpenState(Duration.ofSeconds(10))
+                        .permittedNumberOfCallsInHalfOpenState(10)
                         .slowCallRateThreshold(50.0f)
-                        .slowCallDurationThreshold(Duration.ofSeconds(2))
+                        .slowCallDurationThreshold(Duration.ofSeconds(5))
                         .build())
                     .build()
             }
@@ -49,15 +53,16 @@ class CircuitBreakerConfiguration {
             factory.configure({ builder ->
                 builder
                     .timeLimiterConfig(TimeLimiterConfig.custom()
-                        .timeoutDuration(Duration.ofSeconds(4))
+                        .timeoutDuration(Duration.ofSeconds(10))
                         .build())
                     .circuitBreakerConfig(CircuitBreakerConfig.custom()
-                        .slidingWindowSize(20)
+                        .slidingWindowSize(50)
+                        .minimumNumberOfCalls(20)
                         .failureRateThreshold(50.0f)
-                        .waitDurationInOpenState(Duration.ofSeconds(30))
-                        .permittedNumberOfCallsInHalfOpenState(5)
+                        .waitDurationInOpenState(Duration.ofSeconds(10))
+                        .permittedNumberOfCallsInHalfOpenState(10)
                         .slowCallRateThreshold(50.0f)
-                        .slowCallDurationThreshold(Duration.ofSeconds(2))
+                        .slowCallDurationThreshold(Duration.ofSeconds(5))
                         .build())
             }, Service.GRAFANA.cbId, Service.JAEGER.cbId)
         }
@@ -85,9 +90,10 @@ fun createCircuitBreaker(
                 resilience4jCircuitBreaker.eventPublisher
                     .onStateTransition { event ->
                         if (event.stateTransition.toState == State.OPEN) {
-                            loadBalancerCacheManager
+                            val defaultCache = loadBalancerCacheManager
                                 .getCache(CachingServiceInstanceListSupplier.SERVICE_INSTANCE_CACHE_NAME)
-                                ?.evict(service.id)
+                            defaultCache?.evict(service.id)
+                            loadBalancerCacheManager.getCache(service.id)?.clear()
                         }
                     }
             }
@@ -97,7 +103,12 @@ fun createCircuitBreaker(
     return circuitBreaker
 }
 
-fun createCircuitBreakerServiceUnavailableResponse(service: Service): CircuitBreakerResponse = { _ ->
+fun createCircuitBreakerServiceUnavailableResponse(service: Service): CircuitBreakerResponse = { throwable ->
+    if (throwable != null) {
+        log.warn("Circuit breaker fallback triggered for service ${service.id}: ${throwable.message}", throwable)
+    } else {
+        log.warn("Circuit breaker fallback triggered for service ${service.id}")
+    }
     ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
         .body("Service ${service.id} is currently unavailable. Please try again later.")
 }
@@ -121,6 +132,7 @@ fun applyCircuitBreaker(
                 createCircuitBreakerServiceUnavailableResponse(service)
             )
         } catch (e: Exception) {
+            log.error("Unexpected exception in circuit breaker handler for service ${service.id}", e)
             createCircuitBreakerErrorResponse(e)
         }
     }

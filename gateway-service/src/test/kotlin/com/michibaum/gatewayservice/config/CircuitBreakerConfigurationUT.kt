@@ -111,4 +111,30 @@ class CircuitBreakerConfigurationUT {
         resilience4jCircuitBreaker.transitionToOpenState()
     }
 
+    @Test
+    fun `defaultCustomizer configures Resilience4JCircuitBreakerFactory`() {
+        val configuration = CircuitBreakerConfiguration()
+        val customizer = configuration.defaultCustomizer()
+        val factory = mock(Resilience4JCircuitBreakerFactory::class.java)
+
+        customizer.customize(factory)
+
+        verify(factory).configureDefault(org.mockito.ArgumentMatchers.any())
+    }
+
+    @Test
+    fun `grafanaAndJaegerCustomizer configures specific circuit breakers`() {
+        val configuration = CircuitBreakerConfiguration()
+        val customizer = configuration.grafanaAndJaegerCustomizer()
+        val factory = mock(Resilience4JCircuitBreakerFactory::class.java)
+
+        customizer.customize(factory)
+
+        verify(factory).configure(
+            org.mockito.ArgumentMatchers.any(),
+            org.mockito.ArgumentMatchers.eq(Service.GRAFANA.cbId),
+            org.mockito.ArgumentMatchers.eq(Service.JAEGER.cbId)
+        )
+    }
+
 }
