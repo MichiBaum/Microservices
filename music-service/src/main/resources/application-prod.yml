@@ -17,7 +17,7 @@ spring:
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://music-db:3306/${DATABASE}
+    url: jdbc:mariadb://music-db:3306/${DATABASE}?connectTimeout=3000&socketTimeout=10000&tcpKeepAlive=true
   boot:
     admin:
       service:
