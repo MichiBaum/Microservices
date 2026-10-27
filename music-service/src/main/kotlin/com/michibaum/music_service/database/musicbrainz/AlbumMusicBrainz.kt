@@ -23,6 +23,6 @@ package com.michibaum.music_service.database.musicbrainz
 //    val updated: Instant? = null,
 //
 //    @Id
-//    @GeneratedValue(strategy = GenerationType.UUID)
+//    @UuidGenerator(style = UuidGenerator.Style.VERSION_7)
 //    val id: UUID? = null
 //)
