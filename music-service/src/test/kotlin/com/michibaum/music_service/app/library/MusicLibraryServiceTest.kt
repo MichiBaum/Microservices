@@ -107,10 +107,7 @@ class MusicLibraryServiceTest {
         every { artistSpotifyRepository.saveAll(any<List<ArtistSpotify>>()) } returns listOf(savedArtistSpotify)
 
         val savedUserLibraryArtist = UserLibraryArtist(userId = userId, artist = savedArtist, id = UUID.randomUUID())
-        every { userLibraryArtistRepository.findByUserId(userId) } returnsMany listOf(
-            emptyList(),
-            listOf(savedUserLibraryArtist)
-        )
+        every { userLibraryArtistRepository.findByUserId(userId) } returns emptyList()
         every { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) } returns listOf(savedUserLibraryArtist)
 
         val result = service.syncLibraryArtists(userId)
@@ -119,6 +116,7 @@ class MusicLibraryServiceTest {
         assertEquals("The Beatles", result[0].name)
         verify(exactly = 1) { artistRepository.saveAll(any<List<Artist>>()) }
         verify(exactly = 1) { artistSpotifyRepository.saveAll(any<List<ArtistSpotify>>()) }
+        verify(exactly = 1) { userLibraryArtistRepository.findByUserId(userId) }
         verify(exactly = 1) { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) }
     }
 
@@ -143,10 +141,7 @@ class MusicLibraryServiceTest {
         every { artistSpotifyRepository.findBySpotifyIdIn(listOf("sp-1")) } returns listOf(existingArtistSpotify)
 
         val userLibraryArtist = UserLibraryArtist(userId = userId, artist = existingArtist, id = UUID.randomUUID())
-        every { userLibraryArtistRepository.findByUserId(userId) } returnsMany listOf(
-            emptyList(),
-            listOf(userLibraryArtist)
-        )
+        every { userLibraryArtistRepository.findByUserId(userId) } returns emptyList()
 
         every { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) } returns listOf(userLibraryArtist)
 
@@ -156,6 +151,87 @@ class MusicLibraryServiceTest {
         assertEquals("The Beatles", result[0].name)
         verify(exactly = 0) { artistRepository.saveAll(any<List<Artist>>()) }
         verify(exactly = 0) { artistSpotifyRepository.saveAll(any<List<ArtistSpotify>>()) }
+        verify(exactly = 1) { userLibraryArtistRepository.findByUserId(userId) }
         verify(exactly = 1) { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) }
+    }
+
+    @Test
+    fun `syncLibraryArtists updates existing artists when name or followers change`() {
+        val userId = "user-1"
+        val credentials: SpotifyOAuthCredentials = mockk()
+        every { spotifyOAuthService.activeCredentialsByUser(userId) } returns credentials
+
+        val spotifyArtist = ArtistObject(
+            id = "sp-1",
+            name = "The Beatles (Remastered)",
+            followers = FollowersObject(total = 60000)
+        )
+        val getFollowedResponse = GetFollowed200Response(
+            artists = CursorPagingSimplifiedArtistObject(items = listOf(spotifyArtist))
+        )
+        every { spotifyApi.myFollowedArtists(credentials) } returns getFollowedResponse
+
+        val existingArtist = Artist(name = "The Beatles", isni = null, id = UUID.randomUUID())
+        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", followers = 50000, id = UUID.randomUUID())
+        every { artistSpotifyRepository.findBySpotifyIdIn(listOf("sp-1")) } returns listOf(existingArtistSpotify)
+
+        val updatedArtistSlot = slot<List<Artist>>()
+        every { artistRepository.saveAll(capture(updatedArtistSlot)) } answers { updatedArtistSlot.captured }
+
+        val updatedArtistSpotifySlot = slot<List<ArtistSpotify>>()
+        every { artistSpotifyRepository.saveAll(capture(updatedArtistSpotifySlot)) } answers { updatedArtistSpotifySlot.captured }
+
+        val updatedArtist = existingArtist.copy(name = "The Beatles (Remastered)")
+        val userLibraryArtist = UserLibraryArtist(userId = userId, artist = updatedArtist, id = UUID.randomUUID())
+        every { userLibraryArtistRepository.findByUserId(userId) } returns emptyList()
+        every { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) } returns listOf(userLibraryArtist)
+
+        val result = service.syncLibraryArtists(userId)
+
+        assertEquals(1, result.size)
+        assertEquals("The Beatles (Remastered)", result[0].name)
+
+        verify(exactly = 1) { artistRepository.saveAll(any<List<Artist>>()) }
+        assertEquals(1, updatedArtistSlot.captured.size)
+        assertEquals("The Beatles (Remastered)", updatedArtistSlot.captured[0].name)
+
+        verify(exactly = 1) { artistSpotifyRepository.saveAll(any<List<ArtistSpotify>>()) }
+        assertEquals(1, updatedArtistSpotifySlot.captured.size)
+        assertEquals(60000L, updatedArtistSpotifySlot.captured[0].followers)
+        assertEquals("The Beatles (Remastered)", updatedArtistSpotifySlot.captured[0].artist.name)
+
+        verify(exactly = 1) { userLibraryArtistRepository.findByUserId(userId) }
+        verify(exactly = 1) { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) }
+    }
+
+    @Test
+    fun `syncLibraryArtists when artists already in user library does not save duplicate library records`() {
+        val userId = "user-1"
+        val credentials: SpotifyOAuthCredentials = mockk()
+        every { spotifyOAuthService.activeCredentialsByUser(userId) } returns credentials
+
+        val spotifyArtist = ArtistObject(
+            id = "sp-1",
+            name = "The Beatles",
+            followers = FollowersObject(total = 50000)
+        )
+        val getFollowedResponse = GetFollowed200Response(
+            artists = CursorPagingSimplifiedArtistObject(items = listOf(spotifyArtist))
+        )
+        every { spotifyApi.myFollowedArtists(credentials) } returns getFollowedResponse
+
+        val existingArtist = Artist(name = "The Beatles", isni = null, id = UUID.randomUUID())
+        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", followers = 50000, id = UUID.randomUUID())
+        every { artistSpotifyRepository.findBySpotifyIdIn(listOf("sp-1")) } returns listOf(existingArtistSpotify)
+
+        val userLibraryArtist = UserLibraryArtist(userId = userId, artist = existingArtist, id = UUID.randomUUID())
+        every { userLibraryArtistRepository.findByUserId(userId) } returns listOf(userLibraryArtist)
+
+        val result = service.syncLibraryArtists(userId)
+
+        assertEquals(1, result.size)
+        assertEquals("The Beatles", result[0].name)
+        verify(exactly = 1) { userLibraryArtistRepository.findByUserId(userId) }
+        verify(exactly = 0) { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) }
     }
 }
