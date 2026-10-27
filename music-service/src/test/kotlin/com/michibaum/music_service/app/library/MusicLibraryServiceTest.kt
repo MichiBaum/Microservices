@@ -69,6 +69,20 @@ class MusicLibraryServiceTest {
     }
 
     @Test
+    fun `syncLibraryArtists handles null response or null artists from spotify gracefully`() {
+        val userId = "user-1"
+        val credentials: SpotifyOAuthCredentials = mockk()
+        every { spotifyOAuthService.activeCredentialsByUser(userId) } returns credentials
+        every { spotifyApi.myFollowedArtists(credentials) } returns GetFollowed200Response(artists = null)
+        every { userLibraryArtistRepository.findByUserId(userId) } returns emptyList()
+
+        val result = service.syncLibraryArtists(userId)
+
+        assertTrue(result.isEmpty())
+        verify(exactly = 0) { artistRepository.save(any()) }
+    }
+
+    @Test
     fun `syncLibraryArtists fetches followed artists and persists new records`() {
         val userId = "user-1"
         val credentials: SpotifyOAuthCredentials = mockk()

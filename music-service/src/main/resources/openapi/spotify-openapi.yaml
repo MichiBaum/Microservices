@@ -4342,8 +4342,6 @@ components:
         application/json:
           schema:
             type: object
-            required:
-              - artists
             properties:
               artists:
                 $ref: '#/components/schemas/CursorPagingSimplifiedArtistObject'
