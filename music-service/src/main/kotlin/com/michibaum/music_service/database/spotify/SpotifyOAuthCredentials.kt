@@ -1,6 +1,7 @@
 package com.michibaum.music_service.database.spotify
 
 import jakarta.persistence.*
+import org.hibernate.annotations.UuidGenerator
 import java.time.Instant
 import java.util.*
 
@@ -34,6 +35,6 @@ class SpotifyOAuthCredentials(
     var deactivated: Boolean = false,
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @UuidGenerator(style = UuidGenerator.Style.VERSION_7)
     val id: UUID? = null,
 )
