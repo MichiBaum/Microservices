@@ -8,6 +8,7 @@ import com.michibaum.music_service.apis.spotify.generated.model.PrivateUserObjec
 import com.michibaum.music_service.apis.spotify.generated.model.PublicUserObject
 import com.michibaum.music_service.config.properties.ApisProperties
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClient
 
@@ -16,6 +17,8 @@ class SpotifyUserApiImpl(
     restClientBuilder: RestClient.Builder,
     apisProperties: ApisProperties
 ): AbstractSpotifyApiClient(restClientBuilder, apisProperties), SpotifyUserApi {
+
+    private val logger = LoggerFactory.getLogger(SpotifyUserApiImpl::class.java)
 
     override fun myProfile(credentials: SpotifyOAuthCredentials): PrivateUserObject? = tryCall {
         // https://developer.spotify.com/documentation/web-api/reference/get-current-users-profile
@@ -75,6 +78,7 @@ class SpotifyUserApiImpl(
         try {
             block()
         } catch (e: Exception) {
-            null
+            logger.error("Spotify API call failed: ${e.message}", e)
+            throw e
         }
 }
