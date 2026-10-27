@@ -3,7 +3,6 @@ package com.michibaum.music_service.app.library
 import com.michibaum.music_service.apis.spotify.api.SpotifyApi
 import com.michibaum.music_service.apis.spotify.generated.model.ArtistObject
 import com.michibaum.music_service.apis.spotify.generated.model.CursorPagingSimplifiedArtistObject
-import com.michibaum.music_service.apis.spotify.generated.model.FollowersObject
 import com.michibaum.music_service.apis.spotify.generated.model.GetFollowed200Response
 import com.michibaum.music_service.apis.spotify.oauth.SpotifyOAuthService
 import com.michibaum.music_service.app.artist.ArtistConverter
@@ -90,8 +89,7 @@ class MusicLibraryServiceTest {
 
         val spotifyArtist = ArtistObject(
             id = "sp-1",
-            name = "The Beatles",
-            followers = FollowersObject(total = 50000)
+            name = "The Beatles"
         )
         val getFollowedResponse = GetFollowed200Response(
             artists = CursorPagingSimplifiedArtistObject(items = listOf(spotifyArtist))
@@ -103,7 +101,7 @@ class MusicLibraryServiceTest {
         val savedArtist = Artist(name = "The Beatles", isni = null, id = UUID.randomUUID())
         every { artistRepository.saveAll(any<List<Artist>>()) } returns listOf(savedArtist)
 
-        val savedArtistSpotify = ArtistSpotify(artist = savedArtist, spotifyId = "sp-1", followers = 50000, id = UUID.randomUUID())
+        val savedArtistSpotify = ArtistSpotify(artist = savedArtist, spotifyId = "sp-1", id = UUID.randomUUID())
         every { artistSpotifyRepository.saveAll(any<List<ArtistSpotify>>()) } returns listOf(savedArtistSpotify)
 
         val savedUserLibraryArtist = UserLibraryArtist(userId = userId, artist = savedArtist, id = UUID.randomUUID())
@@ -128,8 +126,7 @@ class MusicLibraryServiceTest {
 
         val spotifyArtist = ArtistObject(
             id = "sp-1",
-            name = "The Beatles",
-            followers = FollowersObject(total = 50000)
+            name = "The Beatles"
         )
         val getFollowedResponse = GetFollowed200Response(
             artists = CursorPagingSimplifiedArtistObject(items = listOf(spotifyArtist))
@@ -137,7 +134,7 @@ class MusicLibraryServiceTest {
         every { spotifyApi.myFollowedArtists(credentials) } returns getFollowedResponse
 
         val existingArtist = Artist(name = "The Beatles", isni = null, id = UUID.randomUUID())
-        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", followers = 50000, id = UUID.randomUUID())
+        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", id = UUID.randomUUID())
         every { artistSpotifyRepository.findBySpotifyIdIn(listOf("sp-1")) } returns listOf(existingArtistSpotify)
 
         val userLibraryArtist = UserLibraryArtist(userId = userId, artist = existingArtist, id = UUID.randomUUID())
@@ -156,15 +153,14 @@ class MusicLibraryServiceTest {
     }
 
     @Test
-    fun `syncLibraryArtists updates existing artists when name or followers change`() {
+    fun `syncLibraryArtists updates existing artists when name changes`() {
         val userId = "user-1"
         val credentials: SpotifyOAuthCredentials = mockk()
         every { spotifyOAuthService.activeCredentialsByUser(userId) } returns credentials
 
         val spotifyArtist = ArtistObject(
             id = "sp-1",
-            name = "The Beatles (Remastered)",
-            followers = FollowersObject(total = 60000)
+            name = "The Beatles (Remastered)"
         )
         val getFollowedResponse = GetFollowed200Response(
             artists = CursorPagingSimplifiedArtistObject(items = listOf(spotifyArtist))
@@ -172,7 +168,7 @@ class MusicLibraryServiceTest {
         every { spotifyApi.myFollowedArtists(credentials) } returns getFollowedResponse
 
         val existingArtist = Artist(name = "The Beatles", isni = null, id = UUID.randomUUID())
-        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", followers = 50000, id = UUID.randomUUID())
+        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", id = UUID.randomUUID())
         every { artistSpotifyRepository.findBySpotifyIdIn(listOf("sp-1")) } returns listOf(existingArtistSpotify)
 
         val updatedArtistSlot = slot<List<Artist>>()
@@ -197,7 +193,6 @@ class MusicLibraryServiceTest {
 
         verify(exactly = 1) { artistSpotifyRepository.saveAll(any<List<ArtistSpotify>>()) }
         assertEquals(1, updatedArtistSpotifySlot.captured.size)
-        assertEquals(60000L, updatedArtistSpotifySlot.captured[0].followers)
         assertEquals("The Beatles (Remastered)", updatedArtistSpotifySlot.captured[0].artist.name)
 
         verify(exactly = 1) { userLibraryArtistRepository.findByUserId(userId) }
@@ -212,8 +207,7 @@ class MusicLibraryServiceTest {
 
         val spotifyArtist = ArtistObject(
             id = "sp-1",
-            name = "The Beatles",
-            followers = FollowersObject(total = 50000)
+            name = "The Beatles"
         )
         val getFollowedResponse = GetFollowed200Response(
             artists = CursorPagingSimplifiedArtistObject(items = listOf(spotifyArtist))
@@ -221,7 +215,7 @@ class MusicLibraryServiceTest {
         every { spotifyApi.myFollowedArtists(credentials) } returns getFollowedResponse
 
         val existingArtist = Artist(name = "The Beatles", isni = null, id = UUID.randomUUID())
-        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", followers = 50000, id = UUID.randomUUID())
+        val existingArtistSpotify = ArtistSpotify(artist = existingArtist, spotifyId = "sp-1", id = UUID.randomUUID())
         every { artistSpotifyRepository.findBySpotifyIdIn(listOf("sp-1")) } returns listOf(existingArtistSpotify)
 
         val userLibraryArtist = UserLibraryArtist(userId = userId, artist = existingArtist, id = UUID.randomUUID())

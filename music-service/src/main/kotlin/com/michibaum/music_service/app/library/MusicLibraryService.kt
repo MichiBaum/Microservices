@@ -98,7 +98,6 @@ class MusicLibraryService(
             val existingArtistSpotify = existingArtistSpotifyMap[spotifyId] ?: continue
             val existingArtist = existingArtistSpotify.artist
             val newName = spotifyArtist.name ?: existingArtist.name
-            val newFollowers = spotifyArtist.followers?.total?.toLong()
 
             val artistChanged = existingArtist.name != newName
             val updatedArtist = if (artistChanged) {
@@ -111,9 +110,9 @@ class MusicLibraryService(
                 artistsToUpdate.add(updatedArtist)
             }
 
-            val spotifyChanged = artistChanged || existingArtistSpotify.followers != newFollowers
+            val spotifyChanged = artistChanged
             val updatedArtistSpotify = if (spotifyChanged) {
-                existingArtistSpotify.copy(artist = updatedArtist, followers = newFollowers)
+                existingArtistSpotify.copy(artist = updatedArtist)
             } else {
                 existingArtistSpotify
             }
@@ -149,8 +148,7 @@ class MusicLibraryService(
         val spotifiesToSave = newSpotifyArtists.zip(newArtists).map { (spotifyArtist, savedArtist) ->
             ArtistSpotify(
                 artist = savedArtist,
-                spotifyId = spotifyArtist.id!!,
-                followers = spotifyArtist.followers?.total?.toLong()
+                spotifyId = spotifyArtist.id!!
             )
         }
         return artistSpotifyRepository.saveAll(spotifiesToSave).associateBy { it.spotifyId }
