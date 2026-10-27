@@ -2,6 +2,7 @@ package com.michibaum.music_service.apis.spotify.api.user
 
 import com.michibaum.music_service.apis.spotify.api.AbstractSpotifyApiClient
 import com.michibaum.music_service.apis.spotify.api.user.dtos.TimeRange
+import com.michibaum.music_service.apis.spotify.generated.model.GetFollowed200Response
 import com.michibaum.music_service.apis.spotify.generated.model.GetUsersTopArtistsAndTracks200Response
 import com.michibaum.music_service.apis.spotify.generated.model.PrivateUserObject
 import com.michibaum.music_service.apis.spotify.generated.model.PublicUserObject
@@ -56,6 +57,20 @@ class SpotifyUserApiImpl(
             .onStatus({ t -> t.value() == 403 }, { _, _ -> })
             .onStatus({ t -> t.value() == 429 }, { _, _ -> })
             .body(GetUsersTopArtistsAndTracks200Response::class.java)
+    }
+
+    override fun myFollowedArtists(credentials: SpotifyOAuthCredentials): GetFollowed200Response? {
+        // https://developer.spotify.com/documentation/web-api/reference/get-followed
+        return client.get()
+            .uri("/me/following?type=artist&limit=50")
+            .headers {
+                it.setBearerAuth(credentials.accessToken)
+            }
+            .retrieve()
+            .onStatus({ t -> t.value() == 401 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 403 }, { _, _ -> })
+            .onStatus({ t -> t.value() == 429 }, { _, _ -> })
+            .body(GetFollowed200Response::class.java)
     }
 
     override fun profileFor(userId: String, credentials: SpotifyOAuthCredentials): PublicUserObject? {

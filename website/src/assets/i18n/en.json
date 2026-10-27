@@ -271,6 +271,13 @@
         "title": "Microservices"
     },
     "music": {
+        "library": {
+            "artists": {
+                "title": "Saved Artists",
+                "sync": "Sync with Spotify",
+                "empty": "No artists found in your library."
+            }
+        },
         "navigation": {
             "albums": "Albums",
             "artists": "Artists",
