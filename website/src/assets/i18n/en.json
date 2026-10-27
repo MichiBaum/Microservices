@@ -272,8 +272,13 @@
     },
     "music": {
         "navigation": {
+            "albums": "Albums",
+            "artists": "Artists",
             "home": "Home",
-            "spotify": "Spotify"
+            "library": "Library",
+            "settings": "Settings",
+            "spotify": "Spotify",
+            "tracks": "Tracks"
         },
         "title": "Music"
     },

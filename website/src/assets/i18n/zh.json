@@ -271,6 +271,15 @@
         "title": "微服务"
     },
     "music": {
+        "navigation": {
+            "albums": "专辑",
+            "artists": "艺术家",
+            "home": "首页",
+            "library": "资料库",
+            "settings": "设置",
+            "spotify": "Spotify",
+            "tracks": "单曲"
+        },
         "title": "音乐"
     },
     "music-settings": {

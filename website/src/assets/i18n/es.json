@@ -271,6 +271,15 @@
         "title": "Microservicios"
     },
     "music": {
+        "navigation": {
+            "albums": "Álbumes",
+            "artists": "Artistas",
+            "home": "Inicio",
+            "library": "Biblioteca",
+            "settings": "Configuración",
+            "spotify": "Spotify",
+            "tracks": "Pistas"
+        },
         "title": "Música"
     },
     "music-settings": {
