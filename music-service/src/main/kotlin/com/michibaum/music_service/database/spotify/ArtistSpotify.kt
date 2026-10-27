@@ -4,6 +4,7 @@ import com.michibaum.music_service.database.Artist
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import org.hibernate.annotations.UuidGenerator
 import java.time.Instant
 import java.util.*
 
@@ -29,6 +30,6 @@ data class ArtistSpotify(
     val updated: Instant? = null,
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @UuidGenerator(style = UuidGenerator.Style.VERSION_7)
     val id: UUID? = null
 )
