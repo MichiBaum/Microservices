@@ -1,0 +1,17 @@
+<p-card class="h-full block shadow-sm rounded-lg overflow-hidden">
+  <ng-template pTemplate="header">
+    <div class="flex items-center justify-center p-6 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+      <fa-icon [icon]="faUser" class="text-5xl"></fa-icon>
+    </div>
+  </ng-template>
+  <div class="flex flex-col gap-2">
+    <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 m-0 truncate" [title]="artist().name">
+      {{ artist().name }}
+    </h3>
+    @if (artist().isni) {
+      <p class="text-xs text-slate-500 dark:text-slate-400 m-0">
+        ISNI: {{ artist().isni }}
+      </p>
+    }
+  </div>
+</p-card>

@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component
 class ArtistConverter {
 
     fun toDto(artist: Artist): ArtistDto =
-        ArtistDto(artist.id.toString(), artist.name)
+        ArtistDto(
+            id = artist.id.toString(),
+            name = artist.name,
+            isni = artist.isni
+        )
 
 }
