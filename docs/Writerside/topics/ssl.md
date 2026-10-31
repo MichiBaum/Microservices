@@ -49,7 +49,7 @@ File can be found under `./ssl/.env.hosttech`.
 To issue or renew the certificates, run Lego from the `ssl` directory:
 
 ```Bash
-./lego --config .lego.yml
+./lego --config .lego.yml --log.level debug
 ```
 
 Lego will:

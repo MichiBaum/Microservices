@@ -13,7 +13,8 @@ challenges:
       provider: hosttech
       envFile: .env.hosttech
       resolvers:
-        - "1.1.1.1:53"
+        - "ns1.hosttech.eu:53"
+        - "ns2.hosttech.eu:53"
 
 certificates:
   multi-wildcard:
