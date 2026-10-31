@@ -114,22 +114,40 @@ spec:
   tls:
   - hosts:
     - michibaum.ch
+    - "*.michibaum.ch"
+    secretName: cert-michibaum-ch
+  - hosts:
     - michibaum.com
-    - michibaum.net
+    - "*.michibaum.com"
+    secretName: cert-michibaum-com
+  - hosts:
     - michibaum.eu
+    - "*.michibaum.eu"
+    secretName: cert-michibaum-eu
+  - hosts:
     - michibaum.org
-    - michibaum.app
+    - "*.michibaum.org"
+    secretName: cert-michibaum-org
+  - hosts:
     - michibaum.me
+    - "*.michibaum.me"
+    secretName: cert-michibaum-me
+  - hosts:
+    - michibaum.net
+    - "*.michibaum.net"
+    secretName: cert-michibaum-net
+  - hosts:
     - michibaum.info
+    - "*.michibaum.info"
+    secretName: cert-michibaum-info
+  - hosts:
     - michibaum.xyz
-    - babymetal.ch
-    - hanabie.ch
+    - "*.michibaum.xyz"
+    secretName: cert-michibaum-xyz
+  - hosts:
     - baumberger-software.ch
-    - baumberger-software.com
-    - einsiedeln.beer
-    - einsiedeln.shop
-    - einsiedeln.store
-    secretName: michibaum-tls
+    - "*.baumberger-software.ch"
+    secretName: cert-baumberger-software-ch
   rules:
     - http:
         paths:

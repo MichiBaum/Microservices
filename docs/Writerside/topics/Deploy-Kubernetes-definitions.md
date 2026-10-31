@@ -106,11 +106,19 @@ This document provides information about deploying and updating the microservice
 
    ### TLS Certificate
 
-   Before deploying the gateway service, ensure you have created a TLS Secret named `michibaum-tls` in the `microservices` namespace. For details on how to generate the certificate, see the [SSL documentation](ssl.md).
+   Before deploying the gateway service, ensure you have created the granular TLS Secrets (e.g. `cert-michibaum-ch`, `cert-michibaum-com`, etc.) in the `microservices` namespace. For details on how to generate and configure decoupled certificates, see the [SSL documentation](ssl.md).
    
    ```bash
-   # Both commands do the same thing, only different path
-   k0s kubectl create secret tls michibaum-tls --cert=/data/ssl/.lego/certificates/multi-wildcard.pem --key=/data/ssl/.lego/certificates/multi-wildcard.key -n microservices
+   # Create TLS secret for each domain certificate
+   k0s kubectl create secret tls cert-michibaum-ch --cert=/data/ssl/.lego/certificates/michibaum-ch.crt --key=/data/ssl/.lego/certificates/michibaum-ch.key -n microservices
+   k0s kubectl create secret tls cert-michibaum-com --cert=/data/ssl/.lego/certificates/michibaum-com.crt --key=/data/ssl/.lego/certificates/michibaum-com.key -n microservices
+   k0s kubectl create secret tls cert-michibaum-eu --cert=/data/ssl/.lego/certificates/michibaum-eu.crt --key=/data/ssl/.lego/certificates/michibaum-eu.key -n microservices
+   k0s kubectl create secret tls cert-michibaum-org --cert=/data/ssl/.lego/certificates/michibaum-org.crt --key=/data/ssl/.lego/certificates/michibaum-org.key -n microservices
+   k0s kubectl create secret tls cert-michibaum-me --cert=/data/ssl/.lego/certificates/michibaum-me.crt --key=/data/ssl/.lego/certificates/michibaum-me.key -n microservices
+   k0s kubectl create secret tls cert-michibaum-net --cert=/data/ssl/.lego/certificates/michibaum-net.crt --key=/data/ssl/.lego/certificates/michibaum-net.key -n microservices
+   k0s kubectl create secret tls cert-michibaum-info --cert=/data/ssl/.lego/certificates/michibaum-info.crt --key=/data/ssl/.lego/certificates/michibaum-info.key -n microservices
+   k0s kubectl create secret tls cert-michibaum-xyz --cert=/data/ssl/.lego/certificates/michibaum-xyz.crt --key=/data/ssl/.lego/certificates/michibaum-xyz.key -n microservices
+   k0s kubectl create secret tls cert-baumberger-software-ch --cert=/data/ssl/.lego/certificates/baumberger-software-ch.crt --key=/data/ssl/.lego/certificates/baumberger-software-ch.key -n microservices
    ```
 
    ```bash
