@@ -13,8 +13,7 @@ challenges:
       provider: hosttech
       envFile: .env.hosttech
       resolvers:
-        - "ns1.hosttech.eu:53"
-        - "ns2.hosttech.eu:53"
+        - "1.1.1.1:53"
 
 certificates:
   michibaum-ch:
