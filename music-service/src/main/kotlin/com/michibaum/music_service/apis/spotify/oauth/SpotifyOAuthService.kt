@@ -35,7 +35,7 @@ class SpotifyOAuthService(
 
     init {
         val clientAndSecret = spotifyOAuthProperties.clientId + ":" + spotifyOAuthProperties.clientSecret
-        val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
+        val authBasic = Base64.getUrlEncoder().encodeToString(clientAndSecret.encodeToByteArray())
 
         client = restClientBuilder
             .baseUrl("https://accounts.spotify.com")
