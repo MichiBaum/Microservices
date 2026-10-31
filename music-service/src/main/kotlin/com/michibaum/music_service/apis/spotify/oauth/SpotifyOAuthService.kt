@@ -18,6 +18,7 @@ import org.springframework.web.client.RestClient
 import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 @Service
 class SpotifyOAuthService(
@@ -32,10 +33,11 @@ class SpotifyOAuthService(
     private val logger = LoggerFactory.getLogger(SpotifyOAuthService::class.java)
 
     private val client: RestClient
+    private val userLocks = ConcurrentHashMap<String, Any>()
 
     init {
         val clientAndSecret = spotifyOAuthProperties.clientId + ":" + spotifyOAuthProperties.clientSecret
-        val authBasic = Base64.getUrlEncoder().encodeToString(clientAndSecret.encodeToByteArray())
+        val authBasic = Base64.getEncoder().encodeToString(clientAndSecret.encodeToByteArray())
 
         client = restClientBuilder
             .baseUrl("https://accounts.spotify.com")
@@ -78,7 +80,7 @@ class SpotifyOAuthService(
     fun saveCredentials(response: SpotifyOAuthCredentialsDto, userId: String): SpotifyOAuthCredentials {
         val activeCredentials = spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId)
         val existingByRefreshToken = if (response.refreshToken.isNotBlank()) {
-            spotifyOAuthCredentialsRepository.findByRefreshToken(response.refreshToken)
+            spotifyOAuthCredentialsRepository.findByUserIdAndRefreshToken(userId, response.refreshToken)
         } else null
 
         val targetCredentials = existingByRefreshToken ?: activeCredentials.maxByOrNull { it.createdDate }
@@ -103,10 +105,15 @@ class SpotifyOAuthService(
             targetCredentials.deactivated = false
             spotifyOAuthCredentialsRepository.save(targetCredentials)
         } else {
+            val effectiveRefreshToken = if (response.refreshToken.isNotBlank()) {
+                response.refreshToken
+            } else {
+                spotifyOAuthCredentialsRepository.findByUserId(userId).maxByOrNull { it.createdDate }?.refreshToken ?: ""
+            }
             val credentials = SpotifyOAuthCredentials(
                 accessToken = response.accessToken,
                 expiresIn = response.expiresIn.toInt(),
-                refreshToken = response.refreshToken,
+                refreshToken = effectiveRefreshToken,
                 scope = response.scope,
                 userId = userId,
                 createdDate = Instant.now(),
@@ -137,38 +144,45 @@ class SpotifyOAuthService(
         return newest
     }
 
-    @Transactional
     fun refreshToken(userId: String): SpotifyOAuthCredentials? {
-        val credentials = activeCredentialsByUser(userId) ?: return null
-        if (credentials.refreshToken.isBlank()) {
-            logger.warn("Cannot refresh Spotify token for user $userId because refresh token is blank.")
-            return null
-        }
+        val lock = userLocks.computeIfAbsent(userId) { Any() }
+        return synchronized(lock) {
+            val credentials = activeCredentialsByUser(userId) ?: return null
+            val nowWithBuffer = Instant.now().plusSeconds(300)
+            if (!nowWithBuffer.isAfter(credentials.validUntil)) {
+                return credentials
+            }
 
-        val bodyMap = LinkedMultiValueMap<String, String>().apply {
-            add("grant_type", "refresh_token")
-            add("refresh_token", credentials.refreshToken)
-        }
+            if (credentials.refreshToken.isBlank()) {
+                logger.warn("Cannot refresh Spotify token for user $userId because refresh token is blank.")
+                return null
+            }
 
-        return try {
-            val response = client
-                .post()
-                .uri("/api/token")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(bodyMap)
-                .retrieve()
-                .toEntity(SpotifyOAuthCredentialsDto::class.java)
+            val bodyMap = LinkedMultiValueMap<String, String>().apply {
+                add("grant_type", "refresh_token")
+                add("refresh_token", credentials.refreshToken)
+            }
 
-            val body = response.body
-            if (response.statusCode.is2xxSuccessful && body != null) {
-                saveCredentials(body, userId)
-            } else {
-                logger.warn("Spotify token refresh returned non-2xx status code: ${response.statusCode}")
+            try {
+                val response = client
+                    .post()
+                    .uri("/api/token")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .body(bodyMap)
+                    .retrieve()
+                    .toEntity(SpotifyOAuthCredentialsDto::class.java)
+
+                val body = response.body
+                if (response.statusCode.is2xxSuccessful && body != null) {
+                    saveCredentials(body, userId)
+                } else {
+                    logger.warn("Spotify token refresh returned non-2xx status code: ${response.statusCode}")
+                    null
+                }
+            } catch (e: Exception) {
+                logger.error("Failed to refresh Spotify token for user $userId", e)
                 null
             }
-        } catch (e: Exception) {
-            logger.error("Failed to refresh Spotify token for user $userId", e)
-            null
         }
     }
 

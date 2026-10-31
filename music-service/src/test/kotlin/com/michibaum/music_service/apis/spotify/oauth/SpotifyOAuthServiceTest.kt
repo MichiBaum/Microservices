@@ -102,7 +102,7 @@ class SpotifyOAuthServiceTest {
         val oAuthData = SpotifyOAuthData(state = "state_123", userId = "user-789")
 
         every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse("user-789") } returns emptyList()
-        every { spotifyOAuthCredentialsRepository.findByRefreshToken("refresh_token_123") } returns null
+        every { spotifyOAuthCredentialsRepository.findByUserIdAndRefreshToken("user-789", "refresh_token_123") } returns null
 
         val credsSlot = slot<SpotifyOAuthCredentials>()
         every { spotifyOAuthCredentialsRepository.save(capture(credsSlot)) } answers { credsSlot.captured }
@@ -172,5 +172,88 @@ class SpotifyOAuthServiceTest {
         assertTrue(olderCreds.deactivated)
         assertFalse(newerCreds.deactivated)
         verify(exactly = 1) { spotifyOAuthCredentialsRepository.save(olderCreds) }
+    }
+
+    @Test
+    fun `saveCredentials scopes lookup by userId and refreshToken`() {
+        val userId = "user-789"
+        val dto = SpotifyOAuthCredentialsDto(
+            accessToken = "new_access",
+            tokenType = "Bearer",
+            scope = "user-read-private",
+            expiresIn = 3600,
+            refreshToken = "shared_refresh_token"
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns emptyList()
+        every { spotifyOAuthCredentialsRepository.findByUserIdAndRefreshToken(userId, "shared_refresh_token") } returns null
+
+        val credsSlot = slot<SpotifyOAuthCredentials>()
+        every { spotifyOAuthCredentialsRepository.save(capture(credsSlot)) } answers { credsSlot.captured }
+
+        val result = service.saveCredentials(dto, userId)
+
+        assertEquals("new_access", result.accessToken)
+        assertEquals(userId, result.userId)
+        verify(exactly = 1) { spotifyOAuthCredentialsRepository.findByUserIdAndRefreshToken(userId, "shared_refresh_token") }
+        verify(exactly = 0) { spotifyOAuthCredentialsRepository.findByRefreshToken(any()) }
+    }
+
+    @Test
+    fun `saveCredentials falls back to previous refresh token when response refresh token is blank`() {
+        val userId = "user-789"
+        val dto = SpotifyOAuthCredentialsDto(
+            accessToken = "new_access",
+            tokenType = "Bearer",
+            scope = "user-read-private",
+            expiresIn = 3600,
+            refreshToken = ""
+        )
+
+        val previousCreds = SpotifyOAuthCredentials(
+            accessToken = "old_access",
+            expiresIn = 3600,
+            refreshToken = "fallback_refresh_token",
+            scope = "user-read-private",
+            userId = userId,
+            createdDate = Instant.now().minusSeconds(1000),
+            validUntil = Instant.now().minusSeconds(100),
+            deactivated = true,
+            id = UUID.randomUUID()
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns emptyList()
+        every { spotifyOAuthCredentialsRepository.findByUserId(userId) } returns listOf(previousCreds)
+
+        val credsSlot = slot<SpotifyOAuthCredentials>()
+        every { spotifyOAuthCredentialsRepository.save(capture(credsSlot)) } answers { credsSlot.captured }
+
+        val result = service.saveCredentials(dto, userId)
+
+        assertEquals("new_access", result.accessToken)
+        assertEquals("fallback_refresh_token", result.refreshToken)
+        assertEquals(userId, result.userId)
+    }
+
+    @Test
+    fun `refreshToken returns existing credentials if already refreshed by another thread`() {
+        val userId = "user-123"
+        val validCreds = SpotifyOAuthCredentials(
+            accessToken = "refreshed_access",
+            expiresIn = 3600,
+            refreshToken = "refresh",
+            scope = "scope",
+            userId = userId,
+            createdDate = Instant.now(),
+            validUntil = Instant.now().plusSeconds(3600),
+            id = UUID.randomUUID()
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(validCreds)
+
+        val result = service.refreshToken(userId)
+
+        assertEquals(validCreds, result)
+        verify(exactly = 0) { restClient.post() }
     }
 }
