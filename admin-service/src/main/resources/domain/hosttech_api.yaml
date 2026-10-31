@@ -1026,36 +1026,36 @@ components:
         ttl: 3600
         comment: my first record
     TLSARecord:
-        description: TLSA record
-        properties:
-            id:
-                type: integer
-                readOnly: true
-            type:
-                description: record type
-                type: string
-                default: TLSA
-                readOnly: true
-            name:
-                description: zone prefix
-                type: string
-            text:
-                description: some text
-                type: string
-            ttl:
-                description: record TTL
-                type: integer
-            comment:
-                description: comment
-                type: string
-        type: object
-        example:
-            id: 17
-            type: TLSA
-            name: ''
-            text: '0 0 1 d2abde240d7cd3ee6b4b28c54df034b97983a1d16e8a410e4561cb106618e971'
-            ttl: 3600
-            comment: my first record
+      description: TLSA record
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          description: record type
+          type: string
+          default: TLSA
+          readOnly: true
+        name:
+          description: zone prefix
+          type: string
+        text:
+          description: some text
+          type: string
+        ttl:
+          description: record TTL
+          type: integer
+        comment:
+          description: comment
+          type: string
+      type: object
+      example:
+        id: 17
+        type: TLSA
+        name: ''
+        text: '0 0 1 d2abde240d7cd3ee6b4b28c54df034b97983a1d16e8a410e4561cb106618e971'
+        ttl: 3600
+        comment: my first record
     User:
       description: A user
       properties:
