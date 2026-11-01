@@ -13,6 +13,7 @@ import com.michibaum.music_service.database.spotify.ArtistSpotify
 import com.michibaum.music_service.database.spotify.ArtistSpotifyRepository
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
 import io.micrometer.observation.annotation.Observed
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -26,6 +27,8 @@ class MusicLibraryService(
     private val artistConverter: ArtistConverter,
 ) {
 
+    private val logger = LoggerFactory.getLogger(MusicLibraryService::class.java)
+
     @Observed(name = "music.library.get.artists")
     @Transactional(readOnly = true)
     fun getLibraryArtists(userId: String): List<ArtistDto> {
@@ -34,51 +37,28 @@ class MusicLibraryService(
     }
 
     @Observed(name = "music.library.sync.artists")
-    @Transactional
     fun syncLibraryArtists(userId: String): List<ArtistDto> {
-        val credentials = spotifyOAuthService.activeCredentialsByUser(userId)
-            ?: return getLibraryArtists(userId)
+        val fetchedArtists = fetchSpotifyArtistsOrNull(userId)
+        val validSpotifyArtists = fetchedArtists
+            ?.filter { !it.id.isNullOrBlank() && !it.name.isNullOrBlank() }
+            ?.distinctBy { it.id }
 
-        val spotifyArtists = fetchAllFollowedArtists(credentials)
-
-        val validSpotifyArtists = spotifyArtists
-            .filter { !it.id.isNullOrBlank() && !it.name.isNullOrBlank() }
-            .distinctBy { it.id }
-
-        if (validSpotifyArtists.isEmpty()) {
+        if (validSpotifyArtists.isNullOrEmpty()) {
             return getLibraryArtists(userId)
         }
 
-        val spotifyIds = validSpotifyArtists.mapNotNull { it.id }
-        val existingArtistSpotifyMap = artistSpotifyRepository.findBySpotifyIdIn(spotifyIds)
-            .associateBy { it.spotifyId }
+        return persistSyncedArtists(userId, validSpotifyArtists)
+    }
 
-        val newSpotifyArtists = validSpotifyArtists.filter { !existingArtistSpotifyMap.containsKey(it.id) }
-        val existingSpotifyArtists = validSpotifyArtists.filter { existingArtistSpotifyMap.containsKey(it.id) }
+    private fun fetchSpotifyArtistsOrNull(userId: String): List<ArtistObject>? {
+        val credentials = spotifyOAuthService.getActiveToken(userId) ?: return null
 
-        val updatedArtistSpotifyMap = updateExistingSpotifyArtists(existingSpotifyArtists, existingArtistSpotifyMap)
-        val newArtistSpotifyMap = createNewSpotifyArtists(newSpotifyArtists)
-
-        val allArtists = validSpotifyArtists.mapNotNull { spotifyArtist ->
-            updatedArtistSpotifyMap[spotifyArtist.id]?.artist
-                ?: newArtistSpotifyMap[spotifyArtist.id]?.artist
+        return try {
+            fetchAllFollowedArtists(credentials)
+        } catch (e: Exception) {
+            logger.error("Failed to fetch followed artists from Spotify for user $userId", e)
+            null
         }
-
-        val existingUserLibraryArtists = userLibraryArtistRepository.findByUserId(userId)
-        val existingArtistIds = existingUserLibraryArtists.mapNotNull { it.artist.id }.toSet()
-
-        val missingUserLibraryArtists = allArtists
-            .filter { artist -> artist.id != null && !existingArtistIds.contains(artist.id) }
-            .map { artist -> UserLibraryArtist(userId = userId, artist = artist) }
-
-        val savedUserLibraryArtists = if (missingUserLibraryArtists.isNotEmpty()) {
-            userLibraryArtistRepository.saveAll(missingUserLibraryArtists)
-        } else {
-            emptyList()
-        }
-
-        return (existingUserLibraryArtists + savedUserLibraryArtists)
-            .map { userLibraryArtist -> artistConverter.toDto(userLibraryArtist.artist) }
     }
 
     private fun fetchAllFollowedArtists(credentials: SpotifyOAuthCredentials): List<ArtistObject> {
@@ -105,6 +85,41 @@ class MusicLibraryService(
         return allArtists
     }
 
+    @Transactional
+    fun persistSyncedArtists(userId: String, validSpotifyArtists: List<ArtistObject>): List<ArtistDto> {
+        val spotifyIds = validSpotifyArtists.mapNotNull { it.id }
+        val existingArtistSpotifyMap = artistSpotifyRepository.findBySpotifyIdIn(spotifyIds)
+            .associateBy { it.spotifyId }
+
+        val (existingSpotifyArtists, newSpotifyArtists) = validSpotifyArtists.partition {
+            existingArtistSpotifyMap.containsKey(it.id)
+        }
+
+        val updatedArtistSpotifyMap = updateExistingSpotifyArtists(existingSpotifyArtists, existingArtistSpotifyMap)
+        val newArtistSpotifyMap = createNewSpotifyArtists(newSpotifyArtists)
+
+        val allArtists = validSpotifyArtists.mapNotNull { spotifyArtist ->
+            updatedArtistSpotifyMap[spotifyArtist.id]?.artist
+                ?: newArtistSpotifyMap[spotifyArtist.id]?.artist
+        }
+
+        val existingUserLibraryArtists = userLibraryArtistRepository.findByUserId(userId)
+        val existingArtistIds = existingUserLibraryArtists.mapNotNull { it.artist.id }.toSet()
+
+        val missingUserLibraryArtists = allArtists
+            .filter { artist -> artist.id != null && !existingArtistIds.contains(artist.id) }
+            .map { artist -> UserLibraryArtist(userId = userId, artist = artist) }
+
+        val savedUserLibraryArtists = if (missingUserLibraryArtists.isNotEmpty()) {
+            userLibraryArtistRepository.saveAll(missingUserLibraryArtists)
+        } else {
+            emptyList()
+        }
+
+        return (existingUserLibraryArtists + savedUserLibraryArtists)
+            .map { userLibraryArtist -> artistConverter.toDto(userLibraryArtist.artist) }
+    }
+
     private fun updateExistingSpotifyArtists(
         existingSpotifyArtists: List<ArtistObject>,
         existingArtistSpotifyMap: Map<String, ArtistSpotify>
@@ -124,28 +139,15 @@ class MusicLibraryService(
             val newName = spotifyArtist.name ?: existingArtist.name
 
             val artistChanged = existingArtist.name != newName
-            val updatedArtist = if (artistChanged) {
-                existingArtist.copy(name = newName)
-            } else {
-                existingArtist
-            }
-
             if (artistChanged) {
+                val updatedArtist = existingArtist.copy(name = newName)
+                val updatedArtistSpotify = existingArtistSpotify.copy(artist = updatedArtist)
                 artistsToUpdate.add(updatedArtist)
-            }
-
-            val spotifyChanged = artistChanged
-            val updatedArtistSpotify = if (spotifyChanged) {
-                existingArtistSpotify.copy(artist = updatedArtist)
-            } else {
-                existingArtistSpotify
-            }
-
-            if (spotifyChanged) {
                 artistSpotifiesToUpdate.add(updatedArtistSpotify)
+                updatedMap[spotifyId] = updatedArtistSpotify
+            } else {
+                updatedMap[spotifyId] = existingArtistSpotify
             }
-
-            updatedMap[spotifyId] = updatedArtistSpotify
         }
 
         if (artistsToUpdate.isNotEmpty()) {

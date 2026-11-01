@@ -251,7 +251,7 @@ class SpotifyOAuthServiceTest {
 
         every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(validCreds)
 
-        val result = service.refreshToken(userId)
+        val result = service.getActiveToken(userId)
 
         assertEquals(validCreds, result)
         verify(exactly = 0) { restClient.post() }

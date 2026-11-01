@@ -144,13 +144,15 @@ class SpotifyOAuthService(
         return newest
     }
 
-    fun refreshToken(userId: String): SpotifyOAuthCredentials? {
+    fun getActiveToken(userId: String, force: Boolean = false): SpotifyOAuthCredentials? {
         val lock = userLocks.computeIfAbsent(userId) { Any() }
         return synchronized(lock) {
             val credentials = activeCredentialsByUser(userId) ?: return null
-            val nowWithBuffer = Instant.now().plusSeconds(300)
-            if (!nowWithBuffer.isAfter(credentials.validUntil)) {
-                return credentials
+            if (!force) {
+                val nowWithBuffer = Instant.now().plusSeconds(300)
+                if (!nowWithBuffer.isAfter(credentials.validUntil)) {
+                    return credentials
+                }
             }
 
             if (credentials.refreshToken.isBlank()) {
