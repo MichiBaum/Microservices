@@ -8,6 +8,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faRotate } from '@fortawesome/free-solid-svg-icons';
 import { faSpotify } from '@fortawesome/free-brands-svg-icons';
+import {PrimeTemplate} from "primeng/api";
 
 @Component({
   selector: 'app-music-library-artists',
@@ -16,7 +17,8 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons';
     Button,
     Skeleton,
     TranslatePipe,
-    FaIconComponent
+    FaIconComponent,
+    PrimeTemplate
   ],
   templateUrl: './music-library-artists.component.html',
   styleUrl: './music-library-artists.component.scss'
