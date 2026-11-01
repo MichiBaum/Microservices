@@ -31,9 +31,9 @@
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
-        <datasource-micrometer-spring-boot.version>2.2.1</datasource-micrometer-spring-boot.version>
+        <datasource-micrometer-spring-boot.version>2.3.0</datasource-micrometer-spring-boot.version>
         <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-bom -->
-        <micrometer-bom.version>1.17.0</micrometer-bom.version>
+        <micrometer-bom.version>1.17.2</micrometer-bom.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>26</java.version>
