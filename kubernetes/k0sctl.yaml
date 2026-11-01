@@ -45,7 +45,7 @@ spec:
       controllerWorkers: true
   k0s:
     # https://docs.k0sproject.io/head/upgrade/#upgrade-a-k0s-cluster-using-k0sctl
-    version: v1.35.9+k0s.0
+    version: v1.36.5+k0s.0
     dynamicConfig: false
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
