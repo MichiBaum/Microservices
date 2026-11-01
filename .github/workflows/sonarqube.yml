@@ -3,6 +3,7 @@ name: SonarQube Analysis
 on:
   workflow_dispatch:
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   push:
     branches:
       - master
@@ -12,6 +13,7 @@ jobs:
   build:
     name: SonarQube Analysis
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-sonarqube') }}
     steps:
       - uses: actions/checkout@v7
         with:
