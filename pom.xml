@@ -15,19 +15,19 @@
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
         https://github.com/spring-projects/spring-boot/wiki
         -->
-        <spring-boot.version>4.1.0</spring-boot.version>
+        <spring-boot.version>4.1.2</spring-boot.version>
 
         <!--
         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies
         https://github.com/spring-cloud/spring-cloud-release/wiki/Supported-Versions#supported-releases
         -->
-        <spring-cloud.version>2025.1.2</spring-cloud.version>
+        <spring-cloud.version>2025.1.4</spring-cloud.version>
 
         <!--
         https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server
         https://github.com/codecentric/spring-boot-admin/
         -->
-        <spring-boot-admin.version>4.1.2</spring-boot-admin.version>
+        <spring-boot-admin.version>4.1.4</spring-boot-admin.version>
 
         <!-- https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-spring-boot -->
         <!-- https://github.com/jdbc-observations/datasource-micrometer -->
