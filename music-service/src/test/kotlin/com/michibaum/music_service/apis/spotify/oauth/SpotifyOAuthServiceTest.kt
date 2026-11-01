@@ -256,4 +256,64 @@ class SpotifyOAuthServiceTest {
         assertEquals(validCreds, result)
         verify(exactly = 0) { restClient.post() }
     }
+
+    @Test
+    fun `hasValidToken returns true when valid token exists`() {
+        val userId = "user-123"
+        val validCreds = SpotifyOAuthCredentials(
+            accessToken = "access",
+            expiresIn = 3600,
+            refreshToken = "refresh",
+            scope = "scope",
+            userId = userId,
+            createdDate = Instant.now(),
+            validUntil = Instant.now().plusSeconds(3600),
+            id = UUID.randomUUID()
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(validCreds)
+
+        val result = service.hasValidToken(userId)
+
+        assertTrue(result)
+    }
+
+    @Test
+    fun `hasValidToken returns false when no token exists`() {
+        val userId = "user-123"
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns emptyList()
+
+        val result = service.hasValidToken(userId)
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun `hasValidToken returns false for blank userId`() {
+        val result = service.hasValidToken("")
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun `hasValidToken returns false when token is expired and refresh token is blank`() {
+        val userId = "user-123"
+        val expiredCreds = SpotifyOAuthCredentials(
+            accessToken = "expired_access",
+            expiresIn = 3600,
+            refreshToken = "",
+            scope = "scope",
+            userId = userId,
+            createdDate = Instant.now().minusSeconds(7200),
+            validUntil = Instant.now().minusSeconds(3600),
+            id = UUID.randomUUID()
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(expiredCreds)
+
+        val result = service.hasValidToken(userId)
+
+        assertFalse(result)
+    }
 }

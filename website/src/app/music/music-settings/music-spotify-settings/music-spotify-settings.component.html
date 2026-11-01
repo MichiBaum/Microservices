@@ -12,7 +12,14 @@
         {{ 'music-settings.spotify.description' | translate }}
       </p>
 
-      <app-music-spotify-login></app-music-spotify-login>
+      @if (hasValidToken.value()) {
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium">
+          <fa-icon [icon]="faCheckCircle"></fa-icon>
+          <span>{{ 'music-settings.spotify.connected' | translate }}</span>
+        </div>
+      } @else {
+        <app-music-spotify-login></app-music-spotify-login>
+      }
     </div>
   </p-card>
 </div>

@@ -294,7 +294,8 @@
         "spotify": {
             "title": "Spotify Settings",
             "description": "Connect your Spotify account to sync your playlists and top tracks.",
-            "login-button": "Spotify Login"
+            "login-button": "Spotify Login",
+            "connected": "Spotify Account Connected"
         }
     },
     "navigation": {

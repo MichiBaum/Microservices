@@ -191,4 +191,9 @@ class SpotifyOAuthService(
     @Transactional(readOnly = true)
     fun isSpotifyAccountEnabled(userId: String): Boolean =
         spotifyAccountActivatedRepository.existsByUserId(userId)
+
+    fun hasValidToken(userId: String): Boolean {
+        if (userId.isBlank()) return false
+        return getActiveToken(userId) != null
+    }
 }

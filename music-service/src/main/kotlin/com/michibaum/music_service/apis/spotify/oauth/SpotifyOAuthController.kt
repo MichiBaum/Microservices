@@ -48,6 +48,10 @@ class SpotifyOAuthController(
     fun usageAllowed(principal: JwtAuthentication): Boolean = 
         spotifyOAuthService.isSpotifyAccountEnabled(principal.getUserId())
 
+    @GetMapping("/api/spotify/token/valid")
+    fun hasValidToken(principal: JwtAuthentication): Boolean =
+        spotifyOAuthService.hasValidToken(principal.getUserId())
+
     @GetMapping("/api/spotify/token")
     fun token(principal: JwtAuthentication): ResponseEntity<SpotifyLoginDto> {
         if (principal.getUserId().isBlank()){

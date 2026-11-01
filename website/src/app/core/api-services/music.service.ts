@@ -18,6 +18,10 @@ export class MusicService{
     return this.http.get<boolean>(this.environment.musicService() + '/spotify/usage-allowed')
   }
 
+  hasValidToken(): Observable<boolean> {
+    return this.http.get<boolean>(this.environment.musicService() + '/spotify/token/valid')
+  }
+
   getLibraryArtists(): Observable<Artist[]> {
     return this.http.get<Artist[]>(this.environment.musicService() + '/music/library/artists');
   }
