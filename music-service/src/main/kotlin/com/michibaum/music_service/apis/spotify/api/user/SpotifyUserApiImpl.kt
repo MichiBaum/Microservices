@@ -53,10 +53,15 @@ class SpotifyUserApiImpl(
             .body(GetUsersTopArtistsAndTracks200Response::class.java)
     }
 
-    override fun myFollowedArtists(credentials: SpotifyOAuthCredentials): GetFollowed200Response? = tryCall {
+    override fun myFollowedArtists(credentials: SpotifyOAuthCredentials, after: String?): GetFollowed200Response? = tryCall {
         // https://developer.spotify.com/documentation/web-api/reference/get-followed
+        val uri = if (!after.isNullOrBlank()) {
+            "/me/following?type=artist&limit=50&after=$after"
+        } else {
+            "/me/following?type=artist&limit=50"
+        }
         client.get()
-            .uri("/me/following?type=artist&limit=50")
+            .uri(uri)
             .headers {
                 it.setBearerAuth(credentials.accessToken)
             }

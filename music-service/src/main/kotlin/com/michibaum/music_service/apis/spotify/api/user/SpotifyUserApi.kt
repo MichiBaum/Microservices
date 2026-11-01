@@ -12,7 +12,7 @@ interface SpotifyUserApi {
     fun myProfile(credentials: SpotifyOAuthCredentials): PrivateUserObject?
     fun myTopTracks(timeRange: TimeRange, credentials: SpotifyOAuthCredentials): GetUsersTopArtistsAndTracks200Response?
     fun myTopArtists(timeRange: TimeRange, credentials: SpotifyOAuthCredentials): GetUsersTopArtistsAndTracks200Response?
-    fun myFollowedArtists(credentials: SpotifyOAuthCredentials): GetFollowed200Response?
+    fun myFollowedArtists(credentials: SpotifyOAuthCredentials, after: String? = null): GetFollowed200Response?
 
     fun profileFor(userId: String, credentials: SpotifyOAuthCredentials): PublicUserObject?
 }

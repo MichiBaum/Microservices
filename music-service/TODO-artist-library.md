@@ -15,18 +15,7 @@ This document tracks identified architectural, performance, and code quality imp
 
 ---
 
-## 2. Implement Spotify API Cursor Pagination for Followed Artists
-
-- **Location:** `com.michibaum.music_service.apis.spotify.api.user.SpotifyUserApiImpl` (`myFollowedArtists`) & `MusicLibraryService`
-- **Category:** Functional Completeness & Scalability
-- **Problem:** `myFollowedArtists` currently issues a single request with `limit=50`. Spotify API uses cursor-based pagination (via the `after` parameter). Users following more than 50 artists only receive the first batch of 50 artists during synchronization.
-- **Proposed Solution:**
-  1. Update `SpotifyUserApi` and `SpotifyUserApiImpl` to support optional cursor pagination parameter (`after`).
-  2. Implement a loop or helper in `MusicLibraryService` to page through all followed artists until Spotify returns no next cursor before initiating database persistence.
-
----
-
-## 3. Replace Non-Null Assertions (`!!`) with Null-Safe Operators
+## 2. Replace Non-Null Assertions (`!!`) with Null-Safe Operators
 
 - **Location:** `com.michibaum.music_service.app.library.MusicLibraryService` (`createNewSpotifyArtists`)
 - **Category:** Code Quality & Null Safety

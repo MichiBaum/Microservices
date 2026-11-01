@@ -11,6 +11,7 @@ import com.michibaum.music_service.database.UserLibraryArtist
 import com.michibaum.music_service.database.UserLibraryArtistRepository
 import com.michibaum.music_service.database.spotify.ArtistSpotify
 import com.michibaum.music_service.database.spotify.ArtistSpotifyRepository
+import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
 import io.micrometer.observation.annotation.Observed
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -38,8 +39,7 @@ class MusicLibraryService(
         val credentials = spotifyOAuthService.activeCredentialsByUser(userId)
             ?: return getLibraryArtists(userId)
 
-        val response = spotifyApi.myFollowedArtists(credentials)
-        val spotifyArtists = response?.artists?.items ?: emptyList()
+        val spotifyArtists = fetchAllFollowedArtists(credentials)
 
         val validSpotifyArtists = spotifyArtists
             .filter { !it.id.isNullOrBlank() && !it.name.isNullOrBlank() }
@@ -79,6 +79,30 @@ class MusicLibraryService(
 
         return (existingUserLibraryArtists + savedUserLibraryArtists)
             .map { userLibraryArtist -> artistConverter.toDto(userLibraryArtist.artist) }
+    }
+
+    private fun fetchAllFollowedArtists(credentials: SpotifyOAuthCredentials): List<ArtistObject> {
+        val allArtists = mutableListOf<ArtistObject>()
+        var afterCursor: String? = null
+
+        do {
+            val response = spotifyApi.myFollowedArtists(credentials, afterCursor)
+            val paging = response?.artists ?: break
+            val items = paging.items ?: emptyList()
+            allArtists.addAll(items)
+
+            if (items.isEmpty() || paging.next == null) {
+                break
+            }
+
+            val nextAfter = paging.cursors?.after
+            if (nextAfter == afterCursor) {
+                break
+            }
+            afterCursor = nextAfter
+        } while (!afterCursor.isNullOrBlank())
+
+        return allArtists
     }
 
     private fun updateExistingSpotifyArtists(

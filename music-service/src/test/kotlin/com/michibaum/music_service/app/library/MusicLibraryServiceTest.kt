@@ -2,6 +2,7 @@ package com.michibaum.music_service.app.library
 
 import com.michibaum.music_service.apis.spotify.api.SpotifyApi
 import com.michibaum.music_service.apis.spotify.generated.model.ArtistObject
+import com.michibaum.music_service.apis.spotify.generated.model.CursorObject
 import com.michibaum.music_service.apis.spotify.generated.model.CursorPagingSimplifiedArtistObject
 import com.michibaum.music_service.apis.spotify.generated.model.GetFollowed200Response
 import com.michibaum.music_service.apis.spotify.oauth.SpotifyOAuthService
@@ -227,5 +228,54 @@ class MusicLibraryServiceTest {
         assertEquals("The Beatles", result[0].name)
         verify(exactly = 1) { userLibraryArtistRepository.findByUserId(userId) }
         verify(exactly = 0) { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) }
+    }
+
+    @Test
+    fun `syncLibraryArtists fetches multiple pages of followed artists using cursor pagination`() {
+        val userId = "user-1"
+        val credentials: SpotifyOAuthCredentials = mockk()
+        every { spotifyOAuthService.activeCredentialsByUser(userId) } returns credentials
+
+        val page1Artist = ArtistObject(id = "sp-1", name = "Artist Page 1")
+        val page2Artist = ArtistObject(id = "sp-2", name = "Artist Page 2")
+
+        val page1Response = GetFollowed200Response(
+            artists = CursorPagingSimplifiedArtistObject(
+                items = listOf(page1Artist),
+                next = "https://api.spotify.com/v1/me/following?type=artist&limit=50&after=cursor-1",
+                cursors = CursorObject(after = "cursor-1")
+            )
+        )
+        val page2Response = GetFollowed200Response(
+            artists = CursorPagingSimplifiedArtistObject(
+                items = listOf(page2Artist),
+                next = null,
+                cursors = CursorObject(after = null)
+            )
+        )
+
+        every { spotifyApi.myFollowedArtists(credentials, null) } returns page1Response
+        every { spotifyApi.myFollowedArtists(credentials, "cursor-1") } returns page2Response
+
+        every { artistSpotifyRepository.findBySpotifyIdIn(listOf("sp-1", "sp-2")) } returns emptyList()
+
+        val savedArtist1 = Artist(name = "Artist Page 1", isni = null, id = UUID.randomUUID())
+        val savedArtist2 = Artist(name = "Artist Page 2", isni = null, id = UUID.randomUUID())
+        every { artistRepository.saveAll(any<List<Artist>>()) } returns listOf(savedArtist1, savedArtist2)
+
+        val savedArtistSpotify1 = ArtistSpotify(artist = savedArtist1, spotifyId = "sp-1", id = UUID.randomUUID())
+        val savedArtistSpotify2 = ArtistSpotify(artist = savedArtist2, spotifyId = "sp-2", id = UUID.randomUUID())
+        every { artistSpotifyRepository.saveAll(any<List<ArtistSpotify>>()) } returns listOf(savedArtistSpotify1, savedArtistSpotify2)
+
+        val savedUserLibraryArtist1 = UserLibraryArtist(userId = userId, artist = savedArtist1, id = UUID.randomUUID())
+        val savedUserLibraryArtist2 = UserLibraryArtist(userId = userId, artist = savedArtist2, id = UUID.randomUUID())
+        every { userLibraryArtistRepository.findByUserId(userId) } returns emptyList()
+        every { userLibraryArtistRepository.saveAll(any<List<UserLibraryArtist>>()) } returns listOf(savedUserLibraryArtist1, savedUserLibraryArtist2)
+
+        val result = service.syncLibraryArtists(userId)
+
+        assertEquals(2, result.size)
+        verify(exactly = 1) { spotifyApi.myFollowedArtists(credentials, null) }
+        verify(exactly = 1) { spotifyApi.myFollowedArtists(credentials, "cursor-1") }
     }
 }

@@ -26,8 +26,8 @@ class SpotifyApiImpl(
         return spotifyUserApi.myTopArtists(timeRange, credentials)
     }
 
-    override fun myFollowedArtists(credentials: SpotifyOAuthCredentials): GetFollowed200Response? {
-        return spotifyUserApi.myFollowedArtists(credentials)
+    override fun myFollowedArtists(credentials: SpotifyOAuthCredentials, after: String?): GetFollowed200Response? {
+        return spotifyUserApi.myFollowedArtists(credentials, after)
     }
 
     override fun profileFor(userId: String, credentials: SpotifyOAuthCredentials): PublicUserObject? {
