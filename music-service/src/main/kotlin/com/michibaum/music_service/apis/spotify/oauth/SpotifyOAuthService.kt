@@ -8,6 +8,9 @@ import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentialsRepository
 import com.michibaum.music_service.database.spotify.SpotifyOAuthData
 import com.michibaum.music_service.database.spotify.SpotifyOAuthDataRepository
+import io.micrometer.observation.Observation
+import io.micrometer.observation.ObservationRegistry
+import io.micrometer.observation.annotation.Observed
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -28,6 +31,7 @@ class SpotifyOAuthService(
     private val spotifyOAuthProperties: SpotifyOAuthProperties,
     private val apisProperties: ApisProperties,
     restClientBuilder: RestClient.Builder,
+    private val observationRegistry: ObservationRegistry? = null,
 ) {
 
     private val logger = LoggerFactory.getLogger(SpotifyOAuthService::class.java)
@@ -50,6 +54,7 @@ class SpotifyOAuthService(
             .build()
     }
 
+    @Observed(name = "spotify.oauth.generate.data")
     @Transactional
     fun generateData(principal: JwtAuthentication): SpotifyOAuthData {
         val state = generateState()
@@ -68,14 +73,17 @@ class SpotifyOAuthService(
         return Base64.getUrlEncoder().withoutPadding().encodeToString(state)
     }
 
+    @Observed(name = "spotify.oauth.find.by.state")
     @Transactional(readOnly = true)
     fun findByState(state: String): SpotifyOAuthData? =
         spotifyOAuthDataRepository.findByState(state)
 
+    @Observed(name = "spotify.oauth.save")
     @Transactional
     fun save(response: SpotifyOAuthCredentialsDto, oAuthData: SpotifyOAuthData): SpotifyOAuthCredentials =
         saveCredentials(response, oAuthData.userId)
 
+    @Observed(name = "spotify.oauth.save.credentials")
     @Transactional
     fun saveCredentials(response: SpotifyOAuthCredentialsDto, userId: String): SpotifyOAuthCredentials {
         val activeCredentials = spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId)
@@ -124,6 +132,7 @@ class SpotifyOAuthService(
         }
     }
 
+    @Observed(name = "spotify.oauth.active.credentials")
     @Transactional
     fun activeCredentialsByUser(userId: String): SpotifyOAuthCredentials? {
         val activeList = spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId)
@@ -144,6 +153,7 @@ class SpotifyOAuthService(
         return newest
     }
 
+    @Observed(name = "spotify.oauth.get.active.token")
     fun getActiveToken(userId: String, force: Boolean = false): SpotifyOAuthCredentials? {
         val lock = userLocks.computeIfAbsent(userId) { Any() }
         return synchronized(lock) {
@@ -165,6 +175,13 @@ class SpotifyOAuthService(
                 add("refresh_token", credentials.refreshToken)
             }
 
+            val observation = observationRegistry?.let { registry ->
+                Observation.createNotStarted("spotify.oauth.token.refresh", registry)
+                    .highCardinalityKeyValue("spotify.user_id", userId)
+                    .lowCardinalityKeyValue("spotify.force_refresh", force.toString())
+                    .start()
+            }
+
             try {
                 val response = client
                     .post()
@@ -176,22 +193,30 @@ class SpotifyOAuthService(
 
                 val body = response.body
                 if (response.statusCode.is2xxSuccessful && body != null) {
+                    observation?.lowCardinalityKeyValue("spotify.refresh_status", "success")
                     saveCredentials(body, userId)
                 } else {
+                    observation?.lowCardinalityKeyValue("spotify.refresh_status", "non_2xx")
                     logger.warn("Spotify token refresh returned non-2xx status code: ${response.statusCode}")
                     null
                 }
             } catch (e: Exception) {
+                observation?.lowCardinalityKeyValue("spotify.refresh_status", "error")
+                observation?.error(e)
                 logger.error("Failed to refresh Spotify token for user $userId", e)
                 null
+            } finally {
+                observation?.stop()
             }
         }
     }
 
+    @Observed(name = "spotify.oauth.is.enabled")
     @Transactional(readOnly = true)
     fun isSpotifyAccountEnabled(userId: String): Boolean =
         spotifyAccountActivatedRepository.existsByUserId(userId)
 
+    @Observed(name = "spotify.oauth.has.valid.token")
     fun hasValidToken(userId: String): Boolean {
         if (userId.isBlank()) return false
         return getActiveToken(userId) != null
