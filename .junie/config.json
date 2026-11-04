@@ -1,0 +1,18 @@
+{
+  "brave": false,
+  "flags": [],
+  "mcp-locations": [],
+  "mcp-default-locations": true,
+  "skill-locations": ["./.junie/skills"],
+  "skill-default-locations": true,
+  "command-locations": ["./.junie/commands"],
+  "command-default-locations": true,
+  "agent-locations": ["./.junie/agents"],
+  "agent-default-location": true,
+  "model-locations": [],
+  "model-default-locations": true,
+  "auto-update": true,
+  "guidelines-location": "./docs/Writerside/topics/Guidelines.md",
+  "time-limit": 3600,
+  "byok": {}
+}
