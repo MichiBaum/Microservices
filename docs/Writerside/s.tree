@@ -42,6 +42,7 @@
         <toc-element topic="Usermanagement-Service.md"/>
         <toc-element topic="Registry-Service.md"/>
         <toc-element topic="Music-Service.md">
+            <toc-element topic="playlist-library-specifications.md"/>
             <toc-element topic="Glossar.md"/>
         </toc-element>
         <toc-element topic="Gateway-Service.md"/>
