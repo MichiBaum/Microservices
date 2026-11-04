@@ -1,6 +1,4 @@
 {
-  "model": "Default",
-  "provider": "jetbrains-ai",
   "brave": false,
   "flags": [],
   "mcp-locations": [],
