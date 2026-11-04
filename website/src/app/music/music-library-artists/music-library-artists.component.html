@@ -1,0 +1,35 @@
+<div class="flex flex-col gap-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 m-0">
+      {{ 'music.library.artists.title' | translate }}
+    </h2>
+    <p-button
+      [disabled]="loading() || syncing()"
+      (onClick)="syncWithSpotify()">
+      <ng-template pTemplate="content">
+        <div class="flex items-center gap-2">
+          <fa-icon [icon]="syncing() ? faRotate : faSpotify" [animation]="syncing() ? 'spin' : undefined"></fa-icon>
+          <span>{{ 'music.library.artists.sync' | translate }}</span>
+        </div>
+      </ng-template>
+    </p-button>
+  </div>
+
+  @if (loading()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <p-skeleton height="200px" class="rounded-lg"></p-skeleton>
+      }
+    </div>
+  } @else if (artists().length === 0) {
+    <div class="text-center py-12 text-slate-500 dark:text-slate-400">
+      <p class="text-lg m-0">{{ 'music.library.artists.empty' | translate }}</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (artist of artists(); track artist.id) {
+        <app-artist-card [artist]="artist"></app-artist-card>
+      }
+    </div>
+  }
+</div>

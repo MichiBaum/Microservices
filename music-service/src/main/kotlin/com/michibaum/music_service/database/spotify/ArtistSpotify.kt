@@ -18,8 +18,6 @@ data class ArtistSpotify(
     @Column(nullable = false, unique = true)
     val spotifyId: String,
 
-    val followers: Long? = null,
-
     @CreationTimestamp
     @Column(name = "created", nullable = false)
     val created: Instant? = null,

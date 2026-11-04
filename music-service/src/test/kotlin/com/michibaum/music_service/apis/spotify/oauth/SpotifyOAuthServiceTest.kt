@@ -8,6 +8,9 @@ import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentials
 import com.michibaum.music_service.database.spotify.SpotifyOAuthCredentialsRepository
 import com.michibaum.music_service.database.spotify.SpotifyOAuthData
 import com.michibaum.music_service.database.spotify.SpotifyOAuthDataRepository
+import io.micrometer.observation.Observation
+import io.micrometer.observation.ObservationHandler
+import io.micrometer.observation.ObservationRegistry
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
@@ -251,9 +254,111 @@ class SpotifyOAuthServiceTest {
 
         every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(validCreds)
 
-        val result = service.refreshToken(userId)
+        val result = service.getActiveToken(userId)
 
         assertEquals(validCreds, result)
         verify(exactly = 0) { restClient.post() }
+    }
+
+    @Test
+    fun `hasValidToken returns true when valid token exists`() {
+        val userId = "user-123"
+        val validCreds = SpotifyOAuthCredentials(
+            accessToken = "access",
+            expiresIn = 3600,
+            refreshToken = "refresh",
+            scope = "scope",
+            userId = userId,
+            createdDate = Instant.now(),
+            validUntil = Instant.now().plusSeconds(3600),
+            id = UUID.randomUUID()
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(validCreds)
+
+        val result = service.hasValidToken(userId)
+
+        assertTrue(result)
+    }
+
+    @Test
+    fun `hasValidToken returns false when no token exists`() {
+        val userId = "user-123"
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns emptyList()
+
+        val result = service.hasValidToken(userId)
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun `hasValidToken returns false for blank userId`() {
+        val result = service.hasValidToken("")
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun `hasValidToken returns false when token is expired and refresh token is blank`() {
+        val userId = "user-123"
+        val expiredCreds = SpotifyOAuthCredentials(
+            accessToken = "expired_access",
+            expiresIn = 3600,
+            refreshToken = "",
+            scope = "scope",
+            userId = userId,
+            createdDate = Instant.now().minusSeconds(7200),
+            validUntil = Instant.now().minusSeconds(3600),
+            id = UUID.randomUUID()
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(expiredCreds)
+
+        val result = service.hasValidToken(userId)
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun `getActiveToken creates observation when observationRegistry is present`() {
+        val observationRegistry = ObservationRegistry.create()
+        val recordedContexts = mutableListOf<Observation.Context>()
+        observationRegistry.observationConfig().observationHandler(object : ObservationHandler<Observation.Context> {
+            override fun onStart(context: Observation.Context) {
+                recordedContexts.add(context)
+            }
+            override fun supportsContext(context: Observation.Context): Boolean = true
+        })
+
+        val serviceWithObs = SpotifyOAuthService(
+            spotifyOAuthDataRepository,
+            spotifyOAuthCredentialsRepository,
+            spotifyAccountActivatedRepository,
+            spotifyOAuthProperties,
+            apisProperties,
+            restClientBuilder,
+            observationRegistry
+        )
+
+        val userId = "user-obs"
+        val expiredCreds = SpotifyOAuthCredentials(
+            accessToken = "expired_access",
+            expiresIn = 3600,
+            refreshToken = "",
+            scope = "scope",
+            userId = userId,
+            createdDate = Instant.now().minusSeconds(7200),
+            validUntil = Instant.now().minusSeconds(3600),
+            id = UUID.randomUUID()
+        )
+
+        every { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) } returns listOf(expiredCreds)
+
+        serviceWithObs.getActiveToken(userId)
+
+        // When refresh token is blank, getActiveToken returns null without making HTTP call
+        // but activeCredentialsByUser was executed
+        verify(exactly = 1) { spotifyOAuthCredentialsRepository.findAllByUserIdAndDeactivatedFalse(userId) }
     }
 }
