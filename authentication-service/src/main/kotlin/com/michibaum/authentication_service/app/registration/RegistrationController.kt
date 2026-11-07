@@ -32,7 +32,7 @@ class RegistrationController(
             return ResponseEntity.status(HttpStatus.CONFLICT).body(responseBody)
         }
 
-        val createUserDto = CreateUserDto(registerDto.username, registerDto.email, registerDto.password)
+        val createUserDto = CreateUserDto(registerDto.email)
         val createdUser = try {
             usermanagementClient.create(createUserDto)
         } catch (_: Exception) {

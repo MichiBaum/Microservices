@@ -72,11 +72,13 @@ class UserService(
         return userRepository.existsByUsernameOrEmail(username, email)
     }
 
+    fun emailExists(email: String): Boolean {
+        return userRepository.existsByEmail(email)
+    }
+
     fun createDefaultUser(createUserDto: CreateUserDto): User {
         val user = User(
-            username = createUserDto.username,
-            email = createUserDto.email,
-            password = passwordEncoder.encode(createUserDto.password)!!,
+            email = createUserDto.email
         )
         return userRepository.save(user)
     }

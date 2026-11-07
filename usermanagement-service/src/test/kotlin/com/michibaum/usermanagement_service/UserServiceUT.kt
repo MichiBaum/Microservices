@@ -106,16 +106,24 @@ class UserServiceUT {
     }
 
     @Test
-    fun `createDefaultUser hashes password and saves user`() {
-        val createUserDto = CreateUserDto("john_doe", "john@example.com", "rawPassword")
-        every { passwordEncoder.encode("rawPassword") } returns "encodedPassword"
+    fun `emailExists delegates to repository`() {
+        every { userRepository.existsByEmail("john@example.com") } returns true
+        assertTrue(userService.emailExists("john@example.com"))
+
+        every { userRepository.existsByEmail("none@example.com") } returns false
+        assertFalse(userService.emailExists("none@example.com"))
+    }
+
+    @Test
+    fun `createDefaultUser saves user without username and password`() {
+        val createUserDto = CreateUserDto("john@example.com")
         every { userRepository.save(any()) } answers { firstArg() }
 
         val created = userService.createDefaultUser(createUserDto)
 
-        assertEquals("john_doe", created.username)
+        assertNull(created.username)
         assertEquals("john@example.com", created.email)
-        assertEquals("encodedPassword", created.password)
+        assertNull(created.password)
         verify(exactly = 1) { userRepository.save(any()) }
     }
 

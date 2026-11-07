@@ -26,7 +26,7 @@ class UsermanagementController (
             Thread.sleep(sleepTime)
             return null
         }
-        val matching = userService.checkPassword(loginDto.password, user.password)
+        val matching = user.password?.let { userService.checkPassword(loginDto.password, it) } ?: false
         if (!matching)
             return null
         
@@ -43,7 +43,7 @@ class UsermanagementController (
         if(errors.isNotEmpty())
             return null
 
-        val alreadyExists = userService.anyExists(createUserDto.username, createUserDto.email)
+        val alreadyExists = userService.emailExists(createUserDto.email)
         if (alreadyExists)
             return null
 
