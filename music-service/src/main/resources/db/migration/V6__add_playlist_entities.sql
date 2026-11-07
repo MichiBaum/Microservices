@@ -28,29 +28,15 @@ CREATE TABLE playlist_track (
 );
 
 -- Table: playlist_spotify
--- Maps internal playlists to Spotify playlists (similar to artist_spotify pattern)
+-- Maps internal playlists to Spotify playlists (allowing multiple users to import the same Spotify playlist)
 CREATE TABLE playlist_spotify (
     id UUID NOT NULL PRIMARY KEY,
     playlist_id UUID NOT NULL,
     spotify_id VARCHAR(255) NOT NULL,
     created DATETIME(6) NOT NULL,
     updated DATETIME(6) NOT NULL,
-    CONSTRAINT uk_spotify_id UNIQUE (spotify_id),
+    CONSTRAINT uk_playlist_spotify_playlist UNIQUE (playlist_id),
     FOREIGN KEY (playlist_id) REFERENCES playlist(id)
 );
 
--- Table: playlist_sync_job
--- Tracks async sync operations from Spotify
-CREATE TABLE playlist_sync_job (
-    id UUID NOT NULL PRIMARY KEY,
-    playlist_id UUID NOT NULL,
-    spotify_playlist_id VARCHAR(255) NOT NULL,
-    status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
-    started_at DATETIME(6) NOT NULL,
-    completed_at DATETIME(6),
-    track_count INT,
-    error_message TEXT,
-    created DATETIME(6) NOT NULL,
-    CONSTRAINT uk_sync_job_spotify UNIQUE (spotify_playlist_id),
-    FOREIGN KEY (playlist_id) REFERENCES playlist(id)
-);
+CREATE INDEX idx_playlist_spotify_spotify_id ON playlist_spotify (spotify_id);

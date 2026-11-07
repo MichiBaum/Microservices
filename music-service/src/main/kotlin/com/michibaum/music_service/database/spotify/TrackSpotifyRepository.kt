@@ -5,4 +5,5 @@ import java.util.UUID
 
 interface TrackSpotifyRepository: JpaRepository<TrackSpotify, UUID> {
     fun findBySpotifyId(id: String): TrackSpotify?
+    fun findBySpotifyIdIn(ids: Collection<String>): List<TrackSpotify>
 }
