@@ -276,6 +276,17 @@
                 "title": "Saved Artists",
                 "sync": "Sync with Spotify",
                 "empty": "No artists found in your library."
+            },
+            "playlists": {
+                "title": "Playlists",
+                "sync": "Sync with Spotify",
+                "create": "Create Playlist",
+                "empty": "No playlists found in your library.",
+                "tracks-count": "{{count}} tracks",
+                "one-track": "1 track",
+                "no-tracks": "0 tracks",
+                "custom-badge": "Custom",
+                "spotify-badge": "Spotify"
             }
         },
         "navigation": {
@@ -283,9 +294,40 @@
             "artists": "Artists",
             "home": "Home",
             "library": "Library",
+            "playlists": "Playlists",
             "settings": "Settings",
             "spotify": "Spotify",
             "tracks": "Tracks"
+        },
+        "playlist-detail": {
+            "resync": "Re-sync",
+            "edit": "Edit",
+            "delete": "Delete",
+            "delete-confirm-title": "Delete Playlist",
+            "delete-confirm-message": "Are you sure you want to delete this playlist?",
+            "tracks-title": "Tracks",
+            "no-tracks": "No tracks in this playlist.",
+            "back": "Back to Playlists",
+            "position": "#",
+            "title-header": "Title",
+            "artists-header": "Artists",
+            "release-date-header": "Release Date"
+        },
+        "playlist-create": {
+            "title": "Create Playlist",
+            "name": "Name",
+            "name-placeholder": "My Playlist",
+            "description": "Description",
+            "description-placeholder": "Optional playlist description...",
+            "cancel": "Cancel",
+            "submit": "Create"
+        },
+        "playlist-edit": {
+            "title": "Edit Playlist",
+            "name": "Name",
+            "description": "Description",
+            "cancel": "Cancel",
+            "submit": "Save"
         },
         "title": "Music"
     },

@@ -1,0 +1,238 @@
+<div class="flex flex-col gap-6">
+  <!-- Back Button Navigation -->
+  <div>
+    <p-button
+      [routerLink]="['/music/library/playlists']"
+      variant="text"
+      severity="secondary"
+      class="min-h-[44px]">
+      <ng-template pTemplate="content">
+        <div class="flex items-center gap-2">
+          <fa-icon [icon]="faArrowLeft"></fa-icon>
+          <span>{{ 'music.playlist-detail.back' | translate }}</span>
+        </div>
+      </ng-template>
+    </p-button>
+  </div>
+
+  @if (loading()) {
+    <div class="flex flex-col gap-6">
+      <div class="p-6 bg-surface-0 dark:bg-surface-900 rounded-lg border border-surface-200 dark:border-surface-700 flex flex-col tablet:flex-row gap-6">
+        <p-skeleton width="180px" height="180px" class="rounded-lg shrink-0"></p-skeleton>
+        <div class="flex flex-col gap-3 flex-1">
+          <p-skeleton width="40%" height="2rem"></p-skeleton>
+          <p-skeleton width="70%" height="1.25rem"></p-skeleton>
+          <p-skeleton width="25%" height="1rem" class="mt-auto"></p-skeleton>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3">
+        <p-skeleton height="3rem" class="rounded-lg"></p-skeleton>
+        <p-skeleton height="3rem" class="rounded-lg"></p-skeleton>
+        <p-skeleton height="3rem" class="rounded-lg"></p-skeleton>
+      </div>
+    </div>
+  } @else if (!playlist()) {
+    <div class="p-8 text-center bg-surface-0 dark:bg-surface-900 rounded-lg border border-surface-200 dark:border-surface-700">
+      <p class="text-lg text-slate-500 dark:text-slate-400 m-0">Playlist not found.</p>
+    </div>
+  } @else {
+    @let p = playlist()!;
+
+    <!-- Header Card -->
+    <header class="p-6 bg-surface-0 dark:bg-surface-900 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm flex flex-col tablet:flex-row gap-6">
+      <div class="w-36 h-36 tablet:w-44 tablet:h-44 aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center shrink-0 overflow-hidden shadow-inner self-center tablet:self-start">
+        @if (p.coverImageUrl) {
+          <img [src]="p.coverImageUrl" [alt]="p.name" class="w-full h-full object-cover" />
+        } @else {
+          <fa-icon [icon]="faMusic" class="text-5xl text-slate-400 dark:text-slate-500"></fa-icon>
+        }
+      </div>
+
+      <div class="flex flex-col gap-3 flex-1">
+        <div class="flex items-center gap-2">
+          @if (p.isSpotify) {
+            <p-tag severity="success" value="Spotify" [rounded]="true">
+              <ng-template pTemplate="icon">
+                <fa-icon [icon]="faSpotify" class="mr-1 text-xs"></fa-icon>
+              </ng-template>
+            </p-tag>
+          } @else {
+            <p-tag severity="info" [value]="'music.library.playlists.custom-badge' | translate" [rounded]="true"></p-tag>
+          }
+        </div>
+
+        <h1 class="text-2xl tablet:text-3xl font-bold text-slate-900 dark:text-slate-100 m-0" [title]="p.name">
+          {{ p.name }}
+        </h1>
+
+        @if (p.description) {
+          <p class="text-sm tablet:text-base text-slate-600 dark:text-slate-300 m-0 line-clamp-3" [title]="p.description">
+            {{ p.description }}
+          </p>
+        }
+
+        <div class="flex items-center gap-4 text-xs tablet:text-sm text-slate-500 dark:text-slate-400">
+          <span>
+            @if (p.trackCount === 1) {
+              {{ 'music.library.playlists.one-track' | translate }}
+            } @else if (p.trackCount === 0) {
+              {{ 'music.library.playlists.no-tracks' | translate }}
+            } @else {
+              {{ 'music.library.playlists.tracks-count' | translate: { count: p.trackCount } }}
+            }
+          </span>
+        </div>
+
+        <!-- Action Toolbar -->
+        <div class="flex flex-wrap items-center gap-3 mt-auto pt-2">
+          @if (p.isSpotify) {
+            <!-- Re-sync Spotify Playlist Button -->
+            <p-button
+              [disabled]="syncing()"
+              class="min-h-[44px]"
+              (onClick)="resyncSpotify()">
+              <ng-template pTemplate="content">
+                <div class="flex items-center gap-2">
+                  <fa-icon [icon]="faRotate" [animation]="syncing() ? 'spin' : undefined"></fa-icon>
+                  <span>{{ 'music.playlist-detail.resync' | translate }}</span>
+                </div>
+              </ng-template>
+            </p-button>
+
+            <!-- Delete Playlist Button -->
+            <p-button
+              [label]="'music.playlist-detail.delete' | translate"
+              severity="danger"
+              variant="outlined"
+              class="min-h-[44px]"
+              [disabled]="syncing()"
+              (onClick)="confirmDelete()">
+              <ng-template pTemplate="icon">
+                <fa-icon [icon]="faTrash" class="mr-2"></fa-icon>
+              </ng-template>
+            </p-button>
+          } @else {
+            <!-- Edit Internal Playlist Button -->
+            <p-button
+              [label]="'music.playlist-detail.edit' | translate"
+              severity="secondary"
+              variant="outlined"
+              class="min-h-[44px]"
+              (onClick)="openEditDialog()">
+              <ng-template pTemplate="icon">
+                <fa-icon [icon]="faPen" class="mr-2"></fa-icon>
+              </ng-template>
+            </p-button>
+
+            <!-- Delete Playlist Button -->
+            <p-button
+              [label]="'music.playlist-detail.delete' | translate"
+              severity="danger"
+              variant="outlined"
+              class="min-h-[44px]"
+              (onClick)="confirmDelete()">
+              <ng-template pTemplate="icon">
+                <fa-icon [icon]="faTrash" class="mr-2"></fa-icon>
+              </ng-template>
+            </p-button>
+          }
+        </div>
+      </div>
+    </header>
+
+    <!-- Track List Section -->
+    <section class="flex flex-col gap-4" aria-labelledby="playlist-tracks-heading">
+      <div class="flex items-center justify-between">
+        <h2 id="playlist-tracks-heading" class="text-xl font-bold text-slate-900 dark:text-slate-100 m-0">
+          {{ 'music.playlist-detail.tracks-title' | translate }}
+          <span class="text-sm font-normal text-slate-500 dark:text-slate-400">({{ p.tracks.length }})</span>
+        </h2>
+      </div>
+
+      @if (p.tracks.length === 0) {
+        <div class="p-12 text-center text-slate-500 dark:text-slate-400 bg-surface-50 dark:bg-surface-800/40 rounded-lg border border-dashed border-surface-300 dark:border-surface-700">
+          <p class="text-base m-0">{{ 'music.playlist-detail.no-tracks' | translate }}</p>
+        </div>
+      } @else {
+        <div class="bg-surface-0 dark:bg-surface-900 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm overflow-hidden">
+          <ol class="list-none p-0 m-0 divide-y divide-surface-200 dark:divide-surface-700">
+            @for (track of p.tracks; track track.trackId) {
+              <li class="min-h-[52px] p-3 tablet:px-4 flex items-center gap-3 tablet:gap-4 active:bg-surface-100 dark:active:bg-surface-800 focus-within:ring-1 focus-within:ring-primary-500">
+                <span class="w-8 text-center text-xs tablet:text-sm font-mono text-slate-400 dark:text-slate-500 shrink-0">
+                  {{ track.position + 1 }}
+                </span>
+
+                <div class="flex flex-col min-w-0 flex-1">
+                  <span class="text-sm tablet:text-base font-semibold text-slate-900 dark:text-slate-100 truncate" [title]="track.name">
+                    {{ track.name }}
+                  </span>
+                  @if (track.artists && track.artists.length > 0) {
+                    <span class="text-xs tablet:text-sm text-slate-500 dark:text-slate-400 truncate" [title]="formatArtists(track)">
+                      {{ formatArtists(track) }}
+                    </span>
+                  }
+                </div>
+
+                @if (track.releaseDate) {
+                  <span class="hidden tablet:block text-xs text-slate-400 dark:text-slate-500 shrink-0">
+                    {{ track.releaseDate }}
+                  </span>
+                }
+              </li>
+            }
+          </ol>
+        </div>
+      }
+    </section>
+
+    <!-- Edit Internal Playlist Dialog -->
+    <p-dialog [header]="'music.playlist-edit.title' | translate"
+              [modal]="true"
+              [visible]="editDialogOpen()"
+              (visibleChange)="editDialogOpen.set($event)"
+              (onHide)="closeEditDialog()"
+              [style]="{ width: '100%', maxWidth: '28rem' }"
+              [draggable]="false"
+              [resizable]="false"
+              class="p-dialog-responsive">
+
+      <form [formGroup]="editForm" (ngSubmit)="submitEdit()" class="flex flex-col gap-5 pt-2">
+        <p-floatlabel variant="in" class="w-full">
+          <input pInputText
+                 id="edit-playlist-name"
+                 formControlName="name"
+                 class="w-full min-h-[44px]"
+                 autocomplete="off"
+                 [attr.aria-label]="'music.playlist-edit.name' | translate" />
+          <label for="edit-playlist-name">{{ 'music.playlist-edit.name' | translate }} *</label>
+        </p-floatlabel>
+
+        <p-floatlabel variant="in" class="w-full">
+          <textarea pTextarea
+                    id="edit-playlist-description"
+                    formControlName="description"
+                    rows="4"
+                    class="w-full resize-none"
+                    [attr.aria-label]="'music.playlist-edit.description' | translate"></textarea>
+          <label for="edit-playlist-description">{{ 'music.playlist-edit.description' | translate }}</label>
+        </p-floatlabel>
+
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <p-button type="button"
+                    [label]="'music.playlist-edit.cancel' | translate"
+                    variant="outlined"
+                    severity="secondary"
+                    class="min-h-[44px]"
+                    [disabled]="submittingEdit()"
+                    (onClick)="closeEditDialog()"></p-button>
+          <p-button type="submit"
+                    [label]="'music.playlist-edit.submit' | translate"
+                    severity="primary"
+                    class="min-h-[44px]"
+                    [disabled]="editForm.invalid || submittingEdit()"
+                    [loading]="submittingEdit()"></p-button>
+        </div>
+      </form>
+    </p-dialog>
+  }
+</div>

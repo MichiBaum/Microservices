@@ -1,0 +1,66 @@
+<div class="flex flex-col gap-6">
+  <div class="flex flex-col tablet:flex-row tablet:items-center justify-between gap-4">
+    <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 m-0">
+      {{ 'music.library.playlists.title' | translate }}
+    </h2>
+    <div class="flex flex-wrap items-center gap-3">
+      <p-button
+        [disabled]="loading() || syncing()"
+        severity="secondary"
+        variant="outlined"
+        class="min-h-[44px]"
+        (onClick)="openCreateDialog()">
+        <ng-template pTemplate="content">
+          <div class="flex items-center gap-2">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            <span>{{ 'music.library.playlists.create' | translate }}</span>
+          </div>
+        </ng-template>
+      </p-button>
+
+      <p-button
+        [disabled]="loading() || syncing()"
+        class="min-h-[44px]"
+        (onClick)="syncWithSpotify()">
+        <ng-template pTemplate="content">
+          <div class="flex items-center gap-2">
+            <fa-icon [icon]="syncing() ? faRotate : faSpotify" [animation]="syncing() ? 'spin' : undefined"></fa-icon>
+            <span>{{ 'music.library.playlists.sync' | translate }}</span>
+          </div>
+        </ng-template>
+      </p-button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 gap-4">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <p-skeleton height="260px" class="rounded-lg"></p-skeleton>
+      }
+    </div>
+  } @else if (playlists().length === 0) {
+    <div class="flex flex-col items-center justify-center py-16 px-4 text-center text-slate-500 dark:text-slate-400 bg-surface-50 dark:bg-surface-800/40 rounded-lg border border-dashed border-surface-300 dark:border-surface-700">
+      <p class="text-lg font-medium mb-4">{{ 'music.library.playlists.empty' | translate }}</p>
+      <p-button
+        [label]="'music.library.playlists.create' | translate"
+        severity="primary"
+        class="min-h-[44px]"
+        (onClick)="openCreateDialog()">
+        <ng-template pTemplate="icon">
+          <fa-icon [icon]="faPlus" class="mr-2"></fa-icon>
+        </ng-template>
+      </p-button>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 gap-4">
+      @for (playlist of playlists(); track playlist.id) {
+        <app-playlist-card [playlist]="playlist"></app-playlist-card>
+      }
+    </div>
+  }
+
+  <app-playlist-create-dialog
+    [(visible)]="createDialogOpen"
+    (created)="onPlaylistCreated($event)">
+  </app-playlist-create-dialog>
+</div>
