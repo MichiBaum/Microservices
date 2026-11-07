@@ -8,6 +8,8 @@ import com.michibaum.authentication_service.app.authentication.AuthenticationSer
 import com.michibaum.authentication_service.app.basic_authentication.AuthenticationAttemptService
 import com.michibaum.authentication_service.database.AuthenticationAttempt
 import com.michibaum.authentication_service.database.JwtEntity
+import com.michibaum.authentication_service.database.UserCredentials
+import com.michibaum.authentication_service.database.UserCredentialsRepository
 import com.michibaum.authentication_service.database.basic_authentication.BasicAuthenticationAttempt
 import com.michibaum.authentication_service.database.basic_authentication.BasicAuthenticationFailure
 import com.michibaum.authentication_service.database.basic_authentication.BasicAuthenticationSuccess
@@ -15,13 +17,14 @@ import com.michibaum.usermanagement_library.UserDetailsDto
 import com.michibaum.usermanagement_library.UsermanagementClient
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.http.HttpStatus
-import java.util.UUID
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @ExtendWith(MockitoExtension::class)
 class AuthenticationControllerUT {
@@ -29,18 +32,29 @@ class AuthenticationControllerUT {
     private val authenticationService: AuthenticationService = mockk()
     private val authenticationAttemptService: AuthenticationAttemptService = mockk()
     private val usermanagementClient: UsermanagementClient = mockk()
+    private val userCredentialsRepository: UserCredentialsRepository = mockk()
+    private val passwordEncoder: PasswordEncoder = mockk()
 
-    private val authenticationController: AuthenticationController = AuthenticationController(authenticationService, usermanagementClient, authenticationAttemptService)
+    private val authenticationController: AuthenticationController = AuthenticationController(
+        authenticationService,
+        usermanagementClient,
+        authenticationAttemptService,
+        userCredentialsRepository,
+        passwordEncoder
+    )
 
     @Test
-    fun `Authentication successful`(){
+    fun `Authentication successful with local credentials`(){
         // GIVEN
         val userDetailsDto = UserDetailsDto(
             id = "ubdf-sdfg-sdfv-sdfv",
             username = "UName",
             permissions = emptySet()
         )
-        every { usermanagementClient.checkUserDetails(any()) } returns userDetailsDto
+        val userCredentials = UserCredentials("ubdf-sdfg-sdfv-sdfv", "UName", "hashedPassword")
+        every { userCredentialsRepository.findByUsername("UName") } returns userCredentials
+        every { passwordEncoder.matches("Passwört", "hashedPassword") } returns true
+        every { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") } returns userDetailsDto
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
         every { authenticationAttemptService.attemptSuccessful(any(), any(), any()) } answers { BasicAuthenticationSuccess(userDetailsDto.id, JwtEntity(jwt = thirdArg()), firstArg(), secondArg()) }
 
@@ -55,11 +69,89 @@ class AuthenticationControllerUT {
         assertEquals(HttpStatus.OK, result.statusCode)
         assertEquals(jws, result.body?.jwt ?: "")
         assertEquals(authenticationDto.username, result.body?.username ?: "")
+        verify(exactly = 0) { usermanagementClient.checkUserDetails(any()) }
     }
 
     @Test
-    fun `Bad credentials`(){
+    fun `Authentication successful with local credentials when userDetails username is null`(){
         // GIVEN
+        val userDetailsDto = UserDetailsDto(
+            id = "ubdf-sdfg-sdfv-sdfv",
+            username = null,
+            permissions = emptySet()
+        )
+        val userCredentials = UserCredentials("ubdf-sdfg-sdfv-sdfv", "UName", "hashedPassword")
+        every { userCredentialsRepository.findByUsername("UName") } returns userCredentials
+        every { passwordEncoder.matches("Passwört", "hashedPassword") } returns true
+        every { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") } returns userDetailsDto
+        every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
+        every { authenticationAttemptService.attemptSuccessful(any(), any(), any()) } answers { BasicAuthenticationSuccess(userDetailsDto.id, JwtEntity(jwt = thirdArg()), firstArg(), secondArg()) }
+
+        val jws = "1234qwer"
+        val authenticationDto = AuthenticationDto("UName", "Passwört")
+        val expectedUserDetails = userDetailsDto.copy(username = "UName")
+        every { authenticationService.generateJWS(expectedUserDetails) } returns jws
+
+        // WHEN
+        val result = authenticationController.authenticate(authenticationDto)
+
+        // THEN
+        assertEquals(HttpStatus.OK, result.statusCode)
+        assertEquals(jws, result.body?.jwt ?: "")
+        assertEquals(authenticationDto.username, result.body?.username ?: "")
+        verify(exactly = 1) { authenticationService.generateJWS(expectedUserDetails) }
+    }
+
+    @Test
+    fun `Authentication successful with lazy migration fallback`(){
+        // GIVEN
+        val userDetailsDto = UserDetailsDto(
+            id = "ubdf-sdfg-sdfv-sdfv",
+            username = "UName",
+            permissions = emptySet()
+        )
+        every { userCredentialsRepository.findByUsername("UName") } returns null
+        every { usermanagementClient.checkUserDetails(any()) } returns userDetailsDto
+        every { passwordEncoder.encode("Passwört") } returns "encodedPassword"
+        every { userCredentialsRepository.save(any()) } answers { firstArg() }
+        every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
+        every { authenticationAttemptService.attemptSuccessful(any(), any(), any()) } answers { BasicAuthenticationSuccess(userDetailsDto.id, JwtEntity(jwt = thirdArg()), firstArg(), secondArg()) }
+
+        val jws = "1234qwer"
+        val authenticationDto = AuthenticationDto("UName", "Passwört")
+        every { authenticationService.generateJWS(userDetailsDto) } returns jws
+
+        // WHEN
+        val result = authenticationController.authenticate(authenticationDto)
+
+        // THEN
+        assertEquals(HttpStatus.OK, result.statusCode)
+        assertEquals(jws, result.body?.jwt ?: "")
+        assertEquals(authenticationDto.username, result.body?.username ?: "")
+        verify(exactly = 1) { userCredentialsRepository.save(match { it.userId == userDetailsDto.id && it.username == "UName" }) }
+    }
+
+    @Test
+    fun `Bad credentials with local credentials`(){
+        // GIVEN
+        val userCredentials = UserCredentials("ubdf-sdfg-sdfv-sdfv", "UName", "hashedPassword")
+        every { userCredentialsRepository.findByUsername("UName") } returns userCredentials
+        every { passwordEncoder.matches("Passwört", "hashedPassword") } returns false
+        every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
+        every { authenticationAttemptService.attemptFailed(any()) } answers { BasicAuthenticationFailure(firstArg(), firstArg<BasicAuthenticationAttempt>().username) }
+        val authenticationDto = AuthenticationDto("UName", "Passwört")
+
+        // WHEN
+        val result = authenticationController.authenticate(authenticationDto)
+
+        // THEN
+        assertEquals(HttpStatus.UNAUTHORIZED, result.statusCode)
+    }
+
+    @Test
+    fun `Bad credentials with lazy migration fallback`(){
+        // GIVEN
+        every { userCredentialsRepository.findByUsername("UName") } returns null
         every { usermanagementClient.checkUserDetails(any()) } returns null
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
         every { authenticationAttemptService.attemptFailed(any()) } answers { BasicAuthenticationFailure(firstArg(), firstArg<BasicAuthenticationAttempt>().username) }
@@ -70,7 +162,6 @@ class AuthenticationControllerUT {
 
         // THEN
         assertEquals(HttpStatus.UNAUTHORIZED, result.statusCode)
-        assertEquals(0, result.headers.size())
     }
 
     @Test

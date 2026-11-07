@@ -13,6 +13,7 @@ class UsermanagementController (
     private val permiRepository: PermissionRepository
 ) : UserManagementEndpoints {
 
+    @Deprecated(message = "Use authentication-service local verification and getUserDetailsById")
     override fun checkUserDetails(loginDto: LoginDto): UserDetailsDto? {
         val errors = LoginDtoValidator.validate(loginDto)
         if(errors.isNotEmpty())
@@ -25,7 +26,7 @@ class UsermanagementController (
             Thread.sleep(sleepTime)
             return null
         }
-        val matching = userService.checkPassword(loginDto.password, user.password)
+        val matching = user.password?.let { userService.checkPassword(loginDto.password, it) } ?: false
         if (!matching)
             return null
         
@@ -42,7 +43,7 @@ class UsermanagementController (
         if(errors.isNotEmpty())
             return null
 
-        val alreadyExists = userService.anyExists(createUserDto.username, createUserDto.email)
+        val alreadyExists = userService.emailExists(createUserDto.email)
         if (alreadyExists)
             return null
 
@@ -54,6 +55,25 @@ class UsermanagementController (
             permissions = userPermissionMapping.map { it.permission.permission }.toSet()
         )
         return dto
+    }
+
+    override fun getUserDetailsById(id: String): UserDetailsDto? {
+        val userId = try {
+            UUID.fromString(id)
+        } catch (_: Exception) {
+            return null
+        }
+        return userService.getUserDetailsById(userId)
+    }
+
+    override fun delete(id: String): ResponseEntity<Void> {
+        val userId = try {
+            UUID.fromString(id)
+        } catch (_: Exception) {
+            return ResponseEntity.badRequest().build()
+        }
+        userService.deleteUser(userId)
+        return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/api/user/{id}")

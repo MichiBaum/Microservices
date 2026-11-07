@@ -5,6 +5,8 @@ import com.michibaum.authentication_library.security.ServletAuthenticationFilter
 import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod.DELETE
+import org.springframework.http.HttpMethod.GET
 import org.springframework.http.HttpMethod.POST
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -32,7 +34,10 @@ class SecurityConfiguration {
             .authorizeHttpRequests { authorizeHttpRequests ->
                 authorizeHttpRequests
                     .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()
-                    .requestMatchers(POST,"/api/checkUserDetails", "/api/users").permitAll()
+                    .requestMatchers(POST, "/api/checkUserDetails").permitAll()
+                    .requestMatchers(POST, "/api/users").hasAnyAuthority(Permissions.AUTHENTICATION_SERVICE.name, Permissions.USERMANAGEMENT_SERVICE.name)
+                    .requestMatchers(GET, "/api/users/**").hasAnyAuthority(Permissions.AUTHENTICATION_SERVICE.name, Permissions.USERMANAGEMENT_SERVICE.name)
+                    .requestMatchers(DELETE, "/api/users/**").hasAnyAuthority(Permissions.AUTHENTICATION_SERVICE.name, Permissions.USERMANAGEMENT_SERVICE.name)
                     .requestMatchers("/actuator", "/actuator/**").hasAnyAuthority(Permissions.ADMIN_SERVICE.name)
                     .anyRequest().hasAnyAuthority(Permissions.USERMANAGEMENT_SERVICE.name)
             }

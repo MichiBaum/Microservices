@@ -3,6 +3,7 @@ package com.michibaum.authentication_service.app.authentication
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.michibaum.authentication_library.PublicKeyDto
+import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.UserDetailsDto
 import org.springframework.stereotype.Service
 import java.security.KeyPair
@@ -20,15 +21,29 @@ class AuthenticationService (
                 keyPair.public.encoded
         )
 
-    fun generateJWS(userDetails: UserDetailsDto): String? {
+    fun generateJWS(userDetails: UserDetailsDto, username: String? = userDetails.username): String? {
+        val subject = username ?: userDetails.username
+        requireNotNull(subject) { "Subject (username) must not be null when generating JWS" }
         return JWT.create()
                 .withHeader(jwsHeaders())
                 .withIssuer("authentication-service")
-                .withSubject(userDetails.username)
+                .withSubject(subject)
                 .withExpiresAt(Instant.now().plusSeconds(60*60*8))
                 .withIssuedAt(Instant.now())
                 .withClaim("userId", userDetails.id)
                 .withArrayClaim("permissions", userDetails.permissions.toTypedArray())
+                .sign(algorithm)
+    }
+
+    fun generateInternalServiceJWS(): String {
+        return JWT.create()
+                .withHeader(jwsHeaders())
+                .withIssuer("authentication-service")
+                .withSubject("authentication-service")
+                .withExpiresAt(Instant.now().plusSeconds(60*60*8))
+                .withIssuedAt(Instant.now())
+                .withClaim("userId", "authentication-service")
+                .withArrayClaim("permissions", arrayOf(Permissions.AUTHENTICATION_SERVICE.name))
                 .sign(algorithm)
     }
 

@@ -6,6 +6,9 @@ import com.michibaum.authentication_library.security.jwt.JwsValidator
 import com.michibaum.authentication_service.app.authentication.AuthenticationService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 class SecurityBeansConfiguration {
@@ -19,5 +22,9 @@ class SecurityBeansConfiguration {
         }
         return JwsValidator(authenticationClient)
     }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder =
+        BCryptPasswordEncoder(BCryptVersion.`$2A`, 10, null)
 
 }
