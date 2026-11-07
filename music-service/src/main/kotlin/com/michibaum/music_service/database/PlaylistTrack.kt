@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity
 @Table(name = "playlist_track")
-data class PlaylistTrack(
+class PlaylistTrack(
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "playlist_id", nullable = false)
     val playlist: Playlist,
@@ -26,4 +26,12 @@ data class PlaylistTrack(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PlaylistTrack) return false
+        return id != null && id == other.id
+    }
+
+    override fun hashCode(): Int = id?.hashCode() ?: 0
+}

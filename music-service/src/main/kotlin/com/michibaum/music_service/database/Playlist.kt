@@ -8,7 +8,7 @@ import java.util.*
 
 @Entity
 @Table(name = "playlist")
-data class Playlist(
+class Playlist(
     @Column(nullable = false)
     var name: String,
 
@@ -32,4 +32,12 @@ data class Playlist(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Playlist) return false
+        return id != null && id == other.id
+    }
+
+    override fun hashCode(): Int = id?.hashCode() ?: 0
+}
