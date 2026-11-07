@@ -1,0 +1,48 @@
+<p-dialog [header]="'music.playlist-create.title' | translate"
+          [modal]="true"
+          [visible]="visible()"
+          (visibleChange)="visible.set($event)"
+          (onHide)="close()"
+          [style]="{ width: '100%', maxWidth: '28rem' }"
+          [draggable]="false"
+          [resizable]="false"
+          class="p-dialog-responsive">
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-5 pt-2">
+    <p-floatlabel variant="in" class="w-full">
+      <input pInputText
+             id="create-playlist-name"
+             formControlName="name"
+             class="w-full min-h-[44px]"
+             autocomplete="off"
+             [attr.aria-label]="'music.playlist-create.name' | translate" />
+      <label for="create-playlist-name">{{ 'music.playlist-create.name' | translate }} *</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in" class="w-full">
+      <textarea pTextarea
+                id="create-playlist-description"
+                formControlName="description"
+                rows="4"
+                class="w-full resize-none"
+                [attr.aria-label]="'music.playlist-create.description' | translate"></textarea>
+      <label for="create-playlist-description">{{ 'music.playlist-create.description' | translate }}</label>
+    </p-floatlabel>
+
+    <div class="flex items-center justify-end gap-3 pt-2">
+      <p-button type="button"
+                [label]="'music.playlist-create.cancel' | translate"
+                variant="outlined"
+                severity="secondary"
+                class="min-h-[44px]"
+                [disabled]="submitting()"
+                (onClick)="close()"></p-button>
+      <p-button type="submit"
+                [label]="'music.playlist-create.submit' | translate"
+                severity="primary"
+                class="min-h-[44px]"
+                [disabled]="form.invalid || submitting()"
+                [loading]="submitting()"></p-button>
+    </div>
+  </form>
+</p-dialog>

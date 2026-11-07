@@ -271,6 +271,18 @@ export const routes: Routes = [
                 data: {"permissions": [Permissions.MUSIC_SERVICE]},
             },
             {
+                path: "library/playlists",
+                loadComponent: () => import("./music/playlists/music-library-playlists/music-library-playlists.component").then((c) => c.MusicLibraryPlaylistsComponent),
+                canActivate: [isAuthenticatedGuard, isPermittedGuard],
+                data: {"permissions": [Permissions.MUSIC_SERVICE]},
+            },
+            {
+                path: "library/playlists/:id",
+                loadComponent: () => import("./music/playlists/playlist-detail/playlist-detail.component").then((c) => c.PlaylistDetailComponent),
+                canActivate: [isAuthenticatedGuard, isPermittedGuard],
+                data: {"permissions": [Permissions.MUSIC_SERVICE]},
+            },
+            {
                 path: "spotify",
                 loadComponent: () => import("./music/music-spotify/music-spotify.component").then((c) => c.MusicSpotifyComponent),
                 canActivate: [isAuthenticatedGuard, isPermittedGuard],
