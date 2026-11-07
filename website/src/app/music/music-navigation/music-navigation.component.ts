@@ -66,6 +66,10 @@ export class MusicNavigationComponent {
                         routerLink: '/music/library/artists'
                     },
                     {
+                        label: 'music.navigation.playlists',
+                        routerLink: '/music/library/playlists'
+                    },
+                    {
                         label: 'music.navigation.albums',
                         routerLink: '/music/library/albums'
                     },
