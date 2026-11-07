@@ -13,7 +13,7 @@ class UsermanagementController (
     private val permiRepository: PermissionRepository
 ) : UserManagementEndpoints {
 
-    @Deprecated(message = "Use authentication-service local verification and getUserDetailsByUsername")
+    @Deprecated(message = "Use authentication-service local verification and getUserDetailsById")
     override fun checkUserDetails(loginDto: LoginDto): UserDetailsDto? {
         val errors = LoginDtoValidator.validate(loginDto)
         if(errors.isNotEmpty())
@@ -57,8 +57,13 @@ class UsermanagementController (
         return dto
     }
 
-    override fun getUserDetailsByUsername(username: String): UserDetailsDto? {
-        return userService.getUserDetailsByUsername(username)
+    override fun getUserDetailsById(id: String): UserDetailsDto? {
+        val userId = try {
+            UUID.fromString(id)
+        } catch (_: Exception) {
+            return null
+        }
+        return userService.getUserDetailsById(userId)
     }
 
     override fun delete(id: String): ResponseEntity<Void> {

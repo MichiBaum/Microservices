@@ -24,6 +24,16 @@ class UserService(
 
     fun getUser(id: UUID) = userRepository.findById(id).orElseNull()
 
+    fun getUserDetailsById(id: UUID): UserDetailsDto? {
+        val user = userRepository.findById(id).orElseNull() ?: return null
+        val permissions = permissionRepository.findByUser(user)
+        return UserDetailsDto(
+            id = user.id.toString(),
+            username = user.username,
+            permissions = permissions.map { it.permission }.toSet()
+        )
+    }
+
     fun getUserDetailsByUsername(username: String): UserDetailsDto? {
         val user = userRepository.findByUsername(username) ?: return null
         val permissions = permissionRepository.findByUser(user)

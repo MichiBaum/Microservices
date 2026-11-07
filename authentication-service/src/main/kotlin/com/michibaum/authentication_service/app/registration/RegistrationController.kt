@@ -47,6 +47,7 @@ class RegistrationController(
         try {
             userCredentialsRepository.save(
                 UserCredentials(
+                    userId = createdUser.id,
                     username = registerDto.username,
                     passwordHash = passwordEncoder.encode(registerDto.password)!!,
                     enabled = true

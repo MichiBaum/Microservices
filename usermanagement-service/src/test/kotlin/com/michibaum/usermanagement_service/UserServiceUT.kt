@@ -26,6 +26,33 @@ class UserServiceUT {
     )
 
     @Test
+    fun `getUserDetailsById returns details when user exists`() {
+        val userId = UUID.randomUUID()
+        val user = User("john_doe", "john@example.com", "hash", userId)
+        val perm = Permission(Permissions.CHESS_SERVICE.name)
+
+        every { userRepository.findById(userId) } returns Optional.of(user)
+        every { permissionRepository.findByUser(user) } returns listOf(perm)
+
+        val result = userService.getUserDetailsById(userId)
+
+        assertNotNull(result)
+        assertEquals(userId.toString(), result?.id)
+        assertEquals("john_doe", result?.username)
+        assertTrue(result!!.permissions.contains(Permissions.CHESS_SERVICE.name))
+    }
+
+    @Test
+    fun `getUserDetailsById returns null when user does not exist`() {
+        val userId = UUID.randomUUID()
+        every { userRepository.findById(userId) } returns Optional.empty()
+
+        val result = userService.getUserDetailsById(userId)
+
+        assertNull(result)
+    }
+
+    @Test
     fun `getUserDetailsByUsername returns details when user exists`() {
         val userId = UUID.randomUUID()
         val user = User("john_doe", "john@example.com", "hash", userId)

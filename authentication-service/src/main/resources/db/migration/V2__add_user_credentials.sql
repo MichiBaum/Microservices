@@ -1,5 +1,6 @@
 create table user_credentials (
     id uuid not null,
+    user_id varchar(255) not null,
     username varchar(255) not null,
     password_hash varchar(255) not null,
     enabled boolean not null default true,

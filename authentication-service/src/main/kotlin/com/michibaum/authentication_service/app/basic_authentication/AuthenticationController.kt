@@ -40,13 +40,14 @@ class AuthenticationController (
             if (!credentials.enabled || !passwordEncoder.matches(loginDto.password, credentials.passwordHash)) {
                 null
             } else {
-                usermanagementClient.getUserDetailsByUsername(loginDto.username)
+                usermanagementClient.getUserDetailsById(credentials.userId)
             }
         } else {
             val fallbackDetails = usermanagementClient.checkUserDetails(loginDto)
             if (fallbackDetails != null) {
                 userCredentialsRepository.save(
                     UserCredentials(
+                        userId = fallbackDetails.id,
                         username = loginDto.username,
                         passwordHash = passwordEncoder.encode(loginDto.password)!!,
                         enabled = true

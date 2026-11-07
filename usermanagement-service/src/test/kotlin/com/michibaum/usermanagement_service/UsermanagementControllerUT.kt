@@ -19,26 +19,36 @@ class UsermanagementControllerUT {
     private val controller = UsermanagementController(userService, permissionRepository)
 
     @Test
-    fun `getUserDetailsByUsername returns details when found`() {
+    fun `getUserDetailsById returns details when found`() {
+        val userId = UUID.randomUUID()
         val userDetails = UserDetailsDto(
-            id = UUID.randomUUID().toString(),
+            id = userId.toString(),
             username = "alice",
             permissions = setOf("CHESS_SERVICE")
         )
-        every { userService.getUserDetailsByUsername("alice") } returns userDetails
+        every { userService.getUserDetailsById(userId) } returns userDetails
 
-        val result = controller.getUserDetailsByUsername("alice")
+        val result = controller.getUserDetailsById(userId.toString())
 
         assertEquals(userDetails, result)
     }
 
     @Test
-    fun `getUserDetailsByUsername returns null when not found`() {
-        every { userService.getUserDetailsByUsername("unknown") } returns null
+    fun `getUserDetailsById returns null when not found`() {
+        val userId = UUID.randomUUID()
+        every { userService.getUserDetailsById(userId) } returns null
 
-        val result = controller.getUserDetailsByUsername("unknown")
+        val result = controller.getUserDetailsById(userId.toString())
 
         assertNull(result)
+    }
+
+    @Test
+    fun `getUserDetailsById returns null on invalid UUID`() {
+        val result = controller.getUserDetailsById("not-a-uuid")
+
+        assertNull(result)
+        verify(exactly = 0) { userService.getUserDetailsById(any()) }
     }
 
     @Test

@@ -43,7 +43,7 @@ class RegistrationControllerUT {
         assertEquals(HttpStatus.CREATED, response.statusCode)
         assertEquals(RegisterState.SUCCESS, response.body?.state)
         assertEquals("alice", response.body?.username)
-        verify(exactly = 1) { userCredentialsRepository.save(any()) }
+        verify(exactly = 1) { userCredentialsRepository.save(match { it.userId == createdUser.id && it.username == "alice" }) }
     }
 
     @Test

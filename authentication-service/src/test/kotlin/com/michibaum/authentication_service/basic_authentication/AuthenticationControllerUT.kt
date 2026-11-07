@@ -51,10 +51,10 @@ class AuthenticationControllerUT {
             username = "UName",
             permissions = emptySet()
         )
-        val userCredentials = UserCredentials("UName", "hashedPassword")
+        val userCredentials = UserCredentials("ubdf-sdfg-sdfv-sdfv", "UName", "hashedPassword")
         every { userCredentialsRepository.findByUsername("UName") } returns userCredentials
         every { passwordEncoder.matches("Passwört", "hashedPassword") } returns true
-        every { usermanagementClient.getUserDetailsByUsername("UName") } returns userDetailsDto
+        every { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") } returns userDetailsDto
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
         every { authenticationAttemptService.attemptSuccessful(any(), any(), any()) } answers { BasicAuthenticationSuccess(userDetailsDto.id, JwtEntity(jwt = thirdArg()), firstArg(), secondArg()) }
 
@@ -98,13 +98,13 @@ class AuthenticationControllerUT {
         assertEquals(HttpStatus.OK, result.statusCode)
         assertEquals(jws, result.body?.jwt ?: "")
         assertEquals(authenticationDto.username, result.body?.username ?: "")
-        verify(exactly = 1) { userCredentialsRepository.save(any()) }
+        verify(exactly = 1) { userCredentialsRepository.save(match { it.userId == userDetailsDto.id && it.username == "UName" }) }
     }
 
     @Test
     fun `Bad credentials with local credentials`(){
         // GIVEN
-        val userCredentials = UserCredentials("UName", "hashedPassword")
+        val userCredentials = UserCredentials("ubdf-sdfg-sdfv-sdfv", "UName", "hashedPassword")
         every { userCredentialsRepository.findByUsername("UName") } returns userCredentials
         every { passwordEncoder.matches("Passwört", "hashedPassword") } returns false
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }

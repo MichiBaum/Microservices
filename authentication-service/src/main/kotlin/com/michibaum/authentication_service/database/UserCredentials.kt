@@ -7,6 +7,9 @@ import java.util.UUID
 @Entity
 @Table(name = "user_credentials")
 class UserCredentials(
+    @Column(nullable = false, name = "user_id")
+    val userId: String,
+
     @Column(nullable = false, unique = true)
     val username: String,
 
