@@ -8,6 +8,5 @@ data class ReturnUserDto(
 
 data class UpdateUserDto(
     val username: String,
-    val email: String,
-    val password: String
+    val email: String
 )

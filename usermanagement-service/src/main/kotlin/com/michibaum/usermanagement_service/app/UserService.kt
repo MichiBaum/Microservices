@@ -2,6 +2,7 @@ package com.michibaum.usermanagement_service.app
 
 import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.CreateUserDto
+import com.michibaum.usermanagement_library.UserDetailsDto
 import com.michibaum.usermanagement_service.database.PermissionRepository
 import com.michibaum.usermanagement_service.database.User
 import com.michibaum.usermanagement_service.database.UserPermissionMapping
@@ -10,6 +11,7 @@ import com.michibaum.usermanagement_service.database.UserRepository
 import io.micrometer.observation.annotation.Observed
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -21,6 +23,23 @@ class UserService(
 ) {
 
     fun getUser(id: UUID) = userRepository.findById(id).orElseNull()
+
+    fun getUserDetailsByUsername(username: String): UserDetailsDto? {
+        val user = userRepository.findByUsername(username) ?: return null
+        val permissions = permissionRepository.findByUser(user)
+        return UserDetailsDto(
+            id = user.id.toString(),
+            username = user.username,
+            permissions = permissions.map { it.permission }.toSet()
+        )
+    }
+
+    @Transactional
+    fun deleteUser(id: UUID) {
+        val user = userRepository.findById(id).orElseNull() ?: return
+        userPermissionMappingRepository.deleteByUser(user)
+        userRepository.delete(user)
+    }
 
     fun update(id: UUID, updateUserDto: UpdateUserDto): User? {
         val foundUser = userRepository.findById(id).orElseNull()
