@@ -56,16 +56,34 @@ class SpotifyPlaylistApiImpl(
 
     @Observed(name = "spotify.api.get.playlist.tracks")
     override fun getPlaylistTracks(playlistId: String, credentials: SpotifyOAuthCredentials): List<PlaylistTrackObject> {
-        return tryCall("getPlaylistTracks", credentials) { creds ->
-            client.get()
-                .uri("/playlists/{playlistId}/items", playlistId)
-                .headers {
-                    it.setBearerAuth(creds.accessToken)
-                }
-                .retrieve()
-                .body(PagingPlaylistTrackObject::class.java)
-                ?.items
-        } ?: emptyList()
+        val allTracks = mutableListOf<PlaylistTrackObject>()
+        var offset = 0
+        val limit = 50
+
+        while (true) {
+            val page = tryCall("getPlaylistTracks", credentials) { creds ->
+                client.get()
+                    .uri("/playlists/{playlistId}/items?limit={limit}&offset={offset}", playlistId, limit, offset)
+                    .headers {
+                        it.setBearerAuth(creds.accessToken)
+                    }
+                    .retrieve()
+                    .body(PagingPlaylistTrackObject::class.java)
+            } ?: break
+
+            val items = page.items
+            if (items.isEmpty()) {
+                break
+            }
+            allTracks.addAll(items)
+
+            if (page.next == null || allTracks.size >= page.total) {
+                break
+            }
+            offset += items.size
+        }
+
+        return allTracks
     }
 
     private fun <T> tryCall(methodName: String, credentials: SpotifyOAuthCredentials, block: (SpotifyOAuthCredentials) -> T): T? {

@@ -173,15 +173,45 @@ class SpotifyPlaylistApiImplTest {
             id = UUID.randomUUID()
         )
 
-        mockServer.expect(requestTo("https://api.spotify.com/v1/playlists/p-123/items"))
+        mockServer.expect(requestTo("https://api.spotify.com/v1/playlists/p-123/items?limit=50&offset=0"))
             .andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer token-123"))
-            .andRespond(withSuccess("""{"href":"https://api.spotify.com/v1/playlists/p-123/items","limit":20,"offset":0,"total":1,"items":[{"is_local":false}]}""", MediaType.APPLICATION_JSON))
+            .andRespond(withSuccess("""{"href":"https://api.spotify.com/v1/playlists/p-123/items?limit=50&offset=0","limit":50,"offset":0,"total":1,"items":[{"is_local":false}]}""", MediaType.APPLICATION_JSON))
 
         val result = spotifyPlaylistApi.getPlaylistTracks("p-123", credentials)
 
         assertNotNull(result)
         assertEquals(1, result.size)
         assertEquals(false, result[0].isLocal)
+        mockServer.verify()
+    }
+
+    @Test
+    fun `getPlaylistTracks paginates and collects all tracks across multiple pages`() {
+        val credentials = SpotifyOAuthCredentials(
+            accessToken = "token-123",
+            expiresIn = 3600,
+            refreshToken = "refresh-123",
+            scope = "playlist-read-private",
+            userId = "user-1",
+            createdDate = Instant.now(),
+            validUntil = Instant.now().plusSeconds(3600),
+            id = UUID.randomUUID()
+        )
+
+        mockServer.expect(requestTo("https://api.spotify.com/v1/playlists/p-123/items?limit=50&offset=0"))
+            .andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer token-123"))
+            .andRespond(withSuccess("""{"href":"...","limit":50,"offset":0,"total":2,"next":"https://api.spotify.com/v1/playlists/p-123/items?limit=50&offset=1","items":[{"is_local":false}]}""", MediaType.APPLICATION_JSON))
+
+        mockServer.expect(requestTo("https://api.spotify.com/v1/playlists/p-123/items?limit=50&offset=1"))
+            .andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer token-123"))
+            .andRespond(withSuccess("""{"href":"...","limit":50,"offset":1,"total":2,"next":null,"items":[{"is_local":true}]}""", MediaType.APPLICATION_JSON))
+
+        val result = spotifyPlaylistApi.getPlaylistTracks("p-123", credentials)
+
+        assertNotNull(result)
+        assertEquals(2, result.size)
+        assertEquals(false, result[0].isLocal)
+        assertEquals(true, result[1].isLocal)
         mockServer.verify()
     }
 
@@ -200,7 +230,7 @@ class SpotifyPlaylistApiImplTest {
 
         every { spotifyOAuthService.getActiveToken("user-1", force = true) } returns null
 
-        mockServer.expect(requestTo("https://api.spotify.com/v1/playlists/p-123/items"))
+        mockServer.expect(requestTo("https://api.spotify.com/v1/playlists/p-123/items?limit=50&offset=0"))
             .andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer expired-token"))
             .andRespond(withUnauthorizedRequest())
 
