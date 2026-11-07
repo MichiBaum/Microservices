@@ -271,6 +271,15 @@
         "title": "微服务"
     },
     "music": {
+        "navigation": {
+            "albums": "专辑",
+            "artists": "艺术家",
+            "home": "首页",
+            "library": "资料库",
+            "settings": "设置",
+            "spotify": "Spotify",
+            "tracks": "单曲"
+        },
         "title": "音乐"
     },
     "music-settings": {
@@ -278,7 +287,8 @@
         "spotify": {
             "title": "Spotify 设置",
             "description": "连接您的 Spotify 帐户以同步您的播放列表和热门曲目。",
-            "login-button": "登录 Spotify"
+            "login-button": "登录 Spotify",
+            "connected": "已连接 Spotify 帐户"
         }
     },
     "navigation": {

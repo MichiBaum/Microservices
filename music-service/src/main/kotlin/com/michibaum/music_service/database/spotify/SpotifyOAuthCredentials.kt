@@ -10,25 +10,25 @@ class SpotifyOAuthCredentials(
 
     @Lob
     @Column(nullable = false, unique = true, length=512)
-    val accessToken: String,
+    var accessToken: String,
 
     @Column(nullable = false, unique = false)
-    val expiresIn: Int,
+    var expiresIn: Int,
 
     @Column(nullable = false, unique = true)
-    val refreshToken: String,
+    var refreshToken: String,
 
     @Column(nullable = false, unique = false, length = 2048)
-    val scope: String,
+    var scope: String,
 
     @Column(nullable = false, unique = false)
     val userId: String,
 
     @Column(nullable = false, unique = false)
-    val createdDate: Instant,
+    var createdDate: Instant,
 
     @Column(nullable = false, unique = false)
-    val validUntil: Instant,
+    var validUntil: Instant,
 
     @Column(nullable = false, unique = false)
     var deactivated: Boolean = false,

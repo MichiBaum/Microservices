@@ -16,26 +16,56 @@ challenges:
         - "1.1.1.1:53"
 
 certificates:
-  multi-wildcard:
+  michibaum-ch:
     challenge: hosttech-dns
     domains:
       - michibaum.ch
       - "*.michibaum.ch"
+
+  michibaum-com:
+    challenge: hosttech-dns
+    domains:
       - michibaum.com
       - "*.michibaum.com"
+
+  michibaum-eu:
+    challenge: hosttech-dns
+    domains:
       - michibaum.eu
       - "*.michibaum.eu"
+
+  michibaum-org:
+    challenge: hosttech-dns
+    domains:
       - michibaum.org
       - "*.michibaum.org"
+
+  michibaum-me:
+    challenge: hosttech-dns
+    domains:
       - michibaum.me
       - "*.michibaum.me"
+
+  michibaum-net:
+    challenge: hosttech-dns
+    domains:
       - michibaum.net
       - "*.michibaum.net"
+
+  michibaum-info:
+    challenge: hosttech-dns
+    domains:
       - michibaum.info
       - "*.michibaum.info"
+
+  michibaum-xyz:
+    challenge: hosttech-dns
+    domains:
       - michibaum.xyz
       - "*.michibaum.xyz"
+
+  baumberger-software-ch:
+    challenge: hosttech-dns
+    domains:
       - baumberger-software.ch
       - "*.baumberger-software.ch"
-      - babymetal.ch
-      - "*.babymetal.ch"

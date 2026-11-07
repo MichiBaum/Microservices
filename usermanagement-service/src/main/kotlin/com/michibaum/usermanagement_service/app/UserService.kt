@@ -2,6 +2,7 @@ package com.michibaum.usermanagement_service.app
 
 import com.michibaum.permission_library.Permissions
 import com.michibaum.usermanagement_library.CreateUserDto
+import com.michibaum.usermanagement_library.UserDetailsDto
 import com.michibaum.usermanagement_service.database.PermissionRepository
 import com.michibaum.usermanagement_service.database.User
 import com.michibaum.usermanagement_service.database.UserPermissionMapping
@@ -10,6 +11,7 @@ import com.michibaum.usermanagement_service.database.UserRepository
 import io.micrometer.observation.annotation.Observed
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -21,6 +23,33 @@ class UserService(
 ) {
 
     fun getUser(id: UUID) = userRepository.findById(id).orElseNull()
+
+    fun getUserDetailsById(id: UUID): UserDetailsDto? {
+        val user = userRepository.findById(id).orElseNull() ?: return null
+        val permissions = permissionRepository.findByUser(user)
+        return UserDetailsDto(
+            id = user.id.toString(),
+            username = user.username,
+            permissions = permissions.map { it.permission }.toSet()
+        )
+    }
+
+    fun getUserDetailsByUsername(username: String): UserDetailsDto? {
+        val user = userRepository.findByUsername(username) ?: return null
+        val permissions = permissionRepository.findByUser(user)
+        return UserDetailsDto(
+            id = user.id.toString(),
+            username = user.username,
+            permissions = permissions.map { it.permission }.toSet()
+        )
+    }
+
+    @Transactional
+    fun deleteUser(id: UUID) {
+        val user = userRepository.findById(id).orElseNull() ?: return
+        userPermissionMappingRepository.deleteByUser(user)
+        userRepository.delete(user)
+    }
 
     fun update(id: UUID, updateUserDto: UpdateUserDto): User? {
         val foundUser = userRepository.findById(id).orElseNull()
@@ -43,11 +72,13 @@ class UserService(
         return userRepository.existsByUsernameOrEmail(username, email)
     }
 
+    fun emailExists(email: String): Boolean {
+        return userRepository.existsByEmail(email)
+    }
+
     fun createDefaultUser(createUserDto: CreateUserDto): User {
         val user = User(
-            username = createUserDto.username,
-            email = createUserDto.email,
-            password = passwordEncoder.encode(createUserDto.password)!!,
+            email = createUserDto.email
         )
         return userRepository.save(user)
     }

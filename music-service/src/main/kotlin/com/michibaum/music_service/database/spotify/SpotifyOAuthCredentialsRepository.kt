@@ -7,4 +7,8 @@ import java.util.*
 @Repository
 interface SpotifyOAuthCredentialsRepository: JpaRepository<SpotifyOAuthCredentials, UUID> {
     fun findByUserIdAndDeactivatedFalse(userId: String): SpotifyOAuthCredentials?
+    fun findAllByUserIdAndDeactivatedFalse(userId: String): List<SpotifyOAuthCredentials>
+    fun findByUserId(userId: String): List<SpotifyOAuthCredentials>
+    fun findByRefreshToken(refreshToken: String): SpotifyOAuthCredentials?
+    fun findByUserIdAndRefreshToken(userId: String, refreshToken: String): SpotifyOAuthCredentials?
 }

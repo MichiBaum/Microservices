@@ -271,6 +271,15 @@
         "title": "Microservicios"
     },
     "music": {
+        "navigation": {
+            "albums": "Álbumes",
+            "artists": "Artistas",
+            "home": "Inicio",
+            "library": "Biblioteca",
+            "settings": "Configuración",
+            "spotify": "Spotify",
+            "tracks": "Pistas"
+        },
         "title": "Música"
     },
     "music-settings": {
@@ -278,7 +287,8 @@
         "spotify": {
             "title": "Configuración de Spotify",
             "description": "Conecte su cuenta de Spotify para sincronizar sus listas de reproducción y pistas principales.",
-            "login-button": "Iniciar sesión en Spotify"
+            "login-button": "Iniciar sesión en Spotify",
+            "connected": "Cuenta de Spotify conectada"
         }
     },
     "navigation": {

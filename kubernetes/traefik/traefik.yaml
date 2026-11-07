@@ -56,3 +56,17 @@ spec:
           enabled: true
           insecure: true
           endpoint: otel-collector.microservices.svc.cluster.local:4317
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: cert-michibaum-ch
+        certificates:
+          - secretName: cert-michibaum-ch
+          - secretName: cert-michibaum-com
+          - secretName: cert-michibaum-eu
+          - secretName: cert-michibaum-org
+          - secretName: cert-michibaum-me
+          - secretName: cert-michibaum-net
+          - secretName: cert-michibaum-info
+          - secretName: cert-michibaum-xyz
+          - secretName: cert-baumberger-software-ch

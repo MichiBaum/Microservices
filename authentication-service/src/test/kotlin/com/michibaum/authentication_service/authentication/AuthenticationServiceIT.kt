@@ -5,9 +5,11 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.michibaum.authentication_service.TestcontainersConfiguration
 import com.michibaum.authentication_service.app.authentication.AuthenticationService
 import com.michibaum.usermanagement_library.UserDetailsDto
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.security.KeyPair
@@ -40,6 +42,41 @@ class AuthenticationServiceIT {
         val alg = Algorithm.RSA256(keyPair.public as RSAPublicKey, keyPair.private as RSAPrivateKey)
         val verifier = JWT.require(alg).build()
         assertDoesNotThrow { verifier.verify(jws) }
+        val decoded = JWT.decode(jws)
+        assertEquals("UName", decoded.subject)
+    }
+
+    @Test
+    fun `jws valid with explicit username when userDetailsDto username is null`() {
+        // GIVEN
+        val userDetailsDto = UserDetailsDto(
+            id = "ubdf-sdfg-sdfv-sdfv",
+            username = null,
+            permissions = emptySet()
+        )
+
+        // WHEN
+        val jws = authService.generateJWS(userDetailsDto, "CustomUsername")
+
+        // THEN
+        assertNotNull(jws)
+        val decoded = JWT.decode(jws)
+        assertEquals("CustomUsername", decoded.subject)
+    }
+
+    @Test
+    fun `generateJWS throws IllegalArgumentException when subject is null`() {
+        // GIVEN
+        val userDetailsDto = UserDetailsDto(
+            id = "ubdf-sdfg-sdfv-sdfv",
+            username = null,
+            permissions = emptySet()
+        )
+
+        // THEN
+        assertThrows<IllegalArgumentException> {
+            authService.generateJWS(userDetailsDto)
+        }
     }
 
 }

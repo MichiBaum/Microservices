@@ -4,7 +4,7 @@ import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_library.security.jwt.JwtAuthentication
 import com.michibaum.music_service.config.properties.ApisProperties
 import com.michibaum.music_service.config.properties.SpotifyOAuthProperties
-import com.michibaum.music_service.database.spotify.SpotifyAccountActivatedRepository
+import io.micrometer.observation.annotation.Observed
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -31,7 +31,7 @@ class SpotifyOAuthController(
 
     init {
         val clientAndSecret = spotifyOAuthProperties.clientId + ":" + spotifyOAuthProperties.clientSecret
-        val authBasic = Base64.getUrlEncoder().withoutPadding().encodeToString(clientAndSecret.encodeToByteArray())
+        val authBasic = Base64.getUrlEncoder().encodeToString(clientAndSecret.encodeToByteArray())
 
         client = restClientBuilder
             .baseUrl("https://accounts.spotify.com")
@@ -44,10 +44,17 @@ class SpotifyOAuthController(
             .build()
     }
     
+    @Observed(name = "spotify.oauth.controller.usage.allowed")
     @GetMapping("/api/spotify/usage-allowed")
     fun usageAllowed(principal: JwtAuthentication): Boolean = 
         spotifyOAuthService.isSpotifyAccountEnabled(principal.getUserId())
 
+    @Observed(name = "spotify.oauth.controller.token.valid")
+    @GetMapping("/api/spotify/token/valid")
+    fun hasValidToken(principal: JwtAuthentication): Boolean =
+        spotifyOAuthService.hasValidToken(principal.getUserId())
+
+    @Observed(name = "spotify.oauth.controller.token")
     @GetMapping("/api/spotify/token")
     fun token(principal: JwtAuthentication): ResponseEntity<SpotifyLoginDto> {
         if (principal.getUserId().isBlank()){
@@ -87,6 +94,7 @@ class SpotifyOAuthController(
         return ResponseEntity.ok(spotifyLoginDto)
     }
 
+    @Observed(name = "spotify.oauth.controller.authorization.code")
     @PublicEndpoint
     @GetMapping("/api/spotify/auth")
     fun authorizationCode(@RequestParam code: String, @RequestParam state: String): ResponseEntity<Void> {

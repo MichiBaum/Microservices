@@ -271,9 +271,21 @@
         "title": "Microservices"
     },
     "music": {
+        "library": {
+            "artists": {
+                "title": "Saved Artists",
+                "sync": "Sync with Spotify",
+                "empty": "No artists found in your library."
+            }
+        },
         "navigation": {
+            "albums": "Albums",
+            "artists": "Artists",
             "home": "Home",
-            "spotify": "Spotify"
+            "library": "Library",
+            "settings": "Settings",
+            "spotify": "Spotify",
+            "tracks": "Tracks"
         },
         "title": "Music"
     },
@@ -282,7 +294,8 @@
         "spotify": {
             "title": "Spotify Settings",
             "description": "Connect your Spotify account to sync your playlists and top tracks.",
-            "login-button": "Spotify Login"
+            "login-button": "Spotify Login",
+            "connected": "Spotify Account Connected"
         }
     },
     "navigation": {
