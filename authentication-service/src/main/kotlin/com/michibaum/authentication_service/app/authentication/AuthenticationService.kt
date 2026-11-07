@@ -21,11 +21,13 @@ class AuthenticationService (
                 keyPair.public.encoded
         )
 
-    fun generateJWS(userDetails: UserDetailsDto): String? {
+    fun generateJWS(userDetails: UserDetailsDto, username: String? = userDetails.username): String? {
+        val subject = username ?: userDetails.username
+        requireNotNull(subject) { "Subject (username) must not be null when generating JWS" }
         return JWT.create()
                 .withHeader(jwsHeaders())
                 .withIssuer("authentication-service")
-                .withSubject(userDetails.username)
+                .withSubject(subject)
                 .withExpiresAt(Instant.now().plusSeconds(60*60*8))
                 .withIssuedAt(Instant.now())
                 .withClaim("userId", userDetails.id)

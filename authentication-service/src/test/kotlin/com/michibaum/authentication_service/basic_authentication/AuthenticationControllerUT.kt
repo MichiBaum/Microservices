@@ -73,6 +73,36 @@ class AuthenticationControllerUT {
     }
 
     @Test
+    fun `Authentication successful with local credentials when userDetails username is null`(){
+        // GIVEN
+        val userDetailsDto = UserDetailsDto(
+            id = "ubdf-sdfg-sdfv-sdfv",
+            username = null,
+            permissions = emptySet()
+        )
+        val userCredentials = UserCredentials("ubdf-sdfg-sdfv-sdfv", "UName", "hashedPassword")
+        every { userCredentialsRepository.findByUsername("UName") } returns userCredentials
+        every { passwordEncoder.matches("Passwört", "hashedPassword") } returns true
+        every { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") } returns userDetailsDto
+        every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
+        every { authenticationAttemptService.attemptSuccessful(any(), any(), any()) } answers { BasicAuthenticationSuccess(userDetailsDto.id, JwtEntity(jwt = thirdArg()), firstArg(), secondArg()) }
+
+        val jws = "1234qwer"
+        val authenticationDto = AuthenticationDto("UName", "Passwört")
+        val expectedUserDetails = userDetailsDto.copy(username = "UName")
+        every { authenticationService.generateJWS(expectedUserDetails) } returns jws
+
+        // WHEN
+        val result = authenticationController.authenticate(authenticationDto)
+
+        // THEN
+        assertEquals(HttpStatus.OK, result.statusCode)
+        assertEquals(jws, result.body?.jwt ?: "")
+        assertEquals(authenticationDto.username, result.body?.username ?: "")
+        verify(exactly = 1) { authenticationService.generateJWS(expectedUserDetails) }
+    }
+
+    @Test
     fun `Authentication successful with lazy migration fallback`(){
         // GIVEN
         val userDetailsDto = UserDetailsDto(

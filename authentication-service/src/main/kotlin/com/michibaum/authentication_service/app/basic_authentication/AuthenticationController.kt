@@ -62,7 +62,7 @@ class AuthenticationController (
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
-        val jws = authenticationService.generateJWS(userDetailsDto)!!
+        val jws = authenticationService.generateJWS(userDetailsDto.copy(username = loginDto.username))!!
 
         authenticationAttemptService.attemptSuccessful(authenticationAttempt, userDetailsDto.id, jws)
         val responseBody = AuthenticationResponse(authenticationDto.username, jws)
