@@ -1,0 +1,49 @@
+<a [routerLink]="['/music/library/playlists', playlist().id]"
+   class="block h-full no-underline text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg active:opacity-90"
+   [attr.aria-label]="playlist().name">
+  <p-card class="h-full block shadow-sm rounded-lg overflow-hidden border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900">
+    <ng-template pTemplate="header">
+      <div class="relative w-full aspect-square bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+        @if (playlist().coverImageUrl) {
+          <img [src]="playlist().coverImageUrl"
+               [alt]="playlist().name"
+               class="w-full h-full object-cover" />
+        } @else {
+          <fa-icon [icon]="faMusic" class="text-5xl text-slate-400 dark:text-slate-500"></fa-icon>
+        }
+        <div class="absolute top-2 right-2">
+          @if (playlist().isSpotify) {
+            <p-tag severity="success" value="Spotify" [rounded]="true">
+              <ng-template pTemplate="icon">
+                <fa-icon [icon]="faSpotify" class="mr-1 text-xs"></fa-icon>
+              </ng-template>
+            </p-tag>
+          } @else {
+            <p-tag severity="info" [value]="'music.library.playlists.custom-badge' | translate" [rounded]="true"></p-tag>
+          }
+        </div>
+      </div>
+    </ng-template>
+    <div class="flex flex-col gap-2 p-1">
+      <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 m-0 truncate" [title]="playlist().name">
+        {{ playlist().name }}
+      </h3>
+      @if (playlist().description) {
+        <p class="text-sm text-slate-500 dark:text-slate-400 m-0 line-clamp-2" [title]="playlist().description">
+          {{ playlist().description }}
+        </p>
+      }
+      <div class="mt-auto pt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+        <span>
+          @if (playlist().trackCount === 1) {
+            {{ 'music.library.playlists.one-track' | translate }}
+          } @else if (playlist().trackCount === 0) {
+            {{ 'music.library.playlists.no-tracks' | translate }}
+          } @else {
+            {{ 'music.library.playlists.tracks-count' | translate: { count: playlist().trackCount } }}
+          }
+        </span>
+      </div>
+    </div>
+  </p-card>
+</a>

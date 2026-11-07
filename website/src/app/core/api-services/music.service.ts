@@ -2,6 +2,13 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Token} from "../models/music/token.model";
 import {Artist} from "../models/music/artist.model";
+import {
+  CreatePlaylistRequest,
+  Playlist,
+  PlaylistDetails,
+  SyncPlaylistsRequest,
+  UpdatePlaylistRequest
+} from "../models/music/playlist.model";
 import {EnvironmentConfig} from "../config/environment.config";
 import {Observable} from "rxjs";
 
@@ -28,6 +35,35 @@ export class MusicService{
 
   syncLibraryArtists(): Observable<Artist[]> {
     return this.http.post<Artist[]>(this.environment.musicService() + '/music/library/artists/sync', {});
+  }
+
+  getPlaylists(): Observable<Playlist[]> {
+    return this.http.get<Playlist[]>(this.environment.musicService() + '/playlists');
+  }
+
+  getPlaylistDetails(id: string): Observable<PlaylistDetails> {
+    return this.http.get<PlaylistDetails>(this.environment.musicService() + `/playlists/${id}`);
+  }
+
+  createPlaylist(request: CreatePlaylistRequest): Observable<Playlist> {
+    return this.http.post<Playlist>(this.environment.musicService() + '/playlists', request);
+  }
+
+  updatePlaylist(id: string, request: UpdatePlaylistRequest): Observable<Playlist> {
+    return this.http.put<Playlist>(this.environment.musicService() + `/playlists/${id}`, request);
+  }
+
+  deletePlaylist(id: string): Observable<void> {
+    return this.http.delete<void>(this.environment.musicService() + `/playlists/${id}`);
+  }
+
+  syncPlaylists(spotifyPlaylistIds?: string[]): Observable<Playlist[]> {
+    const body: SyncPlaylistsRequest = spotifyPlaylistIds ? { spotifyPlaylistIds } : {};
+    return this.http.post<Playlist[]>(this.environment.musicService() + '/playlists/sync', body);
+  }
+
+  syncPlaylistById(id: string): Observable<PlaylistDetails> {
+    return this.http.post<PlaylistDetails>(this.environment.musicService() + `/playlists/${id}/sync`, {});
   }
 
 }
