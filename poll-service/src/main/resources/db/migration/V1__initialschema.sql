@@ -86,7 +86,7 @@ create table poll_question
     constraint FK_poll_question_section foreign key (section_id) references poll_section (id)
 );
 
-create table question_validator
+create table text_validator
 (
     id uuid not null primary key,
     question_id uuid not null,
@@ -94,16 +94,50 @@ create table question_validator
     max_length int null,
     pattern text null,
     format_preset enum('EMAIL', 'URL', 'PHONE', 'ALPHANUMERIC') null,
+    constraint UK_text_validator_question unique (question_id),
+    constraint FK_text_validator_question foreign key (question_id) references poll_question (id)
+);
+
+create table numerical_validator
+(
+    id uuid not null primary key,
+    question_id uuid not null,
     min_value double null,
     max_value double null,
-    integer_only bit null,
+    integer_only bit not null,
+    constraint UK_numerical_validator_question unique (question_id),
+    constraint FK_numerical_validator_question foreign key (question_id) references poll_question (id)
+);
+
+create table date_validator
+(
+    id uuid not null primary key,
+    question_id uuid not null,
     min_date date null,
     max_date date null,
-    disable_past bit null,
+    disable_past bit not null,
+    constraint UK_date_validator_question unique (question_id),
+    constraint FK_date_validator_question foreign key (question_id) references poll_question (id)
+);
+
+create table multi_select_validator
+(
+    id uuid not null primary key,
+    question_id uuid not null,
+    min_selected int null,
+    max_selected int null,
+    constraint UK_multi_select_validator_question unique (question_id),
+    constraint FK_multi_select_validator_question foreign key (question_id) references poll_question (id)
+);
+
+create table multi_entry_validator
+(
+    id uuid not null primary key,
+    question_id uuid not null,
     min_items int null,
     max_items int null,
-    constraint UK_question_validator_question unique (question_id),
-    constraint FK_question_validator_question foreign key (question_id) references poll_question (id)
+    constraint UK_multi_entry_validator_question unique (question_id),
+    constraint FK_multi_entry_validator_question foreign key (question_id) references poll_question (id)
 );
 
 create table question_option
