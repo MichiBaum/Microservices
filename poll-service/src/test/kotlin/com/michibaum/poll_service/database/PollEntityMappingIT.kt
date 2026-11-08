@@ -35,6 +35,24 @@ class PollEntityMappingIT {
     @Autowired
     lateinit var textAnswerRepository: TextAnswerRepository
 
+    @Autowired
+    lateinit var questionValidatorRepository: QuestionValidatorRepository
+
+    @Autowired
+    lateinit var textValidatorRepository: TextValidatorRepository
+
+    @Autowired
+    lateinit var dateValidatorRepository: DateValidatorRepository
+
+    @Autowired
+    lateinit var numericalValidatorRepository: NumericalValidatorRepository
+
+    @Autowired
+    lateinit var multiSelectValidatorRepository: MultiSelectValidatorRepository
+
+    @Autowired
+    lateinit var multiEntryValidatorRepository: MultiEntryValidatorRepository
+
     @Test
     fun testSaveAndRetrievePollHierarchy() {
         val invitePoll = InvitePoll(
@@ -94,7 +112,7 @@ class PollEntityMappingIT {
         )
         section.questions.add(questionDate)
 
-        val dateValidator = QuestionValidator(
+        val dateValidator = DateValidator(
             question = questionDate,
             minDate = LocalDate.now(),
             disablePast = true
@@ -110,13 +128,62 @@ class PollEntityMappingIT {
         )
         section.questions.add(questionNumeric)
 
-        val numValidator = QuestionValidator(
+        val numValidator = NumericalValidator(
             question = questionNumeric,
             minValue = 1.0,
             maxValue = 10.0,
             integerOnly = true
         )
         questionNumeric.validator = numValidator
+
+        val questionText = Question(
+            section = section,
+            title = "Additional comments",
+            type = QuestionType.TEXT,
+            isRequired = false,
+            orderIndex = 3
+        )
+        section.questions.add(questionText)
+
+        val textValidator = TextValidator(
+            question = questionText,
+            minLength = 5,
+            maxLength = 500,
+            formatPreset = FormatPreset.ALPHANUMERIC
+        )
+        questionText.validator = textValidator
+
+        val questionMultiSelect = Question(
+            section = section,
+            title = "Select favorite tools",
+            type = QuestionType.MULTI_SELECT,
+            isRequired = false,
+            orderIndex = 4
+        )
+        section.questions.add(questionMultiSelect)
+
+        val multiSelectValidator = MultiSelectValidator(
+            question = questionMultiSelect,
+            minSelected = 1,
+            maxSelected = 3
+        )
+        questionMultiSelect.validator = multiSelectValidator
+
+        val questionMultiEntry = Question(
+            section = section,
+            title = "Suggest topics",
+            type = QuestionType.MULTI_ENTRY,
+            isRequired = false,
+            orderIndex = 5
+        )
+        section.questions.add(questionMultiEntry)
+
+        val multiEntryValidator = MultiEntryValidator(
+            question = questionMultiEntry,
+            minItems = 1,
+            maxItems = 5
+        )
+        questionMultiEntry.validator = multiEntryValidator
 
         val savedPoll = invitePollRepository.save(invitePoll)
         assertNotNull(savedPoll.id)
@@ -133,19 +200,66 @@ class PollEntityMappingIT {
         assertEquals(1, retrievedInvitePoll.sections.size)
 
         val retrievedSection = retrievedInvitePoll.sections[0]
-        assertEquals(3, retrievedSection.questions.size)
+        assertEquals(6, retrievedSection.questions.size)
 
         val retrievedSingleQ = retrievedSection.questions[0]
         assertEquals(2, retrievedSingleQ.options.size)
 
         val retrievedDateQ = retrievedSection.questions[1]
         assertNotNull(retrievedDateQ.validator)
-        assertTrue(retrievedDateQ.validator!!.disablePast == true)
+        assertTrue(retrievedDateQ.validator is DateValidator)
+        assertTrue((retrievedDateQ.validator as DateValidator).disablePast)
 
         val retrievedNumQ = retrievedSection.questions[2]
         assertNotNull(retrievedNumQ.validator)
-        assertEquals(1.0, retrievedNumQ.validator!!.minValue)
-        assertEquals(10.0, retrievedNumQ.validator!!.maxValue)
+        assertTrue(retrievedNumQ.validator is NumericalValidator)
+        assertEquals(1.0, (retrievedNumQ.validator as NumericalValidator).minValue)
+        assertEquals(10.0, (retrievedNumQ.validator as NumericalValidator).maxValue)
+        assertTrue((retrievedNumQ.validator as NumericalValidator).integerOnly)
+
+        val retrievedTextQ = retrievedSection.questions[3]
+        assertNotNull(retrievedTextQ.validator)
+        assertTrue(retrievedTextQ.validator is TextValidator)
+        assertEquals(5, (retrievedTextQ.validator as TextValidator).minLength)
+        assertEquals(500, (retrievedTextQ.validator as TextValidator).maxLength)
+        assertEquals(FormatPreset.ALPHANUMERIC, (retrievedTextQ.validator as TextValidator).formatPreset)
+
+        val retrievedMultiSelectQ = retrievedSection.questions[4]
+        assertNotNull(retrievedMultiSelectQ.validator)
+        assertTrue(retrievedMultiSelectQ.validator is MultiSelectValidator)
+        assertEquals(1, (retrievedMultiSelectQ.validator as MultiSelectValidator).minSelected)
+        assertEquals(3, (retrievedMultiSelectQ.validator as MultiSelectValidator).maxSelected)
+
+        val retrievedMultiEntryQ = retrievedSection.questions[5]
+        assertNotNull(retrievedMultiEntryQ.validator)
+        assertTrue(retrievedMultiEntryQ.validator is MultiEntryValidator)
+        assertEquals(1, (retrievedMultiEntryQ.validator as MultiEntryValidator).minItems)
+        assertEquals(5, (retrievedMultiEntryQ.validator as MultiEntryValidator).maxItems)
+
+        // Test querying individual validator repositories
+        val foundTextVal = textValidatorRepository.findByQuestionId(retrievedTextQ.idOrThrow())
+        assertNotNull(foundTextVal)
+        assertEquals(5, foundTextVal!!.minLength)
+
+        val foundDateVal = dateValidatorRepository.findByQuestionId(retrievedDateQ.idOrThrow())
+        assertNotNull(foundDateVal)
+        assertTrue(foundDateVal!!.disablePast)
+
+        val foundNumVal = numericalValidatorRepository.findByQuestionId(retrievedNumQ.idOrThrow())
+        assertNotNull(foundNumVal)
+        assertEquals(1.0, foundNumVal!!.minValue)
+
+        val foundMultiSelectVal = multiSelectValidatorRepository.findByQuestionId(retrievedMultiSelectQ.idOrThrow())
+        assertNotNull(foundMultiSelectVal)
+        assertEquals(1, foundMultiSelectVal!!.minSelected)
+
+        val foundMultiEntryVal = multiEntryValidatorRepository.findByQuestionId(retrievedMultiEntryQ.idOrThrow())
+        assertNotNull(foundMultiEntryVal)
+        assertEquals(1, foundMultiEntryVal!!.minItems)
+
+        // Test polymorphic questionValidatorRepository
+        val allValidators = questionValidatorRepository.findAll()
+        assertEquals(5, allValidators.size)
     }
 
     @Test
