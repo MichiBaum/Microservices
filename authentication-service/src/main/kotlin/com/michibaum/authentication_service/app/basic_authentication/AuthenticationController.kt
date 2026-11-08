@@ -47,13 +47,8 @@ class AuthenticationController (
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
         
-        if(!credentials.enabled) {
-            authenticationAttemptService.attemptFailed(authenticationAttempt)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-        }
-
         val passwordsMatch = passwordEncoder.matches(authenticationDto.password, credentials.passwordHash)
-        if (!passwordsMatch) {
+        if (!credentials.enabled || !passwordsMatch) {
             authenticationAttemptService.attemptFailed(authenticationAttempt)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
