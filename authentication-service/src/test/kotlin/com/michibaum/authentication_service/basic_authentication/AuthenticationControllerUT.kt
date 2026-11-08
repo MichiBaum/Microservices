@@ -83,7 +83,6 @@ class AuthenticationControllerUT {
     fun `Authentication fails when username not found in credentials repository without remote call`() {
         // GIVEN
         every { userCredentialsRepository.findByUsername("UName") } returns null
-        every { passwordEncoder.matches("Passwört", any()) } returns false
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
         every { authenticationAttemptService.attemptFailed(any()) } answers { BasicAuthenticationFailure(firstArg(), firstArg<BasicAuthenticationAttempt>().username) }
         val authenticationDto = AuthenticationDto("UName", "Passwört")
@@ -95,7 +94,7 @@ class AuthenticationControllerUT {
         assertEquals(HttpStatus.UNAUTHORIZED, result.statusCode)
         verify(exactly = 1) { authenticationAttemptService.attemptFailed(any()) }
         verify(exactly = 0) { usermanagementClient.getUserDetailsById(any()) }
-        verify(exactly = 1) { passwordEncoder.matches("Passwört", any()) }
+        verify(exactly = 0) { passwordEncoder.matches(any(), any()) }
         verify(exactly = 0) { authenticationService.generateJWS(any(), any()) }
     }
 
@@ -104,6 +103,7 @@ class AuthenticationControllerUT {
         // GIVEN
         val userCredentials = UserCredentials("ubdf-sdfg-sdfv-sdfv", "UName", "hashedPassword", enabled = false)
         every { userCredentialsRepository.findByUsername("UName") } returns userCredentials
+        every { passwordEncoder.matches("Passwört", "hashedPassword") } returns true
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
         every { authenticationAttemptService.attemptFailed(any()) } answers { BasicAuthenticationFailure(firstArg(), firstArg<BasicAuthenticationAttempt>().username) }
         val authenticationDto = AuthenticationDto("UName", "Passwört")
@@ -190,6 +190,7 @@ class AuthenticationControllerUT {
         every { passwordEncoder.matches("Passwört", "hashedPassword") } returns true
         every { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") } throws FeignException.InternalServerError("Server Error", request, null, emptyMap())
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
+        every { authenticationAttemptService.attemptFailed(any()) } answers { BasicAuthenticationFailure(firstArg(), firstArg<BasicAuthenticationAttempt>().username) }
         val authenticationDto = AuthenticationDto("UName", "Passwört")
 
         // WHEN
@@ -198,7 +199,7 @@ class AuthenticationControllerUT {
         // THEN
         assertEquals(HttpStatus.SERVICE_UNAVAILABLE, result.statusCode)
         verify(exactly = 1) { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") }
-        verify(exactly = 0) { authenticationAttemptService.attemptFailed(any()) }
+        verify(exactly = 1) { authenticationAttemptService.attemptFailed(any()) }
         verify(exactly = 0) { authenticationService.generateJWS(any(), any()) }
     }
 
@@ -211,6 +212,7 @@ class AuthenticationControllerUT {
         every { passwordEncoder.matches("Passwört", "hashedPassword") } returns true
         every { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") } throws RetryableException(503, "Service Unavailable", Request.HttpMethod.GET, null as Throwable?, null as Long?, request)
         every { authenticationAttemptService.createAttempt(any()) } answers { BasicAuthenticationAttempt(AuthenticationAttempt(), firstArg()) }
+        every { authenticationAttemptService.attemptFailed(any()) } answers { BasicAuthenticationFailure(firstArg(), firstArg<BasicAuthenticationAttempt>().username) }
         val authenticationDto = AuthenticationDto("UName", "Passwört")
 
         // WHEN
@@ -219,7 +221,7 @@ class AuthenticationControllerUT {
         // THEN
         assertEquals(HttpStatus.SERVICE_UNAVAILABLE, result.statusCode)
         verify(exactly = 1) { usermanagementClient.getUserDetailsById("ubdf-sdfg-sdfv-sdfv") }
-        verify(exactly = 0) { authenticationAttemptService.attemptFailed(any()) }
+        verify(exactly = 1) { authenticationAttemptService.attemptFailed(any()) }
         verify(exactly = 0) { authenticationService.generateJWS(any(), any()) }
     }
 

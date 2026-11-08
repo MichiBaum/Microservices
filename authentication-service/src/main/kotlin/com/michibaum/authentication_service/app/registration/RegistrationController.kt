@@ -5,6 +5,8 @@ import com.michibaum.authentication_service.database.UserCredentials
 import com.michibaum.authentication_service.database.UserCredentialsRepository
 import com.michibaum.usermanagement_library.CreateUserDto
 import com.michibaum.usermanagement_library.UsermanagementClient
+import io.micrometer.observation.annotation.Observed
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,6 +22,11 @@ class RegistrationController(
     private val passwordEncoder: PasswordEncoder
 ) {
 
+    companion object {
+        private val logger = LoggerFactory.getLogger(RegistrationController::class.java)
+    }
+
+    @Observed(name = "registration")
     @PublicEndpoint
     @PostMapping(value = ["/api/register"])
     fun register(@RequestBody registerDto: RegisterDto): ResponseEntity<RegisterResponse> {
@@ -35,7 +42,8 @@ class RegistrationController(
         val createUserDto = CreateUserDto(registerDto.email)
         val createdUser = try {
             usermanagementClient.create(createUserDto)
-        } catch (_: Exception) {
+        } catch (ex: Exception) {
+            logger.error("Failed to create user in usermanagement-service for email ${registerDto.email}: ${ex.message}", ex)
             null
         }
 
@@ -53,10 +61,13 @@ class RegistrationController(
                     enabled = true
                 )
             )
-        } catch (_: Exception) {
+        } catch (ex: Exception) {
+            logger.error("Failed to save credentials for user ${createdUser.id}, executing compensating rollback: ${ex.message}", ex)
             try {
                 usermanagementClient.delete(createdUser.id)
-            } catch (_: Exception) {
+                logger.info("Successfully compensated by deleting orphaned user ${createdUser.id} in usermanagement-service")
+            } catch (deleteEx: Exception) {
+                logger.error("Compensating action failed: unable to delete user ${createdUser.id} in usermanagement-service: ${deleteEx.message}", deleteEx)
             }
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
         }

@@ -91,6 +91,23 @@ class RegistrationControllerUT {
     }
 
     @Test
+    fun `Registration handles failure during compensating delete when credential save fails`() {
+        val registerDto = RegisterDto("alice", "alice@example.com", "secret")
+        val createdUser = UserDetailsDto(id = "user-uuid-123", permissions = emptySet())
+
+        every { userCredentialsRepository.existsByUsername("alice") } returns false
+        every { usermanagementClient.create(any()) } returns createdUser
+        every { passwordEncoder.encode("secret") } returns "hashedSecret"
+        every { userCredentialsRepository.save(any()) } throws RuntimeException("DB error")
+        every { usermanagementClient.delete("user-uuid-123") } throws RuntimeException("Remote call failed")
+
+        val response = controller.register(registerDto)
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.statusCode)
+        verify(exactly = 1) { usermanagementClient.delete("user-uuid-123") }
+    }
+
+    @Test
     fun `Registration fails validation with blank username`() {
         val registerDto = RegisterDto("", "alice@example.com", "secret")
 
