@@ -40,7 +40,7 @@ jobs:
           fi
 
       - name: Angular install
-        run: npm --prefix ./website install ./website
+        run: npm --prefix ./website install ./website --ignore-scripts
 
       - name: Angular build
         run: npm run --prefix website build-production
