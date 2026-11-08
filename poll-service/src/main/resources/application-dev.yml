@@ -1,0 +1,42 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    username: root
+    password: someRootPass
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/poll-db
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.hibernate.generate_statistics: true
+      hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS: 1
+      hibernate:
+        format_sql: true
+  boot:
+    admin:
+      service:
+        username: admin_username
+        password: admin_password
+      client:
+        username: admin_username
+        password: admin_password
+  microservices:
+    discord:
+      enabled: true
+      bot-token: ${DISCORD_BOT_TOKEN}
+      guild-id: ${DISCORD_GUILD_ID}
+      logging:
+        enabled: true
+        channel-id: ${DISCORD_POLL_SERVICE_LOG_CHANNEL}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin_username:admin_password@localhost:8761/eureka
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
