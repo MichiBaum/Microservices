@@ -29,7 +29,6 @@ class AuthenticationController (
 
     companion object {
         private val logger = LoggerFactory.getLogger(AuthenticationController::class.java)
-        private const val DUMMY_PASSWORD_HASH = "\$2a\$10\$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"
     }
 
     @Observed(name = "basic-authentication")
@@ -44,12 +43,17 @@ class AuthenticationController (
 
         val credentials = userCredentialsRepository.findByUsername(authenticationDto.username)
         if (credentials == null) {
-            passwordEncoder.matches(authenticationDto.password, DUMMY_PASSWORD_HASH)
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
+        
+        if(!credentials.enabled) {
             authenticationAttemptService.attemptFailed(authenticationAttempt)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
-        if (!credentials.enabled || !passwordEncoder.matches(authenticationDto.password, credentials.passwordHash)) {
+        val passwordsMatch = passwordEncoder.matches(authenticationDto.password, credentials.passwordHash)
+        if (!passwordsMatch) {
             authenticationAttemptService.attemptFailed(authenticationAttempt)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
@@ -61,9 +65,11 @@ class AuthenticationController (
             null
         } catch (ex: FeignException) {
             logger.error("Error communicating with usermanagement-service: ${ex.message}")
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build()
         } catch (ex: Exception) {
             logger.error("Unexpected error retrieving user details: ${ex.message}")
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build()
         }
 
