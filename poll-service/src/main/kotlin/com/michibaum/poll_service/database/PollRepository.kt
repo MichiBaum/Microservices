@@ -14,4 +14,6 @@ interface PollRepository : JpaRepository<Poll, UUID> {
     fun existsBySlug(slug: String): Boolean
     fun findAllByCreatorIdAndDeletedAtIsNull(creatorId: String, pageable: Pageable): Page<Poll>
     fun findAllByCreatorIdAndStatusAndDeletedAtIsNull(creatorId: String, status: PollStatus, pageable: Pageable): Page<Poll>
+    fun findAllByCreatorIdAndTitleContainingIgnoreCaseAndDeletedAtIsNull(creatorId: String, title: String, pageable: Pageable): Page<Poll>
+    fun findAllByCreatorIdAndStatusAndTitleContainingIgnoreCaseAndDeletedAtIsNull(creatorId: String, status: PollStatus, title: String, pageable: Pageable): Page<Poll>
 }
