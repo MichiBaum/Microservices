@@ -62,8 +62,6 @@ class PollEntityMappingIT {
             creatorId = "user-creator-123",
             status = PollStatus.PUBLISHED,
             isAnonymous = false,
-            thankYouMessage = "Thank you for participating!",
-            redirectUrl = "https://example.com/thanks",
             expiresAt = Instant.now().plusSeconds(86400)
         )
 

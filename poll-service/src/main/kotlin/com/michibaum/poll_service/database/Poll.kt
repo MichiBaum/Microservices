@@ -26,12 +26,6 @@ abstract class Poll(
     @Column(name = "is_anonymous", nullable = false)
     var isAnonymous: Boolean = false,
 
-    @Column(name = "thank_you_message", nullable = true, columnDefinition = "TEXT")
-    var thankYouMessage: String? = null,
-
-    @Column(name = "redirect_url", nullable = true, length = 2048)
-    var redirectUrl: String? = null,
-
     @Column(name = "expires_at", nullable = true)
     var expiresAt: Instant? = null,
 
