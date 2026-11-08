@@ -52,6 +52,15 @@ spring:
     locations: classpath:db/migration
     driver-class-name: org.mariadb.jdbc.Driver
 
+  boot:
+    admin:
+      service:
+        username: ${ADMIN_SERVICE_USERNAME:admin_username}
+        password: ${ADMIN_SERVICE_PASSWORD:admin_password}
+      client:
+        username: ${ADMIN_CLIENT_USERNAME:admin_username}
+        password: ${ADMIN_CLIENT_PASSWORD:admin_password}
+
 eureka:
   instance:
     metadata-map:
