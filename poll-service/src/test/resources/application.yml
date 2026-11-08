@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: poll-service-test
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+eureka:
+  client:
+    enabled: false
+
+spring-boot-admin:
+  client:
+    enabled: false

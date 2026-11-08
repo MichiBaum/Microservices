@@ -118,6 +118,8 @@ class RouterConfiguration {
                 FITNESS, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("music.michibaum.*"), applyCircuitBreaker(lb(MUSIC.id).apply(http()),
                 MUSIC, circuitBreakerFactory, loadBalancerCacheManager))
+            .route(host("poll.michibaum.*"), applyCircuitBreaker(lb(POLL.id).apply(http()),
+                POLL, circuitBreakerFactory, loadBalancerCacheManager))
             .route(host("vpn.michibaum.*"), applyCircuitBreaker(lb(VPN.id).apply(http()),
                 VPN, circuitBreakerFactory, loadBalancerCacheManager))
 

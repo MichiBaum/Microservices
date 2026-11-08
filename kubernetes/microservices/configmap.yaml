@@ -14,3 +14,4 @@ data:
   CHESS_DB: "chess"
   FITNESS_DB: "fitness"
   MUSIC_DB: "music"
+  POLL_DB: "poll"
