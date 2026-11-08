@@ -4,12 +4,15 @@ import com.michibaum.authentication_library.AuthenticationEndpoints
 import com.michibaum.authentication_library.PublicKeyDto
 import com.michibaum.authentication_library.public_endpoints.PublicEndpoint
 import com.michibaum.authentication_service.app.authentication.AuthenticationService
-import com.michibaum.authentication_service.database.UserCredentials
 import com.michibaum.authentication_service.database.UserCredentialsRepository
-import com.michibaum.usermanagement_library.*
+import com.michibaum.usermanagement_library.UserDetailsDto
+import com.michibaum.usermanagement_library.UsermanagementClient
+import feign.FeignException
 import io.micrometer.observation.annotation.Observed
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Lazy
-import org.springframework.http.*
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -24,48 +27,56 @@ class AuthenticationController (
     private val passwordEncoder: PasswordEncoder
 ) : AuthenticationEndpoints {
 
+    companion object {
+        private val logger = LoggerFactory.getLogger(AuthenticationController::class.java)
+    }
+
     @Observed(name = "basic-authentication")
     @PublicEndpoint
     @PostMapping(value = ["/api/basic-authentication/authenticate"])
     fun authenticate(@RequestBody authenticationDto: AuthenticationDto): ResponseEntity<AuthenticationResponse> {
-        val loginDto = LoginDto(authenticationDto.username, authenticationDto.password)
-        val errors = LoginDtoValidator.validate(loginDto)
-        if(errors.isNotEmpty())
+        val errors = AuthenticationDtoValidator.validate(authenticationDto)
+        if (errors.isNotEmpty())
             return ResponseEntity.badRequest().build()
 
-        val authenticationAttempt = authenticationAttemptService.createAttempt(loginDto.username)
+        val authenticationAttempt = authenticationAttemptService.createAttempt(authenticationDto.username)
 
-        val credentials = userCredentialsRepository.findByUsername(loginDto.username)
-        val userDetailsDto: UserDetailsDto? = if (credentials != null) {
-            if (!credentials.enabled || !passwordEncoder.matches(loginDto.password, credentials.passwordHash)) {
-                null
-            } else {
-                usermanagementClient.getUserDetailsById(credentials.userId)
-            }
-        } else {
-            val fallbackDetails = usermanagementClient.checkUserDetails(loginDto)
-            if (fallbackDetails != null) {
-                userCredentialsRepository.save(
-                    UserCredentials(
-                        userId = fallbackDetails.id,
-                        username = loginDto.username,
-                        passwordHash = passwordEncoder.encode(loginDto.password)!!,
-                        enabled = true
-                    )
-                )
-            }
-            fallbackDetails
+        val credentials = userCredentialsRepository.findByUsername(authenticationDto.username)
+        if (credentials == null) {
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
-
-        if(userDetailsDto == null){
+        
+        val passwordsMatch = passwordEncoder.matches(authenticationDto.password, credentials.passwordHash)
+        if (!credentials.enabled || !passwordsMatch) {
             authenticationAttemptService.attemptFailed(authenticationAttempt)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         }
 
-        val jws = authenticationService.generateJWS(userDetailsDto.copy(username = loginDto.username))!!
+        val userDetailsDto: UserDetailsDto? = try {
+            usermanagementClient.getUserDetailsById(credentials.userId)
+        } catch (ex: FeignException.NotFound) {
+            logger.warn("User profile not found in usermanagement-service")
+            null
+        } catch (ex: FeignException) {
+            logger.error("Error communicating with usermanagement-service: ${ex.message}")
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build()
+        } catch (ex: Exception) {
+            logger.error("Unexpected error retrieving user details: ${ex.message}")
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build()
+        }
+
+        if (userDetailsDto == null) {
+            authenticationAttemptService.attemptFailed(authenticationAttempt)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
+
+        val jws = authenticationService.generateJWS(userDetailsDto, credentials.username)
 
         authenticationAttemptService.attemptSuccessful(authenticationAttempt, userDetailsDto.id, jws)
-        val responseBody = AuthenticationResponse(authenticationDto.username, jws)
+        val responseBody = AuthenticationResponse(credentials.username, jws)
         return ResponseEntity.ok()
             .body(responseBody)
     }

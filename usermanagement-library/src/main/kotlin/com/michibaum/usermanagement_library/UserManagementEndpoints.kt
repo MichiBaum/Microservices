@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody
 
 interface UserManagementEndpoints {
 
-    @Deprecated(message = "Use authentication-service local verification and getUserDetailsById")
-    @PostMapping(value = ["/api/checkUserDetails"])
-    fun checkUserDetails(@RequestBody loginDto: LoginDto): UserDetailsDto?
-
     @PostMapping("/api/users")
     fun create(@RequestBody createUserDto: CreateUserDto): UserDetailsDto?
 

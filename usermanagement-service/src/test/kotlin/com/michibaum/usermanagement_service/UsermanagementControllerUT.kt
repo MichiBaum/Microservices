@@ -5,7 +5,6 @@ import com.michibaum.usermanagement_library.UserDetailsDto
 import com.michibaum.usermanagement_service.app.UserService
 import com.michibaum.usermanagement_service.app.UsermanagementController
 import com.michibaum.usermanagement_service.database.Permission
-import com.michibaum.usermanagement_service.database.PermissionRepository
 import com.michibaum.usermanagement_service.database.User
 import com.michibaum.usermanagement_service.database.UserPermissionMapping
 import io.mockk.*
@@ -18,16 +17,14 @@ import java.util.*
 class UsermanagementControllerUT {
 
     private val userService: UserService = mockk()
-    private val permissionRepository: PermissionRepository = mockk()
 
-    private val controller = UsermanagementController(userService, permissionRepository)
+    private val controller = UsermanagementController(userService)
 
     @Test
     fun `getUserDetailsById returns details when found`() {
         val userId = UUID.randomUUID()
         val userDetails = UserDetailsDto(
             id = userId.toString(),
-            username = "alice",
             permissions = setOf("CHESS_SERVICE")
         )
         every { userService.getUserDetailsById(userId) } returns userDetails
@@ -89,7 +86,6 @@ class UsermanagementControllerUT {
         val result = controller.create(createDto)
 
         assertEquals(userId.toString(), result?.id)
-        assertNull(result?.username)
         assertEquals(setOf("USERMANAGEMENT_SERVICE_EDIT_OWN_USER"), result?.permissions)
     }
 
@@ -112,5 +108,46 @@ class UsermanagementControllerUT {
 
         assertNull(result)
         verify(exactly = 0) { userService.emailExists(any()) }
+    }
+
+    @Test
+    fun `get returns user dto when found`() {
+        val userId = UUID.randomUUID()
+        val user = User(email = "alice@example.com", id = userId)
+
+        every { userService.getUser(userId) } returns user
+
+        val response = controller.get(userId.toString())
+
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals(userId.toString(), response.body?.id)
+        assertEquals("alice@example.com", response.body?.email)
+    }
+
+    @Test
+    fun `update returns user dto when found`() {
+        val userId = UUID.randomUUID()
+        val updateDto = com.michibaum.usermanagement_service.app.UpdateUserDto("alice@example.com")
+        val user = User(email = "alice@example.com", id = userId)
+
+        every { userService.update(userId, updateDto) } returns user
+
+        val response = controller.update(userId.toString(), updateDto)
+
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals(userId.toString(), response.body?.id)
+        assertEquals("alice@example.com", response.body?.email)
+    }
+
+    @Test
+    fun `update returns bad request when not found`() {
+        val userId = UUID.randomUUID()
+        val updateDto = com.michibaum.usermanagement_service.app.UpdateUserDto("alice@example.com")
+
+        every { userService.update(userId, updateDto) } returns null
+
+        val response = controller.update(userId.toString(), updateDto)
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
     }
 }

@@ -45,6 +45,13 @@ class UserEndpointsSecurityIT {
     }
 
     @Test
+    fun `post checkUserDetails without authentication returns 401`() {
+        val payload = mapOf("username" to "user", "password" to "pass")
+        val response = testRestTemplate.postForEntity("/api/checkUserDetails", payload, String::class.java)
+        assertEquals(HttpStatus.UNAUTHORIZED, response.statusCode)
+    }
+
+    @Test
     fun `post users with insufficient permission returns 403`() {
         val token = JWT.create()
             .withSubject("user")
