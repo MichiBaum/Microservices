@@ -1,21 +1,19 @@
 package com.michibaum.poll_service.database
 
 import jakarta.persistence.*
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
 import java.util.UUID
 
 @Entity
-@Table(name = "poll")
-class Poll(
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+abstract class Poll(
     @Column(nullable = false)
     var title: String,
 
     @Column(nullable = true, columnDefinition = "TEXT")
     var description: String? = null,
 
-    @Column(nullable = false, unique = true, length = 64)
+    @Column(nullable = false, length = 64)
     var slug: String,
 
     @Column(name = "creator_id", nullable = false)
@@ -24,13 +22,6 @@ class Poll(
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     var status: PollStatus = PollStatus.DRAFT,
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "access_policy", nullable = false)
-    var accessPolicy: AccessPolicy = AccessPolicy.OPEN,
-
-    @Column(nullable = true)
-    var secret: String? = null,
 
     @Column(name = "is_anonymous", nullable = false)
     var isAnonymous: Boolean = false,
@@ -51,20 +42,29 @@ class Poll(
     @OrderBy("orderIndex ASC")
     val sections: MutableList<Section> = mutableListOf(),
 
-    @OneToMany(mappedBy = "poll", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    val invitees: MutableSet<PollInvitee> = mutableSetOf(),
-
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    val createdAt: Instant? = null,
+    var createdAt: Instant = Instant.now(),
 
-    @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: Instant? = null,
+    var updatedAt: Instant = Instant.now(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
 ) {
+    abstract val accessPolicy: AccessPolicy
+
     fun idOrThrow(): UUID = id ?: throw IdNullException()
+
+    @PrePersist
+    fun onPrePersist() {
+        val now = Instant.now()
+        createdAt = now
+        updatedAt = now
+    }
+
+    @PreUpdate
+    fun onPreUpdate() {
+        updatedAt = Instant.now()
+    }
 }

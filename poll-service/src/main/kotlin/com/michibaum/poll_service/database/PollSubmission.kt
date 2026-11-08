@@ -1,8 +1,6 @@
 package com.michibaum.poll_service.database
 
 import jakarta.persistence.*
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
 import java.util.UUID
 
@@ -17,19 +15,29 @@ class PollSubmission(
     val userId: String,
 
     @OneToMany(mappedBy = "submission", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    val answers: MutableList<QuestionAnswerValue> = mutableListOf(),
+    val answers: MutableList<QuestionAnswer> = mutableListOf(),
 
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    val createdAt: Instant? = null,
+    var createdAt: Instant = Instant.now(),
 
-    @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: Instant? = null,
+    var updatedAt: Instant = Instant.now(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
 ) {
     fun idOrThrow(): UUID = id ?: throw IdNullException()
+
+    @PrePersist
+    fun onPrePersist() {
+        val now = Instant.now()
+        createdAt = now
+        updatedAt = now
+    }
+
+    @PreUpdate
+    fun onPreUpdate() {
+        updatedAt = Instant.now()
+    }
 }

@@ -8,5 +8,12 @@ import org.springframework.test.context.TestPropertySource
 @Retention(AnnotationRetention.RUNTIME)
 @ExtendWith(value = [FlywayClearDatabaseJunitExtension::class])
 @Import(value = [TestcontainersTestConfiguration::class])
-@TestPropertySource(properties = ["spring.flyway.clean-disabled=false"])
+@TestPropertySource(
+    properties = [
+        "spring.flyway.clean-disabled=false",
+        "spring.boot.admin.service.username=admin_username",
+        "spring.boot.admin.service.password=admin_password",
+        "public-endpoints.package-names[0]=com.michibaum.poll_service"
+    ]
+)
 annotation class TestcontainersConfiguration()

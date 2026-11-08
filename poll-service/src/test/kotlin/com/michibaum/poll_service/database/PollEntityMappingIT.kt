@@ -18,21 +18,31 @@ class PollEntityMappingIT {
     lateinit var pollRepository: PollRepository
 
     @Autowired
+    lateinit var openPollRepository: OpenPollRepository
+
+    @Autowired
+    lateinit var invitePollRepository: InvitePollRepository
+
+    @Autowired
+    lateinit var secretPollRepository: SecretPollRepository
+
+    @Autowired
     lateinit var pollSubmissionRepository: PollSubmissionRepository
 
     @Autowired
-    lateinit var questionAnswerValueRepository: QuestionAnswerValueRepository
+    lateinit var questionAnswerRepository: QuestionAnswerRepository
+
+    @Autowired
+    lateinit var textAnswerRepository: TextAnswerRepository
 
     @Test
     fun testSaveAndRetrievePollHierarchy() {
-        val poll = Poll(
+        val invitePoll = InvitePoll(
             title = "Team Availability & Feedback",
             description = "Please fill out your availability and preferences.",
             slug = "avail2026",
             creatorId = "user-creator-123",
             status = PollStatus.PUBLISHED,
-            accessPolicy = AccessPolicy.INVITED_ONLY,
-            secret = null,
             isAnonymous = false,
             thankYouMessage = "Thank you for participating!",
             redirectUrl = "https://example.com/thanks",
@@ -40,18 +50,18 @@ class PollEntityMappingIT {
         )
 
         val invitee = PollInvitee(
-            poll = poll,
+            poll = invitePoll,
             userId = "user-voter-456"
         )
-        poll.invitees.add(invitee)
+        invitePoll.invitees.add(invitee)
 
         val section = Section(
-            poll = poll,
+            poll = invitePoll,
             title = "Section 1: General Info",
             description = "Basic information and scheduling",
             orderIndex = 0
         )
-        poll.sections.add(section)
+        invitePoll.sections.add(section)
 
         val questionSingle = Question(
             section = section,
@@ -108,19 +118,21 @@ class PollEntityMappingIT {
         )
         questionNumeric.validator = numValidator
 
-        val savedPoll = pollRepository.save(poll)
+        val savedPoll = invitePollRepository.save(invitePoll)
         assertNotNull(savedPoll.id)
 
         val retrievedPoll = pollRepository.findById(savedPoll.idOrThrow()).orElseThrow()
-        assertEquals("Team Availability & Feedback", retrievedPoll.title)
-        assertEquals("avail2026", retrievedPoll.slug)
-        assertEquals(PollStatus.PUBLISHED, retrievedPoll.status)
-        assertEquals(AccessPolicy.INVITED_ONLY, retrievedPoll.accessPolicy)
-        assertFalse(retrievedPoll.isAnonymous)
-        assertEquals(1, retrievedPoll.invitees.size)
-        assertEquals(1, retrievedPoll.sections.size)
+        assertTrue(retrievedPoll is InvitePoll)
+        val retrievedInvitePoll = retrievedPoll as InvitePoll
+        assertEquals("Team Availability & Feedback", retrievedInvitePoll.title)
+        assertEquals("avail2026", retrievedInvitePoll.slug)
+        assertEquals(PollStatus.PUBLISHED, retrievedInvitePoll.status)
+        assertEquals(AccessPolicy.INVITED_ONLY, retrievedInvitePoll.accessPolicy)
+        assertFalse(retrievedInvitePoll.isAnonymous)
+        assertEquals(1, retrievedInvitePoll.invitees.size)
+        assertEquals(1, retrievedInvitePoll.sections.size)
 
-        val retrievedSection = retrievedPoll.sections[0]
+        val retrievedSection = retrievedInvitePoll.sections[0]
         assertEquals(3, retrievedSection.questions.size)
 
         val retrievedSingleQ = retrievedSection.questions[0]
@@ -137,13 +149,39 @@ class PollEntityMappingIT {
     }
 
     @Test
-    fun testSaveAndRetrievePollSubmissionAndAnswers() {
-        val poll = Poll(
-            title = "Quick Poll",
-            slug = "quick123",
+    fun testOpenPollAndSecretPollPersistence() {
+        val openPoll = OpenPoll(
+            title = "Open Community Survey",
+            slug = "open-survey",
+            creatorId = "creator-open"
+        )
+        val savedOpenPoll = openPollRepository.save(openPoll)
+        assertNotNull(savedOpenPoll.id)
+        assertEquals(AccessPolicy.OPEN, savedOpenPoll.accessPolicy)
+
+        val secretPoll = SecretPoll(
+            title = "Board Election",
+            slug = "board-secret",
+            creatorId = "creator-secret",
+            secret = "SuperSecretPin123!"
+        )
+        val savedSecretPoll = secretPollRepository.save(secretPoll)
+        assertNotNull(savedSecretPoll.id)
+        assertEquals(AccessPolicy.SECRET_PROTECTED, savedSecretPoll.accessPolicy)
+        assertEquals("SuperSecretPin123!", savedSecretPoll.secret)
+
+        val retrievedSecret = pollRepository.findById(savedSecretPoll.idOrThrow()).orElseThrow()
+        assertTrue(retrievedSecret is SecretPoll)
+        assertEquals("SuperSecretPin123!", (retrievedSecret as SecretPoll).secret)
+    }
+
+    @Test
+    fun testSaveAndRetrievePollSubmissionAndPolymorphicAnswers() {
+        val poll = OpenPoll(
+            title = "Multi-Type Poll",
+            slug = "multi-type",
             creatorId = "creator-1",
-            status = PollStatus.PUBLISHED,
-            accessPolicy = AccessPolicy.OPEN
+            status = PollStatus.PUBLISHED
         )
 
         val section = Section(
@@ -162,13 +200,23 @@ class PollEntityMappingIT {
         )
         section.questions.add(questionText)
 
-        val textValidator = QuestionValidator(
-            question = questionText,
-            minLength = 5,
-            maxLength = 500,
-            formatPreset = FormatPreset.ALPHANUMERIC
+        val questionNum = Question(
+            section = section,
+            title = "Your score?",
+            type = QuestionType.NUMERICAL,
+            isRequired = true,
+            orderIndex = 1
         )
-        questionText.validator = textValidator
+        section.questions.add(questionNum)
+
+        val questionDate = Question(
+            section = section,
+            title = "Birthday?",
+            type = QuestionType.DATE,
+            isRequired = true,
+            orderIndex = 2
+        )
+        section.questions.add(questionDate)
 
         val savedPoll = pollRepository.save(poll)
 
@@ -177,19 +225,41 @@ class PollEntityMappingIT {
             userId = "user-voter-789"
         )
 
-        val answerValue = QuestionAnswerValue(
+        val textAnswer = TextAnswer(
             submission = submission,
             question = savedPoll.sections[0].questions[0],
             textValue = "Looks great to me!"
         )
-        submission.answers.add(answerValue)
+        val numAnswer = NumericalAnswer(
+            submission = submission,
+            question = savedPoll.sections[0].questions[1],
+            numericValue = 9.5
+        )
+        val dateAnswer = DateAnswer(
+            submission = submission,
+            question = savedPoll.sections[0].questions[2],
+            dateValue = LocalDate.of(2026, 11, 8)
+        )
+
+        submission.answers.add(textAnswer)
+        submission.answers.add(numAnswer)
+        submission.answers.add(dateAnswer)
 
         val savedSubmission = pollSubmissionRepository.save(submission)
         assertNotNull(savedSubmission.id)
 
         val retrievedSubmission = pollSubmissionRepository.findByPollIdAndUserId(savedPoll.idOrThrow(), "user-voter-789")
         assertNotNull(retrievedSubmission)
-        assertEquals(1, retrievedSubmission!!.answers.size)
-        assertEquals("Looks great to me!", retrievedSubmission.answers[0].textValue)
+        assertEquals(3, retrievedSubmission!!.answers.size)
+
+        val textAnswers = textAnswerRepository.findBySubmissionId(savedSubmission.idOrThrow())
+        assertEquals(1, textAnswers.size)
+        assertEquals("Looks great to me!", textAnswers[0].textValue)
+
+        val allAnswers = questionAnswerRepository.findBySubmissionId(savedSubmission.idOrThrow())
+        assertEquals(3, allAnswers.size)
+        assertTrue(allAnswers.any { it is TextAnswer && it.textValue == "Looks great to me!" })
+        assertTrue(allAnswers.any { it is NumericalAnswer && it.numericValue == 9.5 })
+        assertTrue(allAnswers.any { it is DateAnswer && it.dateValue == LocalDate.of(2026, 11, 8) })
     }
 }
