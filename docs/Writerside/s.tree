@@ -36,6 +36,7 @@
     <toc-element topic="Services.md">
         <toc-element topic="Poll-Service.md">
             <toc-element topic="poll-feature-technical-requirements.md" toc-title="Technical Requirements: Poll Feature"/>
+            <toc-element topic="poll-service-user-stories.md" toc-title="User Stories: Poll Service"/>
         </toc-element>
         <toc-element topic="Grafana.md">
             <toc-element topic="Datasources.md"/>
