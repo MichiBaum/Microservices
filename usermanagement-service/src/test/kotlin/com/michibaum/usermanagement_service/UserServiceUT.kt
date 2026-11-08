@@ -8,27 +8,24 @@ import com.michibaum.usermanagement_service.database.*
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
 class UserServiceUT {
 
     private val userRepository: UserRepository = mockk()
     private val permissionRepository: PermissionRepository = mockk()
-    private val passwordEncoder: PasswordEncoder = mockk()
     private val userPermissionMappingRepository: UserPermissionMappingRepository = mockk()
 
     private val userService = UserService(
         userRepository,
         permissionRepository,
-        passwordEncoder,
         userPermissionMappingRepository
     )
 
     @Test
     fun `getUserDetailsById returns details when user exists`() {
         val userId = UUID.randomUUID()
-        val user = User("john_doe", "john@example.com", "hash", userId)
+        val user = User(email = "john@example.com", id = userId)
         val perm = Permission(Permissions.CHESS_SERVICE.name)
 
         every { userRepository.findById(userId) } returns Optional.of(user)
@@ -38,7 +35,6 @@ class UserServiceUT {
 
         assertNotNull(result)
         assertEquals(userId.toString(), result?.id)
-        assertEquals("john_doe", result?.username)
         assertTrue(result!!.permissions.contains(Permissions.CHESS_SERVICE.name))
     }
 
@@ -53,35 +49,9 @@ class UserServiceUT {
     }
 
     @Test
-    fun `getUserDetailsByUsername returns details when user exists`() {
-        val userId = UUID.randomUUID()
-        val user = User("john_doe", "john@example.com", "hash", userId)
-        val perm = Permission(Permissions.CHESS_SERVICE.name)
-
-        every { userRepository.findByUsername("john_doe") } returns user
-        every { permissionRepository.findByUser(user) } returns listOf(perm)
-
-        val result = userService.getUserDetailsByUsername("john_doe")
-
-        assertNotNull(result)
-        assertEquals(userId.toString(), result?.id)
-        assertEquals("john_doe", result?.username)
-        assertTrue(result!!.permissions.contains(Permissions.CHESS_SERVICE.name))
-    }
-
-    @Test
-    fun `getUserDetailsByUsername returns null when user does not exist`() {
-        every { userRepository.findByUsername("unknown") } returns null
-
-        val result = userService.getUserDetailsByUsername("unknown")
-
-        assertNull(result)
-    }
-
-    @Test
     fun `deleteUser deletes permission mappings and user`() {
         val userId = UUID.randomUUID()
-        val user = User("john_doe", "john@example.com", "hash", userId)
+        val user = User(email = "john@example.com", id = userId)
 
         every { userRepository.findById(userId) } returns Optional.of(user)
         every { userPermissionMappingRepository.deleteByUser(user) } just Runs
@@ -115,23 +85,21 @@ class UserServiceUT {
     }
 
     @Test
-    fun `createDefaultUser saves user without username and password`() {
+    fun `createDefaultUser saves user with email`() {
         val createUserDto = CreateUserDto("john@example.com")
         every { userRepository.save(any()) } answers { firstArg() }
 
         val created = userService.createDefaultUser(createUserDto)
 
-        assertNull(created.username)
         assertEquals("john@example.com", created.email)
-        assertNull(created.password)
         verify(exactly = 1) { userRepository.save(any()) }
     }
 
     @Test
-    fun `update saves user when found`() {
+    fun `update saves existing user when found`() {
         val userId = UUID.randomUUID()
-        val existingUser = User("john_doe", "john@example.com", "hash", userId)
-        val updateDto = UpdateUserDto("john_updated", "john_updated@example.com")
+        val existingUser = User(email = "john@example.com", id = userId)
+        val updateDto = UpdateUserDto("john@example.com")
 
         every { userRepository.findById(userId) } returns Optional.of(existingUser)
         every { userRepository.save(existingUser) } returns existingUser
@@ -139,6 +107,21 @@ class UserServiceUT {
         val updated = userService.update(userId, updateDto)
 
         assertNotNull(updated)
+        assertEquals(userId, updated?.id)
+        assertEquals("john@example.com", updated?.email)
         verify(exactly = 1) { userRepository.save(existingUser) }
+    }
+
+    @Test
+    fun `update returns null when user not found`() {
+        val userId = UUID.randomUUID()
+        val updateDto = UpdateUserDto("john@example.com")
+
+        every { userRepository.findById(userId) } returns Optional.empty()
+
+        val updated = userService.update(userId, updateDto)
+
+        assertNull(updated)
+        verify(exactly = 0) { userRepository.save(any()) }
     }
 }

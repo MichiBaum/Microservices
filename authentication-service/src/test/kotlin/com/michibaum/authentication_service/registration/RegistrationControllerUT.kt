@@ -31,7 +31,7 @@ class RegistrationControllerUT {
     @Test
     fun `Registration successful`() {
         val registerDto = RegisterDto("alice", "alice@example.com", "secret")
-        val createdUser = UserDetailsDto(id = "user-uuid-123", username = "alice", permissions = emptySet())
+        val createdUser = UserDetailsDto(id = "user-uuid-123", permissions = emptySet())
 
         every { userCredentialsRepository.existsByUsername("alice") } returns false
         every { usermanagementClient.create(any()) } returns createdUser
@@ -76,7 +76,7 @@ class RegistrationControllerUT {
     @Test
     fun `Registration triggers compensating rollback when credential save fails`() {
         val registerDto = RegisterDto("alice", "alice@example.com", "secret")
-        val createdUser = UserDetailsDto(id = "user-uuid-123", username = "alice", permissions = emptySet())
+        val createdUser = UserDetailsDto(id = "user-uuid-123", permissions = emptySet())
 
         every { userCredentialsRepository.existsByUsername("alice") } returns false
         every { usermanagementClient.create(any()) } returns createdUser
