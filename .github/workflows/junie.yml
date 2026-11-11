@@ -32,7 +32,8 @@ jobs:
 
       - name: Run Junie
         id: junie
-        uses: JetBrains/junie-github-action@v1
+        uses: JetBrains/junie-github-action@7e0a3d3059e38bcd2ae3d2d366726df45663d5ae # 1.8.0
         with:
+          base_branch: 'develop'
           model: 'gemini-flash'
           junie_api_key: ${{ secrets.JUNIE_API_KEY }} # Change to the vendor key in case of BYOK, e.g. `anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}`
