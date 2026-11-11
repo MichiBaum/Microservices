@@ -1,0 +1,10 @@
+# Cursor Rules
+
+Please review and adhere strictly to the project architecture, conventions, and guidelines defined in `.ai/AGENTS.md`.
+
+- **Guidelines & Architecture**: `.ai/AGENTS.md`
+- **Domain Skills**: `.ai/skills/`
+- **Specialized Agent Roles**: `.ai/agents/`
+- **Workflow Commands**: `.ai/commands/`
+
+Follow microservices independence, Kotlin/Spring Boot conventions, mobile-first Angular frontend guidelines (never use `hover:` classes), and test coverage requirements detailed in `.ai/AGENTS.md`.

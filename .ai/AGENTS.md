@@ -1,6 +1,6 @@
-# Junie Guidelines & Project Context
+# AI Guidelines & Project Context
 
-This file provides critical context and rules for Junie to follow when working on this microservices project.
+This file provides critical context and rules for AI assistants (Junie, Claude Code, Cursor, GitHub Copilot, etc.) to follow when working on this microservices project.
 
 ## 🚀 Quick-start Checklist
 - [ ] Read this file and `README.md` before acting.
