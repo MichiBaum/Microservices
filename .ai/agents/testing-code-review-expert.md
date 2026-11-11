@@ -2,8 +2,6 @@
 name: "testing-code-review-expert"
 description: "Expert in deep code analysis, bug detection, and advanced testing strategies. Delegate code reviews, bug hunting, test quality audits, and concurrency analysis to this agent."
 tools: ["Read", "Grep", "Glob", "Bash"]
-model: "sonnet"
-reasoningLevel: "high"
 maxTurns: 15
 skills:
   - "deep-code-analysis"

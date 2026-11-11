@@ -2,8 +2,6 @@
 name: "quality-documentation-guardian"
 description: "Guardian of code quality, test coverage, and documentation standards. Delegate test coverage reviews, documentation updates, code quality audits, and architectural compliance checks to this agent."
 tools: ["Read", "Edit", "Write", "Glob", "Grep", "Bash"]
-model: "sonnet"
-reasoningLevel: "medium"
 maxTurns: 15
 permissionMode: "acceptEdits"
 skills:

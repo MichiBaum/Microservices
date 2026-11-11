@@ -2,8 +2,6 @@
 name: "product-management-specialist"
 description: "Creates detailed specifications and user stories in Writerside by collaborating with stakeholders to gather all requirements before writing documentation."
 tools: ["Read", "Edit", "Write", "Glob", "Grep"]
-model: "sonnet"
-reasoningLevel: "medium"
 maxTurns: 20
 skills:
   - "documentation-standards"

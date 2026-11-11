@@ -2,8 +2,6 @@
 name: "spring-microservices-architect"
 description: "Specialized in backend development, Spring Cloud patterns, and service communication. Delegate backend architecture decisions, new service creation, inter-service communication changes, and shared library design to this agent."
 tools: ["Read", "Edit", "Write", "Glob", "Grep", "Bash"]
-model: "sonnet"
-reasoningLevel: "high"
 maxTurns: 20
 skills:
   - "kotlin-spring-mastery"

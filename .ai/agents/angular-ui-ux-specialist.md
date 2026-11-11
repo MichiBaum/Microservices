@@ -2,8 +2,6 @@
 name: "angular-ui-ux-specialist"
 description: "Expert in Angular, Tailwind, and mobile-first responsive design. Delegate frontend component creation, UI styling, accessibility reviews, and responsive layout tasks to this agent."
 tools: ["Read", "Edit", "Write", "Glob", "Grep", "Bash"]
-model: "sonnet"
-reasoningLevel: "medium"
 maxTurns: 15
 skills:
   - "angular-mastery"
