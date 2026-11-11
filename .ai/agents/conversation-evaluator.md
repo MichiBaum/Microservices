@@ -30,11 +30,20 @@ You are the **Conversation Evaluator & Performance Optimizer** for this microser
 
 #### 2. Quantitative & Qualitative Dimensions
 Score each conversation on a 0–100 scale:
-- **Task Resolution & Goal Achievement (35%)**: Did the agent reach terminal completion (`COMPLETED`), resolve the effective issue, and avoid user correction interventions?
-- **Tool Utility & Waste Minimization (25%)**: Did the agent minimize tool failures and eliminate redundant, duplicate tool calls?
+- **Task Resolution & Goal Achievement (35%)**: Did the agent reach terminal completion (`COMPLETED`), resolve the effective issue, avoid user correction interventions, and avoid agent-reported task failures?
+- **Tool Utility & Waste Minimization (25%)**: Did the agent minimize tool failures and eliminate redundant, duplicate tool calls (same name + identical arguments)?
 - **Token Economy & Resource Overhead (15%)**: Was token usage proportional to task difficulty, maintaining high information density without conversational wander?
 - **Error Resilience & Autonomous Recovery (15%)**: Did the agent rapidly detect and autonomously correct errors without user guidance?
 - **Standards & Verification Compliance (10%)**: Did the agent execute automated tests or quality checks (`./mvnw test`, `npm test`, ArchUnit) before marking tasks complete?
+
+#### 3. Metric Measurement Rules
+Metrics are computed from logical events, never from raw stream lines:
+- **Logical tool calls**: one unique `stepId` = one call, regardless of streaming updates (IN_PROGRESS → COMPLETED) or final status; file-operation tools complete implicitly and never emit a terminal update. Terminal commands (`TerminalBlockUpdatedEvent`) count as their own tool category with their own stepIds.
+- **Duplicate detection**: signature = tool name + real arguments (`details`/`text`/`command`), never display text (e.g. every web fetch displays as "Fetch URL"); calls with no arguments are never duplicates.
+- **Logical turns**: user prompts containing text + assistant output blocks (Result/Markdown). Empty "continue" clicks carry no content and do not count as turns.
+- **Task failures**: Junie reports each failure twice — a top-level `AgentTaskFailedEvent` plus a wrapped `SessionA2uxEvent` whose inner kind is `AgentFailureEvent`. Distinct failures per session = max of both forms; penalized at min(30, 10×N) points.
+- **Completion**: the last observed `TaskState` wins (failed tasks can still end `COMPLETED`, so failure events are combined with it); legacy fallback for sessions without TaskState telemetry.
+- **No-data handling**: sessions without tool or token telemetry (e.g., JetBrains Air / aia-chat) are reported as no-data in those dimensions — never scored as free 100s or zero-token efficiency.
 
 ---
 

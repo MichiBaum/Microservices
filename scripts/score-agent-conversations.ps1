@@ -216,6 +216,11 @@ function Evaluate-Conversation {
       userCorrectionSignals = 0
       verificationActions = 0
       standardsComplianceSignals = 0
+      taskFailureEvents = 0
+      canceledCommands = 0
+      tokenTelemetryAvailable = $false
+      hasToolTelemetry = $false
+      lastTaskState = ""
       hasTerminalCompletion = $false
     }
     toolUsage = @{}
@@ -250,12 +255,47 @@ function Evaluate-Conversation {
     } catch {}
   }
 
+  # Logical tool calls are keyed by stepId: one unique stepId = one logical call,
+  # even though Junie emits several update events per step (IN_PROGRESS -> COMPLETED).
+  $toolSteps = [System.Collections.Specialized.OrderedDictionary]::new()
+  $assistantSteps = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+  $legacyCompleted = $false
+  $anonToolSeq = 0
+  $assistantNoStepId = 0
+  # Junie reports each task failure twice: a top-level AgentTaskFailedEvent and a
+  # SessionA2uxEvent wrapper whose agentEvent.kind is "AgentFailureEvent".
+  # Distinct failures per session = max(top-level, wrapped).
+  $topFailures = 0
+  $wrapFailures = 0
+
+  # Build an argument-based signature from real tool arguments (details/text/command),
+  # not from display text (e.g. every web fetch displays as "Fetch URL").
+  function Get-ToolArgSignature {
+    param($toolEvent)
+    $parts = @()
+    $details = $toolEvent.details
+    if ($null -ne $details) {
+      if ($details -is [System.Management.Automation.PSCustomObject]) {
+        foreach ($prop in $details.PSObject.Properties) {
+          $v = $prop.Value
+          if ($null -ne $v) { $parts += ([string]$v).Trim() }
+        }
+      } elseif ($details -is [System.Collections.IEnumerable] -and $details -isnot [string]) {
+        foreach ($item in $details) { if ($null -ne $item) { $parts += ([string]$item).Trim() } }
+      } else {
+        $parts += ([string]$details).Trim()
+      }
+    }
+    if ($toolEvent.text) { $parts += ([string]$toolEvent.text).Trim() }
+    if ($toolEvent.command) { $parts += ([string]$toolEvent.command).Trim() }
+    return (($parts -join " | ") -replace '\s+', ' ').ToLowerInvariant().Trim()
+  }
+
   # Parse Events stream line by line
   if (Test-Path $eventsFile) {
     $lineReader = [System.IO.File]::ReadLines($eventsFile)
     foreach ($rawLine in $lineReader) {
       if ([string]::IsNullOrWhiteSpace($rawLine)) { continue }
-      $eval.metrics.totalTurns++
 
       try {
         $eventObj = $rawLine | ConvertFrom-Json
@@ -292,68 +332,141 @@ function Evaluate-Conversation {
             if ($u.outputTokens) { $eval.metrics.totalOutputTokens += [int64]$u.outputTokens }
             if ($u.cost) { $eval.metrics.estimatedCost += [double]$u.cost }
           }
+          $eval.metrics.tokenTelemetryAvailable = $true
         }
       }
 
-      # Tool Blocks & Invocations
+      # Tool Blocks & Invocations (logical calls keyed by stepId)
+      # Junie emits several update events per logical call (IN_PROGRESS -> COMPLETED);
+      # TerminalBlockUpdatedEvent carries shell commands with their own stepIds.
       $toolEvent = $null
       if ($eventObj.event.agentEvent.kind -eq "ToolBlockUpdatedEvent") {
+        $toolEvent = $eventObj.event.agentEvent
+      } elseif ($eventObj.event.agentEvent.kind -eq "TerminalBlockUpdatedEvent") {
         $toolEvent = $eventObj.event.agentEvent
       } elseif ($eventObj.kind -eq "ExecuteToolFinishedEvent") {
         $toolEvent = $eventObj
       }
 
       if ($toolEvent) {
-        $eval.metrics.totalToolCalls++
+        $eval.metrics.hasToolTelemetry = $true
         $toolName = if ($toolEvent.toolType) { $toolEvent.toolType } elseif ($toolEvent.name) { $toolEvent.name } else { "UnknownTool" }
-        
-        if (-not $eval.toolUsage.ContainsKey($toolName)) {
-          $eval.toolUsage[$toolName] = [ordered]@{ count = 0; failed = 0; duplicate = 0 }
-        }
-        $eval.toolUsage[$toolName].count++
+        $status = [string]$toolEvent.status
+        if ([string]::IsNullOrWhiteSpace($status)) { $status = "COMPLETED" }
 
-        $status = if ($toolEvent.status) { $toolEvent.status } else { "COMPLETED" }
-        $textSig = if ($toolEvent.text) { $toolEvent.text.Trim() } elseif ($toolEvent.command) { $toolEvent.command.Trim() } else { "" }
-        
-        # Check duplicate tool call
-        $sigKey = "$toolName::$textSig"
-        if (-not [string]::IsNullOrWhiteSpace($textSig)) {
-          if ($eval.toolCallSignatures.Contains($sigKey)) {
-            $eval.metrics.duplicateToolCalls++
-            $eval.toolUsage[$toolName].duplicate++
-          } else {
-            [void]$eval.toolCallSignatures.Add($sigKey)
-          }
-        }
+        # Argument-based signature from real arguments (details/text/command), not display text.
+        $argSig = Get-ToolArgSignature -toolEvent $toolEvent
+        $sigKey = "$toolName::$argSig"
 
-        # Check tool status / failure
-        if ($status -eq "FAILED" -or ($toolEvent.output -and $toolEvent.output -match "(?i)(exit code [1-9]|command failed|syntax error|fatal error)")) {
-          $eval.metrics.failedToolCalls++
-          $eval.toolUsage[$toolName].failed++
+        # One logical call per unique stepId; later streaming updates overwrite earlier ones.
+        if ([string]::IsNullOrWhiteSpace([string]$toolEvent.stepId)) {
+          $anonToolSeq++
+          $stepKey = "anon:$anonToolSeq"
         } else {
-          $eval.metrics.successfulToolCalls++
+          $prefix = if ($eventObj.event.agentEvent.kind -eq "TerminalBlockUpdatedEvent") { "term:" } else { "tool:" }
+          $stepKey = $prefix + [string]$toolEvent.stepId
         }
-
-        # Check for verification actions
-        if ($textSig -match "(?i)(mvnw (test|clean test)|npm test|verify|check|archunit|qodana)") {
-          $eval.metrics.verificationActions++
-        }
-        # Check for standards compliance
-        if ($textSig -match "(?i)(archunittests|Guidelines\.md|Clean Code|Writerside)") {
-          $eval.metrics.standardsComplianceSignals++
+        $toolSteps[$stepKey] = [ordered]@{
+          name   = $toolName
+          status = $status
+          sig    = $argSig
+          output = [string]$toolEvent.output
         }
       }
 
-      # Assistant Response
-      if ($eventObj.event.agentEvent.kind -eq "MarkdownBlockUpdatedEvent" -or $eventObj.kind -eq "AssistantMessageEvent") {
-        $eval.metrics.assistantResponseCount++
+      # Assistant output blocks, deduped by stepId (streaming updates share a stepId).
+      # Junie emits ResultBlockUpdatedEvent; JetBrains Air emits MarkdownBlockUpdatedEvent.
+      $assistantKind = $eventObj.event.agentEvent.kind
+      if ($assistantKind -eq "ResultBlockUpdatedEvent" -or $assistantKind -eq "MarkdownBlockUpdatedEvent") {
+        $aid = [string]$eventObj.event.agentEvent.stepId
+        if (-not [string]::IsNullOrWhiteSpace($aid)) {
+          [void]$assistantSteps.Add($aid)
+        } else {
+          $assistantNoStepId++
+        }
       }
 
-      # Task Completion
-      if ($eventObj.event.state -eq "COMPLETED" -or $eventObj.kind -eq "TaskFinishedEvent" -or $eventObj.event.agentEvent.kind -eq "ResultBlockUpdatedEvent") {
-        $eval.metrics.hasTerminalCompletion = $true
+      # Task failure signals: Junie emits each failure twice (top-level AgentTaskFailedEvent
+      # plus a SessionA2uxEvent wrapper with agentEvent.kind = "AgentFailureEvent"),
+      # so count both forms and dedupe per session below.
+      if ($eventObj.kind -eq "AgentTaskFailedEvent") {
+        $topFailures++
+      } elseif ($eventObj.event.agentEvent.kind -eq "AgentFailureEvent") {
+        $wrapFailures++
+      }
+
+      # Track the last observed task state (Junie TaskState events, wrapper states)
+      if ($eventObj.kind -eq "TaskState" -and $eventObj.state) {
+        $eval.metrics.lastTaskState = [string]$eventObj.state
+      } elseif ($eventObj.event.state) {
+        $eval.metrics.lastTaskState = [string]$eventObj.event.state
+      }
+
+      # Legacy completion fallback (sessions without TaskState telemetry)
+      if ($eventObj.kind -eq "TaskFinishedEvent" -or $eventObj.event.agentEvent.kind -eq "ResultBlockUpdatedEvent") {
+        $legacyCompleted = $true
       }
     }
+  }
+
+  # Dedupe task failures: each logical failure appears in both event forms.
+  $eval.metrics.taskFailureEvents = [Math]::Max($topFailures, $wrapFailures)
+
+  # Aggregate logical tool calls (one entry per unique stepId)
+  foreach ($entry in $toolSteps.Values) {
+    $eval.metrics.totalToolCalls++
+    $name = [string]$entry.name
+    if (-not $eval.toolUsage.ContainsKey($name)) {
+      $eval.toolUsage[$name] = [ordered]@{ count = 0; failed = 0; duplicate = 0 }
+    }
+    $eval.toolUsage[$name].count++
+
+    $status = [string]$entry.status
+    $argSig = [string]$entry.sig
+    $sigKey = "$name::$argSig"
+    # Duplicate detection only when real arguments exist (e.g. "Create file" events carry no args).
+    if (-not [string]::IsNullOrWhiteSpace($argSig)) {
+      if ($eval.toolCallSignatures.Contains($sigKey)) {
+        $eval.metrics.duplicateToolCalls++
+        $eval.toolUsage[$name].duplicate++
+      } else {
+        [void]$eval.toolCallSignatures.Add($sigKey)
+      }
+    }
+
+    # Failure: explicit FAILED/REJECTED status, or failure text in the output.
+    $outputText = [string]$entry.output
+    $isFailure = ($status -eq "FAILED" -or $status -eq "REJECTED") -or
+                 (-not [string]::IsNullOrWhiteSpace($outputText) -and $outputText -match "(?i)(exit code [1-9]|command failed|syntax error|fatal error|BUILD FAILURE)")
+    if ($isFailure) {
+      $eval.metrics.failedToolCalls++
+      $eval.toolUsage[$name].failed++
+    } else {
+      $eval.metrics.successfulToolCalls++
+    }
+    if ($status -eq "CANCELED") {
+      $eval.metrics.canceledCommands++
+    }
+
+    # Verification / standards signals from actual command/argument text
+    if ($sigKey -match "(?i)(mvnw (test|clean test)|npm test|verify|check|archunit|qodana)") {
+      $eval.metrics.verificationActions++
+    }
+    if ($sigKey -match "(?i)(archunittests|Guidelines\.md|Clean Code|Writerside)") {
+      $eval.metrics.standardsComplianceSignals++
+    }
+  }
+
+  # Logical turns = user prompts + assistant output blocks (not raw event lines;
+  # Junie streams are dominated by status-update events).
+  $eval.metrics.assistantResponseCount = $assistantSteps.Count + $assistantNoStepId
+  $eval.metrics.totalTurns = $eval.metrics.userPromptCount + $eval.metrics.assistantResponseCount
+
+  # Terminal completion: last observed task state wins; fall back to legacy signals.
+  if ($eval.metrics.lastTaskState -eq "COMPLETED") {
+    $eval.metrics.hasTerminalCompletion = $true
+  } elseif ([string]::IsNullOrWhiteSpace($eval.metrics.lastTaskState)) {
+    $eval.metrics.hasTerminalCompletion = $legacyCompleted
   }
 
   # Also inspect state.json for JetBrains Air or fallback
@@ -387,30 +500,42 @@ function Evaluate-Conversation {
     $resScore -= $penalty
     $eval.penalties.Add([PSCustomObject]@{ metric = "UserCorrection"; points = -$penalty; reason = "$($eval.metrics.userCorrectionSignals) user correction/dissatisfaction prompts detected" })
   }
+  if ($eval.metrics.taskFailureEvents -gt 0) {
+    $penalty = [Math]::Min(30.0, $eval.metrics.taskFailureEvents * 10.0)
+    $resScore -= $penalty
+    $eval.penalties.Add([PSCustomObject]@{ metric = "TaskFailures"; points = -$penalty; reason = "$($eval.metrics.taskFailureEvents) agent-reported task failure events recorded" })
+  }
   $eval.scores.taskResolutionScore = [Math]::Max(0.0, [Math]::Round($resScore, 1))
 
-  # 2. Tool Efficiency Score (Weight: 25%)
+  # 2. Tool Efficiency Score (Weight: 25%) - no-data when the session has no tool telemetry
   $toolScore = 100.0
-  if ($eval.metrics.totalToolCalls -gt 0) {
-    # Failure penalty
-    $failRatio = $eval.metrics.failedToolCalls / [double]$eval.metrics.totalToolCalls
-    $failPenalty = [Math]::Min(40.0, [Math]::Round($failRatio * 60.0, 1))
-    if ($failPenalty -gt 0) {
-      $toolScore -= $failPenalty
-      $eval.penalties.Add([PSCustomObject]@{ metric = "ToolFailures"; points = -$failPenalty; reason = "$($eval.metrics.failedToolCalls) failed tool calls ($([Math]::Round($failRatio * 100, 1))% failure rate)" })
+  if ($eval.metrics.hasToolTelemetry) {
+    if ($eval.metrics.totalToolCalls -gt 0) {
+      # Failure penalty
+      $failRatio = $eval.metrics.failedToolCalls / [double]$eval.metrics.totalToolCalls
+      $failPenalty = [Math]::Min(40.0, [Math]::Round($failRatio * 60.0, 1))
+      if ($failPenalty -gt 0) {
+        $toolScore -= $failPenalty
+        $eval.penalties.Add([PSCustomObject]@{ metric = "ToolFailures"; points = -$failPenalty; reason = "$($eval.metrics.failedToolCalls) failed tool calls ($([Math]::Round($failRatio * 100, 1))% failure rate)" })
+      }
+      # Duplicate / Redundancy penalty
+      $dupPenalty = [Math]::Min(30.0, $eval.metrics.duplicateToolCalls * 5.0)
+      if ($dupPenalty -gt 0) {
+        $toolScore -= $dupPenalty
+        $eval.penalties.Add([PSCustomObject]@{ metric = "ToolRedundancy"; points = -$dupPenalty; reason = "$($eval.metrics.duplicateToolCalls) redundant identical tool invocations" })
+      }
     }
-    # Duplicate / Redundancy penalty
-    $dupPenalty = [Math]::Min(30.0, $eval.metrics.duplicateToolCalls * 5.0)
-    if ($dupPenalty -gt 0) {
-      $toolScore -= $dupPenalty
-      $eval.penalties.Add([PSCustomObject]@{ metric = "ToolRedundancy"; points = -$dupPenalty; reason = "$($eval.metrics.duplicateToolCalls) redundant identical tool invocations" })
-    }
+  } else {
+    $eval.findings.Add("No tool telemetry available for this session (JetBrains Air chat format); tool efficiency reported as no-data.")
   }
   $eval.scores.toolEfficiencyScore = [Math]::Max(0.0, [Math]::Round($toolScore, 1))
 
   # 3. Token Economy & Resource Overhead (Weight: 15%)
   $tokenScore = 100.0
   $totalTokens = $eval.metrics.totalInputTokens + $eval.metrics.totalOutputTokens
+  if (-not $eval.metrics.tokenTelemetryAvailable) {
+    $eval.findings.Add("No token/cost telemetry available for this session; token economy reported as no-data.")
+  }
   if ($totalTokens -gt 300000) {
     $tokenScore -= 25.0
     $eval.penalties.Add([PSCustomObject]@{ metric = "TokenOverhead"; points = -25; reason = "High token consumption ($totalTokens tokens)" })
@@ -420,7 +545,7 @@ function Evaluate-Conversation {
   }
   if ($eval.metrics.totalTurns -gt 50) {
     $tokenScore -= 15.0
-    $eval.penalties.Add([PSCustomObject]@{ metric = "TurnOverhead"; points = -15; reason = "High turn count ($($eval.metrics.totalTurns) events/turns)" })
+    $eval.penalties.Add([PSCustomObject]@{ metric = "TurnOverhead"; points = -15; reason = "High logical turn count ($($eval.metrics.totalTurns) user+assistant turns)" })
   } elseif ($eval.metrics.userPromptCount -gt 8 -and $eval.metrics.totalToolCalls -eq 0) {
     $tokenScore -= 10.0
     $eval.penalties.Add([PSCustomObject]@{ metric = "ConversationalDrag"; points = -10; reason = "Conversational drag: excessive back-and-forth ($($eval.metrics.userPromptCount) user turns) without execution" })
@@ -536,6 +661,10 @@ foreach ($folder in $pendingSessions) {
         duplicateToolCalls = $evaluationResult.metrics.duplicateToolCalls
         totalTurns = $evaluationResult.metrics.totalTurns
         userCorrectionSignals = $evaluationResult.metrics.userCorrectionSignals
+        taskFailureEvents = $evaluationResult.metrics.taskFailureEvents
+        canceledCommands = $evaluationResult.metrics.canceledCommands
+        hasToolTelemetry = $evaluationResult.metrics.hasToolTelemetry
+        tokenTelemetryAvailable = $evaluationResult.metrics.tokenTelemetryAvailable
         scoredAt = $evaluationResult.evaluatedAt
         evaluationFile = "$sid.json"
       }
@@ -584,6 +713,11 @@ if ($GenerateReport -and (-not $DryRun) -and $ledger.totalScored -gt 0) {
   $totalFailedTools = ($allScored | Measure-Object -Property failedToolCalls -Sum).Sum
   $totalDuplicates = ($allScored | Measure-Object -Property duplicateToolCalls -Sum).Sum
   $totalCorrections = ($allScored | Measure-Object -Property userCorrectionSignals -Sum).Sum
+  # New measurement fields (safe on mixed old/new ledger entries)
+  $totalTaskFailures = ($allScored | ForEach-Object { [int]$_.taskFailureEvents } | Measure-Object -Sum).Sum
+  $totalCanceled = ($allScored | ForEach-Object { [int]$_.canceledCommands } | Measure-Object -Sum).Sum
+  $noToolTelemetrySessions = @($allScored | Where-Object { [bool]$_.hasToolTelemetry -eq $false }).Count
+  $noTokenTelemetrySessions = @($allScored | Where-Object { [bool]$_.tokenTelemetryAvailable -eq $false }).Count
 
   $summaryObj = [ordered]@{
     generatedAt = [DateTime]::UtcNow.ToString("o")
@@ -596,6 +730,10 @@ if ($GenerateReport -and (-not $DryRun) -and $ledger.totalScored -gt 0) {
       totalDuplicateCalls = $totalDuplicates
       overallToolFailureRate = if ($totalTools -gt 0) { [Math]::Round(($totalFailedTools / [double]$totalTools) * 100, 2) } else { 0.0 }
       overallToolRedundancyRate = if ($totalTools -gt 0) { [Math]::Round(($totalDuplicates / [double]$totalTools) * 100, 2) } else { 0.0 }
+      totalTaskFailureEvents = $totalTaskFailures
+      totalCanceledCommands = $totalCanceled
+      noToolTelemetrySessions = $noToolTelemetrySessions
+      noTokenTelemetrySessions = $noTokenTelemetrySessions
     }
     topUnderperformingSessions = @(
       $allScored | Sort-Object -Property score | Select-Object -First 5 | ForEach-Object {
@@ -624,7 +762,7 @@ if ($GenerateReport -and (-not $DryRun) -and $ledger.totalScored -gt 0) {
 - **Generated**: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
 - **Total Sessions Evaluated**: $($ledger.totalScored)
 - **Average Utility Score**: $($ledger.averageScore) / 100
-- **Total Tool Calls Analyzed**: $totalTools (Failed: $totalFailedTools, Duplicate: $totalDuplicates)
+- **Total Logical Tool Calls Analyzed**: $totalTools (deduplicated by stepId; Failed: $totalFailedTools, Duplicate: $totalDuplicates)
 
 ---
 
@@ -643,10 +781,14 @@ if ($GenerateReport -and (-not $DryRun) -and $ledger.totalScored -gt 0) {
 
 ## 🛠️ Tool Usage & Waste Telemetry
 
-- **Aggregate Tool Invocations**: $totalTools
+- **Aggregate Logical Tool Invocations** (one per unique stepId): $totalTools
 - **Failed Invocations**: $totalFailedTools ($($summaryObj.toolTelemetry.overallToolFailureRate)%)
-- **Redundant / Duplicate Invocations**: $totalDuplicates ($($summaryObj.toolTelemetry.overallToolRedundancyRate)%)
+- **Redundant / Duplicate Invocations** (argument-based signatures): $totalDuplicates ($($summaryObj.toolTelemetry.overallToolRedundancyRate)%)
+- **Agent Task Failure Events**: $totalTaskFailures
+- **Canceled Commands**: $totalCanceled
 - **User Correction Interventions**: $totalCorrections
+- **Sessions without tool telemetry (no-data)**: $noToolTelemetrySessions
+- **Sessions without token telemetry (no-data)**: $noTokenTelemetrySessions
 
 ---
 

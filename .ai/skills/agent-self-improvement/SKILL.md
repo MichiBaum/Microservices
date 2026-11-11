@@ -57,6 +57,9 @@ The evaluator must regularly calibrate its own metrics to ensure objective, high
 ### C. Heuristic Tuning in `scripts/score-agent-conversations.ps1`
 - When false penalties are detected (such as user question phrasing misinterpreted as a correction), refine regular expressions to only match true user reprimands on follow-up turns.
 - Calibrate token threshold tiers according to evolving model context sizes and task complexity.
+- **Deduplicate by `stepId`**: Junie emits several update events per logical tool call; one unique stepId = one call. Never count raw event lines, and never rely on terminal COMPLETED steps alone (file-operation tools complete implicitly).
+- **Failure double-reporting**: Junie reports each task failure twice (top-level `AgentTaskFailedEvent` + wrapped `AgentFailureEvent`); distinct failures = max of both forms before applying the penalty.
+- **No-data handling**: sessions without tool or token telemetry must be reported as no-data, never scored as free 100s or zero-token efficiency.
 
 ---
 

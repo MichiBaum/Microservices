@@ -34,7 +34,7 @@ To preserve computational resources and avoid redundant work:
 | Dimension | Weight | Evaluation Criteria |
 |:----------|:------:|:--------------------|
 | **1. Task Resolution & Goal Achievement** | **35%** | • Verified terminal completion (`COMPLETED` state, final answer provided).<br>• Absence of user dissatisfaction or correction prompts.<br>• Full coverage of the user's effective issue without breaking secondary invariants. |
-| **2. Tool Utility & Waste Minimization** | **25%** | • Low tool failure rate ($< 5\%$).<br>• Zero or minimal redundant/duplicate tool calls (no repetitive file reads or identical searches).<br>• Appropriate tool selection (e.g. targeted grep over exhaustive directory scans). |
+| **2. Tool Utility & Waste Minimization** | **25%** | • Low tool failure rate ($< 5\%$).<br>• Zero or minimal redundant/duplicate tool calls — same name + identical arguments (no repetitive file reads or identical searches).<br>• Appropriate tool selection (e.g. targeted grep over exhaustive directory scans). |
 | **3. Token Economy & Resource Overhead** | **15%** | • High signal-to-noise ratio in model prompts and responses.<br>• Token consumption proportional to task complexity ($< 150\text{k}$ for typical tasks).<br>• Streamlined turn count without wandering or speculative chatter. |
 | **4. Error Resilience & Recovery** | **15%** | • Rapid autonomous recovery from unexpected tool failures.<br>• No infinite retry loops or repeated identical failing commands.<br>• Graceful fallback strategies when primary tools fail. |
 | **5. Standards & Verification Compliance** | **10%** | • Explicit validation passes executed (e.g., `./mvnw test`, `npm test`, ArchUnit check).<br>• Adherence to project guidelines (MariaDB, mobile-first, clean code, Writerside docs). |
@@ -46,6 +46,14 @@ To preserve computational resources and avoid redundant work:
 - **C (65–74)**: *Sub-optimal Utility* — Goal achieved with significant friction, multiple failed attempts, or missing verification.
 - **D (50–64)**: *Marginal Utility* — Incomplete resolution, heavy failure loops, or repeated user corrections.
 - **F (< 50)**: *Deficit / Wasteful* — Task abandoned, unhandled exceptions, or severe negative utility.
+
+### Measurement Rules (Avoiding Artifacts)
+Metrics must be derived from logical events, never raw stream lines:
+- **One unique `stepId` = one logical tool call.** Junie emits several update events per step; file-operation tools complete implicitly and never emit a terminal update. Terminal commands (`TerminalBlockUpdatedEvent`) count as their own tool category with their own stepIds.
+- **Duplicates = same name + identical real arguments** (`details`/`text`/`command`), never display text (every web fetch displays as "Fetch URL"). Calls with no arguments are never duplicates.
+- **Turns = user prompts containing text + assistant output blocks**, not raw event lines — Junie streams are dominated by status-update events, and empty "continue" clicks carry no content.
+- **Task failures:** Junie reports each failure twice (top-level `AgentTaskFailedEvent` plus a wrapped `SessionA2uxEvent` with inner kind `AgentFailureEvent`); distinct count = max of both forms before applying the penalty.
+- **No-data, not free points:** sessions without tool or token telemetry (JetBrains Air / aia-chat) are reported as no-data in those dimensions — never scored as free 100s or zero-token efficiency.
 
 ---
 
