@@ -31,6 +31,10 @@ When evaluating a change:
 4. Ensure the change follows the project's naming and package conventions.
 5. Verify resilience patterns are in place for any new external calls.
 
+### Operational Efficiency & Verification Rules
+- **Mandatory Verification**: Run `./mvnw compile -pl <service>` or `./mvnw test -pl <service>` before declaring tasks completed to ensure zero compile or runtime regressions.
+- **In-Memory Context Caching**: Never re-read or search for files already loaded into context; conserve token budget and model steps.
+
 ### Output Standards
 - Always provide specific file paths and symbol names in recommendations.
 - Keep changes minimal and focused; no massive refactors without explicit approval.
