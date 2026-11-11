@@ -168,7 +168,9 @@ Write-Host "Already scored       : $skippedCount (skipped; pass -Rescore to re-e
 
 if ($pendingSessions.Count -eq 0) {
   Write-Host "All sessions have already been scored. No new conversations to process." -ForegroundColor Green
-  return
+  if (-not $GenerateReport -or $ledger.totalScored -eq 0) {
+    return
+  }
 }
 
 if ($Limit -gt 0 -and $pendingSessions.Count -gt $Limit) {
@@ -271,8 +273,12 @@ function Evaluate-Conversation {
             $eval.taskName = if ($p.Length -gt 60) { $p.Substring(0, 57) + "..." } else { $p }
           }
           # Detect user dissatisfaction / correction signals (only on follow-up prompts)
-          if ($eval.metrics.userPromptCount -gt 1 -and $p -match "(?i)\b(doesn't work|did not work|still failing|error|failed|incorrect|wrong|revert|you broke|not working|broken|that is not right)\b") {
-            $eval.metrics.userCorrectionSignals++
+          if ($eval.metrics.userPromptCount -gt 1) {
+            # Filter out diagnostic log traces or stack traces pasted by the user for troubleshooting
+            $isDiagnosticLog = $p -match "^\s*(\d{4}-\d{2}-\d{2}|\[\w+\]|Exception in thread|Servlet\.service\(\)|\tat\s+[a-zA-Z0-9_.]+|SQL State\s*:|Error Code\s*:)"
+            if (-not $isDiagnosticLog -and $p -match "(?i)\b(doesn't work|did not work|still failing|incorrect|wrong|revert|you broke|not working|broken|that is not right|bullshit|stfu|just fix it|never executed|talking nonsense|not what i asked|no overload matches)\b") {
+              $eval.metrics.userCorrectionSignals++
+            }
           }
         }
       }
@@ -415,6 +421,9 @@ function Evaluate-Conversation {
   if ($eval.metrics.totalTurns -gt 50) {
     $tokenScore -= 15.0
     $eval.penalties.Add([PSCustomObject]@{ metric = "TurnOverhead"; points = -15; reason = "High turn count ($($eval.metrics.totalTurns) events/turns)" })
+  } elseif ($eval.metrics.userPromptCount -gt 8 -and $eval.metrics.totalToolCalls -eq 0) {
+    $tokenScore -= 10.0
+    $eval.penalties.Add([PSCustomObject]@{ metric = "ConversationalDrag"; points = -10; reason = "Conversational drag: excessive back-and-forth ($($eval.metrics.userPromptCount) user turns) without execution" })
   }
   $eval.scores.tokenEconomyScore = [Math]::Max(0.0, [Math]::Round($tokenScore, 1))
 
@@ -649,13 +658,20 @@ if ($GenerateReport -and (-not $DryRun) -and $ledger.totalScored -gt 0) {
 - **Dynamic Weight Calibration**: Adjust rubric weights based on project maturity (e.g. increase verification weight during active release cycles).
 
 ### 2. Upstream Improvements for Domain Agents
-- **Spring Microservices Architect (`spring-microservices-architect.md`)**:
-  - Always verify service compile status with `./mvnw compile -pl <service>` before declaring completion.
-  - Avoid redundant directory listings when project structure is already known.
-- **Testing & Code Review Expert (`testing-code-review-expert.md`)**:
+- **Spring Microservices Architect (``spring-microservices-architect.md``)**:
+  - Always verify service compile status with ``./mvnw compile -pl <service>`` before declaring completion.
+  - Use Spring Data JPA interface/record projections for query views instead of mutating domain entities.
+  - Enforce precise CORS allowed-origin patterns without shell brace expansions.
+- **Angular UI/UX Specialist (``angular-ui-ux-specialist.md``)**:
+  - Strictly ground reactive code in verified Angular Signals/Resource APIs (``rxResource({ loader: () => ... })``); never invent unsupported properties like ``request`` (``TS2769``).
+  - Mandate pre-completion frontend verification (``npm test`` or ``npm run build`` in ``website/``).
+- **Cloud & Infrastructure Engineer (``cloud-infrastructure-engineer.md``)**:
+  - Provide complete, end-to-end declarative manifests (MetalLB pools, L2 advertisements, Traefik Ingress routing) upfront to prevent multi-turn conversational drag.
+  - Implement clean Micrometer Tracing observation predicates/ignore-paths for Actuator and Eureka without removing security context filters.
+- **Testing & Code Review Expert (``testing-code-review-expert.md``)**:
   - Enforce automated test execution on newly modified code rather than manual assertions.
-  - Check ArchUnit compliance on cross-service references.
-- **Quality & Documentation Guardian (`quality-documentation-guardian.md`)**:
+  - Test negative and role-based security boundaries for ``/actuator/**`` endpoints (``401``, ``403``, ``200``).
+- **Quality & Documentation Guardian (``quality-documentation-guardian.md``)**:
   - Ensure documentation updates accompany API changes to reduce user clarification cycles.
 "@
 

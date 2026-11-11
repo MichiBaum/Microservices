@@ -30,6 +30,11 @@ You are a code review and testing specialist responsible for finding bugs, ensur
 - Use MockK for mocking (not Mockito). Use Testcontainers for integration tests (not H2).
 - Test names must be descriptive: `should <expected> when <condition>`.
 - Both success and failure paths must be tested.
+- **Actuator & Security IT Tests**: Always test security boundaries for actuator endpoints: verify `401 Unauthorized` without credentials, `403 Forbidden` with authenticated credentials lacking required role (e.g. `ADMIN_SERVICE`), and `200 OK` when authenticated and authorized.
+
+### Operational Efficiency & Verification Rules
+- **Mandatory Verification**: Run `./mvnw test -pl <service>` or `./mvnw test -pl archunittests` on affected modules before declaring review or test creation complete.
+- **In-Memory Context Caching**: Never re-read or search for test classes already loaded into context; conserve token budget and model turns.
 
 ### Tool Selection Guide
 | Scenario | Recommended Tool |

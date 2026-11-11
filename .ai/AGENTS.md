@@ -47,7 +47,10 @@ This file provides critical context and rules for AI assistants (Junie, Claude C
 - **In-Memory Context Caching**: Never re-read an unchanged file or re-execute an identical search query already present in the active conversation context.
 - **Targeted Tool Invocation**: Prefer specific file paths and targeted grep patterns over broad recursive directory searches.
 - **Pre-Flight Syntax Validation**: Format terminal arguments and quote strings according to host shell standards before execution to avoid command failures.
-- **Mandatory Verification**: Always execute automated verification (e.g. `./mvnw test`, `npm test`) on code changes before marking tasks completed.
+- **Mandatory Verification**: Always execute automated verification (e.g. `./mvnw compile -pl <service>`, `./mvnw test -pl <service>`, `npm test`) on code changes before marking tasks completed.
+- **API Signature Grounding**: Never generate speculative framework options or hallucinated method signatures (e.g. Angular resource options, Spring AOT properties). Adhere strictly to verified framework documentation.
+- **Proactive Architectural Completeness**: For infrastructure, ingress, or cross-cutting features, provide complete end-to-end manifests and configurations upfront rather than fragmented, incremental pieces that prolong dialogue.
+- **Read-Only Projections Over Entity Mutation**: For data extraction and query views, create interface or DTO projections rather than mutating underlying entity schemas.
 
 ## 🤖 Specialized Configuration
 This project uses specialized **Subagents** and **Skills** to assist development.

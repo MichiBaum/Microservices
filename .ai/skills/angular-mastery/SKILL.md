@@ -32,10 +32,16 @@ description: "Advanced knowledge of Angular framework, components, signals, and 
 - Use Angular `HttpClient` for all API calls.
 - Centralize API base URLs in environment configuration.
 - Use HTTP interceptors for authentication tokens and error handling.
+- **Resource APIs**: When using `rxResource()` or `httpResource()`, strictly adhere to documented signatures (`loader: () => ...` returning an Observable). Never pass speculative properties such as `request` that trigger compiler `TS2769` errors.
 
-## Constraints
+## Image & Asset Optimization
+- Use `NgOptimizedImage` (`ngSrc`) for all non-trivial images with explicit `width`/`height` or `fill`.
+- Ensure custom image loaders correctly support image placeholders and remote CDN endpoints.
+
+## Constraints & Verification
 - All frontend commands run from the `website/` directory.
 - Install dependencies: `npm install`
 - Start dev server: `npm start`
 - Run tests: `npm test`
 - Build: `npm run build`
+- Always verify TypeScript compiler status (`npm run build` or `npm test`) before concluding frontend changes.

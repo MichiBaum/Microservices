@@ -24,9 +24,10 @@ description: "Expertise in distributed tracing, metrics, and monitoring using Gr
 
 ## Distributed Tracing
 - All inter-service calls must propagate trace context headers.
-- Use Spring Cloud Sleuth / Micrometer Tracing for automatic trace propagation.
+- Use Micrometer Tracing / OpenTelemetry for automatic trace propagation across services.
 - Add custom spans for significant business operations.
 - Ensure trace IDs appear in log output for correlation.
+- **Trace Filter & Path Exclusions**: When excluding Actuator health polls or Eureka heartbeats from trace generation, use observation predicates (e.g. implementing `ObservationPredicate`) or `management.observations.http.server.requests.ignore-paths`. Do not strip security filters or broad `spring.security.*` attributes.
 
 ## Alerting & Dashboards
 - Define alerts for critical metrics (error rates, latency percentiles, resource usage).
