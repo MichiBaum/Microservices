@@ -1,6 +1,6 @@
 ---
-name: release-engineer
-description: Expert in release management, versioning, changelogs, and deployment automation for the Microservices project
+name: "release-engineer"
+description: "Expert in semantic versioning, changelog maintenance, deployment automation, and release coordination. Use when cutting a new service release, updating version numbers across Maven/Docker/K8s, or writing release notes."
 ---
 
 # Release Engineer

@@ -1,6 +1,10 @@
 ---
 name: "cloud-infrastructure-engineer"
 description: "Expert in Kubernetes, Docker, and observability (Grafana/Prometheus/Jaeger). Delegate infrastructure configuration, container optimization, monitoring setup, and deployment tasks to this agent."
+tools: ["Read", "Edit", "Write", "Glob", "Grep", "Bash"]
+model: "sonnet"
+reasoningLevel: "medium"
+maxTurns: 15
 skills:
   - "kubernetes-expert"
   - "observability-mastery"

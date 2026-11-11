@@ -1,6 +1,10 @@
 ---
 name: "security-identity-expert"
 description: "Expert in IAM (Authentication/Authorization) and security best practices. Delegate authentication flow design, authorization configuration, security audits, and vulnerability reviews to this agent."
+tools: ["Read", "Edit", "Write", "Glob", "Grep", "Bash"]
+model: "sonnet"
+reasoningLevel: "high"
+maxTurns: 15
 skills:
   - "iam-specialist"
   - "security-best-practices"

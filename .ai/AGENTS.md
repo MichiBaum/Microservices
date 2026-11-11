@@ -53,12 +53,16 @@ This project uses specialized **Subagents** and **Skills** to assist development
 - [Security & Identity Expert](agents/security-identity-expert.md)
 - [Quality & Documentation Guardian](agents/quality-documentation-guardian.md)
 - [Testing & Code Review Expert](agents/testing-code-review-expert.md)
+- [Product Management Specialist](agents/product-management-specialist.md)
 
 ### Core & Domain Skills
 - [Global Skills](skills/global-skills/SKILL.md)
 - [Microservices Architecture](skills/microservices-architecture/SKILL.md)
 - [Kotlin & Spring Mastery](skills/kotlin-spring-mastery/SKILL.md)
 - [Persistence Optimization](skills/persistence-optimization/SKILL.md)
+- [Database Expert](skills/database-expert/SKILL.md)
+- [Performance Engineering](skills/performance-engineer/SKILL.md)
+- [Release Engineering & Versioning](skills/release-engineer/SKILL.md)
 - [UI & UX Skills](skills/ui-ux-skills/SKILL.md)
 - [Tailwind Mastery](skills/tailwind-mastery/SKILL.md)
 - [Angular Mastery](skills/angular-mastery/SKILL.md)
@@ -71,3 +75,4 @@ This project uses specialized **Subagents** and **Skills** to assist development
 - [Deep Code Analysis](skills/deep-code-analysis/SKILL.md)
 - [ArchUnit Expert](skills/archunit-expert/SKILL.md)
 - [Documentation Standards](skills/documentation-standards/SKILL.md)
+- [Design Tree & Plan Stress-Testing (Grill Me)](skills/grill-me/SKILL.md)
