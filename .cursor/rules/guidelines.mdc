@@ -1,0 +1,12 @@
+---
+description: Project architecture, conventions, and AI guidelines
+globs: *
+alwaysApply: true
+---
+
+Please review and adhere strictly to the project architecture, conventions, and guidelines defined in `.ai/AGENTS.md`.
+
+- **Guidelines & Architecture**: `.ai/AGENTS.md`
+- **Domain Skills**: `.ai/skills/`
+- **Specialized Agents**: `.ai/agents/`
+- **Workflow Commands**: `.ai/commands/`

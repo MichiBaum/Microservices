@@ -40,3 +40,4 @@ discord.env
 .junie/memory/
 /.junie/mcp/
 /.junie/plans/
+/.ai/mcp/mcp.json
