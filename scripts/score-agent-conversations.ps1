@@ -59,7 +59,7 @@ param (
 
   [switch]$DryRun,
 
-  [switch]$GenerateReport = $true
+  [bool]$GenerateReport = $true
 )
 
 $ErrorActionPreference = 'Stop'
