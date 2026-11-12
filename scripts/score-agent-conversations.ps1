@@ -578,13 +578,23 @@ function Evaluate-Conversation {
   $eval.scores.standardsScore = [Math]::Min(100.0, [Math]::Max(0.0, [Math]::Round($stdScore, 1)))
 
   # Composite Net Utility Score
-  $composite = (
-    ($eval.scores.taskResolutionScore * 0.35) +
-    ($eval.scores.toolEfficiencyScore * 0.25) +
-    ($eval.scores.tokenEconomyScore   * 0.15) +
-    ($eval.scores.errorResilienceScore* 0.15) +
-    ($eval.scores.standardsScore      * 0.10)
+  # Dynamically renormalize weights when tool or token telemetry is absent to uphold the "no-data, not free points" policy
+  $weights = [ordered]@{
+    taskResolution  = 0.35
+    toolEfficiency  = if ($eval.metrics.hasToolTelemetry) { 0.25 } else { 0.0 }
+    tokenEconomy    = if ($eval.metrics.tokenTelemetryAvailable) { 0.15 } else { 0.0 }
+    errorResilience = 0.15
+    standards       = 0.10
+  }
+  $weightSum = ($weights.Values | Measure-Object -Sum).Sum
+  $weightedSum = (
+    ($eval.scores.taskResolutionScore  * $weights.taskResolution) +
+    ($eval.scores.toolEfficiencyScore  * $weights.toolEfficiency) +
+    ($eval.scores.tokenEconomyScore    * $weights.tokenEconomy) +
+    ($eval.scores.errorResilienceScore * $weights.errorResilience) +
+    ($eval.scores.standardsScore       * $weights.standards)
   )
+  $composite = if ($weightSum -gt 0) { $weightedSum / $weightSum } else { 0.0 }
   $eval.scores.compositeUtilityScore = [Math]::Round($composite, 1)
 
   # Assign Grade & Category
