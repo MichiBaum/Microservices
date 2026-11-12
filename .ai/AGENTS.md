@@ -43,6 +43,15 @@ This file provides critical context and rules for AI assistants (Junie, Claude C
 - **Architecture Tests**: Use ArchUnit (see `archunittests/`).
 - **Clean Code**: Follow Kotlin coding conventions and use meaningful naming.
 
+## ⚡ Tool Efficiency & Operational Utility
+- **In-Memory Context Caching**: Never re-read an unchanged file or re-execute an identical search query already present in the active conversation context.
+- **Targeted Tool Invocation**: Prefer specific file paths and targeted grep patterns over broad recursive directory searches.
+- **Pre-Flight Syntax Validation**: Format terminal arguments and quote strings according to host shell standards before execution to avoid command failures.
+- **Mandatory Verification**: Always execute automated verification (e.g. `./mvnw compile -pl <service>`, `./mvnw test -pl <service>`, `npm test`) on code changes before marking tasks completed.
+- **API Signature Grounding**: Never generate speculative framework options or hallucinated method signatures (e.g. Angular resource options, Spring AOT properties). Adhere strictly to verified framework documentation.
+- **Proactive Architectural Completeness**: For infrastructure, ingress, or cross-cutting features, provide complete end-to-end manifests and configurations upfront rather than fragmented, incremental pieces that prolong dialogue.
+- **Read-Only Projections Over Entity Mutation**: For data extraction and query views, create interface or DTO projections rather than mutating underlying entity schemas.
+
 ## 🤖 Specialized Configuration
 This project uses specialized **Subagents** and **Skills** to assist development.
 
@@ -53,12 +62,19 @@ This project uses specialized **Subagents** and **Skills** to assist development
 - [Security & Identity Expert](agents/security-identity-expert.md)
 - [Quality & Documentation Guardian](agents/quality-documentation-guardian.md)
 - [Testing & Code Review Expert](agents/testing-code-review-expert.md)
+- [Product Management Specialist](agents/product-management-specialist.md)
+- [Conversation Evaluator & Performance Optimizer](agents/conversation-evaluator.md)
 
 ### Core & Domain Skills
 - [Global Skills](skills/global-skills/SKILL.md)
+- [Conversation Evaluator](skills/conversation-evaluator/SKILL.md)
+- [Agent Self-Improvement & Closed-Loop Optimization](skills/agent-self-improvement/SKILL.md)
 - [Microservices Architecture](skills/microservices-architecture/SKILL.md)
 - [Kotlin & Spring Mastery](skills/kotlin-spring-mastery/SKILL.md)
 - [Persistence Optimization](skills/persistence-optimization/SKILL.md)
+- [Database Expert](skills/database-expert/SKILL.md)
+- [Performance Engineering](skills/performance-engineer/SKILL.md)
+- [Release Engineering & Versioning](skills/release-engineer/SKILL.md)
 - [UI & UX Skills](skills/ui-ux-skills/SKILL.md)
 - [Tailwind Mastery](skills/tailwind-mastery/SKILL.md)
 - [Angular Mastery](skills/angular-mastery/SKILL.md)
@@ -71,3 +87,4 @@ This project uses specialized **Subagents** and **Skills** to assist development
 - [Deep Code Analysis](skills/deep-code-analysis/SKILL.md)
 - [ArchUnit Expert](skills/archunit-expert/SKILL.md)
 - [Documentation Standards](skills/documentation-standards/SKILL.md)
+- [Design Tree & Plan Stress-Testing (Grill Me)](skills/grill-me/SKILL.md)

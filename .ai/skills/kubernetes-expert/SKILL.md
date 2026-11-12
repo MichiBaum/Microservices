@@ -26,6 +26,7 @@ description: "Expertise in Kubernetes (k0s) deployments, orchestration, and cont
 - Configure Traefik `IngressRoute` resources for external traffic routing.
 - Use TLS certificates for all external-facing endpoints.
 - Define `Service` resources with appropriate port mappings for each microservice.
+- **End-to-End Networking Completeness**: When configuring external access via MetalLB or Traefik, provide the complete architecture upfront: `IPAddressPool`, `L2Advertisement`, service annotations (`metallb.io/loadBalancerIPs`), and ingress routing rules. Avoid incremental trial-and-error configurations.
 
 ## Container Best Practices
 - Use `eclipse-temurin:26-jre-alpine` as the base image for JVM services.
@@ -33,7 +34,8 @@ description: "Expertise in Kubernetes (k0s) deployments, orchestration, and cont
 - Do not run containers as root; use a non-root user in Dockerfiles.
 - Tag images with specific versions; avoid `latest` tag in production manifests.
 
-## Constraints
+## Constraints & Verification
 - All infrastructure changes must be declarative (YAML manifests in `kubernetes/`).
 - Do not apply changes directly to the cluster without updating the manifests.
 - Test manifest changes locally with `docker-compose.local.yml` before deploying.
+- Validate manifest syntax with `kubectl apply --dry-run=client -f <file>` or `docker-compose config` before completion.

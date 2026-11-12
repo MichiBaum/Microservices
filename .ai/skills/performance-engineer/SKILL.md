@@ -1,6 +1,6 @@
 ---
-name: performance-engineer
-description: Expert in query optimization, caching strategies, and performance tuning for Spring Boot microservices
+name: "performance-engineer"
+description: "Expert in query optimization, caching strategies, memory profiling, and Spring Boot performance tuning. Use when diagnosing latency bottlenecks, configuring Caffeine/Redis caching, eliminating N+1 queries, or conducting load testing."
 ---
 
 # Performance Engineer

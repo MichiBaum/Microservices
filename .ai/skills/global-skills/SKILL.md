@@ -28,3 +28,7 @@ These global skills define the baseline for all assistance in this microservices
 3. Identify all affected services and modules before proposing changes.
 4. Update documentation if you change public APIs, architecture, or user-facing behavior.
 5. Never log passwords, tokens, or PII.
+6. **API Signature Grounding**: Ground all framework calls in verified documentation; never generate speculative or unverified API options.
+7. **Proactive Completeness**: Provide end-to-end architectures and configurations upfront to eliminate incremental back-and-forth rounds.
+8. **In-Memory Context Caching**: Never re-read unchanged files or re-run duplicate searches already loaded into the session.
+9. **Mandatory Verification**: Run module tests or compilation commands before declaring completion.

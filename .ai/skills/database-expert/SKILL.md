@@ -1,6 +1,6 @@
 ---
-name: database-expert
-description: Expert in MariaDB, Flyway migrations, and JPA/Hibernate best practices for the Microservices project
+name: "database-expert"
+description: "Expert in MariaDB schema design, Flyway database migrations, and JPA/Hibernate persistence optimization. Use when creating or modifying database schemas, writing migration scripts, optimizing complex SQL queries, or troubleshooting persistence issues."
 ---
 
 # Database Expert
