@@ -366,11 +366,21 @@ function Evaluate-Conversation {
           $prefix = if ($eventObj.event.agentEvent.kind -eq "TerminalBlockUpdatedEvent") { "term:" } else { "tool:" }
           $stepKey = $prefix + [string]$toolEvent.stepId
         }
-        $toolSteps[$stepKey] = [ordered]@{
-          name   = $toolName
-          status = $status
-          sig    = $argSig
-          output = [string]$toolEvent.output
+        if ($toolSteps.Contains($stepKey)) {
+          $existing = $toolSteps[$stepKey]
+          $toolSteps[$stepKey] = [ordered]@{
+            name   = if ($toolName -ne "UnknownTool") { $toolName } else { $existing.name }
+            status = if (-not [string]::IsNullOrWhiteSpace($status)) { $status } else { $existing.status }
+            sig    = if (-not [string]::IsNullOrWhiteSpace($argSig)) { $argSig } else { $existing.sig }
+            output = if (-not [string]::IsNullOrWhiteSpace([string]$toolEvent.output)) { [string]$toolEvent.output } else { $existing.output }
+          }
+        } else {
+          $toolSteps[$stepKey] = [ordered]@{
+            name   = $toolName
+            status = $status
+            sig    = $argSig
+            output = [string]$toolEvent.output
+          }
         }
       }
 
