@@ -16,11 +16,15 @@ class ChangePasswordService(
         val credentials = userCredentialsRepository.findByUserId(userId)
             ?: throw UserCredentialsNotFoundException("User credentials not found")
 
-        if (!credentials.enabled || !passwordEncoder.matches(dto.currentPassword, credentials.passwordHash)) {
+        if (!credentials.enabled) {
+            throw AccountDisabledException("Account is disabled")
+        }
+
+        if (!passwordEncoder.matches(dto.currentPassword, credentials.passwordHash)) {
             throw InvalidCurrentPasswordException("Current password does not match")
         }
 
-        if (dto.currentPassword == dto.newPassword || passwordEncoder.matches(dto.newPassword, credentials.passwordHash)) {
+        if (dto.currentPassword == dto.newPassword) {
             throw SamePasswordException("New password must be different from current password")
         }
 
