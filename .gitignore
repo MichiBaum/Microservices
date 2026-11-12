@@ -41,3 +41,4 @@ discord.env
 /.junie/mcp/
 /.junie/plans/
 /.ai/mcp/mcp.json
+/.agent-logs/
