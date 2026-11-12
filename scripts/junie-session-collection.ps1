@@ -133,9 +133,24 @@ if (-not $DryRun) {
     New-Item -ItemType Directory -Path $TargetDir | Out-Null
   }
 
-  # Export project-filtered index.jsonl
+  # Export project-filtered index.jsonl (merge with existing target index to prevent metadata loss)
   $targetIndex = Join-Path $TargetDir "index.jsonl"
-  $sessionsToCopy | ForEach-Object { $_ | ConvertTo-Json -Compress } | Set-Content -Path $targetIndex -Encoding UTF8
+  $mergedIndex = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+  if (Test-Path $targetIndex) {
+    Get-Content -Path $targetIndex | ForEach-Object {
+      $line = $_.Trim()
+      if (-not [string]::IsNullOrWhiteSpace($line)) {
+        try {
+          $obj = $line | ConvertFrom-Json
+          if ($obj.sessionId) { $mergedIndex[$obj.sessionId] = $line }
+        } catch {}
+      }
+    }
+  }
+  foreach ($s in $sessionsToCopy) {
+    $mergedIndex[$s.sessionId] = ($s | ConvertTo-Json -Compress)
+  }
+  $mergedIndex.Values | Set-Content -Path $targetIndex -Encoding UTF8
 
   # Export project-filtered prompt history if history.jsonl exists
   $historyFile = Join-Path $normalizedJunieHome "history.jsonl"
