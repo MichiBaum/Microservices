@@ -10,7 +10,7 @@
 .USAGE
   .\scripts\junie-session-collection.ps1
   .\scripts\junie-session-collection.ps1 -Limit 10
-  .\scripts\junie-session-collection.ps1 -ProjectPath "C:\Users\micha\IdeaProjects\Microservices"
+  .\scripts\junie-session-collection.ps1 -ProjectPath "C:\Users\someone\IdeaProjects\Microservices"
   .\scripts\junie-session-collection.ps1 -DryRun
 #>
 [CmdletBinding()]
@@ -96,9 +96,10 @@ Get-Content -Path $indexFile | ForEach-Object {
     try {
       $sessionObj = $line | ConvertFrom-Json
       if ($sessionObj.projectDir) {
-        $projNormalized = [System.IO.Path]::GetFullPath($sessionObj.projectDir).TrimEnd('\', '/')
-        [void]$distinctProjectDirs.Add($projNormalized)
-        if ($projNormalized -ieq $normalizedProjectPath) {
+        $cleanDir = ($sessionObj.projectDir -replace '\\', '/').TrimEnd('/')
+        $cleanProject = ($normalizedProjectPath -replace '\\', '/').TrimEnd('/')
+        [void]$distinctProjectDirs.Add($cleanDir)
+        if ($cleanDir -ieq $cleanProject -or ($cleanDir.EndsWith("/" + (Split-Path $normalizedProjectPath -Leaf), [System.StringComparison]::OrdinalIgnoreCase) -and (Split-Path $cleanDir -Leaf) -ieq (Split-Path $normalizedProjectPath -Leaf))) {
           $allSessions.Add($sessionObj)
         }
       }
