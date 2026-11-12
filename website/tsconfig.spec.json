@@ -1,0 +1,15 @@
+/* To learn more about this file see: https://angular.dev/reference/configs/file-structure#tsconfig-spec-json */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "@angular/localize",
+      "vitest/globals"
+    ]
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

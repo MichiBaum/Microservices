@@ -370,5 +370,46 @@
             "creation-timestamp": "Created At",
             "containers": "Containers"
         }
+    },
+    "settings": {
+        "title": "Settings",
+        "tab-title": "Settings - MichiBaum",
+        "meta-description": "Manage your account settings, preferences, and security options.",
+        "nav": {
+            "security": "Security",
+            "aria-label": "Settings navigation"
+        },
+        "security": {
+            "title": "Security",
+            "tab-title": "Security Settings - MichiBaum",
+            "meta-description": "Manage your security settings and change your password.",
+            "change-password": "Change Password",
+            "change-password-description": "Ensure your account is using a long, random password to stay secure.",
+            "current-password": "Current Password",
+            "current-password-placeholder": "Enter your current password",
+            "current-password-required": "Current password is required",
+            "new-password": "New Password",
+            "new-password-placeholder": "Enter your new password",
+            "new-password-required": "New password is required",
+            "new-password-minlength": "Password must be at least 8 characters long",
+            "new-password-same": "New password must be different from current password",
+            "confirm-password": "Confirm New Password",
+            "confirm-password-placeholder": "Confirm your new password",
+            "confirm-password-required": "Please confirm your new password",
+            "password-mismatch": "Passwords do not match",
+            "submit": "Update Password",
+            "success": {
+                "summary": "Password Updated",
+                "detail": "Your password has been changed successfully. Please log in with your new password."
+            },
+            "error": {
+                "summary": "Error",
+                "invalid-current-password": "The current password you entered is incorrect.",
+                "same-password": "The new password must be different from your current password.",
+                "no-credentials": "Your account does not use password authentication.",
+                "validation": "The entered passwords are not valid. Please check your input and try again.",
+                "generic": "Failed to update password. Please try again."
+            }
+        }
     }
 }

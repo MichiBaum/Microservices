@@ -370,5 +370,46 @@
             "creation-timestamp": "Erstellt am",
             "containers": "Container"
         }
+    },
+    "settings": {
+        "title": "Einstellungen",
+        "tab-title": "Einstellungen - MichiBaum",
+        "meta-description": "Verwalten Sie Ihre Kontoeinstellungen, Einstellungen und Sicherheitsoptionen.",
+        "nav": {
+            "security": "Sicherheit",
+            "aria-label": "Einstellungen Navigation"
+        },
+        "security": {
+            "title": "Sicherheit",
+            "tab-title": "Sicherheitseinstellungen - MichiBaum",
+            "meta-description": "Verwalten Sie Ihre Sicherheitseinstellungen und ändern Sie Ihr Passwort.",
+            "change-password": "Passwort ändern",
+            "change-password-description": "Stellen Sie sicher, dass Ihr Konto ein langes, zufälliges Passwort verwendet, um sicher zu bleiben.",
+            "current-password": "Aktuelles Passwort",
+            "current-password-placeholder": "Geben Sie Ihr aktuelles Passwort ein",
+            "current-password-required": "Aktuelles Passwort ist erforderlich",
+            "new-password": "Neues Passwort",
+            "new-password-placeholder": "Geben Sie Ihr neues Passwort ein",
+            "new-password-required": "Neues Passwort ist erforderlich",
+            "new-password-minlength": "Das Passwort muss mindestens 8 Zeichen lang sein",
+            "new-password-same": "Das neue Passwort muss sich vom aktuellen Passwort unterscheiden",
+            "confirm-password": "Neues Passwort bestätigen",
+            "confirm-password-placeholder": "Bestätigen Sie Ihr neues Passwort",
+            "confirm-password-required": "Bitte bestätigen Sie Ihr neues Passwort",
+            "password-mismatch": "Die Passwörter stimmen nicht überein",
+            "submit": "Passwort aktualisieren",
+            "success": {
+                "summary": "Passwort aktualisiert",
+                "detail": "Ihr Passwort wurde erfolgreich geändert. Bitte melden Sie sich mit Ihrem neuen Passwort an."
+            },
+            "error": {
+                "summary": "Fehler",
+                "invalid-current-password": "Das eingegebene aktuelle Passwort ist falsch.",
+                "same-password": "Das neue Passwort muss sich von Ihrem aktuellen Passwort unterscheiden.",
+                "no-credentials": "Ihr Konto verwendet keine Passwort-Authentifizierung.",
+                "validation": "Die eingegebenen Passwörter sind ungültig. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.",
+                "generic": "Das Passwort konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut."
+            }
+        }
     }
 }

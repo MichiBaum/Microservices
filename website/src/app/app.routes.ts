@@ -308,5 +308,35 @@ export const routes: Routes = [
             "metaDescription": (translate: TranslateService) => translate.get("vpn.meta-description"),
             "permissions": [Permissions.VPN_SERVICE_OWN_USER, Permissions.VPN_SERVICE_ALL_USERS]
         }
+    },
+    {
+        path: 'settings',
+        loadComponent: () => import("./settings/settings.component").then((c) => c.SettingsComponent),
+        canActivate: [isAuthenticatedGuard],
+        title: titleResolver,
+        data: {
+            "tabTitle": (translate: TranslateService) => translate.get("settings.tab-title"),
+            "headerTitle": (headerService: HeaderService) => headerService.changeTitle("settings.title"),
+            "metaDescription": (translate: TranslateService) => translate.get("settings.meta-description"),
+            "unauthenticatedRedirect": "login"
+        },
+        children: [
+            {
+                path: "",
+                pathMatch: "full",
+                redirectTo: "security"
+            },
+            {
+                path: "security",
+                loadComponent: () => import("./settings/settings-security/settings-security.component").then((c) => c.SettingsSecurityComponent),
+                canActivate: [isAuthenticatedGuard],
+                title: titleResolver,
+                data: {
+                    "tabTitle": (translate: TranslateService) => translate.get("settings.security.tab-title"),
+                    "headerTitle": (headerService: HeaderService) => headerService.changeTitle("settings.security.title"),
+                    "metaDescription": (translate: TranslateService) => translate.get("settings.security.meta-description")
+                }
+            }
+        ]
     }
 ];

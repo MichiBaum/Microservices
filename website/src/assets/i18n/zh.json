@@ -363,5 +363,46 @@
             "creation-timestamp": "创建时间",
             "containers": "容器"
         }
+    },
+    "settings": {
+        "title": "设置",
+        "tab-title": "设置 - MichiBaum",
+        "meta-description": "管理您的帐户设置、偏好设置和安全选项。",
+        "nav": {
+            "security": "安全",
+            "aria-label": "设置导航"
+        },
+        "security": {
+            "title": "安全",
+            "tab-title": "安全设置 - MichiBaum",
+            "meta-description": "管理您的安全设置并更改密码。",
+            "change-password": "更改密码",
+            "change-password-description": "确保您的帐户使用较长的随机密码以保持安全。",
+            "current-password": "当前密码",
+            "current-password-placeholder": "请输入当前密码",
+            "current-password-required": "当前密码为必填项",
+            "new-password": "新密码",
+            "new-password-placeholder": "请输入新密码",
+            "new-password-required": "新密码为必填项",
+            "new-password-minlength": "密码长度必须至少为 8 个字符",
+            "new-password-same": "新密码不能与当前密码相同",
+            "confirm-password": "确认新密码",
+            "confirm-password-placeholder": "请确认新密码",
+            "confirm-password-required": "请确认您的新密码",
+            "password-mismatch": "两次输入的密码不一致",
+            "submit": "更新密码",
+            "success": {
+                "summary": "密码已更新",
+                "detail": "您的密码已成功更改。请使用新密码重新登录。"
+            },
+            "error": {
+                "summary": "错误",
+                "invalid-current-password": "您输入的当前密码不正确。",
+                "same-password": "新密码必须与当前密码不同。",
+                "no-credentials": "您的帐户未使用密码身份验证。",
+                "validation": "输入的密码无效。请检查您的输入后重试。",
+                "generic": "更新密码失败，请重试。"
+            }
+        }
     }
 }

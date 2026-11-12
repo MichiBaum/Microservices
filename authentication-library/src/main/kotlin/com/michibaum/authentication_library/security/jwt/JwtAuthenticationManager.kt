@@ -21,9 +21,15 @@ class JwtAuthenticationManager(private val jwtService: JwsValidator, private val
         val result = jwtService.validate(authentication.token)
         when (result) {
             is JwsValidationSuccess -> {
+                val userId = authentication.getUserIdOrNull()?.takeIf { it.isNotBlank() }
+                if (userId == null) {
+                    authentication.apply { isAuthenticated = false }
+                    observation.lowCardinalityKeyValue("jwt-authentication-validation-result", "failed")
+                    throw InvalidJwtException("Missing userId claim in JWT")
+                }
                 authentication.apply { isAuthenticated = true }
                 observation.lowCardinalityKeyValue("jwt-authentication-validation-result", "success")
-                observation.highCardinalityKeyValue("authenticated-user-id", authentication.getUserId())
+                observation.highCardinalityKeyValue("authenticated-user-id", userId)
             }
             is JwsValidationFailed -> {
                 authentication.apply { isAuthenticated = false }
