@@ -350,7 +350,15 @@ function Evaluate-Conversation {
 
       if ($toolEvent) {
         $eval.metrics.hasToolTelemetry = $true
-        $toolName = if ($toolEvent.toolType) { $toolEvent.toolType } elseif ($toolEvent.name) { $toolEvent.name } else { "UnknownTool" }
+        $toolName = if ($toolEvent.toolType) {
+          $toolEvent.toolType
+        } elseif ($toolEvent.name) {
+          $toolEvent.name
+        } elseif ($eventObj.event.agentEvent.kind -eq "TerminalBlockUpdatedEvent") {
+          "terminal"
+        } else {
+          "UnknownTool"
+        }
         $status = [string]$toolEvent.status
         if ([string]::IsNullOrWhiteSpace($status)) { $status = "COMPLETED" }
 
