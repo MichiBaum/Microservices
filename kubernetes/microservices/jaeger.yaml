@@ -261,4 +261,22 @@ data:
         }
       ]
     }
-    
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: jaeger-es-index-cleaner
+  namespace: microservices
+spec:
+  schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: jaeger-es-index-cleaner
+              image: jaegertracing/jaeger-es-index-cleaner:2.20.0
+              args: ["7", "http://jaeger-storage:9200"]
