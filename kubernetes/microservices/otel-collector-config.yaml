@@ -12,6 +12,36 @@ data:
             endpoint: 0.0.0.0:4317
 
     processors:
+      memory_limiter:
+        check_interval: 5s
+        limit_mib: 500
+        spike_limit_mib: 100
+
+      tail_sampling:
+        decision_wait: 10s
+        num_traces: 50000
+        expected_new_traces_per_sec: 500
+        policies:
+          # Keep 100% of traces where any span has ERROR status (exceptions, HTTP 5xx, gRPC errors)
+          - name: errors-policy
+            type: status_code
+            status_code:
+              status_codes: [ERROR]
+
+          # Optional: also keep HTTP 4xx responses (OTel marks 4xx as UNSET rather than ERROR)
+          - name: http-4xx-policy
+            type: ottl_condition
+            ottl_condition:
+              error_mode: ignore
+              span:
+                - 'attributes["http.response.status_code"] >= 400 or attributes["http.status_code"] >= 400'
+
+          # Optional: keep slow traces (> 2s) even if they succeeded
+          - name: slow-traces-policy
+            type: latency
+            latency:
+              threshold_ms: 2000
+
       batch:
 
     exporters:
@@ -24,7 +54,7 @@ data:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [batch]
+          processors: [memory_limiter, tail_sampling, batch]
           exporters: [otlp]
 ---
 apiVersion: apps/v1
@@ -45,23 +75,23 @@ spec:
         app: otel-collector
     spec:
       containers:
-      - name: otel-collector
-        image: otel/opentelemetry-collector-contrib:0.159.0
-        args:
-        - "--config=/etc/otel-collector/otel-collector-config.yaml"
-        ports:
-        - containerPort: 4317
-          name: otlp-grpc
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "50m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
-        volumeMounts:
-        - name: config
-          mountPath: /etc/otel-collector
+        - name: otel-collector
+          image: otel/opentelemetry-collector-contrib:0.159.0
+          args:
+            - "--config=/etc/otel-collector/otel-collector-config.yaml"
+          ports:
+            - containerPort: 4317
+              name: otlp-grpc
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "512Mi"
+              cpu: "300m"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/otel-collector
       volumes:
       - name: config
         configMap:
