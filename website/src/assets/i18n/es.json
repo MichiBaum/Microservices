@@ -400,6 +400,7 @@
                 "invalid-current-password": "La contraseña actual que ingresó es incorrecta.",
                 "same-password": "La nueva contraseña debe ser diferente de su contraseña actual.",
                 "no-credentials": "Su cuenta no utiliza autenticación por contraseña.",
+                "account-disabled": "Su cuenta está desactivada. Póngase en contacto con el soporte.",
                 "validation": "Las contraseñas introducidas no son válidas. Revise los datos e inténtelo de nuevo.",
                 "generic": "Error al actualizar la contraseña. Por favor, inténtelo de nuevo."
             }

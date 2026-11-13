@@ -407,6 +407,7 @@
                 "invalid-current-password": "The current password you entered is incorrect.",
                 "same-password": "The new password must be different from your current password.",
                 "no-credentials": "Your account does not use password authentication.",
+                "account-disabled": "Your account is disabled. Please contact support.",
                 "validation": "The entered passwords are not valid. Please check your input and try again.",
                 "generic": "Failed to update password. Please try again."
             }

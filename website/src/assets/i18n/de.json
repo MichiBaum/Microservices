@@ -407,6 +407,7 @@
                 "invalid-current-password": "Das eingegebene aktuelle Passwort ist falsch.",
                 "same-password": "Das neue Passwort muss sich von Ihrem aktuellen Passwort unterscheiden.",
                 "no-credentials": "Ihr Konto verwendet keine Passwort-Authentifizierung.",
+                "account-disabled": "Ihr Konto ist deaktiviert. Bitte kontaktieren Sie den Support.",
                 "validation": "Die eingegebenen Passwörter sind ungültig. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.",
                 "generic": "Das Passwort konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut."
             }

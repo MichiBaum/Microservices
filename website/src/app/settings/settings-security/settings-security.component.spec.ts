@@ -45,6 +45,7 @@ describe('SettingsSecurityComponent', () => {
           'invalid-current-password': 'The current password you entered is incorrect.',
           'same-password': 'The new password must be different from your current password.',
           'no-credentials': 'Your account does not use password authentication.',
+          'account-disabled': 'Your account is disabled. Please contact support.',
           validation: 'The entered passwords are not valid.'
         }
       }
@@ -330,6 +331,29 @@ describe('SettingsSecurityComponent', () => {
         severity: 'error',
         summary: 'Password change failed',
         detail: 'Your account does not use password authentication.',
+        life: 5000
+      });
+    });
+
+    it('should map ACCOUNT_DISABLED code (403) to account disabled error message', () => {
+      const httpError = new HttpErrorResponse({
+        status: 403,
+        error: {
+          code: 'ACCOUNT_DISABLED',
+          detail: 'Account is disabled'
+        }
+      });
+      authServiceMock.changePassword.mockReturnValue(throwError(() => httpError));
+
+      component.onSubmit();
+
+      expect(component.loading()).toBe(false);
+      expect(authServiceMock.logout).not.toHaveBeenCalled();
+      expect(routerMock.login).not.toHaveBeenCalled();
+      expect(messageServiceMock.add).toHaveBeenCalledWith({
+        severity: 'error',
+        summary: 'Password change failed',
+        detail: 'Your account is disabled. Please contact support.',
         life: 5000
       });
     });

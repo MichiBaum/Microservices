@@ -22,6 +22,18 @@ class BasicAuthenticationControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail)
     }
 
+    @ExceptionHandler(AccountDisabledException::class)
+    fun handleAccountDisabled(ex: AccountDisabledException): ResponseEntity<ProblemDetail> {
+        val problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.FORBIDDEN,
+            ex.message ?: "Account is disabled"
+        ).apply {
+            title = "ACCOUNT_DISABLED"
+            setProperty("code", "ACCOUNT_DISABLED")
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problemDetail)
+    }
+
     @ExceptionHandler(SamePasswordException::class)
     fun handleSamePassword(ex: SamePasswordException): ResponseEntity<ProblemDetail> {
         val problemDetail = ProblemDetail.forStatusAndDetail(

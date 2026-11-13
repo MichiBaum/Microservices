@@ -400,6 +400,7 @@
                 "invalid-current-password": "您输入的当前密码不正确。",
                 "same-password": "新密码必须与当前密码不同。",
                 "no-credentials": "您的帐户未使用密码身份验证。",
+                "account-disabled": "您的帐户已被禁用。请联系支持。",
                 "validation": "输入的密码无效。请检查您的输入后重试。",
                 "generic": "更新密码失败，请重试。"
             }

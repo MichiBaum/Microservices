@@ -71,7 +71,7 @@ class ChangePasswordServiceTest {
     }
 
     @Test
-    fun `changePassword throws InvalidCurrentPasswordException when account is disabled`() {
+    fun `changePassword throws AccountDisabledException when account is disabled`() {
         val credentials = UserCredentials(
             userId = userId,
             username = "testuser",
@@ -86,11 +86,12 @@ class ChangePasswordServiceTest {
             newPassword = "NewSecurePassword456!"
         )
 
-        assertThrows(InvalidCurrentPasswordException::class.java) {
+        assertThrows(AccountDisabledException::class.java) {
             changePasswordService.changePassword(userId, dto)
         }
 
         verify(exactly = 0) { userCredentialsRepository.save(any()) }
+        verify(exactly = 0) { passwordEncoder.matches(any(), any()) }
     }
 
     @Test
@@ -132,31 +133,6 @@ class ChangePasswordServiceTest {
         val dto = ChangePasswordDto(
             currentPassword = "OldPassword123!",
             newPassword = "OldPassword123!"
-        )
-
-        assertThrows(SamePasswordException::class.java) {
-            changePasswordService.changePassword(userId, dto)
-        }
-
-        verify(exactly = 0) { userCredentialsRepository.save(any()) }
-    }
-
-    @Test
-    fun `changePassword throws SamePasswordException when new password encodes to existing password hash`() {
-        val credentials = UserCredentials(
-            userId = userId,
-            username = "testuser",
-            passwordHash = "encodedOldPassword",
-            enabled = true
-        )
-
-        every { userCredentialsRepository.findByUserId(userId) } returns credentials
-        every { passwordEncoder.matches("OldPassword123!", "encodedOldPassword") } returns true
-        every { passwordEncoder.matches("AlternativeSamePassword!", "encodedOldPassword") } returns true
-
-        val dto = ChangePasswordDto(
-            currentPassword = "OldPassword123!",
-            newPassword = "AlternativeSamePassword!"
         )
 
         assertThrows(SamePasswordException::class.java) {

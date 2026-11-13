@@ -456,4 +456,30 @@ class ChangePasswordControllerTest {
                 jsonPath("$.detail").value("User credentials not found")
             )
     }
+
+    @Test
+    fun `changePassword returns 403 problem detail when service throws AccountDisabledException`() {
+        val jwtAuth = createJwtAuthentication()
+        val payload = ChangePasswordDto(
+            currentPassword = "OldPassword123!",
+            newPassword = "NewSecurePassword456!"
+        )
+
+        org.mockito.Mockito.doThrow(AccountDisabledException("Account is disabled"))
+            .`when`(changePasswordService).changePassword(userId, payload)
+
+        mockMvc.perform(
+            post("/api/basic-authentication/change-password")
+                .with(authentication(jwtAuth))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(payload))
+        )
+            .andExpectAll(
+                status().isForbidden,
+                jsonPath("$.status").value(403),
+                jsonPath("$.code").value("ACCOUNT_DISABLED"),
+                jsonPath("$.title").value("ACCOUNT_DISABLED"),
+                jsonPath("$.detail").value("Account is disabled")
+            )
+    }
 }

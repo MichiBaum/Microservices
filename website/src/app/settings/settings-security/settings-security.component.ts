@@ -35,6 +35,7 @@ const ERROR_CODE_TRANSLATION_KEYS: ReadonlyMap<string, string> = new Map([
   ['INVALID_CURRENT_PASSWORD', 'settings.security.error.invalid-current-password'],
   ['SAME_PASSWORD', 'settings.security.error.same-password'],
   ['NO_PASSWORD_CREDENTIALS', 'settings.security.error.no-credentials'],
+  ['ACCOUNT_DISABLED', 'settings.security.error.account-disabled'],
   ['VALIDATION_FAILED', 'settings.security.error.validation']
 ]);
 
@@ -128,7 +129,7 @@ export class SettingsSecurityComponent {
       error: (err: unknown) => {
         this.loading.set(false);
         const summary = this.translate.instant('settings.security.error.summary');
-        const errorKey = (err instanceof HttpErrorResponse && err.status === 400)
+        const errorKey = (err instanceof HttpErrorResponse && (err.status === 400 || err.status === 403))
           ? ERROR_CODE_TRANSLATION_KEYS.get(err.error?.code)
           : undefined;
         const detail = this.translate.instant(errorKey ?? 'settings.security.error.generic');
