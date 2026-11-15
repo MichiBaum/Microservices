@@ -40,7 +40,7 @@ data:
           - name: slow-traces-policy
             type: latency
             latency:
-              threshold_ms: 2000
+              threshold_ms: 300
 
           # Fallback: keep 50% of all remaining (healthy) traces
           - name: probabilistic-policy
