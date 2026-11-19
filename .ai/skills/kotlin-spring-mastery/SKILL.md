@@ -1,6 +1,6 @@
 ---
 name: "kotlin-spring-mastery"
-description: "Expertise in Kotlin 2.4+, Spring Boot 4.1+, and Java 26 development. Use when writing or reviewing backend Kotlin code, configuring Spring Boot services, or managing Maven dependencies."
+description: "Expertise in Kotlin 2.5+, Spring Boot 4.1+, and Java 27 development. Use when writing or reviewing backend Kotlin code, configuring Spring Boot services, or managing Maven dependencies."
 ---
 # Kotlin & Spring Mastery
 
@@ -11,8 +11,8 @@ description: "Expertise in Kotlin 2.4+, Spring Boot 4.1+, and Java 26 developmen
 - Reviewing Kotlin code for idiomatic patterns and best practices.
 
 ## Technology Stack
-- **Kotlin 2.4+** as the primary language for all backend services.
-- **Java 26** as the JVM target.
+- **Kotlin 2.5+** as the primary language for all backend services.
+- **Java 27** as the JVM target.
 - **Spring Boot 4.1+** for application framework.
 - **Spring Cloud 2025.x** for distributed systems patterns.
 - **Maven** for build and dependency management.

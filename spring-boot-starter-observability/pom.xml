@@ -13,6 +13,11 @@
     <name>spring-boot-starter-observability</name>
     <description>Starter for observability enhancements including @Observed support</description>
 
+    <properties>
+        <maven.compiler.source>27</maven.compiler.source>
+        <maven.compiler.target>27</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

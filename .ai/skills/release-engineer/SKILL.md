@@ -116,7 +116,7 @@ Use this skill when managing releases, versioning, changelogs, deployment automa
 
 ### Docker Configuration
 ```dockerfile
-FROM eclipse-temurin:26-jre-alpine
+FROM eclipse-temurin:27-jre-alpine
 COPY target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]
