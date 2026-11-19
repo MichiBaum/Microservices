@@ -20,6 +20,7 @@
     <toc-element topic="Server.md">
         <toc-element topic="ssh.md"/>
         <toc-element topic="Fail2Ban.md"/>
+        <toc-element topic="Unattended-Upgrades.md"/>
         <toc-element topic="Java-Tuning.md"/>
         <toc-element topic="New-Deployment.md"/>
         <toc-element topic="ssl.md"/>
