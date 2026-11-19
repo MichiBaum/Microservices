@@ -30,7 +30,6 @@ bantime.increment = true
 bantime.factor    = 2
 bantime.maxtime   = 4w
 
-# Use systemd journal on Ubuntu 24.04 and ban via UFW
 backend             = auto
 banaction           = iptables-multiport
 banaction_allports  = iptables-allports
@@ -52,12 +51,13 @@ maxretry = 3
 
 | Setting | Default (`jail.conf`) | Improved (`jail.local`) | Reason |
 |---|---|---|---|
-| `ignoreip` | `127.0.0.1/8 ::1` (commented out) | Cluster Node IPs + `k0s` CIDRs | Prevents `k0s` nodes (`35591`, `nbs1`, `nbs2`) and pods from accidentally banning each other. |
-| `bantime` | `10m` | `1h` | Increases the initial ban from 10 minutes to 1 hour to slow down automated brute-force scanners. |
-| `maxretry` | `5` | `3` | Reduces allowed failed authentication attempts before triggering a ban within `findtime` (`10m`). |
+| `ignoreip` | `127.0.0.1/8 ::1` (commented out) | Cluster Node IPs | Prevents `k0s` nodes (`35591`, `nbs1`, `nbs2`) from banning each other. |
+| `bantime` | `10m` | `2h` | Increases the initial ban from 10 minutes to 2 hours to slow down automated brute-force scanners. |
+| `findtime` | `10m` | `1d` | Extends the observation window from 10 minutes to 24 hours to catch slow brute-force attacks. |
+| `maxretry` | `5` | `3` | Reduces allowed failed authentication attempts before triggering a ban within `findtime` (`1d`). |
 | `bantime.increment` | `false` | `true` (`factor = 2`, `maxtime = 4w`) | Doubles the ban duration on each subsequent ban for the same IP, up to a maximum of 4 weeks. |
-| `backend` | `auto` | `systemd` | Reads directly from `systemd-journald` on Ubuntu 24.04 instead of polling log files. |
-| `banaction` | `iptables-multiport` | `ufw` | Integrates bans directly with the host `UFW` firewall rules (use `iptables-multiport` if `UFW` is not enabled). |
+| `backend` | `auto` | `auto` | Automatically selects the best available log backend (`pyinotify`, `gamin`, `polling`) and supports file-based jails like `[recidive]`. |
+| `banaction` | `iptables-multiport` | `iptables-multiport` | Explicitly pins `iptables` port-level blocking on hosts where `UFW` is not enabled. |
 | `[sshd] mode` | `normal` | `aggressive` | Detects additional SSH attack patterns, including key-exchange floods, pre-auth disconnects, and DDoS probes. |
 | `[recidive]` | Disabled | `enabled = true` (`bantime = 1w`) | Monitors Fail2Ban's own log and bans repeat offenders across all jails for 1 week after 3 bans in 24 hours. |
 
