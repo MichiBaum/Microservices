@@ -44,10 +44,10 @@
         https://stackoverflow.com/a/77179226/10258204
         https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
         -->
-        <kotlin.version>2.5.0-RC</kotlin.version>
+        <kotlin.version>2.4.21</kotlin.version>
         <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom -->
         <kotlin-coroutines.version>1.11.0</kotlin-coroutines.version>
-        <kotlin.compiler.jvmTarget>27</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.jvmTarget>26</kotlin.compiler.jvmTarget>
 
         <!--
         https://mockk.io/
