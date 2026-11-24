@@ -1,36 +1,42 @@
-<div class="container mx-auto px-4 py-8 max-w-6xl">
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold text-surface-900 dark:text-surface-0 m-0">
-      {{ 'settings.title' | translate }}
-    </h1>
-    <p class="text-surface-600 dark:text-surface-400 mt-2 mb-0">
-      {{ 'settings.meta-description' | translate }}
-    </p>
-  </div>
+<div class="container mx-auto">
+  <p-menubar [model]="menuItems()" [ariaLabel]="'settings.nav.aria-label' | translate">
+    <ng-template #start>
+      <fa-icon [icon]="faGear" size="2x" [routerLink]="'/settings'" class="cursor-pointer"></fa-icon>
+      <p-divider layout="vertical" />
+    </ng-template>
+    <ng-template #item let-item let-root="root">
+      <a class="flex items-center p-menubar-item-link" [routerLink]="item.routerLink">
+        @if (item.customIcon) {
+          <fa-icon [icon]="item.customIcon"></fa-icon>
+        }
 
-  <div class="flex flex-col md:flex-row gap-6">
-    <aside class="w-full md:w-64 shrink-0">
-      <nav [attr.aria-label]="'settings.nav.aria-label' | translate" class="bg-surface-0 dark:bg-surface-900 rounded-xl p-2 border border-surface-200 dark:border-surface-700 shadow-sm">
-        <ul class="flex flex-row md:flex-col gap-1 p-0 m-0 list-none overflow-x-auto">
-          @for (item of navItems; track item.routerLink) {
-            <li>
-              <a
-                [routerLink]="item.routerLink"
-                routerLinkActive="bg-primary text-primary-contrast font-medium shadow-xs"
-                [routerLinkActiveOptions]="{ exact: false }"
-                class="flex items-center gap-3 px-4 py-3 rounded-lg text-surface-700 dark:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors duration-150 no-underline whitespace-nowrap cursor-pointer"
-              >
-                <fa-icon [icon]="item.icon"></fa-icon>
-                <span>{{ item.label | translate }}</span>
-              </a>
-            </li>
+        @if (item.tag) {
+          <p-tag [style]="{ background: 'rgb(0 0 0 / 0%)' }">
+            <fa-icon [icon]="item.tag" [style]="item.tagColor"></fa-icon>
+          </p-tag>
+        }
+
+        <div class="text-left">
+          @if (item.subText && item.subText !== '') {
+            <p class="text-xs text-muted-color">{{ item.subText }}</p>
           }
-        </ul>
-      </nav>
-    </aside>
+          <p>{{ item.label | translate }}</p>
+          @if (item.badge) {
+            <p-badge [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+          }
+        </div>
 
-    <main class="flex-1 min-w-0">
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+        @if (item.shortcut) {
+          <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+        }
+        @if (item.items && item.items.length > 0) {
+          <fa-icon [icon]="faAngleDown"></fa-icon>
+        }
+      </a>
+    </ng-template>
+  </p-menubar>
+</div>
+
+<div class="container mx-auto mt-4">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
 </div>

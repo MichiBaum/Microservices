@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { By } from '@angular/platform-browser';
@@ -11,6 +11,20 @@ describe('SettingsComponent', () => {
   let fixture: ComponentFixture<SettingsComponent>;
 
   beforeEach(async () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn()
+      }))
+    });
+
     await TestBed.configureTestingModule({
       imports: [SettingsComponent],
       providers: [
@@ -44,21 +58,12 @@ describe('SettingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the settings title and description', () => {
+  it('should render PrimeNG menubar with start icon and security navigation item', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const title = compiled.querySelector('h1');
-    const description = compiled.querySelector('p');
+    const menubar = compiled.querySelector('p-menubar');
+    expect(menubar).toBeTruthy();
 
-    expect(title?.textContent?.trim()).toBe('Settings');
-    expect(description?.textContent?.trim()).toBe('Manage your account settings');
-  });
-
-  it('should render navigation with translated aria-label and nav items', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const nav = compiled.querySelector('nav');
-    expect(nav?.getAttribute('aria-label')).toBe('Settings navigation');
-
-    const navLinks = compiled.querySelectorAll('nav a');
+    const navLinks = compiled.querySelectorAll('a.p-menubar-item-link');
     expect(navLinks.length).toBe(1);
 
     const securityLink = navLinks[0];
