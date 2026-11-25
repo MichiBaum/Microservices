@@ -44,9 +44,9 @@ data:
 
           # Fallback: keep 50% of all remaining (healthy) traces
           - name: probabilistic-policy
-            type: probability
-            probability:
-              rate: 0.5
+            type: probabilistic
+            probabilistic:
+              sampling_percentage: 50
 
       batch:
 
