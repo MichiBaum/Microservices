@@ -54,4 +54,6 @@ jobs:
         run: npm run --prefix website build-production
 
       - name: Maven package and publish
-        run: ./mvnw --batch-mode --no-transfer-progress package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=${{ env.DOCKER_TAG }}
+        run: |
+          chmod +x ./mvnw
+          ./mvnw --batch-mode --no-transfer-progress package -Ppublish-image -DskipTests -DdockerHub.username=${{secrets.DOCKER_USERNAME}} -DdockerHub.password=${{secrets.DOCKER_PASSWORD}} -Djib.to.tags=${{ env.DOCKER_TAG }}

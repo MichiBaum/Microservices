@@ -42,5 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
+          chmod +x ./mvnw
           ./mvnw --batch-mode --no-transfer-progress clean verify -fn -Psonar-report
           ./mvnw --batch-mode --no-transfer-progress sonar:sonar -Psonar-report -Dsonar.projectKey=MichiBaum_Microservices
