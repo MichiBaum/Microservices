@@ -97,6 +97,14 @@ export class RouterNavigationService {
         this.router.navigate(['/vpn']);
     }
 
+    settings() {
+        this.router.navigate(['/settings']);
+    }
+
+    settings_security() {
+        this.router.navigate(['/settings/security']);
+    }
+
     donateGithub() {
         open('https://github.com/sponsors/MichiBaum')
     }

@@ -1,4 +1,4 @@
-import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {inject} from "@angular/core";
 import {AuthService} from "../api-services/auth.service";
 import {PermissionService} from "../services/permission.service";
@@ -6,22 +6,30 @@ import {PermissionService} from "../services/permission.service";
 /**
  * A guard function used to determine if a route can be activated based on the user's authentication status.
  *
- * This function checks if the user is authenticated by leveraging the AuthService. If the user is not authenticated,
- * it triggers a navigation action defined in the AuthService and prevents route activation by returning `false`.
- * If the user is authenticated, it allows the route activation by returning `true`.
+ * If the user is not authenticated, the nearest `unauthenticatedRedirect` value found in the route's ancestors
+ * (including the route itself) is used as the redirect target and returned as a `UrlTree`. If no ancestor defines
+ * it, the AuthService navigation behavior is used and the route is not activated. Authenticated users can activate the route.
  *
- * @param {object} route - The route that is being accessed.
- * @param {object} state - The state of the router at the time the guard is invoked.
- * @return {boolean} Indicates whether the route can be activated.
+ * @param {ActivatedRouteSnapshot} route - The route that is being accessed.
+ * @return {boolean | UrlTree} Indicates whether the route can be activated or redirects to another route.
  */
-export const isAuthenticatedGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
-  let authService = inject(AuthService);
+export const isAuthenticatedGuard: CanActivateFn = (route: ActivatedRouteSnapshot): boolean | UrlTree => {
+  const authService = inject(AuthService);
 
-  if(!authService.isAuthenticated()){
-    authService.navigate()
+  if (!authService.isAuthenticated()) {
+    const redirect: string | undefined = route.pathFromRoot
+      .map(snapshot => snapshot.data['unauthenticatedRedirect'])
+      .reverse()
+      .find(value => !!value);
+
+    if (redirect) {
+      return inject(Router).parseUrl(redirect);
+    }
+
+    authService.navigate();
     return false;
   }
-  return authService.isAuthenticated();
+  return true;
 };
 
 /**
