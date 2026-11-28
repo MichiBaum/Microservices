@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$" dumb="true">
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/leaderboards.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/player_empty_games.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/player_ezgat.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/player_ezgat_games.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/player_ezgat_stats.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/player_janistantv.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/player_janistantv_games.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/chesscom/player_janistantv_stats.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_games_user_JanistanTV.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_games_user_MichiBaum.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_player.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_JanistanTV.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_JanistanTV_perf_blitz.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_JanistanTV_perf_bullet.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_JanistanTV_perf_rapid.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_MichiBaum.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_MichiBaum_perf_blitz.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_MichiBaum_perf_bullet.json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test/resources/mockserver/lichess/api_user_MichiBaum_perf_rapid.json" />
+    </content>
+  </component>
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <webroots />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/kotlin" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+          <root url="file://$MODULE_DIR$/target/generated-sources/annotations" />
+          <root url="file://$MODULE_DIR$/target/generated-sources/kapt" />
+          <root url="file://$MODULE_DIR$/target/generated-sources/kaptKotlin" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping />
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+</module>
