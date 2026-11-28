@@ -113,3 +113,10 @@ management:
       enabled: true
     ssl:
       enabled: true
+
+gateway:
+  publish:
+    routes:
+      - hosts:
+          - "registry.michibaum.*"
+        order: 0

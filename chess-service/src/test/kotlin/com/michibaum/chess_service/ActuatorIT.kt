@@ -43,7 +43,7 @@ class ActuatorIT {
     lateinit var jwsValidator: JwsValidator
 
     @ParameterizedTest
-    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info", "/actuator/sitemap"])
     fun `actuator endpoints return 401`(endpoint: String){
         // GIVEN
 
@@ -55,7 +55,7 @@ class ActuatorIT {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info", "/actuator/sitemap"])
     fun `actuator endpoints with basic authentication return 200`(endpoint: String){
         // GIVEN
         val response = testRestTemplate
@@ -69,7 +69,7 @@ class ActuatorIT {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info"])
+    @ValueSource(strings = ["/actuator", "/actuator/health", "/actuator/info", "/actuator/sitemap"])
     fun `actuator endpoints with not enough authorities return 403`(endpoint: String){
         // GIVEN
         val token = JWT.create()

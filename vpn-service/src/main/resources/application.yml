@@ -111,3 +111,10 @@ management:
       enabled: true
     ssl:
       enabled: true
+
+gateway:
+  publish:
+    routes:
+      - hosts:
+          - "vpn.michibaum.*"
+        order: 0

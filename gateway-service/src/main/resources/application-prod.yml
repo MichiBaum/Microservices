@@ -44,7 +44,7 @@ management:
       probability: 1.0
 
 cors:
-  allowed-origin-patterns:
+  base-allowed-origin-patterns:
     - https://michibaum.ch
     - https://*.michibaum.ch
     - https://michibaum.com

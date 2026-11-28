@@ -20,10 +20,10 @@ spring:
 
 eureka:
   client:
-    # Because of kubernetes
-    register-with-eureka: false
+    # Loopback self-registration avoids Kubernetes Service readiness deadlock while advertising Pod IP via prefer-ip-address=true
+    register-with-eureka: true
     service-url:
-      defaultZone: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@registry-service:8761/eureka
+      defaultZone: http://${ADMIN_SERVICE_USERNAME}:${ADMIN_SERVICE_PASSWORD}@localhost:8761/eureka
   environment: prod
 
 management:

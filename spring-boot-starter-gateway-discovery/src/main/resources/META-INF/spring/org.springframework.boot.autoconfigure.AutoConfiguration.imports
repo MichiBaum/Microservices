@@ -1,0 +1,2 @@
+com.michibaum.gateway_discovery.publisher.GatewayDiscoveryPublisherAutoConfiguration
+com.michibaum.gateway_discovery.sitemap.GatewaySitemapAutoConfiguration

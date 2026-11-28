@@ -140,3 +140,15 @@ chess-apis:
     lichess:
       name: Lichess
       base-url: https://lichess.org
+
+gateway:
+  publish:
+    routes:
+      - hosts:
+          - "chess.michibaum.*"
+        order: 0
+    sitemap:
+      static-locations:
+        - "/chess"
+        - "/chess/news"
+        - "/chess/events"

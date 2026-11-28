@@ -31,7 +31,7 @@ management:
     grafana-url: http://localhost:3000
 
 cors:
-  allowed-origin-patterns:
+  base-allowed-origin-patterns:
     - http://michibaum.ch
     - http://*.michibaum.ch
     - http://michibaum.ch:4200

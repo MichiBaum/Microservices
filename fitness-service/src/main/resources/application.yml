@@ -127,3 +127,10 @@ management:
       enabled: true
     ssl:
       enabled: true
+
+gateway:
+  publish:
+    routes:
+      - hosts:
+          - "fitness.michibaum.*"
+        order: 0
