@@ -24,10 +24,14 @@ class SecurityConfiguration {
     fun securityFilterChain(
         http: HttpSecurity,
         authenticationFilter: ServletAuthenticationFilter,
-        publicEndpointResolver: PublicEndpointResolver
+        publicEndpointResolver: PublicEndpointResolver,
+        corsConfigurationSource: DynamicGatewayCorsConfigurationSource
     ): SecurityFilterChain {
         val publicEndpoints = publicEndpointResolver.run()
         return http
+            .cors { corsSpec ->
+                corsSpec.configurationSource(corsConfigurationSource)
+            }
             .authorizeHttpRequests { authorizeHttpRequests ->
                 authorizeHttpRequests
                     .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()

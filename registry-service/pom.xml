@@ -85,6 +85,10 @@
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
+            <artifactId>spring-boot-starter-gateway-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
             <artifactId>archunittests</artifactId>
             <scope>test</scope>
             <version>1.11.1</version>

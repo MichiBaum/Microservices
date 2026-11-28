@@ -149,6 +149,11 @@
                 <artifactId>spring-boot-starter-observability</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.michibaum</groupId>
+                <artifactId>spring-boot-starter-gateway-discovery</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -181,6 +186,7 @@
         <module>authentication-library</module>
         <module>spring-boot-starter-authentication</module>
         <module>spring-boot-starter-discord</module>
+        <module>spring-boot-starter-gateway-discovery</module>
         <module>gateway-service</module>
         <module>admin-service</module>
         <module>registry-service</module>

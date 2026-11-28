@@ -3,28 +3,39 @@ package com.michibaum.gatewayservice.config
 import com.netflix.discovery.EurekaClient
 import org.apache.commons.logging.LogFactory
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint
+import org.springframework.boot.actuate.endpoint.annotation.Selector
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation
 import org.springframework.cloud.loadbalancer.cache.LoadBalancerCacheManager
 import org.springframework.stereotype.Component
 import java.time.Instant
 
 /**
- * Operational endpoint allowing operators to clear LoadBalancer caches without restarting the
- * gateway pod. Eureka's public client API does not provide a synchronous registry refresh
- * operation, so the result reports that the registry was not refreshed and Eureka's periodic fetch
- * remains responsible for updating it. Exposed at `/actuator/discoveryRefresh` (POST).
+ * Operational endpoint allowing operators to clear LoadBalancer caches and immediately synchronize
+ * dynamic gateway service configurations without restarting the gateway pod. Exposed at
+ * `/actuator/discoveryRefresh` (POST).
  */
 @Component
 @Endpoint(id = "discoveryRefresh")
 class DiscoveryRefreshEndpoint(
     private val eurekaClient: EurekaClient?,
-    private val loadBalancerCacheManager: LoadBalancerCacheManager?
+    private val loadBalancerCacheManager: LoadBalancerCacheManager?,
+    private val serviceGatewayConfigStore: ServiceGatewayConfigStore
 ) {
 
     private val log = LogFactory.getLog(DiscoveryRefreshEndpoint::class.java)
 
     @WriteOperation
     fun refresh(): DiscoveryRefreshResult {
+        return performRefresh(evictStaleServices = true)
+    }
+
+    @WriteOperation
+    fun refreshWithMode(@Selector mode: String): DiscoveryRefreshResult {
+        val evictStale = mode.equals("evict", ignoreCase = true) || mode.equals("purge", ignoreCase = true)
+        return performRefresh(evictStaleServices = evictStale)
+    }
+
+    internal fun performRefresh(evictStaleServices: Boolean): DiscoveryRefreshResult {
         val registryRefreshed = refreshEurekaRegistry()
 
         val evictedCaches = loadBalancerCacheManager?.cacheNames?.toList().orEmpty()
@@ -32,11 +43,22 @@ class DiscoveryRefreshEndpoint(
             loadBalancerCacheManager?.getCache(cacheName)?.clear()
         }
 
-        log.info("Discovery refresh completed: registryRefreshed=$registryRefreshed, evictedCaches=$evictedCaches")
+        val syncSummary = serviceGatewayConfigStore.refresh(
+            evictMissingServices = evictStaleServices
+        )
+
+        log.info(
+            "Discovery refresh completed: registryRefreshed=$registryRefreshed, " +
+                "evictedCaches=$evictedCaches, routesUpdated=${syncSummary.updated}, " +
+                "activeServices=${syncSummary.activeServices}, evictedServices=${syncSummary.evictedServices}"
+        )
 
         return DiscoveryRefreshResult(
             registryRefreshed = registryRefreshed,
             evictedCaches = evictedCaches,
+            routesUpdated = syncSummary.updated,
+            activeServices = syncSummary.activeServices,
+            evictedServices = syncSummary.evictedServices,
             refreshedAt = Instant.now()
         )
     }
@@ -55,5 +77,8 @@ class DiscoveryRefreshEndpoint(
 data class DiscoveryRefreshResult(
     val registryRefreshed: Boolean,
     val evictedCaches: List<String>,
+    val routesUpdated: Boolean = false,
+    val activeServices: List<String> = emptyList(),
+    val evictedServices: List<String> = emptyList(),
     val refreshedAt: Instant
 )

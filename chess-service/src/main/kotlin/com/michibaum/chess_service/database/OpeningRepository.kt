@@ -42,6 +42,9 @@ interface OpeningRepository : JpaRepository<Opening, UUID>{
 
     @Query("SELECT o FROM Opening o left join fetch o.lastMove move WHERE o.id = :id")
     fun findByIdEagerLastMove(id: UUID): Opening?
+
+    @Query("select o.id from Opening o where o.deleted = false")
+    fun findAllIds(): List<UUID>
 }
 
 interface OpeningWithLastMoveProjection {

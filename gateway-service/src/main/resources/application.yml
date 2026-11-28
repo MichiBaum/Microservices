@@ -149,19 +149,50 @@ robots-txt:
   sitemaps:
     - "/sitemap.xml"
 sitemap-xml:
-  locations:
-    - "/"
-    - "/home"
-    - "/login"
-    - "/register"
-    - "/about-me"
-    - "/donate"
-    - "/imprint"
-    - "/chess"
-    - "/chess/news"
-    - "/chess/events"
-  data-locations:
-    - static-part: "/chess/events/{replace}"
-      data-location: CHESS_EVENTS
-    - static-part: "/chess/openings/{replace}"
-      data-location: CHESS_OPENINGS
+  locations: []
+
+gateway:
+  publish:
+    enabled: false
+  static-routes:
+    redirects:
+      - hosts:
+          - "babymetal.ch"
+        status: TEMPORARY_REDIRECT
+        target-url: "https://babymetal.com"
+      - hosts:
+          - "hanabie.ch"
+        status: TEMPORARY_REDIRECT
+        target-url: "https://hanabie.jp/en"
+      - hosts:
+          - "baumberger-software.ch"
+          - "baumberger-software.com"
+        status: TEMPORARY_REDIRECT
+        target-url: "https://michibaum.ch/about-me"
+      - hosts:
+          - "www.michibaum.{tld}"
+        status: PERMANENT_REDIRECT
+        scheme-host-template: "{scheme}://michibaum.{tld}"
+        preserve-path-and-query: true
+    external-services:
+      - id: "jaeger-service"
+        hosts:
+          - "jaeger.michibaum.*"
+        uri: ${management.services.jaeger-url}
+        order: 0
+        required-permissions:
+          - ADMIN_SERVICE
+      - id: "grafana-service"
+        hosts:
+          - "grafana.michibaum.*"
+        uri: ${management.services.grafana-url}
+        order: 0
+        required-permissions:
+          - ADMIN_SERVICE
+      - id: "prometheus-service"
+        hosts:
+          - "prometheus.michibaum.*"
+        uri: ${management.services.prometheus-url}
+        order: 0
+        required-permissions:
+          - ADMIN_SERVICE

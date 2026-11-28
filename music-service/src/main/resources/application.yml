@@ -135,3 +135,10 @@ management:
       enabled: true
     ssl:
       enabled: true
+
+gateway:
+  publish:
+    routes:
+      - hosts:
+          - "music.michibaum.*"
+        order: 0
