@@ -4,6 +4,7 @@ import com.michibaum.authentication_library.JwsWrapper
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -12,7 +13,13 @@ import org.springframework.security.web.authentication.AuthenticationConverter
 class JwtAuthenticationConverter: AuthenticationConverter {
     override fun convert(request: HttpServletRequest): Authentication? {
         val token = getToken(request) ?: return null
-        return JwtAuthentication(token, createUserDetails(token))
+        return try {
+            JwtAuthentication(token, createUserDetails(token))
+        } catch (ex: AuthenticationException) {
+            throw ex
+        } catch (ex: Exception) {
+            throw InvalidJwtException("Invalid JWT token", ex)
+        }
     }
 
     fun getToken(request: HttpServletRequest): String? {
@@ -31,7 +38,7 @@ class JwtAuthenticationConverter: AuthenticationConverter {
     }
 
     private fun createUserDetails(token: String): UserDetails {
-        val username: String = JwsWrapper(token).getUsername()
+        val username: String = JwsWrapper(token).getUsername() ?: ""
         return User.builder()
             .username(username)
             .authorities(createAuthorities(token))

@@ -114,5 +114,19 @@ export const Sides = {
     navigation: "vpn",
     canActivate: (service: PermissionService) => service.hasAnyOf([Permissions.VPN_SERVICE_OWN_USER, Permissions.VPN_SERVICE_ALL_USERS]),
     neededPermissions: [Permissions.VPN_SERVICE_OWN_USER]
+  } as Side,
+  settings: {
+    name: "settings",
+    translationKey: "settings.title",
+    navigation: "settings",
+    canActivate: (service: PermissionService) => service.isAuthenticated(),
+    neededPermissions: []
+  } as Side,
+  settings_security: {
+    name: "settings-security",
+    translationKey: "settings.security.title",
+    navigation: "settings/security",
+    canActivate: (service: PermissionService) => service.isAuthenticated(),
+    neededPermissions: []
   } as Side
 }

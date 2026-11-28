@@ -11,6 +11,32 @@ import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
 import java.net.URI
 
+fun staticUriHttp(redirect: URI): HandlerFunction<ServerResponse> = HandlerFunction { request ->
+    val requestWithRedirect = ServerRequest.from(request)
+        .attribute(GATEWAY_REQUEST_URL_ATTR, redirect)
+        .build()
+    http().handle(requestWithRedirect)
+}
+
+fun requirePermissions(
+    delegate: HandlerFunction<ServerResponse>,
+    authFilter: ServletAuthenticationFilter,
+    requiredPermissions: List<Permissions>
+): HandlerFunction<ServerResponse> {
+    if (requiredPermissions.isEmpty()) {
+        return delegate
+    }
+    val permissionsArray = requiredPermissions.toTypedArray()
+    return HandlerFunction { request ->
+        val authentication = authFilter.getAuthentication(request.servletRequest())
+        if (!hasRequiredPermissions(authentication, permissionsArray)) {
+            ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
+        } else {
+            delegate.handle(request)
+        }
+    }
+}
+
 fun authenticatedHttp(
     redirect: URI,
     authFilter: ServletAuthenticationFilter,

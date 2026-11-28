@@ -16,10 +16,13 @@ class JwtAuthentication(val token: String, private val userDetails: UserDetails)
         return userDetails
     }
 
-    fun getUsername(): String =
+    fun getUsername(): String? =
         jwsWrapper.getUsername()
 
     fun getUserId(): String =
         jwsWrapper.getUserId()
+
+    fun getUserIdOrNull(): String? =
+        jwsWrapper.getUserIdOrNull()
 
 }

@@ -15,7 +15,6 @@ target/
 ### IntelliJ IDEA ###
 .idea
 *.iws
-*.iml
 *.ipr
 
 ### NetBeans ###
@@ -40,3 +39,5 @@ discord.env
 .junie/memory/
 /.junie/mcp/
 /.junie/plans/
+/.ai/mcp/mcp.json
+/.agent-logs/

@@ -30,4 +30,7 @@ interface EventRepository: JpaRepository<Event, UUID>, JpaSpecificationExecutor<
 
     @EntityGraph(value = "with-categories")
     override fun findAll(spec: Specification<Event>, pageable: Pageable): Page<Event>
+
+    @Query("select e.id from Event e")
+    fun findAllIds(): List<UUID>
 }

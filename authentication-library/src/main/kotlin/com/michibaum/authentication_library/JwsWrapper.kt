@@ -9,12 +9,16 @@ class JwsWrapper(payload: String) {
     private val jws: DecodedJWT = JWT.decode(payload)
 
     fun getUserId(): String {
+        return getUserIdOrNull() ?: throw NullPointerException("Claim 'userId' is missing or not a string")
+    }
+
+    fun getUserIdOrNull(): String? {
         return jws
             .getClaim("userId")
             .asString()
     }
 
-    fun getUsername(): String {
+    fun getUsername(): String? {
         return jws.subject
     }
 

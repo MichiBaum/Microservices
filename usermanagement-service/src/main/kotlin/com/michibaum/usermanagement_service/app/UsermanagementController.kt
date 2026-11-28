@@ -1,7 +1,6 @@
 package com.michibaum.usermanagement_service.app
 
 import com.michibaum.usermanagement_library.*
-import com.michibaum.usermanagement_service.database.PermissionRepository
 import com.michibaum.usermanagement_service.database.User
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -9,34 +8,8 @@ import java.util.*
 
 @RestController
 class UsermanagementController (
-    private val userService: UserService,
-    private val permiRepository: PermissionRepository
+    private val userService: UserService
 ) : UserManagementEndpoints {
-
-    @Deprecated(message = "Use authentication-service local verification and getUserDetailsById")
-    override fun checkUserDetails(loginDto: LoginDto): UserDetailsDto? {
-        val errors = LoginDtoValidator.validate(loginDto)
-        if(errors.isNotEmpty())
-            return null
-
-        val user = userService.findByUsername(loginDto.username)
-        if (user == null) {
-            // Prevent timing to check user exists
-            val sleepTime = (150L..250L).random()
-            Thread.sleep(sleepTime)
-            return null
-        }
-        val matching = user.password?.let { userService.checkPassword(loginDto.password, it) } ?: false
-        if (!matching)
-            return null
-        
-        val permissions = permiRepository.findByUser(user)
-        return UserDetailsDto(
-            id = user.id.toString(),
-            username = user.username,
-            permissions = permissions.map { it.permission }.toSet()
-        )
-    }
 
     override fun create(createUserDto: CreateUserDto): UserDetailsDto? {
         val errors = CreateUserDtoValidator.validate(createUserDto)
@@ -51,7 +24,6 @@ class UsermanagementController (
         val userPermissionMapping = userService.addDefaultPermissions(user)
         val dto = UserDetailsDto(
             id = user.id.toString(),
-            username = user.username,
             permissions = userPermissionMapping.map { it.permission.permission }.toSet()
         )
         return dto
@@ -94,7 +66,7 @@ class UsermanagementController (
 
     fun convertUserToDto(user: User?): ReturnUserDto? =
         user?.let {
-            ReturnUserDto(user.id.toString(), user.username, user.email)
+            ReturnUserDto(user.id.toString(), user.email)
         }
 
     fun <T : Any> toResponseEntity(nullableEntity: T?): ResponseEntity<T> =

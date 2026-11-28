@@ -11,6 +11,7 @@ import {
     faCoffee,
     faCompactDisc,
     faDumbbell,
+    faGear,
     faHouse,
     faKey,
     faLightbulb,
@@ -129,6 +130,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
                         command: () => {
                             this.sidebarVisible.set(false)
                             this.routerNavigationService.vpn();
+                        }
+                    } as MenuItem,
+                    {
+                        label: Sides.settings.translationKey,
+                        customIcon: faGear,
+                        visible: this.permissionService.isAuthenticated(),
+                        command: () => {
+                            this.sidebarVisible.set(false);
+                            this.routerNavigationService.settings();
                         }
                     } as MenuItem
                 ]

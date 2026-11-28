@@ -1,5 +1,6 @@
 package com.michibaum.gatewayservice.config
 
+import com.michibaum.gateway_discovery.model.CircuitBreakerMetadata
 import io.github.resilience4j.circuitbreaker.CircuitBreaker as Resilience4jCircuitBreaker
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry
 import org.junit.jupiter.api.Test
@@ -15,99 +16,88 @@ import org.springframework.cloud.loadbalancer.core.CachingServiceInstanceListSup
 
 class CircuitBreakerConfigurationUT {
 
+    private val websiteTarget = RouteTarget(
+        serviceId = "website-service",
+        circuitBreakerId = "website-service-circuit-breaker"
+    )
+
     @Test
     fun `evicts load balancer cache entry when circuit breaker transitions to open`() {
-        // GIVEN
-        val service = Service.WEBSITE
-        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(service.cbId)
+        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(websiteTarget.circuitBreakerId)
         val circuitBreakerRegistry = mock(CircuitBreakerRegistry::class.java)
-        `when`(circuitBreakerRegistry.circuitBreaker(service.cbId)).thenReturn(resilience4jCircuitBreaker)
+        `when`(circuitBreakerRegistry.circuitBreaker(websiteTarget.circuitBreakerId)).thenReturn(resilience4jCircuitBreaker)
 
         val circuitBreakerFactory = mock(Resilience4JCircuitBreakerFactory::class.java)
         `when`(circuitBreakerFactory.circuitBreakerRegistry).thenReturn(circuitBreakerRegistry)
-        `when`(circuitBreakerFactory.create(service.cbId)).thenReturn(mock(CircuitBreaker::class.java))
+        `when`(circuitBreakerFactory.create(websiteTarget.circuitBreakerId)).thenReturn(mock(CircuitBreaker::class.java))
 
         val cache = mock(Cache::class.java)
         val loadBalancerCacheManager = mock(LoadBalancerCacheManager::class.java)
         `when`(loadBalancerCacheManager.getCache(CachingServiceInstanceListSupplier.SERVICE_INSTANCE_CACHE_NAME))
             .thenReturn(cache)
 
-        // WHEN
-        createCircuitBreaker(service, circuitBreakerFactory, loadBalancerCacheManager)
+        createCircuitBreaker(websiteTarget, circuitBreakerFactory, loadBalancerCacheManager)
         resilience4jCircuitBreaker.transitionToOpenState()
 
-        // THEN
-        verify(cache).evict(service.id)
+        verify(cache).evict(websiteTarget.serviceId)
     }
 
     @Test
     fun `registers only one cache eviction listener for repeated circuit breaker creation`() {
-        // GIVEN
-        val service = Service.WEBSITE
-        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(service.cbId)
+        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(websiteTarget.circuitBreakerId)
         val circuitBreakerRegistry = mock(CircuitBreakerRegistry::class.java)
-        `when`(circuitBreakerRegistry.circuitBreaker(service.cbId)).thenReturn(resilience4jCircuitBreaker)
+        `when`(circuitBreakerRegistry.circuitBreaker(websiteTarget.circuitBreakerId)).thenReturn(resilience4jCircuitBreaker)
 
         val circuitBreakerFactory = mock(Resilience4JCircuitBreakerFactory::class.java)
         `when`(circuitBreakerFactory.circuitBreakerRegistry).thenReturn(circuitBreakerRegistry)
-        `when`(circuitBreakerFactory.create(service.cbId)).thenReturn(mock(CircuitBreaker::class.java))
+        `when`(circuitBreakerFactory.create(websiteTarget.circuitBreakerId)).thenReturn(mock(CircuitBreaker::class.java))
 
         val cache = mock(Cache::class.java)
         val loadBalancerCacheManager = mock(LoadBalancerCacheManager::class.java)
         `when`(loadBalancerCacheManager.getCache(CachingServiceInstanceListSupplier.SERVICE_INSTANCE_CACHE_NAME))
             .thenReturn(cache)
 
-        // WHEN
-        createCircuitBreaker(service, circuitBreakerFactory, loadBalancerCacheManager)
-        createCircuitBreaker(service, circuitBreakerFactory, loadBalancerCacheManager)
+        createCircuitBreaker(websiteTarget, circuitBreakerFactory, loadBalancerCacheManager)
+        createCircuitBreaker(websiteTarget, circuitBreakerFactory, loadBalancerCacheManager)
         resilience4jCircuitBreaker.transitionToOpenState()
 
-        // THEN
-        verify(cache).evict(service.id)
+        verify(cache).evict(websiteTarget.serviceId)
     }
 
     @Test
     fun `does not evict load balancer cache entry on transitions other than open`() {
-        // GIVEN
-        val service = Service.WEBSITE
-        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(service.cbId)
+        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(websiteTarget.circuitBreakerId)
         val circuitBreakerRegistry = mock(CircuitBreakerRegistry::class.java)
-        `when`(circuitBreakerRegistry.circuitBreaker(service.cbId)).thenReturn(resilience4jCircuitBreaker)
+        `when`(circuitBreakerRegistry.circuitBreaker(websiteTarget.circuitBreakerId)).thenReturn(resilience4jCircuitBreaker)
 
         val circuitBreakerFactory = mock(Resilience4JCircuitBreakerFactory::class.java)
         `when`(circuitBreakerFactory.circuitBreakerRegistry).thenReturn(circuitBreakerRegistry)
-        `when`(circuitBreakerFactory.create(service.cbId)).thenReturn(mock(CircuitBreaker::class.java))
+        `when`(circuitBreakerFactory.create(websiteTarget.circuitBreakerId)).thenReturn(mock(CircuitBreaker::class.java))
 
         val cache = mock(Cache::class.java)
         val loadBalancerCacheManager = mock(LoadBalancerCacheManager::class.java)
         `when`(loadBalancerCacheManager.getCache(CachingServiceInstanceListSupplier.SERVICE_INSTANCE_CACHE_NAME))
             .thenReturn(cache)
 
-        // WHEN
-        createCircuitBreaker(service, circuitBreakerFactory, loadBalancerCacheManager)
+        createCircuitBreaker(websiteTarget, circuitBreakerFactory, loadBalancerCacheManager)
         resilience4jCircuitBreaker.transitionToDisabledState()
         resilience4jCircuitBreaker.transitionToClosedState()
 
-        // THEN
-        verify(cache, never()).evict(service.id)
+        verify(cache, never()).evict(websiteTarget.serviceId)
     }
 
     @Test
     fun `does not throw when load balancer cache manager is absent`() {
-        // GIVEN
-        val service = Service.WEBSITE
-        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(service.cbId)
+        val resilience4jCircuitBreaker = Resilience4jCircuitBreaker.ofDefaults(websiteTarget.circuitBreakerId)
         val circuitBreakerRegistry = mock(CircuitBreakerRegistry::class.java)
-        `when`(circuitBreakerRegistry.circuitBreaker(service.cbId)).thenReturn(resilience4jCircuitBreaker)
+        `when`(circuitBreakerRegistry.circuitBreaker(websiteTarget.circuitBreakerId)).thenReturn(resilience4jCircuitBreaker)
 
         val circuitBreakerFactory = mock(Resilience4JCircuitBreakerFactory::class.java)
         `when`(circuitBreakerFactory.circuitBreakerRegistry).thenReturn(circuitBreakerRegistry)
-        `when`(circuitBreakerFactory.create(service.cbId)).thenReturn(mock(CircuitBreaker::class.java))
+        `when`(circuitBreakerFactory.create(websiteTarget.circuitBreakerId)).thenReturn(mock(CircuitBreaker::class.java))
 
-        // WHEN
-        createCircuitBreaker(service, circuitBreakerFactory, loadBalancerCacheManager = null)
+        createCircuitBreaker(websiteTarget, circuitBreakerFactory, loadBalancerCacheManager = null)
 
-        // THEN no exception is thrown
         resilience4jCircuitBreaker.transitionToOpenState()
     }
 
@@ -123,17 +113,20 @@ class CircuitBreakerConfigurationUT {
     }
 
     @Test
-    fun `grafanaAndJaegerCustomizer configures specific circuit breakers`() {
-        val configuration = CircuitBreakerConfiguration()
-        val customizer = configuration.grafanaAndJaegerCustomizer()
-        val factory = mock(Resilience4JCircuitBreakerFactory::class.java)
+    fun `applies custom CircuitBreakerMetadata overrides when present on RouteTarget`() {
+        val customTarget = RouteTarget(
+            serviceId = "chess-service",
+            circuitBreakerId = "chess-service-circuit-breaker",
+            circuitBreakerConfig = CircuitBreakerMetadata(timeoutSeconds = 25, slidingWindowSize = 80)
+        )
+        val circuitBreakerFactory = mock(Resilience4JCircuitBreakerFactory::class.java)
+        `when`(circuitBreakerFactory.create(customTarget.circuitBreakerId)).thenReturn(mock(CircuitBreaker::class.java))
 
-        customizer.customize(factory)
+        createCircuitBreaker(customTarget, circuitBreakerFactory, loadBalancerCacheManager = null)
 
-        verify(factory).configure(
+        verify(circuitBreakerFactory).configure(
             org.mockito.ArgumentMatchers.any(),
-            org.mockito.ArgumentMatchers.eq(Service.GRAFANA.cbId),
-            org.mockito.ArgumentMatchers.eq(Service.JAEGER.cbId)
+            org.mockito.ArgumentMatchers.eq(customTarget.circuitBreakerId)
         )
     }
 

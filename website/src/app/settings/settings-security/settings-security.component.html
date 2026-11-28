@@ -1,0 +1,109 @@
+<p-card class="w-full">
+  <ng-template #title>
+    <div class="flex items-center gap-2">
+      <fa-icon [icon]="faShieldHalved" class="text-primary"></fa-icon>
+      <span class="text-surface-900 dark:text-surface-0">{{ 'settings.security.change-password' | translate }}</span>
+    </div>
+  </ng-template>
+
+  <p class="text-surface-600 dark:text-surface-400 mt-0 mb-6 text-sm">
+    {{ 'settings.security.change-password-description' | translate }}
+  </p>
+
+  <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 pt-2">
+    <div>
+      <p-floatlabel class="w-full" variant="in">
+        <p-password
+          inputId="currentPassword"
+          autocomplete="current-password"
+          formControlName="currentPassword"
+          [feedback]="false"
+          [toggleMask]="true"
+          class="w-full"
+          styleClass="w-full"
+          [placeholder]="'settings.security.current-password-placeholder' | translate"
+        />
+        <label for="currentPassword" class="text-surface-600 dark:text-surface-400">
+          {{ 'settings.security.current-password' | translate }}
+        </label>
+      </p-floatlabel>
+      @if (currentPasswordControl.invalid && (currentPasswordControl.dirty || currentPasswordControl.touched)) {
+        <small class="text-red-500 block mt-1">
+          @if (currentPasswordControl.hasError('required')) {
+            {{ 'settings.security.current-password-required' | translate }}
+          }
+        </small>
+      }
+    </div>
+
+    <div>
+      <p-floatlabel class="w-full" variant="in">
+        <p-password
+          inputId="newPassword"
+          autocomplete="new-password"
+          formControlName="newPassword"
+          [feedback]="true"
+          [toggleMask]="true"
+          class="w-full"
+          styleClass="w-full"
+          [placeholder]="'settings.security.new-password-placeholder' | translate"
+        />
+        <label for="newPassword" class="text-surface-600 dark:text-surface-400">
+          {{ 'settings.security.new-password' | translate }}
+        </label>
+      </p-floatlabel>
+      @if ((newPasswordControl.invalid || hasSamePasswordError()) && (newPasswordControl.dirty || newPasswordControl.touched || currentPasswordControl.dirty || currentPasswordControl.touched)) {
+        <small class="text-red-500 block mt-1">
+          @if (newPasswordControl.hasError('required')) {
+            {{ 'settings.security.new-password-required' | translate }}
+          } @else if (newPasswordControl.hasError('minlength')) {
+            {{ 'settings.security.new-password-minlength' | translate }}
+          } @else if (hasSamePasswordError()) {
+            {{ 'settings.security.new-password-same' | translate }}
+          }
+        </small>
+      }
+    </div>
+
+    <div>
+      <p-floatlabel class="w-full" variant="in">
+        <p-password
+          inputId="confirmPassword"
+          autocomplete="new-password"
+          formControlName="confirmPassword"
+          [feedback]="false"
+          [toggleMask]="true"
+          class="w-full"
+          styleClass="w-full"
+          [placeholder]="'settings.security.confirm-password-placeholder' | translate"
+        />
+        <label for="confirmPassword" class="text-surface-600 dark:text-surface-400">
+          {{ 'settings.security.confirm-password' | translate }}
+        </label>
+      </p-floatlabel>
+      @if ((confirmPasswordControl.invalid || hasPasswordMismatch()) && (confirmPasswordControl.dirty || confirmPasswordControl.touched || newPasswordControl.dirty || newPasswordControl.touched)) {
+        <small class="text-red-500 block mt-1">
+          @if (confirmPasswordControl.hasError('required')) {
+            {{ 'settings.security.confirm-password-required' | translate }}
+          } @else if (hasPasswordMismatch()) {
+            {{ 'settings.security.password-mismatch' | translate }}
+          }
+        </small>
+      }
+    </div>
+
+    <div class="flex justify-end mt-2">
+      <p-button
+        type="submit"
+        [label]="'settings.security.submit' | translate"
+        [disabled]="passwordForm.invalid || loading()"
+        [loading]="loading()"
+        styleClass="w-full sm:w-auto"
+      >
+        <ng-template #icon>
+          <fa-icon [icon]="faKey" class="mr-2"></fa-icon>
+        </ng-template>
+      </p-button>
+    </div>
+  </form>
+</p-card>

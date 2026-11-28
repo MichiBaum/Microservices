@@ -6,6 +6,7 @@ import com.michibaum.permission_library.Permissions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod.GET
+import org.springframework.http.HttpMethod.POST
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -33,6 +34,7 @@ class SecurityConfiguration {
                 authorizeHttpRequests
                     .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()
                     .requestMatchers(GET, "/api/getAuthDetails").permitAll()
+                    .requestMatchers(POST, "/api/basic-authentication/change-password").authenticated()
                     .requestMatchers(
                         "/actuator",
                         "/actuator/**"

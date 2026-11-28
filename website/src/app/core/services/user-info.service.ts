@@ -38,6 +38,19 @@ export class UserInfoService {
   }
 
   /**
+   * Emits a success message with the specified summary and details.
+   *
+   * @param {string} summary - A brief summary of the success message.
+   * @param {string} details - A detailed description of the success message.
+   *
+   * @param durationMs
+   * @return {void}
+   */
+  success(summary: string, details: string, durationMs = 5000): void {
+    this._messageEmitter.next({severity: "success", summary: summary, detail: details, life: durationMs})
+  }
+
+  /**
    * Emits an error message with the provided summary and details.
    *
    * @param {string} summary - A brief summary of the error.

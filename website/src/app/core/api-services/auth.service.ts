@@ -45,6 +45,13 @@ export class AuthService {
       .pipe(catchError(err => this.httpErrorConfig.handleError(err, this.userInfoService, customErrorMatching)))
   }
 
+  changePassword(currentPassword: string, newPassword: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.environment.authenticationService()}/basic-authentication/change-password`,
+      { currentPassword, newPassword }
+    );
+  }
+
   isTokenExpired(jwtString: string){
     const jwt = jwtDecode<JwtPayload>(jwtString);
     return jwt.exp * 1000 < Date.now();
@@ -63,6 +70,7 @@ export class AuthService {
 
   logout(navigate: boolean = true){
     localStorage.removeItem(this.jwtName);
+    this.removeAuthCookie();
     this.logoutEmitter.next();
     if(navigate){
         this.router.home()

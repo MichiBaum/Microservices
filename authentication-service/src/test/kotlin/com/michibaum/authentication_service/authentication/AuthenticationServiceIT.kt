@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
-import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.security.KeyPair
@@ -26,16 +25,15 @@ class AuthenticationServiceIT {
     lateinit var keyPair: KeyPair
 
     @Test
-    fun `jws valid`() {
+    fun `jws valid with explicit username and user details`() {
         // GIVEN
         val userDetailsDto = UserDetailsDto(
             id = "ubdf-sdfg-sdfv-sdfv",
-            username = "UName",
-            permissions = emptySet()
+            permissions = setOf("READ_USERS", "WRITE_USERS")
         )
 
         // WHEN
-        val jws = authService.generateJWS(userDetailsDto)
+        val jws = authService.generateJWS(userDetailsDto, "UName")
 
         // THEN
         assertNotNull(jws)
@@ -44,14 +42,15 @@ class AuthenticationServiceIT {
         assertDoesNotThrow { verifier.verify(jws) }
         val decoded = JWT.decode(jws)
         assertEquals("UName", decoded.subject)
+        assertEquals("ubdf-sdfg-sdfv-sdfv", decoded.getClaim("userId").asString())
+        assertEquals(listOf("READ_USERS", "WRITE_USERS"), decoded.getClaim("permissions").asList(String::class.java))
     }
 
     @Test
-    fun `jws valid with explicit username when userDetailsDto username is null`() {
+    fun `jws valid with empty permissions`() {
         // GIVEN
         val userDetailsDto = UserDetailsDto(
-            id = "ubdf-sdfg-sdfv-sdfv",
-            username = null,
+            id = "user-id-456",
             permissions = emptySet()
         )
 
@@ -62,21 +61,8 @@ class AuthenticationServiceIT {
         assertNotNull(jws)
         val decoded = JWT.decode(jws)
         assertEquals("CustomUsername", decoded.subject)
-    }
-
-    @Test
-    fun `generateJWS throws IllegalArgumentException when subject is null`() {
-        // GIVEN
-        val userDetailsDto = UserDetailsDto(
-            id = "ubdf-sdfg-sdfv-sdfv",
-            username = null,
-            permissions = emptySet()
-        )
-
-        // THEN
-        assertThrows<IllegalArgumentException> {
-            authService.generateJWS(userDetailsDto)
-        }
+        assertEquals("user-id-456", decoded.getClaim("userId").asString())
+        assertEquals(emptyList<String>(), decoded.getClaim("permissions").asList(String::class.java))
     }
 
 }

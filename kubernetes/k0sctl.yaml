@@ -45,7 +45,7 @@ spec:
       controllerWorkers: true
   k0s:
     # https://docs.k0sproject.io/head/upgrade/#upgrade-a-k0s-cluster-using-k0sctl
-    version: v1.36.5+k0s.0
+    version: v1.36.6+k0s.0
     dynamicConfig: false
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
@@ -74,5 +74,11 @@ spec:
             type: EnvoyProxy
         storage:
           type: etcd
+          etcd:
+            extraArgs:
+              snapshot-count: "10000"
+              auto-compaction-mode: periodic
+              auto-compaction-retention: 1h
+              quota-backend-bytes: "2147483648"
         telemetry:
           enabled: false

@@ -5,15 +5,15 @@
     <parent>
         <groupId>com.michibaum</groupId>
         <artifactId>microservice</artifactId>
-        <version>1.11.1</version>
+        <version>1.12.0</version>
     </parent>
 
     <artifactId>fitness-service</artifactId>
     <name>fitness-service</name>
 
     <properties>
-        <maven.compiler.source>26</maven.compiler.source>
-        <maven.compiler.target>26</maven.compiler.target>
+        <maven.compiler.source>27</maven.compiler.source>
+        <maven.compiler.target>27</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
-            <version>1.11.1</version>
+            <version>1.12.0</version>
         </dependency>
 
         <dependency>
@@ -95,18 +95,22 @@
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-discord</artifactId>
-            <version>1.11.1</version>
+            <version>1.12.0</version>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>spring-boot-starter-authentication</artifactId>
-            <version>1.11.1</version>
+            <version>1.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.michibaum</groupId>
+            <artifactId>spring-boot-starter-gateway-discovery</artifactId>
         </dependency>
         <dependency>
             <groupId>com.michibaum</groupId>
             <artifactId>archunittests</artifactId>
             <scope>test</scope>
-            <version>1.11.1</version>
+            <version>1.12.0</version>
         </dependency>
 
         <dependency>

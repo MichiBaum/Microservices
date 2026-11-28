@@ -4,17 +4,10 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
+@Table(name = "user")
 class User (
-    @Deprecated("Username is deprecated and should not be set")
-    @Column(nullable = true, unique = true)
-    val username: String? = null,
-
     @Column(nullable = false, unique = true)
     val email: String,
-
-    @Deprecated("Password is deprecated and should not be set")
-    @Column(nullable = true)
-    val password: String? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

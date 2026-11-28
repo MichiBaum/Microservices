@@ -8,8 +8,6 @@ import com.michibaum.usermanagement_service.database.User
 import com.michibaum.usermanagement_service.database.UserPermissionMapping
 import com.michibaum.usermanagement_service.database.UserPermissionMappingRepository
 import com.michibaum.usermanagement_service.database.UserRepository
-import io.micrometer.observation.annotation.Observed
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -18,7 +16,6 @@ import java.util.*
 class UserService(
     private val userRepository: UserRepository,
     private val permissionRepository: PermissionRepository,
-    private val passwordEncoder: PasswordEncoder,
     private val userPermissionMappingRepository: UserPermissionMappingRepository
 ) {
 
@@ -29,17 +26,6 @@ class UserService(
         val permissions = permissionRepository.findByUser(user)
         return UserDetailsDto(
             id = user.id.toString(),
-            username = user.username,
-            permissions = permissions.map { it.permission }.toSet()
-        )
-    }
-
-    fun getUserDetailsByUsername(username: String): UserDetailsDto? {
-        val user = userRepository.findByUsername(username) ?: return null
-        val permissions = permissionRepository.findByUser(user)
-        return UserDetailsDto(
-            id = user.id.toString(),
-            username = user.username,
             permissions = permissions.map { it.permission }.toSet()
         )
     }
@@ -57,19 +43,6 @@ class UserService(
             // TODO update User
             userRepository.save(foundUser)
         }
-    }
-
-    fun findByUsername(username: String): User? {
-        return userRepository.findByUsername(username)
-    }
-
-    @Observed(name = "password-check")
-    fun checkPassword(dtoPassword: String, passwordHash: String): Boolean {
-        return passwordEncoder.matches(dtoPassword, passwordHash)
-    }
-
-    fun anyExists(username: String, email: String): Boolean {
-        return userRepository.existsByUsernameOrEmail(username, email)
     }
 
     fun emailExists(email: String): Boolean {

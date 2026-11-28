@@ -34,7 +34,6 @@ class SecurityConfiguration {
             .authorizeHttpRequests { authorizeHttpRequests ->
                 authorizeHttpRequests
                     .requestMatchers(*publicEndpoints.map { it.requestMatcher}.toTypedArray()).permitAll()
-                    .requestMatchers(POST, "/api/checkUserDetails").permitAll()
                     .requestMatchers(POST, "/api/users").hasAnyAuthority(Permissions.AUTHENTICATION_SERVICE.name, Permissions.USERMANAGEMENT_SERVICE.name)
                     .requestMatchers(GET, "/api/users/**").hasAnyAuthority(Permissions.AUTHENTICATION_SERVICE.name, Permissions.USERMANAGEMENT_SERVICE.name)
                     .requestMatchers(DELETE, "/api/users/**").hasAnyAuthority(Permissions.AUTHENTICATION_SERVICE.name, Permissions.USERMANAGEMENT_SERVICE.name)
