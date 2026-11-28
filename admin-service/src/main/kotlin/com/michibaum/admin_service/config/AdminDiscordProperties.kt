@@ -6,4 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 data class AdminDiscordProperties(
     var enabled: Boolean = false,
     var channelId: String = "",
+    var notifyOnStatusChange: Boolean = true,
+    var notifyOnDeregister: Boolean = true,
+    var notifyOnRegister: Boolean = false,
+    var notifyOnRegistrationUpdate: Boolean = false,
 )

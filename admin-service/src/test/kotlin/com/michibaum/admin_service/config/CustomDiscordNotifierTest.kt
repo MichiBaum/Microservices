@@ -1,14 +1,17 @@
 package com.michibaum.admin_service.config
 
 import com.michibaum.discord.api.DiscordClient
-import com.michibaum.discord.api.dtos.CreateMessageDto
+import com.michibaum.discord.api.dtos.*
 import de.codecentric.boot.admin.server.domain.entities.Instance
 import de.codecentric.boot.admin.server.domain.entities.InstanceRepository
+import de.codecentric.boot.admin.server.domain.events.InstanceDeregisteredEvent
+import de.codecentric.boot.admin.server.domain.events.InstanceRegisteredEvent
+import de.codecentric.boot.admin.server.domain.events.InstanceRegistrationUpdatedEvent
 import de.codecentric.boot.admin.server.domain.events.InstanceStatusChangedEvent
 import de.codecentric.boot.admin.server.domain.values.InstanceId
 import de.codecentric.boot.admin.server.domain.values.Registration
 import de.codecentric.boot.admin.server.domain.values.StatusInfo
-import com.michibaum.discord.api.dtos.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
@@ -45,13 +48,61 @@ class CustomDiscordNotifierTest {
         val (channelId, messageDto) = discordClient.sentMessages.first()
         val message = messageDto.content
         
-        assert(channelId == "123")
+        assertEquals("123", channelId)
         assertTrue(message.contains("### Application: TestApp"))
         assertTrue(message.contains("**Status changed: **UP"))
         assertTrue(message.contains("**Type: **STATUS_CHANGED"))
         val formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(java.time.ZoneId.of("UTC"))
         val expectedTimestamp = formatter.format(timestamp)
         assertTrue(message.contains("**Timestamp: **$expectedTimestamp"))
+    }
+
+    @Test
+    fun `skips noisy InstanceRegisteredEvent and InstanceRegistrationUpdatedEvent by default`() {
+        val discordClient = TestDiscordClient()
+        val adminDiscordProperties = AdminDiscordProperties(enabled = true, channelId = "123")
+        val instanceRepository = mock(InstanceRepository::class.java)
+        val notifier = CustomDiscordNotifier(discordClient, adminDiscordProperties, instanceRepository)
+
+        val instanceId = InstanceId.of("test")
+        val registration = Registration.create("TestApp", "http://localhost:8080/actuator/health").build()
+        val instance = Instance.create(instanceId).register(registration)
+        `when`(instanceRepository.find(instanceId)).thenReturn(Mono.just(instance))
+
+        val registeredEvent = InstanceRegisteredEvent(instanceId, 0L, registration)
+        val updatedEvent = InstanceRegistrationUpdatedEvent(instanceId, 1L, registration)
+        val deregisteredEvent = InstanceDeregisteredEvent(instanceId, 2L)
+
+        notifier.notify(registeredEvent).block()
+        notifier.notify(updatedEvent).block()
+        assertTrue(discordClient.sentMessages.isEmpty())
+
+        notifier.notify(deregisteredEvent).block()
+        assertEquals(1, discordClient.sentMessages.size)
+        assertTrue(discordClient.sentMessages.single().second.content.contains("Deregistered"))
+    }
+
+    @Test
+    fun `notifies on InstanceRegisteredEvent when notifyOnRegister is explicitly enabled`() {
+        val discordClient = TestDiscordClient()
+        val adminDiscordProperties = AdminDiscordProperties(
+            enabled = true,
+            channelId = "123",
+            notifyOnRegister = true,
+        )
+        val instanceRepository = mock(InstanceRepository::class.java)
+        val notifier = CustomDiscordNotifier(discordClient, adminDiscordProperties, instanceRepository)
+
+        val instanceId = InstanceId.of("test")
+        val registration = Registration.create("TestApp", "http://localhost:8080/actuator/health").build()
+        val instance = Instance.create(instanceId).register(registration)
+        `when`(instanceRepository.find(instanceId)).thenReturn(Mono.just(instance))
+
+        val registeredEvent = InstanceRegisteredEvent(instanceId, 0L, registration)
+        notifier.notify(registeredEvent).block()
+
+        assertEquals(1, discordClient.sentMessages.size)
+        assertTrue(discordClient.sentMessages.single().second.content.contains("Registered:"))
     }
 
     class TestDiscordClient : DiscordClient {

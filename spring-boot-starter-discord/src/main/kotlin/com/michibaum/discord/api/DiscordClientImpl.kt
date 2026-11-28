@@ -2,9 +2,18 @@ package com.michibaum.discord.api
 
 import com.michibaum.discord.api.dtos.*
 import com.michibaum.discord.config.DiscordProperties
+import org.slf4j.LoggerFactory
 import org.springframework.core.ParameterizedTypeReference
+import org.springframework.http.HttpHeaders
+import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.bodyWithType
+import java.time.Clock
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
+import kotlin.math.ceil
 
 /**
  * Implementation of the Discord client for making API calls to Discord services.
@@ -12,13 +21,25 @@ import org.springframework.web.client.bodyWithType
  * The `DiscordClientImpl` class provides methods to interact with the Discord API, allowing for
  * operations such as retrieving guild information, fetching channel lists, creating channels,
  * and sending messages. It uses an HTTP client configured with necessary headers and base URL
- * specific to the Discord API v10.
+ * specific to the Discord API v10, and enforces per-channel rate limiting and HTTP 429 retry handling.
  *
- * @property properties Configuration properties containing the bot token and guild ID.
+ * @property properties Configuration properties containing the bot token, guild ID, and retry settings.
  */
-open class DiscordClientImpl(
-    private val properties: DiscordProperties
-): DiscordClient {
+open class DiscordClientImpl internal constructor(
+    private val properties: DiscordProperties,
+    restClientBuilder: RestClient.Builder,
+    private val clock: Clock,
+    private val sleeper: (Long) -> Unit,
+) : DiscordClient {
+
+    constructor(properties: DiscordProperties) : this(
+        properties = properties,
+        restClientBuilder = RestClient.builder(),
+        clock = Clock.systemUTC(),
+        sleeper = { millis -> if (millis > 0L) Thread.sleep(millis) },
+    )
+
+    private val logger = LoggerFactory.getLogger(DiscordClientImpl::class.java)
 
     /**
      * The base URL for the Discord API v10.
@@ -42,138 +63,232 @@ open class DiscordClientImpl(
 
     /**
      * A pre-configured REST client used to interact with the Discord API.
-     *
-     * This client is responsible for making HTTP requests to various Discord API endpoints
-     * and includes default settings such as the base URL, authorization token, and headers required
-     * for communication with the Discord servers.
-     *
-     * The `httpClient` is primarily utilized by the `DiscordClientImpl` class to perform operations
-     * including retrieving guild information, fetching channel details, creating new channels, and
-     * sending messages.
-     *
-     * Default headers added to each request include:
-     * - `Authorization`: Contains the bot token for authentication.
-     * - `Content-Type`: Specifies the `application/json` format for requests and responses.
-     * - `User-Agent`: Identifies the client, including its version and source.
      */
-    private val httpClient: RestClient = RestClient.builder()
-            .baseUrl(url)
-            .defaultHeaders { headers ->
-                headers.add("Authorization", authToken)
-                headers.add("Content-Type", "application/json")
-                headers.add("User-Agent", "DiscordBot (https://github.com/MichiBaum/Microservices)")
-            }.build()
+    private val httpClient: RestClient = restClientBuilder
+        .baseUrl(url)
+        .defaultHeaders { headers ->
+            headers.add("Authorization", authToken)
+            headers.add("Content-Type", "application/json")
+            headers.add("User-Agent", "DiscordBot (https://github.com/MichiBaum/Microservices)")
+        }.build()
 
+    private val channelRateLimits = ConcurrentHashMap<String, ChannelRateLimitState>()
+    private val globalRateLimitResetAtMillis = AtomicLong(0L)
+
+    private class ChannelRateLimitState {
+        val lock = ReentrantLock(true)
+        val sentTimestampsMillis = ArrayDeque<Long>()
+        val resetAtMillis = AtomicLong(0L)
+    }
 
     /**
      * Retrieves detailed information about the guild associated with the Discord client.
-     *
-     * This method makes an HTTP GET request to the Discord API's `/guilds/{guildId}` endpoint,
-     * where `{guildId}` is replaced with the guild ID configured in the client properties.
-     * The response is deserialized into a `GetGuildeDto` object, which contains information
-     * such as the guild's ID, name, description, features, and other attributes.
-     *
-     * @return A `GetGuildeDto` object containing information about the guild. The result is non-null
-     * but may require additional checks if the guild information cannot be successfully retrieved.
      */
-    override fun getGuild() = httpClient.get() // https://docs.discord.com/developers/resources/guild#get-guild
-        .uri("/guilds/${properties.guildId}")
-        .retrieve()
-        .body(object : ParameterizedTypeReference<GetGuildeDto>() {})!! // TODO maybe nullable
+    override fun getGuild(): GetGuildeDto = executeWithRateLimitRetry {
+        val body = httpClient.get() // https://docs.discord.com/developers/resources/guild#get-guild
+            .uri("/guilds/${properties.guildId}")
+            .retrieve()
+            .body(object : ParameterizedTypeReference<GetGuildeDto>() {})
+        requireNotNull(body) { "Discord API returned an empty response body for getGuild" }
+    }
 
     /**
      * Retrieves a list of channels for the configured guild from the Discord API.
-     *
-     * This method performs an HTTP GET request to the /guilds/{guildId}/channels endpoint, where {guildId}
-     * is replaced with the guildId value from the Discord client properties.
-     *
-     * The request result is deserialized into a list of `GetChannelDto` objects, each representing
-     * detailed information about a channel within the guild.
-     *
-     * @return A list of `GetChannelDto` objects representing the channels of the guild.
-     *         The result is non-null but may be empty if the guild has no channels.
      */
-    override fun getChannels() = httpClient.get() // https://docs.discord.com/developers/resources/guild#get-guild-channels
-        .uri("/guilds/${properties.guildId}/channels")
-        .retrieve()
-        .body(object : ParameterizedTypeReference<List<GetChannelDto>>() {})!! // TODO maybe nullable
+    override fun getChannels(): List<GetChannelDto> = executeWithRateLimitRetry {
+        val body = httpClient.get() // https://docs.discord.com/developers/resources/guild#get-guild-channels
+            .uri("/guilds/${properties.guildId}/channels")
+            .retrieve()
+            .body(object : ParameterizedTypeReference<List<GetChannelDto>>() {})
+        requireNotNull(body) { "Discord API returned an empty response body for getChannels" }
+    }
 
     /**
      * Retrieves details of a specific Discord channel.
-     *
-     * @param channelId The unique identifier of the Discord channel to be retrieved.
-     * @return A `GetChannelDto` object containing details of the requested channel.
      */
-    override fun getChannel(channelId: String) = httpClient.get() // https://docs.discord.com/developers/resources/channel#get-channel
-        .uri("/channels/$channelId")
-        .retrieve()
-        .body(object : ParameterizedTypeReference<GetChannelDto>() {})!! // TODO maybe nullable
-    
+    override fun getChannel(channelId: String): GetChannelDto = executeWithRateLimitRetry {
+        val body = httpClient.get() // https://docs.discord.com/developers/resources/channel#get-channel
+            .uri("/channels/$channelId")
+            .retrieve()
+            .body(object : ParameterizedTypeReference<GetChannelDto>() {})
+        requireNotNull(body) { "Discord API returned an empty response body for getChannel" }
+    }
+
     /**
      * Creates a new Discord channel in the configured guild by making a POST request to the Discord API.
-     *
-     * @param channelDto The data transfer object containing the details required to create a new channel,
-     * including properties such as the channel name, type, and optional parent category ID.
      */
-    override fun createChannel(channelDto: CreateChannelDto) = httpClient.post() // https://docs.discord.com/developers/resources/guild#create-guild-channel
-        .uri("/guilds/${properties.guildId}/channels")
-        .bodyWithType(channelDto)
-        .retrieve()
-        .body(object : ParameterizedTypeReference<GetChannelDto>() {})!! // TODO maybe nullable
+    override fun createChannel(channelDto: CreateChannelDto): GetChannelDto = executeWithRateLimitRetry {
+        val body = httpClient.post() // https://docs.discord.com/developers/resources/guild#create-guild-channel
+            .uri("/guilds/${properties.guildId}/channels")
+            .bodyWithType(channelDto)
+            .retrieve()
+            .body(object : ParameterizedTypeReference<GetChannelDto>() {})
+        requireNotNull(body) { "Discord API returned an empty response body for createChannel" }
+    }
 
     /**
      * Retrieves a list of messages from a specific Discord channel.
-     *
-     * @param channelId The unique identifier of the Discord channel from which messages will be retrieved.
-     * @param limit The maximum number of messages to retrieve, default is 50, range is 1-100.
-     * @return A list of `GetMessageDto` objects representing the messages in the channel.
      */
-    override fun getMessages(channelId: String, limit: Int) = httpClient.get() // https://docs.discord.com/developers/resources/message#get-channel-messages
-        .uri { builder ->
-            require(limit in 1..100) { "limit must be between 1 and 100" }
-            builder.path("/channels/$channelId/messages")
-                .queryParam("limit", limit)
-                .build()
+    override fun getMessages(channelId: String, limit: Int): List<GetMessageDto> {
+        require(limit in 1..100) { "limit must be between 1 and 100" }
+        return executeWithRateLimitRetry {
+            val body = httpClient.get() // https://docs.discord.com/developers/resources/message#get-channel-messages
+                .uri { builder ->
+                    builder.path("/channels/$channelId/messages")
+                        .queryParam("limit", limit)
+                        .build()
+                }
+                .retrieve()
+                .body(object : ParameterizedTypeReference<List<GetMessageDto>>() {})
+            requireNotNull(body) { "Discord API returned an empty response body for getMessages" }
         }
-        .retrieve()
-        .body(object : ParameterizedTypeReference<List<GetMessageDto>>() {})!! // TODO maybe nullable
+    }
 
     /**
      * Retrieves details of a specific Discord message.
-     *
-     * @param channelId The unique identifier of the Discord channel where the message is located.
-     * @param messageId The unique identifier of the Discord message to be retrieved.
-     * @return A `GetMessageDto` object containing details of the requested message.
      */
-    override fun getMessage(channelId: String, messageId: String) = httpClient.get() // https://docs.discord.com/developers/resources/message#get-channel-message
-        .uri("/channels/$channelId/messages/$messageId")
-        .retrieve()
-        .body(object : ParameterizedTypeReference<GetMessageDto>() {})!! // TODO maybe nullable
+    override fun getMessage(channelId: String, messageId: String): GetMessageDto = executeWithRateLimitRetry {
+        val body = httpClient.get() // https://docs.discord.com/developers/resources/message#get-channel-message
+            .uri("/channels/$channelId/messages/$messageId")
+            .retrieve()
+            .body(object : ParameterizedTypeReference<GetMessageDto>() {})
+        requireNotNull(body) { "Discord API returned an empty response body for getMessage" }
+    }
 
     /**
-     * Sends a message to a specified Discord channel.
-     *
-     * @param channelId The unique identifier of the Discord channel where the message will be sent.
-     * @param messageDto A data transfer object containing the content of the message to be sent.
-     * @return A `GetMessageDto` object containing details of the sent message, including its ID and content.
+     * Sends a message to a specified Discord channel, serializing and pacing requests per channel
+     * to respect Discord's rate limits and retrying automatically on HTTP 429 responses.
      */
-    override fun sendMessage(channelId: String, messageDto: CreateMessageDto) = httpClient.post() // https://docs.discord.com/developers/resources/message#create-message
-        .uri("/channels/$channelId/messages")
-        .bodyWithType(messageDto)
-        .retrieve()
-        .body(object : ParameterizedTypeReference<GetMessageDto>() {})!! // TODO maybe nullable
+    override fun sendMessage(channelId: String, messageDto: CreateMessageDto): GetMessageDto {
+        val state = channelRateLimits.computeIfAbsent(channelId) { ChannelRateLimitState() }
+        return state.lock.withLock {
+            executeWithRateLimitRetry {
+                waitForChannelPermit(state)
+                val response = httpClient.post() // https://docs.discord.com/developers/resources/message#create-message
+                    .uri("/channels/$channelId/messages")
+                    .bodyWithType(messageDto)
+                    .retrieve()
+                    .toEntity(object : ParameterizedTypeReference<GetMessageDto>() {})
+                recordChannelResponse(state, response.headers)
+                requireNotNull(response.body) { "Discord API returned an empty response body for sendMessage" }
+            }
+        }
+    }
 
     /**
      * Adds a reaction to a specific Discord message.
-     *
-     * @param channelId The unique identifier of the Discord channel where the message is located.
-     * @param messageId The unique identifier of the Discord message to be reacted to.
-     * @param emoji The emoji to be added as a reaction, must be URL encoded if it's a custom emoji.
      */
     override fun addReaction(channelId: String, messageId: String, emoji: String) { // https://docs.discord.com/developers/resources/message#create-reaction
-        httpClient.put()
-            .uri("/channels/{channelId}/messages/{messageId}/reactions/{emoji}/@me", channelId, messageId, emoji)
-            .retrieve()
-            .toBodilessEntity()
+        executeWithRateLimitRetry {
+            httpClient.put()
+                .uri("/channels/{channelId}/messages/{messageId}/reactions/{emoji}/@me", channelId, messageId, emoji)
+                .retrieve()
+                .toBodilessEntity()
+        }
+    }
+
+    private fun <T> executeWithRateLimitRetry(block: () -> T): T {
+        val maxRetries = properties.maxRetries.coerceAtLeast(0)
+        var attempt = 0
+        while (true) {
+            waitUntilGlobalReset()
+            try {
+                return block()
+            } catch (ex: HttpClientErrorException.TooManyRequests) {
+                if (attempt >= maxRetries) {
+                    throw ex
+                }
+                val (retryMillis, isGlobal) = parseRateLimitBackoff(ex)
+                if (isGlobal) {
+                    val resetAt = clock.millis() + retryMillis
+                    globalRateLimitResetAtMillis.accumulateAndGet(resetAt, ::maxOf)
+                }
+                logger.debug(
+                    "Discord rate limit hit (attempt {}/{}), backing off for {} ms (global={})",
+                    attempt + 1,
+                    maxRetries,
+                    retryMillis,
+                    isGlobal,
+                )
+                sleepMillis(retryMillis)
+                attempt++
+            }
+        }
+    }
+
+    private fun waitUntilGlobalReset() {
+        val waitMillis = globalRateLimitResetAtMillis.get() - clock.millis()
+        if (waitMillis > 0L) {
+            sleepMillis(waitMillis)
+        }
+    }
+
+    private fun waitForChannelPermit(state: ChannelRateLimitState) {
+        val resetWait = state.resetAtMillis.getAndSet(0L) - clock.millis()
+        if (resetWait > 0L) {
+            sleepMillis(resetWait)
+        }
+
+        val now = clock.millis()
+        while (state.sentTimestampsMillis.isNotEmpty() && now - state.sentTimestampsMillis.first() >= CHANNEL_WINDOW_MILLIS) {
+            state.sentTimestampsMillis.removeFirst()
+        }
+
+        if (state.sentTimestampsMillis.size >= MAX_MESSAGES_PER_CHANNEL_WINDOW) {
+            val oldestTimestamp = state.sentTimestampsMillis.first()
+            val windowWait = (oldestTimestamp + CHANNEL_WINDOW_MILLIS) - now
+            if (windowWait > 0L) {
+                sleepMillis(windowWait)
+            }
+            state.sentTimestampsMillis.removeFirst()
+            val afterSleep = clock.millis()
+            while (state.sentTimestampsMillis.isNotEmpty() && afterSleep - state.sentTimestampsMillis.first() >= CHANNEL_WINDOW_MILLIS) {
+                state.sentTimestampsMillis.removeFirst()
+            }
+        }
+    }
+
+    private fun recordChannelResponse(state: ChannelRateLimitState, headers: HttpHeaders) {
+        val now = clock.millis()
+        state.sentTimestampsMillis.addLast(now)
+
+        val remaining = headers.getFirst("X-RateLimit-Remaining")?.toIntOrNull()
+        val resetAfterSeconds = headers.getFirst("X-RateLimit-Reset-After")?.toDoubleOrNull()
+        if (remaining != null && remaining <= 0 && resetAfterSeconds != null && resetAfterSeconds > 0.0) {
+            val resetMillis = ceil(resetAfterSeconds * 1000.0).toLong()
+            state.resetAtMillis.accumulateAndGet(now + resetMillis, ::maxOf)
+        }
+    }
+
+    private fun parseRateLimitBackoff(ex: HttpClientErrorException.TooManyRequests): Pair<Long, Boolean> {
+        val body = runCatching { ex.getResponseBodyAs(RateLimitResponseDto::class.java) }.getOrNull()
+        val headerSeconds = ex.responseHeaders?.getFirst("Retry-After")?.toDoubleOrNull()
+            ?: ex.responseHeaders?.getFirst("X-RateLimit-Reset-After")?.toDoubleOrNull()
+        val retryAfterSeconds = body?.retryAfter ?: headerSeconds
+        val retryMillis = if (retryAfterSeconds != null && retryAfterSeconds > 0.0) {
+            ceil(retryAfterSeconds * 1000.0).toLong().coerceAtLeast(MIN_RETRY_MILLIS)
+        } else {
+            DEFAULT_RETRY_MILLIS
+        }
+        val isGlobal = body?.global == true ||
+            ex.responseHeaders?.getFirst("X-RateLimit-Global")?.equals("true", ignoreCase = true) == true
+        return retryMillis to isGlobal
+    }
+
+    private fun sleepMillis(millis: Long) {
+        if (millis <= 0L) return
+        try {
+            sleeper(millis)
+        } catch (ex: InterruptedException) {
+            Thread.currentThread().interrupt()
+            throw IllegalStateException("Interrupted while waiting for Discord rate limit", ex)
+        }
+    }
+
+    companion object {
+        internal const val MAX_MESSAGES_PER_CHANNEL_WINDOW = 5
+        internal const val CHANNEL_WINDOW_MILLIS = 5_000L
+        internal const val MIN_RETRY_MILLIS = 50L
+        internal const val DEFAULT_RETRY_MILLIS = 1_000L
     }
 }

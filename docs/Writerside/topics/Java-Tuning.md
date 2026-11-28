@@ -32,24 +32,26 @@ For microservices running in Docker containers with the specified server resourc
 -XX:+UseStringDeduplication
 -XX:MinHeapFreeRatio=20
 -XX:MaxHeapFreeRatio=35
--XX:+ParallelRefProcEnabled
 -XX:+ExitOnOutOfMemoryError
+--enable-native-access=ALL-UNNAMED
+--enable-final-field-mutation=ALL-UNNAMED
 ```
 
 ## Explanation of Arguments
 
-| Argument                       | Description                                                                                                                                        | Reason |
-|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| `-Xmx1g`                       | Sets the maximum heap size to 1GB. This is a conservative setting that allows multiple services to run on the same host without exhausting memory. |        |
-| `-Xms256m`                     | Sets the initial heap size to 256MB. Starting with a smaller heap reduces startup time and memory usage when the service is lightly loaded.        |        |
-| `-XX:G1HeapRegionSize=8M`      | Sets the G1 garbage collector region size to 8MB. Larger regions can improve performance for services with larger heaps.                           |        |
-| `-XX:+UseG1GC`                 | Enables the G1 garbage collector, which is designed for applications with large heaps and predictable pause time requirements.                     |        |
-| `-XX:+UseContainerSupport`     | Enables container awareness, allowing the JVM to detect container memory limits and CPU resources.                                                 |        |
-| `-XX:MaxGCPauseMillis=100`     | Sets a target for maximum GC pause time of 100ms. This helps maintain responsiveness in microservices.                                             |        |
-| `-XX:+UseStringDeduplication`  | Enables string deduplication, which reduces memory usage by sharing identical String objects.                                                      |        |
-| `-XX:MinHeapFreeRatio=20`      | Sets the minimum percentage of free heap space after a GC cycle.                                                                                   |        |
-| `-XX:MaxHeapFreeRatio=35`      | Sets the maximum percentage of free heap space after a GC cycle.                                                                                   |        |
-| `-XX:+ParallelRefProcEnabled`  | Enables parallel reference processing, which can reduce GC pause times.                                                                            |        |
-| `-XX:+ExitOnOutOfMemoryError`  | Ensures container orchestration can properly handle OOM situations                                                                                 |        |
-| `-XX:+UseCompactObjectHeaders` |                                                                                                                                                    |        |
+| Argument                                      | Description                                                                                                                                        | Reason |
+|-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| `-Xmx1g`                                      | Sets the maximum heap size to 1GB. This is a conservative setting that allows multiple services to run on the same host without exhausting memory. |        |
+| `-Xms256m`                                    | Sets the initial heap size to 256MB. Starting with a smaller heap reduces startup time and memory usage when the service is lightly loaded.        |        |
+| `-XX:G1HeapRegionSize=8M`                     | Sets the G1 garbage collector region size to 8MB. Larger regions can improve performance for services with larger heaps.                           |        |
+| `-XX:+UseG1GC`                                | Enables the G1 garbage collector, which is designed for applications with large heaps and predictable pause time requirements.                     |        |
+| `-XX:+UseContainerSupport`                    | Enables container awareness, allowing the JVM to detect container memory limits and CPU resources.                                                 |        |
+| `-XX:MaxGCPauseMillis=100`                    | Sets a target for maximum GC pause time of 100ms. This helps maintain responsiveness in microservices.                                             |        |
+| `-XX:+UseStringDeduplication`                 | Enables string deduplication, which reduces memory usage by sharing identical String objects.                                                      |        |
+| `-XX:MinHeapFreeRatio=20`                     | Sets the minimum percentage of free heap space after a GC cycle.                                                                                   |        |
+| `-XX:MaxHeapFreeRatio=35`                     | Sets the maximum percentage of free heap space after a GC cycle.                                                                                   |        |
+| `-XX:+ExitOnOutOfMemoryError`                 | Ensures container orchestration can properly handle OOM situations                                                                                 |        |
+| `--enable-native-access=ALL-UNNAMED`          | Permits native library access (e.g., Reactor Netty epoll) for unnamed modules without JDK 27 warnings.                                             |        |
+| `--enable-final-field-mutation=ALL-UNNAMED`   | Permits reflective final field mutation (e.g., OpenFeign builders) for unnamed modules without JDK 27 warnings.                                    |        |
+| `-XX:+UseCompactObjectHeaders`                |                                                                                                                                                    |        |
 

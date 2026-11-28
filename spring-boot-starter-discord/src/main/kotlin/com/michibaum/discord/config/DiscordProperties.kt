@@ -12,10 +12,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties
  * @property enabled Indicates if the Discord integration is enabled.
  * @property botToken The token used to authenticate the Discord bot.
  * @property guildId The identifier of the Discord guild (server) the bot is associated with.
+ * @property maxRetries Maximum number of retries when Discord responds with HTTP 429 Too Many Requests.
  */
 @ConfigurationProperties(prefix = "spring.microservices.discord")
 data class DiscordProperties (
     var enabled: Boolean = false,
     var botToken: String = "",
     var guildId: String = "",
+    var maxRetries: Int = 3,
 )

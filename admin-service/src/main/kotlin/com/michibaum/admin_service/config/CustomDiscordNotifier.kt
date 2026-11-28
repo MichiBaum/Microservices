@@ -22,18 +22,17 @@ class CustomDiscordNotifier(
 ) : AbstractEventNotifier(instanceRepository) {
 
     override fun shouldNotify(event: InstanceEvent, instance: Instance): Boolean {
-        if(!adminDiscordProperties.enabled) {
+        if (!adminDiscordProperties.enabled) {
             return false
         }
-        
-        when(event){
-            is InstanceStatusChangedEvent -> return true
-            is InstanceRegisteredEvent -> return true
-            is InstanceDeregisteredEvent -> return true
-            is InstanceRegistrationUpdatedEvent -> return true
+
+        return when (event) {
+            is InstanceStatusChangedEvent -> adminDiscordProperties.notifyOnStatusChange
+            is InstanceRegisteredEvent -> adminDiscordProperties.notifyOnRegister
+            is InstanceDeregisteredEvent -> adminDiscordProperties.notifyOnDeregister
+            is InstanceRegistrationUpdatedEvent -> adminDiscordProperties.notifyOnRegistrationUpdate
+            else -> false
         }
-        
-        return false
     }
 
     override fun doNotify(event: InstanceEvent, instance: Instance): Mono<Void> =

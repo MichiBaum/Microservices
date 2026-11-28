@@ -5,7 +5,7 @@ metadata:
   namespace: microservices
 data:
   SPRING_ACTIVE_PROFILES: "prod"
-  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=25.0 -XX:G1HeapRegionSize=8M -XX:+UseG1GC -XX:+UseContainerSupport -XX:MaxGCPauseMillis=100 -XX:+UseStringDeduplication -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+ParallelRefProcEnabled -XX:+ExitOnOutOfMemoryError"
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=25.0 -XX:G1HeapRegionSize=8M -XX:+UseG1GC -XX:+UseContainerSupport -XX:MaxGCPauseMillis=100 -XX:+UseStringDeduplication -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+ExitOnOutOfMemoryError --enable-native-access=ALL-UNNAMED --enable-final-field-mutation=ALL-UNNAMED"
   JAEGER_DB_JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=25.0 -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=35 -XX:+UseG1GC -XX:+UseContainerSupport"
   
   # Database names

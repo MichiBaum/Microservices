@@ -71,6 +71,9 @@ kind: Service
 metadata:
   name: grafana
   namespace: microservices
+  labels:
+    app: grafana
+    sba-check: kubernetes
 spec:
   selector:
     app: grafana

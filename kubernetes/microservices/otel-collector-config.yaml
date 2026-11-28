@@ -110,6 +110,7 @@ metadata:
   namespace: microservices
   labels:
     app: otel-collector
+    sba-check: kubernetes
 spec:
   selector:
     app: otel-collector
